@@ -1,0 +1,142 @@
+.quote_con{
+    width: 100%;
+    height: fit-content;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    height: fit-content;
+    margin-bottom: 6em;
+}
+
+.content{
+    width: 100%;
+    max-width: 1900px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    height: fit-content;
+}
+.swiper{
+    position: relative;
+}
+.article{
+    width: 100%;
+    height: 25vw;
+    max-height: 26em;
+    margin: auto 0;
+    background-color: var(--accent-color);
+    /* border-radius: 1em; */
+}
+.header{
+    width: fit-content;
+    text-align: start;
+    font-size: calc(1.5rem + 1vw);
+    font-family: var(--font-family);
+    font-weight: 400 !important;
+    margin-bottom: 2rem;
+    margin: 0 auto 1.2em auto;
+    color: var(--secondary-color) !important;
+}
+
+.img_con{
+    margin: auto;
+    width: 100%;
+    height: 30vw;
+    max-height: 32em;
+    border-radius: 1em;
+}
+
+.img_con img{
+    margin: auto;
+    border-radius: 1em;
+    width: 100%;
+    height: 100%;
+    object-fit: fill !important;
+}
+
+.box_con{
+    width: 100%;
+    margin: auto;
+}
+
+.quote{
+    width: 100%;
+    position: relative;
+    text-align: start;
+    margin: auto;
+    background-color: var(--accent-color);
+    font-family: var(--font-family);
+}
+
+
+.quote_content{
+    position: relative;
+    padding: 2em 5em;
+}
+
+.box1{
+    position: absolute;
+    top: 0;
+    left: 3em;
+}
+
+.box2{
+    position: absolute;
+    bottom: 0;
+    right: 3em;
+    transform: rotate(180deg);
+}
+
+
+.nav_next{
+    position: absolute;
+    bottom: 0;
+    right: 0em;
+    left: auto;
+    width: 3em;
+    height: 1em;
+    border-radius: 0%;
+    background-color: #fff;
+    border-left:1px solid var(--secondary-color) ;
+  }
+  .nav_prev{
+    position: absolute;
+    bottom: 0em;
+    right: 3.05em;
+    left: auto;
+    width: 3em;
+    height: 1em;
+    border-radius: 0%;
+    background-color: #fff;
+    z-index: 10;
+  }
+
+  .nav_icon{
+    width: 70%;
+    height: 100%;
+    color: var(--secondary-color);
+    margin: auto;
+    cursor: pointer;
+  }
+@media screen and (max-width:950px) {
+    .content{
+        grid-template-columns: 1fr;
+    }
+    .swiper{
+  order: -1; 
+    }
+    .img_con{
+    height: 50vw;
+    border-radius: 1em 1em 0 0 ;
+    }
+    .img_con img{
+        border-radius: 1em 1em 0 0 ;
+    }
+    .article{
+        height: 100%;
+    }
+}
+
+@media screen and (max-width:650px) {
+    
+}

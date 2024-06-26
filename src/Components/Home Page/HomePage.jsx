@@ -5,6 +5,8 @@ import classes from './HomePage.module.css'
 import OurSelection from './Our Selection/OurSelection'
 import NewReleases from './New Releases/NewReleases'
 import Deals from './Deals/Deals'
+import Quote from './Quote Section/Quote'
+import Services from './Services Section/Services'
 
 const HomePage = () => {
   return (
@@ -14,6 +16,8 @@ const HomePage = () => {
         <OurSelection />
         <Deals />
         <NewReleases />
+        <Quote />
+        <Services />
     </div>
   )
 }

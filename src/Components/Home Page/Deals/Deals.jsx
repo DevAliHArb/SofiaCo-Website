@@ -137,16 +137,18 @@ const Deals = () => {
                         </p>
                         <div
                           style={{
+                            width:'100%',
                             display: "flex",
                             flexDirection: "row",
                             columnGap: "1em",
-                            margin: "1em 0",
+                            margin: "0.5em 0",
                           }}
                         >
                           {props.dc_parution && (
                             <div
                               style={{
                                 width: "fit-content",
+                                height:'1.5em',
                                 padding: "0.2em 2em",
                                 borderRadius: "1em",
                                 background: "var(--accent-color)",
@@ -170,6 +172,7 @@ const Deals = () => {
                                 style={{
                                   width: "fit-content",
                                   padding: "0.2em 1em",
+                                  height:'1.5em',
                                   borderRadius: "1em",
                                   background: "var(--accent-color)",
                                 }}
@@ -182,16 +185,18 @@ const Deals = () => {
                                     fontWeight: 400,
                                   }}
                                 >
-                                  {props.editor._nom.length > 12
-                                    ? props.editor._nom.slice(0, 12) + "..."
+                                  {props.editor._nom.length > 8
+                                    ? props.editor._nom.slice(0, 8) + "..."
                                     : props.editor._nom}
                                 </p>
                               </div>
                             )}
                           {props.dc_collection && (
                             <div
+                            className={classes.desc}
                               style={{
                                 width: "fit-content",
+                                height:'1.5em',
                                 padding: "0.2em 1em",
                                 borderRadius: "1em",
                                 background: "var(--accent-color)",
@@ -203,18 +208,24 @@ const Deals = () => {
                                   color: "var(--secondary-color)",
                                   fontSize: "calc(0.6rem + 0.2vw)",
                                   fontWeight: 400,
+                                  margin:'auto'
                                 }}
                               >
-                                {props.dc_collection.length > 12
-                                  ? props.dc_collection.slice(0, 12) + "..."
+                                {props.dc_collection.length > 10
+                                  ? props.dc_collection.slice(0, 10) + "..."
                                   : props.dc_collection}
                               </p>
                             </div>
                           )}
                         </div>
-                        <p style={{ fontSize: "medium", fontWeight: 400 }}>
-                          {props.descriptif.length > 120
-                            ? props.descriptif.slice(0, 120) + "..."
+                        <p className={classes.desc} style={{ fontSize: "medium", fontWeight: 400 }}>
+                          {props.descriptif.length > 100
+                            ? props.descriptif.slice(0, 100) + "..."
+                            : props.descriptif}
+                        </p>
+                        <p className={classes.descmob} style={{ fontSize: "medium", fontWeight: 400 }}>
+                          {props.descriptif.length > 60
+                            ? props.descriptif.slice(0, 60) + "..."
                             : props.descriptif}
                         </p>
                         <span

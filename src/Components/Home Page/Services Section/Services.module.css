@@ -4,11 +4,6 @@
     max-width: 1900px;
     height: fit-content;
     margin: 5em auto;
-    background-color: var(--accent-color);
-    padding: 3em 0;
-    background-image: url(../../../assets/dealsBG.png);
-    background-repeat: no-repeat;
-    background-size: contain;
 }
 
 .content{
@@ -28,7 +23,7 @@
     font-size: calc(1.2rem + 0.7vw);
     color: var(--secondary-color);
     font-family: var(--font-family);
-    font-weight: 400;
+    font-weight: 700;
     line-height: normal;
     margin:0 auto;
 }
@@ -85,37 +80,28 @@
       align-items: center;
   }
   
-  .swiperslide{
-    width: 100%;
-    height: auto !important;
-  }
-  
   .arrowDesktop{
     display: flex ;
   }
   
   .card_container{
     width: 100%;
-    height: 100% !important;
-    display: grid;
-    grid-template-columns: 35% 60%;
     height: fit-content;
-    background: #fff;
-    border-radius: 1em;
+    background: transparent;
     font-family: var(--font-family);
     font-size: calc(0.9rem + 0.2vw);
     letter-spacing: 0.01rem;
-    border: none;
+    border-radius: 0 0 1.2em 0;
     transition: all 0.3s ease-in-out;
   }
   
   .card_img{
     position: relative;
     width: 90%;
-    margin:  auto;
+    margin: 0 auto;
     border-radius: 1em;
     /* overflow: hidden; */
-    padding: 10%;
+    padding: 10% 0 0% 0;
     height: 22vw;
     max-height: 22em;
   }
@@ -131,6 +117,7 @@
   .buttoncart{
     position: relative;
     width: fit-content;
+    margin: 0 auto;
     padding: 0.5em 1em;
     border-radius: 0.5em;
     font-size: calc(0.7rem + 0.3vw);
@@ -147,40 +134,73 @@
   color: var(--secondary-color);
   }
   
+  
+  .card_content{
+    width: 100%;
+    left: 0;
+    text-align: center;
+    row-gap: 1vh;
+    font-size: calc(0.7rem + 0.2vw);
+    /* padding-bottom: 5%; */
+  }
+  .card_content1{
+  position: relative;
+  width: 80%;
+  background-color: #DDE4E6;
+  padding: 2% 0% 0% 0% ;
+  border-radius: 5px;
+  left: 0;
+  text-align: center;
+  row-gap: 1vh;
+  font-size: calc(0.7rem + 0.2vw);
+  /* padding-bottom: 5%; */
+  }
+  
+  .testt{
+  position: absolute;
+  height: 2.4em;
+  width: 2.4em;
+  top: 13%;
+  right: -14%;
+  border-radius: 50%;
+  border: 2px white solid;
+  background-color: #A8ACAD;
+  }
+  
   .bookTitle{
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 90%;
+    width: 100%;
+    font-family: var(--font-family);
+    font-size: calc(0.7rem + 0.3vw);
+    font-weight: 800;
+    letter-spacing: 0.01rem;
+    text-align: center;
     transition: opacity 0.3s ease-in-out;
-    padding: 10%;
-    margin: auto 0 ;
   }
 
   .bookTitle p{
     margin: 0.5em 0;
-    font-family: var(--font-family);
-    font-size: calc(1rem + 0.3vw);
-    font-weight: 800;
-    letter-spacing: 0.01rem;
-    text-align: start;
   }
   .navigations{
     display: flex;
   }
 
   .favoriteIcon{
-    position: relative;
-    height: 2em;
-    width: 2em;
+    position: absolute;
+    height: 1em;
+    width: 1em;
+    top: 2.2em;
+    right: 0.7em;
     background-color: var(--primary-color);
     padding: 0.5em;
-    border-radius: 10px;
+    border-radius: 50%;
   }
   
   .fav{
-    width: 2em !important;
-    height: 2em !important;
+    width: 1.2em !important;
+    height: 1.2em !important;
     margin: auto !important;
     margin-left: -0.07em !important;
     margin-top: -0.05em !important;
@@ -195,13 +215,13 @@
   }
   
   .nonfav{
-    width: 2em !important;
-    height: 2em !important;
+    width: 1.2em !important;
+    height: 1.2em !important;
     margin: auto !important;
-    margin-left: -0.05em !important;
-    margin-top: 0.05em !important;
+    margin-left: -0.07em !important;
+    margin-top: -0.05em !important;
     cursor: pointer;
-    color:#fff;
+    color: var(--secondary-color);
     transition: all 0.3s ease-in-out;
   }
   
@@ -253,24 +273,22 @@
     margin: auto;
     cursor: pointer;
   }
-
-  .descmob{
-    display: none;
-  }
   @media screen and (max-width:950px) {
 
+    .favoriteIcon{
+      top: 1.5em;
+    }
     .nav_next{
-      top: 58%;
-      right: 2em;
-      z-index: 10;
+      top: 0em;
+      right: 4em;
     }
     .nav_prev{
-      top: 58%;
-      bottom: 0;
-      left: 2em;
+      top: 0;
+      right: 9em;
     }
     .nav_nb{
-      display: none;
+      top: 0.4em;
+      right: 4.6em;
     }
     .header p{
         width: 88%;
@@ -278,58 +296,38 @@
     
   
     .swiper{
-      width: 100%;
+      width: 94%;
     }
     
+  .swiperslide{
+    padding: 0em 0 2em 0;
+  }
   .card_img{
     height: 35vw;
   }
 
-  .bookTitle p{
+  .bookTitle{
     font-size: small;
   }
-
   }
 
   @media screen and (max-width:650px) {
     .nav_next{
-      right: 0.8em;
+      right: 0;
       width: 1.5em;
       height: 1.5em;
     }
     .nav_prev{
-      left: 0.8em;
+      right: 3em;
       width: 1.5em;
       height: 1.5em;
+    }
+    .nav_nb{
+      right: 1em;
+      top: 0.1em;
     }
 
   .card_img{
     height: 50vw;
-  }
-  .desc{
-    display: none;
-  }
-  .descmob{
-    display: flex;
-    font-size: small !important;
-  }
-
-  .favoriteIcon{
-    width: 1em;
-    height: 1em;
-  }
-
-  .buttoncart{
-    padding: 0.1em 1em;
-  }
-  
-  .fav{
-    width: 1.2em !important;
-    height: 1.2em !important;
-  }
-
-  .nonfav{
-    width: 1.2em !important;
-    height: 1.2em !important;
   }
   }

@@ -1,9 +1,9 @@
 {
   "HomePage": {
     "Deals": {
-      "title": { "eng": "Deals <span style={{fontWeight: 400}}>of the</span> Week", "fr": "" },
+      "title": { "eng": "<b>Deals</b> of the <b>Week</b>", "fr": "" },
       "description": { "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": "" },
-      "button": { "eng": "View All", "fr": "" }
+      "button": { "eng": "Add to cart", "fr": "" }
     },
     "FeaturedBooks": {
       "title": { "eng": "Featured Books", "fr": "" },
@@ -22,16 +22,15 @@
       "Cat1": { "eng": "Categories", "fr": "" },
       "Cat2": { "eng": "Editors", "fr": "" }
     },
-    "NewsLetter": {
+    "OurServices": {
       "title": {
-        "eng": "Subscribe to our newsletter for newest books updates",
-        "fr": "Inscrivez-vous à notre lettre d'information pour recevoir les mises à jour des livres les plus récents"
+        "eng": "Our Services",
+        "fr": ""
       },
-      "email": { "eng": "Enter your Email", "fr": "Écrivez votre Email" },
-      "button": { "eng": "Subscribe", "fr": "Inscription" }
+      "description": { "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": "" }
     },
     "Quote": {
-      "title": { "eng": "Quote Of  The Day", "fr": "Citation Du Jour" }
+      "title": { "eng": "<b>Quote</b> of the <b>Day</b>", "fr": "Citation Du Jour" }
     }
   },
   "Footer": {
