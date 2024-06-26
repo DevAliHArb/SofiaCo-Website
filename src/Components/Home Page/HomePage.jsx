@@ -4,6 +4,7 @@ import Hero from './Hero Section/Hero'
 import classes from './HomePage.module.css'
 import OurSelection from './Our Selection/OurSelection'
 import NewReleases from './New Releases/NewReleases'
+import Deals from './Deals/Deals'
 
 const HomePage = () => {
   return (
@@ -11,6 +12,7 @@ const HomePage = () => {
         <Hero />
         <FeaturedBooks />
         <OurSelection />
+        <Deals />
         <NewReleases />
     </div>
   )

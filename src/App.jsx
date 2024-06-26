@@ -27,7 +27,8 @@ function App() {
 };
 
   return (
-    <div className="App" >
+    <div className="App1">
+      <div className="App" >
     <Navbar toggle={toggle}/>
        <SideBar isOpen={isOpen} toggle={toggle} />
        <div >
@@ -50,6 +51,7 @@ function App() {
         theme="colored"
         style={{color:'red'}}
         />
+    </div>
     </div>
   )
 }

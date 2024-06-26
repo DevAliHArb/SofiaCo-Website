@@ -3,15 +3,24 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  background-image: url(./assets/FooterBG.png);
+  /* background-image: url(./assets/FooterBG.png);
   background-repeat: no-repeat;
   background-position: left bottom ;
-  background-size: cover;
+  background-size: cover; */
+  
+  background-image: url(./assets/HomePageBG.svg);
+  background-repeat: no-repeat;
+  background-position: right top -10em;
+  background-size: contain;
+  margin: 0 auto;
+  max-width: 1900px;
+  overflow: hidden;
 }
 :root {
   --primary-color: #E97704; 
   --secondary-color: #212A53; 
-  --accent-color: #7F9BC9;
+  /* --accent-color: rgba(127, 155, 201, 0.15); */
+  --accent-color: #ECF0F7;
   --font-family: Raleway;  
 }
 

@@ -120,7 +120,7 @@ const FeaturedBooks = () => {
                       )}
                     </div>
                       <div className={classes.bookTitle} style={{opacity: index === activeIndex ? 1 : 0}}>
-                        <p style={{ fontSize:'large' }}>{props.designation.length > 20 ? props.designation.slice(0,20) + '...' : props.designation}</p>
+                        <p >{props.designation.length > 20 ? props.designation.slice(0,20) + '...' : props.designation}</p>
                         <span style={{ display: "flex", flexDirection: "row", margin:'0 auto', columnGap:'0.5em' }}>
                           <p
                             style={{ textAlign: "center", padding: "0 ",color: "var(--primary-color)",fontWeight:700 }}

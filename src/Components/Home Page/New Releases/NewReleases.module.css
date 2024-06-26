@@ -3,7 +3,7 @@
     width: 100%;
     max-width: 1900px;
     height: fit-content;
-    margin: 0 auto;
+    margin: 0 auto 5em auto;
 }
 
 .content{
@@ -48,6 +48,16 @@
     justify-content: space-between;
 }
 
+.title h1{
+  position: relative;
+  font-size: calc(1.2rem + 0.7vw);
+  color: var(--secondary-color);
+  font-family: var(--font-family);
+  font-weight: 700;
+  line-height: normal;
+  margin:0 auto;
+}
+
 .categories{
     display: flex;
     flex-direction: column;
@@ -56,8 +66,9 @@
 .parent_cat{
     display: flex;
     flex-direction: row;
-    column-gap: 1em;
+    column-gap: 2em;
     margin-bottom: 1em;
+    justify-content: end !important;
 }
 .child_cat{
     display: flex;
@@ -117,7 +128,8 @@
     border-radius: 1em;
     /* overflow: hidden; */
     padding: 10% 10% 0% 10%;
-    height: 22em;
+    height: 22vw;
+    max-height: 22em;
   }
   
   .img{
@@ -131,7 +143,7 @@
   .buttoncart{
     position: relative;
     width: fit-content;
-    margin: 0 auto;
+    /* margin: 0 auto; */
     padding: 0.5em 1em;
     border-radius: 0.5em;
     font-size: calc(0.7rem + 0.3vw);
@@ -222,11 +234,35 @@
         display: none;
     }
 
+    .card_container{
+      height: 100%;
+    }
     .swiper{
-        display: block;
+        display: flex;
+    }
+
+    .header{
+      flex-direction: column;
+    }
+
+    .parent_cat{
+      margin: 0 auto 1em auto;
     }
     
   .card_img{
-    height: 13em;
+    height: 35vw;
+  }
+  .bookTitle{
+    font-size: small;
+    font-weight: 500;
+  }
+  .title h1{
+    margin-bottom: 2em;
   }
 }
+
+@media screen and (max-width:650px) {
+  .card_img{
+    height: 50vw;
+  }
+  }

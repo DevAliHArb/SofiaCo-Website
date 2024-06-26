@@ -85,6 +85,7 @@ const NewReleases = () => {
                 onClick={() => {
                   localStorage.setItem("NewarrivalCat", "categories");
                   setSelectedCategory("categories");
+                  setselectedEdtrFilter('')
                 }}
               >
                 {data.HomePage.NewArrivals.Cat1[language]}
@@ -104,6 +105,7 @@ const NewReleases = () => {
                 onClick={() => {
                   localStorage.setItem("NewarrivalCat", "editors");
                   setSelectedCategory("editors");
+                  setselectedCatFilter(null)
                 }}
               >
                 {data.HomePage.NewArrivals.Cat2[language]}
@@ -301,7 +303,7 @@ const NewReleases = () => {
                       </div>
       
                       <div className={classes.bookTitle}>
-                        <p style={{ fontSize: "large" }}>
+                        <p style={{ fontSize: "small" }}>
                           {props.designation.length > 15
                             ? props.designation.slice(0, 15) + "..."
                             : props.designation}

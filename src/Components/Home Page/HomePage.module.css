@@ -1,8 +1,9 @@
 .home{
-    background-image: url(../../assets/HomePageBG.svg);
+    /* background-image: url(../../assets/HomePageBG.svg);
     background-repeat: no-repeat;
     background-position: right top -17em;
-    background-size: cover;
+    background-size: cover; */
     margin: 0 auto;
     max-width: 1900px;
+    overflow: hidden !important;
 }

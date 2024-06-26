@@ -1,11 +1,19 @@
 .footer {
+  position: relative;
   width: 100%;
   max-width: 1900px;
   margin: 0 auto;
   height: fit-content;
   background-color: var(--accent-color);
+  z-index: 1;
 }
 
+.imgabs {
+  position: absolute;
+  bottom: -5em;
+  left: 0;
+  z-index: -1;
+}
 .content {
   width: 100%;
   margin: 0 auto;
@@ -106,6 +114,7 @@ margin: 2em auto ;
   justify-content: space-between;
   padding: 0.1em 5%;
   background-color: #fff;
+  z-index: 99 !important;
 }
 
 .bottom p {

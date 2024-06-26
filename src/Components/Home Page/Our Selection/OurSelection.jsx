@@ -148,7 +148,7 @@ const OurSelection = () => {
                     </div>
                     
                     <div className={classes.bookTitle} >
-                      <p style={{ fontSize:'large' }}>{props.designation.length > 15 ? props.designation.slice(0,15) + '...' : props.designation}</p>
+                      <p >{props.designation.length > 15 ? props.designation.slice(0,15) + '...' : props.designation}</p>
                       <p style={{ height:'1em', fontSize:'small', fontWeight: 400 }}>{props.dc_auteur.length > 15 ? props.dc_auteur.slice(0,15) + '...' : props.dc_auteur}</p>
                       <p style={{ height:'2em', fontSize:'small', fontWeight: 400 }}>{props.descriptif.length > 40 ? props.descriptif.slice(0,40) + '...' : props.descriptif}</p>
                       <span style={{ display: "flex", flexDirection: "row", margin:'0 auto', columnGap:'0.5em' }}>

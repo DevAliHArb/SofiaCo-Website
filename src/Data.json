@@ -1,7 +1,9 @@
 {
   "HomePage": {
-    "CategoriesSwapper": {
-      "title": { "eng": "SELECTION OF THE MOMENT", "fr": "SÉLECTION DU MOMENT" }
+    "Deals": {
+      "title": { "eng": "Deals <span style={{fontWeight: 400}}>of the</span> Week", "fr": "" },
+      "description": { "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": "" },
+      "button": { "eng": "View All", "fr": "" }
     },
     "FeaturedBooks": {
       "title": { "eng": "Featured Books", "fr": "" },

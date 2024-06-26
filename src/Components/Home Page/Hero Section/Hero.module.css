@@ -91,7 +91,8 @@
   border-radius: 1em;
   /* overflow: hidden; */
   /* padding: 10% 0 4% 0; */
-  height: 22em;
+    height: 22vw;
+    max-height: 22em;
 }
 
 
@@ -177,11 +178,11 @@ color: var(--secondary-color);
 }
 
 @media screen and (max-width:1024px) {
-  .card_img {
-    height: 12em;
-    padding-bottom: 2em;
-  }
   
+.card_img{
+  height: 35vw;
+    padding-bottom: 2em;
+}
 .header h1{
   position: relative;
   font-size: calc(0.8rem + 0.6vw);
@@ -228,3 +229,8 @@ color: var(--secondary-color);
 }
 }
 
+@media screen and (max-width:650px) {
+  .card_img{
+    height: 50vw;
+  }
+  }

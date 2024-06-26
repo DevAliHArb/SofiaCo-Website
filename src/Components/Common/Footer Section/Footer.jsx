@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import classes from './Footer.module.css'
 import logo from '../../../assets/Footerlogo.svg'
+import bg from '../../../assets/FooterBG.svg'
 import payments from '../../../assets/payments.png'
 import { FaFacebookF, FaInstagram  } from "react-icons/fa";
 import { FaXTwitter, FaYoutube  } from "react-icons/fa6";
@@ -24,6 +25,9 @@ function openNewWindow(url) {
             <div className={classes.main}>
                 <div className={classes.footer_logo}>
                     <img src={logo} alt='Logo' />
+                </div>
+                <div className={classes.imgabs}>
+                    <img src={bg} alt='Logo' />
                 </div>
                 <div className={classes.desktop}>
                 <div className={classes.info}>
