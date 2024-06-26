@@ -72,6 +72,37 @@
       "point4": { "eng": "Library events", "fr": "Événements à la librairie" }
     }
   },
+  "AboutPage": {
+    "LocationSection": {
+      "title": { "eng": "Check Our Locations", "fr": "Check Our Locations(FR)" },
+      "subtitle": {
+        "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "fr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.(fr)"
+      }
+    },
+    "TrackersSection": {
+      "title": { "eng": "Why Choose Us?", "fr": "Why Choose Us?(fr)" },
+      "subtitle": {
+        "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "fr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.(fr)"
+      }
+    },
+    "Library": {
+      "title": { "eng": "THE LIBRARIES", "fr": "LES LIBRAIRIES" },
+      "point1": { "eng": "Librairy Téqui", "fr": "Librairie Téqui" },
+      "point2": { "eng": "Téqui Pro", "fr": "Téqui Pro" }
+    },
+    "Service": {
+      "title": { "eng": "THE SERVICES", "fr": "LES SERVICES" },
+      "point1": { "eng": "Affiliation", "fr": "Affiliation" },
+      "point2": {
+        "eng": "Complement of works",
+        "fr": "Complément des ouvrages"
+      },
+      "point3": { "eng": "Recruitment", "fr": "Recrutement" },
+      "point4": { "eng": "Library events", "fr": "Événements à la librairie" }
+    }
+  },
   "AccountProfilePage": {
     "AccountDetails": {
       "title": { "eng": "MY ACCOUNT", "fr": "MON COMPTE" },

@@ -9,6 +9,7 @@ import Footer from './Components/Common/Footer Section/Footer';
 import HomePage from './Components/Home Page/HomePage';
 import { useSelector } from 'react-redux';
 import ScrollToTop from './Components/Common/ScrollToTop'
+import About from './Components/About Page/About';
 
 
 function App() {
@@ -33,7 +34,8 @@ function App() {
        <SideBar isOpen={isOpen} toggle={toggle} />
        <div >
          <Routes>
-       <Route path='/' element={<ScrollToTop><HomePage carttoggle={carttoggle}/></ScrollToTop>} />
+          <Route path='/' element={<ScrollToTop><HomePage carttoggle={carttoggle}/></ScrollToTop>} />
+          <Route path='/about' element={<ScrollToTop><About/></ScrollToTop>} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
