@@ -45,6 +45,10 @@
   .swiper-pagination {
     margin-left: -10%; /* Move left by 20px */
   }
+  .App{
+    background-image: url(./assets/HomePageBGmob.svg);
+    background-position: right top ;
+  }
 }
   @media screen and (max-width: 750px) {
     .swiper-pagination {

@@ -88,7 +88,7 @@ const Navbar = ({ toggle }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const isTop = window.scrollY > 80;
+      const isTop = window.scrollY > 120;
       if (isTop !== isScrolled) {
         setIsScrolled(isTop);
       }
@@ -101,7 +101,7 @@ const Navbar = ({ toggle }) => {
 
   return (
     <>
-      <div className={classes.headnav} style={{}}>
+      <div className={classes.headnav}>
         <div className={classes.header}>
           <div className={classes.logocontainer}>
             <img
@@ -113,14 +113,168 @@ const Navbar = ({ toggle }) => {
           <div className={classes.headercontent}>
             <div className={classes.header_top}>
               <div className={classes.header_top_content}>
-                <p style={{display:'Flex', flexDirection:'row'}}> <MdOutlineMail style={{width:'1.5em', height:'1.5em', margin:'auto 0.5em auto auto'}}/>{authCtx.companySettings?.email}</p>
-                <p style={{display:'Flex', flexDirection:'row'}}> <FiPhoneCall style={{width:'1.3em', height:'1.3em', margin:'auto 0.5em auto auto'}}/>{authCtx.companySettings?.phone}</p>
+                <p style={{display:'Flex', flexDirection:'row'}}> <MdOutlineMail style={{width:'1.5em', height:'1.5em', margin:'auto 0.5em auto auto', color:'var(--secondary-color)'}}/>{authCtx.companySettings?.email}</p>
+                <p style={{display:'Flex', flexDirection:'row'}}> <FiPhoneCall style={{width:'1.3em', height:'1.3em', margin:'auto 0.5em auto auto', color:'var(--secondary-color)'}}/>{authCtx.companySettings?.phone}</p>
               </div>
               <div className={classes.header_top_content}>
-                <p style={{display:'Flex', flexDirection:'row'}}> Jusqu'à 50 % de réduction sur les articles <FaArrowRightLong style={{width:'1.3em', height:'1.3em', margin:'auto auto auto 0.5em'}}/></p>
+                <p style={{display:'Flex', flexDirection:'row'}}> Jusqu'à 50 % de réduction sur les articles <FaArrowRightLong style={{width:'1.3em', height:'1.3em', margin:'auto auto auto 0.5em', color:'var(--secondary-color)'}}/></p>
               </div>
               <div className={classes.header_top_content1}>
-                <p style={{display:'Flex', flexDirection:'row'}}> <FiTruck style={{width:'1em', height:'1em', margin:'auto 0.5em auto auto'}}/> Suivre votre commande</p>
+                <p style={{display:'Flex', flexDirection:'row'}}> <FiTruck style={{width:'1em', height:'1em', margin:'auto 0.5em auto auto', color:'var(--secondary-color)'}}/> Suivre votre commande</p>
+
+                <p className={classes.long_line}></p>
+                <div className={classes.select}>
+                  <FormControl
+                    variant="standard"
+                    sx={{ m: 1, minWidth: 50, width: 65, border: "none" }}
+                    size="small"
+                  >
+                    <Select
+                      style={{
+                        fontSize: "calc(.7rem + 0.4vw)",
+                      }}
+                      disableUnderline
+                      displayEmpty
+                      labelId="demo-simple-select-standard-label"
+                      id="demo-simple-select-standard"
+                      value={language}
+                      onChange={handleChangeLanguage}
+                      sx={{
+                        //   fontSize:'calc(0.6rem + 0.3vw)',
+                        color: "var(--accent-color) !imortant",
+                        fontFamily: "var(--font-family)",
+                        fontStyle: "normal",
+                        margin: "0",
+                        textAlign: "center",
+                        //   color:'#fff',
+                        "&:focus-within": {
+                          backgroundColor: "transparent", // Remove background color when an option is selected
+                        },
+                        "&:focus": {
+                          backgroundColor: "transparent", // Add transparent background on focus
+                        },
+                        "& svg": {
+                          margin: "auto",
+                          marginTop: "-0.1em",
+                          // color: '',
+                          color: "var(--accent-color) !important", // Change the color of the arrow
+                        },
+                      }}
+                    >
+                      <MenuItem value="eng">ENG</MenuItem>
+                      <MenuItem value="fr">FR</MenuItem>
+                      {/* <MenuItem value='ar'>Ar</MenuItem> */}
+                    </Select>
+                  </FormControl>
+                </div>
+                <p className={classes.long_line}></p>
+                <div className={classes.select}>
+                  <FormControl
+                    variant="standard"
+                    sx={{ m: 1, minWidth: 0, width: 47 }}
+                    size="small"
+                  >
+                    <Select
+                      style={{
+                        fontSize: "calc(.7rem + 0.4vw)",
+                      }}
+                      disableUnderline
+                      displayEmpty
+                      labelId="demo-simple-select-standard-label"
+                      id="demo-simple-select-standard"
+                      value={currency}
+                      onChange={handleChangeCurrency}
+                      sx={{
+                        //   fontSize:'calc(0.6rem + 0.3vw)',
+                        color: "var(--accent-color) !imortant",
+                        fontFamily: "var(--font-family)",
+                        fontStyle: "normal",
+                        margin: "auto",
+                        textAlign: "center",
+                        //   color:'#fff',
+                        "&:focus-within": {
+                          backgroundColor: "transparent", // Remove background color when an option is selected
+                        },
+                        "&:focus": {
+                          backgroundColor: "transparent", // Add transparent background on focus
+                        },
+                        "& svg": {
+                          margin: "auto",
+                          marginTop: "-0.1em",
+                          // color: '',
+                          color: "var(--accent-color) !important", // Change the color of the arrow
+                        },
+                      }}
+                    >
+                      <MenuItem value="eur">EUR</MenuItem>
+                      <MenuItem value="usd">USD</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
+              </div>
+            </div>
+            <div className={classes.navlinks}>
+              <p onClick={() => toast.info("En Cours De Construction!")}>
+                Livres
+              </p>
+              <p onClick={() => toast.info("En Cours De Construction!")}>
+                Jouets
+              </p>
+              <p onClick={() => toast.info("En Cours De Construction!")}>
+                parfum
+              </p>
+              <p onClick={() => toast.info("En Cours De Construction!")}>
+                vetements
+              </p>
+              <p onClick={() => toast.info("En Cours De Construction!")}>
+                tapis de priere
+              </p>
+              <p onClick={() => toast.info("En Cours De Construction!")}>
+                Nos éditeurs
+              </p>
+              <p onClick={() => toast.info("En Cours De Construction!")}>
+                AGENDA
+              </p>
+              <p onClick={() => toast.info("En Cours De Construction!")}>
+                nos services
+              </p>
+              <div className={classes.icons}>
+                <div style={{position:'relative'}}>
+                <MdFavoriteBorder className={classes.icon} />
+                {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'50%', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{favoriteData?.length}</span>}
+                </div>
+                <div style={{position:'relative'}}>
+                <IoCartOutline className={classes.icon} />
+                {productData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'50%', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{productData?.length}</span>}
+                </div>
+                <div style={{position:'relative'}}>
+                <LuUser className={classes.icon} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={classes.headnavfixed} style={{display: isScrolled ? 'flex' : 'none'}}>
+        <div className={classes.header}>
+          <div className={classes.logocontainer}>
+            <img
+              src={logo}
+              alt="logodark"
+              style={{ width: "70%", margin: "auto 0", height: "auto" }}
+            />
+          </div>
+          <div className={classes.headercontent}>
+            <div className={classes.header_top}>
+              <div className={classes.header_top_content}>
+                <p style={{display:'Flex', flexDirection:'row'}}> <MdOutlineMail style={{width:'1.5em', height:'1.5em', margin:'auto 0.5em auto auto', color:'var(--secondary-color)'}}/>{authCtx.companySettings?.email}</p>
+                <p style={{display:'Flex', flexDirection:'row'}}> <FiPhoneCall style={{width:'1.3em', height:'1.3em', margin:'auto 0.5em auto auto', color:'var(--secondary-color)'}}/>{authCtx.companySettings?.phone}</p>
+              </div>
+              <div className={classes.header_top_content}>
+                <p style={{display:'Flex', flexDirection:'row'}}> Jusqu'à 50 % de réduction sur les articles <FaArrowRightLong style={{width:'1.3em', height:'1.3em', margin:'auto auto auto 0.5em', color:'var(--secondary-color)'}}/></p>
+              </div>
+              <div className={classes.header_top_content1}>
+                <p style={{display:'Flex', flexDirection:'row'}}> <FiTruck style={{width:'1em', height:'1em', margin:'auto 0.5em auto auto', color:'var(--secondary-color)'}}/> Suivre votre commande</p>
 
                 <p className={classes.long_line}></p>
                 <div className={classes.select}>
@@ -256,6 +410,29 @@ const Navbar = ({ toggle }) => {
         </div>
       </div>
       <div className={classes.mobile}>
+      <div className={classes.logocontainer1}>
+            <img
+              src={logo}
+              alt="logodark"
+              style={{ width: "70%", margin: "auto 0", height: "auto" }}
+            />
+          </div>
+          <div className={classes.icons}>
+                <div style={{position:'relative'}}>
+                <MdFavoriteBorder className={classes.icon} />
+                {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'50%', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{favoriteData?.length}</span>}
+                </div>
+                <div style={{position:'relative'}}>
+                <IoCartOutline className={classes.icon} />
+                {productData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'50%', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{productData?.length}</span>}
+                </div>
+                <div style={{position:'relative'}}>
+                <LuUser className={classes.icon} />
+                </div>
+            <MenuIcon style={{ fontSize: "3em", width:'0.8em', height:'0.8em', marginTop:'-0.1em' }} onClick={toggle}/>
+              </div>
+      </div>
+      <div className={classes.mobilefixed} style={{display: isScrolled ? 'flex' : 'none'}}>
       <div className={classes.logocontainer1}>
             <img
               src={logo}

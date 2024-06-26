@@ -27,7 +27,7 @@ const Services = () => {
   const fetchServices = async () => {
     try {
       const response = await axios.get(
-        `https://api.leonardo-service.com/api/bookshop/services`
+        `https://api.leonardo-service.com/api/bookshop/services?ecom_type=albouraq`
       );
       console.log(response.data?.data);
       setServices(response.data?.data);
@@ -45,16 +45,35 @@ const Services = () => {
           <p>{data.HomePage.OurServices?.description[language]}</p>
         </div>
 
-        <div class="hex_container">
-          {services.map((item, index)=>{
-            return(
-              <div class="hex_item">
-    <div class="hex_content"> 
-      <img src={item.icon} alt="Icon 1"/>
-      <p>Text 1</p>
-    </div>
-  </div>
-            )
+        <div className={classes.hex_container}>
+          {services.slice(0,9).map((item, index) => {
+            return (
+              <div className={classes.hex_item}>
+                <div className={classes.hex_content}>
+                  <div className={classes.img_con}>
+                  <img src={item.icon} alt="Icon 1" />
+                  </div>
+                  <h2>
+                    {language === "eng"
+                      ? item.title_en.length > 14
+                        ? item.title_en.slice(0, 14) + "..."
+                        : item.title_en
+                      : item.title_fr.length > 14
+                      ? item.title_fr.slice(0, 14) + "..."
+                      : item.title_fr}
+                  </h2>
+                  <p>
+                    {language === "eng"
+                      ? item.description_en.length > 40
+                        ? item.description_en.slice(0, 40) + "..."
+                        : item.description_en
+                      : item.description_fr.length > 20
+                      ? item.description_fr.slice(0, 20) + "..."
+                      : item.description_fr}
+                  </p>
+                </div>
+              </div>
+            );
           })}
         </div>
       </div>

@@ -14,6 +14,25 @@
     display: flex;
     flex-direction: column;
     align-self: center;
+    transition: background-color 0.5s ease, color 1s ease;
+}
+.headnavfixed{
+    position: fixed;
+    width: 100%;
+    background-color: #fff !important;
+    height: fit-content;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    max-width: 1900px;
+    overflow: hidden;
+    top: 0;
+    z-index: 99;
+    margin: 0 auto !important;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    transition: display 0.5s ease, color 1s ease;
 }
 
 .header{
@@ -247,6 +266,9 @@
 .mobile{
     display: none;
 }
+.mobilefixed{
+    display: none;
+}
 @media screen and (max-width: 1024px) {
     .headnav{
         position: relative;
@@ -261,6 +283,14 @@
     .mobile{
         width: 90%;
         position: relative;
+        display: flex;
+        flex-direction: row;
+        margin: auto;
+        padding: 0.5em 0;
+    }
+    .mobilefixed{
+        width: 90%;
+        position: fixed;
         display: flex;
         flex-direction: row;
         margin: auto;

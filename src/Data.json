@@ -34,42 +34,27 @@
     }
   },
   "Footer": {
-    "WhoWeAre": {
-      "title": { "eng": "WHO WE ARE", "fr": "QUI SOMMES-NOUS" },
-      "description": {
-        "eng": "Téqui, au service de Jésus-Christ, du Pape et de la famille depuis 1868. Pierre Téqui Éditeur est une maison d’édition catholique fondée en 1868 par un frère marianiste : Guillaume Téqui. Il était le libraire-éditeur- bibliothécaire de « l’Œuvre de Saint-Michel » dont le but était de produire et de promouvoir de « bons livres », c’est-à-dire « doctrinalement irréprochables, moralement saints et littéralement intéressants ». Reprise en 1971 par Pierre",
-        "fr": "Téqui, au service de Jésus-Christ, du Pape et de la famille depuis 1868. Pierre Téqui Éditeur est une maison d’édition catholique fondée en 1868 par un frère marianiste : Guillaume Téqui. Il était le libraire-éditeur- bibliothécaire de « l’Œuvre de Saint-Michel » dont le but était de produire et de promouvoir de « bons livres », c’est-à-dire « doctrinalement irréprochables, moralement saints et littéralement intéressants ». Reprise en 1971 par Pierre"
-      }
+    "ContactInfo": {
+      "title": { "eng": "Contact Info", "fr": "" }
     },
-    "NeedHelp": {
-      "title": { "eng": "NEED HELP", "fr": "BESOIN D’AIDE" },
-      "point1": { "eng": "Order tracking", "fr": " Suivi de commande" },
-      "point2": {
-        "eng": "Delivery-postage charges",
-        "fr": " Livraison - Frais de port"
-      },
-      "point3": { "eng": "Secure Payment", "fr": "Paiement - Sécurisé" },
-      "point4": { "eng": "Livre numérique", "fr": "Livre numérique" },
-      "point5": { "eng": "Contact-us", "fr": "Nous contacter" },
-      "point6": {
-        "eng": "Paramétrer les cookies",
-        "fr": "Paramétrer les cookies"
-      }
+    "Menu": {
+      "title": { "eng": "Menu", "fr": "" },
+      "point1": { "eng": "Shop All", "fr": "" },
+      "point2": { "eng": "Events", "fr": "" },
+      "point3": { "eng": "Collaborators", "fr": "" },
+      "point4": { "eng": "Collections", "fr": "" }
     },
-    "Library": {
-      "title": { "eng": "THE LIBRARIES", "fr": "LES LIBRAIRIES" },
-      "point1": { "eng": "Librairy Téqui", "fr": "Librairie Téqui" },
-      "point2": { "eng": "Téqui Pro", "fr": "Téqui Pro" }
+    "CUSTOMERSERVICE": {
+      "title": { "eng": "CUSTOMER SERVICE", "fr": "" },
+      "point1": { "eng": "My Account", "fr": "" },
+      "point2": { "eng": "My Documents", "fr": "" },
+      "point3": { "eng": "Term of Use", "fr": "" }
     },
-    "Service": {
-      "title": { "eng": "THE SERVICES", "fr": "LES SERVICES" },
-      "point1": { "eng": "Affiliation", "fr": "Affiliation" },
-      "point2": {
-        "eng": "Complement of works",
-        "fr": "Complément des ouvrages"
-      },
-      "point3": { "eng": "Recruitment", "fr": "Recrutement" },
-      "point4": { "eng": "Library events", "fr": "Événements à la librairie" }
+    "GENERAL": {
+      "title": { "eng": "GENERAL", "fr": "" },
+      "point1": { "eng": "About Us", "fr": "" },
+      "point2": { "eng": "Contact Us", "fr": "" },
+      "point3": { "eng": "Our Services", "fr": "" }
     }
   },
   "AboutPage": {

@@ -14,6 +14,14 @@
   left: 0;
   z-index: -1;
 }
+
+.imgabsmob {
+  display: none;
+  position: absolute;
+  top: -5em;
+  left: -5em;
+  z-index: -1;
+}
 .content {
   width: 100%;
   margin: 0 auto;
@@ -77,35 +85,30 @@ margin: 2em auto ;
 }
 
 .info {
-  align-items: end;
+  align-items: start;
   text-align: start;
-  margin: auto 0 0 auto;
+  margin: 2em 0 auto auto;
 }
 
 .info h3 {
   font-size: calc(0.8rem + 0.3vw);
   font-family: var(--font-family);
   font-style: normal;
-  color: #fff;
+  color: var(--primary-color);
   transition: color 0.5s ease, color 1s ease;
-  cursor: pointer;
-}
-
-.info h3:hover {
-  color: var(--forth-color);
 }
 
 .info p {
   font-size: calc(0.6rem + 0.3vw);
   font-family: var(--font-family);
   font-style: normal;
-  color: #fff;
+  color: var(--secondary-color);
   transition: color 0.5s ease, color 1s ease;
   cursor: pointer;
 }
 
 .info p:hover {
-  color: var(--forth-color);
+  color: var(--primary-color);
 }
 
 .bottom {
@@ -124,13 +127,16 @@ margin: 2em auto ;
 }
 
 @media screen and (max-width: 950px) {
-  .footer {
-    background-size: cover;
-    background-image: url("../../../assets/footerBG_mob.svg");
+  .imgabs{
+    display: none;
+  }
+
+  .imgabsmob{
+    display: flex;
   }
 
   .content{
-    padding-top: 5em;
+    padding-top: 0em;
   }
 
   .desktop {
@@ -142,12 +148,12 @@ margin: 2em auto ;
   }
 
   .footer_logo {
-      width: 100%;
-    margin: 2em auto ;
+      width: 5em;
+    margin: 2em auto 0 0  ;
   }
 
   .footer_logo img{
-    width: 30%;
+    width: 100%;
   }
 
   .info {

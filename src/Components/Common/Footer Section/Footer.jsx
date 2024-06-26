@@ -2,12 +2,16 @@ import React, { useContext } from 'react'
 import classes from './Footer.module.css'
 import logo from '../../../assets/Footerlogo.svg'
 import bg from '../../../assets/FooterBG.svg'
+import bgmob from '../../../assets/FooterBGmob.svg'
 import payments from '../../../assets/payments.png'
 import { FaFacebookF, FaInstagram  } from "react-icons/fa";
 import { FaXTwitter, FaYoutube  } from "react-icons/fa6";
 import { useNavigate } from 'react-router';
 import AuthContext from '../authContext';
 import { useSelector } from 'react-redux';
+import data from '../../../Data.json'
+import { MdOutlineMail } from "react-icons/md";
+import { FiPhoneCall } from "react-icons/fi";
 
 
 
@@ -29,34 +33,35 @@ function openNewWindow(url) {
                 <div className={classes.imgabs}>
                     <img src={bg} alt='Logo' />
                 </div>
+                <div className={classes.imgabsmob}>
+                    <img src={bgmob} alt='Logo' />
+                </div>
                 <div className={classes.desktop}>
                 <div className={classes.info}>
-                    <h3>Company</h3>
-                    <p onClick={()=>navigate(`/about`)}>About</p>
-                    <p onClick={()=>navigate(`/books`)}>Shop</p>
-                    <p onClick={()=>navigate(`/collaborators`)}>Collaborators</p>
-                    <p onClick={()=>navigate(``)}>Career</p>
+                <h3>{data.Footer.ContactInfo.title[language]}</h3>
+                    <p style={{display:'Flex', flexDirection:'row'}}> <MdOutlineMail style={{width:'1.5em', height:'1.5em', margin:'auto 0.5em auto 0', color:'var(--primary-color)'}}/>{authCtx.companySettings.email}</p>
+                    <p style={{display:'Flex', flexDirection:'row'}}> <FiPhoneCall style={{width:'1.3em', height:'1.3em', margin:'auto 0.5em auto 0', color:'var(--primary-color)'}}/>Tel: {authCtx.companySettings?.phone}</p>
+                    <p style={{display:'Flex', flexDirection:'row'}}> <FiPhoneCall style={{width:'1.3em', height:'1.3em', margin:'auto 0.5em auto 0', color:'var(--primary-color)'}}/>Tel: {authCtx.companySettings?.phone}</p>
+                    <p style={{display:'Flex', flexDirection:'row'}}> <FiPhoneCall style={{width:'1.3em', height:'1.3em', margin:'auto 0.5em auto 0', color:'var(--primary-color)'}}/>Tel: {authCtx.companySettings?.phone}</p>
+                    </div>
+                <div className={classes.info}>
+                <h3>{data.Footer.Menu.title[language]}</h3>
+                    <p onClick={()=>navigate(`/books`)}>{data.Footer.Menu.point1[language]}</p>
+                    <p onClick={()=>navigate(`/events`)}>{data.Footer.Menu.point2[language]}</p>
+                    <p onClick={()=>navigate(`/collaborators`)}>{data.Footer.Menu.point3[language]}</p>
+                    <p onClick={()=>navigate(`/collections`)}>{data.Footer.Menu.point4[language]}</p>
                 </div>
                 <div className={classes.info}>
-                    <h3>Help</h3>
-                    <p>Customer Support</p>
-                    <p>Delivery Details</p>
-                    <p>Terms & Conditions</p>
-                    <p onClick={()=>navigate(`/mentions-legales`)}>Privacy Policy</p>
+                <h3>{data.Footer.CUSTOMERSERVICE.title[language]}</h3>
+                    <p onClick={()=>navigate(`/books`)}>{data.Footer.CUSTOMERSERVICE.point1[language]}</p>
+                    <p onClick={()=>navigate(`/events`)}>{data.Footer.CUSTOMERSERVICE.point2[language]}</p>
+                    <p onClick={()=>navigate(`/collaborators`)}>{data.Footer.CUSTOMERSERVICE.point3[language]}</p>
                 </div>
                 <div className={classes.info}>
-                    <h3>FAQ</h3>
-                    <p>Account</p>
-                    <p>Manage Deliveries</p>
-                    <p>Orders</p>
-                    <p>Payments</p>
-                </div>
-                <div className={classes.info}>
-                    <h3>Resources</h3>
-                    <p onClick={()=>navigate(``)}>Free eBooks</p>
-                    <p onClick={()=>navigate(`/services`)}>Services</p>
-                    <p onClick={()=>navigate(`/events`)}>Events</p>
-                    <p onClick={()=>openNewWindow('https://www.youtube.com/@albouraqeditionstv145')}>Youtube Videos</p>
+                <h3>{data.Footer.GENERAL.title[language]}</h3>
+                    <p onClick={()=>navigate(`/books`)}>{data.Footer.GENERAL.point1[language]}</p>
+                    <p onClick={()=>navigate(`/events`)}>{data.Footer.GENERAL.point2[language]}</p>
+                    <p onClick={()=>navigate(`/collaborators`)}>{data.Footer.GENERAL.point3[language]}</p>
                 </div>
                 </div>
             </div>
