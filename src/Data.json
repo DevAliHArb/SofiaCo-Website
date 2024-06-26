@@ -1,0 +1,425 @@
+{
+  "HomePage": {
+    "CategoriesSwapper": {
+      "title": { "eng": "SELECTION OF THE MOMENT", "fr": "SÉLECTION DU MOMENT" }
+    },
+    "FeaturedBooks": {
+      "title": { "eng": "Featured Books", "fr": "" },
+      "description": { "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": "" },
+      "button": { "eng": "Add to cart", "fr": "" }
+    },
+    "Hero": {
+      "title": { "eng": "Find your next great read <br/>at our online book store", "fr": "" }
+    },
+    "OurSelection": {
+      "title": { "eng": "Our Selection", "fr": "" },
+      "description": { "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": "" }
+    },
+    "NewArrivals": {
+      "title": { "eng": "New Releases", "fr": "" },
+      "Cat1": { "eng": "Categories", "fr": "" },
+      "Cat2": { "eng": "Editors", "fr": "" }
+    },
+    "NewsLetter": {
+      "title": {
+        "eng": "Subscribe to our newsletter for newest books updates",
+        "fr": "Inscrivez-vous à notre lettre d'information pour recevoir les mises à jour des livres les plus récents"
+      },
+      "email": { "eng": "Enter your Email", "fr": "Écrivez votre Email" },
+      "button": { "eng": "Subscribe", "fr": "Inscription" }
+    },
+    "Quote": {
+      "title": { "eng": "Quote Of  The Day", "fr": "Citation Du Jour" }
+    }
+  },
+  "Footer": {
+    "WhoWeAre": {
+      "title": { "eng": "WHO WE ARE", "fr": "QUI SOMMES-NOUS" },
+      "description": {
+        "eng": "Téqui, au service de Jésus-Christ, du Pape et de la famille depuis 1868. Pierre Téqui Éditeur est une maison d’édition catholique fondée en 1868 par un frère marianiste : Guillaume Téqui. Il était le libraire-éditeur- bibliothécaire de « l’Œuvre de Saint-Michel » dont le but était de produire et de promouvoir de « bons livres », c’est-à-dire « doctrinalement irréprochables, moralement saints et littéralement intéressants ». Reprise en 1971 par Pierre",
+        "fr": "Téqui, au service de Jésus-Christ, du Pape et de la famille depuis 1868. Pierre Téqui Éditeur est une maison d’édition catholique fondée en 1868 par un frère marianiste : Guillaume Téqui. Il était le libraire-éditeur- bibliothécaire de « l’Œuvre de Saint-Michel » dont le but était de produire et de promouvoir de « bons livres », c’est-à-dire « doctrinalement irréprochables, moralement saints et littéralement intéressants ». Reprise en 1971 par Pierre"
+      }
+    },
+    "NeedHelp": {
+      "title": { "eng": "NEED HELP", "fr": "BESOIN D’AIDE" },
+      "point1": { "eng": "Order tracking", "fr": " Suivi de commande" },
+      "point2": {
+        "eng": "Delivery-postage charges",
+        "fr": " Livraison - Frais de port"
+      },
+      "point3": { "eng": "Secure Payment", "fr": "Paiement - Sécurisé" },
+      "point4": { "eng": "Livre numérique", "fr": "Livre numérique" },
+      "point5": { "eng": "Contact-us", "fr": "Nous contacter" },
+      "point6": {
+        "eng": "Paramétrer les cookies",
+        "fr": "Paramétrer les cookies"
+      }
+    },
+    "Library": {
+      "title": { "eng": "THE LIBRARIES", "fr": "LES LIBRAIRIES" },
+      "point1": { "eng": "Librairy Téqui", "fr": "Librairie Téqui" },
+      "point2": { "eng": "Téqui Pro", "fr": "Téqui Pro" }
+    },
+    "Service": {
+      "title": { "eng": "THE SERVICES", "fr": "LES SERVICES" },
+      "point1": { "eng": "Affiliation", "fr": "Affiliation" },
+      "point2": {
+        "eng": "Complement of works",
+        "fr": "Complément des ouvrages"
+      },
+      "point3": { "eng": "Recruitment", "fr": "Recrutement" },
+      "point4": { "eng": "Library events", "fr": "Événements à la librairie" }
+    }
+  },
+  "AccountProfilePage": {
+    "AccountDetails": {
+      "title": { "eng": "MY ACCOUNT", "fr": "MON COMPTE" },
+      "changePassTitle": {
+        "eng": "Change Your Password",
+        "fr": "Modifier Votre Mot De Passe "
+      }
+    },
+    "Adresses": {
+      "title": { "eng": "My Addresses", "fr": "Mes Adresses" },
+      "AdresseInputTitle": {
+        "eng": "Address Name",
+        "fr": "Nommez cette adresse"
+      },
+      "AdresseInput": {
+        "eng": "Address",
+        "fr": "Adresse"
+      },
+      "cityInput": {
+        "eng": "City",
+        "fr": "Ville"
+      },
+      "countryInput": {
+        "eng": "Country",
+        "fr": "Pays"
+      },
+      "postalcodeInput": {
+        "eng": "Postal Code",
+        "fr": "Code postal"
+      }
+    },
+    "Commands": {
+      "title": { "eng": "MY ORDERS", "fr": "MES COMMANDES" }
+    },
+    "Coupons": {
+      "title": { "eng": "YOUR COUPONS", "fr": "VOS COUPONS" },
+      "description": {
+        "eng": "Add Your Coupon",
+        "fr": "Ajoutez Votre Coupon"
+      },
+      "inputPlaceholder": {
+        "eng": "Your Coupon Here",
+        "fr": "Votre Coupon ici"
+      }
+    },
+    "Favorits": {
+      "title": { "eng": "MY FAVORITES", "fr": "MES FAVORIS" },
+      "description": {
+        "eng": "",
+        "fr": ""
+      }
+    },
+    "Payment": {
+      "title": {
+        "eng": "YOUR PAYMENT METHODS",
+        "fr": "VOS MOYENS DE PAIEMENT"
+      },
+      "description1": {
+        "eng": "The data related to your card is secured and not compromised",
+        "fr": "Les données relatives à votre carte sont sécurisées et ne sont pas compromises"
+      },
+      "description2": {
+        "eng": "The company complies with the Payment Card Industry Security Standard (PCI DSS) when processing card data.",
+        "fr": "La société respecte la Norme de sécurité de l’industrie des cartes de paiement (PCI DSS) lors du traitement des données de cartes."
+      },
+      "description3": {
+        "eng": "All data is encrypted",
+        "fr": "Toutes les données sont cryptées"
+      },
+      "description4": {
+        "eng": "The company never sells your card data",
+        "fr": "La société ne vend jamais les données relatives à votre carte"
+      }
+    }
+  },
+  "BookDetailsPage": {
+    "CoupsDeCoer": {
+      "title": {
+        "eng": "Our clients also bought",
+        "fr": "Nos clients ont également acheté"
+      }
+    },
+    "MeilleuresVentes": {
+      "title": {
+        "eng": "Selection of the moment",
+        "fr": "Sélections du moment"
+      }
+    },
+    "VoirAussi": {
+      "title": { "eng": "See more", "fr": "Voir aussi" }
+    }
+  },
+  "BookPage": {
+    "HeroSection": {
+      "title1": { "eng": "Best sales", "fr": "Meilleures ventes" },
+      "title2": {
+        "eng": "Favorites",
+        "fr": "Coups de coeur"
+      }
+    }
+  },
+  "Cart": {
+    "title": { "eng": "Order Summary", "fr": "Récapitulatif des achats" },
+    "description": {
+      "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "fr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    "QuickDelivery": {
+      "eng": "Quick Delivery",
+      "fr": "Livraison Rapide"
+    },
+    "QuickDeliverydescription": {
+      "eng": "Fusce dapibus, tellus ac cursus fermentum massa justo sit amet risus.",
+      "fr": "Fusce dapibus, tellus ac cursus fermentum massa justo sit amet risus."
+    },
+    "SecurePayment": {
+      "eng": "Secure Payment",
+      "fr": "Paiement Securisé"
+    },
+    "SecurePaymentdescription": {
+      "eng": "Fusce dapibus, tellus ac cursus fermentum massa justo sit amet risus.",
+      "fr": "Fusce dapibus, tellus ac cursus fermentum massa justo sit amet risus."
+    },
+    "Servicesclients": {
+      "eng": "Customer services",
+      "fr": "Services clients"
+    },
+    "Servicesclientsdescription": {
+      "eng": "Customer service : 01 xx xx xx xx from Monday to Saturday (9h-19h30)",
+      "fr": "Service client : 01 xx xx xx xx  du lundi au samedi (9h-19h30)"
+    },
+    "Satisfait": {
+      "eng": "Satisfied or your money back",
+      "fr": "Satisfait ou remboursé"
+    },
+    "Satisfaitdescription": {
+      "eng": "Fusce dapibus, tellus ac cursus fermentum massa justo",
+      "fr": "Fusce dapibus, tellus ac cursus fermentum massa justo"
+    }
+  },
+  "ContactUsPage": {
+    "description": {
+      "eng": "Submit a request and we will get back to you",
+      "fr": "Ecrivez-nous en remplissant le formulaire"
+    }
+  },
+  "Event": {
+    "title": { "eng": "", "fr": "" },
+    "description": {
+      "eng": "",
+      "fr": ""
+    }
+  },
+  "Librairie": {
+    "title": { "eng": "", "fr": "" },
+    "description": {
+      "eng": "",
+      "fr": ""
+    }
+  },
+  "Login": {
+    "title": { "eng": "", "fr": "" },
+    "description": {
+      "eng": "",
+      "fr": ""
+    }
+  },
+  "OrderTrackingPages": {
+    "OrderTracking": {
+      "title": { "eng": "", "fr": "" },
+      "description": {
+        "eng": "",
+        "fr": ""
+      }
+    },
+    "FollowOrder": {
+      "title": { "eng": "", "fr": "" },
+      "description": {
+        "eng": "",
+        "fr": ""
+      }
+    },
+    "Review": {
+      "title": { "eng": "", "fr": "" },
+      "description": {
+        "eng": "",
+        "fr": ""
+      }
+    }
+  },
+  "Register": {
+    "title": { "eng": "", "fr": "" },
+    "description": {
+      "eng": "",
+      "fr": ""
+    }
+  },
+  "ResetPassword": {
+    "title": { "eng": "", "fr": "" },
+    "description": {
+      "eng": "",
+      "fr": ""
+    }
+  },
+  "ReturnPages": {
+    "AddReturnRefund": {
+      "title": { "eng": "", "fr": "" },
+      "description": {
+        "eng": "",
+        "fr": ""
+      }
+    },
+    "CompletedReturn": {
+      "title": { "eng": "", "fr": "" },
+      "description": {
+        "eng": "",
+        "fr": ""
+      }
+    },
+    "RetourHistory": {
+      "title": { "eng": "", "fr": "" },
+      "description": {
+        "eng": "",
+        "fr": ""
+      }
+    },
+    "ViewRetour": {
+      "title": { "eng": "", "fr": "" },
+      "description": {
+        "eng": "",
+        "fr": ""
+      }
+    }
+  },
+  "placeholders": {
+    "name": { "eng": "Name", "fr": "Nom" },
+    "firstName": {
+      "eng": "First Name",
+      "fr": "Prénom"
+    },
+    "lastName": {
+      "eng": "Last Name",
+      "fr": "Nom"
+    },
+    "email": { "eng": "E-mail", "fr": "E-mail" },
+    "phone": {
+      "eng": "Phone",
+      "fr": "Téléphone"
+    },
+    "message": { "eng": "Enter a  Message...", "fr": "Votre Message..." },
+    "userName": { "eng": "User Name", "fr": "Nom d’utilisateur" },
+    "password": { "eng": "Password", "fr": "Mot de Passe" },
+    "newPassword": {
+      "eng": "New password *********",
+      "fr": "Nouveau mot de passe *********"
+    },
+    "RenterNewPassword": {
+      "eng": "Retype your password",
+      "fr": "Retaper votre nouveau mot de passe*********"
+    },
+    "oldPassword": {
+      "eng": "Type your old password***",
+      "fr": "Tapez votre mot de passe Actuel***"
+    },
+    "newPasswordMessage": {
+      "eng": "",
+      "fr": "Please enter your current password"
+    },
+    "RenterNewPasswordMessage": {
+      "eng": "",
+      "fr": "Please enter your new password"
+    },
+    "oldPasswordMessage": {
+      "eng": "",
+      "fr": "Please confirm your new password"
+    },
+    "AddressTitleMessage": {
+      "eng": "Please enter your address title!",
+      "fr": "Veuillez saisir le titre de votre adresse!"
+    },
+    "AddressMessage": {
+      "eng": "Please enter your address!",
+      "fr": "Veuillez saisir votre adresse!"
+    },
+    "CityMessage": {
+      "eng": "Please enter your city!",
+      "fr": "Veuillez saisir votre ville!"
+    },
+    "CountryMessage": {
+      "eng": "Please select your country!",
+      "fr": "Veuillez sélectionner votre pays!"
+    },
+    "PostalMessage": {
+      "eng": "Please enter your postal code!",
+      "fr": "Veuillez saisir votre Code postal!"
+    },
+    "CouponMessage": {
+      "eng": "Please enter the coupon code!",
+      "fr": "Veuillez saisir le code promo !"
+    },
+    "CardtypeMessage": {
+      "eng": "Please enter your address!",
+      "fr": "Veuillez sélectionner le type de carte!"
+    },
+    "CardNumberMessage": {
+      "eng": "Please input your card number!",
+      "fr": "Veuillez saisir votre numéro de carte!"
+    },
+    "CardYearMessage": {
+      "eng": "Please select the year (YY)!",
+      "fr": "Veuillez sélectionner l'année (AA)!"
+    },
+    "CardMonthMessage": {
+      "eng": "Please select the month (MM)!",
+      "fr": "Veuillez sélectionner le mois (MM)!"
+    },
+    "CardCvvMessage": {
+      "eng": "Please enter less than four numbers!",
+      "fr": "Veuillez saisir moins de quatre chiffres!"
+    },
+    "ReviewInput": {
+      "eng": "Describe your experience",
+      "fr": "Décrivez votre expérience"
+    },
+    "NotesInput": {
+      "eng": "Notes regarding your order, for example special notes for delivery…",
+      "fr": "Notes concernant votre commande, par exemple des notes spéciales pour la livraison…"
+    }
+  },
+  "OrderButtons": {
+    "orderConfirm": {
+      "eng": "Confirm receipt",
+      "fr": "Confirmez la réception"
+    },
+    "setOrder": {
+      "eng": "Set the order",
+      "fr": "Réglez la commande"
+    },
+    "CancelOrder": {
+      "eng": "Cancel order",
+      "fr": "Annulez la commande"
+    },
+    "Review": { "eng": "Review", "fr": "Donner un avis" },
+    "ReturnRefund": { "eng": "Return/Refund", "fr": "Retourner/Rembourser" },
+    "Recommendation": {
+      "eng": "Recommend to a friend",
+      "fr": "Recommander à un ami"
+    },
+    "Track": { "eng": "Follow", "fr": "Suivre" },
+    "Repurchase": { "eng": "Repurchase", "fr": "Acheter à nouveau" }
+  }
+}

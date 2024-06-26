@@ -1,0 +1,36 @@
+.container{
+    text-align: center;
+    height: 100vh;
+    background-color: #163445;
+    padding: 3em 0;
+}
+
+.text{
+    width: 100%;
+    color: #FFC799;
+    text-align: center;
+    width: fit-content;
+    font-family: Bebas Neue;
+}
+
+.logo{
+    width: 30%;
+    justify-content: center;
+    margin-bottom: 20%;
+}
+
+.navLink{
+    display: grid;
+    grid-template-columns: 80% 20%;
+    padding-left: 2em;
+    text-align: start;
+    margin: .5em 0;
+}
+
+.subCaregory{
+    border-bottom: 1px solid rgba(242, 242, 242, 0.30);
+    width: 100%;
+    color: var(--Sous-menu-mobile-color, #FFF);
+    text-align: start;
+    padding: .4em 0 .4em 2em;
+}

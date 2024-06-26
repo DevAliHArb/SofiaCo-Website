@@ -1,0 +1,48 @@
+.App {
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-image: url(./assets/FooterBG.png);
+  background-repeat: no-repeat;
+  background-position: left bottom ;
+  background-size: cover;
+}
+:root {
+  --primary-color: #E97704; 
+  --secondary-color: #212A53; 
+  --accent-color: #7F9BC9;
+  --font-family: Raleway;  
+}
+
+
+.ant-input {
+  ::placeholder {
+    color: #fff; /* Change the color to your desired color */
+  }
+}
+
+/* Target all Ant Design input components */
+/* .ant-input is a class used by Ant Design for input components */
+.ant-input::placeholder {
+  color: #fff; /* Change the color to your desired color */
+}
+
+.swiper-pagination {
+  margin-left: -20%; /* Move left by 20px */
+}
+
+@media screen and (max-width: 950px) {
+  .swiper-pagination {
+    margin-left: -10%; /* Move left by 20px */
+  }
+}
+  @media screen and (max-width: 750px) {
+    .swiper-pagination {
+      margin-left: 0%; /* Move left by 20px */
+    }
+  }
+
+  .ant-input {
+    background: #E7E7E7;
+  }

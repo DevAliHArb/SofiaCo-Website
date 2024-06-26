@@ -1,0 +1,332 @@
+.headnav{
+    position: relative;
+    width: 100%;
+    background-color: transparent !important;
+    height: fit-content;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    max-width: 1900px;
+    overflow: hidden;
+    top: 0;
+    z-index: 9;
+    margin: 0 auto !important;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+
+.header{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+    width: 100%;
+    justify-content: space-between;
+    background-color: #fff;
+}
+
+.logocontainer{
+    width: 15%;
+    /* background-color: blue; */
+    height: 100%;
+    margin: auto ;
+    padding: 0.5em 0;
+}
+
+.headercontent{
+    width: 80%;
+    margin:auto 2%;
+    max-width: 90em ;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+}
+
+.header_top{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #fff;
+    margin:0;
+    justify-self: top;
+}
+
+.header_top_content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    column-gap: 2em;
+    justify-content: flex-start;
+}
+.header_top_content1{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    column-gap: 0.8em;
+    justify-content: flex-start;
+}
+
+.header_top_content p{
+    position: relative;
+    text-decoration: none;
+    font-size: calc(0.7rem + 0.3vw);
+    color: var(--secondary-color);
+    font-family: var(--font-family);
+    font-weight: 400;
+    line-height: normal;
+    border-radius: 1em;
+    margin:0.7em auto auto auto;
+}
+
+.header_top_content1 p{
+    position: relative;
+    text-decoration: none;
+    font-size: calc(0.7rem + 0.3vw);
+    color: var(--secondary-color);
+    font-family: var(--font-family);
+    font-weight: 400;
+    line-height: normal;
+    border-radius: 1em;
+    margin:0.7em auto auto auto;
+}
+
+.navlinks{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center !important;
+    margin: 1.5em auto !important;
+    height: fit-content;
+
+}
+
+.navlinks p {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    text-decoration: none;
+    font-size: calc(0.7rem + 0.3vw);
+    color: var(--secondary-color);
+    font-family: var(--font-family);
+    font-weight: 700;
+    line-height: normal;
+    border-radius: 0.5em;
+    padding: .4em .7em;
+    margin:0 auto;
+    background: transparent;
+    text-transform: uppercase;
+    transition: background 0.5s ease, color 0.8s ease;
+  }
+
+.navlinks p:hover {
+    color: #fff;
+    text-decoration: none;
+    background: var(--primary-color);
+  }
+  
+/* .navlinks p::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    margin-top: 5px;
+    background-color: #FF7E00;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+   */
+  .navlinks p:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+  .subtitleCon{
+    position: relative;
+    width: fit-content ;
+    color: #000;
+    display: flex;
+    border-left: 2px solid  #FF7E00;
+    border-bottom: 2px solid  #FF7E00;
+    border-radius: 0 1em;
+    padding: 0.5em 0;
+    text-align: start ;
+    background-color: #F7F7F7;
+    flex-direction: column;
+  }
+
+  .subtitle{
+    position: relative;
+    cursor: pointer;
+    font-size: calc(0.7rem + 0.3vw);
+    padding: 0.5em  0;
+    margin: 0;
+    text-align: start;
+    width: 100%;
+    transition:color 1s ease, background-color 1s ease;
+  }
+
+  .subtitle:hover{
+    background-color: #FF7E00;
+    color: #fff;
+  }
+  .borderLine{
+    height: 1px;
+    width: 100%;
+    background-color: #D6D6D6;
+  }
+
+.mobilenav{
+    position: fixed;
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    row-gap: 0em;
+    height: fit-content;
+    padding: 2% 0%;
+    z-index: 99;
+    margin: 0 auto;
+    background-color: #fff;
+    top: 0;
+}
+.logomobile{
+    width: 100%;
+    margin: auto;
+}
+
+.logomobile img{
+    width: 30%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.menuContainer{
+    display: none;
+    width: fit-content;
+    background-color: transparent;
+    border: none;
+    justify-content: end;
+    margin: auto 0 !important;
+    height: fit-content;
+    color: #502C1E;
+}
+.mobileInput{
+    display: none;
+}
+
+.icons{
+    width: 12%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: auto;
+    margin-left: 3em;
+}
+
+.icon{
+    width: 1.8em;
+    height: 1.8em;
+    margin: auto;
+    color: var(--secondary-color);
+}
+
+
+.long_line{
+    border-left: 1px solid var(--primary-color);
+    height: 1.5em;
+}
+
+.select{
+    margin:0;
+    font-family: var(--font-family);
+}
+.mobile{
+    display: none;
+}
+@media screen and (max-width: 1024px) {
+    .headnav{
+        position: relative;
+    }
+.headercontent{
+    width: 90%;
+    margin: 0 auto;
+}
+    .logocontainer{
+        display: none;
+    }
+    .mobile{
+        width: 90%;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        margin: auto;
+        padding: 0.5em 0;
+    }
+    .navlinks{
+        display: none;
+    }
+    .icons{
+        width: fit-content;
+        display: flex;
+        column-gap: 1em;
+        margin: auto 0 auto auto;
+    }
+    .logocontainer1{
+        display: flex;
+        width: 15%;
+        /* background-color: blue; */
+        height: 100%;
+        margin: auto 0;
+    }
+    .header_top{
+        flex-direction: column;
+        margin: auto;
+    }
+    .header_top_content{
+        margin: auto;
+    }
+    .header_top_content1{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .logocontainer1{
+        width: 40%;
+        height: 100%;
+        margin: auto ;
+    }
+    .proAccessCont{
+        width: 25%;
+        font-size: smaller;
+    }
+    
+    .menuContainer{
+        display: inline;
+        width: 25%;
+    }
+    .proAccess{
+        width: 100%;
+        height: 90%;
+        object-fit: cover;
+    }
+    .proAccessContent{
+        font-size: smaller;
+      }
+}
+
+@media screen and (max-width: 380px) {
+    .proAccessCont{
+        width: 33%;
+        font-size: smaller;
+    }
+    
+    .menuContainer{
+        display: inline;
+        width: 33%;
+    }
+}

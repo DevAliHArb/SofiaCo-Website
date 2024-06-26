@@ -1,0 +1,31 @@
+.modal{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30vw;
+    background-color: #fff;
+    box-shadow: 24;
+    height: fit-content;
+    padding: 2em;
+    justify-content: center;
+    border-radius: 5em 0;
+    border: 2px solid #3B84B0;
+    margin: auto;
+    text-align: center;
+}
+
+
+@media screen and (max-width:950px) {
+    .modal{
+        width: 40vw;
+    }
+}
+
+
+@media screen and (max-width:700px) {
+    .modal{
+        width: 70vw;
+        padding: 1.5em 0.5em;
+    }
+}

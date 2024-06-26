@@ -1,0 +1,232 @@
+.big_container{
+    position: relative;
+    width: 100%;
+    max-width: 1900px;
+    height: fit-content;
+    margin: 0 auto;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    width: 88%;
+    margin: 0 auto;
+}
+.nodata{
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    column-gap: 2em;
+    margin: auto;
+    margin-top: 4em;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .nodata_img{
+    width: 10em;
+    height: 10em;
+  }
+  
+  .nodata_img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .nodata h1{
+    font-family: var(--font-family);
+    font-size: calc(1.5rem + 0.8vw);
+    color: var(--primary-color);
+    text-align: start;
+  }
+
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.categories{
+    display: flex;
+    flex-direction: column;
+}
+
+.parent_cat{
+    display: flex;
+    flex-direction: row;
+    column-gap: 1em;
+    margin-bottom: 1em;
+}
+.child_cat{
+    display: flex;
+    flex-direction: row;
+    column-gap: 1em;
+}
+
+.child_cat p{
+    position: relative;
+    font-size: calc(0.7rem + 0.3vw);
+    color: var(--secondary-color);
+    font-family: var(--font-family);
+    font-weight: 400;
+    line-height: normal;
+    margin: 1em auto;
+    cursor: pointer;
+    transition: color 0.5s ease, color 1s ease;
+}
+
+.child_cat p:hover{
+    color: var(--primary-color);
+}
+
+.books_list{
+    display: grid;
+    grid-template-columns: repeat(4, 22%);
+    justify-content: space-between;
+    row-gap: 4em;
+}
+
+.card_container{
+    width: 100%;
+    height: fit-content;
+    background: transparent;
+    font-family: var(--font-family);
+    font-size: calc(0.9rem + 0.2vw);
+    letter-spacing: 0.01rem;
+    border-radius: 2em;
+    transition: all 0.3s ease-in-out;
+    background-color: var(--accent-color);
+    transition: background-color 0.5s ease, color 1s ease;
+    cursor: pointer;
+  }
+  
+.card_container:hover{
+    background-color: var(--primary-color);
+    
+  .price{
+    color: var(--secondary-color);
+  }
+}
+  
+  .card_img{
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+    border-radius: 1em;
+    /* overflow: hidden; */
+    padding: 10% 10% 0% 10%;
+    height: 22em;
+  }
+  
+  .img{
+    object-fit: fill !important;
+    height: 100%;
+    width: 100%;
+    border-radius: 1em;
+  }
+  
+  
+  .buttoncart{
+    position: relative;
+    width: fit-content;
+    margin: 0 auto;
+    padding: 0.5em 1em;
+    border-radius: 0.5em;
+    font-size: calc(0.7rem + 0.3vw);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    color: var(--secondary-color);
+    background-color: transparent;
+    border: none;
+  }
+  
+  .buttoncart:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  background-color:  var(--primary-color)   ;
+  color: #fff;
+  }
+  
+  
+  .card_content{
+    width: 100%;
+    left: 0;
+    text-align: center;
+    row-gap: 1vh;
+    font-size: calc(0.7rem + 0.2vw);
+    /* padding-bottom: 5%; */
+  }
+  .card_content1{
+  position: relative;
+  width: 80%;
+  background-color: #DDE4E6;
+  padding: 2% 0% 0% 0% ;
+  border-radius: 5px;
+  left: 0;
+  text-align: center;
+  row-gap: 1vh;
+  font-size: calc(0.7rem + 0.2vw);
+  /* padding-bottom: 5%; */
+  }
+  
+  .testt{
+  position: absolute;
+  height: 2.4em;
+  width: 2.4em;
+  top: 13%;
+  right: -14%;
+  border-radius: 50%;
+  border: 2px white solid;
+  background-color: #A8ACAD;
+  }
+  
+  .bookTitle{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-family: var(--font-family);
+    font-size: calc(0.7rem + 0.3vw);
+    font-weight: 800;
+    letter-spacing: 0.01rem;
+    text-align: center;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .bookTitle p{
+    margin: 0.5em 0;
+  }
+
+  .price{
+    text-align: center;
+    padding: 0 ;
+    color: var(--primary-color);
+    font-weight:700 ;
+    transition: color 0.3s ease-in-out;
+  }
+  .swiper{
+    position: relative;
+    width: 100%;
+    display: none;
+    margin: 1em auto;
+    /* margin-top: 5vh; */
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+@media screen and (max-width:1024px) {
+    .books_list{
+        display: none;
+    }
+
+    .swiper{
+        display: block;
+    }
+    
+  .card_img{
+    height: 13em;
+  }
+}
