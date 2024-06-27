@@ -163,21 +163,11 @@ margin: 2em auto ;
   .main {
     flex-direction: column;
     margin: 0 auto;
-  }
-
-  .bottom {
-    flex-direction: column;
-    margin: auto;
-    row-gap: 1em;
-    padding: 0.5em 0;
-  }
-
-  .bottom p {
-    margin: auto;
+    padding-bottom: 1em;
   }
 
   .bottom img {
-    width: 60%;
+    width: 40%;
     margin: auto;
   }
 }
