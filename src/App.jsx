@@ -9,7 +9,9 @@ import HomePage from './Components/Home Page/HomePage';
 import { useSelector } from 'react-redux';
 import ScrollToTop from './Components/Common/ScrollToTop'
 import About from './Components/About Page/About';
-import SideBar from './Components/Common/SideBar Section/SideBar'
+import SideBar from './Components/Common/Sidebar Section/SideBar'
+import Events from './Components/Events/Events Page/Events';
+import EventsDetails from './Components/Events/Events Details Page/EventsDetails';
 
 
 function App() {
@@ -36,6 +38,8 @@ function App() {
          <Routes>
           <Route path='/' element={<ScrollToTop><HomePage carttoggle={carttoggle}/></ScrollToTop>} />
           <Route path='/about' element={<ScrollToTop><About/></ScrollToTop>} />
+          <Route path='/events' element={<ScrollToTop><Events/></ScrollToTop>} />
+          <Route path='/events/:id/event-details' element={<ScrollToTop><EventsDetails/></ScrollToTop>} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>

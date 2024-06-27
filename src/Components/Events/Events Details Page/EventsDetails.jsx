@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from "react";
 import classes from "./EventsDetails.module.css";
-import collab_image from "../../../assets/collab-head.png";
-import Agenda from "../../Home Page/Agenda Section/Agenda";
+// import collab_image from "../../../assets/collab-head.png";
 import { useDispatch, useSelector } from "react-redux";
-import like from "../../../assets/icons/like.png";
-import camera from "../../../assets/icons/camera.png";
-import screen from "../../../assets/icons/screen.png";
-import timer from "../../../assets/icons/timer.png";
 import { Button, Checkbox, Form, Input } from "antd";
 import { FaLinkedinIn, FaInstagram, FaFacebookF } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import { events } from "../../Common/Constants/Data";
 import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -176,12 +170,12 @@ console.log(eventEnded)
   return (
     <div className={classes.events_detail}>
       <div className={classes.events_detail_image_con}>
-        <img
+        {/* <img
           src={collab_image}
           alt="registerImage"
           style={{ height: "100%" }}
           className={classes.events_detail_image}
-        />
+        /> */}
         <div className={classes.imageContent} onClick={()=>console.log(eventData)}>
           <h2 style={{ margin: "0" }} >Events</h2>
           <p style={{ margin: ".2em 0 0 0" }}>Home / Events</p>
@@ -204,7 +198,7 @@ console.log(eventEnded)
           {eventData.event_feature?.map((data)=>{
                     return(
                       <p>
-                        <img style={{width:"1.2em",height:'1.2em'}} src={data.icon ? `https://sofiadis.recette-lisa.leonardo-service.com/modules/sofiadis/files/${data.icon}` : screen } alt="" /> {language == 'eng' ? data.title_eng : data.title_fr}
+                        <img style={{width:"1.2em",height:'1.2em'}} src={data.icon ? `https://sofiadis.recette-lisa.leonardo-service.com/modules/sofiadis/files/${data.icon}` : 'screen' } alt="" /> {language == 'eng' ? data.title_eng : data.title_fr}
                       </p>
                     )
                   })}
@@ -397,7 +391,6 @@ console.log(eventEnded)
                   })}
         </div>
       </div>
-      <Agenda />
     </div>
   );
 };
