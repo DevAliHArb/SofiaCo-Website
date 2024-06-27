@@ -1,0 +1,531 @@
+.events_detail{
+    width: 100%;
+    max-width: 1900px;
+    margin: 0 auto;
+    height: fit-content;
+    border-radius: 2em;
+    padding-bottom: 3em;
+}
+
+  
+.events_detail_image_con{
+    position: relative;
+    width: 100%;
+    height: 20em;
+    padding: 0;
+    margin: 0;
+    margin-top: -1.7em;
+    z-index: -1;
+  }
+
+  .events_detail_image{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 0 0 2em 2em;
+    object-fit: cover;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .imageContent{
+    position: absolute;
+    bottom: 0;
+    width: fit-content;
+    right: 50%;
+    transform: translateX(50%);
+    background-color: var(--accent-color);
+    color: #fff;
+    font-family: montserrat;
+    font-style: normal;
+    padding: 1em 2em; 
+    font-size: calc(1rem + 0.4vw);
+    border-radius: 2em 2em 0 0;
+    text-align: center;
+  }
+
+  .imageContent h2{
+    font-weight: 500;
+  }
+
+
+.content{
+    width: 88%;
+    margin: 0 auto;
+    height: fit-content;
+    padding: 5em 0 0em 0;
+    display: grid;
+    grid-template-columns: 65% 30%;
+    justify-content: space-between;
+}
+
+.details_section{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+}
+
+.title_con{
+    display: flex;
+    flex-direction: row;
+    column-gap: 10%;
+}
+
+.title_con h1{
+    font-family: Montserrat;
+    font-size: calc(1rem + 0.8vw);
+    letter-spacing: 0.01rem;
+    text-align: start;
+    color: var(--accent-color);
+    font-weight: 600;
+  }
+
+.ended{
+    width: fit-content;
+    height: fit-content;
+    cursor:not-allowed;
+    padding: 0.2em 2em;
+    color:  var(--secondary-color);
+    background-color: var(--forth-color);
+    border: none;
+    border-radius: 0.5em;
+    margin: auto 0;
+}
+
+.ended p{
+    font-family: Montserrat;
+    font-size: calc(0.5rem + 0.4vw);
+    letter-spacing: 0.01rem;
+    text-align: start;
+    color: var(--secondary-color);
+    line-height: 0;
+}
+
+.img_con{
+    width: 100%;
+    height: 25em;
+    margin: 0 auto;
+}
+
+.img_con img{
+    width: 100%;
+    height: 100%;
+    border-radius: 1em;
+    object-fit: fill !important;
+}
+
+.points{
+    padding: 1em 0;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+}
+
+.points h3{
+    font-family: Montserrat;
+    font-size: calc(0.8rem + 0.4vw);
+    font-weight: 600;
+    letter-spacing: 0.01rem;
+    text-align: start;
+    color: var(--accent-color);
+    line-height: 0;
+}
+
+.points_list{
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    justify-content: space-between;
+}
+
+.points_list p{
+    font-family: Montserrat;
+    font-size: calc(0.7rem + 0.4vw);
+    font-weight: 400;
+    letter-spacing: 0.01rem;
+    text-align: start;
+    color: var(--accent-color);
+    display: flex;
+    flex-direction: row;
+    column-gap: 1em;
+}
+
+.details_box{
+    width: 100%;
+    height: fit-content;
+    cursor:not-allowed;
+    padding: 1em 0;
+    background-color: var(--forth-color);
+    border: none;
+    border-radius: 1em;
+    margin: auto 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.detail_item{
+    display: flex;
+    flex-direction: column;
+    row-gap: 0em;
+}
+
+.detail_item p{
+    font-family: Montserrat;
+    font-size: calc(0.8rem + 0.4vw);
+    letter-spacing: 0.01rem;
+    text-align: center;
+    color: var(--secondary-color);
+    font-weight: 500;
+    line-height: 0;
+}
+
+.map_con{
+    padding: 2em 0;
+    width: 100%;
+    height: 18em;
+    margin: 0 auto;
+    border-radius: 1em !important;
+}
+
+.about{
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5em;
+    padding-bottom: 5em;
+    border-bottom: 1px solid var(--accent-color);
+}
+
+.about h3{
+    font-family: Montserrat;
+    font-size: calc(0.8rem + 0.5vw);
+    font-weight: 600;
+    letter-spacing: 0.01rem;
+    text-align: start;
+    color: var(--accent-color);
+    line-height: 0;
+}
+
+.about p{
+    font-family: Montserrat;
+    font-size: calc(0.8rem + 0.5vw);
+    letter-spacing: 0.01rem;
+    line-height: 150%;
+    text-align: start;
+    color: var(--accent-color);
+    font-weight: 400;
+}
+
+.socials{
+    /* width: 30%; */
+    display: flex;
+    flex-direction: row;
+    column-gap: 8%;
+    padding: 2em 0;
+}
+
+.social_icon{
+    width: 1.5em;
+    height: 1.5em;
+    color: var(--forth-color);
+    cursor: pointer !important;
+}
+
+.socials h3{
+    font-family: Montserrat;
+    font-size: calc(1rem + 0.6vw);
+    font-weight: 600;
+    letter-spacing: 0.01rem;
+    text-align: start;
+    color: var(--accent-color);
+    line-height: 0;
+    margin: 0.5em -1em 0 0;
+}
+
+.form{
+    padding: 2em 0;
+}
+
+.form h3{
+    font-family: Montserrat;
+    font-size: calc(1rem + 0.6vw);
+    font-weight: 600;
+    letter-spacing: 0.01rem;
+    text-align: start;
+    color: var(--accent-color);
+    line-height: 0;
+}
+
+.form_input{
+    padding: 2em 0;
+}
+
+.reviews{
+    display: flex;
+    flex-direction: column;
+    row-gap: 2em;
+}
+
+.review_card{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1em;
+    border: 1px solid var(--accent-color);
+    padding: 0.8em 0.5em 0.5em 1em;
+}
+
+.review_card h3{
+    font-family: Montserrat;
+    font-size: calc(0.8rem + 0.5vw);
+    font-weight: 600;
+    letter-spacing: 0.01rem;
+    text-align: start;
+    color: var(--accent-color);
+    line-height: 0;
+}
+
+.review_card p{
+    font-family: Montserrat;
+    font-size: calc(0.8rem + 0.5vw);
+    letter-spacing: 0.01rem;
+    text-align: start;
+    color: var(--accent-color);
+    font-weight: 400;
+}
+
+
+.btn{
+    width: fit-content;
+    height: fit-content;
+    cursor: pointer;
+    padding: 0.8em 4em;
+    margin: 0 auto;
+    color:  var(--secondary-color);
+    background-color: var(--forth-color);
+    transition: background-color 0.5s ease, color 1s ease;
+    border: none;
+    border-radius: 1em;
+    margin-top: 1%;
+}
+
+.btn:hover{
+    background-color: var(--accent-color) !important;
+    color:  var(--secondary-color) !important;
+}
+
+.events_list{
+    /* position: sticky !important;
+    top: 10%; */
+    height: fit-content;
+}
+
+.custom_select_mob{
+    width: 100% !important;
+    display: flex;
+    margin: auto;
+    border-radius: 1.5em !important;
+    background-color: var(--secondary-color) !important;
+    color: var(--forth-color) !important;
+    justify-self: flex-start !important;
+    padding: 0.4em 0 !important;
+  }
+  
+  .input{
+    border: none;
+    height: 100% !important;
+    width: 100%;
+    font-size: calc(0.7rem + 0.4vw);
+    color: var(--forth-color) !important;
+  }
+  
+    .input:focus{
+      outline: none;
+    }
+    .btn1{
+      width: fit-content;
+      border-radius:10px;
+      background:transparent;
+      border:1px solid transparent;
+      /* height:100%; */
+      margin-left:0;
+      color:#fff;
+      padding: .6em 1em;
+      margin: auto;
+      transition: background-color 0.5s ease, color 1s ease;
+    }
+
+    .listt{
+        width: 100%;
+        margin: 0 auto;
+        padding: 2em 0;
+    }
+    
+.listt h3{
+    font-family: Montserrat;
+    font-size: calc(1rem + 0.6vw);
+    font-weight: 600;
+    letter-spacing: 0.01rem;
+    text-align: start;
+    color: var(--accent-color);
+    line-height: 0;
+    margin-bottom: 2em;
+}
+
+.small_event_card{
+    width: 100%;
+    border: none;
+    display: grid;
+    grid-template-columns: 30% 70%;
+    flex-direction: column;
+    border-bottom: 1px solid var(--secondary-color);
+    padding: .5em 0;
+    cursor: pointer;
+}
+.small_event_card:hover{
+    border-radius: .5em;
+    background-color: var(--secondary-color);
+}
+
+.small_event_card h3{
+    width: 95%;
+    font-family: Montserrat;
+    font-size: calc(0.7rem + 0.4vw);
+    font-weight: 600;
+    line-height: normal;
+    text-align: start;
+    color: var(--accent-color);
+    margin: auto;
+}
+.small_event_card h5{
+    width: 95%;
+    margin: 0 auto;
+    font-family: Montserrat;
+    font-size: calc(0.6rem + 0.3vw);
+    font-weight: 600;
+    text-align: start;
+    color: var(--accent-color);
+}
+
+.small_event_card p{
+    width: 95%;
+    margin: .7em auto;
+    font-family: Montserrat;
+    font-size: calc(0.6rem + 0.3vw);
+    font-weight: 400;
+    color: var(--forth-color);
+}
+
+.owner_card{
+    width: 88%;
+    margin: 0 auto !important;
+    border: none;
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+    box-shadow: 0 2px 40px var(--secondary-color);
+    padding: 1.5em;
+    margin-bottom: 2em !important;
+}
+
+
+.owner_card_mob{
+    width: 88%;
+    margin: 0 auto !important;
+    border: none;
+    border-radius: 1em;
+    display: none;
+    flex-direction: column;
+    row-gap: 1em;
+    box-shadow: 0 2px 40px var(--secondary-color);
+    padding: 1.5em;
+    margin-top: 2em !important;
+}
+
+.owner_info{
+    display: grid;
+    grid-template-columns: 30% 70%;
+}
+
+.owner_info img{
+    width: 5em;
+    height: 5em;
+    border-radius: 50%;
+    object-fit: fill !important;
+}
+
+.name h3{
+    font-family: Montserrat;
+    font-size: calc(0.8rem + 0.4vw);
+    font-weight: 600;
+    letter-spacing: 0.01rem;
+    text-align: start;
+    color: var(--accent-color);
+    margin-bottom: 1em;
+    line-height: 0%;
+    margin-top: 1.2em;
+}
+
+.name p{
+    font-family: Montserrat;
+    font-size: calc(0.6rem + 0.4vw);
+    font-weight: 400;
+    letter-spacing: 0.01rem;
+    text-align: start;
+    color: var(--accent-color);
+}
+
+.owner_details p{
+    font-family: Montserrat;
+    font-size: calc(0.6rem + 0.4vw);
+    font-weight: 400;
+    letter-spacing: 0.01rem;
+    text-align: start;
+    color: var(--accent-color);
+}
+
+@media screen and (max-width:1024px) {
+    
+    .content{
+        grid-template-columns: 1fr;
+        padding: 2em 0 0em 0;
+        width: 92%;
+    }
+
+    .points_list{
+        grid-template-columns: 1fr;
+    }
+
+    .img_con{
+        height: 18em;
+    }
+    
+.events_detail_image_con{
+    margin-top: 0;
+}
+
+  .card_container:hover{
+    box-shadow: 0 0 0 transparent;
+    transform: scale(1);
+  }
+
+  .events_list{
+    display: none;
+  }
+
+  .owner_card_mob{
+    display: flex;
+  }
+}
+
+
+
+@media screen and (max-width:750px) {
+    .imageContent {
+      width: fit-content; 
+      left: 0;
+      right: 0;
+      margin: auto;
+      transform: none; 
+    }
+  }
