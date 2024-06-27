@@ -2,7 +2,6 @@ import { useState } from 'react'
 import './App.css'
 import Navbar from './Components/Common/Navbar Section/Navbar'
 import { Navigate, Route, Routes } from 'react-router-dom';
-import SideBar from './Components/Common/Sidebar Section/SideBar';
 
 import { ToastContainer, toast } from 'react-toastify';
 import Footer from './Components/Common/Footer Section/Footer';
@@ -10,6 +9,7 @@ import HomePage from './Components/Home Page/HomePage';
 import { useSelector } from 'react-redux';
 import ScrollToTop from './Components/Common/ScrollToTop'
 import About from './Components/About Page/About';
+import SideBar from './Components/Common/SideBar Section/SideBar'
 
 
 function App() {

@@ -7,267 +7,298 @@ import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import MenuIcon from '@mui/icons-material/Menu';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { Link } from "react-router-dom";
+import fixedlogo from "../../../assets/Footerlogo.svg";
+import { FaRegUser, FaUser  } from "react-icons/fa6";
+import { PiShoppingCartSimpleLight  } from "react-icons/pi";
+import { IoClose } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { changeCurrency, changeLanguage } from "../redux/productSlice";
 
 
-
-export default function SideBar({ toggle, isOpen }) {
+export default function SideBar({ toggle, isOpen, carttoggle }) {
   
-  const [isExpanded, setIsExpanded] = React.useState('');
-  
+  const [shopopen, setshopisopen] = React.useState(false);
+  const [collopen, setcollisopen] = React.useState(false);
+  const [accopen, setaccisopen] = React.useState(false);
+  const [lanopen, setlanisopen] = React.useState(false);
+  const [curopen, setcurisopen] = React.useState(false);
+  const dispatch = useDispatch()
+  const userInfo = useSelector((state) => state.products.userInfo);
+  const language = useSelector(
+    (state) => state.products.selectedLanguage[0].Language
+  );
+  const currency = useSelector(
+    (state) => state.products.selectedCurrency[0].currency
+  );
+
+  const handleChangeCurrency = async (cur) => {
+    dispatch(changeCurrency({ currency: cur }));
+    try {
+      await axios.put(
+        `https://api.leonardo-service.com/api/bookshop/users/${userInfo.id}`,
+        { currency: cur },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.error("Error updating currency:", error);
+    }
+  };
+
+  const handleChangeLanguage = async (lan) => {
+    dispatch(changeLanguage({ Language: lan }));
+    try {
+      await axios.put(
+        `https://api.leonardo-service.com/api/bookshop/users/${userInfo.id}`,
+        { language: lan },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.error("Error updating language:", error);
+    }
+  };
   const list = (anchor) => ( 
     <>
-    <button style={{position:'absolute',top:'1.5em',backgroundColor:'transparent',border:'none', right:'1em', color:'#fff'}}>
-      <HighlightOffIcon style={{width:'1.2em', height:'1.2em',color:'#FFC799'}} onClick={toggle}/>
-    </button>
-    <Box
-      // sx={{ height: "fit-content !important" }}
+     <Box
+      sx={{ height: "100% !important" }}
       role="presentation"
+      // onClick={toggle}
+      // onKeyDown={toggle}
       className={classes.container}
     >
-      
+     
+    <div className={classes.mobile_nav_fixed}>
+       <IoClose className={classes.close_icon} onClick={toggle} style={{color:'#fff'}}/>
+       <Link  to='/' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+        <img src={fixedlogo} style={{width:'100%', height:'100%'}} alt="logo" />
+        </Link>
+      </div>
       <List>
+    
 
+        <Link  to='/books' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+        <ListItem disablePadding style={{marginTop:'0.5em'}}>
+          <ListItemButton>
+            <ListItemText className={classes.text}>
+            Livres 
+                {/* {shopopen ? <IoIosArrowDown style={{transform:'rotate(180deg)'}} /> : <IoIosArrowDown /> } */}
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+        </Link>
+
+        <Link  to='/' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+        <ListItem disablePadding>
+          <ListItemButton >
+            <ListItemText className={classes.text}>
+            Jouets 
+                {/* {collopen ? <IoIosArrowDown style={{transform:'rotate(180deg)'}} /> : <IoIosArrowDown /> } */}
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+        </Link>
+
+
+        <Link  to='/' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemText className={classes.text}>
-            <div>
-            <h3 onClick={()=>{if (isExpanded === 'SOFIADIS') {
-                                  setIsExpanded('')
-                                } else {
-                                  setIsExpanded('SOFIADIS')
-                                }}} className={classes.navLink}>
-            SOFIADIS
-              {isExpanded === 'SOFIADIS' ? (
-                <span style={{ margin: "auto", paddingRight: "0", rotate: "180deg"}} >
-                  <IoIosArrowDown />
-                </span>
-              ) : (
-                <span style={{ margin: "auto", paddingLeft: "0" }}>
-                  <IoIosArrowDown />
-                </span>
-              )}
-            </h3>
-        <Divider color="#FFC799" width="100%"/>
-            {isExpanded === 'SOFIADIS' && (
-              <div style={{width:'70%',marginLeft:'20%'}}>
-                <p className={classes.subCaregory} onClick={()=>toast.info('En Cours De Construction!')}>
-                    La sofiadis aujourd'hui
-                </p>
-                <p className={classes.subCaregory} onClick={()=>toast.info('En Cours De Construction!')}>
-                    Contacts & adresses
-                </p>
-              </div>
-            )}
-          </div>
+            parfum
             </ListItemText>
           </ListItemButton>
         </ListItem>
+        </Link>
 
+         <Link  to='/' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+         <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemText className={classes.text}>
+            vetements
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+        </Link>
+
+
+        <Link  to='/' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemText className={classes.text}>
-            <div>
-            <h3 onClick={()=>{if (isExpanded === 'DISTRIBUTION') {
-                                  setIsExpanded('')
-                                } else {
-                                  setIsExpanded('DISTRIBUTION')
-                                }}} className={classes.navLink}>
-            DISTRIBUTION
-              {isExpanded === 'DISTRIBUTION' ? (
-                <span style={{ margin: "auto", paddingRight: "0", rotate: "180deg"}} >
-                  <IoIosArrowDown />
-                </span>
-              ) : (
-                <span style={{ margin: "auto", paddingLeft: "0" }}>
-                  <IoIosArrowDown />
-                </span>
-              )}
-            </h3>
-        <Divider color="#FFC799" width="100%"/>
-            {isExpanded === 'DISTRIBUTION' && (
-              <div style={{width:'70%',marginLeft:'20%'}}>
-                <p className={classes.subCaregory} onClick={()=>toast.info('En Cours De Construction!')}>
-                Qu'est-ce que la Distribution?
-                </p>
-                <p className={classes.subCaregory} onClick={()=>toast.info('En Cours De Construction!')}>
-                Contacts & adresses
-                </p>
-              </div>
-            )}
-          </div>
+            tapis de priere
             </ListItemText>
           </ListItemButton>
         </ListItem>
+        </Link>
 
+        <Link  to='/' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemText className={classes.text}>
-            <div>
-            <h3 onClick={()=>{if (isExpanded === 'DIFFUSION') {
-                                  setIsExpanded('')
-                                } else {
-                                  setIsExpanded('DIFFUSION')
-                                }}} className={classes.navLink}>
-            DIFFUSION
-              {isExpanded === 'DIFFUSION' ? (
-                <span style={{ margin: "auto", paddingRight: "0", rotate: "180deg"}} >
-                  <IoIosArrowDown />
-                </span>
-              ) : (
-                <span style={{ margin: "auto", paddingLeft: "0" }}>
-                  <IoIosArrowDown />
-                </span>
-              )}
-            </h3>
-        <Divider color="#FFC799" width="100%"/>
-            {isExpanded === 'DIFFUSION' && (
-              <div style={{width:'70%',marginLeft:'20%'}}>
-                <p className={classes.subCaregory} onClick={()=>toast.info('En Cours De Construction!')}>
-                  Qu'est-ce que la diffusion?
-                </p>
-                <p className={classes.subCaregory} onClick={()=>toast.info('En Cours De Construction!')}>
-                Notre partenaire diffuseur
-                </p>
-              </div>
-            )}
-          </div>
+            Nos éditeurs
             </ListItemText>
           </ListItemButton>
         </ListItem>
+        </Link>
 
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemText className={classes.text}>
-            <div>
-            <h3 onClick={()=>{if (isExpanded === 'EDITEURS') {
-                                  setIsExpanded('')
-                                } else {
-                                  setIsExpanded('EDITEURS')
-                                }}} className={classes.navLink}>
-            EDITEURS
-              {isExpanded === 'EDITEURS' ? (
-                <span style={{ margin: "auto", paddingRight: "0", rotate: "180deg"}} >
-                  <IoIosArrowDown />
-                </span>
-              ) : (
-                <span style={{ margin: "auto", paddingLeft: "0" }}>
-                  <IoIosArrowDown />
-                </span>
-              )}
-            </h3>
-        <Divider color="#FFC799" width="100%"/>
-            {isExpanded === 'EDITEURS' && (
-              <div style={{width:'70%',marginLeft:'20%'}}>
-                <p className={classes.subCaregory} onClick={()=>toast.info('En Cours De Construction!')}>
-                Relation éditeurs
-                </p>
-                <p className={classes.subCaregory} onClick={()=>toast.info('En Cours De Construction!')}>
-                Liste des éditeurs
-                </p>
-              </div>
-            )}
-          </div>
-            </ListItemText>
-          </ListItemButton>
-        </ListItem>
+<Link  to='/' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+<ListItem disablePadding>
+  <ListItemButton>
+    <ListItemText className={classes.text}>
+    AGENDA
+    </ListItemText>
+  </ListItemButton>
+</ListItem>
+</Link>
 
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemText className={classes.text}>
-            <div>
-            <h3 onClick={()=>{if (isExpanded === 'LIBRAIRIES') {
-                                  setIsExpanded('')
-                                } else {
-                                  setIsExpanded('LIBRAIRIES')
-                                }}} className={classes.navLink}>
-            LIBRAIRIES
-              {isExpanded === 'LIBRAIRIES' ? (
-                <span style={{ margin: "auto", paddingRight: "0", rotate: "180deg"}} >
-                  <IoIosArrowDown />
-                </span>
-              ) : (
-                <span style={{ margin: "auto", paddingLeft: "0" }}>
-                  <IoIosArrowDown />
-                </span>
-              )}
-            </h3>
-        <Divider color="#FFC799" width="100%"/>
-            {isExpanded === 'LIBRAIRIES' && (
-              <div style={{width:'70%',marginLeft:'20%'}}>
-                <p className={classes.subCaregory} onClick={()=>toast.info('En Cours De Construction!')}>
-                Site extranet
-                </p>
-                <p className={classes.subCaregory} onClick={()=>toast.info('En Cours De Construction!')}>
-                Informations SOFIADIS
-                </p>
-                <p className={classes.subCaregory} onClick={()=>toast.info('En Cours De Construction!')}>
-                NOUVEAUTÉS / CATALOGUE
-                </p>
-                <p className={classes.subCaregory} onClick={()=>toast.info('En Cours De Construction!')}>
-                Conditions Générales de vente
-                </p>
-              </div>
-            )}
-          </div>
-            </ListItemText>
-          </ListItemButton>
-        </ListItem>
+<Link  to='/' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+<ListItem disablePadding>
+  <ListItemButton>
+    <ListItemText className={classes.text}>
+    nos services
+    </ListItemText>
+  </ListItemButton>
+</ListItem>
+</Link>
 
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemText className={classes.text}>
-            <div>
-            <h3 onClick={()=>{if (isExpanded === 'NUMÉRIQUE') {
-                                  setIsExpanded('')
-                                } else {
-                                  setIsExpanded('NUMÉRIQUE')
-                                }}} className={classes.navLink}>
-            NUMÉRIQUE
-              {isExpanded === 'NUMÉRIQUE' ? (
-                <span style={{ margin: "auto", paddingRight: "0", rotate: "180deg"}} >
-                  <IoIosArrowDown />
-                </span>
-              ) : (
-                <span style={{ margin: "auto", paddingLeft: "0" }}>
-                  <IoIosArrowDown />
-                </span>
-              )}
-            </h3>
-        <Divider color="#FFC799" width="100%"/>
-            {isExpanded === 'NUMÉRIQUE' && (
-              <div style={{width:'70%',marginLeft:'20%'}}>
-                <p className={classes.subCaregory} onClick={()=>toast.info('En Cours De Construction!')}>
-                Qu'est ce que le numérique?
-                </p>
-                <p className={classes.subCaregory} onClick={()=>toast.info('En Cours De Construction!')}>
-                Contact et Adresse
-                </p>
-              </div>
-            )}
-          </div>
-            </ListItemText>
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemText className={classes.text} onClick={()=>toast.info('En Cours De Construction!')}>
-            <div>
-            <h3 onClick={()=>{setIsExpanded('')}} className={classes.navLink}>
-            CONTACT
-            </h3>
-        
-          </div>
-            </ListItemText>
-          </ListItemButton>
-        </ListItem>
+        <Divider
+          color="white"
+          width="90%"
+          style={{margin:'0.5em auto'}}
+        />
 
         
+
+{/* <Link  to='/contactus' style={{textDecoration: 'none', color:'white'}} onClick={toggle}> */}
+        <ListItem disablePadding>
+          <ListItemButton onClick={()=>setaccisopen(!accopen)}>
+            <ListItemText className={classes.text}>
+            <FaRegUser style={{marginRight:'0.5em', marginTop: '0.2em'}}/>ACCOUNT  {accopen ? <IoIosArrowDown style={{transform:'rotate(180deg)'}} /> : <IoIosArrowDown /> }
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+        {/* </Link> */}
+
+        {accopen && <div style={{paddingLeft:'1em'}}>
+          
+          {/* <Link  to='/' style={{textDecoration: 'none', color:'white'}} onClick={toggle}> */}
+          <ListItem disablePadding>
+            {/* <ListItemButton> */}
+              <ListItemText className={classes.text1}>
+              Profile
+              </ListItemText>
+            {/* </ListItemButton> */}
+          </ListItem>
+          {/* </Link> */}
+  
+          
+          <Link  to='/wishlist' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+          <ListItem disablePadding>
+            {/* <ListItemButton> */}
+              <ListItemText className={classes.text1}>
+              Whishlist
+              </ListItemText>
+            {/* </ListItemButton> */}
+          </ListItem>
+          </Link>
+          
+          
+          {/* <Link  to='/' style={{textDecoration: 'none', color:'white'}} onClick={toggle}> */}
+          <ListItem disablePadding>
+            {/* <ListItemButton> */}
+              <ListItemText className={classes.text1}>
+              Logout
+              </ListItemText>
+            {/* </ListItemButton> */}
+          </ListItem>
+          {/* </Link> */}
+  
+          </div>}
+  
+
+        
+        {/* <Link  to='/' style={{textDecoration: 'none', color:'white'}} onClick={toggle}> */}
+        <ListItem disablePadding>
+          <ListItemButton onClick={()=>setcurisopen(!curopen)}>
+            <ListItemText   className={classes.text}>
+                {currency} {curopen ? <IoIosArrowDown style={{transform:'rotate(180deg)'}} /> : <IoIosArrowDown /> }
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+        {/* </Link> */}
+
+        {curopen && <div style={{paddingLeft:'1em'}}>
+          
+          {/* <Link  to='/' style={{textDecoration: 'none', color:'white'}} onClick={toggle}> */}
+          <ListItem disablePadding>
+            {/* <ListItemButton */}
+              <ListItemText onClick={()=>handleChangeCurrency('eur') & setcurisopen(false)} className={classes.text1}>
+             EUR
+              </ListItemText>
+            {/* </ListItemButton> */}
+          </ListItem>
+          {/* </Link> */}
+  
+          
+          {/* <Link  to='/' style={{textDecoration: 'none', color:'white'}} onClick={toggle}> */}
+          <ListItem disablePadding>
+            {/* <ListItemButton> */}
+              <ListItemText onClick={()=>handleChangeCurrency('usd') & setcurisopen(false)} className={classes.text1}>
+              USD
+              </ListItemText>
+            {/* </ListItemButton> */}
+          </ListItem>
+          {/* </Link> */}
+  
+          </div>}
+  
+
+        
+        {/* <Link  to='/' style={{textDecoration: 'none', color:'white'}} onClick={toggle}> */}
+        <ListItem disablePadding>
+          <ListItemButton onClick={()=>setlanisopen(!lanopen)}>
+            <ListItemText className={classes.text}>
+                {language} {lanopen ? <IoIosArrowDown style={{transform:'rotate(180deg)'}} /> : <IoIosArrowDown /> }
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+        {/* </Link> */}
+
+        {lanopen && <div style={{paddingLeft:'1em'}}>
+          
+          {/* <Link  to='/' style={{textDecoration: 'none', color:'white'}} onClick={toggle}> */}
+          <ListItem disablePadding>
+            {/* <ListItemButton> */}
+              <ListItemText onClick={()=>handleChangeLanguage('eng') & setlanisopen(false)} className={classes.text1}>
+              ENG
+              </ListItemText>
+            {/* </ListItemButton> */}
+          </ListItem>
+          {/* </Link> */}
+  
+          
+          {/* <Link  to='/' style={{textDecoration: 'none', color:'white'}} onClick={toggle}> */}
+          <ListItem disablePadding>
+            {/* <ListItemButton> */}
+              <ListItemText onClick={()=>handleChangeLanguage('fr')  & setlanisopen(false)} className={classes.text1}>
+              FR
+              </ListItemText>
+            {/* </ListItemButton> */}
+          </ListItem>
+          {/* </Link> */}
+  
+          </div>}
+
+
       </List>
     </Box>
     </>
@@ -283,9 +314,8 @@ export default function SideBar({ toggle, isOpen }) {
           onClose={toggle}  
           PaperProps={{
         style: {
-          height: '100%',
-          // margin:'10em 0',
-          width: '100%',
+          height: '100% !important',
+          width: '100% !important',
           background:'transparent',
           alignSelf:'start' // You can adjust the width as needed
         },
@@ -297,62 +327,3 @@ export default function SideBar({ toggle, isOpen }) {
     </div>
   );
 }
-
-
-{/* <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemText className={classes.text}>
-            <div className={classes.categories}>
-            <h2
-              onClick={() => setcatisopen(!catopen)}
-              style={
-                catopen
-                  ? {
-                      display: "grid",
-                      gridTemplateColumns: "80% 20%",
-                      borderBottom: "1px solid #B6D8ED",
-                      paddingLeft: "0%",
-                      paddingBottom: "4%",
-                    }
-                  : {
-                      display: "grid",
-                      gridTemplateColumns: "80% 20%",
-                      borderBottom: "none",
-                    }
-              }
-            >
-              LES CATEGORIES{" "}
-              {catopen ? (
-                <span
-                  style={{
-                    margin: "auto",
-                    paddingRight: "0",
-                    rotate: "180deg",
-                  }}
-                >
-                  <IoIosArrowDown />
-                </span>
-              ) : (
-                <span style={{ margin: "auto", paddingLeft: "0" }}>
-                  <IoIosArrowDown />
-                </span>
-              )}
-            </h2>
-            {catopen && (
-              <div className={classes.dropdown}>
-                {treeData.map((data) => {
-                  return (
-                    <div>
-                        <TreeNode data={data} level={0} toggle={toggle}/>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-            </ListItemText>
-          </ListItemButton>
-        </ListItem>
-
-      <Divider color="white" width="100%"/>
-      */}

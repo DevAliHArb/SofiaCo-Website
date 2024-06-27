@@ -113,6 +113,13 @@
   .content{
     width: 100%;
   }
+  
+  .header p{
+    width: 88%;
+}
+.hex_container{
+  margin: 2em auto 2em auto;
+}
 }
 
 @media screen and (max-width:650px) {

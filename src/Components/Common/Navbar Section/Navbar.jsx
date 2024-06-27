@@ -433,6 +433,7 @@ const Navbar = ({ toggle }) => {
               </div>
       </div>
       <div className={classes.mobilefixed} style={{display: isScrolled ? 'flex' : 'none'}}>
+      <div className={classes.mobfixedcontent}>
       <div className={classes.logocontainer1}>
             <img
               src={logo}
@@ -454,6 +455,7 @@ const Navbar = ({ toggle }) => {
                 </div>
             <MenuIcon style={{ fontSize: "3em", width:'0.8em', height:'0.8em', marginTop:'-0.1em' }} onClick={toggle}/>
               </div>
+      </div>
       </div>
     </>
   );

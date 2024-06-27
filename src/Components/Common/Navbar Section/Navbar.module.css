@@ -289,8 +289,14 @@
         padding: 0.5em 0;
     }
     .mobilefixed{
-        width: 90%;
+        width: 100%;
         position: fixed;
+        background-color: #fff;
+        z-index: 99;
+    }
+
+    .mobfixedcontent{
+        width: 90%;
         display: flex;
         flex-direction: row;
         margin: auto;

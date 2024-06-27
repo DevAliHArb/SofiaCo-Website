@@ -10,26 +10,30 @@
   transition: background-color 0.5s ease, color 1s ease;
 }
 
-
-.container{
-  height: fit-content!important;
-  text-align: center;
-  width: 20em !important;
-  background-color: #4A4A4A;
-  margin: 7em 0 auto 0;
-  border-radius: 0em 4em 4em 1em;
-  padding: 5em 0;
-}
-
 .btn:hover{
   background:var(--primary-color);
   color:#fff;
 }
 
+.custom_select{
+  height: 2.5em !important;
+  padding: 0 !important;
+}
+
+.customIcon {
+  font-size: 24px; 
+  margin: 0 0.2em;/* Adjust the size as needed */
+}
 .input{
   width: 100%;
   border-radius: 0.5em;
-  height: 2.5em;
+  height: 2.8em !important;
+  padding: 0 !important;
+  border:2px solid var(--secondary-color) !important;
+  color: var(--primary-color);
+}
+.input::placeholder{
+  color: var(--primary-color) !important;
 }
   .input:focus{
     outline: none;

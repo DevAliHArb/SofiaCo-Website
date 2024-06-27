@@ -45,7 +45,7 @@ const Hero = ({ carttoggle }) => {
       const response = await axios.get(
         `https://api.leonardo-service.com/api/bookshop/articles?ecom_type=bookshop&is_selected`
       );
-      console.log(response.data.data);
+      
       setArticles(response.data.data);
     } catch (error) {
       console.error("Error fetching articles:", error);

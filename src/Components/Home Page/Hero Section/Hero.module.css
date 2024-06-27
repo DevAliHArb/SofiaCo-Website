@@ -39,6 +39,7 @@
 
 .header h1{
   position: relative;
+  text-align: start;
   font-size: calc(1.5rem + 0.9vw);
   color: var(--secondary-color);
   font-family: var(--font-family);

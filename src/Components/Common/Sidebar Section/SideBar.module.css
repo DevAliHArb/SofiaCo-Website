@@ -1,36 +1,61 @@
 .container{
+    position: relative;
+    height: 100%!important;
     text-align: center;
-    height: 100vh;
-    background-color: #163445;
-    padding: 3em 0;
+    width: 20em !important;
+    background-color: var(--secondary-color);
+    /* margin: 7em 0 auto 0; */
+    padding: 1em 0;
 }
 
 .text{
-    width: 100%;
-    color: #FFC799;
-    text-align: center;
+    color: #fff;
+    text-align: start;
+    margin-left: 1em;
     width: fit-content;
-    font-family: Bebas Neue;
+    line-height: 0;
+    font-family: Lato;
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
-.logo{
-    width: 30%;
+.text1{
+    color: #fff;
+    text-align: start;
+    margin-left: 2em;
+    width: fit-content;
+    line-height: 0;
+    font-family: Lato;
+    font-weight: 300;
+}
+
+.mobile_nav_fixed{
+    z-index: 99;
+    display: flex;
+    flex-direction: row;
     justify-content: center;
-    margin-bottom: 20%;
+    /* padding: 1em 2em; */
+    background-color: var(--secondary-color);
 }
 
-.navLink{
-    display: grid;
-    grid-template-columns: 80% 20%;
-    padding-left: 2em;
-    text-align: start;
-    margin: .5em 0;
+.mobile_nav_fixed img{
+    width: 50% !important;
+    margin-left: 1.5em;
 }
 
-.subCaregory{
-    border-bottom: 1px solid rgba(242, 242, 242, 0.30);
-    width: 100%;
-    color: var(--Sous-menu-mobile-color, #FFF);
-    text-align: start;
-    padding: .4em 0 .4em 2em;
+.mob_icon{
+    width: 2.2em;
+    height: 2.2em;
+    margin: auto 0;
+}
+
+.close_icon{
+    position: absolute;
+    left: 2em;
+    top: 2em;
+    width: 1.7em;
+    height: 1.7em;
+    background-color: transparent;
+    border-radius: 8px;
+
 }

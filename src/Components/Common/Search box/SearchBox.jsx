@@ -1,15 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import classes from "./SearchBox.module.css";
 import { ToastContainer, toast } from "react-toastify";
-import {
-  Box,
-  FormControl,
-  InputAdornment,
-  MenuItem,
-  Select,
-  TextField,
-} from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import { Input, Spin } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 import AuthContext from "../authContext";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,7 +10,7 @@ import { addSearchData, addSelectedBook, deleteSelectedBook, editSearchData } fr
 import { useNavigate } from "react-router-dom";
 import img from "../../../assets/bookPlaceholder.png";
 
-
+const { Search } = Input;
 
 function SearchBox() {
   const language = useSelector((state) => state.products.selectedLanguage[0].Language);
@@ -37,7 +30,6 @@ function SearchBox() {
   const handleSearchInputChange = (e) => {
     setCatSearchQuery(e.target.value);
   };
-
 
   const handleSearch = async () => {
     setLoading(true);
@@ -65,7 +57,6 @@ function SearchBox() {
       setLoading(false); // Set loading to false after fetching data
     }
   };
-  
 
   useEffect(() => {
     if (searchQuery.length >= 2) {
@@ -83,68 +74,62 @@ function SearchBox() {
     setSearchQuery('');
   };
 
-
   return (
     <>
-      <div
-        style={{
-          width: "100%",
-          borderRadius: "10px",
-          background: "#fff",
-          border: "1px solid #f3f3f3",
-          // padding:'1% 0'
-        }}
-        className={classes.custom_select}
-      >
-        <input
+      <div className={classes.custom_select}>
+        <Input
           type="text"
           placeholder={
             selectedOption === "Book"
               ? language === "eng"
-                ? "Find your books here..."
-                : "Trouvez vos livres ici..."
+                ? "Search..."
+                : ""
               : language === "eng"
               ? `Find your ${selectedOption.toLowerCase()} books here...`
               : `Trouvez vos livres ${selectedOption.toLowerCase()} ici...`
-          }          value={searchQuery}
+          }
+          value={searchQuery}
           className={classes.input}
           onChange={(e) => setSearchQuery(e.target.value)}
           onFocus={() => setIsDropdownOpen(true)}
-          
+          prefix={<SearchOutlined  className={classes.customIcon}/>}
         />
         {articles.length > 0 && searchQuery.length > 1 && (
           <div className={classes.dropdown1}>
             {loading ? (
-              <div style={{padding:'2em', textAlign:'center'}}><h1 style={{margin:'auto'}}>Loading...</h1></div>
+              <div style={{ padding: '2em', textAlign: 'center' }}>
+                <Spin size="large" />
+              </div>
             ) : (
               <>
                 {articles.map((article, index) => (
                   <div
                     key={index}
                     className={classes.dropdown_card}
-                    onClick={() => { authCtx.setbookDetails(article);dispatch(deleteSelectedBook(article.id));dispatch(addSelectedBook(article));setSearchQuery('') ; navigate(`/bookdetails/${article.id}`);console.log(article.id)}}
+                    onClick={() => {
+                      authCtx.setbookDetails(article);
+                      dispatch(deleteSelectedBook(article.id));
+                      dispatch(addSelectedBook(article));
+                      setSearchQuery('');
+                      navigate(`/bookdetails/${article.id}`);
+                    }}
                   >
                     <div className={classes.dropdown_card_img}>
-                    {article.articleimage[0] ? (
-                      <img
-                        src={`${article.articleimage[0]?.link}`}
-                        alt=""
-                        width="100%"
-                        height="100%"
-                        className={classes.img}
-                      />
-                    ) : (
-                      <img src={img} className={classes.img} alt="" width="100%" height="100%" />
-                    )}
+                      {article.articleimage[0] ? (
+                        <img
+                          src={`${article.articleimage[0]?.link}`}
+                          alt=""
+                          width="100%"
+                          height="100%"
+                          className={classes.img}
+                        />
+                      ) : (
+                        <img src={img} className={classes.img} alt="" width="100%" height="100%" />
+                      )}
                     </div>
                     <div className={classes.dropdown_card_content}>
                       <h3>{article.designation}</h3>
                       <p>{article.prixpublic}</p>
-                      {/* {selectedOption === 'Editor' && <p style={{color:'red'}}>{article.editor?._nom}</p>}
-                      {selectedOption === 'Collection' && <p style={{color:'red'}}>{article.dc_collection}</p>}
-                      {selectedOption === 'Illustrator' && <p style={{color:'red'}}>{article.dc_traducteur}</p>}
-                      {selectedOption === 'Translator' && <p style={{color:'red'}}>{article.dc_traducteur}</p>}
-                      {selectedOption === 'Author' && <p style={{color:'red'}}>{article.dc_auteur}</p>} */}
                     </div>
                   </div>
                 ))}
@@ -156,4 +141,5 @@ function SearchBox() {
     </>
   );
 }
+
 export default SearchBox;

@@ -10,8 +10,8 @@
 
 .imgabs {
   position: absolute;
-  bottom: -5em;
-  left: 0;
+  bottom: -1.5em;
+  left: 0em;
   z-index: -1;
 }
 
