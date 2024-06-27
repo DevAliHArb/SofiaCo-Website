@@ -8,6 +8,7 @@ import data from "../../Data.json";
 
 import axios from 'axios';
 import { useSelector } from "react-redux";
+import Services from "../Home Page/Services Section/Services";
 
 const About = () => {
   
@@ -27,6 +28,7 @@ useEffect(() => {
 }, []);
 
   return (
+    <>
     <div className={classes.home_container} style={{position:"relative"}}>
         <div className={classes.content}>
         <div className={classes.header}>
@@ -72,27 +74,6 @@ useEffect(() => {
                     ></iframe>
                   </div>
           </div>
-        
-            {/* <div className={classes.card_con}>
-              <div className={classes.card}>
-                <div className={classes.card_txt}>
-                </div>
-              </div>
-              <div className={classes.categories}>
-                  <h1>{language === 'eng' ? "OUR" : "NOS"} <span style={{color:'var(--primary-color)'}}>{language === 'eng' ? "professions" : "métiers"}</span></h1>
-                  {aboutData.about_services?.map((data)=>{
-                    return(
-                      <div style={{display:'flex', flexDirection:'row', columnGap:'0.5em'}}>
-                          <ArrowCircleDownRoundedIcon className={classes.arrow_icon}/>
-                          <div style={{display:'flex', flexDirection:'column'}}>
-                            <h2 className={classes.cat_head}>{data.title}</h2>
-                            <p style={{fontSize:'calc(0.5rem + 0.5vw)'}}>{language === 'eng' ? data.title_eng : data.title_fr}</p>
-                          </div>
-                      </div>
-                    )
-                  })}
-              </div>
-            </div> */}
       </div>
           <div className={classes.big_container}>
           <h1 className={classes.LocationContainerh1}>{data.AboutPage.TrackersSection.title[language]}</h1>
@@ -120,6 +101,8 @@ useEffect(() => {
           <div className={classes.dealsBG}><img src={dealsBG} alt="" style={{width:"auto",height:"100%",zIndex:"-1",marginRight:"auto"}}/></div>
           </div>
     </div>
+          <Services/>
+          </>
   );
 };
 
