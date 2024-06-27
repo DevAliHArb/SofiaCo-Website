@@ -118,5 +118,18 @@
 }
 
 
-
+@media screen and (max-width: 950px) {
+  .dropdown_card_content h3{
+    font-size: small;
+  }
+  
+.dropdown_card{
+  grid-template-columns: 25% 73%;
+}
+  
+.dropdown_card_img img{
+  height: 80%;
+  object-fit: fill;
+}
+}
 
