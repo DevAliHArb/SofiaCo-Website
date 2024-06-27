@@ -204,7 +204,7 @@
     margin: auto !important;
     margin-left: -0.07em !important;
     margin-top: -0.05em !important;
-    color: red;
+    color: white;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
   }
@@ -221,12 +221,12 @@
     margin-left: -0.07em !important;
     margin-top: -0.05em !important;
     cursor: pointer;
-    color: var(--secondary-color);
+    color: #fff;
     transition: all 0.3s ease-in-out;
   }
   
   .nonfav:hover{
-    color: red;
+    color: white;
     cursor: pointer;
     transform: scale(1.1);
   }
