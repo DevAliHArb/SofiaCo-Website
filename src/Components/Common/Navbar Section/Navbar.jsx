@@ -18,7 +18,7 @@ import { LuUser } from "react-icons/lu";
 import { MdFavoriteBorder } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../authContext";
-import { FormControl, MenuItem, Select } from "@mui/material";
+import { Box, FormControl, IconButton, Menu, MenuItem, Select } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { changeCurrency, changeLanguage } from "../redux/productSlice";
@@ -43,6 +43,7 @@ const Navbar = ({ toggle }) => {
     (state) => state.products.selectedCurrency[0].currency
   );
   const dispatch = useDispatch();
+  const [anchorElUser, setAnchorElUser] = useState(null);
 
   const getToken = () => {
     return localStorage.getItem("token");
@@ -84,6 +85,54 @@ const Navbar = ({ toggle }) => {
     } catch (error) {
       console.error("Error updating language:", error);
     }
+  };
+  const logout = async () => {
+    try {
+      // Get the token from local storage
+      const token = localStorage.getItem('token');
+  
+      // If token is not available, there's no need to logout
+      if (!token) {
+        return;
+      }
+  
+      // Set up headers with the token
+      const headers = {
+        Accept: `application/json`,
+        Authorization: `Bearer ${token}`,
+      };
+  
+      // Send a POST request to the logout endpoint
+      await axios.get('https://api.leonardo-service.com/api/bookshop/logout', { headers });
+  
+      // Remove the token from local storage after successful logout
+      localStorage.removeItem('token');
+  
+      dispatch(removeUser()) ;
+      navigate(`/login`);
+      // Add any additional logic you may need, such as redirecting the user to the login page or updating the application state
+    } catch (error) {
+      console.error('Error logging out:', error);
+      // Handle any errors that occur during logout
+    }
+  };
+  
+  const handleLogout = async () => {
+    try {
+      await logout();
+      // Perform any additional actions after successful logout
+    } catch (error) {
+      console.error('Error logging out:', error);
+      // Handle logout error
+    }
+  };
+  
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+  
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
   };
 
   useEffect(() => {
@@ -248,7 +297,61 @@ const Navbar = ({ toggle }) => {
                 {productData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'50%', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{productData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
-                <LuUser className={classes.icon} />
+                
+                <Box sx={{ flexGrow: 0 }}>
+                  <Tooltip title={language === 'eng' ? "Profile" : "Profil"}>
+                    <div onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      {userInfo?.id ? 
+                      <Avatar alt={userInfo.first_name} src={`https://api.leonardo-service.com/img/${userInfo.image}`} style={{borderRadius:'50%',width:'35px', height:'35px'}} className={classes.icon}/>
+                      : 
+                      <LuUser className={classes.icon} />
+                    }
+                    </div>
+                  </Tooltip>
+                  
+                  <Menu
+                    sx={{ mt: "45px" }}
+                    id="menu-appbar"
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right"
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right"
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                   { userInfo?.id  ? 
+                   <>
+                   <MenuItem key={1} onClick={()=>{ navigate(`/accountprofile`); handleCloseUserMenu()}} >
+                     <Typography textAlign="center">{language === 'eng' ? "Profile" : "Profil"}</Typography>
+                   </MenuItem>
+                   <MenuItem key={2} onClick={()=>{ navigate(`/ordertracking`); handleCloseUserMenu()}} >
+                     <Typography textAlign="center">{language === 'eng' ? "Orders Tracking" : "Suivi des Commandes"}</Typography>
+                   </MenuItem>
+                   <MenuItem key={3} onClick={()=>{ navigate(`/refund_return`); handleCloseUserMenu()}} >
+                     <Typography textAlign="center">{language === 'eng' ? "Orders Returns" : "Retours de Commandes"}</Typography>
+                   </MenuItem>
+                   <MenuItem key={4} onClick={()=>(handleCloseUserMenu() , handleLogout())} >
+                        <Typography textAlign="center">{language === 'eng' ? "Logout" : "Se Déconnecter"} </Typography>
+                      </MenuItem>
+                   </>
+                      :
+                      <>
+                      <MenuItem key={1} onClick={()=>handleCloseUserMenu() & navigate(`/login`)} >
+                        <Typography textAlign="center">{language === 'eng' ? "Login" : "Se Connecter"}</Typography>
+                      </MenuItem>
+                      <MenuItem key={2} onClick={()=>handleCloseUserMenu() & navigate(`/register`)} >
+                        <Typography textAlign="center">{language === 'eng' ? "Register" : "Registre"}</Typography>
+                      </MenuItem>
+                      </>
+                      }
+                  </Menu>
+                </Box>
                 </div>
               </div>
             </div>

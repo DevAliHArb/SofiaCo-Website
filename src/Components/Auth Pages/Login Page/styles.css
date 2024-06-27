@@ -1,0 +1,43 @@
+
+.form{
+    width: 40%;
+    margin: 0 auto;
+    align-items: center;
+    text-align: center;
+    justify-items: center;
+    margin-top: 1em;
+    z-index: 1;
+  }
+
+
+  .form .ant-input::placeholder{
+    color: #fff !important;
+  }
+
+  .form .ant-form-item-explain-error {
+    color: white !important;
+  }
+  
+@media screen and (max-width: 1400px) {
+  .form{
+      width: 50% !important;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .form{
+      width: 60% !important;
+  }
+}
+
+@media screen and (max-width: 1024px){
+  .form{
+      width: 70% !important;
+  }
+}
+
+@media screen and (max-width: 950px){
+  .form{
+      width: 80% !important;
+  }
+}

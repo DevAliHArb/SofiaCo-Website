@@ -19,8 +19,8 @@
 :root {
   --primary-color: #E97704; 
   --secondary-color: #212A53; 
-  /* --accent-color: rgba(127, 155, 201, 0.15); */
   --accent-color: #ECF0F7;
+  --authbg-color: #7F9BC9;
   --font-family: Raleway;  
 }
 

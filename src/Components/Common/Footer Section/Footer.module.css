@@ -15,6 +15,12 @@
   z-index: -1;
 }
 
+.imgabs img{
+  width: 25vw;
+  max-width: 25em;
+  height: 40em;
+}
+
 .imgabsmob {
   display: none;
   position: absolute;
