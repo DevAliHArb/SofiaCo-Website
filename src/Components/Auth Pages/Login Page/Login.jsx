@@ -11,6 +11,7 @@ import './styles.css'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { addInitialcart, addTofavorite, addUser } from '../../Common/redux/productSlice';
+import bookPlaceHolder from '../../../assets/bookPlaceholder.png'
 
 const Login = () => {
   const authCtx = useContext(AuthContext)
@@ -111,7 +112,7 @@ const onFinish = async () => {
     navigate(`/`);
   } catch (error) {
     const errormsg = error.response.data?.error;
-    console.error('Error in Login:', errormsg);
+    console.error('Error in Login:', error);
     toast.error( `Error in Login: ${errormsg}` , {
       position: "top-right",
       autoClose: 1500,

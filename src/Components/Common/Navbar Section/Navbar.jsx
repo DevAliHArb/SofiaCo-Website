@@ -21,14 +21,14 @@ import AuthContext from "../authContext";
 import { Avatar, Box, FormControl, IconButton, Menu, MenuItem, Select } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { changeCurrency, changeLanguage } from "../redux/productSlice";
+import { changeCurrency, changeLanguage, removeUser } from "../redux/productSlice";
 import { MdOutlineMail } from "react-icons/md";
 import { FiPhoneCall } from "react-icons/fi";
 import { FiTruck } from "react-icons/fi";
 import { FaArrowRightLong } from "react-icons/fa6";
 
 
-const Navbar = ({ toggle }) => {
+const Navbar = ({ toggle, carttoggle }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
@@ -87,6 +87,7 @@ const Navbar = ({ toggle }) => {
     }
   };
   const logout = async () => {
+    console.log('ok')
     try {
       // Get the token from local storage
       const token = localStorage.getItem('token');
@@ -114,16 +115,6 @@ const Navbar = ({ toggle }) => {
     } catch (error) {
       console.error('Error logging out:', error);
       // Handle any errors that occur during logout
-    }
-  };
-  
-  const handleLogout = async () => {
-    try {
-      await logout();
-      // Perform any additional actions after successful logout
-    } catch (error) {
-      console.error('Error logging out:', error);
-      // Handle logout error
     }
   };
   
@@ -294,7 +285,7 @@ const Navbar = ({ toggle }) => {
                 {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'50%', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{favoriteData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
-                <IoCartOutline className={classes.icon} onClick={()=>navigate(`/cart`)}/>
+                <IoCartOutline className={classes.icon} onClick={carttoggle}/>
                 {productData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'50%', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{productData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
@@ -337,7 +328,7 @@ const Navbar = ({ toggle }) => {
                    <MenuItem key={3} onClick={()=>{ navigate(`/refund_return`); handleCloseUserMenu()}} >
                      <Typography textAlign="center">{language === 'eng' ? "Orders Returns" : "Retours de Commandes"}</Typography>
                    </MenuItem>
-                   <MenuItem key={4} onClick={()=>(handleCloseUserMenu() , handleLogout())} >
+                   <MenuItem key={4} onClick={()=>{handleCloseUserMenu() ; logout()}} >
                         <Typography textAlign="center">{language === 'eng' ? "Logout" : "Se Déconnecter"} </Typography>
                       </MenuItem>
                    </>

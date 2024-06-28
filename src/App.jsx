@@ -48,7 +48,7 @@ useEffect(() => {
   return (
     <div className="App1">
       <div className="App" >
-    {!isAuthPages && <Navbar toggle={toggle}/>}
+    {!isAuthPages && <Navbar toggle={toggle} carttoggle={carttoggle}/>}
        {/* <SideBar isOpen={isOpen} toggle={toggle} /> */}
        <div >
          <Routes>

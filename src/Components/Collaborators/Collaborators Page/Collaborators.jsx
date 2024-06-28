@@ -313,6 +313,7 @@ const Collaborators = () => {
             
             <div key={props.id}  onClick={(event) => {
               event.stopPropagation();
+              dispatch(deleteSelectedCollab());
               dispatch(addSelectedCollab(props));
               navigate(`/collaborators/${props.id}/details`);
             }}

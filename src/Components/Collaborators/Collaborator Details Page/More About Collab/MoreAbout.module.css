@@ -3,7 +3,7 @@
     width: 100%;
     max-width: 1900px;
     height: fit-content;
-    margin: 5em auto;
+    margin: 5em auto 8em auto;
 }
 
 .content{
@@ -275,7 +275,9 @@
     cursor: pointer;
   }
   @media screen and (max-width:950px) {
-
+.big_container{
+  margin: 5em auto;
+}
     .favoriteIcon{
       top: 1.5em;
     }
@@ -313,10 +315,9 @@
   }
 
   @media screen and (max-width:650px) {
-    
     .big_container{
-      margin: 2em auto 1em auto;
-      }
+    margin: 5em auto 1em auto;
+    }
     .nav_next{
       right: 0;
       width: 1.5em;

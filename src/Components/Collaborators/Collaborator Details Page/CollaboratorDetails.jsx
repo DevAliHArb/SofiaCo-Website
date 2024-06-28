@@ -9,6 +9,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import OurSelectionBanner from '../../Common Components/Our Selection Banner/OurSelectionBanner';
+import MoreAbout from './More About Collab/MoreAbout';
 
 // description
 // image
@@ -66,12 +67,11 @@ const CollaboratorDetails = () => {
         <div className={classes.card} >
           <h1 style={{fontWeight:'600'}}>{CollaboratorData.nom}</h1>
           {/* <p style={{color:'var(--accent-color)',fontWeight:"500"}}>{CollaboratorData.type}</p> */}
-          <p style={{color:'var(--accent-color)',fontWeight:"500"}}>{CollaboratorData.biographie}</p>
-          <div className={classes.emailCont}>
+          <p>{CollaboratorData.biographie}</p>
+          {/* <div className={classes.emailCont}>
             <div className={classes.iconCont}><IoMailOutline style={{fontSize:'1.2em',marginTop:'.3em'}}/>
            </div> <p style={{margin:'auto 0',fontWeight:"500"}}>{CollaboratorData.email}</p>
-          </div>
-          <button className={classes.suivreBtn}  onClick={()=>handleSuivreClick(CollaboratorData.id)}>Subscribe</button>
+          </div> */}
         </div>
         <div className={classes.colabImage}>
         {CollaboratorData.image === '' ? 
@@ -79,19 +79,19 @@ const CollaboratorDetails = () => {
                     : 
                     <img src={`https://api.leonardo-service.com/img/${CollaboratorData.image}`} alt="" width="100%" height="100%" />  
                 }
-          <div className={classes.emailContMob}>
+          {/* <div className={classes.emailContMob}>
             <div className={classes.iconCont}><IoMailOutline style={{fontSize:'1.2em',marginTop:'.3em'}}/>
            </div> <p style={{margin:'auto 0',fontWeight:"500"}}>{CollaboratorData.email}</p>
-          </div>
-          <button className={classes.suivreBtnMob} onClick={()=>handleSuivreClick(CollaboratorData.id)}>Suivre</button>
+          </div> */}
         </div>
       </div> 
-        <div className={classes.biogrContainer}>
+        {/* <div className={classes.biogrContainer}>
           <h1>Biographie</h1>
           <p style={{fontWeight:"500"}}>{CollaboratorData.biographie}</p>
-        </div>
+        </div> */}
     </div>
         <Video />
+        <MoreAbout />
       {/* <ToastContainer
         position="top-right"
         autoClose={5000}

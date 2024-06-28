@@ -3,6 +3,13 @@
     width: 100%;
     height: fit-content;
     margin: 0 auto;
+    background-color: var(--accent-color);
+    background-image: url(../../../assets/dealsBG.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url(../../../../assets/videoBG.png);
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 .content{
@@ -74,7 +81,7 @@
   
   .videoDetails {
     /* flex: 1; */
-    font-family: Montserrat;
+    font-family: var(--font-family);
     color: #fff;
     font-size: calc(0.6rem + 0.3vw);
   }

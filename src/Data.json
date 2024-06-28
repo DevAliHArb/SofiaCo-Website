@@ -440,5 +440,13 @@
       "title":{"eng":"Our Selection", "fr": ""},
       "description":{"eng":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": ""},
       "button":{"eng":"Shop Now", "fr": ""}
+  },
+  "MoreForCollab":{
+      "title":{"eng":"More of this Collaborator", "fr": ""},
+      "description":{"eng":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": ""}
+  },
+  "AlsoSee":{
+      "title":{"eng":"You May Also Like", "fr": ""},
+      "description":{"eng":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": ""}
   }
 }

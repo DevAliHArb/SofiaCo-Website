@@ -7,6 +7,7 @@
     max-width: 1900px;
     margin: 0 auto;
     font-family: montserrat;
+    background-color: #fff;
 }
 
 .heroContainer{
@@ -55,7 +56,7 @@
   .cardContainer{
     position: relative;
     width: 88%;
-    margin: 0 auto;
+    margin: 5em auto;
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: 65% 40%;
@@ -85,18 +86,21 @@
   text-align: start;
   margin: 0 auto;
   padding: 0.5em 0;
+  text-transform: capitalize;
   width: 100%;
   color: var(--secondary-color);
 }
 
 .card p{
+  width: 90%;
   position: relative;
   font-size: calc(0.7rem + 0.3vw);
   color: var(--secondary-color);
   font-family: var(--font-family);
   font-weight: 400;
   line-height: normal;
-  margin: 1em auto;
+  margin: 1em 0;
+  text-align: start;
 }
 
 
@@ -169,6 +173,16 @@
   flex-direction: row;
   margin-top: 4em;
 }
+
+.emailCont p{
+  position: relative;
+  font-size: calc(0.7rem + 0.3vw);
+  color: var(--secondary-color);
+  font-family: var(--font-family);
+  font-weight: 400;
+  line-height: normal;
+  margin: 1em auto;
+}
 .emailContMob{
   display: none;
   flex-direction: row;
@@ -205,8 +219,13 @@
   .cardContainer{
     grid-template-columns: 1fr;
   }
+  .colabImage{
+    order: -1;
+    height: 40vw;
+    max-height: 35em;
+  }
   .card{
-    grid-row: 1;
+    grid-row: 2;
   }
   .emailCont{
     display: none;
@@ -226,17 +245,6 @@
     max-height: fit-content;
   }
   .colabImage img{
-    width: 70%;
-    margin-left: 15%;
-    height: auto;
+    height: 90vw;
   }
-}
-
-@media screen and (max-width:450px) {
-  .colabImage img{
-    width: 80%;
-    margin-left: 10%;
-    height: auto;
-  }
-
 }

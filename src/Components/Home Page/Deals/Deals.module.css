@@ -293,6 +293,9 @@
   }
 
   @media screen and (max-width:650px) {
+    .big_container{
+      margin: 0em auto 5em auto;
+      }
     .nav_next{
       right: 0.8em;
       width: 1.5em;
