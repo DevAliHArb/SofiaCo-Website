@@ -1,0 +1,46 @@
+
+.inputsContainer{
+    width: 100%;
+    display: grid;
+    grid-template-columns:  48.5% 48.5%;
+    column-gap: 3%;
+}
+
+.Btn{
+    background-color: var(--forth-color);
+    color: #DED8CC;
+    font-weight:600 ;
+    height: 3em;
+    width: 10em !important;
+    border-radius: .5em;
+}
+
+.formItem{
+    width: fit-content;
+}
+
+@media screen and (max-width:950px) {
+    .inputsContainer{
+        display: flex;
+        flex-direction: column;
+        column-gap: 3%;
+    }
+     
+}
+
+@media screen and (max-width:650px) {
+    .Btn{
+        background-color: var(--forth-color);
+        color: #DED8CC;
+        font-weight:600 ;
+        height: 3em;
+        width: 100% !important;
+        border-radius: .5em;
+    }
+    .formItem{
+        width: 100%;
+    }
+    
+}
+
+

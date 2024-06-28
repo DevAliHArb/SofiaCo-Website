@@ -1,0 +1,150 @@
+.cartsidebar{
+    width: fit-content;
+    max-width: 100vw;
+    padding: 0 5%;
+    background-color: white;
+}
+
+.header{
+    background-color: #fff;
+    position: relative;
+    margin-top: 0%;
+    top: 1%;
+    width: 100%;
+    z-index: 99;
+    margin: 0 auto; 
+    font-family: var(--font-family);
+    font-size: calc(0.9rem + 0.3vw);
+    
+}
+
+.btn_con{
+    width: 100%;
+    margin: 0 auto;
+}
+.btn{
+    font-family: var(--font-family);
+    font-size: calc(0.8rem + 0.3vw);
+    width: 100%;
+    background-color:var(--primary-color);
+    color:#fff;
+    font-weight: 600;
+    margin: 1em 0 3em 0;
+    padding: 1em 0%;
+    border-radius: .7em;
+    border:none;
+    transition: background-color 0.5s ease, color 1s ease;
+    cursor: pointer;
+}
+
+.btn:hover{
+    background-color: var(--secondary-color);
+}
+
+.card{
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 23% 63% 10%;
+    gap: 2%;
+    justify-content: space-between;
+    padding: 2% 0;
+    color: var(--secondary-color);
+    border-bottom: 1px solid var(--secondary-color);
+    margin: 0 auto;
+    
+}
+
+.imageCont{
+    width: 100%;
+    flex: 1;
+}
+
+.card p{
+    margin: 0.4em 0;
+}
+
+.quantity{
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: calc(0.7rem + 0.3vw);
+    font-family: var(--font-family);
+}
+
+.delete_btn{
+    width: fit-content;
+    border: none;
+    background-color: var(--primary-color);
+    color: #fff !important;
+    transition: background-color 0.5s ease, color 1s ease;
+    font-size: calc(0.7rem + 0.3vw);
+    border-radius: .7em;
+    padding: 0.5em .6em;
+    margin-left: auto;
+}
+
+.delete_btn:hover{
+    background-color: var(--secondary-color) !important;
+
+}
+.dicription{
+    width: 100%;
+    color: #002B7D !important;
+    height: 4.3em;
+    overflow: hidden;
+    font-size: calc(0.6rem + 0.2vw);
+}
+
+.dicription ,
+.dicription p,
+.dicription span,
+.dicription h1,
+.dicription h2,
+.dicription h3,
+.dicription h4,
+.dicription h5,
+.dicription h6,
+.dicription div {
+    color: #002B7D !important;
+    font-size: calc(0.6rem + 0.2vw) !important;
+    line-height: 1.5em !important;
+    margin: 0 !important;
+    font-weight: 500 !important;
+    font-family: var(--font-family) !important;
+    background-color: transparent !important;
+}
+.price{
+    color: var(--primary-color);
+    margin: 1em 0 !important;
+    font-size: calc(0.9rem + 0.3vw) !important;
+}
+
+.font_size{
+    font-size: calc(0.7rem + 0.3vw);
+}
+
+
+@media screen and (max-width: 650px) {
+   
+    .card{
+        position: relative;
+        width: 100%;
+        height: fit-content;
+        display: grid;
+        grid-template-columns: 30% 51% 15%;
+        gap: 2%;
+        justify-content: space-between;
+        padding: 2% 0;
+        color: #000;
+        border-bottom: 1px solid #6E90A9;
+        margin: 0 auto;
+        
+    }
+    .imageCont{
+        padding-bottom: 3em;
+    }
+}

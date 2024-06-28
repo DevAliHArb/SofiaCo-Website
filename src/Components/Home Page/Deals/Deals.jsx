@@ -315,7 +315,11 @@ const Deals = () => {
                               />
                             )}
                           </div>
-                          <button className={classes.buttoncart}>
+                          <button className={classes.buttoncart} 
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          authCtx.addToCart({props: props}); 
+                        }}>
                             {data.HomePage.Deals.button[language]}
                           </button>
                         </div>

@@ -19,6 +19,9 @@ import CollectionsPage from './Components/Collection Pages/Collections Page/Coll
 import CollectionDetailsPage from './Components/Collection Pages/CollectionDetails Page/CollectionDetails';
 import Collaborators from './Components/Collaborators/Collaborators Page/Collaborators';
 import CollaboratorDetails from './Components/Collaborators/Collaborator Details Page/CollaboratorDetails';
+import CartSidebar from './Components/Common/Cart SideBar/CartSidebar';
+import Cart from './Components/Cart Page/Cart';
+import CheckOut from './Components/CheckOut Page/CheckOut';
 
 
 function App() {
@@ -49,6 +52,7 @@ useEffect(() => {
     <div className="App1">
       <div className="App" >
     {!isAuthPages && <Navbar toggle={toggle} carttoggle={carttoggle}/>}
+        <CartSidebar isOpen={cartisOpen} toggle={carttoggle}/>
        {/* <SideBar isOpen={isOpen} toggle={toggle} /> */}
        <div >
          <Routes>
@@ -64,6 +68,8 @@ useEffect(() => {
           <Route path='/collections/:id/details' element={<ScrollToTop><CollectionDetailsPage /></ScrollToTop>} />
           <Route path='/collaborators' element={<ScrollToTop><Collaborators /></ScrollToTop>} />
           <Route path='/collaborators/:id/details' element={<ScrollToTop><CollaboratorDetails /></ScrollToTop>} />
+          <Route path='/cart' element={<ScrollToTop><Cart/></ScrollToTop> } />
+          {/* <Route path='/checkout' element={<ScrollToTop><CheckOut/></ScrollToTop> } /> */}
         </Routes>
       </div>
       {!isAuthPages && <Footer/>}

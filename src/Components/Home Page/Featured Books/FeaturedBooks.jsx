@@ -168,7 +168,7 @@ const FeaturedBooks = () => {
                             className={classes.buttoncart}
                             onClick={(event) => {
                               event.stopPropagation();
-                              authCtx.addToCart({ props: props, carttoggle });
+                              authCtx.addToCart({ props: props });
                             }}
                           >
                             {data.HomePage.FeaturedBooks.button[language]}

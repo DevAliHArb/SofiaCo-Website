@@ -1,0 +1,188 @@
+.card{
+    position: relative;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 2% 4%;
+    color: #000;
+    margin: 1% 0 ;
+    border-bottom: 1px solid #6E90A9;
+    padding-bottom: 4%;
+}
+
+.imageCont{
+    width: 10em !important;
+    flex: 1;
+}
+.imageCont img{
+    width: 10em !important;
+}
+
+.card p{
+    margin: 0.4em 0;
+}
+
+.quantity{
+    position: relative;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: calc(.7rem + 0.3vw);
+    font-family: montserrat;
+}
+
+
+.cardmobile{
+    display: none;
+    grid-template-columns: 30% 70%;
+    color: #000;
+    margin: 5% 0 0% 0;
+    border: 1px solid #D3DADC;
+    border-radius: 20px;
+}
+
+.quantitymobile{
+    width: 100%;
+    display: none;
+    flex-direction: row;
+    margin-top: 1em;
+    justify-content: space-between;
+}
+
+.font_size{
+    font-size: calc(0.6vw + 0.3rem);
+}
+.infoCont{
+    width: 100%;
+    display: flex;
+}
+
+.delete_btn{
+    width: fit-content;
+    border: none;
+    background-color: var(--forth-color);
+    color: #fff !important;
+    transition: background-color 0.5s ease, color 1s ease;
+    font-size: calc(.7rem + 0.3vw);
+    border-radius: .5em;
+    padding: 0.5em .6em;
+    margin-left: auto;
+}
+
+.delete_btn:hover{
+    background-color: var(--accent-color) !important;
+
+}
+.delete_btnMob{
+    display: none;
+    width: fit-content;
+    height: fit-content;
+    border: none;
+    background-color: var(--forth-color);
+    color: #fff !important;
+    transition: background-color 0.5s ease, color 1s ease;
+    font-size: calc(.7rem + 0.3vw);
+    border-radius: .5em;
+    padding: 0.6em .6em;
+    margin-left: auto;
+}
+
+.delete_btnMob:hover{
+    background-color: var(--accent-color) !important;
+
+}
+.dicription{
+    width: 30em;
+    overflow: hidden;
+    height: 4.3em;
+    color: #002B7D;
+    font-size: calc(.6rem + 0.2vw);
+}
+.dicription ,
+.dicription p,
+.dicription span,
+.dicription h1,
+.dicription h2,
+.dicription h3,
+.dicription h4,
+.dicription h5,
+.dicription h6,
+.dicription div {
+    color: #002B7D !important;
+    font-size: calc(0.6rem + 0.2vw) !important;
+    line-height: 1.5em !important;
+    margin: 0 !important;
+    font-weight: 500 !important;
+    font-style: normal !important;
+    font-family: montserrat !important;
+    background-color: transparent !important;
+}
+.price{
+    color: var(--forth-color);
+    font-size: large;
+}
+
+@media screen and (max-width: 1400px) {
+    .dicription{
+        width: 17em;
+        color: #002B7D;
+        font-size: small;
+    }
+.font_size{
+    font-size: calc(0.6vw + 0.4rem);
+}
+}
+
+
+@media screen and ( max-width: 650px) {
+    .card{
+        position: relative;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 1em 4%;
+        color: #000;
+        margin: 2% 0 3% 0;
+        border: 1.5px solid #194466;
+        border-radius: 1em;
+    }  
+      .quantity{
+        display: none;
+      }
+      .imageCont{
+        width: 7em;
+        height: 40vw;
+      }
+      .imageCont img{
+          width: 7em !important;
+      }
+      .card p{
+        margin: 0.1em 0;
+    }
+    .dicription{
+        width: 40vw;
+        color: #002B7D;
+        font-size: small;
+    }
+    .price{
+        display: none;
+    }
+    .font_size{
+        font-size: calc(0.6vw + 0.6rem);
+    }
+    .quantitymobile{
+        display: flex;
+    }
+    .infoCont{
+        width: 96%;
+        display: grid;
+        grid-template-columns: 90% 10%;
+    }
+    
+    .delete_btnMob{
+        display: inline;
+    }
+}
