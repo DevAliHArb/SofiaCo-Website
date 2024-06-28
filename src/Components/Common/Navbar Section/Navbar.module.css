@@ -251,6 +251,7 @@
     height: 1.8em;
     margin: auto;
     color: var(--secondary-color);
+    cursor: pointer;
 }
 
 
