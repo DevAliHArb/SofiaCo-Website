@@ -70,6 +70,7 @@
     /* background-color: #fff; */
     margin:0;
     justify-self: top;
+    background-color: #fff;
 }
 
 .header_top_content{
@@ -324,6 +325,7 @@
     .header_top{
         flex-direction: column;
         margin: auto;
+        background-color: transparent;
     }
     .header_top_content{
         margin: auto;

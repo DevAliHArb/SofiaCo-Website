@@ -2,9 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import classes from "./CollectionDetails.module.css";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../Common/authContext";
-import BookHeroImage from '../../../assets/BookHeroImage.png'
+// import BookHeroImage from '../../../assets/BookHeroImage.png'
 import nodata from "../../../assets/nobookfound.svg";
-import { EnArticles } from "../../Common/Constants/Data";
 import { IoSearchOutline } from "react-icons/io5";
 import {
   MdKeyboardArrowLeft,
@@ -12,7 +11,6 @@ import {
   MdKeyboardDoubleArrowLeft,
   MdKeyboardDoubleArrowRight,
 } from "react-icons/md";
-import Agenda from "../../Home Page/Agenda Section/Agenda";
 import { useDispatch, useSelector } from "react-redux";
 import { FormControl, MenuItem, Rating, Select } from "@mui/material";
 import { addSelectedBook, addTocart, addTocompare, addTofavorite, deletefavorite } from "../../Common/redux/productSlice";
@@ -111,18 +109,18 @@ const CollectionDetailsPage = () => {
 
   useEffect(() => {
     if (currentpage == pagenb) {
-      setto(EnArticles.length);
-    } else if (EnArticles.length === 0 ) {
+      setto(authCtx.articles?.length);
+    } else if (authCtx.articles?.length === 0 ) {
       setto(0);
     } else{
       setto(currentpage * recordsPerPage);
     }
-    if (EnArticles.length === 0 ) {
+    if (authCtx.articles?.length === 0 ) {
       setfrom(0);
     }else {
       setfrom(currentpage * 12 - recordsPerPage - 1);
     }
-  }, [currentpage, EnArticles, recordsPerPage]);
+  }, [currentpage, authCtx.articles, recordsPerPage]);
 
   const [visibleItems, setVisibleItems] = useState(4);
  
@@ -327,7 +325,7 @@ const CollectionDetailsPage = () => {
             <div className={classes.page_control}>
                 <div className={classes.show}>
                   <p>
-                    Showing {from}–{to} of {EnArticles.length} results
+                    Showing {from}–{to} of {authCtx.articles?.length} results
                   </p>
                 </div>
                 <div className={classes.control}>
@@ -382,21 +380,7 @@ const CollectionDetailsPage = () => {
                 </div>
               </div>
        </div>
-          <Agenda/>
       </div>
-      {/* <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-        style={{ color: "red" }}
-      /> */}
     </>
   );
 };

@@ -15,6 +15,8 @@ import EventsDetails from './Components/Events/Events Details Page/EventsDetails
 import Register from './Components/Auth Pages/Register Page/Register';
 import Login from './Components/Auth Pages/Login Page/Login';
 import Verify from './Components/Auth Pages/Verfiy Email/Verify';
+import CollectionsPage from './Components/Collection Pages/Collections Page/Collections';
+import CollectionDetailsPage from './Components/Collection Pages/CollectionDetails Page/CollectionDetails';
 
 
 function App() {
@@ -56,6 +58,8 @@ useEffect(() => {
           <Route path='/register' element={<ScrollToTop><Register /></ScrollToTop>} />
           <Route path='/login' element={<ScrollToTop><Login /></ScrollToTop>} />
           <Route path='/verify-email' element={<ScrollToTop><Verify /></ScrollToTop>} />
+          <Route path='/collections' element={<ScrollToTop><CollectionsPage /></ScrollToTop>} />
+          <Route path='/collections/:id/details' element={<ScrollToTop><CollectionDetailsPage /></ScrollToTop>} />
         </Routes>
       </div>
       {!isAuthPages && <Footer/>}

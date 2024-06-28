@@ -3,7 +3,6 @@ import classes from "./Collections.module.css";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../Common/authContext";
 // import BookHeroImage from '../../../assets/BookHeroImage.png'
-import { Collection } from "../../Common/Constants/Data";
 import { addCollection } from "../../Common/redux/productSlice";
 import { IoSearchOutline } from "react-icons/io5";
 
@@ -78,18 +77,18 @@ const CollectionsPage = () => {
 
   useEffect(() => {
     if (currentpage == pagenb) {
-      setto(Collection.length);
-    } else if (Collection.length === 0 ) {
+      setto(authCtx.collections?.length);
+    } else if (authCtx.collections?.length === 0 ) {
       setto(0);
     } else{
       setto(currentpage * recordsPerPage);
     }
-    if (Collection.length === 0 ) {
+    if (authCtx.collections?.length === 0 ) {
       setfrom(0);
     }else {
       setfrom(currentpage * 15 - 14);
     }
-  }, [currentpage, Collection, recordsPerPage]);
+  }, [currentpage, authCtx.collections, recordsPerPage]);
 
   const [visibleItems, setVisibleItems] = useState(4);
  
