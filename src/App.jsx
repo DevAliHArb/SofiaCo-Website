@@ -8,7 +8,7 @@ import Footer from './Components/Common/Footer Section/Footer';
 import HomePage from './Components/Home Page/HomePage';
 import { useSelector } from 'react-redux';
 import ScrollToTop from './Components/Common/ScrollToTop'
-import SideBar from './Components/Common/SideBar Section/SideBar'
+// import SideBar from './Components/Common/SideBar Section/SideBar'
 import About from './Components/About Page/About';
 import Events from './Components/Events/Events Page/Events';
 import EventsDetails from './Components/Events/Events Details Page/EventsDetails';
@@ -47,7 +47,7 @@ useEffect(() => {
     <div className="App1">
       <div className="App" >
     {!isAuthPages && <Navbar toggle={toggle}/>}
-       <SideBar isOpen={isOpen} toggle={toggle} />
+       {/* <SideBar isOpen={isOpen} toggle={toggle} /> */}
        <div >
          <Routes>
           <Route path='/' element={<ScrollToTop><HomePage carttoggle={carttoggle}/></ScrollToTop>} />

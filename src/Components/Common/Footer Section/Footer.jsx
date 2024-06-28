@@ -59,8 +59,8 @@ function openNewWindow(url) {
                 </div>
                 <div className={classes.info}>
                 <h3>{data.Footer.GENERAL.title[language]}</h3>
-                    <p onClick={()=>navigate(`/books`)}>{data.Footer.GENERAL.point1[language]}</p>
-                    <p onClick={()=>navigate(`/events`)}>{data.Footer.GENERAL.point2[language]}</p>
+                    <p onClick={()=>navigate(`/about`)}>{data.Footer.GENERAL.point1[language]}</p>
+                    <p onClick={()=>navigate(`/contact`)}>{data.Footer.GENERAL.point2[language]}</p>
                     <p onClick={()=>navigate(`/collaborators`)}>{data.Footer.GENERAL.point3[language]}</p>
                 </div>
                 </div>

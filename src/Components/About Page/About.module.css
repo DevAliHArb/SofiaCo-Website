@@ -207,6 +207,10 @@
     }
 }
 @media screen and (max-width:950px) {
+    .home_container{
+        margin: 0em auto;
+
+    }
     .header{
         flex-direction: column;
     }

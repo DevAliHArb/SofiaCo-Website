@@ -14,6 +14,7 @@ import { MdLocationOn } from "react-icons/md";
 import 'react-toastify/dist/ReactToastify.css';
 import { addSelectedEvent } from "../../Common/redux/productSlice";
 import { useNavigate } from "react-router-dom";
+import Services from "../../Home Page/Services Section/Services";
 
 const formatTime = (dateTimeString) => {
   const date = new Date(dateTimeString);
@@ -172,7 +173,7 @@ console.log(eventEnded)
 
   return (
     <div className={classes.events_detail}>
-      <div className={classes.events_detail_image_con}>
+      <div className={classes.events_detail_image_con} style={{flexDirection:"column-reverse"}}>
         <div className={classes.contentContainer} onClick={()=>console.log(eventData)}>
           <h1>{language == 'eng' ? eventData.name_eng : eventData.name_fr}</h1>
           <h3>{eventData.event_host?.map((data ,index)=>{
@@ -202,38 +203,54 @@ console.log(eventEnded)
           className={classes.events_detail_image}
         />
       </div>
-      <div className={classes.events_detail_image_con}>
+      <div className={classes.events_detail_image_con} style={{flexDirection:"column"}}>
         <div className={classes.imagesCont}>
         <img
           src={eventData.event_images && `https://sofiadis.recette-lisa.leonardo-service.com/modules/sofiadis/files/${eventData.event_images[0].image}`}
           alt="registerImage"
           style={{ height: "100%" }}
-          className={classes.events_detail_image}
+          className={classes.card_imgimg}
         />
         <img
           src={eventData.event_images && `https://sofiadis.recette-lisa.leonardo-service.com/modules/sofiadis/files/${eventData.event_images[0].image}`}
           alt="registerImage"
           style={{ height: "100%" }}
-          className={classes.events_detail_image}
+          className={classes.card_imgimg}
         />
         <img
           src={eventData.event_images && `https://sofiadis.recette-lisa.leonardo-service.com/modules/sofiadis/files/${eventData.event_images[0].image}`}
           alt="registerImage"
           style={{ height: "100%" }}
-          className={classes.events_detail_image}
+          className={classes.card_imgimg}
         />
         </div>
         <div className={classes.contentss}>
           <h2>{language == 'eng' ? eventData.name_eng : eventData.name_fr}</h2>
           <p>{language == 'eng' ? eventData.description_eng : eventData.description_fr}</p>
-          <div className={classes.priceBtn}>
-            <p>Contact Us</p>
+          <div className={classes.contactBtn}>
+            Contact Us
           </div>
         </div>
       </div>
+          <div className={classes.map_con}>
+            <iframe
+              title="Google Map"
+              src={eventData.location_url}
+              style={{
+                border: "none",
+                width: "100%",
+                height: "100%",
+                borderRadius: "1em",
+              }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+          <Services/>
 
 
-      <div className={classes.content}>
+      {/* <div className={classes.content}>
         <div className={classes.details_section}>
           <div className={classes.title_con}>
             <h1>{language == 'eng' ? eventData.name_eng : eventData.name_fr}</h1>
@@ -267,24 +284,8 @@ console.log(eventEnded)
               </p>
               <p>
                 <img src={timer} alt="" />1 hour live session
-              </p> */}
+              </p>
             </div>
-          </div>
-          <div className={classes.map_con}>
-            <iframe
-              title="Google Map"
-              src={eventData.location_url}
-              // src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.473343284526!2d2.376251875412288!3d48.868252400013816!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66de581ba72e7%3A0x3231c49eba9cdb55!2sLibrairie%20%26%20Editions%20Albouraq!5e0!3m2!1sen!2slb!4v1707835753098!5m2!1sen!2slb"
-              style={{
-                border: "none",
-                width: "100%",
-                height: "100%",
-                borderRadius: "1em",
-              }}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
           </div>
           <div className={classes.about}>
             <h3>About the workshop</h3>
@@ -408,7 +409,7 @@ console.log(eventEnded)
                     )
                   })}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
