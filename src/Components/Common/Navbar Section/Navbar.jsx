@@ -16,7 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { IoCartOutline } from "react-icons/io5";
 import { LuUser } from "react-icons/lu";
 import { MdFavoriteBorder } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import AuthContext from "../authContext";
 import { Avatar, Box, FormControl, IconButton, Menu, MenuItem, Select } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,6 +32,9 @@ const Navbar = ({ toggle, carttoggle }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
+  const location = useLocation();
+  const path = location.pathname;
+  const [withBG, setwithBG] = useState(false);
   const productData = useSelector((state) => state.products.productData);
   const favoriteData = useSelector((state) => state.products.favorites);
   const compareData = useSelector((state) => state.products.compare);
@@ -139,10 +142,19 @@ const Navbar = ({ toggle, carttoggle }) => {
     };
   }, [isScrolled]);
 
+  useEffect(() => {
+    const collaboratorDetailsRegex = /^\/collaborators\/[^/]+\/details$/;
+    const collectionDetailsRegex = /^\/collections\/[^/]+\/details$/;
+  
+    if (path === "/collaborators" || collaboratorDetailsRegex.test(path) || collectionDetailsRegex.test(path)) {
+      setwithBG(true)
+    } else { setwithBG(false) }
+  }, [path])
+
   return (
     <>
-      <div className={classes.headnav}>
-        <div className={classes.header}>
+      <div className={classes.headnav} >
+        <div className={classes.header} style={{backgroundColor: withBG ? '#fff': 'transparent'}}>
           <div className={classes.logocontainer}
               onClick={()=>navigate(`/`)}>
             <img
