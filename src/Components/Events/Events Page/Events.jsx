@@ -32,7 +32,7 @@ const Events = () => {
   const [eventData, seteventData] = useState([]);
   const fetchAbout = async () => {
     try {
-      const response = await axios.get('https://api.leonardo-service.com/api/bookshop/events?ecom_type=albouraq');
+      const response = await axios.get('https://api.leonardo-service.com/api/bookshop/events?ecom_type=sofiaco');
       console.log('Response data:', response.data);
       seteventData(response.data.data || {})
     } catch (error) {
@@ -51,6 +51,7 @@ useEffect(() => {
       </div>
       <div className={classes.content}>
        {eventData?.map((props) => {
+        const eventImg = props.event_images?.filter( (event) => event?.is_main_image === 'true')
           return (
             <div key={props.id}  onClick={(event) => {
               event.stopPropagation();
@@ -60,13 +61,9 @@ useEffect(() => {
            className={classes.card_container}>
               <div className={classes.card_img}>
                 <div className={classes.card_imgimg}>
-                {props.event_images?.map((props) => (
-                    <>
-                      {props.is_main_image === 'true' && <img alt='' src={`https://sofiadis.recette-lisa.leonardo-service.com/modules/sofiadis/files/${props.image}`}/>}
-                    </>
-                  ))}
+                  <img alt='' src={`${eventImg?.length === 0 ? props.event_images[0]?.image : eventImg[0]?.image }`}/>
                 <div className={classes.icon_con}>
-                  <p className={classes.icon}>${props.price}</p>
+                  <p className={classes.icon} onClick={()=>console.log(eventImg)}>${props.price}</p>
                 </div>
                 </div>
                 <div className={classes.card_text}>

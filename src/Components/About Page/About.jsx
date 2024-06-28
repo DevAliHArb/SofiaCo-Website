@@ -43,7 +43,7 @@ useEffect(() => {
             <p dangerouslySetInnerHTML={{ __html: language === 'eng' ? aboutData.description2_eng : aboutData.description2_fr }} />
             </div>
           <div className={classes.img_con}>
-            <img src={aboutData.main_image ? `https://sofiadis.recette-lisa.leonardo-service.com/modules/sofiadis/files/${aboutData.main_image}` : 'headpage'} alt="" />
+            <img src={aboutData.main_image ? `${aboutData.main_image}` : 'headpage'} alt="" />
           </div>
             <p dangerouslySetInnerHTML={{ __html: language === 'eng' ? aboutData.description3_eng : aboutData.description3_fr }} className={classes.paragraphBottom}/>
                 <button className={classes.pdfbottom} onClick={()=>{ const link = document.createElement('a');

@@ -46,7 +46,7 @@ const EventsDetails = () => {
   const navigate = useNavigate();
   const fetchAbout = async () => {
     try {
-      const response = await axios.get('https://api.leonardo-service.com/api/bookshop/events?ecom_type=albouraq');
+      const response = await axios.get('https://api.leonardo-service.com/api/bookshop/events?ecom_type=sofiaco');
       console.log('Response data:', response.data);
       setlatestEvents(response.data.data || {})
     } catch (error) {
@@ -170,7 +170,8 @@ console.log(eventEnded)
   const handleShowMore = () => {
     setShowMoreReviews(showMoreReviews + 2); // Increase the number of displayed reviews
   };
-
+  const mainEventImg = eventData.event_images?.filter( (event) => event?.is_main_image === 'true') || [];
+  const eventImg = eventData.event_images?.filter( (event) => event?.is_main_image !== 'true');
   return (
     <div className={classes.events_detail}>
       <div className={classes.events_detail_image_con} style={{flexDirection:"column-reverse"}}>
@@ -197,7 +198,7 @@ console.log(eventEnded)
           </div>
         </div>
         <img
-          src={eventData.event_images && `https://sofiadis.recette-lisa.leonardo-service.com/modules/sofiadis/files/${eventData.event_images[0].image}`}
+          src={`${mainEventImg?.length !== 0 && mainEventImg[0].image }`}
           alt="registerImage"
           style={{ height: "100%" }}
           className={classes.events_detail_image}
@@ -206,19 +207,19 @@ console.log(eventEnded)
       <div className={classes.events_detail_image_con} style={{flexDirection:"column"}}>
         <div className={classes.imagesCont}>
         <img
-          src={eventData.event_images && `https://sofiadis.recette-lisa.leonardo-service.com/modules/sofiadis/files/${eventData.event_images[0].image}`}
+          src={eventImg?.length >0 && `${eventImg[0]?.image}`}
           alt="registerImage"
           style={{ height: "100%" }}
           className={classes.card_imgimg}
         />
         <img
-          src={eventData.event_images && `https://sofiadis.recette-lisa.leonardo-service.com/modules/sofiadis/files/${eventData.event_images[0].image}`}
+          src={eventImg?.length >0 && `${eventImg[1]?.image}`}
           alt="registerImage"
           style={{ height: "100%" }}
           className={classes.card_imgimg}
         />
         <img
-          src={eventData.event_images && `https://sofiadis.recette-lisa.leonardo-service.com/modules/sofiadis/files/${eventData.event_images[0].image}`}
+          src={eventImg?.length >0 && `${eventImg[2]?.image}`}
           alt="registerImage"
           style={{ height: "100%" }}
           className={classes.card_imgimg}
