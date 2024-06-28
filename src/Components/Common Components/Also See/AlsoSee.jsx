@@ -37,7 +37,7 @@ const AlsoSee = () => {
   const fetchArticles = async () => {
     try {
       const response = await axios.get(
-        `https://api.leonardo-service.com/api/bookshop/articles?ecom_type=bookshop&is_selected`
+        `https://api.leonardo-service.com/api/bookshop/articles?ecom_type=bookshop&alsosee`
       );
       console.log(response.data.data);
       setArticles(response.data.data);
