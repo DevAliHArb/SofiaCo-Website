@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import classes from "./Events.module.css";
-import collab_image from "../../../assets/collab-head.png";
-import Companies from "../../Home Page/Companies Section/Companies";
-import Video from "../../Collaborators/Collaborator Details Page/Video Section/Video";
-import { events } from "../../Common/Constants/Data";
+// import collab_image from "../../../assets/collab-head.png";
 import { FaCalendarAlt } from "react-icons/fa";
 import { CiClock2, CiLocationOn } from "react-icons/ci";
 import { MdLocationOn } from "react-icons/md";
@@ -12,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addSelectedEvent } from "../../Common/redux/productSlice";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import data from "../../../Data.json";
 
 const formatTime = (dateTimeString) => {
   const date = new Date(dateTimeString);
@@ -47,17 +45,9 @@ useEffect(() => {
 
   return (
     <div className={classes.events}>
-      <div className={classes.events_image_con}>
-        <img
-          src={collab_image}
-          alt="registerImage"
-          style={{ height: "100%" }}
-          className={classes.events_image}
-        />
-        <div className={classes.imageContent}>
-          <h2 style={{ margin: "0" }} onClick={()=>console.log(eventData)}>Events</h2>
-          <p style={{ margin: ".2em 0 0 0" }}>Home / Events</p>
-        </div>
+      <div className={classes.header}>
+        <h1 className={classes.headerh1}>{data.Event.title[language]}</h1>
+        <h2 className={classes.headerh2}>{data.Event.Subtitle[language]}</h2>
       </div>
       <div className={classes.content}>
         {eventData?.map((props) => {
@@ -97,8 +87,6 @@ useEffect(() => {
           );
         })}
       </div>
-      <Video />
-      <Companies />
     </div>
   );
 };
