@@ -10,6 +10,7 @@ import AuthContext from '../../Common/authContext'
 import './styles.css'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { addInitialcart, addTofavorite, addUser } from '../../Common/redux/productSlice';
 
 const Login = () => {
   const authCtx = useContext(AuthContext)
@@ -109,7 +110,7 @@ const onFinish = async () => {
     form.resetFields();
     navigate(`/`);
   } catch (error) {
-    const errormsg = error.response.data.error;
+    const errormsg = error.response.data?.error;
     console.error('Error in Login:', errormsg);
     toast.error( `Error in Login: ${errormsg}` , {
       position: "top-right",

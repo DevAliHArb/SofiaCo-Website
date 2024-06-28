@@ -141,6 +141,7 @@
   
   
   .buttoncart{
+    font-family: var(--font-family);
     position: relative;
     width: fit-content;
     /* margin: 0 auto; */

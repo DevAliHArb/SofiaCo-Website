@@ -109,7 +109,7 @@ const CollectionsPage = () => {
               return (
                 <div key={props.id} className={classes.logo_con} onClick={() => {
                   dispatch(addCollection(props));
-                  navigate(`/collection-details/${props.id}`);
+                  navigate(`/collections/${props.id}/details`);
                 }}>
                   <div className={classes.content}>
                     {props?.image !== null ? (
@@ -156,8 +156,8 @@ const CollectionsPage = () => {
                 n === pagenb ||
                 n === currentpage - 1 ||
                 n === currentpage ||
-                n === currentpage + 1||
-                n === currentpage + 2
+                n === currentpage + 1 ||
+                (n === currentpage + 2 && currentpage === 1)
               ) {
                 return (
                   <button
@@ -175,7 +175,7 @@ const CollectionsPage = () => {
                 );
               } else if (
                 n === currentpage - 2 ||
-                (n > 3 ? n === currentpage + 2 : n === currentpage + 3)
+                n === currentpage + 3
               ) {
                 return (
                   <span key={i} className={classes.ellipsis}>...</span>

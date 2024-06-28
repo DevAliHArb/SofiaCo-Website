@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../../Common/authContext";
 // import BookHeroImage from '../../../assets/BookHeroImage.png'
 import nodata from "../../../assets/nobookfound.svg";
+import img from "../../../assets/bookPlaceholder.png";
+import data from '../../../Data.json'
 import { IoSearchOutline } from "react-icons/io5";
 import {
   MdKeyboardArrowLeft,
@@ -11,6 +13,10 @@ import {
   MdKeyboardDoubleArrowLeft,
   MdKeyboardDoubleArrowRight,
 } from "react-icons/md";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { IoMdArrowBack } from "react-icons/io";
+import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { FormControl, MenuItem, Rating, Select } from "@mui/material";
 import { addSelectedBook, addTocart, addTocompare, addTofavorite, deletefavorite } from "../../Common/redux/productSlice";
@@ -25,6 +31,7 @@ import placeholder from '../../../assets/Collectionplaceholder.png'
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import OurSelectionBanner from "../../Common Components/Our Selection Banner/OurSelectionBanner";
 
 
 const CollectionDetailsPage = () => {
@@ -33,23 +40,44 @@ const CollectionDetailsPage = () => {
   const [from, setfrom] = useState(1);
   const [to, setto] = useState(1);
   const [recordsPerPage, setrecordsPerPage] = useState(12); 
+  const language = useSelector(
+    (state) => state.products.selectedLanguage[0].Language
+  );
+  const currency = useSelector(
+    (state) => state.products.selectedCurrency[0].currency
+  );
+  const user = useSelector((state) => state.products.userInfo);
+  const favoriteData = useSelector((state) => state.products.favorites);
+  const collectionData = useSelector((state) => state.products.collection[0]);
 
   const authCtx = useContext(AuthContext);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // Function to handle changes in the input value
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    fetchArticles();
+  }, [collectionData]);
+
+  const fetchArticles = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.leonardo-service.com/api/bookshop/articles?ecom_type=bookshop&collection=${collectionData?.nom}`
+      );
+      setArticles(response.data.data);
+    } catch (error) {
+      console.error("Error fetching articles:", error);
+      toast.error("Failed to fetch articles.");
+    }
+  };
   
   const lastIndex = currentpage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  const records = authCtx.articles?.slice(firstIndex, lastIndex);
+  const records = articles?.slice(firstIndex, lastIndex);
   const pagenb = Math.ceil(authCtx.articles?.length / recordsPerPage);
   const numbers = [...Array(pagenb + 1).keys()].slice(1);
 
-
-  
-  const user = useSelector((state) => state.products.userInfo);
-  const favoriteData = useSelector((state) => state.products.favorites);
-  const collectionData = useSelector((state) => state.products.collection[0]);
   
 
   const nextpage = () => {
@@ -76,51 +104,22 @@ const CollectionDetailsPage = () => {
     setCurrentPage(1);
     setpagenbroute(1);
   };
-
-  
-  const getToken = () => {
-    return localStorage.getItem('token');
-  };
-
-  const token = getToken();
-  
-  const handleSuivreClick = async (id) => {
-    if (!user) {
-      // If user is not defined, throw an error
-      toast.error('Please log in first');
-      return;
-  }
-    try {
-      const response = await axios.post(`https://api.leonardo-service.com/api/bookshop/users/${user.id}/subscriptions`, {
-        collection_id: id,
-      }, {
-        headers: {
-            Authorization: `Bearer ${token}` // Include token in the headers
-        }
-    });
-      console.log(response.data);
-      toast.success(`${collectionData.nom} subscribed successfully!`) // You can handle the response here
-    } catch (error) {
-      console.error('Error:', error);
-      toast.error(error.response.data.error)
-    }
-  };
   
 
   useEffect(() => {
     if (currentpage == pagenb) {
-      setto(authCtx.articles?.length);
+      setto(articles?.length);
     } else if (authCtx.articles?.length === 0 ) {
       setto(0);
     } else{
       setto(currentpage * recordsPerPage);
     }
-    if (authCtx.articles?.length === 0 ) {
+    if (articles?.length === 0 ) {
       setfrom(0);
     }else {
       setfrom(currentpage * 12 - recordsPerPage - 1);
     }
-  }, [currentpage, authCtx.articles, recordsPerPage]);
+  }, [currentpage, articles, recordsPerPage]);
 
   const [visibleItems, setVisibleItems] = useState(4);
  
@@ -130,59 +129,47 @@ const CollectionDetailsPage = () => {
     setSearchText(e.target.value);
   };
 
-  
-  const filteredBooks = records?.filter((book) => book.dc_collection === collectionData.nom);
-
   const filteredData = searchText
-    ? filteredBooks.filter(item => item.designation.toLowerCase().includes(searchText.toLowerCase()))
-    : filteredBooks;
+    ? records.filter(item => item.designation.toLowerCase().includes(searchText.toLowerCase()))
+    : records;
   return (
     <>
       <div className={classes.bigContainer}>
-      <div className={classes.heroContainer} >
-            <img src={BookHeroImage} alt='HeroImage' style={{height:'100%'}} className={classes.heroImage}/>
-            <div className={classes.imageContent}>
-              <h2 style={{margin:'0'}}>{collectionData.name}</h2>
-              <p style={{margin:'.2em 0 0 0', textTransform:'capitalize'}}>Collections / {collectionData.nom}</p>
-            </div>
-        </div>
+        <OurSelectionBanner />
        <div className={classes.detailsContainer}>
         
       <div className={classes.cardContainer}>
-        <div className={classes.colabImage} style={{background:`var(--secondary-color)`}}>
-                      
-                       {collectionData?.image !== null ? (
+        <div className={classes.colabImage}>
+              <div className={classes.content}>
+              {collectionData?.image !== null ? (
                       <img
                         src={`https://api.leonardo-service.com/img/${collectionData.image}`}
                         alt=""
                         width="100%"
                         height="100%"
-                        className={classes.imggg}
                       />
                     ) : (
                       <img
                         src={placeholder}
                         alt=""
-                        className={classes.imggg}
                         width="100%"
                         height="100%"
                       />
                      )} 
-                      {/* <p style={{color:`#fff`, fontFamily:'Montserrat',fontSize:"1em", textTransform:'capitalize'}}>{collectionData.nom}</p> */}
+                </div>       
            </div>
         <div className={classes.card} >
           <h1 style={{fontWeight:'600', textTransform:'capitalize'}}>{collectionData.nom}</h1>
-          <p style={{color:'var(--accent-color)',fontWeight:"500", margin:'.5em 0'}}>{collectionData.discriptif}</p>
-          <button className={classes.suivreBtn} onClick={()=>handleSuivreClick(collectionData.id)}>Subscribe</button>
+          <p style={{color:'var(--secondary-color)',fontWeight:"500", margin:'.5em 0'}}>{collectionData.discriptif}dqdqwdq</p>
         </div>
       </div> 
 
-       <div className={classes.header} >
-          <div className={classes.title}>
-            <h1>De la Collection </h1>
-          </div>
-          <div className={classes.line}></div>
-          <div style={{
+       
+      <div className={classes.header}>
+          <h1>{data.Collections.CollectionsDetails.title[language]}</h1>
+          <p>{data.Collections.CollectionsDetails.description[language]}</p>
+        </div>
+          {/* <div style={{
                     width: "100%",
                     display:'flex',
                     maxWidth:'25em',
@@ -207,9 +194,8 @@ const CollectionDetailsPage = () => {
                     }}
                   />
                   <button className={classes.btn} style={{margin:"0 0 0 auto"}}><IoSearchOutline style={{width:'1.7em', height:'1.7em',margin:'-0.5em'}}/></button>
-                </div>
-        </div>
-        {filteredBooks.length === 0 ? 
+                </div> */}
+        {records.length === 0 ? 
           <div className={classes.nodata}>
             <div className={classes.nodata_img}>
               <img src={nodata} alt="" />
@@ -220,165 +206,168 @@ const CollectionDetailsPage = () => {
         <div className={classes.booksgridview} >
                 {filteredData.map((props) => {
                   return (
-                    <div className={classes.card_container}
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          dispatch(addSelectedBook(props));
-                          navigate(`/bookdetails/${props.id}`);
-                        }}
-                      >
-                      <div className={classes.card_img}>
+                    <div
+                    className={classes.card_container}
+                    onClick={(event) => {
+                      authCtx.setbookDetails(props);
+                      event.stopPropagation();
+                      navigate(`bookdetails/${props.id}`);
+                    }}
+                  >
+                    <div className={classes.card_img}>
                       {props.articleimage[0] ? (
                         <img
                           src={`${props.articleimage[0]?.link}`}
                           alt=""
                           width="100%"
                           height="100%"
-                          className={classes.imggg}
+                          className={classes.img}
                         />
                       ) : (
                         <img
-                          src={bookplaceholder}
+                          src={img}
+                          className={classes.img}
                           alt=""
-                          className={classes.imggg}
                           width="100%"
                           height="100%"
                         />
                       )}
-                        <div className={classes.iconsContainer}>
-                          {favoriteData.some(
-                            (book) => book._favid === props.id
-                          ) ? (
-                            <div
-                              className={classes.icon_con}
-                              style={{ background: "var(--forth-color)" }}
-                              onClick={(event) => {
-                                event.stopPropagation();
-                                authCtx.deleteFavorite(props.id);
-                              }}
-                            >
-                              <IoHeartOutline className={classes.icon} />
-                            </div>
-                          ) : (
-                            <div
-                              className={classes.icon_con}
-                              onClick={(event) => {
-                                event.stopPropagation();
-                                authCtx.addToFavorite(props);
-                              }}
-                            >
-                              <IoHeartOutline className={classes.icon} />
-                            </div>
-                          )}
-                          <div className={classes.icon_con}>
-                            <HiOutlineBookOpen className={classes.icon} />
-                          </div>
-                          <div
-                            className={classes.icon_con}
-                            style={{
-                              width: "70%",
-                              height: "70%",
-                              margin: "15% auto",
-                              alignSelf: "center",
-                            }}
+                      <div className={classes.favoriteIcon}>
+                        {favoriteData?.some(
+                          (book) => book._favid === props.id
+                        ) ? (
+                          <FavoriteIcon
+                            className={classes.fav}
                             onClick={(event) => {
                               event.stopPropagation();
-                              authCtx.addToCart({props: props}); 
+                              authCtx.deleteFavorite(props.id);
                             }}
-                          >
-                            <PiShoppingCartSimpleLight className={classes.icon} />
-                          </div>
-                        </div>
-                      </div> 
-                        {/* <p className={classes.rate} style={{maxWidth:'100%',width:'fit-content',margin:'0% auto 1% auto'}}>
-                            <Rating
-                              style={{
-                                  color: "#712A2E",
-                                  margin:'0 .5em 0 0',
-                              }}
-                              size='small'
-                              name="read-only"
-                              value={props.rate}
-                              readOnly
-                          /><p style={{margin:'0.2em 0 0 0 '}}>{props.rate}/5</p>
-                          </p> */}
-                        <div className={classes.bookTitle}>
-                        <h3>{props.designation.length > 20 ? props.designation.substring(0, 20) + "..." : props.designation}</h3>
-                        <p>{props.dc_auteur.length > 20 ? props.dc_auteur.substring(0, 20) + "..." : props.dc_auteur}</p>
+                            fontSize="inherit"
+                          />
+                        ) : (
+                          <FavoriteBorderIcon
+                            className={classes.nonfav}
+                            fontSize="inherit"
+                            onClick={(event) =>{
+                              event.stopPropagation();
+                              authCtx.addToFavorite(props) ;
+                            }}
+                          />
+                        )}
+                      </div>
+                    </div>
+                    
+                    <div className={classes.bookTitle} >
+                      <p >{props.designation.length > 15 ? props.designation.slice(0,15) + '...' : props.designation}</p>
+                      <p style={{ height:'1em', fontSize:'small', fontWeight: 400 }}>{props.dc_auteur.length > 15 ? props.dc_auteur.slice(0,15) + '...' : props.dc_auteur}</p>
+                      <p
+  style={{ height: '2em', fontSize: 'small', fontWeight: 400 }}
+  dangerouslySetInnerHTML={{ __html: props.descriptif.length > 40 ? props.descriptif.slice(0, 40) + '...' : props.descriptif }}
+/>                      <span style={{ display: "flex", flexDirection: "row", margin:'0 auto', columnGap:'0.5em' }} >
+                        <p
+                          style={{ textAlign: "center", padding: "0 ",color: "var(--primary-color)",fontWeight:700 }}
+                        >
+                          {currency === "eur"
+                            ? `€${
+                                props.discount > 0
+                                  ? (
+                                      props.prixpublic -
+                                      props.prixpublic * (props.discount / 100)
+                                    ).toFixed(2)
+                                  : Number(props.prixpublic).toFixed(2)
+                              }`
+                            : `$${
+                                props.discount > 0
+                                  ? (
+                                      (props.prixpublic -
+                                        props.prixpublic *
+                                          (props.discount / 100)) *
+                                      authCtx.currencyRate
+                                    ).toFixed(2)
+                                  : (
+                                      props.prixpublic * authCtx.currencyRate
+                                    ).toFixed(2)
+                              }`}{" "}
+                        </p>
+                        {props.discount > 0 && (
                           <p
                             style={{
-                              color: "var(--forth-color)",
-                              fontWeight: 600,
-                              fontSize: " calc(0.9rem + 0.4vw)",
+                              color: "var(--primary-color)",
+                              textDecoration: "line-through",
+                              fontSize: "small",
+                              margin:"auto 0"
                             }}
                           >
-                        ${(props.prixpublic * 1).toFixed(2)}
+                            {currency === "eur"
+                              ? `€ ${Number(props.prixpublic).toFixed(2)} `
+                              : `$ ${(
+                                  props.prixpublic * authCtx.currencyRate
+                                ).toFixed(2)} `}
                           </p>
-                          <p dangerouslySetInnerHTML={{ __html: props.descriptif && props.descriptif.length > 20 ? props.descriptif.substring(0, 20) + "..." : props.descriptif }} />
-                        </div>
-                      </div>
+                        )}
+                      </span>
+                    </div>
+                  </div>
                   );
                 })}
               </div>
 }
             
-            <div className={classes.page_control}>
-                <div className={classes.show}>
-                  <p>
-                    Showing {from}–{to} of {authCtx.articles?.length} results
-                  </p>
-                </div>
-                <div className={classes.control}>
-                  <button onClick={prev2page}>
-                    <MdKeyboardDoubleArrowLeft className={classes.icon1} />
-                  </button>
-                  <button onClick={prevpage}>
-                    <MdKeyboardArrowLeft className={classes.icon1} />
-                  </button>
-                  {numbers.map((n, i) => {
-        // Check if it's the last two numbers or the first three numbers
-        if (
-          (pagenbroute >= pagenb - 1 && n >= pagenb - 2) ||
-          (pagenbroute <= 3 && n <= 3)
-        ) {
-          return (
-            <button
-              key={i}
-              onClick={() => {
-                changepage(n);
-                setpagenbroute(n);
-              }}
-              className={`${
-                pagenbroute === n ? classes.selectednb : classes.nb
-              }`}
-            >
-              {n}
+            
+        <div className={classes.page_control}>
+          <div className={classes.show}>
+            <p>
+              Showing {from}–{to} of {filteredData.length} results
+            </p>
+          </div>
+          <div className={classes.control}>
+            {/* <button onClick={prev2page}>
+              <MdKeyboardDoubleArrowLeft className={classes.icon1} />
+            </button> */}
+            <button onClick={prevpage}>
+              <FaArrowLeftLong className={classes.icon1} />
             </button>
-          );
-        }
-        // If it's neither the last two nor the first three numbers, and it's within the range, display ellipsis
-        else if (
-          pagenbroute > 3 &&
-          pagenbroute < pagenb - 2 &&
-          (n === pagenbroute - 1 || n === pagenbroute || n === pagenbroute + 1)
-        ) {
-          return (
-            <button key={i} className={classes.nb}>
-              ...
+            {numbers.map((n, i) => {
+              if (
+                n === 1 ||
+                n === pagenb ||
+                n === currentpage - 1 ||
+                n === currentpage ||
+                n === currentpage + 1 ||
+                (n === currentpage + 2 && currentpage === 1)
+              ) {
+                return (
+                  <button
+                    key={i}
+                    onClick={() => {
+                      changepage(n);
+                      setpagenbroute(n);
+                    }}
+                    className={`${
+                      pagenbroute === n ? classes.selectednb : classes.nb
+                    }`}
+                  >
+                    {n}
+                  </button>
+                );
+              } else if (
+                n === currentpage - 2 ||
+                n === currentpage + 3
+              ) {
+                return (
+                  <span key={i} className={classes.ellipsis}>...</span>
+                );
+              }
+              return null;
+            })}
+            <button onClick={nextpage}>
+              <FaArrowRightLong className={classes.icon1} />
             </button>
-          );
-        }
-        // Otherwise, return null to skip rendering
-        return null;
-      })}
-                  <button onClick={nextpage}>
-                    <MdKeyboardArrowRight className={classes.icon1} />
-                  </button>
-                  <button onClick={next2page}>
-                    <MdKeyboardDoubleArrowRight className={classes.icon1} />
-                  </button>
-                </div>
-              </div>
+            {/* <button onClick={next2page}>
+              <MdKeyboardDoubleArrowRight className={classes.icon1} />
+            </button> */}
+          </div>
+        </div>
        </div>
       </div>
     </>
