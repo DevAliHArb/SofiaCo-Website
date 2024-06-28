@@ -18,7 +18,7 @@ import { LuUser } from "react-icons/lu";
 import { MdFavoriteBorder } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../authContext";
-import { Box, FormControl, IconButton, Menu, MenuItem, Select } from "@mui/material";
+import { Avatar, Box, FormControl, IconButton, Menu, MenuItem, Select } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { changeCurrency, changeLanguage } from "../redux/productSlice";
@@ -152,7 +152,8 @@ const Navbar = ({ toggle }) => {
     <>
       <div className={classes.headnav}>
         <div className={classes.header}>
-          <div className={classes.logocontainer}>
+          <div className={classes.logocontainer}
+              onClick={()=>navigate(`/`)}>
             <img
               src={logo}
               alt="logodark"
@@ -360,7 +361,8 @@ const Navbar = ({ toggle }) => {
       </div>
       <div className={classes.headnavfixed} style={{display: isScrolled ? 'flex' : 'none'}}>
         <div className={classes.header}>
-          <div className={classes.logocontainer}>
+          <div className={classes.logocontainer}
+              onClick={()=>navigate(`/`)}>
             <img
               src={logo}
               alt="logodark"
@@ -497,15 +499,25 @@ const Navbar = ({ toggle }) => {
               </p>
               <div className={classes.icons}>
                 <div style={{position:'relative'}}>
-                <MdFavoriteBorder className={classes.icon} />
+                <MdFavoriteBorder className={classes.icon}  onClick={()=>navigate(`/favorites`)}/>
                 {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'50%', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{favoriteData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
-                <IoCartOutline className={classes.icon} />
+                <IoCartOutline className={classes.icon} onClick={()=>navigate(`/cart`)}/>
                 {productData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'50%', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{productData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
-                <LuUser className={classes.icon} />
+                <Box sx={{ flexGrow: 0 }}>
+                  <Tooltip title={language === 'eng' ? "Profile" : "Profil"}>
+                    <div onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      {userInfo?.id ? 
+                      <Avatar alt={userInfo.first_name} src={`https://api.leonardo-service.com/img/${userInfo.image}`} style={{borderRadius:'50%',width:'35px', height:'35px'}} className={classes.icon}/>
+                      : 
+                      <LuUser className={classes.icon} />
+                    }
+                    </div>
+                  </Tooltip>
+                </Box>
                 </div>
               </div>
             </div>
@@ -513,7 +525,8 @@ const Navbar = ({ toggle }) => {
         </div>
       </div>
       <div className={classes.mobile}>
-      <div className={classes.logocontainer1}>
+      <div className={classes.logocontainer1}
+              onClick={()=>navigate(`/`)}>
             <img
               src={logo}
               alt="logodark"
@@ -522,22 +535,33 @@ const Navbar = ({ toggle }) => {
           </div>
           <div className={classes.icons}>
                 <div style={{position:'relative'}}>
-                <MdFavoriteBorder className={classes.icon} />
+                <MdFavoriteBorder className={classes.icon}  onClick={()=>navigate(`/favorites`)}/>
                 {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'50%', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{favoriteData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
-                <IoCartOutline className={classes.icon} />
+                <IoCartOutline className={classes.icon} onClick={()=>navigate(`/cart`)}/>
                 {productData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'50%', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{productData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
-                <LuUser className={classes.icon} />
+                <Box sx={{ flexGrow: 0 }}>
+                  <Tooltip title={language === 'eng' ? "Profile" : "Profil"}>
+                    <div onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      {userInfo?.id ? 
+                      <Avatar alt={userInfo.first_name} src={`https://api.leonardo-service.com/img/${userInfo.image}`} style={{borderRadius:'50%',width:'35px', height:'35px'}} className={classes.icon}/>
+                      : 
+                      <LuUser className={classes.icon} />
+                    }
+                    </div>
+                  </Tooltip>
+                </Box>
                 </div>
             <MenuIcon style={{ fontSize: "3em", width:'0.8em', height:'0.8em', marginTop:'-0.1em' }} onClick={toggle}/>
               </div>
       </div>
       <div className={classes.mobilefixed} style={{display: isScrolled ? 'flex' : 'none'}}>
       <div className={classes.mobfixedcontent}>
-      <div className={classes.logocontainer1}>
+      <div className={classes.logocontainer1}
+              onClick={()=>navigate(`/`)}>
             <img
               src={logo}
               alt="logodark"
@@ -546,15 +570,25 @@ const Navbar = ({ toggle }) => {
           </div>
           <div className={classes.icons}>
                 <div style={{position:'relative'}}>
-                <MdFavoriteBorder className={classes.icon} />
+                <MdFavoriteBorder className={classes.icon}  onClick={()=>navigate(`/favorites`)}/>
                 {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'50%', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{favoriteData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
-                <IoCartOutline className={classes.icon} />
+                <IoCartOutline className={classes.icon} onClick={()=>navigate(`/cart`)}/>
                 {productData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'50%', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{productData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
-                <LuUser className={classes.icon} />
+                <Box sx={{ flexGrow: 0 }}>
+                  <Tooltip title={language === 'eng' ? "Profile" : "Profil"}>
+                    <div onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      {userInfo?.id ? 
+                      <Avatar alt={userInfo.first_name} src={`https://api.leonardo-service.com/img/${userInfo.image}`} style={{borderRadius:'50%',width:'35px', height:'35px'}} className={classes.icon}/>
+                      : 
+                      <LuUser className={classes.icon} />
+                    }
+                    </div>
+                  </Tooltip>
+                </Box>
                 </div>
             <MenuIcon style={{ fontSize: "3em", width:'0.8em', height:'0.8em', marginTop:'-0.1em' }} onClick={toggle}/>
               </div>

@@ -1,0 +1,218 @@
+.login_con{
+    width: 100%;
+    position: relative;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    max-width: 1900px;
+    margin: 0 auto;
+    font-family: montserrat;
+}
+
+.heroContainer{
+  position: relative;
+  width: 100%;
+  height: 20em;
+  padding: 0;
+  margin: 0;
+  margin-top: -1.7em;
+  margin-bottom: 3em;
+  z-index: -1;
+}
+
+
+.heroImage{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 0 0 2em 2em;
+  object-fit: cover;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+.imageContent{
+  position: absolute;
+  bottom: 0;
+  width: fit-content;
+  right: 50%;
+  transform: translateX(50%);
+  background-color: var(--accent-color);
+  color: #fff;
+  font-family: montserrat;
+  font-style: normal;
+  padding: 1em 2em; 
+  font-size: calc(1rem + 0.4vw);
+  border-radius: 2em 2em 0 0;
+  text-align: center;
+}
+
+.imageContent h2{
+  font-weight: 500;
+}
+
+  .cardContainer{
+    position: relative;
+    width: 88%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 37% 57%;
+    gap: 4%;
+    font-size: calc(0.7rem + 0.3vw);
+  }
+
+  .card{
+    width: 100%;
+    margin: 0 auto;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    font-family: montserrat;
+    color: var(--accent-color);
+    justify-content: space-between;
+  }
+
+  .colabImage{
+    width: 100%;
+    height: 40vw;
+    max-height: 35em;
+    position: relative;
+  }
+  .colabImage img{
+    width: 100%;
+    height: 100%;
+    border-radius: 2em ;
+    object-fit: cover;
+  }
+  .iconCont{
+    width: 2em;
+    height: 2em;
+    background-color: var(--forth-color);
+    color: var(--secondary-color);
+    border-radius: 50%;
+    text-align: center;
+    margin-right: .5em;
+  }
+
+  .suivreBtn{
+    width: fit-content;
+    height: fit-content;
+    padding: 0.7em 4em;
+    margin-top: 3em;
+    border-radius: .5em;
+    background-color: var(--forth-color);  
+    color: #DED8CC;
+    border: none;
+    font-size: calc(0.7rem + 0.3vw);
+    cursor: pointer;
+    transition: background-color .6s ease, color 1s ease;
+}
+.suivreBtn:hover{
+    background-color: var(--accent-color);
+}
+.suivreBtnMob{
+  width: fit-content;
+  height: fit-content;
+  padding: 0.7em 3em;
+  border-radius: .5em;
+  background-color: var(--forth-color);  
+  color: #DED8CC;
+  border: none;
+  font-size: calc(0.7rem + 0.3vw);
+  cursor: pointer;
+  transition: background-color .6s ease, color 1s ease;
+  display: none;
+  margin: 2em 0 5em 0;
+}
+
+.biogrContainer{
+  width: 88%;
+  margin: 2em auto;
+  height: fit-content;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  font-family: montserrat;
+  color: var(--accent-color);
+}
+.emailCont{
+  display: flex;
+  flex-direction: row;
+  margin-top: 4em;
+}
+.emailContMob{
+  display: none;
+  flex-direction: row;
+  margin-top: 4em;
+  
+}
+
+@media screen and (max-width:950px) {
+  .heroContainer{
+    margin-top: 0em;
+  }
+  .emailCont{
+    display: flex;
+    flex-direction: row;
+    margin-top: 1.5em;
+  }
+  .suivreBtn{
+    margin-top: 1.5em;
+  }
+  .card p{
+    margin: .5em 0;
+  }
+}
+
+@media screen and (max-width:750px) {
+  .imageContent {
+    width: fit-content; 
+    left: 0;
+    right: 0;
+    margin: auto;
+    transform: none; 
+  }
+  
+  .cardContainer{
+    grid-template-columns: 1fr;
+  }
+  .card{
+    grid-row: 1;
+  }
+  .emailCont{
+    display: none;
+  }
+  .suivreBtn{
+    display: none;
+  }
+
+  .emailContMob{
+    display: flex;
+  }
+  .suivreBtnMob{
+    display: flex;
+  }
+  .colabImage{
+    height: fit-content;
+    max-height: fit-content;
+  }
+  .colabImage img{
+    width: 70%;
+    margin-left: 15%;
+    height: auto;
+  }
+}
+
+@media screen and (max-width:450px) {
+  .colabImage img{
+    width: 80%;
+    margin-left: 10%;
+    height: auto;
+  }
+
+}

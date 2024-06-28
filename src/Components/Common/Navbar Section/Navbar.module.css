@@ -51,6 +51,7 @@
     height: 100%;
     margin: auto ;
     padding: 0.5em 0;
+    cursor: pointer;
 }
 
 .headercontent{
@@ -318,6 +319,7 @@
         /* background-color: blue; */
         height: 100%;
         margin: auto 0;
+        cursor: pointer;
     }
     .header_top{
         flex-direction: column;
