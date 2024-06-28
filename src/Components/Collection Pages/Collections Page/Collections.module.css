@@ -11,15 +11,31 @@
 }
 
 
-.heroContainer{
+.header{
+  display: flex;
+  flex-direction: column;
+  margin: 3em 0;
+}
+
+.header h1{
   position: relative;
+  font-size: calc(1.5rem + 0.9vw);
+  color: var(--secondary-color);
+  font-family: var(--font-family);
+  font-weight: 700;
+  line-height: normal;
+  margin:0 auto;
+}
+
+.header p{
   width: 100%;
-  height: 20em;
-  padding: 0;
-  margin: 0;
-  margin-top: -1.7em;
-  margin-bottom: 3em;
-  z-index: -1;
+  position: relative;
+  font-size: calc(1.2rem + 0.7vw);
+  color: var(--secondary-color);
+  font-family: var(--font-family);
+  font-weight: 500;
+  line-height: normal;
+  margin: 0.5em auto;
 }
 
 .nodata{
@@ -43,7 +59,7 @@
 }
 
 .nodata h1{
-  font-family: Montserrat;
+  font-family: var(--font-family);
   color: var(--accent-color);
   text-align: center;
 }
@@ -68,7 +84,7 @@
   transform: translateX(50%);
   background-color: var(--accent-color);
   color: #fff;
-  font-family: montserrat;
+  font-family: var(--font-family);
   font-style: normal;
   padding: 1em 2em; 
   font-size: calc(1rem + 0.4vw);
@@ -82,35 +98,59 @@
 
 .data {
   position: relative;
-  width: 80%;
+  width: 88%;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(5, 18%);
+  grid-template-columns: repeat(4, 22%);
   margin-top: 3em;
   text-align: center;
   align-items: center;
   justify-content: center;
-  gap: 5em 3em;
 }
 
 .logo_con {
   position: relative;
   font-size: calc(.9rem + .3vw);
-  width: 10em;
-  height: 10em;
-  margin: 0 auto;
+  width: 16vw;
+  max-width:em;
+  height: 16vw;
+  max-height: 17em; 
+  background-image: url(../../../assets/servicesBG.png);
+  background-repeat: no-repeat; 
+  background-size: contain;
+  background-position: center;
+  margin: 3em auto 0 auto;
   border-radius: 50%;
   object-fit: contain;
 }
 
-.logo_con img {
-  width: 3em;
-  height: 3em;
-  margin-top: 2em;
+.content{
+  width: 95%;
+  height: 95%;
+  margin: auto;
+  margin-top: 2.5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  clip-path: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%);
 }
 
-.logo_con p {
-  margin: 1.2em auto;
+.content img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.content p {
+  position: absolute;
+  width: 75%;
+  bottom: 2em;
+  margin: 0 auto;
+  text-align: center;
+  font-size: calc(1rem + 0.6vw);
+  font-family: var(--font-family);
+  color:#fff;
 }
 
 .btn_mobile {
@@ -157,13 +197,13 @@
     flex-direction: row;
     justify-content: space-between;
     padding: 1.5em 0;
-    border-top: 2px solid var(--accent-color);
+    border-top: 2px solid var(--secondary-color);
     margin: 2em auto 3em auto;
   }
   
   .show p{
-    font-family: Montserrat;
-    color: var(--accent-color);
+    font-family: var(--font-family);
+    color: var(--secondary-color);
     margin: auto 0;
     font-weight: 500;
   }
@@ -175,7 +215,7 @@
   }
   
   .control button{
-    background-color: var(--primary-color);
+    background-color: #fff;
     color: var(--secondary-color);
     width: 3em;
     height: 3em;
@@ -186,30 +226,32 @@
   }
   
   .icon1{
-    width: 1em;
-    height: 1em;
+    width: 1.5em;
+    height: 1.5em;
     margin: auto !important;
+    font-weight: 700;
   }
   
   .nb{
-    font-family: Montserrat;
+    font-family: var(--font-family);
     font-style: normal;
     color: var(--secondary-color);
+    background-color: #fff !important;
+    font-weight: 700;
+  }
+  .ellipsis{
+    margin: auto auto 0.5em auto;
   }
   
 .selectednb{
-  background-color: var(--forth-color) !important;
-  color: var(--secondary-color);
-  font-family: Montserrat;
+  background-color: var(--primary-color) !important;
+  color: #fff;
+  font-family: var(--font-family);
   font-style: normal;
+  font-weight: 700;
 }
 
 @media screen and (max-width: 1024px) {
-  
-
-}
-
-@media screen and (max-width: 950px) {
   .page_control{
     margin: 2em auto 0 auto;
   }

@@ -425,5 +425,15 @@
     },
     "Track": { "eng": "Follow", "fr": "Suivre" },
     "Repurchase": { "eng": "Repurchase", "fr": "Acheter à nouveau" }
+  },
+  "Collections":{
+    "CollectionsPage":{
+      "title":{"eng":"Our Collections", "fr": ""},
+      "description":{"eng":"We’d love to hear from you!", "fr": ""}
+    },
+    "CollectionsDetails":{
+      "title":{"eng":"More of this Collection", "fr": ""},
+      "description":{"eng":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": ""}
+    }
   }
 }

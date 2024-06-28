@@ -157,7 +157,7 @@ const Navbar = ({ toggle }) => {
             <img
               src={logo}
               alt="logodark"
-              style={{ width: "70%", margin: "auto 0", height: "auto" }}
+              style={{ width: "70%", margin: "auto 0", height: "96%", }}
             />
           </div>
           <div className={classes.headercontent}>

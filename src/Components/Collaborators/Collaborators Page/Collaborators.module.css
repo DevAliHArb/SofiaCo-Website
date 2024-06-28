@@ -78,7 +78,7 @@
 }
 
 .nodata h1{
-  font-family: Montserrat;
+  font-family: var(--font-family);
   color: var(--accent-color);
   text-align: center;
 }
