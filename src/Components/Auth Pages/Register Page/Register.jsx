@@ -186,7 +186,16 @@ const Register = () => {const navigate = useNavigate();
         </Form.Item>
         <Form.Item
           name="email"
-          rules={[{ required: true, message: 'Please input your Email!' }]}
+          rules={[
+            { 
+              required: true, 
+              message: 'Please input your Email!' 
+            },
+            { 
+              pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 
+              message: 'The input is not valid E-mail!' 
+            }
+          ]}
         >
           <Input
           size="large"  
