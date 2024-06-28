@@ -63,6 +63,16 @@ const CollaboratorDetails = () => {
     <div> <div className={classes.login_con}>
       <OurSelectionBanner />
       <div className={classes.cardContainer}>
+        <div className={classes.card} >
+          <h1 style={{fontWeight:'600'}}>{CollaboratorData.nom}</h1>
+          {/* <p style={{color:'var(--accent-color)',fontWeight:"500"}}>{CollaboratorData.type}</p> */}
+          <p style={{color:'var(--accent-color)',fontWeight:"500"}}>{CollaboratorData.biographie}</p>
+          <div className={classes.emailCont}>
+            <div className={classes.iconCont}><IoMailOutline style={{fontSize:'1.2em',marginTop:'.3em'}}/>
+           </div> <p style={{margin:'auto 0',fontWeight:"500"}}>{CollaboratorData.email}</p>
+          </div>
+          <button className={classes.suivreBtn}  onClick={()=>handleSuivreClick(CollaboratorData.id)}>Subscribe</button>
+        </div>
         <div className={classes.colabImage}>
         {CollaboratorData.image === '' ? 
                     <img src={collabPlaceholder} alt="" width="100%" height="100%" /> 
@@ -74,16 +84,6 @@ const CollaboratorDetails = () => {
            </div> <p style={{margin:'auto 0',fontWeight:"500"}}>{CollaboratorData.email}</p>
           </div>
           <button className={classes.suivreBtnMob} onClick={()=>handleSuivreClick(CollaboratorData.id)}>Suivre</button>
-        </div>
-        <div className={classes.card} >
-          <h1 style={{fontWeight:'600'}}>{CollaboratorData.nom}</h1>
-          {/* <p style={{color:'var(--accent-color)',fontWeight:"500"}}>{CollaboratorData.type}</p> */}
-          <p style={{color:'var(--accent-color)',fontWeight:"500"}}>{CollaboratorData.biographie}</p>
-          <div className={classes.emailCont}>
-            <div className={classes.iconCont}><IoMailOutline style={{fontSize:'1.2em',marginTop:'.3em'}}/>
-           </div> <p style={{margin:'auto 0',fontWeight:"500"}}>{CollaboratorData.email}</p>
-          </div>
-          <button className={classes.suivreBtn}  onClick={()=>handleSuivreClick(CollaboratorData.id)}>Subscribe</button>
         </div>
       </div> 
         <div className={classes.biogrContainer}>

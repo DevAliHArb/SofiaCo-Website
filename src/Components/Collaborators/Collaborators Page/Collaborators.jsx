@@ -313,8 +313,8 @@ const Collaborators = () => {
             
             <div key={props.id}  onClick={(event) => {
               event.stopPropagation();
-              dispatch(addSelectedEvent(props));
-              navigate(`/events/${props.id}/event-details`);
+              dispatch(addSelectedCollab(props));
+              navigate(`/collaborators/${props.id}/details`);
             }}
            className={classes.card_container}>
               <div className={classes.card_img}>

@@ -139,3 +139,23 @@
         width: 93%;
     }
 }
+
+@media screen and (max-width:950px) {
+    .back{
+        top: 5em;
+        left: 3em;
+    }
+    
+.logo_con img{
+    margin-top: 3em;
+    width: 90%;
+    height: 90%;
+}
+}
+
+@media screen and (max-width:650px) {
+    .back{
+        top: 5em;
+        left: 1em;
+    }
+}

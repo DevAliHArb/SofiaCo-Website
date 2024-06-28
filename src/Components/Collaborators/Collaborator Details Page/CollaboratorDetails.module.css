@@ -58,23 +58,47 @@
     margin: 0 auto;
     display: grid;
     grid-template-rows: auto;
-    grid-template-columns: 37% 57%;
-    gap: 4%;
+    grid-template-columns: 65% 40%;
+    justify-content: space-between;
     font-size: calc(0.7rem + 0.3vw);
   }
 
-  .card{
-    width: 100%;
-    margin: 0 auto;
-    height: 100%;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    text-align: start;
-    font-family: montserrat;
-    color: var(--accent-color);
-    justify-content: space-between;
-  }
+  
+.card{
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  font-family: montserrat;
+  color: var(--accent-color);
+  justify-content: center;
+}
+
+.card h1{
+  font-family: var(--font-family);
+  font-size: calc(1.4rem + 0.8vw);
+  letter-spacing: 0.01rem;
+  font-weight: 700;
+  text-align: start;
+  margin: 0 auto;
+  padding: 0.5em 0;
+  width: 100%;
+  color: var(--secondary-color);
+}
+
+.card p{
+  position: relative;
+  font-size: calc(0.7rem + 0.3vw);
+  color: var(--secondary-color);
+  font-family: var(--font-family);
+  font-weight: 400;
+  line-height: normal;
+  margin: 1em auto;
+}
+
 
   .colabImage{
     width: 100%;
