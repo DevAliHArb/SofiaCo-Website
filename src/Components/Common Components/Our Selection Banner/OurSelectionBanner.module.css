@@ -94,9 +94,10 @@
     .content{
         width: 94%;
         margin: 0 auto;
+
     }
     .img_con{
-        width: 50%;
+        width: 45%;
         margin: auto;
         /* height: 45vw; */
     }
@@ -104,9 +105,14 @@
         width: 50%;
     }
     .data h1{
-        font-size: calc(1rem + 0.8vw);
+        font-size: calc(0.9rem + 0.6vw);
+        margin: 0;
     }
     .data p{
         font-size: calc(0.5rem + 0.2vw);
+        margin: 0;
+    }
+    .buttoncart{
+        padding: 0.4em 2em;
     }
   }

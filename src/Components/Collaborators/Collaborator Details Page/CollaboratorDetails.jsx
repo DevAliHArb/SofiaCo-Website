@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import Video from './Video Section/Video'
 import classes from "./CollaboratorDetails.module.css";
-import BookHeroImage from '../../../assets/BookHeroImage.png'
-import imagee from '../../../assets/collab-img.png'
 import collabPlaceholder from '../../../assets/collab-placeholder.png'
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { IoMailOutline } from "react-icons/io5";
-import DuMêmeAuteur from '../../Common/Du Même Auteur Section/DuMêmeAuteur';
-import Agenda from '../../Home Page/Agenda Section/Agenda';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import OurSelectionBanner from '../../Common Components/Our Selection Banner/OurSelectionBanner';
 
 // description
 // image
@@ -64,13 +61,7 @@ const CollaboratorDetails = () => {
 
   return (
     <div> <div className={classes.login_con}>
-      <div className={classes.heroContainer} >
-            <img src={BookHeroImage} alt='HeroImage' style={{height:'100%'}} className={classes.heroImage}/>
-            <div className={classes.imageContent}>
-              <h2 style={{margin:'0'}}>Auteur</h2>
-              <p style={{margin:'.2em 0 0 0'}}>Collaborators / Auteur</p>
-            </div>
-        </div>
+      <OurSelectionBanner />
       <div className={classes.cardContainer}>
         <div className={classes.colabImage}>
         {CollaboratorData.image === '' ? 
@@ -100,9 +91,7 @@ const CollaboratorDetails = () => {
           <p style={{fontWeight:"500"}}>{CollaboratorData.biographie}</p>
         </div>
     </div>
-        <DuMêmeAuteur/>
         <Video />
-        <Agenda/>
       {/* <ToastContainer
         position="top-right"
         autoClose={5000}

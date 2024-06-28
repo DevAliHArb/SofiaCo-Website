@@ -17,6 +17,8 @@ import Login from './Components/Auth Pages/Login Page/Login';
 import Verify from './Components/Auth Pages/Verfiy Email/Verify';
 import CollectionsPage from './Components/Collection Pages/Collections Page/Collections';
 import CollectionDetailsPage from './Components/Collection Pages/CollectionDetails Page/CollectionDetails';
+import Collaborators from './Components/Collaborators/Collaborators Page/Collaborators';
+import CollaboratorDetails from './Components/Collaborators/Collaborator Details Page/CollaboratorDetails';
 
 
 function App() {
@@ -60,6 +62,8 @@ useEffect(() => {
           <Route path='/verify-email' element={<ScrollToTop><Verify /></ScrollToTop>} />
           <Route path='/collections' element={<ScrollToTop><CollectionsPage /></ScrollToTop>} />
           <Route path='/collections/:id/details' element={<ScrollToTop><CollectionDetailsPage /></ScrollToTop>} />
+          <Route path='/collaborators' element={<ScrollToTop><Collaborators /></ScrollToTop>} />
+          <Route path='/collaborators/:id/details' element={<ScrollToTop><CollaboratorDetails /></ScrollToTop>} />
         </Routes>
       </div>
       {!isAuthPages && <Footer/>}

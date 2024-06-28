@@ -225,6 +225,7 @@
   }
   
   .icon1{
+    color: var(--secondary-color);
     width: 1.5em;
     height: 1.5em;
     margin: auto !important;
@@ -333,6 +334,7 @@
     object-fit: contain;
   }
   .icon1{
+    color: var(--secondary-color);
     width: 1em;
     height: 1em;
   }

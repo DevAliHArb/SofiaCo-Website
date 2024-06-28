@@ -29,7 +29,7 @@ const Verify = () => {
           <div className={classes.auth_bg} />
          <h1>{language === 'eng' ? 'Verify your Email Address!' : '!'}</h1>
       {language === 'eng' ? <h4>Kindly check your email to get verified!</h4> : <h4></h4>}
-      <div className={classes.btn_ok}><button onClick={()=>navigate(`/`)} className={classes.logInButton}>Ok</button></div>
+      <div className={classes.btn_ok}><button onClick={()=>navigate(`/login`)} className={classes.logInButton}>Ok</button></div>
       
       <p>{authCtx.companySettings?.copyrights_en}</p>
         </div>

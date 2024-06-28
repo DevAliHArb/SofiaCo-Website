@@ -1,8 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import classes from "./Collaborators.module.css";
-import collab_image from "../../../assets/collab-head.png";
-import { AuteursArray } from "../../Common/Constants/Data";
-import Agenda from "../../Home Page/Agenda Section/Agenda";
 import { IoIosArrowDown, IoIosClose } from "react-icons/io";
 import {
   MdKeyboardArrowLeft,
@@ -10,14 +7,18 @@ import {
   MdKeyboardDoubleArrowLeft,
   MdKeyboardDoubleArrowRight,
 } from "react-icons/md";
+import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
 import { Drawer } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { addSelectedCollab, deleteSelectedCollab } from "../../Common/redux/productSlice";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AuthContext from "../../Common/authContext";
 import collabPlaceholder from '../../../assets/collab-placeholder.png'
 import nodata from '../../../assets/noCollabFound.svg'
+import OurSelectionBanner from "../../Common Components/Our Selection Banner/OurSelectionBanner";
+import Deals from '../../Home Page/Deals/Deals'
+import abs from '../../../assets/collab-abs.png'
 
 const Collaborators = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,10 @@ const Collaborators = () => {
   const [to, setto] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  
+  const language = useSelector(
+    (state) => state.products.selectedLanguage[0].Language
+  );
 
   const withFirstLetters = authCtx.collaborators?.map((person) => {
     const firstLetter = person.nom[0].toLowerCase();
@@ -120,18 +125,8 @@ const Collaborators = () => {
 
   return (
     <div className={classes.collab}>
-      <div className={classes.collab_image_con}>
-        <img
-          src={collab_image}
-          alt="registerImage"
-          style={{ height: "100%" }}
-          className={classes.collab_image}
-        />
-        <div className={classes.imageContent}>
-          <h2 style={{ margin: "0" }}>Collaborators</h2>
-          <p style={{ margin: ".2em 0 0 0" }}>Home / Collaborators</p>
-        </div>
-      </div>
+      <img src={abs} alt="" className={classes.img_abs}/>
+      <OurSelectionBanner />
       <div className={classes.content}>
         <div className={classes.filters}>
           <div
@@ -154,7 +149,7 @@ const Collaborators = () => {
               style={{
                 borderRadius: "20px",
                 padding: "0em 0em 0 1em",
-                background: "var(--secondary-color)",
+                background: "var(--accent-color)",
                 margin: "auto 0",
               }}
             />
@@ -254,42 +249,6 @@ const Collaborators = () => {
                 </button>
               </div>
             </div>
-            {/* <div className={classes.dropdownContainer}>
-              <button
-                className={classes.btn}
-                onClick={() => SetMajoropen(!majoropen)}
-              >
-                {major} {majoropen ? <IoIosClose /> : <IoIosArrowDown />}
-              </button>
-              <div
-                className={`${classes.drop_down} ${
-                  majoropen ? classes.show : ""
-                }`}
-              >
-                <button onClick={() => SetMajor("All") & SetMajoropen(false)}>
-                  All
-                </button>
-                <div className={classes.border}/>
-                <button
-                  onClick={() => SetMajor("Romans") & SetMajoropen(false)}
-                >
-                  Romans
-                </button>
-                <div className={classes.border}/>
-                <button
-                  onClick={() => SetMajor("Sciences") & SetMajoropen(false)}
-                >
-                  Sciences
-                </button>
-                <div className={classes.border}/>
-                <button
-                  style={{ borderBottom: "none" }}
-                  onClick={() => SetMajor("Islam") & SetMajoropen(false)}
-                >
-                  Islam
-                </button>
-              </div>
-            </div> */}
           </div>
         </div>
         <div className={classes.letters_con}>
@@ -350,26 +309,28 @@ const Collaborators = () => {
           </div>
           :
           <div className={classes.grid}>
-          {records.map((author) => (
-            <div className={classes.card_container} 
-            onClick={(event) => {
+          {records.map((props) => (
+            
+            <div key={props.id}  onClick={(event) => {
               event.stopPropagation();
-              dispatch(deleteSelectedCollab());
-              dispatch(addSelectedCollab(author));
-              navigate(`collaborator-details/${author.id}`);
+              dispatch(addSelectedEvent(props));
+              navigate(`/events/${props.id}/event-details`);
             }}
-            >
+           className={classes.card_container}>
               <div className={classes.card_img}>
-                {author.image === '' ? 
+                <div className={classes.card_imgimg}>
+                {props.image === '' ? 
                   <img src={collabPlaceholder} alt="" width="100%" height="100%" /> 
                   : 
-                  <img src={`https://api.leonardo-service.com/img/${author.image}`} alt="" width="100%" height="100%" />  
-              }
-              </div>
-              <div className={classes.bookTitle}>
-                <h3>{author.nom}</h3>
-                {/* <p>{capitalizeFirstLetter(`${author.type}`)}</p> */}
-                {/* <p>{capitalizeFirstLetter(`${author.major}`)}</p> */}
+                  <img src={`https://api.leonardo-service.com/img/${props.image}`} alt="" width="100%" height="100%" />  
+              } 
+                </div>
+                <div className={classes.card_text}>
+                    <div className={classes.hovered_title}>
+                      <h2>{props.nom}</h2>
+                    </div>
+                      <p className={classes.p}>{props.description_eng?.substring(0, 60)}{props.description_eng?.length > 60 && "..."}</p>
+                </div>
               </div>
             </div>
           ))}
@@ -382,17 +343,20 @@ const Collaborators = () => {
               </p>
             </div>
             <div className={classes.control}>
-              <button onClick={prev2page}>
-                <MdKeyboardDoubleArrowLeft className={classes.icon} />
-              </button>
+              {/* <button onClick={prev2page}>
+                <MdKeyboardDoubleArrowLeft className={classes.icon1} />
+              </button> */}
               <button onClick={prevpage}>
-                <MdKeyboardArrowLeft className={classes.icon} />
+                <FaArrowLeftLong className={classes.icon1} />
               </button>
               {numbers.map((n, i) => {
                 if (
-                  n === pagenbroute ||
-                  n === pagenbroute + 1 ||
-                  n === pagenbroute + 2
+                  n === 1 ||
+                  n === pagenb ||
+                  n === currentpage - 1 ||
+                  n === currentpage ||
+                  n === currentpage + 1 ||
+                  (n === currentpage + 2 && currentpage === 1)
                 ) {
                   return (
                     <button
@@ -408,20 +372,27 @@ const Collaborators = () => {
                       {n}
                     </button>
                   );
+                } else if (
+                  n === currentpage - 2 ||
+                  n === currentpage + 3
+                ) {
+                  return (
+                    <span key={i} className={classes.ellipsis}>...</span>
+                  );
                 }
                 return null;
               })}
               <button onClick={nextpage}>
-                <MdKeyboardArrowRight className={classes.icon} />
+                <FaArrowRightLong className={classes.icon1} />
               </button>
-              <button onClick={next2page}>
-                <MdKeyboardDoubleArrowRight className={classes.icon} />
-              </button>
+              {/* <button onClick={next2page}>
+                <MdKeyboardDoubleArrowRight className={classes.icon1} />
+              </button> */}
             </div>
           </div>
         </div>
       </div>
-      <Agenda />
+      <Deals />
     </div>
   );
 };
