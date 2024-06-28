@@ -147,9 +147,14 @@
     }
     
 .logo_con img{
-    margin-top: 3em;
     width: 90%;
     height: 90%;
+}
+
+.auth_con{
+    background-image: url(../../../assets/authBGmob.svg);
+    background-size: cover;
+    background-position: right top ;
 }
 }
 

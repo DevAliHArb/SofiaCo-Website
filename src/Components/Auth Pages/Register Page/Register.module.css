@@ -156,6 +156,12 @@
     width: 90%;
     height: 90%;
 }
+
+.auth_con{
+    background-image: url(../../../assets/authBGmob.svg);
+    background-size: cover;
+    background-position: right top ;
+}
 }
 
 @media screen and (max-width:650px) {
@@ -163,4 +169,9 @@
         top: 5em;
         left: 1em;
     }
+    
+.auth_card h1{
+    width: 80%;
+    margin: 0 auto;
+}
 }
