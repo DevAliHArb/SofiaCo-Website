@@ -8,6 +8,9 @@ import { FaXTwitter } from "react-icons/fa6";
 import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { FaCalendarAlt } from "react-icons/fa";
+import { CiClock2, CiLocationOn } from "react-icons/ci";
+import { MdLocationOn } from "react-icons/md";
 import 'react-toastify/dist/ReactToastify.css';
 import { addSelectedEvent } from "../../Common/redux/productSlice";
 import { useNavigate } from "react-router-dom";
@@ -170,17 +173,66 @@ console.log(eventEnded)
   return (
     <div className={classes.events_detail}>
       <div className={classes.events_detail_image_con}>
-        {/* <img
-          src={collab_image}
+        <div className={classes.contentContainer} onClick={()=>console.log(eventData)}>
+          <h1>{language == 'eng' ? eventData.name_eng : eventData.name_fr}</h1>
+          <h3>{eventData.event_host?.map((data ,index)=>{
+                    return(
+                           <>{data.name} {(index + 1) === eventData.event_host?.length ? '' : "/"}</>
+                    )
+                  })}</h3>
+        <div className={classes.details_box}>
+          <div className={classes.detail_item}>
+            <p><CiClock2 className={classes.iconss}/>{formatTime(eventData.start_time)} - {formatTime(eventData.end_time)}</p>
+          </div>
+          <div className={classes.detail_item}>
+            <p><MdLocationOn className={classes.iconss}/>{eventData.location}</p>
+          </div>
+          <div className={classes.detail_item}>
+            <p><FaCalendarAlt className={classes.iconss}/>{formatDate(eventData.date)}</p>
+          </div>
+        </div>
+          <div className={classes.priceBtn}>
+            <p>$ {eventData.price}</p>
+          </div>
+        </div>
+        <img
+          src={eventData.event_images && `https://sofiadis.recette-lisa.leonardo-service.com/modules/sofiadis/files/${eventData.event_images[0].image}`}
           alt="registerImage"
           style={{ height: "100%" }}
           className={classes.events_detail_image}
-        /> */}
-        <div className={classes.imageContent} onClick={()=>console.log(eventData)}>
-          <h2 style={{ margin: "0" }} >Events</h2>
-          <p style={{ margin: ".2em 0 0 0" }}>Home / Events</p>
+        />
+      </div>
+      <div className={classes.events_detail_image_con}>
+        <div className={classes.imagesCont}>
+        <img
+          src={eventData.event_images && `https://sofiadis.recette-lisa.leonardo-service.com/modules/sofiadis/files/${eventData.event_images[0].image}`}
+          alt="registerImage"
+          style={{ height: "100%" }}
+          className={classes.events_detail_image}
+        />
+        <img
+          src={eventData.event_images && `https://sofiadis.recette-lisa.leonardo-service.com/modules/sofiadis/files/${eventData.event_images[0].image}`}
+          alt="registerImage"
+          style={{ height: "100%" }}
+          className={classes.events_detail_image}
+        />
+        <img
+          src={eventData.event_images && `https://sofiadis.recette-lisa.leonardo-service.com/modules/sofiadis/files/${eventData.event_images[0].image}`}
+          alt="registerImage"
+          style={{ height: "100%" }}
+          className={classes.events_detail_image}
+        />
+        </div>
+        <div className={classes.contentss}>
+          <h2>{language == 'eng' ? eventData.name_eng : eventData.name_fr}</h2>
+          <p>{language == 'eng' ? eventData.description_eng : eventData.description_fr}</p>
+          <div className={classes.priceBtn}>
+            <p>Contact Us</p>
+          </div>
         </div>
       </div>
+
+
       <div className={classes.content}>
         <div className={classes.details_section}>
           <div className={classes.title_con}>
@@ -218,24 +270,6 @@ console.log(eventEnded)
               </p> */}
             </div>
           </div>
-          <div className={classes.details_box}>
-            <div className={classes.detail_item}>
-              <p>Date</p>
-              <p>{formatDate(eventData.date)}</p>
-            </div>
-            <div className={classes.detail_item}>
-              <p>Time</p>
-              <p>{formatTime(eventData.start_time)} - {formatTime(eventData.end_time)}</p>
-            </div>
-            <div className={classes.detail_item}>
-              <p>Duration</p>
-              <p>{calculateDuration(eventData.start_time, eventData.end_time)}</p>
-            </div>
-            <div className={classes.detail_item}>
-              <p>Price</p>
-              <p>$ {eventData.price}</p>
-            </div>
-          </div>
           <div className={classes.map_con}>
             <iframe
               title="Google Map"
@@ -254,23 +288,7 @@ console.log(eventEnded)
           </div>
           <div className={classes.about}>
             <h3>About the workshop</h3>
-            <p>{language == 'eng' ? eventData.description_eng : eventData.description_fr}</p>
-            {eventData.event_host?.map((data)=>{
-                    return(
-                      <div className={classes.owner_card_mob}>
-                          <div className={classes.owner_info}>
-                              <img alt="" src={data.image ? `https://sofiadis.recette-lisa.leonardo-service.com/modules/sofiadis/files/${data.image}` : '' }/>
-                              <div className={classes.name}>
-                                  <h3>{data.name}</h3>
-                                  <p>{data.email}</p>
-                              </div>
-                          </div>
-                              <div className={classes.owner_details}>
-                                  <p>{language == 'eng' ? data.description_eng : data.description_fr}</p>
-                              </div>
-                    </div>
-                    )
-                  })}
+            <p></p>
           
           </div>
           <div className={classes.socials}>
