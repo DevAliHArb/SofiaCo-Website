@@ -175,42 +175,16 @@
     }
   },
   "Cart": {
-    "title": { "eng": "Order Summary", "fr": "Récapitulatif des achats" },
-    "description": {
-      "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      "fr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    "title1": { "eng": "Shopping cart", "fr": " Shopping cart (fr)" },
+    "title2": { "eng": "Checkout details", "fr": "Checkout details (fr)" },
+    "title3": { "eng": "Order complete", "fr": " Order complete (fr)" },
+    "emptyCart": {
+      "eng": "Your Cart Is Empty!",
+      "fr": "Your Cart Is Empty!(fr)"
     },
-    "QuickDelivery": {
-      "eng": "Quick Delivery",
-      "fr": "Livraison Rapide"
-    },
-    "QuickDeliverydescription": {
-      "eng": "Fusce dapibus, tellus ac cursus fermentum massa justo sit amet risus.",
-      "fr": "Fusce dapibus, tellus ac cursus fermentum massa justo sit amet risus."
-    },
-    "SecurePayment": {
-      "eng": "Secure Payment",
-      "fr": "Paiement Securisé"
-    },
-    "SecurePaymentdescription": {
-      "eng": "Fusce dapibus, tellus ac cursus fermentum massa justo sit amet risus.",
-      "fr": "Fusce dapibus, tellus ac cursus fermentum massa justo sit amet risus."
-    },
-    "Servicesclients": {
-      "eng": "Customer services",
-      "fr": "Services clients"
-    },
-    "Servicesclientsdescription": {
-      "eng": "Customer service : 01 xx xx xx xx from Monday to Saturday (9h-19h30)",
-      "fr": "Service client : 01 xx xx xx xx  du lundi au samedi (9h-19h30)"
-    },
-    "Satisfait": {
-      "eng": "Satisfied or your money back",
-      "fr": "Satisfait ou remboursé"
-    },
-    "Satisfaitdescription": {
-      "eng": "Fusce dapibus, tellus ac cursus fermentum massa justo",
-      "fr": "Fusce dapibus, tellus ac cursus fermentum massa justo"
+    "emptyCartBtn": {
+      "eng": "Start Shopping",
+      "fr": "Start Shopping (fr)"
     }
   },
   "ContactUsPage": {

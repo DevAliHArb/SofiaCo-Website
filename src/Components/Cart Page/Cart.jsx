@@ -3,7 +3,7 @@ import classes from "./Cart.module.css";
 import { useSelector } from "react-redux";
 import { Button, Form, Input } from 'antd';
 import  EmptyCart from "../../assets/EmptyCart.png";
-// import contactUsImage from '../../assets/contactUsImage.png'
+import Data from '../../Data.json'
 import { GoTag } from "react-icons/go";
 import { useState } from "react";
 import { Divider, FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material";
@@ -74,6 +74,36 @@ const Cart = () => {
 
   return (
     <div className={classes.cart_container}>
+      <div className={classes.headTitles}>
+        <h1>Cart</h1>
+        <div style={{width:'fit-content',margin:"2em auto",display:'flex',flexDirection:"row",gap:"2em"}}>
+          <h4 style={{padding:'1em',margin:'0 .5em',borderBottom:".2em solid var(--primary-color)"}}><span style={{padding:'.3em .5em',backgroundColor:'var(--primary-color)',color:'#fff',borderRadius:'50%'}}>1</span> {Data.Cart.title1[language]}</h4>
+          <h4 style={{padding:'1em',margin:'0 .5em'}}><span style={{padding:'.3em .5em',backgroundColor:'#EEBA7F',color:'#fff',borderRadius:'50%'}}>2</span> {Data.Cart.title2[language]}</h4>
+          <h4 style={{padding:'1em',margin:'0 .5em'}}><span style={{padding:'.3em .5em',backgroundColor:'#EEBA7F',color:'#fff',borderRadius:'50%'}}>3</span> {Data.Cart.title3[language]}</h4>
+        </div>
+      </div>
+          {productData.length == 0 ? (
+           <div className={classes.shopping_con}
+           style={{
+            width:'70%',
+             display: "flex",
+             flexDirection: "column",
+             rowGap: "2em",
+             padding: "5%",
+             margin: "auto",
+           }}
+         >
+         <div className={classes.auth_bg1}></div>
+           <div style={{width:'fit-content',zIndex:"2",margin:"auto", color:'var(--accent-color)',fontFamily:'montserrat',fontSize:'calc(.7rem + .3vw)'}}>
+             <div style={{width:'fit-content',margin:'auto'}}>
+             <img alt='EmptyCart' src={EmptyCart} style={{width:"10em" , height:"auto"}}/>
+             </div>
+             <h1 style={{textAlign:'center'}}>{Data.Cart.emptyCart[language]}</h1>
+             {/* <p  style={{textAlign:'center'}}> You have no items in your shopping cart</p> */}
+             <button className={classes.browseBtn}  onClick={()=>navigate('/')}>{Data.Cart.emptyCartBtn[language]}</button>
+           </div>
+         </div> 
+          ) : (
       <div className={classes.shopping_con}>
       <div className={classes.shopping}>
       <div className={classes.header}>
@@ -84,28 +114,7 @@ const Cart = () => {
           <p>Total</p>
           <p></p>
         </div>
-          {productData.length == 0 ? (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                rowGap: "2em",
-                padding: "5%",
-                margin: "auto",
-              }}
-            >
-              <div style={{width:'fit-content',margin:"auto", color:'var(--accent-color)',fontFamily:'montserrat',fontSize:'calc(.7rem + .3vw)'}}>
-                <div style={{width:'fit-content',margin:'auto'}}>
-                <img alt='EmptyCart' src={EmptyCart} style={{width:"10em" , height:"auto"}}/>
-                </div>
-                <h1 style={{textAlign:'center'}}>Your cart is empty!</h1>
-                <p  style={{textAlign:'center'}}> You have no items in your shopping cart</p>
-                <button className={classes.browseBtn}  onClick={()=>navigate('/')}>Browse</button>
-              </div>
-            </div>
-          ) : (
             <CartItem />
-          )}
       </div>
       <div className={classes.bigContainer} >
         <div className={classes.auth_bg}></div>
@@ -179,12 +188,8 @@ const Cart = () => {
           
       </div>
       </div>
-      {/* {productData.length == 0 ? <></> : 
-      <div style={{display:'flex',flexWrap:'wrap',gap:'1em 2em'}}>
-            <button className={classes.btn} onClick={()=>navigate(`/books`)}>Poursuivre Mes Achats</button>
-            <button className={classes.btn} onClick={()=>navigate(`/wishlist`)} style={{backgroundColor:'var(--accent-color)'}}>Consulter Mes Listes</button>
-      </div>} */}
       </div>
+          )}
         {/* <CoupsDeCoeur/> */}
       <CartSidebar />
       <AlsoSee/>

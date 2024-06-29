@@ -37,15 +37,15 @@ const ConfirmationPopup = ({ message, onConfirm, onCancel, showPopup }) => {
       >
         <Box sx={style}>
         <p>{message}</p>
-        <div style={{width:'fit-content',margin:'auto',display:'flex',flexWrap:'wrap'}}>
+        <div style={{width:'fit-content',margin:'auto',display:'flex',flexWrap:'wrap',gap:'.4em'}}>
         <Button 
            onClick={onConfirm}
-          style={{backgroundColor:'var(--primary-color)',color: 'white', height:'3em',width:'10em',borderRadius:'3em 0',margin:'2em auto'}}>
+          style={{backgroundColor:'var(--primary-color)',color: 'white', height:'3em',width:'10em',borderRadius:'.5em',margin:'2em auto'}}>
             {language === 'eng' ? "Yes" : "Oui"}
           </Button>
         <Button 
            onClick={onCancel}
-          style={{backgroundColor:'var(--primary-color)',color: 'white', height:'3em',width:'10em',borderRadius:'3em 0',margin:'2em auto'}}>
+          style={{backgroundColor:'var(--primary-color)',color: 'white', height:'3em',width:'10em',borderRadius:'.5em',margin:'2em auto'}}>
             {language === 'eng' ? "No" : "Non"}
           </Button></div>
         </Box>
@@ -74,9 +74,9 @@ const CartItem = () => {
   console.log(productData)
   return (
     <>
-      {productData.map((props, index) => (
+      {productData?.map((props, index) => (
         <>
-          <div className={classes.card} key={index}>
+          <div className={classes.card} key={index} style={{borderBottom:(index + 1) !== productData?.length && "1px solid var(--secondary-color)"}}>
             <div style={{ paddingLeft: "2em" }}>
               <img src={props.image} alt="" width="100%" style={{width:'100%',height:'100%',objectFit:'fill',minHeight:'8em'}} />
             </div>
@@ -91,10 +91,10 @@ const CartItem = () => {
             >
               <p style={{width:'100%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"600"}}>{props.title.slice(0,20)}</p>
               
-            <div style={{ margin: "auto auto auto 0" }}>
+            <div style={{ margin: "auto auto auto 0",cursor:'pointer' }}
+                onClick={() => setShowPopup(props._id)}>
               <ClearIcon
                 style={{ color: "var(--secondary-color)",cursor:"pointer",margin:"0 0 -.2em 0"  }}
-                onClick={() => setShowPopup(props._id)}
               /> {language === 'eng' ? 'Remove' : 'Retirer'}
             </div>
             </div>
@@ -234,203 +234,174 @@ const CartItem = () => {
                   ).toFixed(2)}`}
             </p>
           </div>
-          <div className={classes.cardmobile} key={props._id}>
-            <div style={{ padding: "1em" }}>
-              <img src={props.image} alt="" width="90%" style={{width:"90%",height:"100%",objectFit:"fill"}} />
+          <div className={classes.cardmobile} key={index} style={{borderBottom:(index + 1) !== productData?.length && "1px solid var(--secondary-color)"}}>
+            <div style={{paddingRight:'.5em'}}>
+              <img src={props.image} alt="" width="100%" style={{width:'100%',height:'100%',objectFit:'fill',minHeight:'8em'}} />
             </div>
-            <div>
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "50% 50%",
-                  margin: "1em 0",
-                  columnGap: "0em",
-                }}
+            <div style={{width:"100%",height:"100%",display:'flex',flexDirection:"column"}}>
+            <div
+              style={{
+                width:"97%",
+                height:'fit-content',
+                display: "flex",
+                flexDirection: "row",
+                justifyContent:'space-between',
+                margin: " 0",
+              }}
+            >
+              <p style={{width:'80%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"600"}}>{props.title.slice(0,20)}</p>
+              
+            <div style={{ margin: "auto 0",cursor:'pointer' }}
+                onClick={() => setShowPopup(props._id)}>
+              <ClearIcon
+                style={{ color: "var(--secondary-color)",cursor:"pointer",margin:"0 0 -.2em 0"  }}
+              /> 
+            </div>
+            </div>
+            <p
+                style={{textAlign:'start'}}
               >
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    rowGap: ".1em",
-                    textAlign: "start",
-                  }}
-                >
-                  <p className={classes.font_size} style={{fontWeight:'700'}}>{props.title.slice(0,20)}</p>
-                  <p className={classes.font_size}>{props.author.slice(0,20)}</p>
-                  <p className={classes.font_size}>ISBN {props._id}</p>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    rowGap: ".1em",
-                    textAlign: "start",
-                    justifyContent: "end",
-                  }}
-                >
-                  <p></p>
-                  <p className={classes.font_size} style={{fontWeight:"700"}}>
-                    {language === "eng" ? "price" : "prix"}:{" "}
-                    {currency === "eur"
-  ? `€${
-      props.discount > 0
-        ? (props.price - props.price * (props.discount / 100)).toFixed(2)
-        : (Number(props.price)).toFixed(2)
-    }`
-  : `$${props.discount > 0
-        ? (
-            (props.price - props.price * (props.discount / 100)) * authCtx.currencyRate
-          ).toFixed(2)
-        : (props.price * authCtx.currencyRate).toFixed(2)
-    }`}
-                  </p>
-                  <p className={classes.font_size} style={{fontWeight:"700"}}>
-                    Total:{" "}
-                    {currency === "eur"
-                ? `€ ${(props.quantity * ( props.discount > 0
-                  ? (props.price - props.price * (props.discount / 100))
-                  : (Number(props.price)))).toFixed(2)} `
-                : `$ ${(
-                    props.quantity *
-                    ( props.discount > 0
-                      ? (props.price - props.price * (props.discount / 100))
-                      : (Number(props.price))) *
-                    authCtx.currencyRate
-                  ).toFixed(2)}`}
-                  </p>
-                </div>
-              </div>
-              <div
+                {currency === "eur"
+                  ? `€ ${Number(props.price).toFixed(2)} `
+                  : `$ ${(
+                      props.price * authCtx.currencyRate
+                    ).toFixed(2)} `}
+              </p>
+            <div
+              style={{
+                width:"97%",
+                height:'fit-content',
+                display: "flex",
+                flexDirection: "row",
+                justifyContent:'space-between',
+                margin: "auto 0 0 0",
+              }}
+            >
+            <div className={classes.quantity}>
+              <p
                 style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  marginTop: "0em",
+                  fontWeight: 500,
+                  margin: "auto",
+                  fontSize: "30px",
+                  cursor: "pointer",
                 }}
-              >
-                <div className={classes.quantitymobile}>
-                  <p
-                    style={{
-                      color: "#fff",
-                      fontWeight: 500,
-                      margin: "auto",
-                      fontSize: "calc(0.5vw + 0.7rem)",
-                      cursor: "pointer",
-                    }}
-                    onClick={() => {
-                      if (props.quantity != 1) {
-                        const item = productData.find(
-                          (item) => item._id === props._id
-                        );
-                        const newQuantity = props.quantity - 1;
-                        axios
-                          .put(
-                            `https://api.leonardo-service.com/api/bookshop/cart/${item.cart_id}`,
-                            {
-                              quantity: newQuantity,
-                            }
-                          )
-                          .then((response) => {
-                            console.log(
-                              "PUT request successful:",
-                              response.data
-                            );
-                            dispatch(
-                              decreamentQuantity({
-                                _id: props._id,
-                                title: props.name,
-                                author: props.author,
-                                image: props.image,
-                                price: props.price,
-                                quantity: 1,
-                                description: props.resume,
-                              })
-                            );
+                onClick={() => {
+                  if (props.quantity != 1) {
+                    const item = productData.find(
+                      (item) => item._id === props._id
+                    );
+                    const newQuantity = props.quantity - 1;
+                    axios
+                      .put(
+                        `https://api.leonardo-service.com/api/bookshop/cart/${item.cart_id}`,
+                        {
+                          quantity: newQuantity,
+                        }
+                      )
+                      .then((response) => {
+                        console.log("PUT request successful:", response.data);
+                        dispatch(
+                          decreamentQuantity({
+                            _id: props._id,
+                            title: props.name,
+                            author: props.author,
+                            image: props.image,
+                            price: props.price,
+                            quantity: 1,
+                            description: props.resume,
                           })
-                          .catch((error) => {
-                            console.error("Error in PUT request:", error);
-                            toast.error("Failed to add item to cart.", {
-                              position: "top-right",
-                              autoClose: 1500,
-                              hideProgressBar: true,
-                              closeOnClick: true,
-                              pauseOnHover: true,
-                              draggable: true,
-                              progress: 0,
-                              theme: "colored",
-                            });
-                          });
-                      } else {
-                        setShowPopup(props._id);
-                        // authCtx.deleteFromcart(props._id);
-                      }
-                    }}
-                  >
-                    -
-                  </p>
-                  <p
-                    style={{
-                      color: "#fff",
-                      fontWeight: 500,
-                      fontSize: "calc(0.5vw + 0.5rem)",
-                      margin: "auto",
-                    }}
-                  >
-                    {props.quantity}
-                  </p>
-                  <p
-                    style={{
-                      color: "#fff",
-                      fontWeight: 500,
-                      margin: "auto",
-                      fontSize: "calc(0.5vw + 0.7rem)",
-                      cursor: "pointer",
-                    }}
-                    onClick={() => {
-                      const item = productData.find(
-                        (item) => item._id === props._id
-                      );
-                      const newQuantity = props.quantity + 1;
-                      axios
-                        .put(
-                          `https://api.leonardo-service.com/api/bookshop/cart/${item.cart_id}`,
-                          {
-                            quantity: newQuantity,
-                          }
-                        )
-                        .then((response) => {
-                          console.log("PUT request successful:", response.data);
-                          dispatch(
-                            increamentQuantity({
-                              _id: props._id,
-                              title: props.name,
-                              author: props.author,
-                              image: props.image,
-                              price: props.price,
-                              quantity: 1,
-                              description: props.resume,
-                            })
-                          );
-                        })
-                        .catch((error) => {
-                          console.error("Error in PUT request:", error);
-                          toast.error("Failed to add item to cart.", {
-                            position: "top-right",
-                            autoClose: 1500,
-                            hideProgressBar: true,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: 0,
-                            theme: "colored",
-                          });
+                        );
+                      })
+                      .catch((error) => {
+                        console.error("Error in PUT request:", error);
+                        toast.error("Failed to add item to cart.", {
+                          position: "top-right",
+                          autoClose: 1500,
+                          hideProgressBar: true,
+                          closeOnClick: true,
+                          pauseOnHover: true,
+                          draggable: true,
+                          progress: 0,
+                          theme: "colored",
                         });
-                    }}
-                  >
-                    +
-                  </p>
-                </div>
-              </div>
+                      });
+                  } else {
+                    setShowPopup(props._id)
+                    // authCtx.deleteFromcart(props._id);
+                  }
+                }}
+              >
+                -
+              </p>
+              <p
+                style={{
+                  fontWeight: 500,
+                  fontSize: "20px",
+                  margin: "auto",
+                }}
+              >
+                {props.quantity}
+              </p>
+              <p
+                style={{
+                  fontWeight: 500,
+                  margin: "auto",
+                  fontSize: "30px",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  const item = productData.find(
+                    (item) => item._id === props._id
+                  );
+                  const newQuantity = props.quantity + 1;
+                  axios
+                    .put(
+                      `https://api.leonardo-service.com/api/bookshop/cart/${item.cart_id}`,
+                      {
+                        quantity: newQuantity,
+                      }
+                    )
+                    .then((response) => {
+                      console.log("PUT request successful:", response.data);
+                      dispatch(
+                        increamentQuantity({
+                          _id: props._id,
+                          title: props.name,
+                          author: props.author,
+                          image: props.image,
+                          price: props.price,
+                          quantity: 1,
+                          description: props.resume,
+                        })
+                      );
+                    })
+                    .catch((error) => {
+                      console.error("Error in PUT request:", error);
+                      toast.error("Failed to add item to cart.", {
+                        position: "top-right",
+                        autoClose: 1500,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: 0,
+                        theme: "colored",
+                      });
+                    });
+                }}
+              >
+                +
+              </p>
             </div>
+            <p style={{ margin: "auto", fontWeight: "600" }}>
+              {" "}
+              {currency === "eur"
+                ? `€ ${(props.quantity * (Number(props.price))).toFixed(2)} `
+                : `$ ${(
+                    props.quantity *((Number(props.price))) * authCtx.currencyRate
+                  ).toFixed(2)}`}
+            </p></div>
+          </div>
           </div>
           {showPopup && (
         <ConfirmationPopup

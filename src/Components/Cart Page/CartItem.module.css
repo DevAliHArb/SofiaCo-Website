@@ -3,7 +3,6 @@
     grid-template-columns: 23% 30% 20% 13% 13% ;
     padding: 2% 0;
     color: #000;
-    border-bottom: 1px solid var(--secondary-color);
     font-family: var(--font-family);
 }
 
@@ -21,11 +20,10 @@
 
 .cardmobile{
     display: none;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 25% 75% ;
+    padding: 4% 0;
     color: #000;
-    margin: 5% 0 0% 0;
-    border: 1px solid var(--primary-color);
-    border-radius: 20px;
+    font-family: var(--font-family);
 }
 
 .quantitymobile{
@@ -54,7 +52,16 @@
     .cardmobile{
         display: grid;
     }   
-    
+    .quantity{
+        width: 40%;
+        display: grid;
+        grid-template-columns: 30% 40% 30%;
+        margin: auto auto auto 0;
+        border-radius: .5em;
+        padding: 0% 0;
+        border: 1px solid #7F9BC9;
+        color: var(--secondary-color) !important;
+    }
     .card{
         display: none;
     }
