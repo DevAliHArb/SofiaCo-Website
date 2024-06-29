@@ -21,6 +21,7 @@ import { Rate , Input} from "antd";
 import { FaRegHeart } from "react-icons/fa";
 import AuthContext from "../authContext";
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
+import axios from "axios";
 
 export default function CartSidebar({ toggle, isOpen }) {
   const authCtx = React.useContext(AuthContext);
@@ -103,16 +104,123 @@ export default function CartSidebar({ toggle, isOpen }) {
                                       props.price * authCtx.currencyRate
                                     ).toFixed(2)
                               }$`}</p>
-                <Input type="number" placeholder="Quantity"
-                  min={1} max={100} value={props.quantity} defaultValue={1} style={{color:'#194466',borderColor:'#194466',width:'5em'}}
-                    onChange={(e) => {
-                      authCtx.ChangeCartQty(
-                        props={
-                          id: props.cart_id,
-                          _id: props._id,
-                          quantity: e.target.value,
+                
+            <div className={classes.quantity1}>
+              <p
+                style={{
+                  fontWeight: 500,
+                  margin: "auto",
+                  fontSize: "30px",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  if (props.quantity != 1) {
+                    const item = productData.find(
+                      (item) => item._id === props._id
+                    );
+                    const newQuantity = props.quantity - 1;
+                    axios
+                      .put(
+                        `https://api.leonardo-service.com/api/bookshop/cart/${item.cart_id}`,
+                        {
+                          quantity: newQuantity,
+                        }
+                      )
+                      .then((response) => {
+                        console.log("PUT request successful:", response.data);
+                        dispatch(
+                          decreamentQuantity({
+                            _id: props._id,
+                            title: props.name,
+                            author: props.author,
+                            image: props.image,
+                            price: props.price,
+                            quantity: 1,
+                            description: props.resume,
+                          })
+                        );
                       })
-                      }}/>
+                      .catch((error) => {
+                        console.error("Error in PUT request:", error);
+                        toast.error("Failed to add item to cart.", {
+                          position: "top-right",
+                          autoClose: 1500,
+                          hideProgressBar: true,
+                          closeOnClick: true,
+                          pauseOnHover: true,
+                          draggable: true,
+                          progress: 0,
+                          theme: "colored",
+                        });
+                      });
+                  } else {
+                    setShowPopup(props._id)
+                    // authCtx.deleteFromcart(props._id);
+                  }
+                }}
+              >
+                -
+              </p>
+              <p
+                style={{
+                  fontWeight: 500,
+                  fontSize: "20px",
+                  margin: "auto",
+                }}
+              >
+                {props.quantity}
+              </p>
+              <p
+                style={{
+                  fontWeight: 500,
+                  margin: "auto",
+                  fontSize: "30px",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  const item = productData.find(
+                    (item) => item._id === props._id
+                  );
+                  const newQuantity = props.quantity + 1;
+                  axios
+                    .put(
+                      `https://api.leonardo-service.com/api/bookshop/cart/${item.cart_id}`,
+                      {
+                        quantity: newQuantity,
+                      }
+                    )
+                    .then((response) => {
+                      console.log("PUT request successful:", response.data);
+                      dispatch(
+                        increamentQuantity({
+                          _id: props._id,
+                          title: props.name,
+                          author: props.author,
+                          image: props.image,
+                          price: props.price,
+                          quantity: 1,
+                          description: props.resume,
+                        })
+                      );
+                    })
+                    .catch((error) => {
+                      console.error("Error in PUT request:", error);
+                      toast.error("Failed to add item to cart.", {
+                        position: "top-right",
+                        autoClose: 1500,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: 0,
+                        theme: "colored",
+                      });
+                    });
+                }}
+              >
+                +
+              </p>
+            </div>
             </div>
             <div className={classes.quantity}>
               <div style={{display:'flex',flexDirection:'column', gap:'1em'}}>

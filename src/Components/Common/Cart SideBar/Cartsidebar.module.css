@@ -40,7 +40,16 @@
 .btn:hover{
     background-color: var(--secondary-color);
 }
-
+.quantity1{
+    width: 10em;
+    display: grid;
+    grid-template-columns: 30% 40% 30%;
+    margin: auto auto auto 0;
+    border-radius: .5em;
+    padding: 1% 0;
+    border: 1px solid #7F9BC9;
+    color: var(--secondary-color) !important;
+}
 .card{
     position: relative;
     width: 100%;
