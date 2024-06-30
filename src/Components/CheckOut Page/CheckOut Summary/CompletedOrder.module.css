@@ -1,0 +1,113 @@
+.auth_con{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1900px;
+    margin: 2em auto;
+    height: fit-content!important;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.headTitles{
+    font-family: var(--font-family);
+    color: var(--secondary-color);
+}
+.auth_card{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 88%;
+    box-shadow: 4px 7px 7.1px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 1em;
+    padding: 2em 0;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.auth_bg{
+    position: absolute;
+    width: 90%;
+    height: 100%;
+    background-color: var(--authbg-color);
+    top: 0;
+    left: 5%;
+    bottom: 0;
+    right: 0;
+    border-radius: 5em;
+    z-index: 0;
+    transform: rotate(-8deg);
+}
+.auth_card p{ 
+    font-size: calc(1.7rem + .4vw);
+    text-align: center;
+    font-family: var(--font-family);
+    color: #fff;
+    font-weight: 600;
+    z-index: 9;
+}
+
+.imageContainer{
+    width: fit-content;
+    max-width: 80%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    z-index: 9;
+}
+.imageContainer img{
+    width: 5em;
+    margin: 1em;
+    
+}
+
+.contentContainer{
+    margin: auto;
+    display: grid;
+    grid-template-columns: 48% 48%;
+    column-gap: 1em;
+}
+.contentContainer p{
+    width: fit-content;
+    text-align: start;
+    font-family: var(--font-family);
+    font-size: calc(1.2rem + .3vw) !important;
+    font-weight: 600;
+    margin: .5em 0;
+}
+.btn{
+    width: fit-content;
+    height: fit-content;
+    padding: .7em 3em;
+    border-radius: .6em;
+    background-color: var(--primary-color);  
+    color: #fff;
+    border: none;
+    font-size: calc(0.8rem + 0.3vw);
+    cursor: pointer;
+    transition: background-color .6s ease, color 1s ease;
+    margin: 2em auto;
+    z-index: 9;
+}
+
+.btn:hover{
+    background-color: var(--secondary-color);  
+}
+@media screen and (max-width: 750px) {
+.headTitles div{
+    gap: 0.3em !important;
+    margin: 0 auto 2em auto !important;
+  }
+  .headTitles h4{
+      padding: 1em 0 !important;
+      font-size: smaller;
+  }
+  .headTitles h1{
+      margin: 0 auto !important;
+  } 
+      
+  }

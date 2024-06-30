@@ -22,6 +22,7 @@ import CollaboratorDetails from './Components/Collaborators/Collaborator Details
 import CartSidebar from './Components/Common/Cart SideBar/CartSidebar';
 import Cart from './Components/Cart Page/Cart';
 import CheckOut from './Components/CheckOut Page/CheckOut';
+import CompletedOrder from './Components/CheckOut Page/CheckOut Summary/CompletedOrder';
 
 
 function App() {
@@ -70,6 +71,7 @@ useEffect(() => {
           <Route path='/collaborators/:id/details' element={<ScrollToTop><CollaboratorDetails /></ScrollToTop>} />
           <Route path='/cart' element={<ScrollToTop><Cart/></ScrollToTop> } />
           <Route path='/checkout' element={<ScrollToTop><CheckOut/></ScrollToTop> } />
+          <Route path='/checkout-completed/:id' element={<ScrollToTop><CompletedOrder/></ScrollToTop> } />
         </Routes>
       </div>
       {!isAuthPages && <Footer/>}
