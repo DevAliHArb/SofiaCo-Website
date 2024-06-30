@@ -77,9 +77,9 @@ const Cart = () => {
       <div className={classes.headTitles}>
         <h1>Cart</h1>
         <div style={{width:'fit-content',margin:"2em auto",display:'flex',flexDirection:"row",gap:"2em"}}>
-          <h4 style={{padding:'1em',margin:'0 .5em',borderBottom:".2em solid var(--primary-color)"}}><span style={{padding:'.3em .5em',backgroundColor:'var(--primary-color)',color:'#fff',borderRadius:'50%'}}>1</span> {Data.Cart.title1[language]}</h4>
-          <h4 style={{padding:'1em',margin:'0 .5em'}}><span style={{padding:'.3em .5em',backgroundColor:'#EEBA7F',color:'#fff',borderRadius:'50%'}}>2</span> {Data.Cart.title2[language]}</h4>
-          <h4 style={{padding:'1em',margin:'0 .5em'}}><span style={{padding:'.3em .5em',backgroundColor:'#EEBA7F',color:'#fff',borderRadius:'50%'}}>3</span> {Data.Cart.title3[language]}</h4>
+          <h4 style={{padding:'1em',margin:'0 .5em',cursor:'default',borderBottom:".2em solid var(--primary-color)"}}><span style={{padding:'.3em .5em',backgroundColor:'var(--primary-color)',color:'#fff',borderRadius:'50%'}}>1</span> {Data.Cart.title1[language]}</h4>
+          <h4 style={{padding:'1em',margin:'0 .5em',cursor:'pointer'}} onClick={()=>navigate('/checkout')}><span style={{padding:'.3em .5em',backgroundColor:'#EEBA7F',color:'#fff',borderRadius:'50%'}}>2</span> {Data.Cart.title2[language]}</h4>
+          <h4 style={{padding:'1em',margin:'0 .5em',cursor:'not-allowed'}}><span style={{padding:'.3em .5em',backgroundColor:'#EEBA7F',color:'#fff',borderRadius:'50%'}}>3</span> {Data.Cart.title3[language]}</h4>
         </div>
       </div>
           {productData.length == 0 ? (

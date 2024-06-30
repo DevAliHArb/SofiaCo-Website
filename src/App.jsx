@@ -69,7 +69,7 @@ useEffect(() => {
           <Route path='/collaborators' element={<ScrollToTop><Collaborators /></ScrollToTop>} />
           <Route path='/collaborators/:id/details' element={<ScrollToTop><CollaboratorDetails /></ScrollToTop>} />
           <Route path='/cart' element={<ScrollToTop><Cart/></ScrollToTop> } />
-          {/* <Route path='/checkout' element={<ScrollToTop><CheckOut/></ScrollToTop> } /> */}
+          <Route path='/checkout' element={<ScrollToTop><CheckOut/></ScrollToTop> } />
         </Routes>
       </div>
       {!isAuthPages && <Footer/>}

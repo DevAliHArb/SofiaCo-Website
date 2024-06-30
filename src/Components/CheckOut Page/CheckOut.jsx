@@ -14,7 +14,7 @@ import CartSidebar from "../Common/Cart SideBar/CartSidebar";
 import CheckOutItem from "./CheckOutItem";
 import CircularProgress from '@mui/material/CircularProgress';
 // import CoupsDeCoeur from "../Common/CoupsDeCoeur Section/CoupsDeCoeur";
-
+import Data from '../../Data.json'
 import PopupAdressesModal from "./Popups/PopupAdressesModal";
 import PopupPaymentModal from "./Popups/PopupPaymentModal";
 import PopupConfirmedModal from "./Popups/PopupConfirmedModal";
@@ -36,6 +36,7 @@ import {
   editDefaultPAY,
   resetCart,
 } from "../Common/redux/productSlice";
+import AlsoSee from "../Common Components/Also See/AlsoSee";
 
 const { TextArea } = Input;
 
@@ -713,22 +714,13 @@ const CheckOut = () => {
   return (
     <div className={classes.cart_container}>
       {loading && <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(224, 195, 137, 0.2)', zIndex: 9999 }}><CircularProgress style={{margin:"45vh",color:'var(--primary-color)'}}/></div>} 
-      <div className={classes.contactImageCont}>
-        {/* <img
-          src={contactUsImage}
-          alt="registerImage"
-          style={{ height: "100%" }}
-          className={classes.contactImage}
-        />
-        <img
-          src={contactUsMobImage}
-          alt="registerImage"
-          style={{ height: "100%" }}
-          className={classes.contactImageMob}
-        /> */}
-        <div className={classes.imageContent}>
-          <h2 style={{ margin: "0" }}>Checkout</h2>
-          <p style={{ margin: ".2em 0 0 0" }}>Home / Checkout</p>
+      
+      <div className={classes.headTitles}>
+        <h1>Checkout</h1>
+        <div style={{width:'fit-content',margin:"2em auto",display:'flex',flexDirection:"row",gap:"2em"}}>
+          <h4 style={{padding:'1em',margin:'0 .5em',cursor:"pointer"}} onClick={()=>navigate('/cart')}><span style={{padding:'.3em .5em',backgroundColor:'var(--primary-color)',color:'#fff',borderRadius:'50%'}}>1</span> {Data.Cart.title1[language]}</h4>
+          <h4 style={{padding:'1em',margin:'0 .5em',cursor:'default',borderBottom:".2em solid var(--primary-color)"}}><span style={{padding:'.3em .5em',backgroundColor:'var(--primary-color)',color:'#fff',borderRadius:'50%'}}>2</span> {Data.Cart.title2[language]}</h4>
+          <h4 style={{padding:'1em',margin:'0 .5em',cursor:'not-allowed'}}><span style={{padding:'.3em .5em',backgroundColor:'#EEBA7F',color:'#fff',borderRadius:'50%'}}>3</span> {Data.Cart.title3[language]}</h4>
         </div>
       </div>
       <div className={classes.shopping_con}>
@@ -748,7 +740,7 @@ const CheckOut = () => {
                   width: "fit-content",
                   margin: "auto",
                   color: "var(--accent-color)",
-                  fontFamily: "montserrat",
+                  fontFamily: "var(--font-family)",
                   fontSize: "calc(.7rem + .3vw)",
                 }}
               >
@@ -784,8 +776,8 @@ const CheckOut = () => {
                 >
                   <h2
                     style={{
-                      color: "var(--accent-color)",
-                      fontFamily: "Montserrat",
+                      color: "var(--secondary-color)",
+                      fontFamily: "var(--font-family)",
                       fontSize: "calc(1.2rem + .3vw)",
                       marginTop: "0",
                       fontWeight: "500",
@@ -822,9 +814,9 @@ const CheckOut = () => {
                               defaultChecked
                               value={address.id}
                               sx={{
-                                color: "var(--forth-color)",
+                                color: "var(--primary-color)",
                                 "&.Mui-checked": {
-                                  color: "var(--forth-color)",
+                                  color: "var(--primary-color)",
                                 },
                                 margin: ".5em 0 auto 0",
                               }}
@@ -839,13 +831,13 @@ const CheckOut = () => {
                             style={{
                               cursor: "auto",
                               border: "none",
-                              backgroundColor: "var(--secondary-color)",
-                              color: "var(--forth-color)",
+                              backgroundColor: "var(--authbg-color)",
+                              color: "#fff",
                               borderRadius: ".3em",
                               marginLeft: "7%",
                               padding: ".3em 1em",
                               fontWeight: "500",
-                              fontFamily: "Montserrat",
+                              fontFamily: "var(--font-family)",
                               fontSize: "medium",
                             }}
                           >
@@ -858,12 +850,12 @@ const CheckOut = () => {
                         </p>
                         <p>{address.country}</p>
                       </div>
-                      <div className={classes.removeCont}>
+                      <div className={classes.removeCont} style={{zIndex:'9'}}>
                         <p
                           style={{
                             width: "fit-content",
                             cursor: "pointer",
-                            color: "var(--accent-color)",
+                            color: "var(--secondary-color)",
                             fontWeight: "600",
                           }}
                           onClick={() => {
@@ -878,8 +870,9 @@ const CheckOut = () => {
                           style={{
                             width: "fit-content",
                             cursor: "pointer",
-                            color: "var(--forth-color)",
+                            color: "var(--primary-color)",
                             fontWeight: "600",
+                            zIndex:'9'
                           }}
                           onClick={()=>handleDeleteAddress(address.id)}
                         >
@@ -896,9 +889,9 @@ const CheckOut = () => {
                     setFormData({});
                   }}
                   style={{
-                    color: "var(--forth-color)",
+                    color: "var(--authbg-color)",
                     paddingLeft: "7%",
-                    fontFamily: "Montserrat",
+                    fontFamily: "var(--font-family)",
                     fontSize: "calc(.8rem + .3vw)",
                     fontWeight: "500",
                     cursor: "pointer",
@@ -927,8 +920,8 @@ const CheckOut = () => {
                 >
                   <h2
                     style={{
-                      color: "var(--accent-color)",
-                      fontFamily: "Montserrat",
+                      color: "var(--secondary-color)",
+                      fontFamily: "var(--font-family)",
                       fontSize: "calc(1.2rem + .3vw)",
                       marginTop: "0",
                       fontWeight: "500",
@@ -965,9 +958,9 @@ const CheckOut = () => {
                               defaultChecked
                               value={payment.id}
                               sx={{
-                                color: "var(--forth-color)",
+                                color: "var(--primary-color)",
                                 "&.Mui-checked": {
-                                  color: "var(--forth-color)",
+                                  color: "var(--primary-color)",
                                 },
                                 margin: ".5em 0 auto 0",
                               }}
@@ -990,11 +983,11 @@ const CheckOut = () => {
                           {maskConstant(payment.card_number)}{" "}
                           <span
                             style={{
-                              color: "var(--primary-color)",
+                              color: "var(--authbg-color)",
                               paddingLeft: "2em",
                               fontWeight: "400",
                             }}
-                          >
+                          > <br className={classes.break}/> <br className={classes.break}/> 
                             Expires {payment.month}/{payment.year}
                           </span>{" "}
                         </p>
@@ -1004,7 +997,7 @@ const CheckOut = () => {
                           style={{
                             width: "fit-content",
                             cursor: "pointer",
-                            color: "var(--forth-color)",
+                            color: "var(--primary-color)",
                             marginLeft: "auto",
                             fontWeight: "600",
                           }}
@@ -1021,9 +1014,9 @@ const CheckOut = () => {
                     handlePaymentOpen();
                   }}
                   style={{
-                    color: "var(--forth-color)",
+                    color: "var(--authbg-color)",
                     paddingLeft: "7%",
-                    fontFamily: "Montserrat",
+                    fontFamily: "var(--font-family)",
                     fontSize: "calc(.8rem + .3vw)",
                     fontWeight: "500",
                     cursor: "pointer",
@@ -1042,34 +1035,35 @@ const CheckOut = () => {
                   </p>{" "}
                   Add New Payment Method
                 </p>
-                <div className={classes.noteContainerMob}>
-                  <h2
-                    style={{
-                      color: "var(--accent-color)",
-                      fontFamily: "Montserrat",
-                      fontSize: "calc(1rem + .3vw)",
-                      margin: "1em 0",
-                      fontWeight: "500",
-                    }}
-                  >
-                    Add a note to your order
-                  </h2>
-                  <TextArea
-                    name="note"
-                    value={reviewMsg}
-                    onChange={(e) => setreviewMsg(e.target.value)}
-                    rows={7}
-                    placeholder="Notes concernant votre commande, par exemple des notes spéciales pour la livraison…"
-                    style={{
-                      border: "none",
-                      padding: "1em 2em",
-                      width: "100%",
-                      backgroundColor: "#DED8CC",
-                      borderRadius: "1em",
-                      fontSize: "calc(.7rem + 0.3vw)",
-                    }}
-                  />
-                </div>
+          <div className={classes.noteContainer}>
+            <h2
+              style={{
+                color: "var(--secondary-color)",
+                fontFamily: "var(--font-family)",
+                fontSize: "calc(1.2rem + .3vw)",
+                margin: "1em 0",
+                fontWeight: "500",
+                textAlign:'start'
+              }}
+            >
+              Add a note to your order
+            </h2>
+            <TextArea
+              name="note"
+              rows={5}
+              value={reviewMsg}
+              onChange={(e) => setreviewMsg(e.target.value)}
+              placeholder="Notes concernant votre commande, par exemple des notes spéciales pour la livraison…"
+              style={{
+                border: "none",
+                padding: "1em 2em",
+                width: "100%",
+                backgroundColor: "#F3F5FA",
+                borderRadius: ".7em",
+                fontSize: "calc(.7rem + 0.3vw)",
+              }}
+            />
+          </div>
               </div>
               <CheckOutItem />
             </>
@@ -1115,8 +1109,9 @@ const CheckOut = () => {
             </div>
           )}
         </div>
+      <div className={classes.bigContainer} >
+        <div className={classes.auth_bg}></div>
         <div className={classes.total_con} id="fixed-component11">
-          <div className={classes.total_conCard}>
             <div className={classes.total}>
               <div className={classes.totalrows}>
                 <h2>Mon Panier</h2>
@@ -1180,7 +1175,7 @@ const CheckOut = () => {
                 form={form}
                 onFinish={handleApplyCoupon}
                 className={classes.totalrows}
-                style={{ marginTop: "2em" }}
+                style={{ marginTop: "2em",gridTemplateColumns:'65% 35%' }}
               >
                 <Form.Item name="name" initialValue=""
                 style={{
@@ -1279,42 +1274,14 @@ const CheckOut = () => {
             <button
               className={classes.checkout_btn}
               onClick={CheckOutHandler}
-              style={{ margin: "2em 0" }}
+              style={{ margin: "2em 0" ,cursor:'pointer'}}
             >
               Place My Order
             </button>
-          </div>
-          <div className={classes.noteContainer}>
-            <h2
-              style={{
-                color: "var(--accent-color)",
-                fontFamily: "Montserrat",
-                fontSize: "calc(1.2rem + .3vw)",
-                margin: "1em 0",
-                fontWeight: "500",
-              }}
-            >
-              Add a note to your order
-            </h2>
-            <TextArea
-              name="note"
-              rows={5}
-              value={reviewMsg}
-              onChange={(e) => setreviewMsg(e.target.value)}
-              placeholder="Notes concernant votre commande, par exemple des notes spéciales pour la livraison…"
-              style={{
-                border: "none",
-                padding: "1em 2em",
-                width: "100%",
-                backgroundColor: "#DED8CC",
-                borderRadius: ".7em",
-                fontSize: "calc(.7rem + 0.3vw)",
-              }}
-            />
-          </div>
         </div>
       </div>
-      {/* <CoupsDeCoeur /> */}
+      </div>
+      <AlsoSee />
       <CartSidebar />
       <PopupAdressesModal
         open={addressmodalopen}

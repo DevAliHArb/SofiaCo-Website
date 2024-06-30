@@ -6,8 +6,14 @@
     flex-direction: column;
     max-width: 1900px;
     margin: 0 auto;
+    margin-bottom: 3em;
+    font-family: var(--font-family) !important;
 }
 
+.headTitles{
+    font-family: var(--font-family);
+    color: var(--secondary-color);
+}
 
 .contactImageCont{
     position: relative;
@@ -47,7 +53,7 @@
     transform: translateX(50%);
     background-color: var(--accent-color);
     color: #fff;
-    font-family: montserrat;
+    font-family: var(--font-family);
     font-style: normal;
     padding: 1em 2em; 
     font-size: calc(1rem + 0.4vw);
@@ -55,18 +61,20 @@
     text-align: center;
   }
   .container{
-    width: 100%;
-    border-bottom: 1px solid #6E90A9;
-    padding-bottom: 4em;
+    width: 90%;
+    margin: auto;
+    padding: 2em 0;
+    z-index: 9;
   }
 .adressCard{
     display: grid;
     grid-template-columns: 7% 70% 23%;
-    font-family: Montserrat;
+    font-family: var(--font-family);
     font-weight:500 ;
     font-size: calc(.8rem + .2vw);
-    color: var(--accent-color);
-    border-bottom: 1px solid var(--accent-color);
+    color: var(--secondary-color);
+    text-align: start;
+    border-bottom: 1px solid var(--secondary-color);
     }
 
   .imageContent h2{
@@ -82,12 +90,23 @@
     position: relative;
 }
 
-.shopping{
+.bigContainer{
+    width: 100%;
+    height: 100%;
+    position: relative;
     display: flex;
-    flex-direction: column;
-    width: 95%;
-    margin-top: 2%;
-    padding-top: 3%;
+}
+.shopping_con{
+    display: grid;
+    width: 88%;
+    margin: 0 auto;
+    grid-template-columns: 60% 40%;
+    height: fit-content;
+    position: relative;
+    background-color: #fff;
+    border-radius: 2em;
+    overflow: hidden;
+    box-shadow: 4px 7px 7.1px rgba(0, 0, 0, 25%);
 }
 .char_container{
     position: relative;
@@ -114,14 +133,17 @@
 
 .total_con{
     position: sticky;
-    top: 12%;
-    right: 5%;
-    width: 90%;
-    display: flex;
-    flex-direction: column;
+    width: 60%;
+    background-color: #fff;
+    padding: 2% 7% 0% 7%;
+    display: grid;
+    grid-template-columns: 1fr;
     column-gap: 5%;
-    margin: 0 0 1% 0;
+    border-radius: 1em;
+    margin: 4% 0 1% 20%;
     height: fit-content;
+    top: 5%;
+    left: 0% !important;
 }
 .MobSticky{
     position: fixed;
@@ -135,19 +157,20 @@
     background-color: var(--primary-color);
     border-radius: 1em;
 }
-.total_conCard{
-    position: relative;
-    width: 100%;
-    background-color: var(--primary-color);
-    padding: 2% 7% 0% 7%;
-    display: grid;
-    grid-template-columns: 1fr;
-    column-gap: 5%;
-    border-radius: 1em;
-    margin: 4% 0 1% 0;
-    height: fit-content;
-}
 
+.auth_bg{
+    position: absolute;
+    width: 150%;
+    height: 43em;
+    background-color: var(--authbg-color);
+    top: 0;
+    left: 0;
+    border-radius: 7em;
+    /* z-index: -1; */
+    margin: -10% 0 0% 5% ;
+    transform: rotate(-13deg);
+    z-index: 0;
+}
 .total{
     width: 100%;
     margin: 0 auto;
@@ -158,11 +181,12 @@
     width: 100%;
     grid-template-columns: repeat(2, 49%);
     text-align: start;
-    color: #DED8CC;
+    color: var(--secondary-color);
     margin: 0;
-    font-family: montserrat ;
+    font-family: var(--font-family) ;
     column-gap: 2%;
     font-size: calc(.7rem + 0.3vw);
+    font-weight: 600;
 }
 .totalrows p{
     margin: 0.5em 0;
@@ -172,16 +196,16 @@
 .checkout_btn{
     width: 100%;
     border: none;
-    background-color: var(--forth-color);
-    color: #DED8CC !important;
+    background-color: var(--primary-color);
+    color: #fff !important;
     transition: background-color 0.5s ease, color 1s ease;
     font-size: calc(.7rem + 0.3vw);
     height: 2.3em;
-    border-radius: .7em;
+    border-radius: .4em;
 }
 
 .checkout_btn:hover{
-    background-color: var(--accent-color) !important;
+    background-color: var(--secondary-color) !important;
 
 }
 
@@ -196,7 +220,7 @@
 .divider{
     width: 100%;
     margin: .5em 0 1.5em 0 !important;
-    background-color: var(--secondary-color);
+    background-color: #E8ECEF;
 }
 
 .btn{
@@ -204,8 +228,8 @@
     height: fit-content;
     padding: 0.7em 1.5em;
     border-radius: .7em;
-    background-color: var(--forth-color);  
-    color: #DED8CC;
+    background-color: var(--primary-color);  
+    color: #fff;
     border: none;
     font-size: calc(0.7rem + 0.3vw);
     cursor: pointer;
@@ -213,7 +237,7 @@
 }
 
 .btn:hover{
-    background-color: var(--primary-color);  
+    background-color: var(--secondary-color);  
 }
 
 .browseBtn{
@@ -222,7 +246,7 @@
     padding: 0.7em 3em;
     border-radius: .5em;
     background-color: var(--forth-color);  
-    color: #DED8CC;
+    color: #fff;
     border: none;
     font-size: calc(0.7rem + 0.3vw);
     cursor: pointer;
@@ -234,7 +258,7 @@
     background-color: var(--accent-color);
 }
 .noteContainer{
-    width: 114%;
+    width: 100%;
 }
 .noteContainerMob{
     display: none;
@@ -248,7 +272,16 @@
     gap: 2em;
     margin-left: auto;
 }
+.break{
+    display: none;
+}
 @media screen and (max-width: 950px) {
+    .cart_container{
+        margin-bottom: 0;
+    }
+    .break{
+        display: inline;
+    }
     .contactImageCont{
         margin-top: 0;
       }
@@ -278,36 +311,52 @@
         width: 100%;
     }
   .container{
-    width: 100%;
+    width: 90%;
+    margin: 1em auto;
     border-bottom: none;
     padding-bottom: 1em;
   }
     .shopping_con{
-        display: grid;
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column-reverse;
         row-gap: 2%;
+        padding-bottom: 2em;
+        border-radius: 1em;
+        margin-bottom: 3em;
     }
     .shopping{
         display: flex;
         flex-direction: column;
-        width: 100%;
+        width: 95%;
         border-top: none;
         margin-top: 0%;
         padding-top: 0%;
     }
     
+.auth_bg{
+    position: absolute;
+    width: 150%;
+    height: 120%;
+    background-color: var(--authbg-color);
+    top: 0;
+    left: 0;
+    border-radius: 3em;
+    /* z-index: -1; */
+    margin: -25% 0 0% -7% ;
+    transform: rotate(-13deg);
+    z-index: 0;
+}
     .total_con{
         position: relative;
-        width: 90%;
-        right: 0%;
-        top: 0;
-        margin-left: -1.5%;
+        width: 80%;
+        margin: 2em auto 3em auto !important;
+        padding: 2% 3% 0% 3%;
     }
     .MobSticky{
         display: flex;
     }
   .adressCard{
-    border: 1px solid var(--accent-color);
+    border: 1px solid var(--secondary-color);
     gap: 1%;
     grid-template-columns: 7% 90%;
     border-radius:1em;
@@ -336,7 +385,18 @@
     margin: auto;
     transform: none; 
   }
-    
+   
+  .headTitles div{
+    gap: 0.3em !important;
+    margin: 0 auto 2em auto !important;
+}
+.headTitles h4{
+    padding: 1em 0 !important;
+    font-size: smaller;
+}
+.headTitles h1{
+    margin: 0 auto !important;
+} 
     
     /* .char_container{
     background-image: url('../../assets/companiesbgMob.svg');
