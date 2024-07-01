@@ -1,0 +1,642 @@
+.bigContainer{
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    padding: 3% 0 5% 0;
+    max-width: 1900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    font-family: Montserrat;
+  }
+
+  .nodata{
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    row-gap: 2em;
+    margin: 1em auto;
+  }
+  
+  .nodata_img{
+    width: 15em;
+    height: 15em;
+  }
+  
+  .nodata_img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .nodata h1{
+    font-family: Montserrat;
+    color: var(--accent-color);
+    text-align: center;
+  }
+
+  .header{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 0 2% 0;
+    border-bottom: 1px solid var(--accent-color);
+  }
+
+  .gridrowviews{
+    display: flex;
+    flex-direction: row;
+    margin: 0 2em;
+    gap: 2em;
+  }
+
+  .viewBtnContainer{
+    display: flex;
+    width: 2em;
+    height: 2em;
+    background-color: var(--primary-color);
+    border-radius: .5em;
+    transition: background-color 0.7s ease;
+  }
+
+  .viewBtnContainer:hover{
+    background-color: var(--forth-color);
+  }
+
+  .category{
+    font-weight: 500;
+    color: var(--accent-color);
+    border-left: 1px solid var(--accent-color) ;
+    height: fit-content;
+    margin: auto 0;
+    margin-right: auto;
+    padding-left: 1.5em;
+  }
+  .category p{
+    margin: 0;
+  }
+  .categoryMob{
+    display: none;
+    font-weight: 500;
+    color: var(--accent-color);
+    height: fit-content;
+    margin: auto 0;
+    margin-right: auto;
+    padding-left: 1.5em;
+  }
+  .categoryMob p{
+    margin: 0;
+  }
+
+  .booksgridview{
+    display: grid;
+    grid-template-columns: repeat(3, 30%);
+    column-gap: 4.9%;
+    row-gap: 1em;
+    padding: 0% 0 0% 0;
+  }
+
+  .booksrowview{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0% 0;
+  }
+
+  .card_container{
+    width: 100%;
+    height: fit-content;
+    background: transparent;
+    font-family: Montserrat;
+    font-size: calc(0.9rem + 0.2vw);
+    letter-spacing: 0.01rem;
+    background-color: transparent;
+    /* box-shadow: 0.4em 0.4em 2em rgba(0, 0, 0, 0.1); */
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .card_container:hover {
+      cursor: pointer;
+      transform: scale(1.05);
+      /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); */
+      
+    }
+  
+  .card_img{
+    position: relative;
+    width: 100%;
+    height: 18em;
+    margin: 0 auto;
+    background-color: var(--secondary-color);
+    border-radius: 1em;
+    padding: 1em 0;
+    border: .3em solid var(--secondary-color);
+    object-fit: contain;
+    transition: background-color 0.7s ease, color 1s ease;
+  }
+
+    .card_container:hover .card_img{
+      background-color: var(--primary-color);
+    }
+
+  .card_img img{
+    width: 60%;
+    object-fit: fill;
+  }
+  
+  
+  .iconsContainer{
+    position: absolute;
+    width: fit-content;
+    top: 0;
+    right:0;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    padding:0.5em 0.5em;
+    gap: 0.5em;
+    /* transition: opacity 0.5s ease-in-out; */
+  }
+  .iconslistContainer{
+    position: relative;
+    width: fit-content;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    padding:0.5em 0.5em;
+    gap: 0.5em;
+    margin-left: auto;
+  }
+  .iconslistContainerMob{
+    position: relative;
+    width: fit-content;
+    cursor: pointer;
+    display: none;
+    flex-direction: row;
+    padding:0.5em 0.5em;
+    gap: 0.5em;
+  }
+
+  .icon_con{
+    width: 2em !important;
+    height: 2em !important  ;
+    background-color: var(--accent-color);
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    transition: background-color 0.5s ease, color 1s ease;
+    cursor: pointer;
+}
+.rate{
+  color: #712A2E;
+  font-size: calc(0.6rem + 0.2vw);
+  margin: 0 0 0 1em;
+  display: flex;
+  flex-direction: row;
+}
+.rateMob{
+  color: #712A2E;
+  font-size: calc(0.6rem + 0.2vw);
+  display: none;
+  margin: 0;
+  flex-direction: row;
+}
+.icon_con:hover {
+  background-color: #fff;
+
+  .icon{
+    color: var(--accent-color);
+  }
+}
+
+.icon {
+  width: 1.2em;
+  height: 1.2em;
+  margin: 0.4em;
+  color: #fff;
+  transition: color 0.5s ease, color 1s ease;
+  cursor: pointer;
+}
+  
+  .bookTitle{
+    position: relative;
+    width: 100%;
+    padding: 0% 0 4% 0;
+    display: flex;
+    flex-direction: column;
+    /* row-gap: 1em; */
+    color: var(--accent-color);
+  }
+
+  .bookTitle h3{
+    font-family: Montserrat;
+    font-size: calc(0.8rem + 0.4vw);
+    letter-spacing: 0.01rem;
+    text-align: center;
+    margin: .2em auto;
+    /* line-height: 0; */
+  }
+  
+  .bookTitle p{
+    width: 88%;
+    margin: 0 auto;
+    font-family: Montserrat;
+    font-size: calc(0.7rem + 0.3vw);
+    letter-spacing: 0.01rem;
+    text-align: center;
+    padding: .3em;
+  }
+
+  .listCard{
+    width: 94% !important;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: #000;
+    margin: 1em 0;
+    border: .2em solid var(--primary-color);
+    padding: 1em 3%;
+    border-radius: 1em;
+    font-family: Montserrat;
+    font-size: calc(0.7em + 0.3vw);
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+.listCard:hover {
+  transform: scale(1.05);
+  background-color: var(--primary-color);
+  
+  border: .2em solid var(--secondary-color);
+}
+
+.bookRowTitle{
+  font-size: calc(0.9rem + 0.3vw);
+  color: var(--accent-color);
+  font-weight: 600;
+  margin: .5em 0;
+  display: flex;
+  flex-wrap: wrap;
+  transition: color .5s ease;
+}
+.bookRowAuthor{
+  color: #6E90A9;
+  transition: color .5s ease;
+  margin: .5em 0;
+  font-size: calc(0.6rem + 0.2vw);
+}
+.bookRowDescription{
+  color: #002B7D;
+  transition: color .5s ease;
+}
+.listCard:hover .bookRowTitle{
+  color: #DED8CC;
+}
+.listCard:hover .bookRowAuthor{
+  color: #DED8CC;
+}
+.listCard:hover .bookRowDescription{
+  color: #DED8CC;
+}
+.imgCont{
+  width: 10%;
+   margin: auto 0.7em auto 0;
+}
+.leftContainer{
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+}
+.contentContainer{
+    display: flex;
+    width: fit-content;
+    max-width: 70%;
+    flex: 1;
+    flex-direction: column;
+    text-align: start;
+    justify-content: space-between;
+}
+
+.price{
+    color: var(--accent-color);
+    font-weight: 500;
+    text-align: end;
+    width: 98%;
+    margin-top: auto;
+}
+.listCard:hover .price{
+  color: #DED8CC;
+}
+.priceMob{
+    margin: auto;
+    color: var(--accent-color);
+    font-weight: 500;
+    display: none;
+}
+
+.rightContainer{
+    flex: 1;
+    width: fit-content !important;
+    max-width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.page_control{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1.5em 0;
+  border-top: 2px solid var(--accent-color);
+  margin-top: 2em;
+}
+
+.show p{
+  font-family: Montserrat;
+  color: var(--accent-color);
+  margin: auto 0;
+  font-weight: 500;
+}
+
+.control{
+  display: flex;
+  flex-direction: row;
+  column-gap: 1em;
+}
+
+.control button{
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  width: 3em;
+  height: 3em;
+  padding: 1em;
+  border: none;
+  border-radius: .5em;
+  cursor: pointer;
+}
+
+.icon1{
+  width: 1em;
+  height: 1em;
+  margin: auto !important;
+}
+
+.nb{
+  font-family: Montserrat;
+  font-style: normal;
+  color: var(--secondary-color);
+}
+
+.selectednb{
+  background-color: var(--forth-color) !important;
+  color: var(--secondary-color);
+  font-family: Montserrat;
+  font-style: normal;
+}
+
+.list_resume{
+  display: flex;
+}
+
+.list_resume_mob{
+  display: none;
+}
+
+
+.listcartIcon{
+  width: .9em !important; 
+  height: .8em;
+  margin: .2em  .1em;
+}
+
+.listcompareIcon{
+  width: 1em;
+  height: 1em; 
+  margin: .4em 0.2em 0 0
+}
+
+.listfavIcon{
+  width: 2em;
+  height: 2em; 
+  margin: .4em 0.2em;
+  color: red;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.listnonfavIcon{
+  width: 2em;
+  height: 2em; 
+  margin: .4em 0.2em;
+  color: red;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.listfavIcon:hover .listnonfavIcon:hover{
+cursor: pointer;
+transform: scale(1.1);
+}
+
+.btn{
+  display: none;
+  width: 2em;
+  height: 2em;
+  background-color: var(--primary-color);
+  border-radius: .5em;
+  color: #DED8CC;
+}
+
+
+@media screen and (max-width:1400px) {
+  .imgCont{
+    width: 15%;
+     margin: auto 0.7em auto 0;
+  }
+}
+
+@media screen and (max-width:950px) {
+  
+  .btn{
+    display: inline;
+    margin-right: 1em;
+  }
+  .showFilter{
+    display: none;
+  }
+  .booksgridview{
+    grid-template-columns: repeat(3, auto);
+  }
+
+  .booksrowview{
+    padding: 5% 0 0% 0;
+  }
+ 
+  .showingnumber{
+    display: none;
+  }
+
+  .controlbtns{
+    margin: 5em 8em 0 auto;
+  }
+  
+.list_resume{
+  display: none;
+}
+
+.list_resume_mob{
+  display: flex;
+}
+
+
+.listcartIcon{
+  width: .7em !important; 
+  height: .7em;
+  margin: .10em  .15em;
+}
+
+.listcompareIcon{
+  width: .9em;
+  height: .9em; 
+  margin: .45em .4em
+}
+
+.card_container:hover{
+  box-shadow: 0 0 0 transparent;
+}
+
+.rowcard_container:hover{
+  box-shadow: 0 0 0 transparent;
+}
+
+.fav{
+  transform: scale(1.3);
+}
+
+.nonfav{
+  transform: scale(1.3);
+}
+
+.fav:hover{
+  transform: scale(1.3);
+}
+
+
+.nonfav:hover{
+  transform: scale(1.3);
+  color: #000;
+}
+.icon_con{
+  width: 1.5em !important;
+height: 1.5em !important;
+}
+
+
+.icon {
+width: 1em;
+height: 1em;
+margin: 0.2em;
+}
+
+}
+
+
+@media screen and (max-width:650px) {
+  .header{
+    flex-direction: column;
+    gap: 2em;
+    border: none;
+  }
+  .btn{
+    display: inline;
+    margin-right: auto;
+    margin-left: 2em;
+  }
+  .page_control{
+    margin-top: 15em;
+  }
+  .show{
+    display: none;
+  }
+  .listCard{
+    flex-direction: column;
+}
+.leftContainer{ 
+  width: 100%;
+}
+.imgCont{
+  width: 30%;
+}
+.contentContainer{
+  width: 70%;
+}
+.rate{
+  display: none;
+}
+.rateMob{
+  display: flex;
+}
+.rightContainer{
+  max-width: 100%;
+  width: 100% !important;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.price{
+  width: fit-content;
+}
+.listCard:hover .price{
+color: #DED8CC;
+}
+.iconslistContainer{
+  display: none;
+}
+.iconslistContainerMob{
+  display: flex;
+}
+  .control{
+    width: fit-content;
+    margin: 0 auto;
+    gap: .5em;
+  }
+  .gridrowviews{
+    margin-right: 0;
+  }
+  .category{
+    display: none;
+  }
+  .categoryMob{
+    display: flex;
+  }
+  .booksgridview{
+    grid-template-columns: repeat(2, auto);
+  }
+
+  .booksrowview{
+    margin-bottom: -15em;
+  }
+  .controlbtns{
+    margin: 17em auto 3em auto;
+    justify-content: center;
+}
+
+
+.controlbtns button{
+    padding: 0.2em 2em;
+}
+
+
+.listcartIcon{
+  width: .6em !important; 
+  height: .6em;
+  margin: .01em  .3em;
+}
+
+.listcompareIcon{ 
+  margin: .47em 0.9em !important; 
+}
+}

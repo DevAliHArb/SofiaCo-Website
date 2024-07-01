@@ -1,0 +1,206 @@
+.bigContainer{
+  position: relative;
+  width: 100%;
+  height: fit-content;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  padding: 3% 0 1% 0;
+  max-width: 1900px;
+  margin: 0 auto;
+  font-family: var(--font-family);
+}
+.container{
+  height: fit-content!important;
+  text-align: center;
+  max-width: 30em !important;
+  background-color: #fff;
+  margin: 0 0 auto 0;
+  border-radius: 0em 1em 1em 0em;
+}
+
+.content{
+  width: 90%;
+  margin: 0 auto;
+  display: grid;
+  gap: 5%;
+  grid-template-columns: 25% 70%;
+}
+
+.filter{
+  border: .15em solid var(--secondary-color);
+  height: fit-content;
+  border-radius: 1em;
+}
+
+.categories{
+  width: 88%;
+  margin: 0 auto 15% auto;
+  text-align: start;
+  padding: 1.5em 0% 0 0;
+}
+
+.categories h2{
+  width: 85%;
+  margin: 0 auto;
+  color: var(--secondary-color);
+  font-family: var(--font-family);
+  font-size: calc(0.8rem + 0.3vw);
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.categoriesmob{
+  width: 98%;
+  margin: 0 auto 5% auto;
+  text-align: start;
+  padding: 4% 0%;
+  border-radius: 0 0 10px 10px;
+  border: 1px solid #B6D8ED;
+  background-color: #fff;
+}
+
+.categoriesmob h2{
+  display: flex;
+  flex-direction: row;
+  color: #11142D;
+  font-family: var(--font-family);
+  font-size: calc(0.6rem + 0.3vw);
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+}
+.subtitlesCont{
+  color: var(--secondary-color);
+  font-family: var(--font-family);
+  font-size: calc(0.8rem + 0.3vw);
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  transition: background-color 0.7s ease, color .7s ease;
+}
+.subtitlesCont:hover{
+  color: var(--forth-color);
+}
+.listBox {
+  width: .8em !important;
+  height: .8em !important;
+  border-radius: .2em;
+  /* background-color: var(--secondary-color); */
+  margin: auto .5em auto 0;
+  transition: background-color 0.7s ease, color .7s ease;
+}
+.subtitlesCont:hover .listBox{
+  background-color: var(--forth-color);
+}
+
+.dropdown{
+  width: 85%;
+  margin: 0 auto;
+  padding: 4% 0;
+}
+
+.refine{
+  border:1px solid transparent;
+  border-radius:0 40px 0px 40px;
+  background: #0085B0;
+  color:#fff;
+  padding: 1em ;
+  display: flex;
+  flex-direction: row;
+  width: 88%;
+  margin: 0 auto  ;
+  font-size: calc(0.7rem + 0.3vw);
+  text-align: center;
+  transition: background-color 0.5s ease, color 1s ease;
+  font-family: var(--font-family);
+  font-size: calc(0.8rem + 0.4vw);
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.refine:hover{
+  background: #fff;
+  color: #0085B0;
+  border:1px solid #0085B0;
+}
+
+.refinemob{
+  border:1px solid transparent;
+  border-radius:0 40px 0px 40px;
+  background: #0085B0;
+  color:#fff;
+  padding: .7em ;
+  display: flex;
+  flex-direction: row;
+  width: 98%;
+  margin: 0 auto  ;
+  font-size: calc(0.7rem + 0.3vw);
+  text-align: center;
+  transition: background-color 0.5s ease, color 1s ease;
+  font-family: var(--font-family);
+  font-size: calc(0.8rem + 0.4vw);
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.reset{
+  border:1px solid #D9D8D8;
+  border-radius:20px;
+  background: #fff;
+  color:#777;
+  padding: 1em ;
+  display: flex;
+  flex-direction: row;
+  width: 88%;
+  margin: 0 auto  ;
+  font-size: calc(0.7rem + 0.3vw);
+  text-align: center;
+  transition: background-color 0.5s ease, color 1s ease;
+  font-family: var(--font-family);
+  font-size: calc(0.8rem + 0.4vw);
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+  
+.reset:hover{
+  background: #D9D8D8;
+  color: #000;
+  border:1px solid transparent;
+}
+.resetmob{
+  border:1px solid #D9D8D8;
+  border-radius:10px;
+  background: #fff;
+  color:#777;
+  padding: .7em ;
+  display: flex;
+  flex-direction: row;
+  width: 98%;
+  margin: 0 auto  ;
+  font-size: calc(0.7rem + 0.3vw);
+  text-align: center;
+  transition: background-color 0.5s ease, color 1s ease;
+  font-family: var(--font-family);
+  font-size: calc(0.8rem + 0.4vw);
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+
+
+  @media screen and (max-width:950px) {
+    .filter{
+      display: none;
+    }
+
+    .content{
+      grid-template-columns: 100%;
+    }
+  }

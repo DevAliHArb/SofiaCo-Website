@@ -28,7 +28,7 @@ import { FiTruck } from "react-icons/fi";
 import { FaArrowRightLong } from "react-icons/fa6";
 
 
-const Navbar = ({ toggle, carttoggle }) => {
+const Navbar = (props) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
@@ -297,7 +297,7 @@ const Navbar = ({ toggle, carttoggle }) => {
                 {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'50%', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{favoriteData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
-                <IoCartOutline className={classes.icon} onClick={carttoggle}/>
+                <IoCartOutline className={classes.icon} onClick={()=>props.carttoggle()}/>
                 {productData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'50%', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{productData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
@@ -558,7 +558,9 @@ const Navbar = ({ toggle, carttoggle }) => {
                   </Tooltip>
                 </Box>
                 </div>
-            <MenuIcon style={{ fontSize: "3em", width:'0.8em', height:'0.8em', marginTop:'-0.1em' }} onClick={toggle}/>
+                <div style={{position:'relative'}}>
+                <MenuIcon style={{ fontSize: "3em", width:'0.8em', height:'0.8em', marginTop:'-0.1em' }} onClick={()=>props.toggle()}/>
+                </div>
               </div>
       </div>
       <div className={classes.mobilefixed} style={{display: isScrolled ? 'flex' : 'none'}}>
@@ -593,7 +595,7 @@ const Navbar = ({ toggle, carttoggle }) => {
                   </Tooltip>
                 </Box>
                 </div>
-            <MenuIcon style={{ fontSize: "3em", width:'0.8em', height:'0.8em', marginTop:'-0.1em' }} onClick={toggle}/>
+            <MenuIcon style={{ fontSize: "3em", width:'0.8em', height:'0.8em', marginTop:'-0.1em' }} onClick={()=>props.toggle()}/>
               </div>
       </div>
       </div>

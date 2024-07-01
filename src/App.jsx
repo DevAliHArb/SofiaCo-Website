@@ -8,7 +8,7 @@ import Footer from './Components/Common/Footer Section/Footer';
 import HomePage from './Components/Home Page/HomePage';
 import { useSelector } from 'react-redux';
 import ScrollToTop from './Components/Common/ScrollToTop'
-// import SideBar from './Components/Common/SideBar Section/SideBar'
+import SideBar from './Components/Common/SideBar Section/SideBar'
 import About from './Components/About Page/About';
 import Events from './Components/Events/Events Page/Events';
 import EventsDetails from './Components/Events/Events Details Page/EventsDetails';
@@ -23,6 +23,7 @@ import CartSidebar from './Components/Common/Cart SideBar/CartSidebar';
 import Cart from './Components/Cart Page/Cart';
 import CheckOut from './Components/CheckOut Page/CheckOut';
 import CompletedOrder from './Components/CheckOut Page/CheckOut Summary/CompletedOrder';
+import BooksPage from './Components/Books page/BooksPage';
 
 
 function App() {
@@ -54,7 +55,7 @@ useEffect(() => {
       <div className="App" >
     {!isAuthPages && <Navbar toggle={toggle} carttoggle={carttoggle}/>}
         <CartSidebar isOpen={cartisOpen} toggle={carttoggle}/>
-       {/* <SideBar isOpen={isOpen} toggle={toggle} /> */}
+       <SideBar isOpen={isOpen} toggle={toggle} />
        <div >
          <Routes>
           <Route path='/' element={<ScrollToTop><HomePage carttoggle={carttoggle}/></ScrollToTop>} />
@@ -72,6 +73,7 @@ useEffect(() => {
           <Route path='/cart' element={<ScrollToTop><Cart/></ScrollToTop> } />
           <Route path='/checkout' element={<ScrollToTop><CheckOut/></ScrollToTop> } />
           <Route path='/checkout-completed/:id' element={<ScrollToTop><CompletedOrder/></ScrollToTop> } />
+          <Route path='/books' element={<ScrollToTop><BooksPage /></ScrollToTop> } />
         </Routes>
       </div>
       {!isAuthPages && <Footer/>}
