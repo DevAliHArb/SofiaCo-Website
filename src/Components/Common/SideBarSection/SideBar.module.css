@@ -6,6 +6,7 @@
     background-color: var(--secondary-color);
     /* margin: 7em 0 auto 0; */
     padding: 1em 0;
+    overflow-y: scroll;
 }
 
 .text{
