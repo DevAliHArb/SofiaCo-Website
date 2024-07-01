@@ -78,28 +78,6 @@
     margin-top: 2%;
     padding-top: 3%;
 }
-.char_container{
-    position: relative;
-    width: 100%;
-    height: fit-content;
-    /* background-image: url('../../assets/companiesbg.svg'); */
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    margin: 2% 0;
-    overflow: hidden;
-}
-.char{
-    width: 88%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    color: var(--accent-color);
-    margin: 10% auto 9% auto;
-    text-align: start;
-    font-size: calc(.7rem + 0.3vw);
-    z-index: 20;
-}
 
 .total_con{
     position: sticky;

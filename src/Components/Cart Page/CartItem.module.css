@@ -1,8 +1,8 @@
 .card{
     display: grid;
-    grid-template-columns: 23% 30% 20% 13% 13% ;
+    grid-template-columns: 20% 30% 20% 13% 13% 3%;
     padding: 2% 0;
-    color: #000;
+    color: var(--secondary-color);
     font-family: var(--font-family);
 }
 
@@ -22,8 +22,9 @@
     display: none;
     grid-template-columns: 25% 75% ;
     padding: 4% 0;
-    color: #000;
-    font-family: var(--font-family);
+    color: var(--secondary-color);
+    font-family: var(--font-family) !important;
+    font-size: calc(1rem + .3vw);
 }
 
 .quantitymobile{
@@ -39,7 +40,24 @@
 .font_size{
     font-size: calc(0.6vw + 0.3rem);
 }
+.delete_btn{
+    width: fit-content;
+    height: fit-content;
+    border: none;
+    background-color: var(--primary-color);
+    color: #fff !important;
+    transition: background-color 0.5s ease, color 1s ease;
+    font-size: calc(.7rem + 0.3vw);
+    border-radius: .5em;
+    padding: 0.5em .6em;
+    margin: auto 0 auto auto;
+    cursor: pointer;
+}
 
+.delete_btn:hover{
+    background-color: var(--secondary-color) !important;
+
+}
 @media screen and (max-width: 1024px) {
 
 .font_size{
@@ -53,10 +71,10 @@
         display: grid;
     }   
     .quantity{
-        width: 40%;
+        width: 30%;
         display: grid;
         grid-template-columns: 30% 40% 30%;
-        margin: auto auto auto 0;
+        margin: auto auto auto 1em;
         border-radius: .5em;
         padding: 0% 0;
         border: 1px solid #7F9BC9;

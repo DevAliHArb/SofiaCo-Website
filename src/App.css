@@ -3,10 +3,6 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  /* background-image: url(./assets/FooterBG.png);
-  background-repeat: no-repeat;
-  background-position: left bottom ;
-  background-size: cover; */
   
   background-image: url(./assets/HomePageBG.svg);
   background-repeat: no-repeat;
@@ -14,7 +10,6 @@
   background-size: contain;
   margin: 0 auto;
   max-width: 1900px;
-  overflow: hidden;
 }
 :root {
   --primary-color: #E97704; 

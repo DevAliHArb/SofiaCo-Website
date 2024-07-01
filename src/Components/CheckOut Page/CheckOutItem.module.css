@@ -6,9 +6,9 @@
     flex-direction: row;
     justify-content: space-between;
     padding: 2% 4%;
-    color: #000;
+    color: var(--secondary-color);
     margin: 1% auto ;
-    border-top: 1px solid #6E90A9;
+    border-top: 1px solid var(--primary-color);
     padding-bottom: 4%;
 }
 
@@ -38,7 +38,7 @@
 .cardmobile{
     display: none;
     grid-template-columns: 30% 70%;
-    color: #000;
+    color: var(--secondary-color);
     margin: 5% 0 0% 0;
     border: 1px solid #D3DADC;
     border-radius: 20px;
@@ -100,7 +100,7 @@
     width: 30em;
     overflow: hidden;
     height: 4.3em;
-    color: #002B7D;
+    color: var(--secondary-color);
     font-size: calc(.6rem + 0.2vw);
 }
 .dicription ,
@@ -113,7 +113,7 @@
 .dicription h5,
 .dicription h6,
 .dicription div {
-    color: #002B7D !important;
+    color: var(--secondary-color) !important;
     font-size: calc(0.6rem + 0.2vw) !important;
     line-height: 1.5em !important;
     margin: 0 !important;
@@ -127,11 +127,13 @@
     font-weight: 500;
     font-size: large;
 }
-
+.totalPriceMob{
+    display: none;
+}
 @media screen and (max-width: 1400px) {
     .dicription{
         width: 17em;
-        color: #002B7D;
+        color: var(--secondary-color);
         font-size: small;
     }
 .font_size{
@@ -140,24 +142,15 @@
 }
 
 
-@media screen and ( max-width: 650px) {
-    .card{
-        position: relative;
-        height: fit-content;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        color: #000;
-        border: 1.5px solid #194466;
-        border-radius: 1em;
-    }  
+@media screen and ( max-width: 750px) {
+    
       .quantity{
         display: none;
       }
       .card p{
         margin: 0.1em 0;
     }
-    .price{
+    .totalPrice{
         display: none;
     }
     .font_size{
@@ -173,5 +166,9 @@
         grid-template-columns: 90% 10%;
     }
     
+.totalPriceMob{
+    display: inline;
+    font-size: calc(1.2rem + .3vw);
+}
     
 }

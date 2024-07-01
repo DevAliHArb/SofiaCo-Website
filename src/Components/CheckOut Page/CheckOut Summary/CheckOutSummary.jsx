@@ -2,24 +2,12 @@ import React, { useEffect } from "react";
 import classes from "./CheckOutSummary.module.css";
 import { useSelector } from "react-redux";
 import { Button, Form, Input } from 'antd';
-import bg from "../../../assets/companiesbg.svg";
-import  EmptyCart from "../../../assets/EmptyCart.png";
-import quick from "../../../assets/cartimgs/HighQuality.png";
-import customerservice from "../../../assets/cartimgs/FreeShipping.png";
-import contactUsImage from '../../../assets/contactUsImage.png'
-import perfect from "../../../assets/cartimgs/Support.png";
-import secure from "../../../assets/cartimgs/WarrantyProtection.png";
-import { GoTag } from "react-icons/go";
 import { useState } from "react";
 import Radio from '@mui/material/Radio';
-import visa from '../../../assets/visa_logo.png';
-import master from "../../../assets/master_logo.png";
 import { Divider} from "@mui/material";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import CartSidebar from "../../Common/Cart SideBar/CartSidebar";
 
-// import PopupAdressesModal from "./Popups/PopupAdressesModal";
-// import PopupPaymentModal from "./Popups/PopupPaymentModal";
 import CheckOutSummaryItem from "./CheckOutSummaryItem";
 import axios from "axios";
 
@@ -93,7 +81,6 @@ const maskConstant = (constant) => {
   return (
     <div className={classes.cart_container}>
       <div className={classes.contactImageCont} >
-            <img src={contactUsImage} alt='registerImage' style={{height:'100%'}} className={classes.contactImage}/>
             <div className={classes.imageContent}>
               <h2 style={{margin:'0'}}>Mon Panier</h2>
               <p style={{margin:'.2em 0 0 0'}}>Home / Mon Panier</p>
@@ -117,12 +104,7 @@ const maskConstant = (constant) => {
                 <h2 style={{color:"var(--accent-color)",fontFamily:'Montserrat',fontSize:'calc(1.2rem + .3vw)',margin:'3em 0 1em 0',fontWeight:'500'}}>Payment Method</h2>
             <div className={classes.adressCard}>
                <Radio defaultChecked value={true} sx={{ color: 'var(--forth-color)','&.Mui-checked': { color: 'var(--forth-color)',},margin:'.5em 0 auto 0'}}/>
-               <div>
-                <p style={{fontSize:'calc(.8rem + .3vw)'}}>
-                  <img alt='visa' src={data.user_payment?.card_type === 'Master' ? master : visa} style={{width:'auto',height:'1.5em',margin:'0 1em -.5em 1em'}}/>
-                  {maskConstant(data.user_payment?.card_number)}<span style={{color:'var(--primary-color)',paddingLeft:'2em',fontWeight:'400'}}>Expires {data.user_payment?.month}/{data.user_payment?.year}</span> </p>
-                  
-               </div>
+               
             </div>
             
             </div>
@@ -170,41 +152,6 @@ const maskConstant = (constant) => {
           
       </div>
       </div>
-      </div>
-      <div className={classes.char_container}>
-        <div style={{position:'absolute',width:'100%',height:'100%',zIndex:'-1',top:'0',left:'0'}}>
-          <img src={bg} alt="" style={{height:'100%',objectFit:'cover',minWidth:'100%',width:'auto'}}/>
-        </div>
-      <div className={classes.char} >
-        <div style={{display:'flex',flexDirection:'row'}}>
-          <img src={quick} alt="" className={classes.char_img} style={{ margin: "2% auto" }} /> 
-          <div style={{flex:'1',paddingLeft:'1em'}}>
-          <h3>High Quality</h3>
-          <p >crafted from top materials </p>
-          </div>
-        </div>
-        <div style={{display:'flex',flexDirection:'row'}}>
-          <img src={secure} alt="" className={classes.char_img} style={{ margin: "3.5% auto" }} />
-          <div style={{flex:'1',paddingLeft:'1em'}}>
-          <h3>Warranty Protection</h3>
-          <p >Over 2 years</p>
-          </div>
-        </div>
-        <div style={{display:'flex',flexDirection:'row'}}>
-          <img src={customerservice} alt="" className={classes.char_img} style={{ margin: "3.5% auto" }} />
-          <div style={{flex:'1',paddingLeft:'1em'}}>
-          <h3>Free Shipping</h3>
-          <p >Order over 150 $</p>
-          </div>
-        </div>
-        <div style={{display:'flex',flexDirection:'row'}}>
-          <img src={perfect} alt="" className={classes.char_img} style={{ margin: "2% auto" }} />
-          <div style={{flex:'1',paddingLeft:'1em'}}>
-          <h3>24 / 7 Support</h3>
-          <p>Dedicated support</p>
-          </div>
-        </div>
-        </div>
       </div>
       <CartSidebar />
       {/* <PopupAdressesModal  open={addressmodalopen} handleClose={handleAdressClose} isselectedPayment={(data)=>setselectedPayment(data)} isselectedAddress={(data)=>setselectedAddress(data)}/> */}

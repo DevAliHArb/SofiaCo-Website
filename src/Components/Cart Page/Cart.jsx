@@ -82,7 +82,7 @@ const Cart = () => {
           <h4 style={{padding:'1em',margin:'0 .5em',cursor:'not-allowed'}}><span style={{padding:'.3em .5em',backgroundColor:'#EEBA7F',color:'#fff',borderRadius:'50%'}}>3</span> {Data.Cart.title3[language]}</h4>
         </div>
       </div>
-          {productData.length == 0 ? (
+          {productData?.length == 0 ? (
            <div className={classes.shopping_con}
            style={{
             width:'70%',
@@ -91,6 +91,7 @@ const Cart = () => {
              rowGap: "2em",
              padding: "5%",
              margin: "auto",
+             overflow:'hidden'
            }}
          >
          <div className={classes.auth_bg1}></div>

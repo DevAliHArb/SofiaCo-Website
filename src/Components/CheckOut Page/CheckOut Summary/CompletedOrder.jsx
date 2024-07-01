@@ -36,10 +36,10 @@ useEffect(() => {
       </div>
         <div className={classes.auth_card}>
           <div className={classes.auth_bg} />
-          <p>Thank you! 🎉</p>
-          <p>Your order has been <br/>received</p>
+          <p style={{marginBottom:'0'}}>Thank you! 🎉</p>
+          <p style={{marginTop:'0.2em'}}>Your order has been received</p>
           <div className={classes.imageContainer}>
-            {data?.order_invoice_items.map((props)=>{
+            {(data?.order_invoice_items || []).map((props)=>{
               return (
                 <div style={{position:'relative',width:'fit-content'}}>
                   <img src={props.article.articleimage[0]?.link ? props.article.articleimage[0].link : bookPlaceHolder} alt="" />
@@ -50,15 +50,15 @@ useEffect(() => {
           </div>
           <div className={classes.contentContainer}>
             <p>Order code:</p>
-            <p>#{data.id}</p>
+            <p>#{data?.id}</p>
             <p>Date:</p>
-            <p>{new Date(data.date).toDateString()}</p>
+            <p>{new Date(data?.date).toDateString()}</p>
             <p>Total:</p>
-            <p> {data.currency === 'usd' ? '$' : '€'} {data.total_price}</p>
+            <p> {data?.currency === 'usd' ? '$' : '€'} {data.total_price}</p>
             <p style={{width:"9em"}}>Payment method:</p>
-            <p>{data.user_payment.card_type}</p>
+            <p>{data?.user_payment?.card_type}</p>
           </div>
-          <button className={classes.btn}> Order History</button>
+          <button className={classes.btn}> Track Order</button>
         </div>
         <AlsoSee/>
     </div>

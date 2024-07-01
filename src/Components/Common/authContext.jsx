@@ -87,6 +87,8 @@ export const AuthContextProvider = (props) => {
     });
     const userCart = cartResponse.data.data; 
     dispatch(resetCart());
+    
+    console.log('Error in Login:', userCart);
     userCart.forEach(cartItem => {
         const article_id = cartItem.article_id;
         const foundBook = articles.find(book => book.id === article_id);
@@ -98,6 +100,7 @@ export const AuthContextProvider = (props) => {
               image: cartItem.article.articleimage[0]?.link ? cartItem.article.articleimage[0].link : bookPlaceHolder,
               price: cartItem.article.prixpublic,
               discount: cartItem.discount,
+              date: cartItem.article.dc_parution,
               quantity: cartItem.quantity,
               description: cartItem.article.descriptif,
               weight: cartItem.article._poids_net,
@@ -118,6 +121,7 @@ export const AuthContextProvider = (props) => {
             dispatch(addTofavorite({
               id: favtItem.id,
               _favid: favtItem.article.id,
+              date: favtItem.article.add_date,
               favtitle: favtItem.article.designation,
               favauthor: favtItem.article.dc_auteur,
               favimage: favtItem.article.articleimage[0]?.link ? favtItem.article.articleimage[0].link : bookPlaceHolder,
@@ -227,6 +231,7 @@ const fetchArticles = async () => {
       dispatch(addTocart({
         _id: props.id,
         title: props.designation,
+        date: props.add_date,
         author: props.dc_auteur,
         image: props.articleimage[0]?.link ? props.articleimage[0].link : bookPlaceHolder,
         price: props.prixpublic,
@@ -319,6 +324,7 @@ const fetchArticles = async () => {
       dispatch(addTocart({
         _id: props.id,
         title: props.designation,
+        date: props.add_date,
         author: props.dc_auteur,
         image: props.image,
         price: props.prixpublic,
@@ -486,6 +492,7 @@ const fetchArticles = async () => {
         id: response.data.data.id,
         _favid: props.id,
         favtitle: props.designation,
+        date: props.add_date,
         favauthor: props.dc_auteur,
         favimage: props.articleimage[0]?.link ? props.articleimage[0].link : bookPlaceHolder,
         favprice: props.prixpublic,

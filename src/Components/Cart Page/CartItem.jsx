@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classes from "./CartItem.module.css";
 import { decreamentQuantity, increamentQuantity } from "../Common/redux/productSlice";
-import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteIcon from "../../assets/DeleteIcon.svg";
 import { toast } from "react-toastify";
 import axios from "axios";
 import AuthContext from "../Common/authContext";
@@ -10,7 +10,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import { Row, Col, Button, Select, Form, Input } from "antd";
+import { Rate, Col, Button, Select, Form, Input } from "antd";
 
 const ConfirmationPopup = ({ message, onConfirm, onCancel, showPopup }) => {
   const language = useSelector((state) => state.products.selectedLanguage[0].Language);
@@ -71,12 +71,11 @@ const CartItem = () => {
     setShowPopup(false);
   };
 
-  console.log(productData)
   return (
     <>
       {productData?.map((props, index) => (
         <>
-          <div className={classes.card} key={index} style={{borderBottom:(index + 1) !== productData?.length && "1px solid var(--secondary-color)"}}>
+          <div className={classes.card} key={index} style={{borderBottom:(index + 1) !== productData?.length && "1px solid var(--primary-color)"}}>
             <div style={{ paddingLeft: "2em" }}>
               <img src={props.image} alt="" width="100%" style={{width:'100%',height:'100%',objectFit:'fill',minHeight:'8em'}} />
             </div>
@@ -89,14 +88,10 @@ const CartItem = () => {
                 margin: " 0 0 0 auto",
               }}
             >
-              <p style={{width:'100%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"600"}}>{props.title.slice(0,20)}</p>
-              
-            <div style={{ margin: "auto auto auto 0",cursor:'pointer' }}
-                onClick={() => setShowPopup(props._id)}>
-              <ClearIcon
-                style={{ color: "var(--secondary-color)",cursor:"pointer",margin:"0 0 -.2em 0"  }}
-              /> {language === 'eng' ? 'Remove' : 'Retirer'}
-            </div>
+              <p style={{width:'100%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"600"}} onClick={()=>console.log(props)}>{props.title.slice(0,20)}</p>
+              <p style={{width:'100%',textAlign:"start",fontSize:"calc(.6rem + .3vw)",fontWeight:"500"}}>{props.author.slice(0,20)}</p>
+              <p style={{width:'100%',textAlign:"start",fontSize:"calc(.6rem + .3vw)",fontWeight:"500"}}>{new Date(props.date).toDateString()}</p>
+              <p style={{color:'var(--secondary-color)',fontSize:'smaller',textAlign:'start'}}><Rate value={4} disabled  style={{color:'var(--primary-color)',fontSize:'small'}}/>4.0/5</p>
             </div>
             <div className={classes.quantity}>
               <p
@@ -233,8 +228,9 @@ const CartItem = () => {
                     props.quantity *((Number(props.price))) * authCtx.currencyRate
                   ).toFixed(2)}`}
             </p>
+            <div className={classes.delete_btn}><img src={DeleteIcon} style={{width:'1em'}}  onClick={() => setShowPopup(props._id)} /></div>
           </div>
-          <div className={classes.cardmobile} key={index} style={{borderBottom:(index + 1) !== productData?.length && "1px solid var(--secondary-color)"}}>
+          <div className={classes.cardmobile} key={index} style={{borderBottom:(index + 1) !== productData?.length && "1px solid var(--primary-color)"}}>
             <div style={{paddingRight:'.5em'}}>
               <img src={props.image} alt="" width="100%" style={{width:'100%',height:'100%',objectFit:'fill',minHeight:'8em'}} />
             </div>
@@ -249,34 +245,34 @@ const CartItem = () => {
                 margin: " 0",
               }}
             >
-              <p style={{width:'80%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"600"}}>{props.title.slice(0,20)}</p>
+              <p style={{width:'80%',textAlign:"start",fontSize:"calc(.8rem + .3vw)",fontWeight:"600"}}>{props.title.slice(0,20)}</p>
               
-            <div style={{ margin: "auto 0",cursor:'pointer' }}
-                onClick={() => setShowPopup(props._id)}>
-              <ClearIcon
-                style={{ color: "var(--secondary-color)",cursor:"pointer",margin:"0 0 -.2em 0"  }}
-              /> 
+           
+              <div className={classes.delete_btn}><img src={DeleteIcon} style={{width:'1.5em'}}  onClick={() => setShowPopup(props._id)} /></div>
             </div>
-            </div>
-            <p
-                style={{textAlign:'start'}}
-              >
-                {currency === "eur"
-                  ? `€ ${Number(props.price).toFixed(2)} `
-                  : `$ ${(
-                      props.price * authCtx.currencyRate
-                    ).toFixed(2)} `}
-              </p>
+              <p style={{margin:'0.2em 0', width:'100%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"500"}}>{props.author.slice(0,20)}</p>
+              <p style={{margin:'0.2em 0', width:'100%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"500"}}>{new Date(props.date).toDateString()}</p>
+              <p style={{margin:'0.2em 0', color:'var(--secondary-color)',fontSize:'smaller',textAlign:'start'}}><Rate value={4} disabled  style={{color:'var(--primary-color)',fontSize:'small'}}/>4.0/5</p>
             <div
               style={{
-                width:"97%",
+                width:"100%",
                 height:'fit-content',
                 display: "flex",
                 flexDirection: "row",
                 justifyContent:'space-between',
                 margin: "auto 0 0 0",
+                fontFamily:'var(--font-family)',
+                color:'var(--secondary-color)'
               }}
-            >
+            > <p
+            style={{textAlign:'start'}}
+          >
+            {currency === "eur"
+              ? `€ ${Number(props.price).toFixed(2)} `
+              : `$ ${(
+                  props.price * authCtx.currencyRate
+                ).toFixed(2)} `}
+          </p>
             <div className={classes.quantity}>
               <p
                 style={{
@@ -393,7 +389,7 @@ const CartItem = () => {
                 +
               </p>
             </div>
-            <p style={{ margin: "auto", fontWeight: "600" }}>
+            <p style={{ margin: "auto 0",color:"var(--primary-color)", fontWeight: "700" }}>
               {" "}
               {currency === "eur"
                 ? `€ ${(props.quantity * (Number(props.price))).toFixed(2)} `

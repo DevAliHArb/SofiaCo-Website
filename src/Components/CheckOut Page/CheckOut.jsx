@@ -1040,10 +1040,10 @@ const CheckOut = () => {
               style={{
                 color: "var(--secondary-color)",
                 fontFamily: "var(--font-family)",
-                fontSize: "calc(1.2rem + .3vw)",
-                margin: "1em 0",
-                fontWeight: "500",
-                textAlign:'start'
+                fontSize: "calc(1rem + .3vw)",
+                margin: "2em 0 0.5em 0 ",
+                fontWeight: "600",
+                textAlign:'start',paddingLeft:".3em"
               }}
             >
               Add a note to your order
@@ -1073,8 +1073,7 @@ const CheckOut = () => {
               <div
                 className={classes.totalrows}
                 style={{
-                  backgroundColor: "var(--secondary-color)",
-                  color: "var(--forth-color)",
+                  color: "#fff",
                   width: "80%",
                   margin: "1em auto 0 auto",
                   padding: ".4em 0",
@@ -1104,7 +1103,7 @@ const CheckOut = () => {
                   width: "80%",
                 }}
               >
-                Place My Order
+                Checkout
               </button>
             </div>
           )}
@@ -1276,7 +1275,7 @@ const CheckOut = () => {
               onClick={CheckOutHandler}
               style={{ margin: "2em 0" ,cursor:'pointer'}}
             >
-              Place My Order
+              Checkout
             </button>
         </div>
       </div>
