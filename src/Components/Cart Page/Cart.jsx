@@ -89,7 +89,7 @@ const Cart = () => {
              display: "flex",
              flexDirection: "column",
              rowGap: "2em",
-             padding: "5%",
+             padding: "2%",
              margin: "auto",
              overflow:'hidden'
            }}
@@ -97,9 +97,9 @@ const Cart = () => {
          <div className={classes.auth_bg1}></div>
            <div style={{width:'fit-content',zIndex:"2",margin:"auto", color:'var(--accent-color)',fontFamily:'montserrat',fontSize:'calc(.7rem + .3vw)'}}>
              <div style={{width:'fit-content',margin:'auto'}}>
-             <img alt='EmptyCart' src={EmptyCart} style={{width:"10em" , height:"auto"}}/>
+             <img alt='EmptyCart' src={EmptyCart} style={{width:"15em" , height:"auto"}}/>
              </div>
-             <h1 style={{textAlign:'center'}}>{Data.Cart.emptyCart[language]}</h1>
+             <h1 style={{textAlign:'center',fontFamily: "var(--font-family)",margin:"2em auto 0em auto"}}>{Data.Cart.emptyCart[language]}</h1>
              {/* <p  style={{textAlign:'center'}}> You have no items in your shopping cart</p> */}
              <button className={classes.browseBtn}  onClick={()=>navigate('/')}>{Data.Cart.emptyCartBtn[language]}</button>
            </div>

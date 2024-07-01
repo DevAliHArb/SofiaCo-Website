@@ -45,7 +45,7 @@
 .header{
     display: grid;
     font-family: var(--font-family);
-    grid-template-columns: 23% 30% 20% 13% 13% 0%;
+    grid-template-columns: 20% 30% 20% 13% 13% 0%;
     border-bottom:.2em solid var(--primary-color);
     color: var(--secondary-color);
     margin: 5% 0 2% 0;
@@ -108,11 +108,11 @@
 .auth_bg1{
     position: absolute;
     width: 90%;
-    height: 110%;
+    height: 120%;
     background-color: var(--authbg-color);
-    top: -5%;
+    top: -10%;
     left: 5%;
-    border-radius: 4em;
+    border-radius: 7em;
     /* z-index: -1; */
     transform: rotate(-10deg);
     z-index: 0;
@@ -209,11 +209,13 @@
     background-color: var(--primary-color);  
     color: #DED8CC;
     border: none;
-    font-size: calc(0.7rem + 0.3vw);
+    font-size: calc(0.8rem + 0.3vw);
+    font-weight: 600;
     cursor: pointer;
     transition: background-color .6s ease, color 1s ease;
     display: flex;
     margin: 3em auto;
+    font-family: var(--font-family);
 }
 .browseBtn:hover{
     background-color: var(--secondary-color);
@@ -304,6 +306,18 @@
 
 @media screen and (max-width: 750px) {
   
+.auth_bg1{
+    position: absolute;
+    width: 90%;
+    height: 120%;
+    background-color: var(--authbg-color);
+    top: -10%;
+    left: 5%;
+    border-radius: 1em;
+    /* z-index: -1; */
+    transform: rotate(-10deg);
+    z-index: 0;
+}
     
     /* .total_con{
         width: 96%;

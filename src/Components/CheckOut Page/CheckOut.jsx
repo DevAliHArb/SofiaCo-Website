@@ -411,26 +411,10 @@ const CheckOut = () => {
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-
-      // Adjust this threshold based on your requirements
-      const threshold = documentHeight - windowHeight - 1100;
-
-      // Update the state to hide the container when reaching the bottom
-      setContainerVisible(scrollPosition < threshold);
-    };
-
-    // Attach the scroll event listener
-    window.addEventListener("scroll", handleScroll);
-
-    // Cleanup the event listener on component unmount
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+    if(productData?.length === 0){
+      navigate('/cart')
+    }
+  }, [productData]);
 
   useEffect(() => {
     let updatedOrderInvoiceItems = [];
@@ -524,7 +508,7 @@ const CheckOut = () => {
 
         dispatch(resetCart());
         setorderId(response.data.order_invoice.id)
-        handleConfirmedOpen();
+        navigate(`/checkout-completed/${response.data.order_invoice.id}`);
         setLoading(false);
         toast.success(`Order success`, {
           position: "top-right",
@@ -751,8 +735,8 @@ const CheckOut = () => {
                     style={{ width: "10em", height: "auto" }}
                   />
                 </div>
-                <h1 style={{ textAlign: "center" }}>Your Cart is empty!</h1>
-                <p style={{ textAlign: "center" }}>
+                <h1 style={{ textAlign: "center",fontFamily: "var(--font-family)" }}>Your Cart is empty!</h1>
+                <p style={{ textAlign: "center" ,fontFamily: "var(--font-family)"}}>
                   {" "}
                   You have no items in your shopping cart
                 </p>

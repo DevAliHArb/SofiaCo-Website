@@ -229,6 +229,7 @@
     color: #fff;
     border: none;
     font-size: calc(0.7rem + 0.3vw);
+    font-family: var(--font-family);
     cursor: pointer;
     transition: background-color .6s ease, color 1s ease;
     display: flex;

@@ -226,7 +226,7 @@ const fetchArticles = async () => {
         user_id: user.id,
         article_id: props.id,
         quantity: 1,
-        ecom_type: 'albouraq'
+        ecom_type: 'sofiaco'
       });
       dispatch(addTocart({
         _id: props.id,
@@ -319,7 +319,7 @@ const fetchArticles = async () => {
         user_id: user.id,
         article_id: props.id,
         quantity: props.quantity,
-        ecom_type: 'albouraq'
+        ecom_type: 'sofiaco'
       });
       dispatch(addTocart({
         _id: props.id,
@@ -486,7 +486,7 @@ const fetchArticles = async () => {
       const response = await axios.post("https://api.leonardo-service.com/api/bookshop/favorites", {
         user_id: user.id,
         article_id: props.id,
-        ecom_type: 'albouraq'
+        ecom_type: 'sofiaco'
       });
       dispatch(addTofavorite({
         id: response.data.data.id,
