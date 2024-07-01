@@ -1,0 +1,137 @@
+.tabview{
+    position: relative;
+    width: 88%;
+    height: 100%;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin: 0 auto;
+    font-family: montserrat;
+}
+
+
+
+.tab_content{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    column-gap: 5%;
+    height: 100%;
+}
+.summary{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-content: space-between;
+}
+
+.btns_con{
+    display: grid;
+    grid-template-columns: repeat(3,33.3%);
+    padding-bottom: 1%;
+    /* border-bottom: 1px solid #DED8CC; */
+}
+
+.btn{
+    font-size: calc(0.8rem + 0.3vw);
+    font-style: normal;
+    color: var(--accent-color);
+    padding: 1em 0;
+    border: none;
+    font-weight: 600;    
+    background-color: transparent;
+    border-bottom: 0.1em solid #DED8CC;
+}
+
+.btn_after{
+    font-size: calc(0.8rem + 0.3vw);
+    font-style: normal;
+    color: var(--forth-color);
+    border: none;
+    font-weight: 600;   
+    background-color: transparent;
+    border-bottom: 0.2em solid #712A2E;
+}
+.content{
+    width: 100%;
+    height: fit-content;
+    /* padding: 0% 4%; */
+    text-align: start;
+}
+
+.resume_content{
+    height: fit-content;
+    padding-top: 3%;
+    width: 100%;
+}
+
+.resume_content p{
+    padding: 0 4%;
+}
+
+.review{
+    padding: 0 4%;
+}
+
+.characContainer{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 45% 45%;
+    gap: 10%;
+    margin: 3em 0 4em 0;
+}
+
+.details_row{
+    width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 40% 60%;
+}
+
+.details_row p{
+    text-align: start;
+    color: var(--accent-color);
+    font-family: montserrat;
+    font-size: calc(0.7rem + 0.3vw);
+    font-style: normal;
+    font-weight: 400;
+    padding: 0em 2em;
+}
+
+.details_row1{
+    width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    background-color: #DED8CC;
+    border-radius: 1em;
+}
+
+.details_row1 p{
+    text-align: start;
+    color: var(--accent-color);
+    font-family: montserrat;
+    font-size: calc(0.7rem + 0.3vw);
+    font-style: normal;
+    font-weight: 400;
+    padding: .0em 2em;
+}
+
+@media screen and (max-width:950px) {
+    .tabview{
+        margin: 0 auto;
+    }
+    .characContainer{
+        grid-template-columns: 1fr;
+        margin: 3em 0 8em 0;
+    }
+  }
+  @media screen and (max-width:650px) {
+      .tabview{
+          margin: 0 auto;
+      }
+      .tabview{
+          width: 100%;
+          margin-left: 0%;
+      }
+      
+    }

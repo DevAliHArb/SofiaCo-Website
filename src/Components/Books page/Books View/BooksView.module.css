@@ -26,9 +26,24 @@
   gap: 5%;
   grid-template-columns: 25% 70%;
 }
+.filter_con{
+  display: flex;
+  flex-direction: column;
+}
+
+.filter_con h1{
+  margin: 0.5em 0;
+  color: var(--secondary-color);
+  font-family: var(--font-family);
+  font-size: calc(1rem + 0.6vw);
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-align: start;
+}
 
 .filter{
-  border: .15em solid var(--secondary-color);
+  border: .13em solid var(--secondary-color);
   height: fit-content;
   border-radius: 1em;
 }
@@ -196,7 +211,7 @@
 
 
   @media screen and (max-width:950px) {
-    .filter{
+    .filter_con{
       display: none;
     }
 

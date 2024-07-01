@@ -8,6 +8,7 @@ import { useActionData, useNavigate } from "react-router-dom";
 import { FormControl, MenuItem, Rating, Select } from "@mui/material";
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from "react-redux";
+import { IoCartOutline } from "react-icons/io5";
 import { addSelectedBook, addTocart, addTocompare, addTofavorite, deletefavorite } from "../../../Common/redux/productSlice";
 import AuthContext from "../../../Common/authContext";
 import {
@@ -24,6 +25,9 @@ import {
 import { HiOutlineBookOpen } from "react-icons/hi2";
 import img from "../../../../assets/bookPlaceholder.png";
 import nodata from "../../../../assets/nobookfound.svg";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
 
 
 const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChemin, selectedRate, selectedPrice }) => {
@@ -52,6 +56,12 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
   const searchData = useSelector((state) => state.products.searchData);
   
   const favoriteData = useSelector((state) => state.products.favorites);
+  const language = useSelector(
+    (state) => state.products.selectedLanguage[0].Language
+  );
+  const currency = useSelector(
+    (state) => state.products.selectedCurrency[0].currency
+  );
   
   const cat = localStorage.getItem('category')
   const storedRate = localStorage.getItem('rate')
@@ -143,7 +153,6 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
     setSortBy(e.target.value);
   };
 
-  const language = 'eng';
   const chain = () => {
     if (catChemin !== '') {
       return language === 'eng' ? `Category: ${catChemin}` : `Category: ${catChemin}`;
@@ -173,8 +182,8 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
           </p>
         </div>
         <div className={classes.gridrowviews}>
-          <div className={classes.viewBtnContainer} style={{backgroundColor: listview === "grid" && 'var(--forth-color)'}}><img src={gridview} style={{width:"60%",margin:"auto"}} alt="grid" onClick={() => {setListview("grid"); setpagenbroute(1)}} /></div>
-          <div className={classes.viewBtnContainer} style={{backgroundColor: listview === "list" && 'var(--forth-color)'}}><img src={rowsview} style={{width:"60%",margin:"auto"}} alt="grid" onClick={() => {setListview("list"); setpagenbroute(1)}} /></div>
+          <div className={classes.viewBtnContainer} style={{backgroundColor: listview === "grid" && 'var(--primary-color)'}}><img src={gridview} style={{width:"60%",margin:"auto"}} alt="grid" onClick={() => {setListview("grid"); setpagenbroute(1)}} /></div>
+          <div className={classes.viewBtnContainer} style={{backgroundColor: listview === "list" && 'var(--primary-color)'}}><img src={rowsview} style={{width:"60%",margin:"auto"}} alt="grid" onClick={() => {setListview("list"); setpagenbroute(1)}} /></div>
         </div>
         <div className={classes.category}>
           <p style={{ display: "flex", flexDirection: "row" }} >
@@ -208,7 +217,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                 inputProps={{ 'aria-label': 'Without label' }}
                 value={sortBy}
                 onChange={handleSortChange}
-                style={{height:'2.2em',width:"10em",borderColor:'var(--primary-color)',textAlign:'center',color:'#fff',backgroundColor:'var(--forth-color)',borderRadius:'.5em',margin:'0'}}
+                style={{height:'2.2em',width:"10em",borderColor:'var(--secondary-color)',textAlign:'center',color:'var(--secondary-color)',backgroundColor:'var(--forth-color)',borderRadius:'.5em',margin:'0'}}
             > 
                 <MenuItem value="default" style={{textAlign:'center'}}>Default Sorting</MenuItem>
                     <MenuItem value="titleAZ" style={{textAlign:'center'}}>Sort A-Z </MenuItem>
@@ -220,69 +229,55 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
             
         </div>
       </div>
-          <div className={classes.page_control} style={{border:'none'}}>
-            <div className={classes.show}>
-              <p>
-                Showing {from}–{to} of {filteredartciles.length} results
-              </p>
-            </div>
-            <div className={classes.control}>
-              {/* <button onClick={prev2page}>
-                <MdKeyboardDoubleArrowLeft className={classes.icon1} />
-              </button> */}
-              <button onClick={prevpage}>
-                <MdKeyboardArrowLeft className={classes.icon1} />
-              </button>
-              {numbers.map((n, i) => {
-  if (pagenbroute === 1) {
-    if (n === pagenbroute || n === pagenbroute + 1 || n === pagenbroute + 2) {
-      return (
-        <button
-          key={i}
-          onClick={() => {
-            changepage(n);
-            setpagenbroute(n);
-          }}
-          className={`${
-            pagenbroute === n ? classes.selectednb : classes.nb
-          }`}
-        >
-          {n}
-        </button>
-      );
-    }
-  } else {
-    if (
-      n === pagenbroute - 1 ||
-      n === pagenbroute ||
-      n === pagenbroute + 1
-    ) {
-      return (
-        <button
-          key={i}
-          onClick={() => {
-            changepage(n);
-            setpagenbroute(n);
-          }}
-          className={`${
-            pagenbroute === n ? classes.selectednb : classes.nb
-          }`}
-        >
-          {n}
-        </button>
-      );
-    }
-  }
-  return null;
-})}
-              <button onClick={nextpage}>
-                <MdKeyboardArrowRight className={classes.icon1} />
-              </button>
-              {/* <button onClick={next2page}>
-                <MdKeyboardDoubleArrowRight className={classes.icon1} />
-              </button> */}
-            </div>
+        <div className={classes.page_control} style={{border:'none', margin:'auto'}}>
+          <div className={classes.control}>
+            {/* <button onClick={prev2page}>
+              <MdKeyboardDoubleArrowLeft className={classes.icon1} />
+            </button> */}
+            <button onClick={prevpage}>
+              <FaArrowLeftLong className={classes.icon1} />
+            </button>
+            {numbers.map((n, i) => {
+              if (
+                n === 1 ||
+                n === pagenb ||
+                n === currentpage - 1 ||
+                n === currentpage ||
+                n === currentpage + 1 ||
+                (n === currentpage + 2 && currentpage === 1)
+              ) {
+                return (
+                  <button
+                    key={i}
+                    onClick={() => {
+                      changepage(n);
+                      setpagenbroute(n);
+                    }}
+                    className={`${
+                      pagenbroute === n ? classes.selectednb : classes.nb
+                    }`}
+                  >
+                    {n}
+                  </button>
+                );
+              } else if (
+                n === currentpage - 2 ||
+                n === currentpage + 3
+              ) {
+                return (
+                  <span key={i} className={classes.ellipsis}>...</span>
+                );
+              }
+              return null;
+            })}
+            <button onClick={nextpage}>
+              <FaArrowRightLong className={classes.icon1} />
+            </button>
+            {/* <button onClick={next2page}>
+              <MdKeyboardDoubleArrowRight className={classes.icon1} />
+            </button> */}
           </div>
+        </div>
           {sortBooks(sortBy).length === 0 ? 
           <div className={classes.nodata}>
             <div className={classes.nodata_img}>
@@ -324,91 +319,114 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
 
               const averageRate = calculateAverageRating();
               return (
-                <div className={classes.card_container}
+                <div
+                    className={classes.card_container}
                     onClick={(event) => {
+                      authCtx.setbookDetails(props);
                       event.stopPropagation();
-                      dispatch(addSelectedBook(props));
-                      navigate(`/bookdetails/${props.id}`);
+                      navigate(`bookdetails/${props.id}`);
                     }}
                   >
-                    <div className={classes.card_img} style={{borderRadius:'1em'}}>
-                    {props.articleimage[0] ? (
-                      <img
-                        src={`${props.articleimage[0]?.link}`}
-                        alt=""
-                        width="100%"
-                        height="100%"
-                      />
-                    ) : (
-                      <img
-                        src={img}
-                        alt=""
-                        width="100%"
-                        height="100%"
-                      />
-                    )}{" "}
-                      <div className={classes.iconsContainer}>
-                      {favoriteData.some(
-                              (book) => book._favid === props.id
-                            ) ? (
-                              <div className={classes.icon_con} style={{background:'var(--forth-color)'}} onClick={(event) => {
-                                event.stopPropagation();
-                                authCtx.deleteFavorite(props.id);
-                              }}>
-                                <IoHeartOutline className={classes.icon} />
-                              </div>
-                            ) : (
-                              <div className={classes.icon_con} 
-                              onClick={(event) => {
-                                event.stopPropagation();
-                                authCtx.addToFavorite(props);
-                              }}
-                                    >
-                                <IoHeartOutline className={classes.icon} />
-                              </div>
-                            )}
-                        <div className={classes.icon_con}>
-                          <HiOutlineBookOpen className={classes.icon} />
-                        </div>
-                        <div className={classes.icon_con} style={{width:'70%',height:'70%', margin:'15% auto',alignSelf:'center'}} 
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          authCtx.addToCart({props: props}); 
-                        }}
-                        >
-                          <PiShoppingCartSimpleLight className={classes.icon} />
-                        </div>
+                    <div className={classes.card_img}>
+                      {props.articleimage[0] ? (
+                        <img
+                          src={`${props.articleimage[0]?.link}`}
+                          alt=""
+                          width="100%"
+                          height="100%"
+                          className={classes.img}
+                        />
+                      ) : (
+                        <img
+                          src={img}
+                          className={classes.img}
+                          alt=""
+                          width="100%"
+                          height="100%"
+                        />
+                      )}
+                      <div className={classes.favoriteIcon}>
+                        {favoriteData?.some(
+                          (book) => book._favid === props.id
+                        ) ? (
+                          <FavoriteIcon
+                            className={classes.fav}
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              authCtx.deleteFavorite(props.id);
+                            }}
+                            fontSize="inherit"
+                          />
+                        ) : (
+                          <FavoriteBorderIcon
+                            className={classes.nonfav}
+                            fontSize="inherit"
+                            onClick={(event) =>{
+                              event.stopPropagation();
+                              authCtx.addToFavorite(props) ;
+                            }}
+                          />
+                        )}
                       </div>
-                    </div> 
-                    <p className={classes.rate} style={{maxWidth:'100%',width:'fit-content',margin:'5% auto 1% auto'}}>
-                        <Rating
-                          style={{
-                              color: "#712A2E",
-                              margin:'0 .5em 0 0',
-                          }}
-                          size='small'
-                          name="read-only"
-                          value={averageRate}
-                          precision={0.5}
-                          readOnly
-                      /><p style={{margin:'0.2em 0 0 0 '}}>{averageRate}/5</p>
-                      </p>
-                    <div className={classes.bookTitle}>
-                    <h3 style={{ margin: "0" }}>{props.designation.length > 20 ? props.designation.substring(0, 30) + "..." : props.designation}</h3>
-                      <p>
-                        {props.dc_auteur.length > 20 ? props.dc_auteur.substring(0, 20) + "..." : props.dc_auteur}
+                      <div className={classes.cartIcon}>
+                          <IoCartOutline
+                            className={classes.fav}
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              authCtx.addToCart({props: props}); 
+                            }}
+                            fontSize="inherit"
+                          />
+                      </div>
+                    </div>
+                    
+                    <div className={classes.bookTitle} >
+                      <p >{props.designation.length > 15 ? props.designation.slice(0,15) + '...' : props.designation}</p>
+                      <p style={{ height:'1em', fontSize:'small', fontWeight: 400 }}>{props.dc_auteur.length > 15 ? props.dc_auteur.slice(0,15) + '...' : props.dc_auteur}</p>
+                      <p style={{ height:'2em', fontSize:'small', fontWeight: 400 }} dangerouslySetInnerHTML={{__html: props.descriptif.length > 40 ? props.descriptif.slice(0,40) + '...' : props.descriptif}} />
+                      <span style={{ display: "flex", flexDirection: "row", margin:'0 auto', columnGap:'0.5em' }}>
+                        <p
+                          style={{ textAlign: "center", padding: "0 ",color: "var(--primary-color)",fontWeight:700 }}
+                        >
+                          {currency === "eur"
+                            ? `€${
+                                props.discount > 0
+                                  ? (
+                                      props.prixpublic -
+                                      props.prixpublic * (props.discount / 100)
+                                    ).toFixed(2)
+                                  : Number(props.prixpublic).toFixed(2)
+                              }`
+                            : `$${
+                                props.discount > 0
+                                  ? (
+                                      (props.prixpublic -
+                                        props.prixpublic *
+                                          (props.discount / 100)) *
+                                      authCtx.currencyRate
+                                    ).toFixed(2)
+                                  : (
+                                      props.prixpublic * authCtx.currencyRate
+                                    ).toFixed(2)
+                              }`}{" "}
                         </p>
-                      <p
-                        style={{
-                          color: "var(--forth-color)",
-                          fontWeight: 600,
-                          fontSize: " calc(0.9rem + 0.4vw)",
-                        }}
-                      >
-                        ${(props.prixpublic * 1).toFixed(2)}
-                      </p>
-                      <p style={{color:'#002B7D'}} 
-                        dangerouslySetInnerHTML={{ __html: props.descriptif.length > 20 ? props.descriptif.substring(0, 20) + "..." : props.descriptif }} />
+                        {props.discount > 0 && (
+                          <p
+                            style={{
+                              color: "var(--primary-color)",
+                              textDecoration: "line-through",
+                              fontSize: "small",
+                              margin:"auto 0"
+                            }}
+                          >
+                            {currency === "eur"
+                              ? `€ ${Number(props.prixpublic).toFixed(2)} `
+                              : `$ ${(
+                                  props.prixpublic * authCtx.currencyRate
+                                ).toFixed(2)} `}
+                          </p>
+                        )}
+                      </span>
                     </div>
                   </div>
               );
@@ -476,28 +494,28 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                       <p className={classes.rate}>
                         <Rating
                           style={{
-                              color: "#712A2E",
+                              color: "var(--primary-color)",
                               margin:'0 .5em 0 0',
                           }}
                           size='small'
                           name="read-only"
                           value={averageRate}
                           readOnly
-                      /><p style={{margin:'0.2em 0 0 0 '}}>{averageRate}/5</p>
+                      /><p style={{margin:'0.2em 0 0 0 '}}>{averageRate.toFixed(2)}/5</p>
                       </p>
                       </p>
                       <p className={classes.bookRowAuthor}>{props.dc_auteur} LE : {props.dc_parution}</p>
                       <p className={classes.rateMob}>
                         <Rating
                           style={{
-                              color: "#712A2E",
+                            color: "var(--primary-color)",
                               margin:'0 .5em 0 0',
                           }}
                           size='small'
                           name="read-only"
                           value={averageRate}
                           readOnly
-                      /><p style={{margin:'0.3em 0 0 0 '}}>{averageRate}/5</p>
+                          /><p style={{margin:'0.2em 0 0 0 '}}>{averageRate.toFixed(2)}/5</p>
                       </p>
                       <p className={classes.bookRowDescription} 
                               dangerouslySetInnerHTML={{ __html: props.descriptif.length > 250 ? props.descriptif.substring(0, 250) + "..." : props.descriptif }}
@@ -528,9 +546,6 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                                 <IoHeartOutline className={classes.icon} />
                               </div>
                             )}
-                        <div className={classes.icon_con}>
-                          <HiOutlineBookOpen className={classes.icon} />
-                        </div>
                         <div className={classes.icon_con}  
                         onClick={(event) => {
                           event.stopPropagation();
@@ -585,69 +600,56 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
       </div>
 
           }
-          <div className={classes.page_control}>
-            <div className={classes.show}>
-              <p>
-                Showing {from}–{to} of {filteredartciles.length} results
-              </p>
-            </div>
-            <div className={classes.control}>
-              {/* <button onClick={prev2page}>
-                <MdKeyboardDoubleArrowLeft className={classes.icon1} />
-              </button> */}
-              <button onClick={prevpage}>
-                <MdKeyboardArrowLeft className={classes.icon1} />
-              </button>
-              {numbers.map((n, i) => {
-  if (pagenbroute === 1) {
-    if (n === pagenbroute || n === pagenbroute + 1 || n === pagenbroute + 2) {
-      return (
-        <button
-          key={i}
-          onClick={() => {
-            changepage(n);
-            setpagenbroute(n);
-          }}
-          className={`${
-            pagenbroute === n ? classes.selectednb : classes.nb
-          }`}
-        >
-          {n}
-        </button>
-      );
-    }
-  } else {
-    if (
-      n === pagenbroute - 1 ||
-      n === pagenbroute ||
-      n === pagenbroute + 1
-    ) {
-      return (
-        <button
-          key={i}
-          onClick={() => {
-            changepage(n);
-            setpagenbroute(n);
-          }}
-          className={`${
-            pagenbroute === n ? classes.selectednb : classes.nb
-          }`}
-        >
-          {n}
-        </button>
-      );
-    }
-  }
-  return null;
-})}
-              <button onClick={nextpage}>
-                <MdKeyboardArrowRight className={classes.icon1} />
-              </button>
-              {/* <button onClick={next2page}>
-                <MdKeyboardDoubleArrowRight className={classes.icon1} />
-              </button> */}
-            </div>
+          
+        <div className={classes.page_control}>
+          <div className={classes.control}>
+            {/* <button onClick={prev2page}>
+              <MdKeyboardDoubleArrowLeft className={classes.icon1} />
+            </button> */}
+            <button onClick={prevpage}>
+              <FaArrowLeftLong className={classes.icon1} />
+            </button>
+            {numbers.map((n, i) => {
+              if (
+                n === 1 ||
+                n === pagenb ||
+                n === currentpage - 1 ||
+                n === currentpage ||
+                n === currentpage + 1 ||
+                (n === currentpage + 2 && currentpage === 1)
+              ) {
+                return (
+                  <button
+                    key={i}
+                    onClick={() => {
+                      changepage(n);
+                      setpagenbroute(n);
+                    }}
+                    className={`${
+                      pagenbroute === n ? classes.selectednb : classes.nb
+                    }`}
+                  >
+                    {n}
+                  </button>
+                );
+              } else if (
+                n === currentpage - 2 ||
+                n === currentpage + 3
+              ) {
+                return (
+                  <span key={i} className={classes.ellipsis}>...</span>
+                );
+              }
+              return null;
+            })}
+            <button onClick={nextpage}>
+              <FaArrowRightLong className={classes.icon1} />
+            </button>
+            {/* <button onClick={next2page}>
+              <MdKeyboardDoubleArrowRight className={classes.icon1} />
+            </button> */}
           </div>
+        </div>
     </div>
   );
 };

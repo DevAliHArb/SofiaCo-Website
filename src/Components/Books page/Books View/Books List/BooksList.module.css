@@ -10,7 +10,7 @@
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    font-family: Montserrat;
+    font-family: var(--font-family);
   }
 
   .nodata{
@@ -34,8 +34,8 @@
   }
   
   .nodata h1{
-    font-family: Montserrat;
-    color: var(--accent-color);
+    font-family: var(--font-family);
+    color: var(--secondary-color);
     text-align: center;
   }
 
@@ -45,7 +45,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 0 0 2% 0;
-    border-bottom: 1px solid var(--accent-color);
+    border-bottom: 1px solid var(--secondary-color);
   }
 
   .gridrowviews{
@@ -59,7 +59,7 @@
     display: flex;
     width: 2em;
     height: 2em;
-    background-color: var(--primary-color);
+    background-color: var(--secondary-color);
     border-radius: .5em;
     transition: background-color 0.7s ease;
   }
@@ -70,8 +70,8 @@
 
   .category{
     font-weight: 500;
-    color: var(--accent-color);
-    border-left: 1px solid var(--accent-color) ;
+    color: var(--secondary-color);
+    border-left: 1px solid var(--secondary-color) ;
     height: fit-content;
     margin: auto 0;
     margin-right: auto;
@@ -83,7 +83,7 @@
   .categoryMob{
     display: none;
     font-weight: 500;
-    color: var(--accent-color);
+    color: var(--secondary-color);
     height: fit-content;
     margin: auto 0;
     margin-right: auto;
@@ -95,7 +95,7 @@
 
   .booksgridview{
     display: grid;
-    grid-template-columns: repeat(3, 30%);
+    grid-template-columns: repeat(4, 22%);
     column-gap: 4.9%;
     row-gap: 1em;
     padding: 0% 0 0% 0;
@@ -112,12 +112,30 @@
     width: 100%;
     height: fit-content;
     background: transparent;
-    font-family: Montserrat;
+    font-family: var(--font-family);
     font-size: calc(0.9rem + 0.2vw);
     letter-spacing: 0.01rem;
-    background-color: transparent;
-    /* box-shadow: 0.4em 0.4em 2em rgba(0, 0, 0, 0.1); */
+    border-radius: 0 0 1.2em 0;
     transition: all 0.3s ease-in-out;
+    margin-top: 2em;
+  }
+  
+  .card_img{
+    position: relative;
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 1em;
+    /* overflow: hidden; */
+    padding: 0% 0 0% 0;
+    height: 20vw;
+    max-height: 20em;
+  }
+  
+  .img{
+    object-fit: fill !important;
+    height: 100%;
+    width: 100%;
+    border-radius: 1em;
   }
   
   .card_container:hover {
@@ -126,28 +144,11 @@
       /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); */
       
     }
-  
-  .card_img{
-    position: relative;
-    width: 100%;
-    height: 18em;
-    margin: 0 auto;
-    background-color: var(--secondary-color);
-    border-radius: 1em;
-    padding: 1em 0;
-    border: .3em solid var(--secondary-color);
-    object-fit: contain;
-    transition: background-color 0.7s ease, color 1s ease;
-  }
 
     .card_container:hover .card_img{
       background-color: var(--primary-color);
     }
 
-  .card_img img{
-    width: 60%;
-    object-fit: fill;
-  }
   
   
   .iconsContainer{
@@ -185,7 +186,7 @@
   .icon_con{
     width: 2em !important;
     height: 2em !important  ;
-    background-color: var(--accent-color);
+    background-color: var(--primary-color);
     justify-content: center;
     align-items: center;
     border-radius: 50%;
@@ -210,7 +211,7 @@
   background-color: #fff;
 
   .icon{
-    color: var(--accent-color);
+    color: var(--secondary-color);
   }
 }
 
@@ -223,18 +224,24 @@
   cursor: pointer;
 }
   
-  .bookTitle{
-    position: relative;
-    width: 100%;
-    padding: 0% 0 4% 0;
-    display: flex;
-    flex-direction: column;
-    /* row-gap: 1em; */
-    color: var(--accent-color);
-  }
+.bookTitle{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-family: var(--font-family);
+  font-size: calc(0.7rem + 0.3vw);
+  font-weight: 800;
+  letter-spacing: 0.01rem;
+  text-align: center;
+  transition: opacity 0.3s ease-in-out;
+}
 
+.bookTitle p{
+  margin: 0.5em 0;
+}
   .bookTitle h3{
-    font-family: Montserrat;
+    font-family: var(--font-family);
     font-size: calc(0.8rem + 0.4vw);
     letter-spacing: 0.01rem;
     text-align: center;
@@ -242,14 +249,59 @@
     /* line-height: 0; */
   }
   
-  .bookTitle p{
-    width: 88%;
-    margin: 0 auto;
-    font-family: Montserrat;
-    font-size: calc(0.7rem + 0.3vw);
-    letter-spacing: 0.01rem;
-    text-align: center;
-    padding: .3em;
+  .favoriteIcon{
+    position: absolute;
+    height: 1em;
+    width: 1em;
+    top: 0.7em;
+    right: 0.7em;
+    background-color: var(--primary-color);
+    padding: 0.5em;
+    border-radius: 50%;
+  }
+
+  .cartIcon{
+    position: absolute;
+    height: 1em;
+    width: 1em;
+    top: 3em;
+    right: 0.7em;
+    background-color: var(--primary-color);
+    padding: 0.5em;
+    border-radius: 50%;
+  }
+  
+  .fav{
+    width: 1.2em !important;
+    height: 1.2em !important;
+    margin: auto !important;
+    margin-left: -0.07em !important;
+    margin-top: -0.05em !important;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .fav:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+  
+  .nonfav{
+    width: 1.2em !important;
+    height: 1.2em !important;
+    margin: auto !important;
+    margin-left: -0.07em !important;
+    margin-top: -0.05em !important;
+    cursor: pointer;
+    color: #fff;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .nonfav:hover{
+    color: white;
+    cursor: pointer;
+    transform: scale(1.1);
   }
 
   .listCard{
@@ -262,21 +314,21 @@
     border: .2em solid var(--primary-color);
     padding: 1em 3%;
     border-radius: 1em;
-    font-family: Montserrat;
+    font-family: var(--font-family);
     font-size: calc(0.7em + 0.3vw);
     transition: all 0.3s ease-in-out;
     cursor: pointer;
 }
 .listCard:hover {
   transform: scale(1.05);
-  background-color: var(--primary-color);
+  background-color: var(--authbg-color);
   
   border: .2em solid var(--secondary-color);
 }
 
 .bookRowTitle{
   font-size: calc(0.9rem + 0.3vw);
-  color: var(--accent-color);
+  color: var(--secondary-color);
   font-weight: 600;
   margin: .5em 0;
   display: flex;
@@ -284,24 +336,20 @@
   transition: color .5s ease;
 }
 .bookRowAuthor{
-  color: #6E90A9;
+  color: var(--authbg-color);
   transition: color .5s ease;
   margin: .5em 0;
   font-size: calc(0.6rem + 0.2vw);
 }
 .bookRowDescription{
-  color: #002B7D;
+  color: var(--secondary-color);
   transition: color .5s ease;
 }
-.listCard:hover .bookRowTitle{
-  color: #DED8CC;
-}
+
 .listCard:hover .bookRowAuthor{
-  color: #DED8CC;
+  color: var(--secondary-color);
 }
-.listCard:hover .bookRowDescription{
-  color: #DED8CC;
-}
+
 .imgCont{
   width: 10%;
    margin: auto 0.7em auto 0;
@@ -322,8 +370,9 @@
 }
 
 .price{
-    color: var(--accent-color);
-    font-weight: 500;
+    color: var(--primary-color);
+    font-size: large;
+    font-weight: 700;
     text-align: end;
     width: 98%;
     margin-top: auto;
@@ -333,7 +382,7 @@
 }
 .priceMob{
     margin: auto;
-    color: var(--accent-color);
+    color: var(--secondary-color);
     font-weight: 500;
     display: none;
 }
@@ -352,51 +401,52 @@
   flex-direction: row;
   justify-content: space-between;
   padding: 1.5em 0;
-  border-top: 2px solid var(--accent-color);
-  margin-top: 2em;
-}
-
-.show p{
-  font-family: Montserrat;
-  color: var(--accent-color);
-  margin: auto 0;
-  font-weight: 500;
+  border-top: 2px solid var(--secondary-color);
+  margin: 2em auto 3em auto;
 }
 
 .control{
   display: flex;
   flex-direction: row;
   column-gap: 1em;
+  margin: 0 auto;
 }
 
 .control button{
-  background-color: var(--primary-color);
+  background-color: #fff;
   color: var(--secondary-color);
   width: 3em;
   height: 3em;
-  padding: 1em;
   border: none;
   border-radius: .5em;
   cursor: pointer;
 }
 
 .icon1{
-  width: 1em;
-  height: 1em;
+  color: var(--secondary-color);
+  width: 1.5em;
+  height: 1.5em;
   margin: auto !important;
+  font-weight: 700;
 }
 
 .nb{
-  font-family: Montserrat;
+  font-family: var(--font-family);
   font-style: normal;
   color: var(--secondary-color);
+  background-color: #fff !important;
+  font-weight: 700;
+}
+.ellipsis{
+  margin: auto auto 0.5em auto;
 }
 
 .selectednb{
-  background-color: var(--forth-color) !important;
-  color: var(--secondary-color);
-  font-family: Montserrat;
-  font-style: normal;
+background-color: var(--primary-color) !important;
+color: #fff !important;
+font-family: var(--font-family);
+font-style: normal;
+font-weight: 700;
 }
 
 .list_resume{
@@ -461,6 +511,9 @@ transform: scale(1.1);
 
 @media screen and (max-width:950px) {
   
+  .page_control{
+    margin: 2em auto 0 auto;
+  }
   .btn{
     display: inline;
     margin-right: 1em;
@@ -534,6 +587,9 @@ transform: scale(1.1);
   width: 1.5em !important;
 height: 1.5em !important;
 }
+.controlbtns{
+  margin: 5em 8em 0 auto;
+}
 
 
 .icon {
@@ -556,9 +612,9 @@ margin: 0.2em;
     margin-right: auto;
     margin-left: 2em;
   }
-  .page_control{
+  /* .page_control{
     margin-top: 15em;
-  }
+  } */
   .show{
     display: none;
   }
@@ -598,10 +654,17 @@ color: #DED8CC;
 .iconslistContainerMob{
   display: flex;
 }
-  .control{
-    width: fit-content;
-    margin: 0 auto;
-    gap: .5em;
+ 
+.control{
+  width: fit-content;
+  margin: 0 auto;
+  gap: .5em;
+}
+  
+  .control button{
+    width: 2.5em;
+    height: 2.5em;
+    padding: 0em;
   }
   .gridrowviews{
     margin-right: 0;

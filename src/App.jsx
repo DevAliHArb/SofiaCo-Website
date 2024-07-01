@@ -24,6 +24,7 @@ import Cart from './Components/Cart Page/Cart';
 import CheckOut from './Components/CheckOut Page/CheckOut';
 import CompletedOrder from './Components/CheckOut Page/CheckOut Summary/CompletedOrder';
 import BooksPage from './Components/Books page/BooksPage';
+import BookDetailsPage from './Components/Book Details Page/BookDetailsPage';
 
 
 function App() {
@@ -74,6 +75,7 @@ useEffect(() => {
           <Route path='/checkout' element={<ScrollToTop><CheckOut/></ScrollToTop> } />
           <Route path='/checkout-completed/:id' element={<ScrollToTop><CompletedOrder/></ScrollToTop> } />
           <Route path='/books' element={<ScrollToTop><BooksPage /></ScrollToTop> } />
+          <Route path='/bookdetails/:id' element={<ScrollToTop><BookDetailsPage carttoggle={carttoggle}/></ScrollToTop>} />
         </Routes>
       </div>
       {!isAuthPages && <Footer/>}

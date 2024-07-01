@@ -1,0 +1,267 @@
+.bookDetails{
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    font-family: montserrat;
+    /* padding: 1% 0 0 0; */
+}
+
+
+.heroContainer{
+    position: relative;
+    width: 100%;
+    height: 20em;
+    padding: 0;
+    margin: 0;
+    margin-top: -1.7em;
+    margin-bottom: 3em;
+    z-index: -1;
+  }
+
+  
+  .heroImage{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 0 0 2em 2em;
+    object-fit: cover;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+
+  .imageContent{
+    position: absolute;
+    bottom: 0;
+    width: fit-content;
+    right: 50%;
+    transform: translateX(50%);
+    background-color: var(--accent-color);
+    color: #fff;
+    font-family: montserrat;
+    font-style: normal;
+    padding: 1em 2em; 
+    font-size: calc(1rem + 0.4vw);
+    border-radius: 2em 2em 0 0;
+    text-align: center;
+  }
+
+  .imageContent h2{
+    font-weight: 500;
+  }
+
+
+.title{
+    position: relative;
+    width: 100%;
+    color: var(--gray-900, #1E212C);
+    text-align: start;
+    font-family: Lato;
+    font-size: calc(1.6rem + 0.4vw);
+    font-style: normal;
+    font-weight: 900;
+    line-height: 130%; 
+}
+
+.bigContainer{
+    position: relative;
+    width: 88%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    padding: 3% 0;
+    /* background-color: red; */
+}
+
+.bookCoversContainer{
+    position: relative;
+    width: 100%;
+    gap: 1em;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    
+}
+.bookCovers{
+    position: relative;
+    width: 10vh;
+    height: fit-content;
+    border-radius: 1em;
+    background-color: #1E212C;
+}
+.bookCoverimg{ 
+    width: 10vh;
+    height: 8vw;
+    max-height: 8em;
+    border-radius: 0.5em;
+    object-fit: contain;
+    border: 3px solid  #fff;
+    cursor: pointer;
+}
+.bookCoverSelectedimg{ 
+    width: 100%;
+    height: 8vw;
+    max-height: 8em;
+    border-radius: 0.5em;
+    object-fit: cover;
+    border: 3px solid  #fff;
+}
+.booksContainer{
+    position: relative;
+    width: 49%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+
+}
+.swiper{
+    position: relative;
+    width: 100%;
+    display: flex;
+    height: fit-content;
+    flex-direction: column;
+}
+
+.imageContainer{
+    position: relative;
+    width: 80%;
+    padding: 5% 0;
+    height: auto;
+    overflow: hidden;
+    cursor:zoom-in;
+    background-color: transparent;
+    border-radius: 1em;
+}
+
+.imageContainer img{
+    width: 100%;
+    height: 32vw;
+    max-height: 32em;
+    object-fit: contain;
+    transform: scale(1);
+    transition: transform 0.3s ease-in-out;
+}
+.imageContainer:hover img{
+  transform: scale(1.5);
+}
+
+.arrowDesktop{
+  display: flex ;
+  position: relative;
+}
+.iconCont{
+  width: 3em;
+  height: 3em;
+  background-color: var(--secondary-color);
+  color: var(--forth-color);
+  border-radius: 50%;
+  text-align: center;
+  margin-left: 1em;
+}
+.socialsCont{
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+}
+.socialsContMob{
+  display: none;
+}
+@media screen and (max-width:950px) {
+    
+    .bigContainer{
+        display: flex;
+        flex-direction: column;
+    }
+    .booksContainer{
+        position: relative;
+        width: 70%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+    
+    }
+    .bookCoversContainer{
+        width: fit-content;
+        flex-direction: row;
+        order: 2;
+        margin: 1em auto;
+    }
+    .bookCovers{
+      width: 10vw;
+  }
+    .imageContainer{
+        width: 100%;
+        margin: 0 auto;
+    }
+    .imageContainer img{
+      height: 100%;
+    }
+    
+    .socialsContMob{
+      width: fit-content;
+      display: flex;
+      flex-direction: column;
+      width: 70%;
+      margin:0 auto;
+    }
+    .socialsCont{
+      display: none;
+    }
+  }
+  @media screen and (max-width:750px) {
+    .bookDetails{
+        width: 100%;
+    }
+    .booksContainer{
+        width: 80%;
+    
+    }
+    .socialsContMob{
+      width: fit-content;
+      display: flex;
+      flex-direction: column;
+      width: 80%;
+      margin:0 auto;
+    }
+    .imageContainer{
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .imageContent {
+        width: fit-content; 
+        left: 0;
+        right: 0;
+        margin: auto;
+        transform: none; 
+      }
+      
+    .bookCovers{
+      width: 20vw;
+  }
+  
+.bookCoverimg{ 
+  width: 100%;
+  height: 20vw;
+  max-height: 8em;
+  border-radius: 0.5em;
+  object-fit: cover;
+  border: 3px solid  #fff;
+}
+.bookCoverSelectedimg{ 
+  width: 100%;
+  height: 20vw;
+  max-height: 8em;
+  border-radius: 0.5em;
+  object-fit: cover;
+  border: 3px solid  #fff;
+}
+  }
+
+  @media screen and (min-width:1450px) {
+    .imageContainer img{
+      height: 45em;
+    }
+  }

@@ -1,0 +1,75 @@
+.container {
+    width: 100%;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 30em;
+    margin: 0 auto;
+  }
+  
+  .header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
+    font-family: var(--font-family);
+  }
+  
+  .rating {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-family: var(--font-family);
+    font-weight: 700;
+  }
+  
+  .subtext {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 1rem;
+    font-family: var(--font-family);
+  }
+  
+  .bars {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-family: var(--font-family);
+  }
+  
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    width: 100%;
+    font-family: var(--font-family);
+  }
+  
+  .bar span {
+    font-size: 0.875rem;
+    color: var(--primary-color) !important;
+    font-family: var(--font-family);
+  }
+  
+  .bar .MuiLinearProgress-root {
+    flex: 5;
+    height: 10px;
+    margin: 0 0.5rem;
+    border-radius: 5px;
+    font-family: var(--font-family);
+  }
+  
+  .bar .barFill {
+    background-color: var(--authbg-color) !important;
+    color: var(--primary-color) !important;
+    font-family: var(--font-family);
+    width: 60% !important;
+  }
+  
+  .bar span:last-child {
+    flex: 0.5;
+  }
+  

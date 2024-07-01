@@ -1,0 +1,107 @@
+.reviewsCon{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+   font-family: montserrat;
+   margin-bottom: 5em;
+ }
+
+.big_con{
+   width: 100%;
+   height: fit-content;
+   display: grid;
+   grid-template-columns: 49% 49%;
+   column-gap: 2%;
+   justify-content: center;
+   padding-bottom: 5em;
+}
+
+.reviews_con {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1em 0;
+    row-gap: 1rem;
+    transition: opacity 0.3s ease;
+    font-family: montserrat;
+    border: 1px solid var(--accent-color);
+    border-radius: 1em;
+    font-size: calc(.7rem + .3vw);
+    color: var(--accent-color);
+    text-align: start;
+    margin-bottom: 2em;
+}
+
+.addbtn{
+    width: fit-content;
+    height: fit-content;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--forth-color);
+    border: none;
+    border-radius: 1em;
+    padding: 1em 2em;
+    color: #DED8CC;
+    font-size: calc(.7rem + .3vw);
+    cursor: pointer;
+    transition: background-color .6s ease, color 1s ease;
+}
+.addbtn:hover{
+    background-color: var(--accent-color) !important;
+    color: #DED8CC !important;
+}
+
+.cancelbtn{
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    border: 1px solid #D6DADD;
+    background-color: transparent;
+    border-radius: 5px;
+    padding: 10px 35px;
+    color: #666666;
+    margin: 3% 2%;
+}
+
+.addreview_con{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    width: 100%;
+    margin-top: 20px;
+    margin: 3% 0%;
+}
+
+.textarea{
+    width: 100%;
+    height: 200px;
+    border: 1px solid #D6DADD;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 1%;
+}
+
+.textarea:focus{
+    outline:none !important ;   /* Removes the blue outline */
+}
+
+
+@media screen and (max-width:750px) {
+    .big_con{
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        row-gap: 2%;
+        column-gap: 2%;
+        justify-content: center;
+        padding-bottom: 9em;
+     }
+     
+}

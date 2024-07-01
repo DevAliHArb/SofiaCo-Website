@@ -245,7 +245,7 @@
   
 .selectednb{
   background-color: var(--primary-color) !important;
-  color: #fff;
+  color: #fff !important;
   font-family: var(--font-family);
   font-style: normal;
   font-weight: 700;

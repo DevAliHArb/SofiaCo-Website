@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import BooksList from "./Books List/BooksList";
 import classes from "./BooksView.module.css";
 import { IoIosArrowDown } from "react-icons/io";
-import { Box, Checkbox, FormControl, FormControlLabel, FormGroup, Radio, RadioGroup, TextField } from "@mui/material";
+import { Box, Checkbox, Divider, FormControl, FormControlLabel, FormGroup, Radio, RadioGroup, TextField } from "@mui/material";
 import Slider from '@mui/material-next/Slider';
 import { useLocation } from "react-router-dom";
 import ScrollToTop from "../../Common/ScrollToTop";
@@ -132,7 +132,7 @@ const BooksView = ({carttoggle}) => {
       >
         <div
           style={{
-            color: isExpanded ? "var(--primary-color)" : "var(--accent-color)",
+            color: isExpanded ? "var(--primary-color)" : "var(--secondary-color)",
             fontSize:
               level === 0 ? "calc(0.8rem + 0.3vw)" : "calc(0.7rem + 0.3vw)",
               display:'flex'
@@ -267,7 +267,7 @@ const BooksView = ({carttoggle}) => {
         : ``;
 
       // Finalize the URL by combining all parameters
-      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedCollectionParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedcollectionParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}&ecom_type=albouraq`;
+      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedCollectionParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedcollectionParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}&ecom_type=bookshop`;
 
       // Fetch articles using the finalized URL
       const response = await axios.get(finalUrl);
@@ -428,7 +428,7 @@ const BooksView = ({carttoggle}) => {
       <ListItem disablePadding>
           <ListItemButton> 
           <div style={{display:'flex',position:'relative', flexDirection:'column',fontFamily:'montserrat' ,width:'100%'}}>
-            <h2 style={{color:'var(--accent-color)',width:'85%',margin:'1em auto 2em auto'}}> Filters</h2>
+            <h2 style={{color:'var(--secondary-color)',width:'85%',margin:'1em auto 2em auto'}}> Filters</h2>
             <button style={{position:'absolute',top:'1.8em', right:'1.8em', color:'#fff',backgroundColor:"var(--forth-color)",borderRadius:".5em",border:'none'}}>
               <CloseIcon style={{fontSize:'1.5em',marginTop:'.2em'}} onClick={toggle}/>
             </button>
@@ -485,8 +485,8 @@ const BooksView = ({carttoggle}) => {
                       inputProps: {
                         min: 0, // Set the minimum value to 0 to enforce positivity
                         style: {
-                          color: 'var(--accent-color)', 
-                          borderColor: 'var(--accent-color)',
+                          color: 'var(--secondary-color)', 
+                          borderColor: 'var(--secondary-color)',
                         },
                       },
                     }}
@@ -500,8 +500,8 @@ const BooksView = ({carttoggle}) => {
                     inputProps: {
                       min: 0, // Set the minimum value to 0 to enforce positivity
                       style: {
-                        color: 'var(--accent-color)', 
-                        borderColor: 'var(--accent-color)',
+                        color: 'var(--secondary-color)', 
+                        borderColor: 'var(--secondary-color)',
                       },
                     },
                   }}
@@ -544,8 +544,8 @@ const BooksView = ({carttoggle}) => {
   return (
     <div className={classes.bigContainer}>
       <div className={classes.content}>
-        <div>
-        <h1></h1>
+        <div className={classes.filter_con}>
+        <h1>Filter</h1>
         <div className={classes.filter}>
           <div className={classes.categories}>
             <h2>Categories</h2>
@@ -558,6 +558,15 @@ const BooksView = ({carttoggle}) => {
                 })}
               </div>
           </div>
+
+
+          <Divider  
+          color="var(--secondary-color)"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
+
+        
           <div className={classes.categories}>
             <h2>Editeur</h2>
               <div className={classes.dropdown}
@@ -569,6 +578,14 @@ const BooksView = ({carttoggle}) => {
                 })}
               </div>
           </div>
+
+          <Divider  
+          color="var(--secondary-color)"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
+
+
           <div className={classes.categories}>
             <h2>Prix</h2>
               <div className={classes.dropdown}>
@@ -584,7 +601,7 @@ const BooksView = ({carttoggle}) => {
                         style: {
                           color: 'var(--secondary-color)', 
                           border: 'none',
-                          borderBottomColor: 'var(--accent-color)',
+                          borderBottomColor: 'var(--secondary-color)',
                         },
                       },
                     }}
@@ -599,8 +616,8 @@ const BooksView = ({carttoggle}) => {
                     inputProps: {
                       min: 0,
                       style: {
-                        color: 'var(--accent-color)', 
-                        borderColor: 'var(--accent-color)',
+                        color: 'var(--secondary-color)', 
+                        borderColor: 'var(--secondary-color)',
                       },
                     },
                   }}
@@ -612,21 +629,6 @@ const BooksView = ({carttoggle}) => {
           <p style={{width:'fit-content',margin:'2em 0 1em 0',color:'var(--primary-color)',cursor:'pointer',fontWeight:'500'}} onClick={RefineHandle}><u>Refine</u></p>
           </div>
               </div>
-          </div>
-          <div className={classes.categories}>
-            <h2 style={{marginBottom:'1em'}}> Rating</h2>
-              <div className={classes.dropdown}>
-              <Rating
-                  style={{
-                      color: "#712A2E",
-                  }}
-                  size='large'
-                  name="rate"
-                  value={selectedRate}
-                  onChange={handleChangeRate}
-              />
-              </div>
-              <p style={{width:'fit-content',margin:'0 0 1em 7.5%',color:'var(--primary-color)',cursor:'pointer',fontWeight:'500'}} onClick={ResetRateHandle}><u>Reset</u></p>
           </div>
           <div>
           <p style={{width:'fit-content',margin:'0 0 1em 7.5%',color:'var(--primary-color)',cursor:'pointer',fontWeight:'500'}} onClick={ResetfilterHandle}><u>Reset All</u></p>
