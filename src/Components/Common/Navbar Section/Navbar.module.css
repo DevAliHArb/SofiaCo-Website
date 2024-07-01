@@ -277,6 +277,11 @@
         position: relative;
     }
 .headercontent{
+    width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+}
+.header_top{
     width: 90%;
     margin: 0 auto;
 }
@@ -288,7 +293,7 @@
         position: relative;
         display: flex;
         flex-direction: row;
-        margin: auto;
+        margin: 0.5em auto;
         padding: 0.5em 0;
     }
     .mobilefixed{
