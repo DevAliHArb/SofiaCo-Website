@@ -179,50 +179,14 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
         
 
 {/* <Link  to='/contactus' style={{textDecoration: 'none', color:'white'}} onClick={toggle}> */}
-        <ListItem disablePadding>
+        {/* <ListItem disablePadding>
           <ListItemButton onClick={()=>setaccisopen(!accopen)}>
             <ListItemText className={classes.text}>
             <FaRegUser style={{marginRight:'0.5em', marginTop: '0.2em'}}/>ACCOUNT  {accopen ? <IoIosArrowDown style={{transform:'rotate(180deg)'}} /> : <IoIosArrowDown /> }
             </ListItemText>
           </ListItemButton>
-        </ListItem>
+        </ListItem> */}
         {/* </Link> */}
-
-        {accopen && <div style={{paddingLeft:'1em'}}>
-          
-          {/* <Link  to='/' style={{textDecoration: 'none', color:'white'}} onClick={toggle}> */}
-          <ListItem disablePadding>
-            {/* <ListItemButton> */}
-              <ListItemText className={classes.text1}>
-              Profile
-              </ListItemText>
-            {/* </ListItemButton> */}
-          </ListItem>
-          {/* </Link> */}
-  
-          
-          <Link  to='/wishlist' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
-          <ListItem disablePadding>
-            {/* <ListItemButton> */}
-              <ListItemText className={classes.text1}>
-              Whishlist
-              </ListItemText>
-            {/* </ListItemButton> */}
-          </ListItem>
-          </Link>
-          
-          
-          {/* <Link  to='/' style={{textDecoration: 'none', color:'white'}} onClick={toggle}> */}
-          <ListItem disablePadding>
-            {/* <ListItemButton> */}
-              <ListItemText className={classes.text1}>
-              Logout
-              </ListItemText>
-            {/* </ListItemButton> */}
-          </ListItem>
-          {/* </Link> */}
-  
-          </div>}
   
 
         

@@ -544,6 +544,7 @@ const BooksView = ({carttoggle}) => {
   return (
     <div className={classes.bigContainer}>
       <div className={classes.content}>
+        <div>
         <h1></h1>
         <div className={classes.filter}>
           <div className={classes.categories}>
@@ -630,6 +631,7 @@ const BooksView = ({carttoggle}) => {
           <div>
           <p style={{width:'fit-content',margin:'0 0 1em 7.5%',color:'var(--primary-color)',cursor:'pointer',fontWeight:'500'}} onClick={ResetfilterHandle}><u>Reset All</u></p>
           </div>
+        </div>
         </div>
         <div>
         <BooksList
