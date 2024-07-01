@@ -8,7 +8,7 @@ import Footer from './Components/Common/Footer Section/Footer';
 import HomePage from './Components/Home Page/HomePage';
 import { useSelector } from 'react-redux';
 import ScrollToTop from './Components/Common/ScrollToTop'
-import SideBar from './Components/Common/SideBar Section/SideBar'
+import SideBar from './Components/Common/SideBarSection/SideBar'
 import About from './Components/About Page/About';
 import Events from './Components/Events/Events Page/Events';
 import EventsDetails from './Components/Events/Events Details Page/EventsDetails';
