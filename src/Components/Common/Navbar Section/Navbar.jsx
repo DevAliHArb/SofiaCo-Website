@@ -170,10 +170,10 @@ const Navbar = (props) => {
                 <p style={{display:'Flex', flexDirection:'row'}}> <FiPhoneCall style={{width:'1.3em', height:'1.3em', margin:'auto 0.5em auto auto', color:'var(--secondary-color)'}}/>{authCtx.companySettings?.phone}</p>
               </div>
               <div className={classes.header_top_content}>
-                <p style={{display:'Flex', flexDirection:'row'}}> Jusqu'à 50 % de réduction sur les articles <FaArrowRightLong style={{width:'1.3em', height:'1.3em', margin:'auto auto auto 0.5em', color:'var(--secondary-color)'}}/></p>
+                <p style={{display:'Flex', flexDirection:'row'}}> {language === 'eng' ? "Jusqu'à 50 % de réduction sur les articles_en" : "Jusqu'à 50 % de réduction sur les articles"} <FaArrowRightLong style={{width:'1.3em', height:'1.3em', margin:'auto auto auto 0.5em', color:'var(--secondary-color)'}}/></p>
               </div>
               <div className={classes.header_top_content1}>
-                <p style={{display:'Flex', flexDirection:'row'}}> <FiTruck style={{width:'1em', height:'1em', margin:'auto 0.5em auto auto', color:'var(--secondary-color)'}}/> Suivre votre commande</p>
+                <p style={{display:'Flex', flexDirection:'row'}}> <FiTruck style={{width:'1em', height:'1em', margin:'auto 0.5em auto auto', color:'var(--secondary-color)'}}/> {language === 'eng' ? "Suivre votre commande_en" : "Suivre votre commande"}</p>
 
                 <p className={classes.long_line}></p>
                 <div className={classes.select}>
@@ -268,28 +268,28 @@ const Navbar = (props) => {
             </div>
             <div className={classes.navlinks}>
               <p onClick={() => toast.info("En Cours De Construction!")}>
-                Livres
+                {language === 'eng' ? 'Books' : 'Livres'}
               </p>
               <p onClick={() => toast.info("En Cours De Construction!")}>
-                Jouets
+                {language === 'eng' ? 'Jouets_en' : 'Jouets'}
               </p>
               <p onClick={() => toast.info("En Cours De Construction!")}>
-                parfum
+                {language === 'eng' ? 'parfum_en' : 'parfum'}
               </p>
               <p onClick={() => toast.info("En Cours De Construction!")}>
-                vetements
+                {language === 'eng' ? 'vetements_en' : 'vetements'}
               </p>
               <p onClick={() => toast.info("En Cours De Construction!")}>
-                tapis de priere
+                {language === 'eng' ? 'tapis de priere_en' : 'tapis de priere'}
               </p>
               <p onClick={() => toast.info("En Cours De Construction!")}>
-                Nos éditeurs
+                {language === 'eng' ? 'Nos éditeurs_en' : 'Nos éditeurs'}
               </p>
               <p onClick={() => toast.info("En Cours De Construction!")}>
-                AGENDA
+                {language === 'eng' ? 'AGENDA_en' : 'AGENDA'}
               </p>
               <p onClick={() => toast.info("En Cours De Construction!")}>
-                nos services
+                {language === 'eng' ? 'nos services_en' : 'nos services'}
               </p>
               <div className={classes.icons}>
                 <div style={{position:'relative'}}>
@@ -306,7 +306,7 @@ const Navbar = (props) => {
                   <Tooltip title={language === 'eng' ? "Profile" : "Profil"}>
                     <div onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                       {userInfo?.id ? 
-                      <Avatar alt={userInfo.first_name} src={`https://api.leonardo-service.com/img/${userInfo.image}`} style={{borderRadius:'50%',width:'35px', height:'35px'}} className={classes.icon}/>
+                      <Avatar alt={userInfo.first_name} src={`https://api.leonardo-service.com/img/${userInfo.image}`} style={{borderRadius:'50%',width:'1.6em', height:'1.6em', marginTop:'-0.15em'}} className={classes.icon}/>
                       : 
                       <LuUser className={classes.icon} />
                     }
@@ -379,10 +379,10 @@ const Navbar = (props) => {
                 <p style={{display:'Flex', flexDirection:'row'}}> <FiPhoneCall style={{width:'1.3em', height:'1.3em', margin:'auto 0.5em auto auto', color:'var(--secondary-color)'}}/>{authCtx.companySettings?.phone}</p>
               </div>
               <div className={classes.header_top_content}>
-                <p style={{display:'Flex', flexDirection:'row'}}> Jusqu'à 50 % de réduction sur les articles <FaArrowRightLong style={{width:'1.3em', height:'1.3em', margin:'auto auto auto 0.5em', color:'var(--secondary-color)'}}/></p>
+                <p style={{display:'Flex', flexDirection:'row'}}> {language === 'eng' ? "Jusqu'à 50 % de réduction sur les articles_en" : "Jusqu'à 50 % de réduction sur les articles"} <FaArrowRightLong style={{width:'1.3em', height:'1.3em', margin:'auto auto auto 0.5em', color:'var(--secondary-color)'}}/></p>
               </div>
               <div className={classes.header_top_content1}>
-                <p style={{display:'Flex', flexDirection:'row'}}> <FiTruck style={{width:'1em', height:'1em', margin:'auto 0.5em auto auto', color:'var(--secondary-color)'}}/> Suivre votre commande</p>
+                <p style={{display:'Flex', flexDirection:'row'}}> <FiTruck style={{width:'1em', height:'1em', margin:'auto 0.5em auto auto', color:'var(--secondary-color)'}}/> {language === 'eng' ? "Suivre votre commande_en" : "Suivre votre commande"}</p>
 
                 <p className={classes.long_line}></p>
                 <div className={classes.select}>
@@ -477,28 +477,28 @@ const Navbar = (props) => {
             </div>
             <div className={classes.navlinks}>
               <p onClick={() => toast.info("En Cours De Construction!")}>
-                Livres
+                {language === 'eng' ? 'Books' : 'Livres'}
               </p>
               <p onClick={() => toast.info("En Cours De Construction!")}>
-                Jouets
+                {language === 'eng' ? 'Jouets_en' : 'Jouets'}
               </p>
               <p onClick={() => toast.info("En Cours De Construction!")}>
-                parfum
+                {language === 'eng' ? 'parfum_en' : 'parfum'}
               </p>
               <p onClick={() => toast.info("En Cours De Construction!")}>
-                vetements
+                {language === 'eng' ? 'vetements_en' : 'vetements'}
               </p>
               <p onClick={() => toast.info("En Cours De Construction!")}>
-                tapis de priere
+                {language === 'eng' ? 'tapis de priere_en' : 'tapis de priere'}
               </p>
               <p onClick={() => toast.info("En Cours De Construction!")}>
-                Nos éditeurs
+                {language === 'eng' ? 'Nos éditeurs_en' : 'Nos éditeurs'}
               </p>
               <p onClick={() => toast.info("En Cours De Construction!")}>
-                AGENDA
+                {language === 'eng' ? 'AGENDA_en' : 'AGENDA'}
               </p>
               <p onClick={() => toast.info("En Cours De Construction!")}>
-                nos services
+                {language === 'eng' ? 'nos services_en' : 'nos services'}
               </p>
               <div className={classes.icons}>
                 <div style={{position:'relative'}}>
@@ -514,7 +514,7 @@ const Navbar = (props) => {
                   <Tooltip title={language === 'eng' ? "Profile" : "Profil"}>
                     <div onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                       {userInfo?.id ? 
-                      <Avatar alt={userInfo.first_name} src={`https://api.leonardo-service.com/img/${userInfo.image}`} style={{borderRadius:'50%',width:'35px', height:'35px'}} className={classes.icon}/>
+                      <Avatar alt={userInfo.first_name} src={`https://api.leonardo-service.com/img/${userInfo.image}`} style={{borderRadius:'50%',width:'1.6em', height:'1.6em', marginTop:'-0.15em'}} className={classes.icon}/>
                       : 
                       <LuUser className={classes.icon} />
                     }
@@ -550,7 +550,7 @@ const Navbar = (props) => {
                   <Tooltip title={language === 'eng' ? "Profile" : "Profil"}>
                     <div onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                       {userInfo?.id ? 
-                      <Avatar alt={userInfo.first_name} src={`https://api.leonardo-service.com/img/${userInfo.image}`} style={{borderRadius:'50%',width:'35px', height:'35px'}} className={classes.icon}/>
+                      <Avatar alt={userInfo.first_name} src={`https://api.leonardo-service.com/img/${userInfo.image}`} style={{borderRadius:'50%',width:'1.6em', height:'1.6em', marginTop:'-0.15em'}} className={classes.icon}/>
                       : 
                       <LuUser className={classes.icon} />
                     }
@@ -587,7 +587,7 @@ const Navbar = (props) => {
                   <Tooltip title={language === 'eng' ? "Profile" : "Profil"}>
                     <div onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                       {userInfo?.id ? 
-                      <Avatar alt={userInfo.first_name} src={`https://api.leonardo-service.com/img/${userInfo.image}`} style={{borderRadius:'50%',width:'35px', height:'35px'}} className={classes.icon}/>
+                      <Avatar alt={userInfo.first_name} src={`https://api.leonardo-service.com/img/${userInfo.image}`} style={{borderRadius:'50%',width:'1.6em', height:'1.6em', marginTop:'-0.15em'}} className={classes.icon}/>
                       : 
                       <LuUser className={classes.icon} />
                     }

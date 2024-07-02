@@ -83,7 +83,7 @@ function SearchBox() {
             selectedOption === "Book"
               ? language === "eng"
                 ? "Search..."
-                : ""
+                : "Search..._fr"
               : language === "eng"
               ? `Find your ${selectedOption.toLowerCase()} books here...`
               : `Trouvez vos livres ${selectedOption.toLowerCase()} ici...`

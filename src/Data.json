@@ -1,60 +1,60 @@
 {
   "HomePage": {
     "Deals": {
-      "title": { "eng": "<b>Deals</b> of the <b>Week</b>", "fr": "" },
-      "description": { "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": "" },
-      "button": { "eng": "Add to cart", "fr": "" }
+      "title": { "eng": "<b>Deals</b> of the <b>Week</b>", "fr": "<b>Deals</b> of the <b>Week</b>_fr" },
+      "description": { "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua._fr" },
+      "button": { "eng": "Add to cart", "fr": "Add to cart_fr" }
     },
     "FeaturedBooks": {
-      "title": { "eng": "Featured Books", "fr": "" },
-      "description": { "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": "" },
-      "button": { "eng": "Add to cart", "fr": "" }
+      "title": { "eng": "Featured Books", "fr": "Featured Books_fr" },
+      "description": { "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua._fr" },
+      "button": { "eng": "Add to cart", "fr": "Add to cart_fr" }
     },
     "Hero": {
-      "title": { "eng": "Find your next great read <br/>at our online book store", "fr": "" }
+      "title": { "eng": "Find your next great read <br/>at our online book store", "fr": "Find your next great read <br/>at our online book store_fr" }
     },
     "OurSelection": {
-      "title": { "eng": "Our Selection", "fr": "" },
-      "description": { "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": "" }
+      "title": { "eng": "Our Selection", "fr": "Our Selection_fr" },
+      "description": { "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua._fr" }
     },
     "NewArrivals": {
-      "title": { "eng": "New Releases", "fr": "" },
-      "Cat1": { "eng": "Categories", "fr": "" },
-      "Cat2": { "eng": "Editors", "fr": "" }
+      "title": { "eng": "New Releases", "fr": "New Releases_fr" },
+      "Cat1": { "eng": "Categories", "fr": "Categories_fr" },
+      "Cat2": { "eng": "Editors", "fr": "Editors_fr" }
     },
     "OurServices": {
       "title": {
         "eng": "Our Services",
-        "fr": ""
+        "fr": "Our Services_fr"
       },
-      "description": { "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": "" }
+      "description": { "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua._fr" }
     },
     "Quote": {
-      "title": { "eng": "<b>Quote</b> of the <b>Day</b>", "fr": "Citation Du Jour" }
+      "title": { "eng": "<b>Quote</b> of the <b>Day</b>", "fr": "<b>Citation</b> Du <b>Jour</b>" }
     }
   },
   "Footer": {
     "ContactInfo": {
-      "title": { "eng": "Contact Info", "fr": "" }
+      "title": { "eng": "Contact Info", "fr": "Contact Info_fr" }
     },
     "Menu": {
-      "title": { "eng": "Menu", "fr": "" },
-      "point1": { "eng": "Shop All", "fr": "" },
-      "point2": { "eng": "Events", "fr": "" },
-      "point3": { "eng": "Collaborators", "fr": "" },
-      "point4": { "eng": "Collections", "fr": "" }
+      "title": { "eng": "Menu", "fr": "Menu_fr" },
+      "point1": { "eng": "Shop All", "fr": "Shop All_fr" },
+      "point2": { "eng": "Events", "fr": "Events_fr" },
+      "point3": { "eng": "Collaborators", "fr": "Collaborators_fr" },
+      "point4": { "eng": "Collections", "fr": "Collections_fr" }
     },
     "CUSTOMERSERVICE": {
-      "title": { "eng": "CUSTOMER SERVICE", "fr": "" },
-      "point1": { "eng": "My Account", "fr": "" },
-      "point2": { "eng": "My Documents", "fr": "" },
-      "point3": { "eng": "Term of Use", "fr": "" }
+      "title": { "eng": "CUSTOMER SERVICE", "fr": "CUSTOMER SERVICE_fr" },
+      "point1": { "eng": "My Account", "fr": "My Account_fr" },
+      "point2": { "eng": "My Documents", "fr": "My Documents_fr" },
+      "point3": { "eng": "Term of Use", "fr": "Term of Use_fr" }
     },
     "GENERAL": {
-      "title": { "eng": "GENERAL", "fr": "" },
-      "point1": { "eng": "About Us", "fr": "" },
-      "point2": { "eng": "Contact Us", "fr": "" },
-      "point3": { "eng": "Our Services", "fr": "" }
+      "title": { "eng": "GENERAL", "fr": "GENERAL_fr" },
+      "point1": { "eng": "About Us", "fr": "About Us_fr" },
+      "point2": { "eng": "Contact Us", "fr": "Contact Us_fr" },
+      "point3": { "eng": "Our Services", "fr": "Our Services_fr" }
     }
   },
   "AboutPage": {

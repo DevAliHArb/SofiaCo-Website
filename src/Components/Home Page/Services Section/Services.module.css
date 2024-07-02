@@ -126,7 +126,19 @@
 
 @media screen and (max-width:650px) {
   .hex_item{
-    width: 7em;
+    width: 7.5em;
     height: 30vw;
+  }
+}
+@media screen and (max-width:400px) {
+  .hex_item{
+    width: 7em;
+    height: 34vw;
+  }
+}
+@media screen and (max-width:350px) {
+  .hex_item{
+    width: 7em;
+    height: 38vw;
   }
 }

@@ -6,6 +6,7 @@
   height: fit-content;
   background-color: var(--accent-color);
   z-index: 1;
+  overflow: hidden;
 }
 
 .imgabs {
