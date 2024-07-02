@@ -31,9 +31,9 @@ const FavoriteItem = ({ carttoggle }) => {
 
   return (
     <>
-      {favoriteData.map((props) => (
+      {favoriteData?.map((props, index) => (
         <>
-          <div className={classes.card} key={props._id}>
+          <div className={classes.card} key={props._id} style={{borderBottom: (index + 1) < favoriteData?.length && "1.5px solid var(--primary-color)"}}>
             <div className={classes.imgCont}>
               <img src={props.favimage} alt="" width="100%" />
             </div>

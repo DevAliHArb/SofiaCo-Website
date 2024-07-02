@@ -121,7 +121,7 @@ export const AuthContextProvider = (props) => {
             dispatch(addTofavorite({
               id: favtItem.id,
               _favid: favtItem.article.id,
-              date: favtItem.article.add_date,
+              date: favtItem.article.dc_parution,
               favtitle: favtItem.article.designation,
               favauthor: favtItem.article.dc_auteur,
               favimage: favtItem.article.articleimage[0]?.link ? favtItem.article.articleimage[0].link : bookPlaceHolder,

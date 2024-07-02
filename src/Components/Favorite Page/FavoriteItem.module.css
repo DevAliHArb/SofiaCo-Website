@@ -3,7 +3,6 @@
     grid-template-columns: 7% 28% 15% 20% 15% 15%;
     color: var(--secondary-color);
     margin: 0em 0;
-    border-bottom: 1.5px solid var(--primary-color);
     padding: 2em 2em;
     font-family: var(--font-family);
     font-size: calc(0.7em + 0.3vw);

@@ -277,7 +277,7 @@
 .auth_bg{
   position: absolute;
   width: 150%;
-  height: 120%;
+  height: 50em;
   background-color: var(--authbg-color);
   top: 0;
   left: 0;
