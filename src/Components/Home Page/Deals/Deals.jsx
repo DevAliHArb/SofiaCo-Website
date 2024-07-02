@@ -103,7 +103,7 @@ const Deals = () => {
                         authCtx.setbookDetails(props);
                         event.stopPropagation();
                         dispatch(addSelectedBook(props))
-                        navigate(`bookdetails/${props.id}`);
+                        navigate(`/bookdetails/${props.id}`);
                       }}
                     >
                       <div className={classes.card_img}>

@@ -211,7 +211,7 @@ const CollectionDetailsPage = () => {
                     onClick={(event) => {
                       authCtx.setbookDetails(props);
                       event.stopPropagation();
-                      navigate(`bookdetails/${props.id}`);
+                      navigate(`/bookdetails/${props.id}`);
                     }}
                   >
                     <div className={classes.card_img}>

@@ -145,8 +145,9 @@ const Navbar = (props) => {
   useEffect(() => {
     const collaboratorDetailsRegex = /^\/collaborators\/[^/]+\/details$/;
     const collectionDetailsRegex = /^\/collections\/[^/]+\/details$/;
+    const bookDetailsRegex = /^\/bookdetails\/[^/]+$/;
   
-    if (path === "/collaborators" || path === "/books" || collaboratorDetailsRegex.test(path) || collectionDetailsRegex.test(path)) {
+    if (path === "/collaborators" || path === "/books" || collaboratorDetailsRegex.test(path) || collectionDetailsRegex.test(path) || bookDetailsRegex.test(path)) {
       setwithBG(true)
     } else { setwithBG(false) }
   }, [path])
@@ -267,7 +268,7 @@ const Navbar = (props) => {
               </div>
             </div>
             <div className={classes.navlinks}>
-              <p onClick={() => toast.info("En Cours De Construction!")}>
+              <p onClick={() => navigate(`/books`)}>
                 {language === 'eng' ? 'Books' : 'Livres'}
               </p>
               <p onClick={() => toast.info("En Cours De Construction!")}>
@@ -476,7 +477,7 @@ const Navbar = (props) => {
               </div>
             </div>
             <div className={classes.navlinks}>
-              <p onClick={() => toast.info("En Cours De Construction!")}>
+              <p onClick={() => navigate(`/books`)}>
                 {language === 'eng' ? 'Books' : 'Livres'}
               </p>
               <p onClick={() => toast.info("En Cours De Construction!")}>
@@ -527,7 +528,7 @@ const Navbar = (props) => {
           </div>
         </div>
       </div>
-      <div className={classes.mobile}>
+      <div className={classes.mobile} style={{backgroundColor: withBG ? '#fff': 'transparent'}}>
       <div className={classes.logocontainer1}
               onClick={()=>navigate(`/`)}>
             <img

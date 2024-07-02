@@ -163,7 +163,7 @@
 .auth_con{
   width: 98%;
   background-color: #EEBA7F;
-  padding: 0.8em 1em;
+  padding: 0.8em 1em !important;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -205,29 +205,38 @@
     .bookCoversContainer{
         width: fit-content;
         flex-direction: row;
-        order: 2;
-        margin: 1em auto;
+        order: 1;
+        margin: 0.5em auto;
     }
     .bookCovers{
       width: 10vw;
   }
     .imageContainer{
         width: 100%;
-        margin: 0 auto;
     }
     .imageContainer img{
       height: 100%;
+      width: auto;
+      margin: 0 auto;
+      object-fit: cover !important;
+      /* margin-left: -2em; */
     }
     
     .socialsContMob{
       width: fit-content;
       display: flex;
-      flex-direction: column;
-      width: 70%;
-      margin:0 auto;
+      flex-direction: row;
+      width: 100%;
+      margin:0 ;
     }
     .socialsCont{
       display: none;
+    }
+    .auth_con{
+      order: 2;
+    }
+    .auth_con p{
+      font-size: calc(0.8rem + 0.3vw);
     }
   }
   @media screen and (max-width:750px) {
@@ -235,19 +244,20 @@
         width: 100%;
     }
     .booksContainer{
-        width: 80%;
+        width: 100%;
     
     }
-    .socialsContMob{
-      width: fit-content;
-      display: flex;
-      flex-direction: column;
-      width: 80%;
-      margin:0 auto;
+
+     
+    .auth_con p{
+      font-size: calc(0.6rem + 0.3vw);
     }
     .imageContainer{
         width: 100%;
-        margin: 0 auto;
+    }
+
+    .imageContainer img{
+      object-fit: contain;
     }
 
     .imageContent {
@@ -283,5 +293,19 @@
   @media screen and (min-width:1450px) {
     .imageContainer img{
       height: 45em;
+    }
+    
+  }
+  @media screen and (max-width:550px) {
+    
+    .auth_con{
+      margin: 0;
+      padding: 0.5em 0;
+      width: 92%;
+    }
+    .socialsContMob{
+      display: flex;
+      /* flex-direction: column !important; */
+      margin:0.5em auto 0 auto;
     }
   }

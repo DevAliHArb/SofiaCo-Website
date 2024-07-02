@@ -1,57 +1,138 @@
+.rev_con{
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 48%);
+    justify-content: space-between;
+    margin: 8em auto;
+
+}
+
 .reviewsCon{
     width: 100%;
     height: fit-content;
     display: flex;
     flex-direction: column;
     justify-content: center;
-   font-family: montserrat;
-   margin-bottom: 5em;
+   font-family: var(--font-family);
  }
 
 .big_con{
    width: 100%;
    height: fit-content;
-   display: grid;
-   grid-template-columns: 49% 49%;
-   column-gap: 2%;
+   display: flex;
+   flex-direction: column;
    justify-content: center;
-   padding-bottom: 5em;
 }
 
+.input_box{
+    position: sticky;
+    top: 20%;
+    border-radius: 1em;
+}
+
+.input_box_content{
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    height: fit-content;
+    padding-top: 3em;
+    border-radius: 1em;
+}
+
+.rev_input_head{
+    display: flex;
+    flex-direction: column;
+    width: 88%;
+    margin: 0 auto;
+}
+
+.rev_input_head h1{
+    position: relative;
+    font-size: calc(1.2rem + 0.7vw);
+    color: var(--secondary-color);
+    font-family: var(--font-family);
+    font-weight: 700;
+    line-height: normal;
+    margin:0 ;
+    text-align: start;
+}
+
+.rev_input_head p{
+    position: relative;
+    font-size: calc(0.7rem + 0.3vw);
+    color: var(--secondary-color);
+    font-family: var(--font-family);
+    font-weight: 400;
+    line-height: normal;
+    margin: 2em 0 0 0;
+    text-align: start;
+}
 .reviews_con {
     width: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
     padding: 1em 0;
-    row-gap: 1rem;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
     transition: opacity 0.3s ease;
-    font-family: montserrat;
-    border: 1px solid var(--accent-color);
+    font-family: var(--font-family) !important;
+    border: none;
     border-radius: 1em;
     font-size: calc(.7rem + .3vw);
-    color: var(--accent-color);
+    color: var(--secondary-color);
     text-align: start;
     margin-bottom: 2em;
 }
 
+.image_con{
+    width: 3em;
+    height: 3em;
+    border-radius: 50%;
+    margin: 0.3em 1em;
+}
+
+.image_con img{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    border-radius: 50%;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    margin: 0 ;
+    margin-top: 2em;
+    width: 96%;
+}
+.form p{
+    position: relative;
+    font-size: calc(0.7rem + 0.3vw);
+    color: var(--secondary-color);
+    font-family: var(--font-family);
+    font-weight: 400;
+    line-height: normal;
+    margin: 1em 0 0 0;
+    text-align: start;
+}
+
 .addbtn{
+    position: relative;
     width: fit-content;
     height: fit-content;
     align-items: center;
     justify-content: center;
-    background-color: var(--forth-color);
+    background-color: var(--primary-color);
     border: none;
-    border-radius: 1em;
-    padding: 1em 2em;
-    color: #DED8CC;
+    border-radius: 10px;
+    padding: 0.5em 3em;
+    color: #fff;
     font-size: calc(.7rem + .3vw);
     cursor: pointer;
     transition: background-color .6s ease, color 1s ease;
+    margin-top: 2em;
 }
 .addbtn:hover{
-    background-color: var(--accent-color) !important;
-    color: #DED8CC !important;
+    background-color: var(--secondary-color) !important;
+    color: #fff !important;
 }
 
 .cancelbtn{
@@ -93,15 +174,35 @@
 }
 
 
-@media screen and (max-width:750px) {
-    .big_con{
-        width: 100%;
-        display: grid;
+.reviewsCon h1{
+    position: relative;
+    font-size: calc(1.2rem + 0.7vw);
+    color: var(--secondary-color);
+    font-family: var(--font-family);
+    font-weight: 700;
+    line-height: normal;
+    margin:0 0 1em 0;
+    text-align: start;
+}
+
+
+@media screen and (max-width:950px) {
+    .rev_con{
         grid-template-columns: 1fr;
-        row-gap: 2%;
-        column-gap: 2%;
-        justify-content: center;
-        padding-bottom: 9em;
-     }
-     
+        margin: 3em auto 0em auto;
+    }
+    .input_box{
+        position: relative;
+        top: 0;
+        order: 2;
+        width: 100%;
+    }
+
+    .form{
+        width: 100%;
+    }
+
+    .reviewsCon{
+        margin-bottom: 0;
+    }
 }

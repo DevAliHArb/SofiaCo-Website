@@ -289,12 +289,11 @@
         display: none;
     }
     .mobile{
-        width: 90%;
+        width: 92%;
         position: relative;
         display: flex;
         flex-direction: row;
-        margin: 0.5em auto;
-        padding: 0.5em 0;
+        padding: 0.8em 4%;
     }
     .mobilefixed{
         width: 100%;

@@ -325,7 +325,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                       authCtx.setbookDetails(props);
                       event.stopPropagation();
                       dispatch(addSelectedBook(props))
-                      navigate(`bookdetails/${props.id}`);
+                      navigate(`/bookdetails/${props.id}`);
                     }}
                   >
                     <div className={classes.card_img}>
@@ -578,9 +578,9 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                                 <IoHeartOutline className={classes.icon} />
                               </div>
                             )}
-                        <div className={classes.icon_con}>
+                        {/* <div className={classes.icon_con}>
                           <HiOutlineBookOpen className={classes.icon} />
-                        </div>
+                        </div> */}
                         <div className={classes.icon_con}  
                         onClick={(event) => {
                           event.stopPropagation();

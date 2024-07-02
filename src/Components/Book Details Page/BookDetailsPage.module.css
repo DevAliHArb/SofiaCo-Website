@@ -7,67 +7,29 @@
     max-width: 1900px;
     margin: 0 auto;
     background-color: #fff;
+    /* z-index: 1; */
 }
-
-.bookPageContaimer{
-    width: 100%;
-    position: relative;
-    height: fit-content;
-    display: grid;
-    grid-template-columns: repeat(2, 50%);
-    grid-template-rows: 1fr;
-}
- 
-.char_container{
-    position: relative;
-    width: 100%;
-    height: fit-content;
-    /* background-image: url('../../assets/companiesbg.svg'); */
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    margin: 2% 0;
-    overflow: hidden;
-  }
-  .char{
-    width: 88%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    color: var(--accent-color);
-    margin: 10% auto 9% auto;
-    text-align: start;
-    font-size: calc(.7rem + 0.3vw);
-    z-index: 20;
-  }
-  
-  .char_img{
-    width: 4em;
-    height: auto;
+.img_abs{
+    position: absolute;
     object-fit: contain;
-    
-    font-size: calc(.5rem + 0.5vw);
+    right:0;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
   }
-  
 
-@media screen and (max-width:950px) {
-    .bookPageContaimer{
-        display: flex;
-        flex-direction: column;
+  @media screen and (max-width:1024px) {
+    .img_abs{
+      width: 80%;
+      height: 80%;
+      object-fit: contain;
     }
-    .ViewTabCont{
-        display: none;
-    }
-    .char{
-        width: 88%;
-        display: grid;
-        grid-template-columns: 50% 50%;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        color: var(--accent-color);
-        margin: 10% auto 9% auto;
-        text-align: start;
-        font-size: calc(.7rem + 0.3vw);
-        z-index: 20;
-    }
+}
+
+@media screen and (max-width:650px) {
+.img_abs{
+  width: 50%;
+  height: 50%;
+  object-fit: contain;
+}
 }

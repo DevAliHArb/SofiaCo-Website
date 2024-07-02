@@ -16,6 +16,7 @@ import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import AuthContext from '../../Common/authContext';
 import axios from 'axios';
 import { addSelectedBook } from '../../Common/redux/productSlice';
+import { Avatar } from '@mui/material';
 
 const allReviews = [
     {
@@ -100,12 +101,15 @@ const Reviews = () => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [displayedObjects, setDisplayedObjects] = useState(4);
+    const [displayedObjects, setDisplayedObjects] = useState(2);
     const [value, setValue] = useState(0);
     const [loading, setLoading] = useState(false);
     const [hover, setHover] = useState(-1);
     const [bookreview, setBookreview] = useState([]);
     const selectedBook = useSelector((state) => state.products.selectedBook);
+    const language = useSelector(
+      (state) => state.products.selectedLanguage[0].Language
+    );
 
      
   const getToken = () => {
@@ -115,12 +119,12 @@ const Reviews = () => {
   const token = getToken()
     
     const showLess = () => {
-        setDisplayedObjects(4); 
+        setDisplayedObjects(2); 
     };
 
 
     const showMore = () => {
-        setDisplayedObjects(prev => prev + 2); 
+        setDisplayedObjects(bookreview?.length); 
     };
     
     const fetchBook = async () => {
@@ -157,8 +161,11 @@ const Reviews = () => {
         ...formData,
         user_id: user.id
     });
+    if (!user){
+      toast.error('Please login first', {hideProgressBar:true})
+    }
     try {
-      const response = await axios.post(`https://api.leonardo-service.com/api/bookshop/articles/${selectedBook[0].id}/reviews`, {
+      const response = await axios.post(`https://api.leonardo-service.com/api/bookshop/articles/${selectedBook[0].id}/reviews?ecom_type=sofiaco`, {
         ...formData,
         user_id: user.id,
         ecom_type:'albouraq'
@@ -211,98 +218,26 @@ const handleReviewButtonClick = () => {
   };
 
     return (
-        <>
-        <div className={classes.reviewsCon}>
-            <div style={{width:'100%', display:"flex", flexDirection:"row", justifyContent:'space-between',margin:'2em 0'}}> 
-                <p style={{ fontWeight:'700',fontSize:'calc(0.9rem + .3vw)',color:'var(--accent-color)'}}>All Reviews({bookreview?.length})</p>
-                <button className={classes.addbtn} onClick={handleReviewButtonClick}>Write A Review</button>
-            </div>
-        <div className={classes.big_con}>
-            {bookreview?.slice(0, displayedObjects).map((item, index) => (
-                <div className={classes.reviews_con} key={item.id} >
-                    <div style={{ display: 'flex', flexDirection:'column',width:'90%',margin:'0 auto' }}>
-                        <p style={{ fontWeight:'700',fontSize:'calc(0.9rem + .3vw)'}}>{item.user.first_name} {item.user.last_name}</p>
-                        <Rating
-                            style={{
-                                color: "var(--forth-color)",
-                            }}
-                            size='small'
-                            precision={0.5}
-                            name="read-only"
-                            value={item.rate}
-                            readOnly
-                        />
-                    <p style={{color:'var(--accent-color)'}}>{item.description}</p>
-                    <p style={{ fontWeight:'400',fontSize:'calc(0.6rem + .2vw)',color:'var(--accent-color)'}}>Posted on {item.created_at.substring(0, 10)}</p>
-                    </div>
-                </div>
-            ))}
-
-                {/*{user && <>
-                
-                 {AddReview && <div className={classes.addreview_con}>
-                    <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        <p>Rate this book: </p>
-                        <Rating
-
-                            style={{
-                                color: "#0085B0",
-                                justifySelf: 'end',
-                            }}
-                            name="book-rate"
-                        // value={}
-                        />
-                    </div>
-                    <p style={{ lineHeight: '20px', paddingTop: '4%' }}>Write a review:</p>
-                    <textarea type='textarea' className={classes.textarea}
-                        placeholder='Describe your experience' />
-                    <p>Your review will be published to the public.</p>
-                    <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        <button className={classes.addbtn} onClick={()=>  toast.success(`merci pour la critique`)}>Publish</button>
-                        <div className={classes.cancelbtn} onClick={() => setAddReview(false)}>Cancel</div>
-                    </div>
-                </div>} 
-                </>}*/}
-        </div>
-            {bookreview.length > 2 && <>
-
-                {displayedObjects < bookreview.length ? (
-                    <p style={{margin:'-4em auto 0 auto'}} onClick={showMore} className={classes.addbtn}>Voir Plus</p>
-                ) : ( 
-                    <p style={{margin:'00em auto 0 auto'}} onClick={showLess}className={classes.addbtn}>Voir Moins </p>
-                )}
-            </>} 
-        </div>
-        <Modal
-       open={open}
-       onClose={handleClose}
-       aria-labelledby="modal-modal-title"
-       aria-describedby="modal-modal-description"
-       style={{overflow:'hidden'}}
-     >
-       <Box sx={style}  >
+        <div className={classes.rev_con}>
+        <div   className={classes.input_box}>
+            <Form
+                        layout="vertical"
+                        name="nest-messages"
+                        form={form}
+                        onFinish={handleSubmit}
+                        className={classes.form}
+            >
+        <div className={classes.input_box_content}>
         <div
-        style={{
-            width: '100%',
-            display: 'flex',
-            flexDirection:'column',
-            alignItems: 'center',
-            margin:'0',
-            fontFamily:'montserrat'
-        }}
+        className={classes.rev_input_head}
         >
-            <div style={{width:'100%', display:"flex", flexDirection:"row", justifyContent:'space-between',margin:'0.2em 0 0 0',borderBottom:'1px solid var(--primary-color)',borderRadius:'1em'}}> 
-                <p style={{ fontWeight:'600',marginLeft:'5%',fontSize:'calc(1rem + .3vw)',color:'var(--accent-color)',width:'fit-content'}}>Write a Review</p>
-                <div style={{marginRight:'5%'}}>
-                <button style={{position:'relative',border:'none',backgroundColor:'transparent',color:'var(--forth-color)',cursor:'pointer',width:'fit-content'}} onClick={handleClose}>
-                <CloseSharpIcon style={{fontSize:'2em',marginTop:'0.6em'}} />
-                </button></div>
-            </div>
-                {formData.rate !== null && (
-                    <p style={{ fontWeight:'700',fontSize:'calc(0.8rem + .3vw)',marginTop:'2em',color:'var(--accent-color)',width:'fit-content',marginBottom:'0.2em'}}> {hover !== -1 ? hover : formData.rate} ({labels[hover !== -1 ? hover : formData.rate]} /Amazing) </p>
-                )}
+                <h1 >{language === 'eng' ? "Write a Review" : "Write a Review_fr"}</h1>
+                {/* {formData.rate !== null && (
+                    <p> {hover !== -1 ? hover : formData.rate} ({labels[hover !== -1 ? hover : formData.rate]} /Amazing) </p>
+                )} */}
+                <p>{language === 'eng' ? 'How would you rate it?' : 'How would you rate it?_fr' }</p>
                 <Rating
-                style={{color:'var(--forth-color)',fontSize:'calc(1.8rem + .5vw)',marginTop:'.2em'}}
+                style={{color:'var(--primary-color)',fontSize:'calc(1.3rem + .5vw)'}}
                     name="rate"
                     value={formData.rate}
                     getLabelText={getLabelText}
@@ -313,40 +248,24 @@ const handleReviewButtonClick = () => {
                     emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
                 />
                 </div>
-            <Form
-                        layout="vertical"
-                        name="nest-messages"
-                        form={form}
-                        onFinish={handleSubmit}
-                        style={{
-                        width: '100%',
-                        margin:'0 auto',
-                        alignItems: "center",
-                        textAlign: "center",
-                        justifyItems: "center",
-                        maxHeight:'80vh',
-                        padding:'5% 5% 2% 5%',
-                        }}
-            >
                 <Form.Item
                 name="description"
-                label={<p style={{color:'var(--accent-color)',fontWeight:'600',fontFamily:'montserrat',margin:'0 ',fontSize:'calc(0.7rem + .3vw)'}}>Feedback</p>}
-                rules={[{ required: true, message: 'Veuillez saisir votre adresse!' }]}
-                style={{border:'none',borderRadius:'.5em',width:'100%'}}
+                label={<p >{language === 'eng' ? 'Review Content' : 'Review Content_fr' }</p>}
+                rules={[{ required: true, message: `${language === 'eng' ? "Please enter the content" : " Please entr the content_fr"}` }]}
+                style={{border:'none',borderRadius:'.5em',width:'88%', margin:'2em auto', background:'transparent'}}
                 >
-                <Input.TextArea rows={4}
+                <Input.TextArea rows={3}
                 name="description"
                 size="large" 
-                placeholder='Write down your feedback here...'
+                placeholder={language === 'eng' ? 'Write down your feedback here...' : 'Write down your feedback here..._fr'}
                 value={formData.street}
-                        style={{border:'1px solid var(--primary-color)',color:'var(--accent-color)',textAlign:'start'}}
+                        style={{border:'none',color:'var(--secondary-color)',textAlign:'start', background:'transparent'}}
                         onChange={handleChange}
                 />
                 </Form.Item>
-                <div style={{width:'100%', display:"flex", flexDirection:"row", justifyContent:'space-between',margin:'1em 0 0 0'}}>
-                <Button size="large" className={classes.addbtn} style={{backgroundColor:'#DED8CC',color:'var(--forth-color)',fontWeight:'600'}}>
-                    Cancel
-                </Button>
+                
+        </div>
+                <div style={{width:'88%', display:"flex", flexDirection:"row", justifyContent:'space-between',margin:'0'}}>
                     <Form.Item>
                         <Button 
                         size="large"
@@ -358,11 +277,43 @@ const handleReviewButtonClick = () => {
                         </Button>
                     </Form.Item> 
                 </div>
-                
-            </Form>
-       </Box>
-     </Modal>
-     </>
+                </Form>
+       </div>
+        <div className={classes.reviewsCon}>
+            <h1>{language === 'eng' ? "All Reviews" : "All Reviews_fr"}</h1>
+        <div className={classes.big_con}>
+            {bookreview?.slice(0, displayedObjects).map((item, index) => (
+                <div className={classes.reviews_con} key={item.id} >
+                  <div className={classes.image_con}>
+                    <Avatar src={`https://api.leonardo-service.com/img/${item.user.image}`} alt={item.user.first_name} />
+                  </div>
+                    <div style={{ display: 'flex', flexDirection:'column',width:'90%',margin:'0 auto' }}>
+                        <p style={{ fontWeight:'700',fontSize:'calc(0.9rem + .3vw)', margin:'0.3em 0'}}>{item.user.first_name} {item.user.last_name}   <span style={{fontWeight:400}}>  {item.created_at.substring(0, 10)}</span></p>
+                        <Rating
+                            style={{
+                                color: "var(--primary-color)",
+                            }}
+                            size='small'
+                            precision={0.5}
+                            name="read-only"
+                            value={item.rate}
+                            readOnly
+                        />
+                    <p style={{color:'var(--secondary-color)'}}>{item.description}</p>
+                    </div>
+                </div>
+            ))}
+        </div>
+            {bookreview.length > 2 && <>
+
+                {displayedObjects < bookreview.length ? (
+                    <p style={{margin:'0em'}} onClick={showMore} className={classes.addbtn}>{language === 'eng' ? 'View All Reviews' : 'View All Reviews_fr'}</p>
+                ) : ( 
+                    <p style={{margin:'00em '}} onClick={showLess}className={classes.addbtn}>{language === 'eng' ? 'View Less' : 'Voir Moins '}</p>
+                )}
+            </>} 
+        </div>
+     </div>
     );
 }
 

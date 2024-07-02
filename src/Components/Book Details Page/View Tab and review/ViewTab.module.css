@@ -68,9 +68,6 @@
     padding: 0 4%;
 }
 
-.review{
-    padding: 0 4%;
-}
 
 .characContainer{
     width: 100%;
@@ -116,10 +113,28 @@
     padding: .0em 2em;
 }
 
+.vd_con{
+    width: 100%;
+}
+
+.vd_con iframe{
+    border-radius: 1em;
+    height: 25vw;
+    max-height: 25em;
+}
+
 @media screen and (max-width:950px) {
     .tabview{
         margin: 0 auto;
     }
+    .summary{
+        grid-template-columns: 1fr;
+    }
+    .vd_con iframe{
+        height: 40vw;
+        margin-bottom: 2em;
+    }
+    .r
     .characContainer{
         grid-template-columns: 1fr;
         margin: 3em 0 8em 0;
@@ -130,8 +145,11 @@
           margin: 0 auto;
       }
       .tabview{
-          width: 100%;
-          margin-left: 0%;
+          width: 94%;
+          margin: 0 auto;
       }
       
+    .vd_con iframe{
+        height: 45vw;
+    }
     }

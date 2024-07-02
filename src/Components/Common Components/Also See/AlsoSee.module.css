@@ -199,6 +199,17 @@
     border-radius: 50%;
   }
   
+  .cartIcon{
+    position: absolute;
+    height: 1em;
+    width: 1em;
+    top: 4.8em;
+    right: 0.7em;
+    background-color: var(--primary-color);
+    padding: 0.5em;
+    border-radius: 50%;
+  }
+  
   .fav{
     width: 1.2em !important;
     height: 1.2em !important;
@@ -279,6 +290,10 @@
     .favoriteIcon{
       top: 1.5em;
     }
+     
+  .cartIcon{
+    top: 3.8em;
+  }
     .nav_next{
       top: 0em;
       right: 4em;

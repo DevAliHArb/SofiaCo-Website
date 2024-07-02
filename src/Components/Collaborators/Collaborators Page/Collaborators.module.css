@@ -9,6 +9,7 @@
 
 .img_abs{
   position: absolute;
+  object-fit: contain;
   right:0;
   top: 0;
   bottom: 0;
@@ -486,6 +487,11 @@
   max-height: 118em;
   margin-top: -12vw;
 }
+.img_abs{
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+}
 .card_container{
 width: 80%;
 height: fit-content;
@@ -501,12 +507,17 @@ transition: all 0.3s ease-in-out;
   margin: 1em auto;
   margin-top: 14vw;
 }
+
+.collab{
+  padding: 0;
+  margin-bottom: 2em;
+}
 }
 
 @media screen and (max-width:950px) {
     .grid{
         grid-template-columns: repeat(2, 45%);
-        gap: 1em;
+        margin-top: 1em;
     }
     
 .collab_image_con{
@@ -515,11 +526,12 @@ transition: all 0.3s ease-in-out;
 
 .filters{
   flex-direction: column;
+  padding: 0;
 }
 
 .page_control{
   padding: auto;
-  margin-bottom: -3em;
+  margin-bottom: -0.1em;
 }
 
 .custom_select_mob{
@@ -574,6 +586,7 @@ transition: all 0.3s ease-in-out;
 
     .content{
         width: 96%;
+        padding: 1em 0;
     }
 
     .filters{
@@ -595,6 +608,11 @@ transition: all 0.3s ease-in-out;
   }
 
     
+.img_abs{
+  width: 50%;
+  height: 50%;
+  object-fit: contain;
+}
 .btn{
     display: grid;
     grid-template-columns: 80% 20%;

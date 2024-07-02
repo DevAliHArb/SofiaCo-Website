@@ -15,6 +15,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IoMdArrowBack } from "react-icons/io";
 import { addSelectedBook } from '../../Common/redux/productSlice';
+import { IoCartOutline } from "react-icons/io5";
 
 const AlsoSee = () => {
   const authCtx = useContext(AuthContext);
@@ -104,7 +105,7 @@ const AlsoSee = () => {
                       authCtx.setbookDetails(props);
                       event.stopPropagation();
                       dispatch(addSelectedBook(props))
-                      navigate(`bookdetails/${props.id}`);
+                      navigate(`/bookdetails/${props.id}`);
                     }}
                   >
                     <div className={classes.card_img}>
@@ -147,6 +148,16 @@ const AlsoSee = () => {
                             }}
                           />
                         )}
+                      </div>
+                      <div className={classes.cartIcon}>
+                          <IoCartOutline
+                            className={classes.fav}
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              authCtx.addToCart({props: props}); 
+                            }}
+                            fontSize="inherit"
+                          />
                       </div>
                     </div>
                     

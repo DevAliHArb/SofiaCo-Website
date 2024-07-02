@@ -14,7 +14,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import Rating from "@mui/material/Rating";
+import Rating from "@mui/material/Rating";import { IoMdClose } from "react-icons/io";
+
 
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -62,7 +63,7 @@ const BooksView = ({carttoggle}) => {
     }
   }
 
-  function TreeNode({ data, level, fetchArticles }) {
+  function TreeNode({ data, level, fetchArticles, color }) {
     const [isExpanded, setIsExpanded] = useState(
       localStorage.getItem(`isExpanded_${data.id}`) === 'true' // Retrieve isExpanded from localStorage
     );
@@ -132,7 +133,7 @@ const BooksView = ({carttoggle}) => {
       >
         <div
           style={{
-            color: isExpanded ? "var(--primary-color)" : "var(--secondary-color)",
+            color: isExpanded ? "var(--primary-color)" : color,
             fontSize:
               level === 0 ? "calc(0.8rem + 0.3vw)" : "calc(0.7rem + 0.3vw)",
               display:'flex'
@@ -145,7 +146,7 @@ const BooksView = ({carttoggle}) => {
               width:'100%',
               display: "flex", 
               cursor: "pointer",
-              background: storedCategory && storedCategory === data.id.toString() ? 'var(--secondary-color)' : 'transparent'
+              background: storedCategory && storedCategory === data.id.toString() ? 'var(--authbg-color)' : 'transparent'
             }}
             onClick={(event) => handleChildClick(data.id, event)}
           >
@@ -420,73 +421,72 @@ const BooksView = ({carttoggle}) => {
   const list = (anchor) => (
     <>
     <Box
-    sx={{ width: "100%" }}
+    sx={{ width: "85%" }}
       role="presentation"
       className={classes.container}
     >
+      <IoMdClose style={{position:'absolute', top:'1em', right:'20%', width:'2em', height:'2em', color:'#fff', zIndex:'10'}} onClick={toggle}/>
       <List>
       <ListItem disablePadding>
           <ListItemButton> 
-          <div style={{display:'flex',position:'relative', flexDirection:'column',fontFamily:'montserrat' ,width:'100%'}}>
-            <h2 style={{color:'var(--secondary-color)',width:'85%',margin:'1em auto 2em auto'}}> Filters</h2>
-            <button style={{position:'absolute',top:'1.8em', right:'1.8em', color:'#fff',backgroundColor:"var(--forth-color)",borderRadius:".5em",border:'none'}}>
-              <CloseIcon style={{fontSize:'1.5em',marginTop:'.2em'}} onClick={toggle}/>
-            </button>
+          <div style={{display:'flex',position:'relative', flexDirection:'column',fontFamily:'var(--font-family)' ,width:'96%', color:'#fff'}}>
+        <h1>Filter</h1>
+        <div className={classes.filter}>
           <div className={classes.categories}>
             <h2>Categories</h2>
               <div className={classes.dropdown}
-                  style={{ height: "400px", overflowY: "scroll" }}>
+                  style={{ maxHeight: "200px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+                {mappedParents.map((data) => {
+                  return (
+                      <TreeNode data={data} level={0} color='#fff'/>
+                  );
+                })}
+              </div>
+          </div>
+
+
+          {/* <Divider  
+          color="var(--secondary-color)"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
+
+        
+          <div className={classes.categories}>
+            <h2>Editeur</h2>
+              <div className={classes.dropdown}
+                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
                 {mappedParents.map((data) => {
                   return (
                       <TreeNode data={data} level={0}/>
                   );
                 })}
               </div>
-          </div>
-          {/* <div className={classes.categories}>
-            <h2 style={{marginBottom:'1em'}}> Collections </h2>
-              <div className={classes.dropdown}
-                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
-              <FormControl>
-                  <RadioGroup
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue='all'
-                    value={selectedCollection}
-                    name="radio-buttons-group"
-                    onChange={handleChangeCollection}
-                  >
-                    <FormControlLabel
-                      value='all'
-                      control={
-                        <Radio />
-                      }
-                      label='All'
-                    />
-                   {authCtx.collections?.slice(0,30).map((item) => (
-  <FormControlLabel
-    key={item.id}
-    value={item.nom}
-    control={<Radio />}
-    label={item.nom} // Make sure item.nom is a string
-  />
-))}
-                  </RadioGroup>
-                </FormControl>
-              </div>
           </div> */}
+
+          <Divider  
+          color="#fff"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
+
+
           <div className={classes.categories}>
             <h2>Prix</h2>
               <div className={classes.dropdown}>
                 <div style={{display:'flex',width:'95%', flexDirection:'row',justifyContent:'space-between', marginTop:'1em'}}>
                   <TextField
-                  style={{width:' 4em',textAlign:'center',padding:'0'}}
-                  size="small"
+                  style={{width:'48%',textAlign:'center',padding:'0'}}
+                  type="number"
+                  variant="standard"
                     InputProps={{
                       inputProps: {
-                        min: 0, // Set the minimum value to 0 to enforce positivity
+                        min: 0,
+
                         style: {
-                          color: 'var(--secondary-color)', 
-                          borderColor: 'var(--secondary-color)',
+                          color: '#fff', 
+                          border: 'none',
+                          borderBottomColor: '#fff',
                         },
                       },
                     }}
@@ -494,42 +494,31 @@ const BooksView = ({carttoggle}) => {
                     onChange={handleMinChange}
                   />
                   <TextField
-                  style={{width:' 4em',textAlign:'center',padding:'0'}}
-                  size="small"
+                  style={{width:' 48%',textAlign:'center',padding:'0'}}
+                  type="number"
+                  variant="standard"
                   InputProps={{
                     inputProps: {
-                      min: 0, // Set the minimum value to 0 to enforce positivity
+                      min: 0,
                       style: {
-                        color: 'var(--secondary-color)', 
-                        borderColor: 'var(--secondary-color)',
+                        color: '#fff', 
+                        borderColor: '#fff',
                       },
                     },
                   }}
                     value={selectedPrice[1]}
                     onChange={handleMaxChange}
-                  /></div>
-                  <div style={{position:'relative',justifyContent:'flex-end'}}>
-                  <p style={{width:'fit-content',margin:'2em 0 0 auto ',color:'var(--primary-color)',cursor:'pointer',fontWeight:'500'}} onClick={RefineHandle}><u>Refine</u></p>
+                  />
                   </div>
-              </div>
+          <div style={{position:'relative',justifyContent:'flex-end'}}>
+          <p style={{width:'fit-content',margin:'2em 0 1em 0',color:'#fff',cursor:'pointer',fontWeight:'500', fontFamily:'var(--font-family)'}} onClick={RefineHandle}><u>Refine</u></p>
           </div>
-          <div className={classes.categories}>
-            <h2 style={{marginBottom:'1em'}}> Rating</h2>
-              <div className={classes.dropdown}>
-              <Rating
-                  style={{
-                      color: "#712A2E",
-                  }}
-                  size='large'
-                  name="rate"
-                  value={rate}
-                  onChange={handleChangeRate}
-              />
               </div>
           </div>
           <div>
-          <p style={{width:'fit-content',margin:'0 0 1em 7.5%',color:'var(--primary-color)',cursor:'pointer',fontWeight:'500'}} onClick={resetSearchData}><u>Reset</u></p>
+          <p style={{width:'fit-content',margin:'0 0 1em 7.5%',color:'#fff',cursor:'pointer',fontWeight:'500', fontFamily:'var(--font-family)'}} onClick={ResetfilterHandle}><u>Reset All</u></p>
           </div>
+        </div>
         </div>
           </ListItemButton>
         </ListItem>
@@ -553,14 +542,14 @@ const BooksView = ({carttoggle}) => {
                   style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
                 {mappedParents.map((data) => {
                   return (
-                      <TreeNode data={data} level={0}/>
+                      <TreeNode data={data} level={0} color='var(--secondary-color)'/>
                   );
                 })}
               </div>
           </div>
 
 
-          <Divider  
+          {/* <Divider  
           color="var(--secondary-color)"
           width="88%"
           style={{margin:'0.5em auto'}}
@@ -577,7 +566,7 @@ const BooksView = ({carttoggle}) => {
                   );
                 })}
               </div>
-          </div>
+          </div> */}
 
           <Divider  
           color="var(--secondary-color)"

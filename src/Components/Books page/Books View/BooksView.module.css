@@ -11,10 +11,10 @@
   font-family: var(--font-family);
 }
 .container{
-  height: fit-content!important;
+  height: 100%!important;
   text-align: center;
   max-width: 30em !important;
-  background-color: #fff;
+  background-color: var(--authbg-color);
   margin: 0 0 auto 0;
   border-radius: 0em 1em 1em 0em;
 }
@@ -218,4 +218,20 @@
     .content{
       grid-template-columns: 100%;
     }
+
+    .filter{
+      border-color: #fff;
+    }
+    
+.categories h2{
+  color: #fff;
+}
+
+.filter_con h1{
+  color: #fff;
+}
+
+.subtitlesCont{
+  color: #fff;
+}
   }

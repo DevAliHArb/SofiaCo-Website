@@ -598,6 +598,10 @@ height: 1em;
 margin: 0.2em;
 }
 
+.card_img{
+  height: 35vw;
+}
+
 }
 
 
@@ -606,6 +610,10 @@ margin: 0.2em;
     flex-direction: column;
     gap: 2em;
     border: none;
+  }
+  .page_control{
+    margin: 0 auto;
+    padding:0.5em 0;
   }
   .btn{
     display: inline;
@@ -687,6 +695,9 @@ color: #DED8CC;
     justify-content: center;
 }
 
+.card_container{
+  margin-top: 0.5em;
+}
 
 .controlbtns button{
     padding: 0.2em 2em;
@@ -701,5 +712,9 @@ color: #DED8CC;
 
 .listcompareIcon{ 
   margin: .47em 0.9em !important; 
+}
+
+.card_img{
+  height: 50vw;
 }
 }

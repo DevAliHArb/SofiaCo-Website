@@ -1,12 +1,12 @@
 .container {
     width: 100%;
-    padding: 1rem;
+    padding: 3em 1em;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    max-width: 30em;
-    margin: 0 auto;
+    max-width: 35em;
+    margin:  auto;
   }
   
   .header {
@@ -15,6 +15,7 @@
     margin-bottom: 1rem;
     color: var(--secondary-color);
     font-family: var(--font-family);
+    text-transform: uppercase;
   }
   
   .rating {
@@ -27,7 +28,7 @@
   
   .subtext {
     font-size: 1rem;
-    color: #666;
+    color: var(--secondary-color);
     margin-bottom: 1rem;
     font-family: var(--font-family);
   }
@@ -73,3 +74,16 @@
     flex: 0.5;
   }
   
+@media screen and (max-width:950px) {
+  .container{
+    max-width: 94%;
+    padding: 2em 3%;
+  }
+}
+
+@media screen and (max-width:650px) {
+  .container{
+    max-width: 94%;
+    padding: 1em 3%;
+  }
+}

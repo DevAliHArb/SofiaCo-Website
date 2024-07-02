@@ -144,7 +144,7 @@ const Hero = ({ carttoggle }) => {
                       onClick={() => {
                         authCtx.setbookDetails(props);
                         dispatch(addSelectedBook(props))
-                        navigate(`bookdetails/${props.id}`);
+                        navigate(`/bookdetails/${props.id}`);
                       }}
                     >
                       <div className={classes.card_img}>

@@ -33,6 +33,11 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
   const currency = useSelector(
     (state) => state.products.selectedCurrency[0].currency
   );
+  const getToken = () => {
+    return localStorage.getItem("token");
+  };
+
+  const token = getToken();
 
   const handleChangeCurrency = async (cur) => {
     dispatch(changeCurrency({ currency: cur }));
@@ -90,7 +95,7 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
         <ListItem disablePadding style={{marginTop:'0.5em'}}>
           <ListItemButton>
             <ListItemText className={classes.text}>
-            Livres 
+            {language === 'eng' ? 'Books' : 'Livres'} 
                 {/* {shopopen ? <IoIosArrowDown style={{transform:'rotate(180deg)'}} /> : <IoIosArrowDown /> } */}
             </ListItemText>
           </ListItemButton>
@@ -101,8 +106,8 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
         <ListItem disablePadding>
           <ListItemButton >
             <ListItemText className={classes.text}>
-            Jouets 
-                {/* {collopen ? <IoIosArrowDown style={{transform:'rotate(180deg)'}} /> : <IoIosArrowDown /> } */}
+            {language === 'eng' ? 'Jouets_en' : 'Jouets'}
+            {/* {collopen ? <IoIosArrowDown style={{transform:'rotate(180deg)'}} /> : <IoIosArrowDown /> } */}
             </ListItemText>
           </ListItemButton>
         </ListItem>
@@ -113,7 +118,7 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemText className={classes.text}>
-            parfum
+            {language === 'eng' ? 'parfum_en' : 'parfum'}
             </ListItemText>
           </ListItemButton>
         </ListItem>
@@ -123,7 +128,7 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
          <ListItem disablePadding>
           <ListItemButton>
             <ListItemText className={classes.text}>
-            vetements
+            {language === 'eng' ? 'vetements_en' : 'vetements'}
             </ListItemText>
           </ListItemButton>
         </ListItem>
@@ -134,7 +139,7 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemText className={classes.text}>
-            tapis de priere
+            {language === 'eng' ? 'tapis de priere_en' : 'tapis de priere'}
             </ListItemText>
           </ListItemButton>
         </ListItem>
@@ -144,7 +149,7 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemText className={classes.text}>
-            Nos éditeurs
+            {language === 'eng' ? 'Nos éditeurs_en' : 'Nos éditeurs'}
             </ListItemText>
           </ListItemButton>
         </ListItem>
@@ -154,7 +159,7 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
 <ListItem disablePadding>
   <ListItemButton>
     <ListItemText className={classes.text}>
-    AGENDA
+    {language === 'eng' ? 'AGENDA_en' : 'AGENDA'}
     </ListItemText>
   </ListItemButton>
 </ListItem>
@@ -164,7 +169,7 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
 <ListItem disablePadding>
   <ListItemButton>
     <ListItemText className={classes.text}>
-    nos services
+    {language === 'eng' ? 'nos services_en' : 'nos services'}
     </ListItemText>
   </ListItemButton>
 </ListItem>
