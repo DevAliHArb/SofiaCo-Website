@@ -34,6 +34,9 @@ const Details = () => {
   // const [bookData, setbookData] = useState({});
   const bookData = useSelector((state) => state.products.selectedBook[0]);
   const [averageRating, setaverageRating] = useState(0);
+  const language = useSelector(
+    (state) => state.products.selectedLanguage[0].Language
+  );
 
   // useEffect(() => {
   //   bookDatas.forEach((element) => {
@@ -111,11 +114,12 @@ const Details = () => {
   return (
     <>
       <div className={classes.contantContainer}>
-          <p style={{ color: "var(--primary-color)", fontSize: "small" }}>
+          <p style={{ color: "var(--primary-color)", fontSize: "small", display:'flex', flexDirection:'row' }}>
+            <span>ISBN: {bookData._code_barre}</span>
             <Rating
               style={{
                 color: "var(--primary-color)",
-                margin: "auto .5em 0 0",
+                margin: "auto .5em 0 0.8em",
               }}
               size="small"
               name="read-only"
@@ -166,7 +170,7 @@ const Details = () => {
             }
           >
             {" "}
-            Ajouter Au Panier
+            {language === 'eng' ? 'Add to cart' : 'Ajouter Au Panier'}
           </button>
                           <div className={classes.favoriteIcon}>
                             {favoriteData?.some(
@@ -194,7 +198,7 @@ const Details = () => {
         </div>
         <div className={classes.char_con}>
           <div className={classes.char}>
-            <p>Auteur</p>
+            <p>{language === 'eng' ? 'Author' : 'Auteur'}</p>
             <p
               onClick={() => {
                 localStorage.removeItem("category");
@@ -206,7 +210,7 @@ const Details = () => {
             </p>
           </div>
           <div className={classes.char}>
-            <p >Traducteur</p>
+            <p >{language === 'eng' ? 'Translator' : 'Traducteur'}</p>
             <p
               onClick={() => {
                 localStorage.removeItem("category");
@@ -221,11 +225,11 @@ const Details = () => {
             </p>
           </div>
           <div className={classes.char}>
-            <p > Illustrateur</p>
+            <p > {language === 'eng' ? 'Illustrator' : 'Illustrateur'}</p>
             <p >: {bookData.dc_illustrateur}</p>
           </div>
           <div className={classes.char}>
-            <p >Collection</p>
+            <p >{language === 'eng' ? 'Collection' : 'Collection'}</p>
             <p
               onClick={() => {
                 localStorage.removeItem("category");
@@ -240,7 +244,7 @@ const Details = () => {
             </p>
           </div>
           <div className={classes.char}>
-            <p > Editeur</p>
+            <p > {language === 'eng' ? 'Editor' : 'Editeur'}</p>
             <p
               onClick={() => {
                 localStorage.removeItem("category");
@@ -253,17 +257,17 @@ const Details = () => {
             </p>
           </div>
           <div className={classes.char}>
-            <p >Nb. de pages</p>
+            <p >{language === 'eng' ? 'Number pf pages' : 'Nombre de pages'}</p>
             <p >: {bookData.nbpages}</p>
           </div>
           <div className={classes.char}>
-            <p >Date de parution</p>
+            <p >{language === 'eng' ? 'Publish date' : 'Date de parution'}</p>
             <p >
               : {bookData.dc_parution?.substring(0, 10)}
             </p>
           </div>
           <div className={classes.resume_content}>
-          <p >Résumé</p>
+          <p >{language === 'eng' ? 'Resume' : 'Résumé'}</p>
           <p
             dangerouslySetInnerHTML={{
               __html:":" +

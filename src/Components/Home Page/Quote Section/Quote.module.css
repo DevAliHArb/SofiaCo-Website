@@ -9,6 +9,7 @@
 }
 
 .content{
+    position: relative;
     width: 100%;
     max-width: 1900px;
     margin: auto;
@@ -24,7 +25,7 @@
     height: 25vw;
     max-height: 26em;
     margin: auto 0;
-    background-color: var(--accent-color);
+    background-color: #EEBA7F;
     /* border-radius: 1em; */
 }
 .header{
@@ -64,7 +65,6 @@
     position: relative;
     text-align: start;
     margin: auto;
-    background-color: var(--accent-color);
     font-family: var(--font-family);
 }
 
@@ -98,6 +98,7 @@
     border-radius: 0%;
     background-color: #fff;
     border-left:1px solid var(--secondary-color) ;
+    z-index: 1;
   }
   .nav_prev{
     position: absolute;

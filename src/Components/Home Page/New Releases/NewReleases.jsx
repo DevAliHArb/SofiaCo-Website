@@ -11,6 +11,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import { addSelectedBook } from "../../Common/redux/productSlice";
 
 const NewReleases = () => {
   const [selectedCategory, setSelectedCategory] = useState(
@@ -279,6 +280,7 @@ const NewReleases = () => {
                       onClick={(event) => {
                         authCtx.setbookDetails(props);
                         event.stopPropagation();
+                        dispatch(addSelectedBook(props))
                         navigate(`bookdetails/${props.id}`);
                       }}
                     >

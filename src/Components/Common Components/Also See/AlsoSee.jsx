@@ -14,6 +14,7 @@ import AuthContext from '../../Common/authContext';
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IoMdArrowBack } from "react-icons/io";
+import { addSelectedBook } from '../../Common/redux/productSlice';
 
 const AlsoSee = () => {
   const authCtx = useContext(AuthContext);
@@ -102,6 +103,7 @@ const AlsoSee = () => {
                     onClick={(event) => {
                       authCtx.setbookDetails(props);
                       event.stopPropagation();
+                      dispatch(addSelectedBook(props))
                       navigate(`bookdetails/${props.id}`);
                     }}
                   >

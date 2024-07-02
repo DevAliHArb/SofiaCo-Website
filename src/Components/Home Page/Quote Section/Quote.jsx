@@ -25,7 +25,7 @@ const Quote = () => {
   
   const fetchQuote = async () => {
     try {
-      const response = await axios.get('https://api.leonardo-service.com/api/bookshop/quotes?ecom_type=bookshop');
+      const response = await axios.get('https://api.leonardo-service.com/api/bookshop/quotes?ecom_type=sofiaco');
       setTheQuote(response.data.data);
       setconstantValue(response.data.data[0]?.id)
     } catch (error) {
@@ -105,15 +105,7 @@ const Quote = () => {
           <div className={classes.img_con}>
             <img src={`https://sofiadis.recette-lisa.leonardo-service.com/modules/sofiadis/files/${item.image}`} alt=""/>
             
-      <div className={`${classes.nav_prev}`}>
-        <IoMdArrowBack className={classes.nav_icon} />
-      </div>
-      <div className={` ${classes.nav_next}`}>
-        <IoMdArrowBack
-          className={classes.nav_icon}
-          style={{ transform: "rotate(180deg)" }}
-        />
-      </div>
+      
           </div>
           
         </div>
@@ -122,6 +114,15 @@ const Quote = () => {
         })
         }
         </Swiper>
+        <div className={`${classes.nav_prev}`}>
+        <IoMdArrowBack className={classes.nav_icon} />
+      </div>
+      <div className={` ${classes.nav_next}`}>
+        <IoMdArrowBack
+          className={classes.nav_icon}
+          style={{ transform: "rotate(180deg)" }}
+        />
+      </div>
       </div>
     </div>
   );

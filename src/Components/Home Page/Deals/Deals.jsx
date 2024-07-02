@@ -14,6 +14,7 @@ import AuthContext from "../../Common/authContext";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IoMdArrowBack } from "react-icons/io";
+import { addSelectedBook } from "../../Common/redux/productSlice";
 
 const Deals = () => {
   const authCtx = useContext(AuthContext);
@@ -101,6 +102,7 @@ const Deals = () => {
                       onClick={(event) => {
                         authCtx.setbookDetails(props);
                         event.stopPropagation();
+                        dispatch(addSelectedBook(props))
                         navigate(`bookdetails/${props.id}`);
                       }}
                     >
@@ -331,6 +333,7 @@ const Deals = () => {
           </div>
         )}
       </div>
+      <p className={classes.viewall} onClick={()=>navigate(`/books`)}>{language === 'eng' ? 'View all' : 'View all(fr)'}</p>
       <div className={`${classes.nav_prev}`}>
         <IoMdArrowBack className={classes.nav_icon} />
       </div>

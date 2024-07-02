@@ -21,6 +21,7 @@ import AuthContext from "../../Common/authContext";
 import data from "../../../Data.json";
 import axios from "axios";
 import SearchBox from "../../Common/Search box/SearchBox";
+import { addSelectedBook } from "../../Common/redux/productSlice";
 
 const Hero = ({ carttoggle }) => {
   const authCtx = useContext(AuthContext);
@@ -142,7 +143,7 @@ const Hero = ({ carttoggle }) => {
                       className={classes.card_container}
                       onClick={() => {
                         authCtx.setbookDetails(props);
-                        console.log(props);
+                        dispatch(addSelectedBook(props))
                         navigate(`bookdetails/${props.id}`);
                       }}
                     >

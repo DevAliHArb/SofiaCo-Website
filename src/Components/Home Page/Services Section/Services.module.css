@@ -89,6 +89,7 @@
   margin: 0;
   font-size: calc(0.8rem + 0.4vw);
   color: var(--secondary-color);
+  font-family: var(--font-family);
 }
 
 .hex_content p {
@@ -97,6 +98,7 @@
   text-align: center;
   font-size: calc(0.6rem + 0.2vw);
   color: var(--secondary-color);
+  font-family: var(--font-family);
 }
 
 @media screen and (max-width:1200px) {

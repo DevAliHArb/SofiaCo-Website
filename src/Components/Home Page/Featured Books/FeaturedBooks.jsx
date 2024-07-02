@@ -13,6 +13,7 @@ import "swiper/css/navigation";
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../Common/authContext';
 import { Scale } from '@mui/icons-material';
+import { addSelectedBook } from '../../Common/redux/productSlice';
 
 const FeaturedBooks = () => {
   const authCtx = useContext(AuthContext);
@@ -97,6 +98,7 @@ const FeaturedBooks = () => {
                     onClick={(event) => {
                       authCtx.setbookDetails(props);
                       event.stopPropagation();
+                      dispatch(addSelectedBook(props))
                       navigate(`bookdetails/${props.id}`);
                     }}
                   >

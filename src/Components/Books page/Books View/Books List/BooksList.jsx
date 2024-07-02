@@ -324,6 +324,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                     onClick={(event) => {
                       authCtx.setbookDetails(props);
                       event.stopPropagation();
+                      dispatch(addSelectedBook(props))
                       navigate(`bookdetails/${props.id}`);
                     }}
                   >
