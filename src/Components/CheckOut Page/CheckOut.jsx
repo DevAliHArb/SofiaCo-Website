@@ -66,12 +66,8 @@ const style = {
 
 const CheckOut = () => {
   const [form] = Form.useForm();
-  const language = useSelector(
-    (state) => state.products.selectedLanguage[0].Language
-  );
-  const currency = useSelector(
-    (state) => state.products.selectedCurrency[0].currency
-  );
+  const language = useSelector((state) => state.products.selectedLanguage[0].Language);
+  const currency = useSelector( (state) => state.products.selectedCurrency[0].currency);
   const authCtx = useContext(AuthContext);
   const productData = useSelector((state) => state.products.productData);
   const dispatch = useDispatch();

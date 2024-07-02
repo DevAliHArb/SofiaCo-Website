@@ -1,0 +1,116 @@
+.card{
+    display: grid;
+    grid-template-columns: 7% 28% 15% 20% 15% 15%;
+    color: var(--secondary-color);
+    margin: 0em 0;
+    border-bottom: 1.5px solid var(--primary-color);
+    padding: 2em 2em;
+    font-family: var(--font-family);
+    font-size: calc(0.7em + 0.3vw);
+}
+.imgCont{
+   margin: auto 0.5em auto 0;
+}
+.contentContainer{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    width: 100%;
+    margin: auto 0;
+}
+
+.price{
+    margin: auto;
+    font-size: calc(.9rem + .3vw);
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+.priceMob{
+    margin: auto;
+    color: var(--secondary-color);
+    font-weight: 500;
+    display: none;
+}
+
+
+.quantity{
+    z-index: 9;
+    width: 50%;
+    display: grid;
+    grid-template-columns: 30% 40% 30%;
+    margin: auto;
+    border-radius: .5em;
+    padding: 2% 0;
+    border: 1px solid var(--secondary-color);
+    color: var(--secondary-color) !important;
+}
+.addtocart{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    margin: auto 0 auto auto;
+}
+
+.addtocart button{
+    width: 3em;
+    height: 3em;
+    background-color: var(--primary-color);
+    color: #fff;
+    border-radius: .5em;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.5s ease, color 1s ease;
+    }
+    
+    .addtocart button:hover{
+        background-color: var(--secondary-color) !important;
+    }
+    .totalPrice{
+        font-size: calc(.9rem + 0.3vw);
+        font-weight: 600;
+        color: var(--secondary-color);
+        margin: auto;
+    }
+
+    @media screen and (max-width:950px) {
+        
+    .totalPrice{
+        font-size: calc(.9rem + 0.3vw);
+        font-weight: 600;
+        color: var(--primary-color);
+        margin: auto auto auto .0;
+    }
+        .card{
+            display: flex;
+            flex-wrap: wrap;
+            row-gap: 2em;
+        padding: 2em 1em;
+        }
+        .imgCont{
+           width: 30%;
+         }
+         .contentContainer{
+            width: 60%;
+            margin: 0;
+        }
+        .price{
+            display: none;
+        }
+        .priceMob{
+            display: inline;
+            margin: auto auto auto 0;
+        }
+        .quantity{
+            z-index: 9;
+            width: 7em;
+            display: grid;
+            grid-template-columns: 30% 40% 30%;
+            margin: auto;
+            border-radius: .5em;
+            padding: 1% 0;
+            margin: auto auto auto 0;
+            border: 1px solid var(--secondary-color);
+            color: var(--secondary-color) !important;
+        }
+    }

@@ -25,6 +25,7 @@ import CheckOut from './Components/CheckOut Page/CheckOut';
 import CompletedOrder from './Components/CheckOut Page/CheckOut Summary/CompletedOrder';
 import BooksPage from './Components/Books page/BooksPage';
 import BookDetailsPage from './Components/Book Details Page/BookDetailsPage';
+import Favorite from './Components/Favorite Page/Favorite';
 
 
 function App() {
@@ -71,6 +72,7 @@ useEffect(() => {
           <Route path='/collections/:id/details' element={<ScrollToTop><CollectionDetailsPage /></ScrollToTop>} />
           <Route path='/collaborators' element={<ScrollToTop><Collaborators /></ScrollToTop>} />
           <Route path='/collaborators/:id/details' element={<ScrollToTop><CollaboratorDetails /></ScrollToTop>} />
+          <Route path='/favorites' element={<ScrollToTop><Favorite/></ScrollToTop> } />
           <Route path='/cart' element={<ScrollToTop><Cart/></ScrollToTop> } />
           <Route path='/checkout' element={<ScrollToTop><CheckOut/></ScrollToTop> } />
           <Route path='/checkout-completed/:id' element={<ScrollToTop><CompletedOrder/></ScrollToTop> } />
