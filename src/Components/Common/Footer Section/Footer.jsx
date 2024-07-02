@@ -12,6 +12,8 @@ import { useSelector } from 'react-redux';
 import data from '../../../Data.json'
 import { MdOutlineMail } from "react-icons/md";
 import { FiPhoneCall } from "react-icons/fi";
+import { FaFax } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
 
 
 
@@ -39,10 +41,10 @@ function openNewWindow(url) {
                 <div className={classes.desktop}>
                 <div className={classes.info}>
                 <h3>{data.Footer.ContactInfo.title[language]}</h3>
+                    <p style={{display:'Flex', flexDirection:'row'}}> <FaLocationDot style={{width:'1.3em', height:'1.3em', margin:'auto 0.5em auto 0', color:'var(--primary-color)'}}/>{authCtx.companySettings?.location}</p>
+                    <p style={{display:'Flex', flexDirection:'row'}}> <FiPhoneCall style={{width:'1.3em', height:'1.3em', margin:'auto 0.5em auto 0', color:'var(--primary-color)'}}/>Tel: {authCtx.companySettings?.phone}</p>
+                    <p style={{display:'Flex', flexDirection:'row'}}> <FaFax style={{width:'1.3em', height:'1.3em', margin:'auto 0.5em auto 0', color:'var(--primary-color)'}}/>Fax: {authCtx.companySettings?.fax}</p>
                     <p style={{display:'Flex', flexDirection:'row'}}> <MdOutlineMail style={{width:'1.5em', height:'1.5em', margin:'auto 0.5em auto 0', color:'var(--primary-color)'}}/>{authCtx.companySettings.email}</p>
-                    <p style={{display:'Flex', flexDirection:'row'}}> <FiPhoneCall style={{width:'1.3em', height:'1.3em', margin:'auto 0.5em auto 0', color:'var(--primary-color)'}}/>Tel: {authCtx.companySettings?.phone}</p>
-                    <p style={{display:'Flex', flexDirection:'row'}}> <FiPhoneCall style={{width:'1.3em', height:'1.3em', margin:'auto 0.5em auto 0', color:'var(--primary-color)'}}/>Tel: {authCtx.companySettings?.phone}</p>
-                    <p style={{display:'Flex', flexDirection:'row'}}> <FiPhoneCall style={{width:'1.3em', height:'1.3em', margin:'auto 0.5em auto 0', color:'var(--primary-color)'}}/>Tel: {authCtx.companySettings?.phone}</p>
                     </div>
                 <div className={classes.info}>
                 <h3>{data.Footer.Menu.title[language]}</h3>
