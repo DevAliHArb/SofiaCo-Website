@@ -36,7 +36,7 @@ const style = {
   bgcolor: "#fff",
   boxShadow: 24,
   fontSize: "calc(0.7rem + 0.2vw)",
-  fontFamily: "montserrat",
+  fontFamily: "var(--font-family)",
   overflow: "hidden",
   borderRadius: "1em",
 };
@@ -352,7 +352,7 @@ console.log(formData)
             style={{
               color: "var(--forth-color)",
               fontWeight: "600",
-              fontFamily: "montserrat",
+              fontFamily: "var(--font-family)",
               width: "100%",
               padding: "0 2em",
               textAlign: "start",
@@ -390,7 +390,7 @@ console.log(formData)
                       color: "var(--accent-color)",
                       margin: "0",
                       fontWeight: "500",
-                      fontFamily: "montserrat",
+                      fontFamily: "var(--font-family)",
                       fontSize: "calc(.8rem + .2vw)",
                     }}
                   >
@@ -421,7 +421,7 @@ console.log(formData)
                       color: "var(--accent-color)",
                       margin: "0",
                       fontWeight: "500",
-                      fontFamily: "montserrat",
+                      fontFamily: "var(--font-family)",
                       fontSize: "calc(.8rem + .2vw)",
                     }}
                   >
@@ -449,7 +449,7 @@ console.log(formData)
                       color: "var(--accent-color)",
                       margin: "0",
                       fontWeight: "500",
-                      fontFamily: "montserrat",
+                      fontFamily: "var(--font-family)",
                       fontSize: "calc(.8rem + .2vw)",
                     }}
                   >
@@ -474,7 +474,7 @@ console.log(formData)
                       color: "var(--accent-color)",
                       margin: "0",
                       fontWeight: "500",
-                      fontFamily: "montserrat",
+                      fontFamily: "var(--font-family)",
                       fontSize: "calc(.8rem + .2vw)",
                     }}
                   >
@@ -521,7 +521,7 @@ console.log(formData)
                     color: "var(--accent-color)",
                     margin: "0",
                     fontWeight: "500",
-                    fontFamily: "montserrat",
+                    fontFamily: "var(--font-family)",
                     fontSize: "calc(.8rem + .2vw)",
                   }}
                 >
@@ -583,8 +583,8 @@ console.log(formData)
             </Form.Item>
             {/* <Form.Item name="default" style={{marginTop:'-2em',marginBottom:'1em'}}>
           <div style={{width:'100%', textAlign: 'start',color:'var(--forth-color)',cursor:'pointer',marginTop:'.5em'}}>
-            <Checkbox style={{fontFamily:'montserrat',fontStyle:'normal',fontSize:'small'}}>
-            <p style={{fontFamily:'montserrat',fontStyle:'normal',fontSize:'small',color:'var(--accent-color)'}}>Use as my Default Address</p>
+            <Checkbox style={{fontFamily:'var(--font-family)',fontStyle:'normal',fontSize:'small'}}>
+            <p style={{fontFamily:'var(--font-family)',fontStyle:'normal',fontSize:'small',color:'var(--accent-color)'}}>Use as my Default Address</p>
             </Checkbox>
           </div>
         </Form.Item> */}

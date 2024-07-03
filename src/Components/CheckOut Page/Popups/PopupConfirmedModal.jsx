@@ -18,7 +18,7 @@ const style = {
   bgcolor: '#fff',
   boxShadow: 24,
   fontSize:'calc(0.7rem + 0.2vw)',
-  fontFamily:'montserrat',
+  fontFamily:'var(--font-family)',
   overflow:'hidden',
   borderRadius:'1em'
 };
@@ -37,7 +37,7 @@ const PopupConfirmedModal = ({ open, handleClose, orderId }) => {
         sx={{ overflow: "hidden",border:'none' }}
       >
         <Box sx={style}>
-        <div style={{ width: '100%',display: 'flex', flexDirection:'column',alignItems: 'center', margin:'0',textAlign:"center", fontFamily:'montserrat' }}>
+        <div style={{ width: '100%',display: 'flex', flexDirection:'column',alignItems: 'center', margin:'0',textAlign:"center", fontFamily:'var(--font-family)' }}>
         <div style={{width:'9em',margin:'2em auto'}}><img alt="" src={Img} style={{width:"100%"}}/></div>
         <h4 style={{color:"var(--accent-color)",fontWeight:'700',fontSize:'calc(.9rem + .3vw)',margin:'0 auto',padding:'0 10%'}}>Your order is confirmed</h4>
         <h6 style={{color:"var(--accent-color)",fontWeight:'600',fontSize:'calc(.8rem + .2vw)',margin:'1em auto',padding:'0 10%'}}>Thanks for shopping! your order hasn’t shipped yet, but we wll send you an email when it’s done.</h6>

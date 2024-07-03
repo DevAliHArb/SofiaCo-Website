@@ -115,7 +115,7 @@
     text-align: start;
     color: #DED8CC;
     margin: 0;
-    font-family: montserrat ;
+    font-family: var(--font-family) ;
     column-gap: 2%;
     font-size: calc(.7rem + 0.3vw);
 }

@@ -26,7 +26,7 @@ const style = {
   bgcolor: "#fff",
   boxShadow: 24,
   fontSize: "calc(0.7rem + 0.2vw)",
-  fontFamily: "montserrat",
+  fontFamily: "var(--font-family)",
   overflow: "hidden",
   borderRadius: "1em",
 };
@@ -351,7 +351,7 @@ const AccountDetails = () => {
                     color: "var(--accent-color)",
                     margin: "0",
                     fontWeight: "500",
-                    fontFamily: "montserrat",
+                    fontFamily: "var(--font-family)",
                     fontSize: "calc(.8rem + .2vw)",
                   }}
                 >
@@ -380,7 +380,7 @@ const AccountDetails = () => {
                     color: "var(--accent-color)",
                     margin: "0",
                     fontWeight: "500",
-                    fontFamily: "montserrat",
+                    fontFamily: "var(--font-family)",
                     fontSize: "calc(.8rem + .2vw)",
                   }}
                 >
@@ -407,7 +407,7 @@ const AccountDetails = () => {
                     color: "var(--accent-color)",
                     margin: "0",
                     fontWeight: "500",
-                    fontFamily: "montserrat",
+                    fontFamily: "var(--font-family)",
                     fontSize: "calc(.8rem + .2vw)",
                   }}
                 >
@@ -446,7 +446,7 @@ const AccountDetails = () => {
                     color: "var(--accent-color)",
                     margin: "0",
                     fontWeight: "500",
-                    fontFamily: "montserrat",
+                    fontFamily: "var(--font-family)",
                     fontSize: "calc(.8rem + .2vw)",
                   }}
                 >
@@ -476,7 +476,7 @@ const AccountDetails = () => {
                     color: "var(--accent-color)",
                     margin: "0",
                     fontWeight: "500",
-                    fontFamily: "montserrat",
+                    fontFamily: "var(--font-family)",
                     fontSize: "calc(.8rem + .2vw)",
                   }}
                 >
@@ -502,7 +502,7 @@ const AccountDetails = () => {
               width: "fit-content",
               cursor: "pointer",
               fontWeight: "500",
-              fontFamily: "montserrat",
+              fontFamily: "var(--font-family)",
               fontSize: "calc(.8rem + .3vw)",
             }}
           >
@@ -547,7 +547,7 @@ const AccountDetails = () => {
               flexDirection: "column",
               alignItems: "center",
               margin: "0",
-              fontFamily: "montserrat",
+              fontFamily: "var(--font-family)",
             }}
           >
             <div

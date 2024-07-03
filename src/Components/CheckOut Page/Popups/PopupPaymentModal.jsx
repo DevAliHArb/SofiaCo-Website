@@ -35,7 +35,7 @@ const style = {
   bgcolor: '#fff',
   boxShadow: 24,
   fontSize:'calc(0.7rem + 0.2vw)',
-  fontFamily:'montserrat',
+  fontFamily:'var(--font-family)',
   overflow:'hidden',
   borderRadius:'1em'
 };
@@ -176,7 +176,7 @@ const PopupPaymentModal = ({ open, handleClose, isselectedPayment }) => {
       >
         <Box sx={style}>
         <div
-        style={{ width: '100%',display: 'flex', flexDirection:'column',alignItems: 'center', margin:'0', fontFamily:'montserrat' }}>
+        style={{ width: '100%',display: 'flex', flexDirection:'column',alignItems: 'center', margin:'0', fontFamily:'var(--font-family)' }}>
         <div style={{width:'100%', display:"flex", flexDirection:"row", justifyContent:'space-between',margin:'0.2em 0 0 0',borderBottom:'1px solid var(--primary-color)',borderRadius:'1em'}}> 
                 <p style={{ fontWeight:'600',margin:'1em auto',fontSize:'calc(1rem + .3vw)',color:'var(--accent-color)',width:'fit-content'}}>Add New Card</p>
                 <div style={{marginRight:'5%'}}>

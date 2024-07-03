@@ -89,19 +89,19 @@ const maskConstant = (constant) => {
       <div className={classes.shopping_con}>
       <div className={classes.shopping}>
             <>
-            <h2 onClick={()=>console.log(data)} style={{color:"var(--accent-color)",borderBottom:"1px solid #6E90A9",paddingBottom:'1em',fontFamily:'Montserrat',fontSize:'calc(1.2rem + .3vw)',marginTop:"0",fontWeight:'500'}}>Order #{data.id}</h2>
+            <h2 onClick={()=>console.log(data)} style={{color:"var(--accent-color)",borderBottom:"1px solid #6E90A9",paddingBottom:'1em',fontFamily:'var(--font-family)',fontSize:'calc(1.2rem + .3vw)',marginTop:"0",fontWeight:'500'}}>Order #{data.id}</h2>
               <CheckOutSummaryItem data={data.order_invoice_items}/>
             <div className={classes.container}>
-                <h2 style={{color:"var(--accent-color)",fontFamily:'Montserrat',fontSize:'calc(1.2rem + .3vw)',marginTop:"0",fontWeight:'500'}}>Shipping Address</h2>
+                <h2 style={{color:"var(--accent-color)",fontFamily:'var(--font-family)',fontSize:'calc(1.2rem + .3vw)',marginTop:"0",fontWeight:'500'}}>Shipping Address</h2>
             <div className={classes.adressCard}>
                <Radio defaultChecked value={true} sx={{ color: 'var(--forth-color)','&.Mui-checked': { color: 'var(--forth-color)',},margin:'.8em 0 auto 0'}}/>
                <div>
-                <p style={{fontSize:'calc(.9rem + .3vw)'}}>{data.user_address?.name} <button style={{cursor:"auto",border:'none',backgroundColor:'var(--secondary-color)',color:'var(--forth-color)',borderRadius:'.3em',marginLeft:'7%',padding:'.3em 1em',fontWeight:'500',fontFamily:'Montserrat',fontSize:'medium'}}>{data.user_address?.title}</button></p>
+                <p style={{fontSize:'calc(.9rem + .3vw)'}}>{data.user_address?.name} <button style={{cursor:"auto",border:'none',backgroundColor:'var(--secondary-color)',color:'var(--forth-color)',borderRadius:'.3em',marginLeft:'7%',padding:'.3em 1em',fontWeight:'500',fontFamily:'var(--font-family)',fontSize:'medium'}}>{data.user_address?.title}</button></p>
                 <p>{data.user_address?.address}, {data.user_address?.city}, {data.user_address?.postalcode}</p>
                 <p>{data.user_address?.country}</p>
                </div>
             </div>
-                <h2 style={{color:"var(--accent-color)",fontFamily:'Montserrat',fontSize:'calc(1.2rem + .3vw)',margin:'3em 0 1em 0',fontWeight:'500'}}>Payment Method</h2>
+                <h2 style={{color:"var(--accent-color)",fontFamily:'var(--font-family)',fontSize:'calc(1.2rem + .3vw)',margin:'3em 0 1em 0',fontWeight:'500'}}>Payment Method</h2>
             <div className={classes.adressCard}>
                <Radio defaultChecked value={true} sx={{ color: 'var(--forth-color)','&.Mui-checked': { color: 'var(--forth-color)',},margin:'.5em 0 auto 0'}}/>
                

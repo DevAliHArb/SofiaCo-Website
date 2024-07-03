@@ -143,7 +143,7 @@ const Favorite = ({carttoggle}) => {
                 marginTop:'2em'
               }}
             >
-              <div style={{width:'fit-content',margin:"auto", color:'var(--accent-color)',fontFamily:'montserrat',fontSize:'calc(.7rem + .3vw)'}}>
+              <div style={{width:'fit-content',margin:"auto", color:'var(--accent-color)',fontFamily:'var(--font-family)',fontSize:'calc(.7rem + .3vw)'}}>
                 <div style={{width:'fit-content',margin:'auto'}}>
                 <img alt='EmptyWishlist' src={EmptyWishlist} style={{width:"10em" , height:"auto"}}/>
                 </div>

@@ -84,7 +84,7 @@ const Favorite = ({carttoggle}) => {
            }}
          >
          <div className={classes.auth_bg1}></div>
-           <div style={{width:'fit-content',zIndex:"2",margin:"auto", color:'var(--accent-color)',fontFamily:'montserrat',fontSize:'calc(.7rem + .3vw)'}}>
+           <div style={{width:'fit-content',zIndex:"2",margin:"auto", color:'var(--accent-color)',fontFamily:'var(--font-family)',fontSize:'calc(.7rem + .3vw)'}}>
              <div style={{width:'fit-content',margin:'auto'}}>
              <img alt='EmptyCart' src={EmptyWishlist} style={{width:"15em" , height:"auto"}}/>
              </div>

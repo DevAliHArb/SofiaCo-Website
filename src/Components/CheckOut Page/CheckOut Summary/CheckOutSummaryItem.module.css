@@ -93,7 +93,7 @@
     margin: 0 !important;
     font-weight: 500 !important;
     font-style: normal !important;
-    font-family: montserrat !important;
+    font-family: var(--font-family) !important;
     background-color: transparent !important;
 }
 .price{

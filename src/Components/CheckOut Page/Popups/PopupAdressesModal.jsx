@@ -36,7 +36,7 @@ const style = {
   bgcolor: '#fff',
   boxShadow: 24,
   fontSize:'calc(0.7rem + 0.2vw)',
-  fontFamily:'montserrat',
+  fontFamily:'var(--font-family)',
   overflow:'hidden',
   borderRadius:'1em'
 };
@@ -146,11 +146,11 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
                 overflowY:'scroll'
                 }}
       >
-          <h4 style={{color:'var(--forth-color)',fontWeight:'600',fontFamily:'montserrat',width:'100%',textAlign:'start',fontSize:'calc(.8rem + .3vw)'}}>Ajouter une nouvelle addresse</h4>
+          <h4 style={{color:'var(--forth-color)',fontWeight:'600',fontFamily:'var(--font-family)',width:'100%',textAlign:'start',fontSize:'calc(.8rem + .3vw)'}}>Ajouter une nouvelle addresse</h4>
         <div className={classes.inputsContainer}>
         <Form.Item
           name="title"
-          label= {(<p style={{color:'var(--accent-color)',margin:'0',fontWeight:'500',fontFamily:'montserrat',fontSize:'calc(.8rem + .2vw)'}}>
+          label= {(<p style={{color:'var(--accent-color)',margin:'0',fontWeight:'500',fontFamily:'var(--font-family)',fontSize:'calc(.8rem + .2vw)'}}>
           Nickname</p>)}
           rules={[{ required: true, message: 'Veuillez saisir le titre de votre adresse!' }]}
           style={{border:'none',borderRadius:'.5em'}}
@@ -165,7 +165,7 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
         </Form.Item>
         <Form.Item
           name="name"
-          label=  {(<p style={{color:'var(--accent-color)',margin:'0',fontWeight:'500',fontFamily:'montserrat',fontSize:'calc(.8rem + .2vw)'}}>
+          label=  {(<p style={{color:'var(--accent-color)',margin:'0',fontWeight:'500',fontFamily:'var(--font-family)',fontSize:'calc(.8rem + .2vw)'}}>
           Nom / Prénom</p>)}
           rules={[{ required: true, message: 'Veuillez saisir votre pays!' }]}
           style={{border:'none',borderRadius:'.5em'}}
@@ -180,7 +180,7 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
         </Form.Item>
         <Form.Item
           name="company"
-          label={(<p style={{color:'var(--accent-color)',margin:'0',fontWeight:'500',fontFamily:'montserrat',fontSize:'calc(.8rem + .2vw)'}}>
+          label={(<p style={{color:'var(--accent-color)',margin:'0',fontWeight:'500',fontFamily:'var(--font-family)',fontSize:'calc(.8rem + .2vw)'}}>
           Companie (optional)</p>)}
           style={{border:'none',borderRadius:'.5em'}}
         >
@@ -200,7 +200,7 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
                       color: "var(--accent-color)",
                       margin: "0",
                       fontWeight: "500",
-                      fontFamily: "montserrat",
+                      fontFamily: "var(--font-family)",
                       fontSize: "calc(.8rem + .2vw)",
                     }}
                   >
@@ -242,7 +242,7 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
       </div>
         <Form.Item
           name="address"
-          label= {(<p style={{color:'var(--accent-color)',margin:'0',fontWeight:'500',fontFamily:'montserrat',fontSize:'calc(.8rem + .2vw)'}}>
+          label= {(<p style={{color:'var(--accent-color)',margin:'0',fontWeight:'500',fontFamily:'var(--font-family)',fontSize:'calc(.8rem + .2vw)'}}>
           Addresse</p>)}
           rules={[{ required: true, message: 'Veuillez saisir votre adresse!' }]}
           style={{border:'none',borderRadius:'.5em',width:'100%'}}
@@ -286,8 +286,8 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
         </Form.Item>
         {/* <Form.Item style={{marginTop:'-2em',marginBottom:'1em'}}>
           <div style={{width:'100%', textAlign: 'start',color:'var(--forth-color)',cursor:'pointer',marginTop:'.5em'}}>
-            <Checkbox style={{fontFamily:'montserrat',fontStyle:'normal',fontSize:'small'}}>
-            <p style={{fontFamily:'montserrat',fontStyle:'normal',fontSize:'small',color:'var(--accent-color)'}}>Use as my Default Address</p>
+            <Checkbox style={{fontFamily:'var(--font-family)',fontStyle:'normal',fontSize:'small'}}>
+            <p style={{fontFamily:'var(--font-family)',fontStyle:'normal',fontSize:'small',color:'var(--accent-color)'}}>Use as my Default Address</p>
             </Checkbox>
           </div>
         </Form.Item> */}

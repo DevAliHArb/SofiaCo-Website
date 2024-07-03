@@ -67,7 +67,7 @@ const style = {
     bgcolor: '#fff',
     boxShadow: 24,
     fontSize:'calc(0.7rem + 0.2vw)',
-    fontFamily:'montserrat',
+    fontFamily:'var(--font-family)',
     overflow:'hidden',
     borderRadius:'1em'
   };
