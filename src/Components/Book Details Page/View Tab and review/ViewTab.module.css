@@ -6,7 +6,7 @@
     text-align: center;
     align-items: center;
     margin: 0 auto;
-    font-family: montserrat;
+    font-family: var(--font-family);
 }
 
 
@@ -87,7 +87,7 @@
 .details_row p{
     text-align: start;
     color: var(--accent-color);
-    font-family: montserrat;
+    font-family: var(--font-family);
     font-size: calc(0.7rem + 0.3vw);
     font-style: normal;
     font-weight: 400;
@@ -106,7 +106,7 @@
 .details_row1 p{
     text-align: start;
     color: var(--accent-color);
-    font-family: montserrat;
+    font-family: var(--font-family);
     font-size: calc(0.7rem + 0.3vw);
     font-style: normal;
     font-weight: 400;

@@ -26,6 +26,7 @@ import CompletedOrder from './Components/CheckOut Page/CheckOut Summary/Complete
 import BooksPage from './Components/Books page/BooksPage';
 import BookDetailsPage from './Components/Book Details Page/BookDetailsPage';
 import Favorite from './Components/Favorite Page/Favorite';
+import AccountPage from './Components/Account Page/AccountPage';
 
 
 function App() {
@@ -53,7 +54,6 @@ useEffect(() => {
 }, [path])
 
   return (
-    <div className="App1">
       <div className="App" >
     {!isAuthPages && <Navbar toggle={toggle} carttoggle={carttoggle}/>}
         <CartSidebar isOpen={cartisOpen} toggle={carttoggle}/>
@@ -78,6 +78,7 @@ useEffect(() => {
           <Route path='/checkout-completed/:id' element={<ScrollToTop><CompletedOrder/></ScrollToTop> } />
           <Route path='/books' element={<ScrollToTop><BooksPage /></ScrollToTop> } />
           <Route path='/bookdetails/:id' element={<ScrollToTop><BookDetailsPage carttoggle={carttoggle}/></ScrollToTop>} />
+          <Route  path='/account/:pageId/*' element={user ? <ScrollToTop><AccountPage/></ScrollToTop> : <Navigate to="/login" replace />} />
         </Routes>
       </div>
       {!isAuthPages && <Footer/>}
@@ -94,7 +95,6 @@ useEffect(() => {
         theme="colored"
         style={{color:'red'}}
         />
-    </div>
     </div>
   )
 }

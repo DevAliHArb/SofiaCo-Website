@@ -67,11 +67,11 @@ function openNewWindow(url) {
                 </div>
                 </div>
             </div>
+        </div>
             <div className={classes.bottom}>
                 <p>{language == 'eng' ? authCtx.companySettings.copyrights_en : authCtx.companySettings.copyrights_fr } </p>
                 <img src={payments} alt='' />
             </div>
-        </div>
     </div>
   )
 }

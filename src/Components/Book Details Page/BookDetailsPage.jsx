@@ -16,7 +16,9 @@ const BookDetailsPage = () => {
       <BookDetails/>
         <ViewTab />
         <AlsoSee />
-        <Deals />
+      <div style={{marginTop:'-4em'}}>
+      <Deals />
+      </div>
     </div>
   )
 }

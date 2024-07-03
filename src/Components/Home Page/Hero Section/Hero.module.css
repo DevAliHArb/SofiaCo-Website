@@ -232,6 +232,11 @@ color: var(--secondary-color);
 
 @media screen and (max-width:650px) {
   .card_img{
-    height: 50vw;
+    height: 40vw;
+  }
+  .header h1{
+    position: relative;
+    font-size: calc(0.8rem + 0.4vw);
+    text-align: start;
   }
   }

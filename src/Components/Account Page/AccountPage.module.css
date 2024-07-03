@@ -1,0 +1,199 @@
+.contactUsContainer{
+    width: 100%;
+    position: relative;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    max-width: 1850px;
+    margin: 0 auto;
+  }
+  
+  .contactImageCont{
+    position: relative;
+    width: 100%;
+    height: 20em;
+    padding: 0;
+    margin: 0;
+    margin-top: -1.7em;
+    z-index: -1;
+  }
+
+  .contactImage{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 0 0 2em 2em;
+    object-fit: cover;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .imageContent{
+    position: absolute;
+    bottom: 0;
+    width: fit-content;
+    right: 50%;
+    transform: translateX(50%);
+    background-color: var(--accent-color);
+    color: #fff;
+    font-family: var(--font-family);
+    font-style: normal;
+    padding: 1em 2em; 
+    font-size: calc(1rem + 0.4vw);
+    border-radius: 2em 2em 0 0;
+    text-align: center;
+  }
+
+  .imageContent h2{
+    font-weight: 500;
+  }
+
+
+  .header{
+    position: relative;
+    width: 80%;
+    margin: 3.5em auto;
+    text-align: center;
+    justify-content: center;
+  }
+  
+  .headtitle{
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: calc(1.2rem + 0.3vw);
+    color: #194466;
+  }
+
+  .accountContainer{
+    width: 88%;
+    margin: 0 auto;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .titlesCard{
+    position: relative;
+    width: 90%;
+    width: 100%;
+    height: fit-content;
+    background-color:transparent;
+    color: #fff;
+    border-radius: 1em;
+    padding: 0 0 2em 0;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .titlesCard h2{
+    width: 70%;
+    margin: 2em auto .5em auto;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: calc(1rem + 0.3vw);
+    cursor: pointer;
+  }
+  .titlesCard p{
+    width: 70%;
+    margin: 1em auto;
+    padding-left: 15%;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: calc(.8rem + 0.3vw);
+    cursor: pointer;
+  }
+  
+  .contentContainer{
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    height: fit-content;
+  }
+
+.char_container{
+  position: relative;
+  width: 100%;
+  height: fit-content;
+  /* background-image: url('../../assets/companiesbg.svg'); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin: 2% 0;
+  overflow: hidden;
+}
+.char{
+  width: 88%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  color: var(--accent-color);
+  margin: 10% auto 9% auto;
+  text-align: start;
+  font-size: calc(.7rem + 0.3vw);
+  z-index: 20;
+}
+
+.char_img{
+  width: 4em;
+  height: auto;
+  object-fit: contain;
+  
+  font-size: calc(.5rem + 0.5vw);
+}
+
+  
+
+@media screen and (max-width:950px) {
+  .accountContainer{
+    width: 88%;
+    grid-template-columns: 100%;
+  }
+  .contentContainer{
+    width: 100% !important;
+  }
+
+  .titlesCard{
+    display: none;
+  }
+  .contactImageCont{
+    margin-top: 0;
+  }
+  .char{
+    width: 88%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: var(--accent-color);
+    margin: 10% auto 9% auto;
+    text-align: start;
+    font-size: calc(.7rem + 0.3vw);
+    z-index: 20;
+}
+}
+@media screen and (max-width:750px) {
+  .header{
+    position: relative;
+    width: 88%;
+    margin: 3em auto;
+    text-align: center;
+    justify-content: center;
+  }
+  .imageContent {
+    width: fit-content; 
+    left: 0;
+    right: 0;
+    margin: auto;
+    transform: none; 
+  }
+  
+  .header{
+    margin-bottom: 1em;
+  }
+
+  
+}

@@ -21,7 +21,7 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  font-family: Montserrat;
+  font-family: var(--font-family);
 }
 
 .header{
@@ -349,7 +349,7 @@ background-color: #A8ACAD;
   display: flex;
   flex-direction: column;
   text-align: start;
-  font-family: montserrat;
+  font-family: var(--font-family);
   color: var(--accent-color);
   justify-content: center;
 }

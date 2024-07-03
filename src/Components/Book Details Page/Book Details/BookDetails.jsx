@@ -73,13 +73,13 @@ const BookDetails = () => {
 
   const constantValue = activeSlideIndex + 1;
   useEffect(() => {
-    bookData.articleimage?.forEach((item) => {
+    selectedBook.articleimage?.forEach((item) => {
       if (item.id === constantValue) {
         setactiveId(item.id); 
       }
     });
   }, [constantValue]);
-
+console.log(constantValue)
 
   const [swiper, setSwiper] = useState(null);
 
@@ -143,9 +143,9 @@ swiper.slideTo(index)};
         <div className={classes.bookCoversContainer}>
           {selectedBook.articleimage?.map((props, index) => {
                         return (
-                          <div className={classes.bookCovers} onClick={() => slideTo(index)}>
+                          <div className={classes.bookCovers} onClick={() => slideTo(index) & console.log(activeId)}>
                             <div style={{width:'100%', margin:'auto',position:'relative'}}>
-                            <img src={props.link} className={`${activeId === props.id ? classes.bookCoverSelectedimg : classes.bookCoverimg }`} alt="Book Cover"/>
+                            <img src={props.link} className={`${constantValue === index + 1  ? classes.bookCoverSelectedimg : classes.bookCoverimg }`} alt="Book Cover"/>
                           </div></div>
                         )})} 
                         

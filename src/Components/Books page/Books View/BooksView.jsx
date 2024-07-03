@@ -347,7 +347,7 @@ const BooksView = ({carttoggle}) => {
     dispatch(resetSearchData());
     try {
       const response = await axios.get(
-        `https://api.leonardo-service.com/api/bookshop/articles?ecom_type=albouraq`
+        `https://api.leonardo-service.com/api/bookshop/articles?ecom_type=bookshop`
       );
       setArticles(response.data.data);
     } catch (error) {

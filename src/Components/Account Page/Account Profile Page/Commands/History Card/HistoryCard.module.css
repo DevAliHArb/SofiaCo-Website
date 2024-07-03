@@ -1,0 +1,181 @@
+.orderCard{
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    margin: 3em auto 0em auto;
+}
+
+.header{
+    width: 70%;
+    margin: auto;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    /* padding: 1em 2em; */
+    align-items: center;
+    background-color: #D6DADD;
+    border-radius: 4em 0 4em 0 ;
+}
+.leftHeader{
+    display: flex;
+    flex-direction: row;
+    column-gap: 1em; 
+    margin: auto 0;
+    margin-left: 2em;
+}
+
+.btn_con{
+    background-color: rgba(68, 68, 68, 0.11);
+    padding: 1em 3em;
+    border-radius: 4em 0 4em 0 ;
+    border: 2px solid #fff;
+}
+
+.btn_con button{
+    width: 90%;
+    font-size: calc(0.7rem + 0.2vw);
+    font-weight: 700;
+}
+
+.content{
+    width: 70%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    margin-top: 1em;
+}
+
+.optionbtns_con{
+    display: flex;
+    flex-direction: column;
+    row-gap: .5em;
+    margin: auto 0;
+}
+
+.optionbtns_con button{
+    padding: .3em 0;
+    width: 100%;
+    border-radius: 2em;
+    border: 3px solid #C9C9C9;
+    color: #000;
+    background-color: transparent;
+    transition: background-color 0.5s ease, color 1s ease;
+    font-size: calc(0.7rem + 0.2vw);
+    font-weight: 600;
+}
+
+.optionbtns_con button:hover{
+    background-color: #3B84B0;
+    color: #fff;
+
+}
+
+.swiper{
+    position: relative;
+    width: 85%;
+    margin: 0 auto;
+    /* display: flex;
+    flex-direction: row; */
+    /* margin-top: 5vh; */
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.arrowDesktop{
+  display: flex ;
+}
+.breakLine{
+    display: none;
+}
+.discriptions{
+    width: 70%;
+    margin: 2em auto 1em auto;
+    border-bottom: 1px solid #C9C9C9;
+    font-size: calc(0.7rem + 0.2vw);
+    text-align: center;
+    padding-bottom: .3em;
+}
+@media screen and (max-width:950px) {
+    .breakLine{
+        display: inline;
+    }
+    .discriptions{
+        text-align: start;
+    }
+    .header{
+        width: 70%;
+        margin: auto;
+        justify-content: space-between;
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        align-items: center;
+        background-color: transparent;
+        border-radius: 0 ;
+    }
+    .leftHeader{
+        display: flex;
+        width: 90%;
+        flex-direction: row;
+        column-gap: 1em; 
+        margin: auto 0;
+        background-color: #D6DADD;
+        border-radius: 4em 0 4em 0 ;
+        padding: .5em 0em;
+        font-weight: 700;
+        text-align: center;
+        margin-left: 0;
+        font-size: calc(1.5rem + .2vw);
+    }
+    .leftHeader p{ 
+        display: flex;
+        width: fit-content;
+        margin-right: auto;
+        text-align: center;
+    }
+    
+    .btn_con{
+        display: none;
+    }
+    .content{
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        margin-top: 1em;
+        gap: 1em;
+    }
+    .optionbtns_con{
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+    
+    .optionbtns_con button{
+        padding: .3em 0.5em;
+        width: fit-content;
+        border: 3px solid #C9C9C9;
+        color: #000;
+        background-color: transparent;
+    }
+    
+    .optionbtns_con button:hover{
+        background-color: #3B84B0;
+        color: #fff;
+    
+    }
+  }
+  
+  @media screen and (max-width:400px) {
+    .header{
+        width: 81%;
+        margin-left: 8%;
+        justify-content: 0;
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        align-items: center;
+        background-color: transparent;
+        border-radius: 0 ;
+    }
+}

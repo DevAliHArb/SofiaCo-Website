@@ -203,21 +203,21 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
             flexDirection: "row",
           }}
         >
-          <div onClick={toggle} className={classes.btn}><img src={filterIcon} style={{width:"70%",margin:"0 auto -0.73em auto"}} alt="grid" onClick={() => {setListview("grid"); setpagenbroute(1)}} /></div>
-          <span className={classes.showFilter} style={{margin:'auto 0'}}>
+          <div onClick={toggle} className={classes.btn} style={{background:'var(--secondary-color)', margin:'0 auto 0 0'}}><img src={filterIcon} style={{width:"70%",margin:"0 auto -0.73em auto"}} alt="grid" onClick={() => { setpagenbroute(1)}} /></div>
+          {/* <span className={classes.showFilter} style={{margin:'auto 0'}}>
             <p style={{margin:'auto 0'}}>
               Show
-            </p></span>
+            </p></span> */}
             <div>
-            <span className={classes.showFilter}>
+            {/* <span className={classes.showFilter}>
               <InputNumber min={1} max={100} value={recordsPerPage} controls={false} onChange={handleChange} style={{width:'3em',margin:'0 .5em',height:'2.5em',borderRadius:'.5em'}}/>
-            </span>
+            </span> */}
             <Select
                 disableUnderline
                 inputProps={{ 'aria-label': 'Without label' }}
                 value={sortBy}
                 onChange={handleSortChange}
-                style={{height:'2.2em',width:"10em",borderColor:'var(--secondary-color)',textAlign:'center',color:'var(--secondary-color)',backgroundColor:'var(--forth-color)',borderRadius:'.5em',margin:'0'}}
+                style={{height:'2.2em',width:"12em",borderColor:'var(--secondary-color)',textAlign:'center',color:'var(--secondary-color)',backgroundColor:'var(--forth-color)',borderRadius:'1em',margin:'0'}}
             > 
                 <MenuItem value="default" style={{textAlign:'center'}}>Default Sorting</MenuItem>
                     <MenuItem value="titleAZ" style={{textAlign:'center'}}>Sort A-Z </MenuItem>
@@ -229,7 +229,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
             
         </div>
       </div>
-        <div className={classes.page_control} style={{border:'none', margin:'auto'}}>
+        <div className={classes.page_control1} style={{border:'none', margin:'auto'}}>
           <div className={classes.control}>
             {/* <button onClick={prev2page}>
               <MdKeyboardDoubleArrowLeft className={classes.icon1} />
@@ -505,7 +505,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                       /><p style={{margin:'0.2em 0 0 0 '}}>{averageRate.toFixed(2)}/5</p>
                       </p>
                       </p>
-                      <p className={classes.bookRowAuthor}>{props.dc_auteur} LE : {props.dc_parution}</p>
+                      <p className={classes.bookRowAuthor}>{props.dc_auteur} LE : {props.dc_parution?.substring(0, 10)}</p>
                       <p className={classes.rateMob}>
                         <Rating
                           style={{
@@ -530,12 +530,12 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                       {favoriteData.some(
                               (book) => book._favid === props.id
                             ) ? (
-                              <div className={classes.icon_con} style={{background:'var(--forth-color)'}} 
+                              <div className={classes.icon_con}
                               onClick={(event) => {
                                 event.stopPropagation();
                                 authCtx.deleteFavorite(props.id);
                               }}>
-                                <IoHeartOutline className={classes.icon} />
+                                <FavoriteIcon className={classes.icon} style={{color:'#fff', margin:'0.25em 0'}}/>
                               </div>
                             ) : (
                               <div className={classes.icon_con} 
@@ -544,7 +544,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                                 authCtx.addToFavorite(props);
                               }}
                                     >
-                                <IoHeartOutline className={classes.icon} />
+                                <FavoriteBorderIcon className={classes.icon} style={{margin:'0.25em 0'}}/>
                               </div>
                             )}
                         <div className={classes.icon_con}  
@@ -561,13 +561,13 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                       {favoriteData.some(
                               (book) => book._favid === props.id
                             ) ? (
-                              <div className={classes.icon_con} style={{background:'var(--forth-color)'}} 
+                              <div className={classes.icon_con}  
                               onClick={(event) => {
                                 event.stopPropagation();
                                 authCtx.deleteFavorite(props.id);
                               }}>
-                                <IoHeartOutline className={classes.icon} />
-                              </div>
+                                <FavoriteIcon className={classes.icon} style={{color:'#fff', margin:'0.1em 0', width:'0.9em', height:'0.9em'}}/>
+                                </div>
                             ) : (
                               <div className={classes.icon_con} 
                               onClick={(event) => {
@@ -575,8 +575,8 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                                 authCtx.addToFavorite(props);
                               }}
                                     >
-                                <IoHeartOutline className={classes.icon} />
-                              </div>
+                                <FavoriteBorderIcon className={classes.icon} style={{margin:'0.1em 0', width:'0.9em', height:'0.9em'}}/>
+                                </div>
                             )}
                         {/* <div className={classes.icon_con}>
                           <HiOutlineBookOpen className={classes.icon} />

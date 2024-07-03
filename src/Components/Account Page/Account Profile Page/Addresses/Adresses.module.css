@@ -1,0 +1,221 @@
+
+.adressesContainer{
+    width: 100%;
+    position: relative;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+.backgroungIMG{
+    width: 100%;
+    height: fit-content;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.header{
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  justify-content: space-between;
+  margin-bottom: 2em;
+}
+
+.headtitle{
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    align-self: self-start;
+    font-family: var(--font-family);
+    font-size: calc(1.2rem + 0.3vw);
+    letter-spacing: 0.01rem;
+    text-align: center;
+    color: var(--forth-color);
+  }
+
+.addBtn{
+    width: fit-content;
+    height: fit-content;
+    border: none;
+    padding: .9em 3em;
+    background-color: var(--forth-color);
+    color: #fff !important;
+    transition: background-color 0.5s ease, color 1s ease;
+    font-size: calc(.7rem + 0.3vw);
+    border-radius: .7em;
+    cursor: pointer;
+}
+
+.addBtn:hover{
+    background-color: var(--accent-color) !important;
+
+}
+
+.adressCardContainer{
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}
+
+.adressCard{
+    width: 100%;
+    position: relative;
+    display: flex;
+    height: fit-content;
+    justify-content: space-between;
+    flex-direction: column;
+    border-radius: 1em;
+    background-color: var(--secondary-color);
+    overflow: hidden;
+    color: var(--accent-color);
+    cursor: pointer;
+}
+
+.adressCardSelected{
+    width: 100%;
+    position: relative;
+    display: flex;
+    height: fit-content;
+    justify-content: space-between;
+    flex-direction: column;
+    border-radius: 1em;
+    color: var(--secondary-color);
+    background-color: var(--accent-color);
+    box-shadow: 0 15px 15px -15px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.contantContainer{
+    width: 85%;
+    margin: 0 auto;
+    padding: 1em 0;
+    height: fit-content;
+    font-family: var(--font-family);
+    text-align: start;
+    font-size: calc(0.9rem + 0.3vw);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.contant{
+    max-width: 65%;
+    margin: 0 ;
+    text-align: start;
+    display: flex;
+    flex-direction: column;
+}
+
+.bottomCardContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 0.2em 0.5em;
+    background-color: rgba(0, 0, 0, 0.72);
+    color: #fff;
+    justify-content: space-between;
+}
+
+.cancleBtn{
+    position: absolute;
+    width: 2em;
+    height: 2em;
+    top: 1%;
+    right: 1%;
+}
+
+.label{
+    width: 4em;
+    padding-right: .5em;
+}
+
+.inputsContainer{
+    width: 100%;
+    display: grid;
+    grid-template-columns:  48.5% 48.5%;
+    column-gap: 3%;
+}
+.closebtn{
+    display: none;
+    position: absolute;
+    top: -23px;
+    right: -23px;
+    color: #111;
+}
+.addtocart{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    margin: auto 0;
+    font-size: calc(.8rem + .3vw);
+}
+.deleteBtn{
+    width: 3em;
+    height: 3em;
+    background-color: var(--forth-color);
+    color: #DED8CC;
+    border-radius: .5em;
+    text-align: center;
+    border: none;
+    font-size: calc(.6rem + .2vw);
+    cursor: pointer;
+    transition: background-color 0.5s ease, color 1s ease;
+    }
+    
+    .deleteBtn:hover{
+        background-color: var(--accent-color) !important;
+    }
+    .editBtn{
+        width: fit-content;
+        height: fit-content;
+        padding-top: .4em;
+        font-weight: 500;
+        font-size: calc(.9rem + .3vw);
+        background-color: transparent ;
+        color: var(--forth-color);;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.5s ease, color 1s ease;
+        }
+        
+        .editBtn:hover{
+            color: var(--accent-color) ;
+        }
+        .inputt{
+            height: 3em;
+            background-color: var(--secondary-color);
+            border: none;
+        }
+
+@media screen and (max-width:950px) {
+    
+    .inputsContainer{
+        display: flex;
+        flex-direction: column;
+        column-gap: 3%;
+    }
+}
+@media screen and (max-width:700px) {
+    .addtocart{
+        display: flex;
+        flex-wrap: wrap;
+        gap: .5em;
+        margin: 0 0 auto 0;
+    }
+}
+
+@media screen and (max-width:600px) {
+    
+    .inputt{
+        height: 2.3em;
+        background-color: var(--secondary-color);
+        border: none;
+    }
+}

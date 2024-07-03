@@ -8,7 +8,9 @@ const BooksPage = ({carttoggle}) => {
     <div style={{background:'#fff'}}>
       <OurSelectionBanner />
       <BooksView carttoggle={carttoggle}/>
+      {/* <div style={{marginTop:'-4em'}}> */}
       <Deals />
+      {/* </div> */}
     </div>
   )
 }

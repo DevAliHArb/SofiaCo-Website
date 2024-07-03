@@ -103,7 +103,7 @@
     margin: 0 auto;
     display: flex;
     align-items: center;
-    font-family: montserrat;
+    font-family: var(--font-family);
     justify-content: center;
     font-size: calc(0.7rem + 0.2vw);
   }

@@ -112,7 +112,7 @@
 
 .videoDetails {
     /* flex: 1; */
-    font-family: Montserrat;
+    font-family: var(--font-family);
     color: #fff;
     font-size: calc(0.5rem + 0.2vw);
   }

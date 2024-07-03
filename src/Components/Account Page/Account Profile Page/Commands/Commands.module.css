@@ -1,0 +1,49 @@
+
+.commandsContainer{
+    width: 100%;
+    position: relative;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.backgroungIMG{
+    width: 100%;
+    height: fit-content;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.header{
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+  text-align: start;
+  justify-content: center;
+}
+
+.headtitle{
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  align-self: self-start;
+  font-family: Metropolis;
+  font-size: calc(01.3rem + 0.2vw);
+  letter-spacing: 0.01rem;
+  text-align: center;
+  color: #999999;
+}
+
+.border{
+  position: relative;
+  width: 40%;
+  margin: 0 auto;
+  height: fit-content;
+  justify-content: center;
+  background-color: #0085B0;
+  border: 3px #0085B0 solid;
+  border-radius: 10px;
+  align-self: center;
+}

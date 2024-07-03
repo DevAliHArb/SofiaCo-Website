@@ -2,11 +2,11 @@
   position: relative;
   width: 100%;
   max-width: 1900px;
-  margin: 0 auto;
+  margin: 1em auto 0 auto;
   height: fit-content;
+  padding: 0;
   background-color: var(--accent-color);
   z-index: 1;
-  overflow: hidden;
 }
 
 .imgabs {
@@ -32,6 +32,7 @@
 .content {
   width: 100%;
   margin: 0 auto;
+  padding: 0;
 }
 
 
