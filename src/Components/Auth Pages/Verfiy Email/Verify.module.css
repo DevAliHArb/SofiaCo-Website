@@ -95,6 +95,7 @@
     box-shadow: none;
     cursor: pointer;
     border: none;
+    font-family: var(--font-family);
   }
   
   .logInButton:hover{
@@ -142,13 +143,13 @@
 
 @media screen and (max-width:950px) {
     .back{
-        top: 5em;
+        top: 1em;
         left: 3em;
     }
     
 .logo_con img{
-    width: 90%;
-    height: 90%;
+    width: 80%;
+    height: 80%;
 }
 
 .auth_con{
@@ -160,7 +161,18 @@
 
 @media screen and (max-width:650px) {
     .back{
-        top: 5em;
         left: 1em;
+    }
+
+    .auth_con{
+        justify-content: flex-start;
+        height: fit-content;
+        padding-top: 40%;
+    }
+
+    .auth_bg{
+        width: 110%;
+        height: 90%;
+        transform: rotate(-10deg);
     }
 }
