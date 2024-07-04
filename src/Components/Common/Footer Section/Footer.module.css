@@ -13,6 +13,7 @@
   position: absolute;
   bottom: -1.5em;
   left: 0em;
+  bottom: 0;
   z-index: -1;
 }
 
@@ -26,8 +27,9 @@
   display: none;
   position: absolute;
   width: 100%;
-  top: -5em;
-  left: -5em;
+  top: -7em;
+  left: -1.5em;
+  bottom: 0;
   z-index: -1;
 }
 .content {
@@ -39,7 +41,8 @@
 
 .footer_logo {
   width: 15%;
-margin: 2em auto ;
+margin: 1em auto ;
+margin-left: -1.5em;
 }
 
 .main {

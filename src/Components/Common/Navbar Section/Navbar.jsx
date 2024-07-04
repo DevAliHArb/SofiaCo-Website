@@ -296,11 +296,11 @@ const Navbar = (props) => {
               <div className={classes.icons}>
                 <div style={{position:'relative'}}>
                 <MdFavoriteBorder className={classes.icon}  onClick={()=>navigate(`/favorites`)}/>
-                {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{favoriteData?.length}</span>}
+                {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.1em'}}>{favoriteData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
                 <IoCartOutline className={classes.icon} onClick={()=>props.carttoggle()}/>
-                {productData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{productData?.length}</span>}
+                {productData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.1em'}}>{productData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
                 
@@ -505,11 +505,11 @@ const Navbar = (props) => {
               <div className={classes.icons}>
                 <div style={{position:'relative'}}>
                 <MdFavoriteBorder className={classes.icon}  onClick={()=>navigate(`/favorites`)}/>
-                {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{favoriteData?.length}</span>}
+                {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.1em'}}>{favoriteData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
                 <IoCartOutline className={classes.icon} onClick={()=>navigate(`/cart`)}/>
-                {productData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{productData?.length}</span>}
+                {productData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.1em'}}>{productData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
                 <Box sx={{ flexGrow: 0 }}>

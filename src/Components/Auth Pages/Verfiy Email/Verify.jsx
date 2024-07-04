@@ -20,7 +20,7 @@ const Verify = () => {
   return (
     <div className={classes.auth_con}>
         <div className={classes.header}>
-            <div className={classes.back} onClick={()=>navigate(`/`)}><MdArrowBackIosNew style={{width:'1em', height:'1em', margin:'auto 0.5em auto 0', color:'var(--secondary-color)'}}/><p>Back</p></div>
+            <div className={classes.back} onClick={()=>navigate(`/login`)}><MdArrowBackIosNew style={{width:'1em', height:'1em', margin:'auto 0.5em auto 0', color:'var(--secondary-color)'}}/><p>Back</p></div>
             <div className={classes.logo_con}>
                 <img src={logo} alt='logo' />
             </div>
