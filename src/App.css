@@ -11,6 +11,20 @@
   margin: 0 auto;
   max-width: 1900px;
 }
+
+.App1 {
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  
+  background-image: url(./assets/accountbg.svg);
+  background-repeat: no-repeat;
+  background-position: right top -10em;
+  background-size: contain;
+  margin: 0 auto;
+  max-width: 1900px;
+}
 :root {
   --primary-color: #E97704; 
   --secondary-color: #212A53; 
@@ -27,6 +41,17 @@
 
 .swiper-pagination {
   margin-left: -20%; /* Move left by 20px */
+}
+.ant-input{
+  color: var(--secondary-color) !important;
+}
+
+.ant-input::placeholder{
+  color: var(--secondary-color) !important;
+  opacity: 0.8 !important;
+}
+.ant-select-selection-placeholder{
+  color: var(--secondary-color) !important;
 }
 
 @media screen and (max-width: 950px) {

@@ -1,6 +1,7 @@
 
 .adressesContainer{
-    width: 100%;
+    width: 88%;
+    margin: 0 auto;
     position: relative;
     height: fit-content;
     display: flex;
@@ -15,53 +16,56 @@
     bottom: 0;
 }
 
-.header{
-  position: relative;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  margin: 0 auto;
-  justify-content: space-between;
-  margin-bottom: 2em;
-}
 
-.headtitle{
+.header{
     position: relative;
-    width: fit-content;
-    height: fit-content;
-    align-self: self-start;
-    font-family: var(--font-family);
-    font-size: calc(1.2rem + 0.3vw);
-    letter-spacing: 0.01rem;
-    text-align: center;
-    color: var(--forth-color);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin: 2em auto;
+    justify-content: space-between;
   }
+  
+  .headtitle{
+      position: relative;
+      width: fit-content;
+      height: fit-content;
+      font-family: var(--font-family);
+      font-size: calc(0.9rem + 0.3vw);
+      letter-spacing: 0.01rem;
+      text-align: center;
+      color: #fff;
+      margin: 0em auto 0 auto;
+      text-transform: capitalize;
+    }
 
 .addBtn{
-    width: fit-content;
-    height: fit-content;
-    border: none;
-    padding: .9em 3em;
-    background-color: var(--forth-color);
-    color: #fff !important;
-    transition: background-color 0.5s ease, color 1s ease;
-    font-size: calc(.7rem + 0.3vw);
-    border-radius: .7em;
-    cursor: pointer;
-}
-
-.addBtn:hover{
-    background-color: var(--accent-color) !important;
-
-}
+    width: 35vh;
+    max-width: 35em;
+      border: none;
+      padding: .5em 4em;
+      background-color: var(--primary-color);
+      color: #fff !important;
+      transition: all 0.5s ease, color 1s ease;
+      font-size: calc(.7rem + 0.3vw);
+      border-radius: .7em;
+      border: 2px solid transparent;
+      margin: 2em auto 3em auto;
+  }
+  
+  .addBtn:hover{
+      color: var(--primary-color) !important;
+      border: 2px solid var(--primary-color) !important;
+      background-color: #fff;
+  }
 
 .adressCardContainer{
     width: 100%;
     margin: 0 auto;
     position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 2em;
+    display: grid;
+    grid-template-columns: repeat(3, 31%);
+    justify-content: space-between;
 }
 
 .adressCard{
@@ -71,11 +75,12 @@
     height: fit-content;
     justify-content: space-between;
     flex-direction: column;
-    border-radius: 1em;
+    border-radius: 0.5em;
     background-color: var(--secondary-color);
     overflow: hidden;
     color: var(--accent-color);
     cursor: pointer;
+    margin-bottom: 1em;
 }
 
 .adressCardSelected{
@@ -85,11 +90,12 @@
     height: fit-content;
     justify-content: space-between;
     flex-direction: column;
-    border-radius: 1em;
-    color: var(--secondary-color);
-    background-color: var(--accent-color);
-    box-shadow: 0 15px 15px -15px rgba(0, 0, 0, 0.5);
+    border-radius: .5em;
+    color: #fff;
+    background-color: var(--primary-color);
+    /* box-shadow: 0 15px 15px -15px rgba(0, 0, 0, 0.5); */
     cursor: pointer;
+    margin-bottom: 1em;
 }
 
 .contantContainer{
@@ -113,6 +119,15 @@
     flex-direction: column;
 }
 
+.contant p{
+    position: relative;
+    font-size: calc(0.7rem + 0.3vw);
+    color: #fff;
+    font-family: var(--font-family);
+    font-weight: 400;
+    line-height: normal;
+}
+
 .bottomCardContainer{
     width: 100%;
     display: flex;
@@ -122,14 +137,56 @@
     color: #fff;
     justify-content: space-between;
 }
+.addAddBtn{
+    width: 25vh;
+    max-width: 35em;
+      border: none;
+      padding: .5em 4em;
+      background-color: var(--primary-color);
+      color: #fff !important;
+      transition: all 0.5s ease, color 1s ease;
+      font-size: calc(.7rem + 0.3vw);
+      border-radius: .7em;
+      border: 2px solid transparent;
+  }
+  
+  .addAddBtn:hover{
+      color: var(--primary-color) !important;
+      border: 2px solid var(--primary-color) !important;
+  }
 
-.cancleBtn{
-    position: absolute;
-    width: 2em;
-    height: 2em;
-    top: 1%;
-    right: 1%;
-}
+.cancel{
+    width: 25vh;
+    max-width: 35em;
+    border: none;
+    padding: .5em 4em;
+    background-color: transparent;
+    color: #fff !important;
+    transition: background-color 0.5s ease, color 1s ease;
+    font-size: calc(.7rem + 0.3vw);
+    border-radius: .7em;
+    border: 2px solid #fff;
+  }
+  
+  .cancel:hover{
+    color: var(--secondary-color) !important;
+    border: 2px solid var(--secondary-color) !important;
+  }
+  
+  
+  .cancelmob{
+    width: 35vh;
+    max-width: 35em;
+    border: none;
+    display: none;
+    padding: .5em 4em;
+    background-color: transparent;
+    color: #fff !important;
+    transition: background-color 0.5s ease, color 1s ease;
+    font-size: calc(.7rem + 0.3vw);
+    border-radius: .7em;
+    border: 2px solid #fff;
+  }
 
 .label{
     width: 4em;
@@ -151,26 +208,26 @@
 }
 .addtocart{
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 1em;
-    margin: auto 0;
+    margin:  0;
     font-size: calc(.8rem + .3vw);
 }
 .deleteBtn{
     width: 3em;
     height: 3em;
-    background-color: var(--forth-color);
+    background-color: var(--primary-color);
     color: #DED8CC;
     border-radius: .5em;
     text-align: center;
     border: none;
     font-size: calc(.6rem + .2vw);
     cursor: pointer;
-    transition: background-color 0.5s ease, color 1s ease;
+    transition: all 0.5s ease, color 1s ease;
     }
     
     .deleteBtn:hover{
-        background-color: var(--accent-color) !important;
+        transform: scale(1.2);
     }
     .editBtn{
         width: fit-content;
@@ -179,18 +236,19 @@
         font-weight: 500;
         font-size: calc(.9rem + .3vw);
         background-color: transparent ;
-        color: var(--forth-color);;
+        color: #fff;
         border: none;
         cursor: pointer;
-        transition: background-color 0.5s ease, color 1s ease;
+        transition: all 0.5s ease, color 1s ease;
         }
         
         .editBtn:hover{
-            color: var(--accent-color) ;
+            transform: scale(1.2);
         }
         .inputt{
             height: 3em;
-            background-color: var(--secondary-color);
+            background-color: #fff;
+            color: var(--secondary-color);
             border: none;
         }
 
@@ -201,6 +259,19 @@
         flex-direction: column;
         column-gap: 3%;
     }
+    .adressCardContainer{
+        grid-template-columns: repeat(2, 48%);
+    }
+    
+  .cancel {
+    width: 100%;
+    display: none;
+  }
+  .cancelmob {
+    width: 100%;
+    display: flex;
+    margin-top: 1em;
+  }
 }
 @media screen and (max-width:700px) {
     .addtocart{
@@ -208,6 +279,9 @@
         flex-wrap: wrap;
         gap: .5em;
         margin: 0 0 auto 0;
+    }
+    .adressCardContainer{
+        grid-template-columns: 1fr;
     }
 }
 

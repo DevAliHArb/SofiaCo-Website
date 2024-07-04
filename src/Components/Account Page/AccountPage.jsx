@@ -7,6 +7,8 @@ import Adresses from './Account Profile Page/Addresses/Adresses';
 import Payment from './Account Profile Page/Payment/Payment';
 import Coupons from './Account Profile Page/Coupons/Coupons';
 import { useSelector } from 'react-redux';
+// import Commands from './Account Profile Page/Commands/Commands';
+import data from '../../Data.json'
 
 
 const AccountPage = () => {
@@ -14,6 +16,9 @@ const AccountPage = () => {
     const { pageId } = useParams();
     const location = useLocation();
     const userInfo = useSelector((state) => state.products.userInfo);
+    const language = useSelector(
+      (state) => state.products.selectedLanguage[0].Language
+    );
     
 
     useEffect(() => {
@@ -36,17 +41,20 @@ const AccountPage = () => {
   return (
     <div className={classes.contactUsContainer}>
       <div className={classes.accountContainer}>
+        <h1>{data.AccountProfilePage.title[language]}</h1>
         <div className={classes.titlesCard} id='fomponent'>
-        <h2 onClick={()=>navigate(`/account/profile`)} style={{color: pageId === 'profile' ? 'var(--forth-color)' : '#fff',fontWeight: pageId === 'profile' ? '700' : '500'}}>My WishList</h2>
-        <h2 onClick={()=>navigate(`/account/addresses`)} style={{color: pageId === 'addresses' ? 'var(--forth-color)' : '#fff',fontWeight: pageId === 'addresses' ? '700' : '500'}}>My WishList</h2>
-        <h2 onClick={()=>navigate(`/account/payments`)} style={{color: pageId === 'payments' ? 'var(--forth-color)' : '#fff',fontWeight: pageId === 'payments' ? '700' : '500'}}>My WishList</h2>
+        <button onClick={()=>navigate(`/account/profile`)} style={{background: pageId === 'profile' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.AccountDetails.title[language]}</button>
+        <button onClick={()=>navigate(`/account/addresses`)} style={{background: pageId === 'addresses' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.Adresses.title[language]}</button>
+        <button onClick={()=>navigate(`/account/payments`)} style={{background: pageId === 'payments' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.Payment.title[language]}</button>
 
-            <h2 onClick={()=>navigate(`/account/order-tracking`)} style={{color: pageId === 'order' ? 'var(--forth-color)' : '#fff',fontWeight: pageId === 'order' ? '700' : '500'}}>My WishList</h2>
-            <h2 onClick={()=>navigate(`/account/coupons`)} style={{color: pageId === 'coupons' ? 'var(--forth-color)' : '#fff',fontWeight: pageId === 'coupons' ? '700' : '500'}}>My Coupons</h2>
+            <button onClick={()=>navigate(`/account/order-tracking`)} style={{background: pageId === 'order' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.orders.title[language]}</button>
+            <button onClick={()=>navigate(`/account/coupons`)} style={{background: pageId === 'coupons' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.Coupons.title[language]}</button>
         </div>
         <div className={classes.contentContainer} style={  (pageId ==='wishlist' ||pageId === 'coupons')? {width:'90%' ,margin:'0 0 0 auto'}:{}}>
+        <div className={classes.auth_bg} />
             {pageId == 'profile' && <AccountDetails />}
             {pageId == 'addresses' && <Adresses />}
+            {/* {pageId == 'order' && <Commands />} */}
             {pageId == 'payments' && <Payment />}
             {pageId === 'coupons' && <Coupons/>}
         </div>

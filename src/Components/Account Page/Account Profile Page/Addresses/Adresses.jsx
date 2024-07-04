@@ -25,20 +25,22 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { AddressCountries } from "../../../Common/Constants/Data";
+import data from '../../../../Data.json'
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "80%",
+  width: "90%",
   maxWidth: 800,
-  bgcolor: "#fff",
+  bgcolor: "var(--authbg-color)",
   boxShadow: 24,
   fontSize: "calc(0.7rem + 0.2vw)",
   fontFamily: "var(--font-family)",
   overflow: "hidden",
   borderRadius: "1em",
+  padding:'1em 2em'
 };
 function generateNewId(arrayOfObjects) {
   if (arrayOfObjects.length === 0) {
@@ -67,6 +69,10 @@ const Adresses = () => {
     setFormData(addressData || {}); // Update formData with the complete address object
     setOpen(true);
   };
+  
+  const language = useSelector(
+    (state) => state.products.selectedLanguage[0].Language
+  );
   const handleClose = () => {
     setOpen(false);
   };
@@ -242,19 +248,9 @@ console.log(formData)
         <div className={classes.header}>
           <div className={classes.headtitle}>
             <h3 style={{ fontWeight: "600", marginTop: "0.2em" }}>
-              Mes Addresses
+            {data.AccountProfilePage.Adresses.subtitle[language]}
             </h3>
           </div>
-          <button
-            className={classes.addBtn}
-            onClick={() => {
-              setEditMode(false);
-              setFormData({})
-              handleOpen();
-            }}
-          >
-            + Ajouter
-          </button>
         </div>
         <div className={classes.adressCardContainer}>
           {addresseslist?.map((item, index) => (
@@ -272,18 +268,18 @@ console.log(formData)
               >
                 <div className={classes.contantContainer}>
                   <div className={classes.contant}>
-                    <p style={{ margin: ".2em 0" }}>{item.name}</p>
-                    <p style={{ margin: ".2em 0" }}>{item.company}</p>
-                    <p style={{ margin: ".2em 0" }}>
-                      {item.country}, {item.city}, {item.address}
+                    <p style={{ margin: ".1em 0" }}>{item.name}</p>
+                    <p style={{ margin: ".1em 0" }}>{item.company}</p>
+                    <p style={{ margin: ".1em 0" }}>
+                      {item.country}, {item.city}, {item.address.length > 45 ? item.address.substring(0, 45) : item.address}
                     </p>
-                    <p style={{ margin: ".2em 0" }}>{item.postalcode} </p>
-                    {item.default === 'true' && (
+                    <p style={{ margin: ".1em 0" }}>{item.postalcode} </p>
+                    {/* {item.default === 'true' && ( */}
                       <div
                         style={{
                           display: "flex",
                           flexDirection: "row",
-                          color: "var(--secondary-color)",
+                          color: '#fff',
                           marginTop: ".5em",
                         }}
                       >
@@ -291,16 +287,18 @@ console.log(formData)
                           style={{
                             width: ".7em",
                             height: ".7em",
-                            border: ".2em solid var(--secondary-color)",
-                            borderRadius: ".3em",
+                            border: item.default === 'true' ? ".2em solid var(--secondary-color)" : ".2em solid var(--primary-color)",
+                            borderRadius: "50%",
                             margin: ".3em 0",
-                            backgroundColor: "var(--forth-color)",
+                            backgroundColor: "#fff",
                             marginRight: ".3em",
                           }}
-                        />
+                        >
+                          <span style={{position:'absolute', width:'.5em', height:'0.5em', background: item.default === 'true' ? 'var(--secondary-color)' : '#fff', margin:'0.1em', borderRadius:'50%'}}></span>
+                        </p>
                         <p style={{ margin: ".2em 0" }}>Default</p>
                       </div>
-                    )}
+                    {/* )} */}
                   </div>
                   <div className={classes.addtocart}>
                     <button
@@ -312,12 +310,6 @@ console.log(formData)
                         handleOpen(item);
                         setEditaddressid(item.id);
                       }}
-                      style={{
-                        color:
-                          item.default === "true"
-                            ? "var(--secondary-color)"
-                            : "var(--forth-color)",
-                      }}
                     >
                       Edit
                     </button>
@@ -326,6 +318,9 @@ console.log(formData)
                       onClick={(e) => {
                         dispatch(deleteAddress(item.id));
                         handleDeleteAddress(item.id);
+                      }}
+                      style={{
+                        background: item.default === 'true' ? 'var(--secondary-color)': ''
                       }}
                     >
                       <img
@@ -339,6 +334,16 @@ console.log(formData)
             </div>
           ))}
         </div>
+        <button
+            className={classes.addBtn}
+            onClick={() => {
+              setEditMode(false);
+              setFormData({})
+              handleOpen();
+            }}
+          >
+            {language === 'eng' ? "+ Add a new Address" : "+ Ajouter une nouvelle Addresse"}
+          </button>
       </div>
       <Modal
         open={open}
@@ -350,16 +355,16 @@ console.log(formData)
         <Box sx={style}>
           <h4
             style={{
-              color: "var(--forth-color)",
+              color: "#fff",
               fontWeight: "600",
               fontFamily: "var(--font-family)",
               width: "100%",
               padding: "0 2em",
               textAlign: "start",
-              fontSize: "calc(.8rem + .3vw)",
+              fontSize: "calc(.9rem + .3vw)",
             }}
           >
-            Ajouter une nouvelle addresse
+            {language === 'eng' ? "Add a new address" : "Ajouter une nouvelle Addresse"}
           </h4>
           <Form
             layout="vertical"
@@ -387,14 +392,18 @@ console.log(formData)
                 label={
                   <p
                     style={{
-                      color: "var(--accent-color)",
+                      color: "#fff",
                       margin: "0",
-                      fontWeight: "500",
+                      fontWeight: "300",
                       fontFamily: "var(--font-family)",
                       fontSize: "calc(.8rem + .2vw)",
                     }}
                   >
-                    Nickname
+                    {
+                      data.AccountProfilePage.Adresses.AdresseInputTitle[
+                        language
+                      ]
+                    }
                   </p>
                 }
                 rules={[
@@ -408,6 +417,11 @@ console.log(formData)
                 <Input
                   size="large"
                   name="title"
+                    placeholder={
+                      data.AccountProfilePage.Adresses.AdresseInputTitle[
+                        language
+                      ]
+                    }
                   value={ formData?.title}
                   className={classes.inputt}
                   onChange={(e) => handleChange("title", e.target.value)}
@@ -418,14 +432,18 @@ console.log(formData)
                 label={
                   <p
                     style={{
-                      color: "var(--accent-color)",
+                      color: "#fff",
                       margin: "0",
-                      fontWeight: "500",
+                      fontWeight: "300",
                       fontFamily: "var(--font-family)",
                       fontSize: "calc(.8rem + .2vw)",
                     }}
                   >
-                    Nom / Prénom
+                    {
+                      data.AccountProfilePage.Adresses.NomInput[
+                        language
+                      ]
+                    }
                   </p>
                 }
                 rules={[
@@ -436,6 +454,11 @@ console.log(formData)
                 <Input
                   name="name"
                   size="large"
+                    placeholder={
+                      data.AccountProfilePage.Adresses.NomInput[
+                        language
+                      ]
+                    }
                   className={classes.inputt}
                   // value={formData?.name || ''}
                   onChange={(e) => handleChange("name", e.target.value)}
@@ -446,20 +469,29 @@ console.log(formData)
                 label={
                   <p
                     style={{
-                      color: "var(--accent-color)",
+                      color: "#fff",
                       margin: "0",
-                      fontWeight: "500",
+                      fontWeight: "300",
                       fontFamily: "var(--font-family)",
                       fontSize: "calc(.8rem + .2vw)",
                     }}
                   >
-                    Companie (optionel)
+                    {
+                      data.AccountProfilePage.Adresses.CompanyInput[
+                        language
+                      ]
+                    }
                   </p>
                 }
                 style={{ border: "none", borderRadius: ".5em" }}
               >
                 <Input
                   size="large"
+                    placeholder={
+                      data.AccountProfilePage.Adresses.CompanyInput[
+                        language
+                      ]
+                    }
                   name="company"
                   value={formData?.company || ''}
                   className={classes.inputt}
@@ -471,14 +503,18 @@ console.log(formData)
                 label={
                   <p
                     style={{
-                      color: "var(--accent-color)",
+                      color: "#fff",
                       margin: "0",
-                      fontWeight: "500",
+                      fontWeight: "300",
                       fontFamily: "var(--font-family)",
                       fontSize: "calc(.8rem + .2vw)",
                     }}
                   >
-                    Pays
+                    {
+                      data.AccountProfilePage.Adresses.countryInput[
+                        language
+                      ]
+                    }
                   </p>
                 }
                 rules={[
@@ -489,11 +525,11 @@ console.log(formData)
               >
                   <Select
                     name="country"
-                    // placeholder={
-                    //   data.AccountProfilePage.Adresses.countryInput[
-                    //     language
-                    //   ]
-                    // }
+                    placeholder={
+                      data.AccountProfilePage.Adresses.countryInput[
+                        language
+                      ]
+                    }
                     size="large"
                     value={formData?.country || ''}
                     style={{
@@ -518,14 +554,18 @@ console.log(formData)
               label={
                 <p
                   style={{
-                    color: "var(--accent-color)",
+                    color: "#fff",
                     margin: "0",
-                    fontWeight: "500",
+                    fontWeight: "300",
                     fontFamily: "var(--font-family)",
                     fontSize: "calc(.8rem + .2vw)",
                   }}
                 >
-                  Addresse
+                  {
+                      data.AccountProfilePage.Adresses.AdresseInput[
+                        language
+                      ]
+                    }
                 </p>
               }
               rules={[
@@ -536,7 +576,7 @@ console.log(formData)
               <Input
                 name="address"
                 size="large"
-                placeholder="Street name, apartment, etc."
+                placeholder={language === 'eng' ? "Street name, apartment, etc." : "Street name, apartment, etc._fr"}
                 className={classes.inputt}
                 value={formData?.address || ''}
                 onChange={(e) => handleChange("address", e.target.value)}
@@ -552,7 +592,7 @@ console.log(formData)
               <Input
                 size="large"
                 name="city"
-                placeholder="Ville"
+                placeholder={language === 'eng' ? "City" : "Ville"}
                 className={classes.inputt}
                 value={formData?.city || ''}
                 onChange={(e) => handleChange("city", e.target.value)}
@@ -574,35 +614,28 @@ console.log(formData)
             >
               <Input
                 name="postalcode"
-                placeholder="Code postal"
+                placeholder={language === 'eng' ? "Postal code" : "Code postal"}
                 size="large"
                 className={classes.inputt}
                 value={formData?.postalcode || ''}
                 onChange={(e) => handleChange("postalcode", e.target.value)}
               />
             </Form.Item>
-            {/* <Form.Item name="default" style={{marginTop:'-2em',marginBottom:'1em'}}>
-          <div style={{width:'100%', textAlign: 'start',color:'var(--forth-color)',cursor:'pointer',marginTop:'.5em'}}>
-            <Checkbox style={{fontFamily:'var(--font-family)',fontStyle:'normal',fontSize:'small'}}>
-            <p style={{fontFamily:'var(--font-family)',fontStyle:'normal',fontSize:'small',color:'var(--accent-color)'}}>Use as my Default Address</p>
-            </Checkbox>
-          </div>
-        </Form.Item> */}
             <div
               style={{
                 display: "flex",
                 flexWrap: "wrap",
                 width: "fit-content",
-                margin: "auto",
+                margin: "3em 0 auto auto",
                 gap: "1em",
               }}
             >
               <Button
                 size="large"
-                className={classes.Btn}
+                className={classes.cancel}
                 onClick={handleClose}
               >
-                Supprimer
+                {language === 'eng' ? "Cancel" : "Supprimer"}
               </Button>
               <Form.Item className={classes.formItem}>
                 <Button
@@ -610,15 +643,20 @@ console.log(formData)
                   htmlType="submit"
                   disabled={addloading ? true : false}
                 style={{
-                  backgroundColor: "#DED8CC",
-                  color: "var(--forth-color)",
                     cursor: addloading ? "wait" : "pointer",
                 }}
-                  className={classes.Btn}
+                  className={classes.addAddBtn}
                 >
-                  Ajouter
+                  {language === 'eng' ? "Add" : "Ajouter"}
                 </Button>
               </Form.Item>
+              <Button
+                size="large"
+                className={classes.cancelmob}
+                onClick={handleClose}
+              >
+                {language === 'eng' ? "Cancel" : "Supprimer"}
+              </Button>
             </div>
             {/* </div>  */}
           </Form>

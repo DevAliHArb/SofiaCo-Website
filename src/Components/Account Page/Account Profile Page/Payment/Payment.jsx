@@ -21,6 +21,7 @@ import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import data from '../../../../Data.json'
 
 
 const { Option } = Select;
@@ -49,18 +50,19 @@ const maskConstant = (constant) => {
     return Promise.reject(new Error('Please enter less than four numbers.'));
   };
   const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '80%',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "90%",
     maxWidth: 800,
-    bgcolor: '#fff',
+    bgcolor: "var(--authbg-color)",
     boxShadow: 24,
-    fontSize:'calc(0.7rem + 0.2vw)',
-    fontFamily:'var(--font-family)',
-    overflow:'hidden',
-    borderRadius:'1em'
+    fontSize: "calc(0.7rem + 0.2vw)",
+    fontFamily: "var(--font-family)",
+    overflow: "hidden",
+    borderRadius: "1em",
+    padding:'1em 2em'
   };
 
 function generateNewId(arrayOfObjects) {
@@ -93,12 +95,16 @@ const Payment = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {setOpen(false); form.resetFields(); setFormData({})}
+  
+  const language = useSelector(
+    (state) => state.products.selectedLanguage[0].Language
+  );
 
   // Inside the Payment component
 useEffect(() => {
   if (!open) {
-    console.log('hello')
-    console.log(formData)
+    // console.log('hello')
+    // console.log(formData)
   }
 }, [open]);
 
@@ -200,7 +206,7 @@ useEffect(() => {
       // Toast configuration
       hideProgressBar: true,
     });
-      console.error("Error submitting address:", error.response.data.error);
+      console.error("Error submitting payment:", error);
     } finally {
       setaddLoading(false)
     }
@@ -241,10 +247,9 @@ useEffect(() => {
     <>
     <div className={classes.paymentContainer}>
             <div className={classes.header}>
-              <div className={classes.headtitle}><h3 style={{fontWeight:"600",marginTop:'0.2em'}}>Mes Cartes</h3></div>
-              <button className={classes.addBtn} onClick={()=>{handleOpen();
-                                                               seteditMode(false)
-                                                               setFormData({})}}>+ Ajouter</button>
+              <div className={classes.headtitle}><h3 style={{fontWeight:"600",marginTop:'0.2em'}}>
+              {data.AccountProfilePage.Payment.subtitle[language]}
+              </h3></div>
             </div>
             <div className={classes.cardContainer}>
             {paymentslist?.map((item, index) => (
@@ -258,10 +263,29 @@ useEffect(() => {
                           <p style={{margin:'.2em'}}>{maskConstant(item.card_number)}</p>
                         </div>
                         </div>
-                        {item.default === 'true' && <div style={{display:'flex',flexDirection:'row',color:'var(--secondary-color)',marginTop:".5em"}}>
-                          <p style={{width:'.7em',height:".7em",border:'.2em solid var(--secondary-color)',borderRadius:'.3em',margin:".3em 0",backgroundColor:"var(--forth-color)",marginRight:'.3em'}}/>
-                          <p style={{margin:".2em 0"}}>Default</p>
-                        </div>}
+                        <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          color: '#fff',
+                          marginTop: ".5em",
+                        }}
+                      >
+                        <p
+                          style={{
+                            width: ".7em",
+                            height: ".7em",
+                            border: item.default === 'true' ? ".2em solid var(--secondary-color)" : ".2em solid var(--primary-color)",
+                            borderRadius: "50%",
+                            margin: ".3em 0",
+                            backgroundColor: "#fff",
+                            marginRight: ".3em",
+                          }}
+                        >
+                          <span style={{position:'absolute', width:'.5em', height:'0.5em', background: item.default === 'true' ? 'var(--secondary-color)' : '#fff', margin:'0.1em', borderRadius:'50%'}}></span>
+                        </p>
+                        <p style={{ margin: ".2em 0" }}>Default</p>
+                      </div>
                         </div>
                     <div className={classes.addtocart}>
                         {/* <button className={classes.editBtn} onClick={()=>{setFormData(item);
@@ -280,6 +304,10 @@ useEffect(() => {
                 </div>
                 ))}
             </div>
+            <button className={classes.addBtn} onClick={()=>{handleOpen();
+                                                               seteditMode(false)
+                                                               setFormData({})}}>
+            {language === 'eng' ? "+ Add a new card" : "+ Ajouter une nouvelle card"}</button>
        </div>  
        <Modal
         open={open}
@@ -289,15 +317,19 @@ useEffect(() => {
         sx={{ overflow: "hidden",border:'none' }}
       >
         <Box sx={style}>
-        <div
-        style={{ width: '100%',display: 'flex', flexDirection:'column',alignItems: 'center', margin:'0', fontFamily:'var(--font-family)' }}>
-        <div style={{width:'100%', display:"flex", flexDirection:"row", justifyContent:'space-between',margin:'0.2em 0 0 0',borderBottom:'1px solid var(--primary-color)',borderRadius:'1em'}}> 
-                <p style={{ fontWeight:'600',margin:'1em auto',fontSize:'calc(1rem + .3vw)',color:'var(--accent-color)',width:'fit-content'}}>Add New Card</p>
-                <div style={{marginRight:'5%'}}>
-                <button style={{position:'relative',border:'none',backgroundColor:'transparent',color:'var(--forth-color)',cursor:'pointer',width:'fit-content'}} onClick={handleClose}>
-                <CloseSharpIcon style={{fontSize:'2em',marginTop:'0.6em'}} />
-                </button></div>
-            </div></div>
+        <h4
+            style={{
+              color: "#fff",
+              fontWeight: "600",
+              fontFamily: "var(--font-family)",
+              width: "100%",
+              padding: "0 2em",
+              textAlign: "start",
+              fontSize: "calc(.9rem + .3vw)",
+            }}
+          >
+            {language === 'eng' ? "Add a new card" : "Ajouter une nouvelle card"}
+          </h4>
         <Form
                 layout="vertical"
                 name="nest-messages"
@@ -343,7 +375,7 @@ useEffect(() => {
                   placeholder='Card Number'
                   size="large" 
                   value={formData?.card_number}
-                        style={{ height:'2.5em',backgroundColor:'#DED8CC'}}
+                        style={{ height:'2.5em',backgroundColor:'#fff'}}
                         onChange={(e) => handleChange('card_number', e.target.value)}
                   />
         </Form.Item>
@@ -405,31 +437,39 @@ useEffect(() => {
                   placeholder='CVV'
                   size="large"
                   // value={formData?.CVV}
-                        style={{ height:'2.5em',backgroundColor:'#DED8CC'}}
+                        style={{ height:'2.5em',backgroundColor:'#fff'}}
                         onChange={(e) => handleChange('cvv', e.target.value)}
                   />
         </Form.Item>
         
         </div><div style={{display:'flex',flexWrap:'wrap' ,width:'fit-content',margin:'auto',gap:'1em'}}>
-        <Button 
-           size="large"
-           className={classes.Btn }>
-            Supprimer
-          </Button>
-        <Form.Item className={classes.formItem}>
-        <Button 
-           size="large"
-           htmlType="submit"
-           disabled = {addloading ? true : false}
-           style={{
-             cursor: addloading ? 'wait' : 'pointer',
-             backgroundColor:'#DED8CC',
-             color: 'var(--forth-color)'
-           }} 
-           className={classes.Btn }>
-            Ajouter
-          </Button>
-        </Form.Item>
+        <Button
+                size="large"
+                className={classes.cancel}
+                onClick={handleClose}
+              >
+                {language === 'eng' ? "Cancel" : "Supprimer"}
+              </Button>
+              <Form.Item className={classes.formItem}>
+                <Button
+                  size="large"
+                  htmlType="submit"
+                  disabled={addloading ? true : false}
+                style={{
+                    cursor: addloading ? "wait" : "pointer",
+                }}
+                  className={classes.addAddBtn}
+                >
+                  {language === 'eng' ? "Add" : "Ajouter"}
+                </Button>
+              </Form.Item>
+              <Button
+                size="large"
+                className={classes.cancelmob}
+                onClick={handleClose}
+              >
+                {language === 'eng' ? "Cancel" : "Supprimer"}
+              </Button>
         </div>
         </>}
       </Form>

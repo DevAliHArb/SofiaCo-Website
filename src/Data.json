@@ -74,18 +74,29 @@
     }
   },
   "AccountProfilePage": {
+    "title": { "eng": "my account", "fr": "mon compte" },
     "AccountDetails": {
-      "title": { "eng": "MY ACCOUNT", "fr": "MON COMPTE" },
+      "title": { "eng": "Profile", "fr": "Profil" },
+      "subtitle": { "eng": "Account Details", "fr": "Account Details_fr" },
       "changePassTitle": {
-        "eng": "Change Your Password",
-        "fr": "Modifier Votre Mot De Passe "
+        "eng": "Password",
+        "fr": "Password_fr "
       }
     },
     "Adresses": {
-      "title": { "eng": "My Addresses", "fr": "Mes Adresses" },
+      "title": { "eng": " Addresses", "fr": " Adresses" },
+      "subtitle": { "eng": "my addresses", "fr": "my addresses_fr" },
       "AdresseInputTitle": {
-        "eng": "Address Name",
-        "fr": "Nommez cette adresse"
+        "eng": "Nickname",
+        "fr": "Nickname_fr"
+      },
+      "CompanyInput": {
+        "eng": "Company",
+        "fr": "Companie"
+      },
+      "NomInput": {
+        "eng": "Name / First Name",
+        "fr": "Nom / Prenom"
       },
       "AdresseInput": {
         "eng": "Address",
@@ -104,11 +115,13 @@
         "fr": "Code postal"
       }
     },
-    "Commands": {
-      "title": { "eng": "MY ORDERS", "fr": "MES COMMANDES" }
+    "orders": {
+      "title": { "eng": "Order Tracking", "fr": "Order Tracking_fr" },
+      "subtitle": { "eng": "my orders", "fr": "my orders_fr" }
     },
     "Coupons": {
-      "title": { "eng": "YOUR COUPONS", "fr": "VOS COUPONS" },
+      "title": { "eng": " coupons", "fr": " coupons" },
+      "subtitle": { "eng": "my coupons", "fr": "my coupons_fr" },
       "description": {
         "eng": "Add Your Coupon",
         "fr": "Ajoutez Votre Coupon"
@@ -127,24 +140,25 @@
     },
     "Payment": {
       "title": {
-        "eng": "YOUR PAYMENT METHODS",
+        "eng": " payment Options",
         "fr": "VOS MOYENS DE PAIEMENT"
       },
-      "description1": {
-        "eng": "The data related to your card is secured and not compromised",
-        "fr": "Les données relatives à votre carte sont sécurisées et ne sont pas compromises"
+      "subtitle": { "eng": "my payments", "fr": "my payments_fr" },
+      "CardnbInput": {
+        "eng": "Card Number",
+        "fr": "Card Number_fr"
       },
-      "description2": {
-        "eng": "The company complies with the Payment Card Industry Security Standard (PCI DSS) when processing card data.",
-        "fr": "La société respecte la Norme de sécurité de l’industrie des cartes de paiement (PCI DSS) lors du traitement des données de cartes."
+      "MonthInput": {
+        "eng": "Expiry Month",
+        "fr": "Expiry Month_fr"
       },
-      "description3": {
-        "eng": "All data is encrypted",
-        "fr": "Toutes les données sont cryptées"
+      "YearInput": {
+        "eng": "Expiry Year",
+        "fr": "Expiry Year_fr"
       },
-      "description4": {
-        "eng": "The company never sells your card data",
-        "fr": "La société ne vend jamais les données relatives à votre carte"
+      "CvvInput": {
+        "eng": "CVV",
+        "fr": "CVV"
       }
     }
   },

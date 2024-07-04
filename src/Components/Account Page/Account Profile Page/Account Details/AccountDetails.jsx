@@ -10,11 +10,9 @@ import { FcEditImage } from "react-icons/fc";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
 import { useNavigate } from "react-router-dom";
-import CloseSharpIcon from "@mui/icons-material/CloseSharp";
 import axios from "axios";
+import data from '../../../../Data.json'
 
 const style = {
   position: "absolute",
@@ -46,6 +44,9 @@ const AccountDetails = () => {
   const [passform] = Form.useForm();
   const fileInputRef = useRef(null);
   const [loading, setLoading] = useState(false);
+  const language = useSelector(
+    (state) => state.products.selectedLanguage[0].Language
+  );
 
   const getToken = () => {
     return localStorage.getItem("token");
@@ -261,71 +262,10 @@ const AccountDetails = () => {
       <div className={classes.AccountDetailsContainer}>
         <div className={classes.header}>
           <div className={classes.headtitle}>
-            <h3 style={{ fontWeight: "600", marginTop: "0.2em" }}>
-              MON Profile
+            <h3>
+             {data.AccountProfilePage.AccountDetails.subtitle[language]}
             </h3>
           </div>
-        </div>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={ChangeImageHandler}
-          ref={fileInputRef}
-          style={{ display: "none" }}
-        />
-        <div className={classes.image_con} onClick={handleImageClick}>
-          <div className={classes.hover}>
-            <FcEditImage
-              fontSize="large"
-              color="primary"
-              style={{
-                position: "relative",
-                margin: "25% 25%",
-                width: "50%",
-                height: "50%",
-                color: "#fff",
-                textAlign: "center",
-              }}
-            />
-          </div>
-          {userInfo.image !== 'user.png' ? (
-            <>
-              {changedimage !== null ? (
-                <img
-                  src={URL.createObjectURL(changedimage)}
-                  alt={userInfo.first_name}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    borderRadius: "50%",
-                  }}
-                />
-              ) : (
-                <img
-                  src={`https://api.leonardo-service.com/img/${userInfo.image}`}
-                  alt={userInfo.first_name}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    borderRadius: "50%",
-                  }}
-                />
-              )}
-            </>
-          ) : (
-            <img
-              src={Userimage}
-              alt=""
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                borderRadius: "50%",
-              }}
-            />
-          )}
         </div>
         <Form
           layout="vertical"
@@ -333,6 +273,7 @@ const AccountDetails = () => {
           form={form}
           initialValues={userInfo}
           onFinish={handleEditUser}
+          disabled={modelOpen}
           style={{
             width: "100%",
             margin: "0 auto",
@@ -340,24 +281,27 @@ const AccountDetails = () => {
             textAlign: "center",
             justifyItems: "center",
             marginBottom: "1em",
+            opacity: modelOpen ? '0.5' : '1'
           }}
         >
           <div className={classes.inputsContainer}>
             <Form.Item
+              name="company_name"
+              rules={[
+                { required: true, message: 'Please input your company name!' }
+              ]}
+              style={{ border: "none", borderRadius: ".5em" }}
+            >
+              <Input
+                size="large"
+                name="company_name"
+                placeholder= {language === "eng" ? "Company name" : "Companie nom"}
+                style={{ height: "3em", backgroundColor: "#fff" }}
+                onChange={handleChange}
+              />
+            </Form.Item>
+            <Form.Item
               name="first_name"
-              label={
-                <p
-                  style={{
-                    color: "var(--accent-color)",
-                    margin: "0",
-                    fontWeight: "500",
-                    fontFamily: "var(--font-family)",
-                    fontSize: "calc(.8rem + .2vw)",
-                  }}
-                >
-                  PréNom
-                </p>
-              }
               rules={[
                 { required: true, message: 'Please input your first name!' },
                 { max: 16, message: 'First name must be less than 17 characters!' }
@@ -367,26 +311,13 @@ const AccountDetails = () => {
               <Input
                 size="large"
                 name="first_name"
-                placeholder="Nom"
-                style={{ height: "3em", backgroundColor: "#DED8CC" }}
+                placeholder= {language === "eng" ? "First name" : "Prenom"}
+                style={{ height: "3em", backgroundColor: "#fff" }}
                 onChange={handleChange}
               />
             </Form.Item>
             <Form.Item
               name="last_name"
-              label={
-                <p
-                  style={{
-                    color: "var(--accent-color)",
-                    margin: "0",
-                    fontWeight: "500",
-                    fontFamily: "var(--font-family)",
-                    fontSize: "calc(.8rem + .2vw)",
-                  }}
-                >
-                  Nom
-                </p>
-              }
               rules={[{ required: true, message: 'Please input your last_name!' },
                 { max: 16, message: 'First name must be less than 17 characters!' }]}
               style={{ border: "none", borderRadius: ".5em" }}
@@ -394,26 +325,43 @@ const AccountDetails = () => {
               <Input
                 name="last_name"
                 size="large"
-                placeholder="Prénom"
-                style={{ height: "3em", backgroundColor: "#DED8CC" }}
+                placeholder= {language === "eng" ? "Last name" : "Nom"}
+                style={{ height: "3em", backgroundColor: "#fff" }}
+                onChange={handleChange}
+              />
+            </Form.Item>
+            <Form.Item
+              name="company_address"
+              rules={[
+                { required: true, message: 'Please input your company address!' }
+              ]}
+              style={{ border: "none", borderRadius: ".5em" }}
+            >
+              <Input
+                size="large"
+                name="company_address"
+                placeholder= {language === "eng" ? "Company address" : "Company address_fr"}
+                style={{ height: "3em", backgroundColor: "#fff" }}
+                onChange={handleChange}
+              />
+            </Form.Item>
+            <Form.Item
+              name="company_city"
+              rules={[
+                { required: true, message: 'Please input your company city!' }
+              ]}
+              style={{ border: "none", borderRadius: ".5em" }}
+            >
+              <Input
+                size="large"
+                name="company_city"
+                placeholder= {language === "eng" ? "Company city" : "Company city_fr"}
+                style={{ height: "3em", backgroundColor: "#fff" }}
                 onChange={handleChange}
               />
             </Form.Item>
             <Form.Item
               name="phone"
-              label={
-                <p
-                  style={{
-                    color: "var(--accent-color)",
-                    margin: "0",
-                    fontWeight: "500",
-                    fontFamily: "var(--font-family)",
-                    fontSize: "calc(.8rem + .2vw)",
-                  }}
-                >
-                  Numéro de Téléphone
-                </p>
-              }
               rules={[
                 {
                     pattern: /^\d+$/,
@@ -433,26 +381,13 @@ const AccountDetails = () => {
               <Input
                 name="phone"
                 size="large"
-                placeholder="Téléphone"
-                style={{ height: "3em", backgroundColor: "#DED8CC" }}
+                placeholder= {language === "eng" ? "Telephone" : "Téléphone"}
+                style={{ height: "3em", backgroundColor: "#fff" }}
                 onChange={handleChange}
               />
             </Form.Item>
             <Form.Item
               name="email"
-              label={
-                <p
-                  style={{
-                    color: "var(--accent-color)",
-                    margin: "0",
-                    fontWeight: "500",
-                    fontFamily: "var(--font-family)",
-                    fontSize: "calc(.8rem + .2vw)",
-                  }}
-                >
-                  Courriel
-                </p>
-              }
               rules={[
                 { required: true, message: 'Please input your email!' },
                 { type: 'email', message: 'The input is not a valid email!' }
@@ -463,135 +398,72 @@ const AccountDetails = () => {
                 size="large"
                 name="email"
                 disabled
-                placeholder="Nom d’utilisateur"
-                style={{ height: "3em", backgroundColor: "#DED8CC" }}
+                placeholder= {language === "eng" ? "Email" : "Email"}
+                style={{ height: "3em", backgroundColor: "#fff" }}
                 onChange={handleChange}
               />
             </Form.Item>
-            {/* <Form.Item
-              name="password"
-              label={
-                <p
-                  style={{
-                    color: "var(--accent-color)",
-                    margin: "0",
-                    fontWeight: "500",
-                    fontFamily: "var(--font-family)",
-                    fontSize: "calc(.8rem + .2vw)",
-                  }}
-                >
-                  Password
-                </p>
-              }
+            <Form.Item
+              name="tva"
+              rules={[
+                { required: true, message: 'Please input your TVA!' }
+              ]}
               style={{ border: "none", borderRadius: ".5em" }}
             >
-              <Input.Password
-                name="password"
-                type="password"
-                placeholder="************"
-                style={{ height: "3em", backgroundColor: "#DED8CC" }}
-                onChange={handlepassChange}
+              <Input
+                size="large"
+                name="tva"
+                placeholder= {language === "eng" ? "TVA" : "TVA"}
+                style={{ height: "3em", backgroundColor: "#fff" }}
+                onChange={handleChange}
               />
-            </Form.Item> */}
+            </Form.Item>
+            <Form.Item
+              name="siret"
+              rules={[
+                { required: true, message: 'Please input your siret!' }
+              ]}
+              style={{ border: "none", borderRadius: ".5em" }}
+            >
+              <Input
+                size="large"
+                name="siret"
+                placeholder= {language === "eng" ? "Siret_en" : "Siret"}
+                style={{ height: "3em", backgroundColor: "#fff" }}
+                onChange={handleChange}
+              />
+            </Form.Item>
           </div>
-          {/* <p
-            onClick={handlemodelOpen}
-            style={{
-              color: "var(--forth-color)",
-              margin: "-.9em auto 1em 0",
-              width: "fit-content",
-              cursor: "pointer",
-              fontWeight: "500",
-              fontFamily: "var(--font-family)",
-              fontSize: "calc(.8rem + .3vw)",
-            }}
-          >
-            Change Password
-          </p> */}
           <div className={classes.btnsContainer}>
-            <Form.Item>
               <Button
                 size="large"
             onClick={handlemodelOpen}
                 className={classes.passBtn}
               >
-              Change Password
+              {language === "eng" ? "Change Password" : "Change Password_fr"}
               </Button>
-            </Form.Item>
             <Form.Item>
               <Button
                 size="large"
                 htmlType="submit"
                 className={classes.saveBtn}
-                disabled={loading ? true : false}
+                disabled={loading }
                 style={{ cursor: loading ? "wait" : "pointer" }}
               >
-                Save
+               {language === "eng" ? "Save" : "Save_fr"}
               </Button>
             </Form.Item>
+              <Button
+                size="large"
+            onClick={handlemodelOpen}
+                className={classes.passBtnmob}
+              >
+              {language === "eng" ? "Change Password" : "Change Password_fr"}
+              </Button>
           </div>
         </Form>
-      </div>
-      <Modal
-        open={modelOpen}
-        onClose={handlemodelClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        sx={{ overflow: "hidden", border: "none" }}
-      >
-        <Box sx={style}>
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              margin: "0",
-              fontFamily: "var(--font-family)",
-            }}
-          >
-            <div
-              style={{
-                width: "100%",
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                margin: "0.2em 0 0 0",
-                borderBottom: "1px solid var(--primary-color)",
-                borderRadius: "1em",
-              }}
-            >
-              <p
-                style={{
-                  fontWeight: "600",
-                  margin: "1em auto",
-                  fontSize: "calc(1rem + .3vw)",
-                  color: "var(--accent-color)",
-                  width: "fit-content",
-                }}
-              >
-                Change Password
-              </p>
-              <div style={{ marginRight: "5%" }}>
-                <button
-                  style={{
-                    position: "relative",
-                    border: "none",
-                    backgroundColor: "transparent",
-                    color: "var(--forth-color)",
-                    cursor: "pointer",
-                    width: "fit-content",
-                  }}
-                  onClick={handlemodelClose}
-                >
-                  <CloseSharpIcon
-                    style={{ fontSize: "2em", marginTop: "0.6em" }}
-                  />
-                </button>
-              </div>
-            </div>
-          </div>
-          <Form
+          { modelOpen &&
+            <Form
             layout="vertical"
             name="nest-messages"
             form={passform}
@@ -602,10 +474,10 @@ const AccountDetails = () => {
               alignItems: "center",
               textAlign: "center",
               justifyItems: "center",
-              maxHeight: "80vh",
-              padding: "2em",
+              marginBottom: "1em",
             }}
           >
+            <div className={classes.inputsContainer}>
             <Form.Item
               name="currentPassword"
               style={{ border: "none", borderRadius: ".5em" }}
@@ -613,8 +485,8 @@ const AccountDetails = () => {
               <Input.Password
                 name="currentPassword"
                 type="password"
-                placeholder="Current Password"
-                style={{ height: "3em", backgroundColor: "#DED8CC" }}
+                placeholder= {language === "eng" ? "Current Password" : "Current Password_fr"}
+                style={{ height: "3em", backgroundColor: "#fff" }}
                 onChange={handlepassChange}
               />
             </Form.Item>
@@ -626,8 +498,8 @@ const AccountDetails = () => {
               <Input.Password
                 name="newpassword"
                 type="password"
-                placeholder="New Password"
-                style={{ height: "3em", backgroundColor: "#DED8CC" }}
+                placeholder= {language === "eng" ? "New Password" : "New Password_fr"}
+                style={{ height: "3em", backgroundColor: "#fff" }}
                 onChange={handlepassChange}
               />
             </Form.Item>
@@ -639,11 +511,12 @@ const AccountDetails = () => {
               <Input.Password
                 name="confirmpassword"
                 type="password"
-                placeholder="Confirm New Password"
-                style={{ height: "3em", backgroundColor: "#DED8CC" }}
+                placeholder= {language === "eng" ? "Confirm New Password" : "Confirm New Password_fr"}
+                style={{ height: "3em", backgroundColor: "#fff" }}
                 onChange={handlepassChange}
               />
             </Form.Item>
+            </div>
             <div
               style={{
                 display: "flex",
@@ -656,33 +529,32 @@ const AccountDetails = () => {
               <Button
                 size="large"
                 onClick={handlemodelClose}
-                style={{
-                  backgroundColor: "#DED8CC",
-                  color: "var(--forth-color)",
-                  padding: ".5em 2em",
-                  fontSize: "calc(.7rem + 0.3vw)",
-                }}
+                className={classes.cancel}
               >
-                Cancel
+                {language === "eng" ? "Cancel" : "Supprimer"}
               </Button>
-              <Form.Item className={classes.formItem}>
                 <Button
                   size="large"
                   htmlType="submit"
                   className={classes.saveBtn}
-                  disabled={loading ? true : false}
+                  disabled={loading }
                   style={{
                     cursor: loading ? "wait" : "pointer",
-                    padding: ".5em 2em",
                   }}
                 >
-                  Ajouter
+                {language === "eng" ? "Add" : "Ajouter"}
                 </Button>
-              </Form.Item>
+              <Button
+                size="large"
+                onClick={handlemodelClose}
+                className={classes.cancelmob}
+              >
+                {language === "eng" ? "Cancel" : "Supprimer"}
+              </Button>
             </div>
           </Form>
-        </Box>
-      </Modal>
+          }
+      </div>
     </>
   );
 };

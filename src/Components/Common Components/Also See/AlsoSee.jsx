@@ -74,9 +74,6 @@ const AlsoSee = () => {
             <Swiper
               spaceBetween={20}
               effect={"fade"}
-              style={{
-                padding: "0 1em",
-              }}
               navigation={{
                 nextEl: `.${classes.nav_next}`,
                 prevEl: `.${classes.nav_prev}`,

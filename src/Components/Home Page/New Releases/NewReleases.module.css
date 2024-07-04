@@ -61,6 +61,7 @@
 .categories{
     display: flex;
     flex-direction: column;
+    margin-bottom: 3em;
 }
 
 .parent_cat{
@@ -203,6 +204,7 @@
     font-family: var(--font-family);
     font-size: calc(0.7rem + 0.3vw);
     font-weight: 800;
+    color: var(--secondary-color);
     letter-spacing: 0.01rem;
     text-align: center;
     transition: opacity 0.3s ease-in-out;
@@ -260,6 +262,9 @@
   }
   .title h1{
     margin-bottom: 2em;
+  }
+  .categories{
+    margin-bottom: 0.5em;
   }
 }
 

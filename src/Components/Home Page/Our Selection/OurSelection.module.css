@@ -3,7 +3,7 @@
     width: 100%;
     max-width: 1900px;
     height: fit-content;
-    margin: 5em auto;
+    margin: 5em auto 10em auto;
 }
 
 .content{
@@ -93,6 +93,7 @@
     letter-spacing: 0.01rem;
     border-radius: 0 0 1.2em 0;
     transition: all 0.3s ease-in-out;
+    cursor: pointer;
   }
   
   .card_img{
@@ -177,6 +178,7 @@
     font-size: calc(0.7rem + 0.3vw);
     font-weight: 800;
     letter-spacing: 0.01rem;
+    color: var(--secondary-color);
     text-align: center;
     transition: opacity 0.3s ease-in-out;
   }
@@ -334,20 +336,21 @@
       }
     .nav_next{
       right: 0;
-      width: 1.5em;
-      height: 1.5em;
+      width: 1.2em;
+      height: 1.2em;
     }
     .nav_prev{
       right: 3em;
-      width: 1.5em;
-      height: 1.5em;
+      width: 1.2em;
+      height: 1.2em;
     }
     .nav_nb{
-      right: 1em;
+      right: 1.15em;
       top: 0.1em;
+      font-size: medium;
     }
 
   .card_img{
-    height: 50vw;
+    height: 52vw;
   }
   }

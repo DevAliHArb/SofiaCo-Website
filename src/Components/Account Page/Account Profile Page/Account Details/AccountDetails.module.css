@@ -1,10 +1,12 @@
 
 .AccountDetailsContainer{
-    width: 100%;
+    width: 80%;
+    margin: 0 auto;
     position: relative;
     height: fit-content;
     display: flex;
     flex-direction: column;
+    margin-bottom: 3em;
 }
 
 .backgroungIMG{
@@ -22,19 +24,18 @@
   flex-direction: row;
   margin: 0 auto;
   justify-content: space-between;
-  margin-bottom: 2em;
 }
 
 .headtitle{
     position: relative;
     width: fit-content;
     height: fit-content;
-    align-self: self-start;
     font-family: var(--font-family);
-    font-size: calc(1.2rem + 0.3vw);
+    font-size: calc(0.9rem + 0.3vw);
     letter-spacing: 0.01rem;
     text-align: center;
-    color: var(--forth-color);
+    color: #fff;
+    margin: 0em auto 0 auto;
   }
   
 .image_con{
@@ -87,81 +88,160 @@
 .inputsContainer{
   width: 100%;
   display: grid;
-  grid-template-columns: 48.5% 48.5%;
-  column-gap: 3%;
+  grid-template-columns: repeat(3, 31%);
+  justify-content: space-between;
 }
 .btnsContainer{
+  position: relative;
   display: flex;
   flex-direction: row;
-  column-gap: 1em;
-  width: fit-content;
-  margin-left: auto;
+  column-gap: 2em;
+  margin: 2em auto;
+  justify-content: center;
 }
 
 .saveBtn{
-    width: 100%;
+  width: 35vh;
+  max-width: 35em;
     border: none;
     padding: .5em 4em;
-    background-color: var(--forth-color);
+    background-color: var(--primary-color);
     color: #fff !important;
-    transition: background-color 0.5s ease, color 1s ease;
+    transition: all 0.5s ease, color 1s ease;
     font-size: calc(.7rem + 0.3vw);
     border-radius: .7em;
+    border: 2px solid transparent;
 }
 
 .saveBtn:hover{
-    background-color: var(--accent-color) !important;
-
+    color: var(--primary-color) !important;
+    border: 2px solid var(--primary-color) !important;
 }
 
 
 .passBtn{
-  width: 100%;
+  width: 35vh;
+  max-width: 35em;
   border: none;
   padding: .5em 4em;
-  background-color: var(--accent-color);
+  background-color: var(--secondary-color);
   color: #fff !important;
   transition: background-color 0.5s ease, color 1s ease;
   font-size: calc(.7rem + 0.3vw);
   border-radius: .7em;
+  border: 2px solid transparent;
 }
 
 .passBtn:hover{
-  background-color: var(--forth-color) !important;
-
+  color: var(--secondary-color) !important;
+  border: 2px solid var(--secondary-color) !important;
 }
-@media screen and (max-width:950px) {
-  .emailContainer{
+
+.passBtnmob{
+  display: none;
+  width: 35vh;
+  max-width: 35em;
+  border: none;
+  padding: .5em 4em;
+  background-color: var(--secondary-color);
+  color: #fff !important;
+  transition: background-color 0.5s ease, color 1s ease;
+  font-size: calc(.7rem + 0.3vw);
+  border-radius: .7em;
+  border: 2px solid transparent;
+}
+
+.cancel{
+  width: 35vh;
+  max-width: 35em;
+  border: none;
+  padding: .5em 4em;
+  background-color: transparent;
+  color: #fff !important;
+  transition: background-color 0.5s ease, color 1s ease;
+  font-size: calc(.7rem + 0.3vw);
+  border-radius: .7em;
+  border: 2px solid #fff;
+}
+
+.cancel:hover{
+  color: var(--secondary-color) !important;
+  border: 2px solid var(--secondary-color) !important;
+}
+
+
+.cancelmob{
+  width: 35vh;
+  max-width: 35em;
+  border: none;
+  display: none;
+  padding: .5em 4em;
+  background-color: transparent;
+  color: #fff !important;
+  transition: background-color 0.5s ease, color 1s ease;
+  font-size: calc(.7rem + 0.3vw);
+  border-radius: .7em;
+  border: 2px solid #fff;
+}
+
+@media screen and (max-width: 950px) {
+  .AccountDetailsContainer {
+    margin-bottom: 0;
+  }
+  
+  .emailContainer {
     width: 100%;
-    margin-left: 0%;
+    margin-left: 0;
     display: flex;
     flex-direction: column;
   }
-  
-  .emailInput{
-    margin-top: 1em;
+
+  .saveBtn {
     width: 100%;
-    margin-left: 0%;
   }
-  
-  .googleImg{
+
+  .passBtn {
+    width: 100%;
     display: none;
   }
-  .googleImgMob{
+
+  .passBtnmob{
+    width: 100%;
+    display: flex;
+  }
+
+  .cancel {
+    width: 100%;
+    display: none;
+  }
+  .cancelmob {
+    width: 100%;
+    display: flex;
+  }
+  
+  .emailInput {
+    margin-top: 1em;
+    width: 100%;
+    margin-left: 0;
+  }
+  
+  .googleImg {
+    display: none;
+  }
+  
+  .googleImgMob {
     display: inline;
   }
-  .inputsContainer{
+  
+  .inputsContainer {
     display: flex;
     flex-direction: column;
   }
-  .btnsContainer{
+  
+  .btnsContainer {
+    display: flex;
     flex-direction: column;
     margin: 0 auto;
   }
-  .changePassBtn{
-    display: none;
-  }
-  .changePassBtnMob{
-    display: inline;
-  }
 }
+

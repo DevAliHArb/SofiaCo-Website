@@ -14,6 +14,7 @@ import axios from "axios";
 
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import data from '../../../../Data.json'
 const rows = [
   {
     coupon: "PROMO-BLACKFRIDAY%",
@@ -51,6 +52,9 @@ const Coupons = () => {
   const [loading, setLoading] = useState(true);
   const [couponsData, setCouponsData] = useState([]);
   const [form] = Form.useForm();
+  const language = useSelector(
+    (state) => state.products.selectedLanguage[0].Language
+  );
 
   const getToken = () => {
     return localStorage.getItem("token");
@@ -233,21 +237,19 @@ const Coupons = () => {
       <div className={classes.header}>
         <div className={classes.headtitle}>
           <h3 style={{ fontWeight: "600", marginTop: "0.2em" }}>
-            Mes Coupons{" "}
+          {data.AccountProfilePage.Coupons.subtitle[language]}
           </h3>
         </div>
       </div>
-      <Form form={form} onFinish={AddCoupon}>
-        <div
+      <Form form={form} onFinish={AddCoupon} 
           style={{
-            width: "100%",
+            width: "fit-content",
             display: "flex",
             flexWrap: "wrap",
             gap: "2em 1.5em",
-            margin: "1em 0 2em 0",
+            margin: "1em auto 2em auto",
             fontSize: "calc(0.7rem + 0.3vw)",
-          }}
-        >
+          }}>
           <Form.Item
             name="coupon"
             rules={[
@@ -267,10 +269,10 @@ const Coupons = () => {
               size="medium"
               prefix={
                 <HiMiniTicket
-                  style={{ color: "var(--forth-color)", fontSize: "1.5em" }}
+                  style={{ color: "var(--primary-color)", fontSize: "1.5em" }}
                 />
               }
-              placeholder="Votre Coupon ici"
+              placeholder={language === 'eng' ? "Votre Coupon ici_en" : "Votre Coupon ici"}
               onChange={(e) => setthecoupon(e.target.value)}
               style={{
                 border: "none",
@@ -290,9 +292,8 @@ const Coupons = () => {
               cursor: loading ? "wait" : "pointer",
             }}
           >
-            Ajouter Votre Coupon
+            {language === 'eng' ? "Add a new coupon" : "Ajouter Votre Coupon"}
           </Button>
-        </div>
       </Form>
       <div className={classes.cardsContainer}>
         <div className={classes.tableHead}>

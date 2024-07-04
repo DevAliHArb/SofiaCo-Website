@@ -53,7 +53,7 @@ const Services = () => {
                   <div className={classes.img_con}>
                   <img src={item.icon} alt="Icon 1" />
                   </div>
-                  <h2>
+                  <h2 style={{color: index % 2 === 0 ? "var(--primary-color)" : "var(--secondary-color)"}}>
                     {language === "eng"
                       ? item.title_en.length > 14
                         ? item.title_en.slice(0, 14) + "..."
@@ -62,7 +62,7 @@ const Services = () => {
                       ? item.title_fr.slice(0, 14) + "..."
                       : item.title_fr}
                   </h2>
-                  <p>
+                  <p style={{color: index % 2 === 0 ? "var(--primary-color)" : "var(--secondary-color)"}}>
                     {language === "eng"
                       ? item.description_en.length > 40
                         ? item.description_en.slice(0, 40) + "..."

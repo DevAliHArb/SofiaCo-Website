@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import classes from "./Navbar.module.css";
 import logo from "../../../assets/navbar/logo.svg";
+import moblogo from "../../../assets/navbar/moblogo.svg";
 import ProAccess from "../../../assets/ProAccess.png";
 import ProAccessLogo from "../../../assets/ProAccessLogo.png";
 import { Input } from "antd";
@@ -295,11 +296,11 @@ const Navbar = (props) => {
               <div className={classes.icons}>
                 <div style={{position:'relative'}}>
                 <MdFavoriteBorder className={classes.icon}  onClick={()=>navigate(`/favorites`)}/>
-                {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'50%', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{favoriteData?.length}</span>}
+                {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{favoriteData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
                 <IoCartOutline className={classes.icon} onClick={()=>props.carttoggle()}/>
-                {productData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'50%', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{productData?.length}</span>}
+                {productData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{productData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
                 
@@ -332,7 +333,7 @@ const Navbar = (props) => {
                   >
                    { userInfo?.id  ? 
                    <>
-                   <MenuItem key={1} onClick={()=>{ navigate(`/accountprofile`); handleCloseUserMenu()}} >
+                   <MenuItem key={1} onClick={()=>{ navigate(`/account/profile`); handleCloseUserMenu()}} >
                      <Typography textAlign="center">{language === 'eng' ? "Profile" : "Profil"}</Typography>
                    </MenuItem>
                    <MenuItem key={2} onClick={()=>{ navigate(`/ordertracking`); handleCloseUserMenu()}} >
@@ -504,11 +505,11 @@ const Navbar = (props) => {
               <div className={classes.icons}>
                 <div style={{position:'relative'}}>
                 <MdFavoriteBorder className={classes.icon}  onClick={()=>navigate(`/favorites`)}/>
-                {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'50%', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{favoriteData?.length}</span>}
+                {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{favoriteData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
                 <IoCartOutline className={classes.icon} onClick={()=>navigate(`/cart`)}/>
-                {productData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'50%', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{productData?.length}</span>}
+                {productData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{productData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
                 <Box sx={{ flexGrow: 0 }}>
@@ -532,19 +533,19 @@ const Navbar = (props) => {
       <div className={classes.logocontainer1}
               onClick={()=>navigate(`/`)}>
             <img
-              src={logo}
+              src={moblogo}
               alt="logodark"
-              style={{ width: "70%", margin: "auto 0", height: "auto" }}
+              style={{ width: "100%", margin: "auto 0", height: "auto" }}
             />
           </div>
           <div className={classes.icons}>
                 <div style={{position:'relative'}}>
                 <MdFavoriteBorder className={classes.icon}  onClick={()=>navigate(`/favorites`)}/>
-                {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'50%', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{favoriteData?.length}</span>}
+                {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.2em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{favoriteData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
                 <IoCartOutline className={classes.icon} onClick={()=>navigate(`/cart`)}/>
-                {productData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'50%', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{productData?.length}</span>}
+                {productData?.length !== 0  && <span style={{width:'1.3em', height:'1.2em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{productData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
                 <Box sx={{ flexGrow: 0 }}>
@@ -569,19 +570,19 @@ const Navbar = (props) => {
       <div className={classes.logocontainer1}
               onClick={()=>navigate(`/`)}>
             <img
-              src={logo}
+              src={moblogo}
               alt="logodark"
-              style={{ width: "70%", margin: "auto 0", height: "auto" }}
+              style={{ width: "100%", margin: "auto 0", height: "auto" }}
             />
           </div>
           <div className={classes.icons}>
                 <div style={{position:'relative'}}>
                 <MdFavoriteBorder className={classes.icon}  onClick={()=>navigate(`/favorites`)}/>
-                {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'50%', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{favoriteData?.length}</span>}
+                {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.2em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.1em'}}>{favoriteData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
                 <IoCartOutline className={classes.icon} onClick={()=>navigate(`/cart`)}/>
-                {productData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'50%', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{productData?.length}</span>}
+                {productData?.length !== 0  && <span style={{width:'1.3em', height:'1.2em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.1em'}}>{productData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
                 <Box sx={{ flexGrow: 0 }}>

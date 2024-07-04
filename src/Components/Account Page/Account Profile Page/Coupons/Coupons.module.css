@@ -1,5 +1,6 @@
 .coupon_con{
-  width: 100%;
+  width: 70%;
+  margin: 0 auto;
   position: relative;
   height: fit-content;
   display: flex;
@@ -7,14 +8,16 @@
   max-width: 1900px;
   margin: 0 auto;
   font-family: var(--font-family);
+  margin-bottom: 4em;
 }
+
 
 .header{
   position: relative;
   width: 100%;
   display: flex;
   flex-direction: row;
-  margin: 0 auto;
+  margin: 2em auto;
   justify-content: space-between;
 }
 
@@ -22,26 +25,27 @@
     position: relative;
     width: fit-content;
     height: fit-content;
-    align-self: self-start;
     font-family: var(--font-family);
-    font-size: calc(1.2rem + 0.3vw);
+    font-size: calc(0.9rem + 0.3vw);
     letter-spacing: 0.01rem;
     text-align: center;
-    color: var(--forth-color);
+    color: #fff;
+    margin: 0em auto 0 auto;
+    text-transform: capitalize;
   }
 
 .cardsContainer{
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 0em auto;
 }
 
 .tableHead{
   display: grid;
   padding: .5em 0;
   grid-template-columns:15% 15% 15% 10% 15% 12% 12% 5%;
-  background-color: var(--accent-color);
+  background-color: #fff;
   color: var(--secondary-color);
   border-radius: .7em;
   text-align: center;
@@ -64,18 +68,37 @@
 .browseBtn{
   width: fit-content;
   height: fit-content;
-  padding: 0.7em 3em;
+  padding: 0.6em 3em;
   border-radius: .5em;
-  background-color: var(--forth-color);  
-  color: #DED8CC;
-  border: none;
+  background-color: var(--primary-color);  
+  color: #fff;
+  border: 2px solid transparent;
   font-size: calc(0.7rem + 0.3vw);
   cursor: pointer;
   transition: background-color .6s ease, color 1s ease;
   display: flex;
 }
 .browseBtn:hover{
-  background-color: var(--accent-color);
+  background-color:#fff;
+  color: var(--primary-color) !important;
+  border: 2px solid var(--primary-color) !important;
+}
+.addAddBtn{
+  width: 25vh;
+  max-width: 35em;
+    border: none;
+    padding: .5em 4em;
+    background-color: var(--primary-color);
+    color: #fff !important;
+    transition: all 0.5s ease, color 1s ease;
+    font-size: calc(.7rem + 0.3vw);
+    border-radius: .7em;
+    border: 2px solid transparent;
+}
+
+.addAddBtn:hover{
+    color: var(--primary-color) !important;
+    border: 2px solid var(--primary-color) !important;
 }
 
 .deleteBtn{

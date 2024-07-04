@@ -25,6 +25,7 @@
 .imgabsmob {
   display: none;
   position: absolute;
+  width: 100%;
   top: -5em;
   left: -5em;
   z-index: -1;
@@ -178,5 +179,11 @@ margin: 2em auto ;
   .bottom img {
     width: 40%;
     margin: auto;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .imgabsmob{
+    left: -5em;
   }
 }

@@ -93,6 +93,7 @@
     letter-spacing: 0.01rem;
     border-radius: 0 0 1.2em 0;
     transition: all 0.3s ease-in-out;
+    cursor: pointer;
   }
   
   .card_img{
@@ -204,6 +205,7 @@
     width: 100%;
     font-family: var(--font-family);
     font-size: calc(0.7rem + 0.3vw);
+    color: var(--secondary-color);
     font-weight: 800;
     letter-spacing: 0.01rem;
     text-align: center;
