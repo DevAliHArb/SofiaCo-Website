@@ -19,12 +19,77 @@
     width: fit-content;
 }
 
+.addAddBtn{
+    width: 25vh;
+    max-width: 35em;
+      border: none;
+      padding: .5em 4em;
+      background-color: var(--primary-color);
+      color: #fff !important;
+      transition: all 0.5s ease, color 1s ease;
+      font-size: calc(.7rem + 0.3vw);
+      border-radius: .7em;
+      border: 2px solid transparent;
+  }
+  
+  .addAddBtn:hover{
+      color: var(--primary-color) !important;
+      border: 2px solid var(--primary-color) !important;
+  }
+
+.cancel{
+    width: 25vh;
+    max-width: 35em;
+    border: none;
+    padding: .5em 4em;
+    background-color: transparent;
+    color: #fff !important;
+    transition: background-color 0.5s ease, color 1s ease;
+    font-size: calc(.7rem + 0.3vw);
+    border-radius: .7em;
+    border: 2px solid #fff;
+  }
+  
+  .cancel:hover{
+    color: var(--secondary-color) !important;
+    border: 2px solid var(--secondary-color) !important;
+  }
+  
+  
+  .cancelmob{
+    width: 35vh;
+    max-width: 35em;
+    border: none;
+    display: none;
+    padding: .5em 4em;
+    background-color: transparent;
+    color: #fff !important;
+    transition: background-color 0.5s ease, color 1s ease;
+    font-size: calc(.7rem + 0.3vw);
+    border-radius: .7em;
+    border: 2px solid #fff;
+  }
+
 @media screen and (max-width:950px) {
     .inputsContainer{
         display: flex;
         flex-direction: column;
         column-gap: 3%;
     }
+    
+  .cancel {
+    width: 100%;
+    display: none;
+  }
+  .cancelmob {
+    width: 100%;
+    display: flex;
+    margin-top: 1em;
+  }
+
+  .addAddBtn{
+    width: 100%;
+  }
      
 }
 
@@ -44,3 +109,10 @@
 }
 
 
+@media screen and (max-width:600px) {
+    
+    .inputt{
+        height: 2.3em;
+        border: none;
+    }
+}

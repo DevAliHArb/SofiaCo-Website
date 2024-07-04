@@ -77,7 +77,7 @@ function App() {
   }, [path]);
 
   return (
-    <div className='App'>
+    <div className={withBG ? 'App1' : 'App'}>
       {!isAuthPages && <Navbar toggle={toggle} cartToggle={cartToggle} />}
       <CartSidebar isOpen={cartisOpen} toggle={cartToggle} />
       <SideBar isOpen={isOpen} toggle={toggle} />

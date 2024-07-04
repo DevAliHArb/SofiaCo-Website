@@ -5,8 +5,9 @@
     display: flex;
     flex-direction: column;
     max-width: 1850px;
-    margin: 0 auto 20em auto;
+    margin: 0 auto 5em auto;
     overflow: hidden;
+    z-index: 9;
   }
   
   .contactImageCont{
@@ -74,6 +75,7 @@
     height: fit-content;
     display: flex;
     flex-direction: column;
+    padding-bottom: 5em;
   }
 
   .accountContainer h1{
@@ -132,7 +134,7 @@
     padding: 3em 0 1em 0;
     overflow: hidden;
     background-color: #fff;
-    margin: 0 auto;
+    margin: 0 auto !important;
     margin-bottom: 3em;
   }
   
@@ -150,23 +152,49 @@
   /* z-index: -1; */
   transform: rotate(-10deg);
 }
-
+.titlesCard_mob{
+  display: none;
+  width: 80%;
+  margin: 0em auto 2em auto;
+}
   
+.select {
+  border: 2px solid #fff;
+  background-color: var(--primary-color);
+  border-radius: 1em !important;
+  height: 3.5em;
+  color: #fff !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1em;
+  text-transform: capitalize;
+  font-family: var(--font-family);
+}
 
+.select:focus{
+  outline: none;
+}
 @media screen and (max-width:950px) {
   .contactUsContainer{
-    margin: 0 auto 0em auto;
+    margin: 0 auto 3em auto;
   }
   .accountContainer{
     width: 88%;
     grid-template-columns: 100%;
   }
+  
   .contentContainer{
     width: 100% !important;
+    padding-top: 1em;
   }
 
   .titlesCard{
     display: none;
+  }
+
+  .titlesCard_mob{
+    display: flex;
   }
   .contactImageCont{
     margin-top: 0;

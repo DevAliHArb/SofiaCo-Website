@@ -11,6 +11,7 @@ import { FiShoppingCart } from "react-icons/fi";
 import DeleteIcon from "../../../../assets/DeleteIcon.svg";
 import { HiMiniTicket } from "react-icons/hi2";
 import axios from "axios";
+import nodata from '../../../../assets/nocoupon.svg'
 
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -54,6 +55,9 @@ const Coupons = () => {
   const [form] = Form.useForm();
   const language = useSelector(
     (state) => state.products.selectedLanguage[0].Language
+  );
+  const currency = useSelector(
+    (state) => state.products.selectedCurrency[0].currency
   );
 
   const getToken = () => {
@@ -242,34 +246,20 @@ const Coupons = () => {
         </div>
       </div>
       <Form form={form} onFinish={AddCoupon} 
-          style={{
-            width: "fit-content",
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "2em 1.5em",
-            margin: "1em auto 2em auto",
-            fontSize: "calc(0.7rem + 0.3vw)",
-          }}>
+          className={classes.form}>
           <Form.Item
             name="coupon"
             rules={[
               { required: true, message: "Please input the coupon code!" },
             ]}
-            style={{
-              border: ".15em solid var(--accent-color)",
-              borderRadius: ".7em",
-              width: "25em",
-              maxWidth: "100%",
-              margin: "0",
-              height: "fit-content",
-            }}
+            className={classes.input}
           >
             <Input
               name="Coupon"
               size="medium"
               prefix={
                 <HiMiniTicket
-                  style={{ color: "var(--primary-color)", fontSize: "1.5em" }}
+                  style={{ color: "var(--primary-color)", fontSize: "2em" }}
                 />
               }
               placeholder={language === 'eng' ? "Votre Coupon ici_en" : "Votre Coupon ici"}
@@ -292,7 +282,7 @@ const Coupons = () => {
               cursor: loading ? "wait" : "pointer",
             }}
           >
-            {language === 'eng' ? "Add a new coupon" : "Ajouter Votre Coupon"}
+            {language === 'eng' ? "+ Add a new coupon" : "+ Ajouter Votre Coupon"}
           </Button>
       </Form>
       <div className={classes.cardsContainer}>
@@ -301,7 +291,7 @@ const Coupons = () => {
           <p>Code</p>
           <p>Expiration Date</p>
           <p>Value</p>
-          <p>Type</p>
+          <p>Status</p>
         </div>
       </div>
       {loading ? (
@@ -310,16 +300,41 @@ const Coupons = () => {
         </div>
       ) : (
         <>
+          {couponsData?.length === 0 ? 
+        <div className={classes.nodata}>
+          <div className={classes.nodata_img}>
+            <img src={nodata} alt="" />
+          </div>
+          <h1>{language === 'eng' ? "No coupons found!" : "No coupons found!_fr"}</h1>
+        </div>
+          :
+          <>
           {couponsData?.map((props) => {
             return (
-              <div className={classes.tableRow}>
+              <div className={classes.tableRow} style={{background: !isCouponExpired(props.expiry) && props.active === "true" ? "var(--primary-color)" : ""}}>
                 <p>{props.title}</p>
                 <p>{props.code}</p>
                 <p>{props.expiry.substring(0, 10)}</p>
-                <p>{props.reduction}</p>
-                <p>{props.type}</p>
-                {props.active !== "true" ? (
+                <p>{props.reduction} {props.type.toLowerCase() === 'percentage' ? "%" : "€"}</p>
+                {isCouponExpired(props.expiry) ? (
                   <p>
+                    <span
+                      style={{
+                        padding: "0.5em 1em",
+                        background: "transparent",
+                        borderRadius: "1em",
+                        color: "#fff",
+                      }}
+                    >
+                      Expired
+                    </span>
+                  </p>
+                ) : (
+                  <>
+                    {
+props.active !== "true" ?
+                    
+                    <p>
                     <span
                       style={{
                         padding: "0.5em 1em",
@@ -331,24 +346,21 @@ const Coupons = () => {
                       Used
                     </span>
                   </p>
-                ) : (
-                  <p></p>
-                )}
-                {isCouponExpired(props.expiry) ? (
+                  :  
                   <p>
-                    <span
-                      style={{
-                        padding: "0.5em 1em",
-                        background: "var(--primary-color)",
-                        borderRadius: "1em",
-                        color: "#fff",
-                      }}
-                    >
-                      Expired
-                    </span>
-                  </p>
-                ) : (
-                  <p></p>
+                  <span
+                    style={{
+                      padding: "0.5em 1em",
+                      background: "var(--primary-color)",
+                      borderRadius: "1em",
+                      color: "#fff",
+                    }}
+                  >
+                    Available
+                  </span>
+                </p>
+                  }
+                  </>
                 )}
                 <button
                   className={classes.deleteBtn}
@@ -365,6 +377,8 @@ const Coupons = () => {
               </div>
             );
           })}
+        </>
+      }
         </>
       )}
     </div>

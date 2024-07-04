@@ -39,6 +39,36 @@
       text-transform: capitalize;
     }
 
+   
+.nodata{
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    row-gap: 2em;
+    margin: 1em auto;
+  }
+  
+  .nodata_img{
+    width: 15em;
+    height: 15em;
+    margin: auto;
+  }
+  
+  .nodata_img img{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    margin: auto;
+  }
+  
+  .nodata h1{
+    font-family: var(--font-family);
+    color: var(--secondary-color);
+    text-align: center;
+    margin-top: 0;
+  }
+
 .addBtn{
     width: 35vh;
     max-width: 35em;
@@ -51,6 +81,7 @@
       border-radius: .7em;
       border: 2px solid transparent;
       margin: 2em auto 3em auto;
+      cursor: pointer;
   }
   
   .addBtn:hover{
@@ -148,6 +179,7 @@
       font-size: calc(.7rem + 0.3vw);
       border-radius: .7em;
       border: 2px solid transparent;
+      cursor: pointer;
   }
   
   .addAddBtn:hover{
@@ -254,6 +286,9 @@
 
 @media screen and (max-width:950px) {
     
+    .header{
+        margin-bottom: 1em;
+    }
     .inputsContainer{
         display: flex;
         flex-direction: column;
@@ -262,6 +297,10 @@
     .adressCardContainer{
         grid-template-columns: repeat(2, 48%);
     }
+    
+.addAddBtn{
+    width: 100% !important;
+}
     
   .cancel {
     width: 100%;
@@ -289,7 +328,6 @@
     
     .inputt{
         height: 2.3em;
-        background-color: var(--secondary-color);
         border: none;
     }
 }

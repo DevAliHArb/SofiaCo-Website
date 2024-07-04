@@ -294,12 +294,12 @@ const Navbar = (props) => {
                 {language === 'eng' ? 'nos services_en' : 'nos services'}
               </p>
               <div className={classes.icons}>
-                <div style={{position:'relative'}}>
-                <MdFavoriteBorder className={classes.icon}  onClick={()=>navigate(`/favorites`)}/>
+                <div style={{position:'relative',cursor:'pointer'}} onClick={()=>navigate(`/favorites`)}>
+                <MdFavoriteBorder className={classes.icon} />
                 {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.1em'}}>{favoriteData?.length}</span>}
                 </div>
-                <div style={{position:'relative'}}>
-                <IoCartOutline className={classes.icon} onClick={()=>props.carttoggle()}/>
+                <div style={{position:'relative',cursor:'pointer'}} onClick={()=>props.cartToggle()}>
+                <IoCartOutline className={classes.icon}/>
                 {productData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.1em'}}>{productData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
@@ -503,12 +503,12 @@ const Navbar = (props) => {
                 {language === 'eng' ? 'nos services_en' : 'nos services'}
               </p>
               <div className={classes.icons}>
-                <div style={{position:'relative'}}>
-                <MdFavoriteBorder className={classes.icon}  onClick={()=>navigate(`/favorites`)}/>
+                <div style={{position:'relative', cursor:'pointer'}} onClick={()=>navigate(`/favorites`)}>
+                <MdFavoriteBorder className={classes.icon} />
                 {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.1em'}}>{favoriteData?.length}</span>}
                 </div>
-                <div style={{position:'relative'}}>
-                <IoCartOutline className={classes.icon} onClick={()=>navigate(`/cart`)}/>
+                <div style={{position:'relative', cursor:'pointer'}} onClick={()=>props.cartToggle()}>
+                <IoCartOutline className={classes.icon}/>
                 {productData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.1em'}}>{productData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
@@ -539,12 +539,12 @@ const Navbar = (props) => {
             />
           </div>
           <div className={classes.icons}>
-                <div style={{position:'relative'}}>
-                <MdFavoriteBorder className={classes.icon}  onClick={()=>navigate(`/favorites`)}/>
+                <div style={{position:'relative', cursor:'pointer'}}>
+                <MdFavoriteBorder className={classes.icon} />
                 {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.2em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{favoriteData?.length}</span>}
                 </div>
-                <div style={{position:'relative'}}>
-                <IoCartOutline className={classes.icon} onClick={()=>navigate(`/cart`)}/>
+                <div style={{position:'relative', cursor:'pointer'}} onClick={()=>props.cartToggle()}>
+                <IoCartOutline className={classes.icon}/>
                 {productData?.length !== 0  && <span style={{width:'1.3em', height:'1.2em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.05em'}}>{productData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>
@@ -576,12 +576,12 @@ const Navbar = (props) => {
             />
           </div>
           <div className={classes.icons}>
-                <div style={{position:'relative'}}>
-                <MdFavoriteBorder className={classes.icon}  onClick={()=>navigate(`/favorites`)}/>
+                <div style={{position:'relative', cursor:'pointer'}} onClick={()=>navigate(`/favorites`)}>
+                <MdFavoriteBorder className={classes.icon}  />
                 {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.2em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.1em'}}>{favoriteData?.length}</span>}
                 </div>
-                <div style={{position:'relative'}}>
-                <IoCartOutline className={classes.icon} onClick={()=>navigate(`/cart`)}/>
+                <div style={{position:'relative', cursor:'pointer'}} onClick={()=>props.cartToggle()}>
+                <IoCartOutline className={classes.icon}/>
                 {productData?.length !== 0  && <span style={{width:'1.3em', height:'1.2em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.1em'}}>{productData?.length}</span>}
                 </div>
                 <div style={{position:'relative'}}>

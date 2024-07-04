@@ -24,21 +24,23 @@ import { FiEdit } from "react-icons/fi";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import axios from "axios";
 import { AddressCountries } from "../../Common/Constants/Data";
+import data from '../../../Data.json'
 
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '80%',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "80%",
   maxWidth: 800,
-  bgcolor: '#fff',
+  bgcolor: "var(--authbg-color)",
   boxShadow: 24,
-  fontSize:'calc(0.7rem + 0.2vw)',
-  fontFamily:'var(--font-family)',
-  overflow:'hidden',
-  borderRadius:'1em'
+  fontSize: "calc(0.7rem + 0.2vw)",
+  fontFamily: "var(--font-family)",
+  overflow: "hidden",
+  borderRadius: "1em",
+  padding:'1em 2em'
 };
 
 function generateNewId(arrayOfObjects) {
@@ -63,6 +65,9 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
   const [formData, setFormData] = useState(formDataa);
   const [addloading, setaddLoading] = useState(false);
   const [form] = Form.useForm();
+  const language = useSelector(
+    (state) => state.products.selectedLanguage[0].Language
+  );
   const fetchAddresses = async () => {
     
   };
@@ -127,8 +132,22 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
         aria-describedby="modal-modal-description"
         sx={{ overflow: "hidden",border:'none' }}
       >
-        <Box sx={style}  >
-       <Form
+        
+        <Box sx={style}>
+          <h4
+            style={{
+              color: "#fff",
+              fontWeight: "600",
+              fontFamily: "var(--font-family)",
+              width: "100%",
+              padding: "0 2em",
+              textAlign: "start",
+              fontSize: "calc(.9rem + .3vw)",
+            }}
+          >
+            {language === 'eng' ? "Add a new address" : "Ajouter une nouvelle Addresse"}
+          </h4>
+          <Form
                 layout="vertical"
                 name="nest-messages"
                 form={form}
@@ -146,65 +165,135 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
                 overflowY:'scroll'
                 }}
       >
-          <h4 style={{color:'var(--forth-color)',fontWeight:'600',fontFamily:'var(--font-family)',width:'100%',textAlign:'start',fontSize:'calc(.8rem + .3vw)'}}>Ajouter une nouvelle addresse</h4>
-        <div className={classes.inputsContainer}>
-        <Form.Item
-          name="title"
-          label= {(<p style={{color:'var(--accent-color)',margin:'0',fontWeight:'500',fontFamily:'var(--font-family)',fontSize:'calc(.8rem + .2vw)'}}>
-          Nickname</p>)}
-          rules={[{ required: true, message: 'Veuillez saisir le titre de votre adresse!' }]}
-          style={{border:'none',borderRadius:'.5em'}}
-        >
-                <Input
-                size="large" 
+            <div className={classes.inputsContainer}>
+              <Form.Item
                 name="title"
-                value={formData.Nickname}
-                      style={{border:'none', height:'3em',backgroundColor:'#DED8CC'}}
-                      onChange={(e) => handleChange("title", e.target.value)}
+                label={
+                  <p
+                    style={{
+                      color: "#fff",
+                      margin: "0",
+                      fontWeight: "300",
+                      fontFamily: "var(--font-family)",
+                      fontSize: "calc(.8rem + .2vw)",
+                    }}
+                  >
+                    {
+                      data.AccountProfilePage.Adresses.AdresseInputTitle[
+                        language
+                      ]
+                    }
+                  </p>
+                }
+                rules={[
+                  {
+                    required: true,
+                    message: "Veuillez saisir le titre de votre adresse!",
+                  },
+                ]}
+                style={{ border: "none", borderRadius: ".5em" }}
+              >
+                <Input
+                  size="large"
+                  name="title"
+                    placeholder={
+                      data.AccountProfilePage.Adresses.AdresseInputTitle[
+                        language
+                      ]
+                    }
+                  value={ formData?.title}
+                  className={classes.inputt}
+                  onChange={(e) => handleChange("title", e.target.value)}
                 />
-        </Form.Item>
-        <Form.Item
-          name="name"
-          label=  {(<p style={{color:'var(--accent-color)',margin:'0',fontWeight:'500',fontFamily:'var(--font-family)',fontSize:'calc(.8rem + .2vw)'}}>
-          Nom / Prénom</p>)}
-          rules={[{ required: true, message: 'Veuillez saisir votre pays!' }]}
-          style={{border:'none',borderRadius:'.5em'}}
-        >
-                  <Input
+              </Form.Item>
+              <Form.Item
+                name="name"
+                label={
+                  <p
+                    style={{
+                      color: "#fff",
+                      margin: "0",
+                      fontWeight: "300",
+                      fontFamily: "var(--font-family)",
+                      fontSize: "calc(.8rem + .2vw)",
+                    }}
+                  >
+                    {
+                      data.AccountProfilePage.Adresses.NomInput[
+                        language
+                      ]
+                    }
+                  </p>
+                }
+                rules={[
+                  { required: true, message: "Veuillez saisir votre pays!" },
+                ]}
+                style={{ border: "none", borderRadius: ".5em" }}
+              >
+                <Input
                   name="name"
                   size="large"
-                  value={formData.name}
-                        style={{border:'none', height:'3em',backgroundColor:'#DED8CC'}}
-                        onChange={(e) => handleChange("name", e.target.value)}
-                  />
-        </Form.Item>
-        <Form.Item
-          name="company"
-          label={(<p style={{color:'var(--accent-color)',margin:'0',fontWeight:'500',fontFamily:'var(--font-family)',fontSize:'calc(.8rem + .2vw)'}}>
-          Companie (optional)</p>)}
-          style={{border:'none',borderRadius:'.5em'}}
-        >
-                <Input
-                size="large" 
-                name="company"
-                value={formData.Company}
-                      style={{border:'none', height:'3em',backgroundColor:'#DED8CC'}}
-                      onChange={(e) => handleChange("company", e.target.value)}
+                    placeholder={
+                      data.AccountProfilePage.Adresses.NomInput[
+                        language
+                      ]
+                    }
+                  className={classes.inputt}
+                  // value={formData?.name || ''}
+                  onChange={(e) => handleChange("name", e.target.value)}
                 />
-        </Form.Item>
+              </Form.Item>
+              <Form.Item
+                name="company"
+                label={
+                  <p
+                    style={{
+                      color: "#fff",
+                      margin: "0",
+                      fontWeight: "300",
+                      fontFamily: "var(--font-family)",
+                      fontSize: "calc(.8rem + .2vw)",
+                    }}
+                  >
+                    {
+                      data.AccountProfilePage.Adresses.CompanyInput[
+                        language
+                      ]
+                    }
+                  </p>
+                }
+                style={{ border: "none", borderRadius: ".5em" }}
+              >
+                <Input
+                  size="large"
+                    placeholder={
+                      data.AccountProfilePage.Adresses.CompanyInput[
+                        language
+                      ]
+                    }
+                  name="company"
+                  value={formData?.company || ''}
+                  className={classes.inputt}
+                  onChange={(e) => handleChange("company", e.target.value)}
+                />
+              </Form.Item>
               <Form.Item
                 name="country"
                 label={
                   <p
                     style={{
-                      color: "var(--accent-color)",
+                      color: "#fff",
                       margin: "0",
-                      fontWeight: "500",
+                      fontWeight: "300",
                       fontFamily: "var(--font-family)",
                       fontSize: "calc(.8rem + .2vw)",
                     }}
                   >
-                    Pays
+                    {
+                      data.AccountProfilePage.Adresses.countryInput[
+                        language
+                      ]
+                    }
                   </p>
                 }
                 rules={[
@@ -215,11 +304,11 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
               >
                   <Select
                     name="country"
-                    // placeholder={
-                    //   data.AccountProfilePage.Adresses.countryInput[
-                    //     language
-                    //   ]
-                    // }
+                    placeholder={
+                      data.AccountProfilePage.Adresses.countryInput[
+                        language
+                      ]
+                    }
                     size="large"
                     value={formData?.country || ''}
                     style={{
@@ -238,80 +327,119 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
                     ))}
                   </Select>
               </Form.Item>
-
-      </div>
-        <Form.Item
-          name="address"
-          label= {(<p style={{color:'var(--accent-color)',margin:'0',fontWeight:'500',fontFamily:'var(--font-family)',fontSize:'calc(.8rem + .2vw)'}}>
-          Addresse</p>)}
-          rules={[{ required: true, message: 'Veuillez saisir votre adresse!' }]}
-          style={{border:'none',borderRadius:'.5em',width:'100%'}}
-        >
-          <Input
-          name="address"
-          size="large" 
-          placeholder='Street name, apartment, etc.'
-          value={formData.address}
-          style={{border:'none', height:'3em',backgroundColor:'#DED8CC'}}
-          onChange={(e) => handleChange("address", e.target.value)}
-          />
-        </Form.Item>
-        <Form.Item
-          name="city"
-          rules={[{ required: true, message: 'Veuillez saisir votre ville!' }]}
-          style={{border:'none',borderRadius:'.5em'}}
-        >
-                <Input
-                size="large" 
+            </div>
+            <Form.Item
+              name="address"
+              label={
+                <p
+                  style={{
+                    color: "#fff",
+                    margin: "0",
+                    fontWeight: "300",
+                    fontFamily: "var(--font-family)",
+                    fontSize: "calc(.8rem + .2vw)",
+                  }}
+                >
+                  {
+                      data.AccountProfilePage.Adresses.AdresseInput[
+                        language
+                      ]
+                    }
+                </p>
+              }
+              rules={[
+                { required: true, message: "Veuillez saisir votre adresse!" },
+              ]}
+              style={{ border: "none", borderRadius: ".5em", width: "100%" }}
+            >
+              <Input
+                name="address"
+                size="large"
+                placeholder={language === 'eng' ? "Street name, apartment, etc." : "Street name, apartment, etc._fr"}
+                className={classes.inputt}
+                value={formData?.address || ''}
+                onChange={(e) => handleChange("address", e.target.value)}
+              />
+            </Form.Item>
+            <Form.Item
+              name="city"
+              rules={[
+                { required: true, message: "Veuillez saisir votre ville!" },
+              ]}
+              style={{ border: "none", borderRadius: ".5em" }}
+            >
+              <Input
+                size="large"
                 name="city"
-                placeholder='Ville'
-                value={formData.city}
-                      style={{border:'none', height:'3em',backgroundColor:'#DED8CC'}}
-                      onChange={(e) => handleChange("city", e.target.value)}
-                />
-        </Form.Item>
-        <Form.Item
-          name="postalcode"
-          rules={[{ required: true, message: 'Veuillez saisir votre Code postal!' }]}
-          style={{border:'none',borderRadius:'.5em',backgroundColor:'#DED8CC'}}
-        >
-                  <Input
-                  name="postalcode"
-                  placeholder='Code postal'
-                  size="large" 
-                  value={formData.postalcode}
-                        style={{border:'none', height:'3em',backgroundColor:'#DED8CC'}}
-                        onChange={(e) => handleChange("postalcode", e.target.value)}
-                  />
-        </Form.Item>
-        {/* <Form.Item style={{marginTop:'-2em',marginBottom:'1em'}}>
-          <div style={{width:'100%', textAlign: 'start',color:'var(--forth-color)',cursor:'pointer',marginTop:'.5em'}}>
-            <Checkbox style={{fontFamily:'var(--font-family)',fontStyle:'normal',fontSize:'small'}}>
-            <p style={{fontFamily:'var(--font-family)',fontStyle:'normal',fontSize:'small',color:'var(--accent-color)'}}>Use as my Default Address</p>
-            </Checkbox>
-          </div>
-        </Form.Item> */}
-        <div style={{display:'flex',flexWrap:'wrap' ,width:'fit-content',margin:"auto",gap:'1em'}}>
-        <Button 
-           size="large"
-           className={classes.Btn } onClick={handleClose}
-          style={{backgroundColor:'#DED8CC',color: 'var(--forth-color)'}}>
-            Supprimer
-          </Button>
-          <Form.Item className={classes.formItem}>
-        <Button 
-           size="large"
-           htmlType="submit" 
-           disabled = {addloading}         
-           style={{cursor: addloading ? 'wait' : 'pointer'}}
-           className={classes.Btn }>
-            Ajouter
-          </Button>
-        </Form.Item>
-        </div>
-        {/* </div>  */}
-      </Form>
-       </Box>
+                placeholder={language === 'eng' ? "City" : "Ville"}
+                className={classes.inputt}
+                value={formData?.city || ''}
+                onChange={(e) => handleChange("city", e.target.value)}
+              />
+            </Form.Item>
+            <Form.Item
+              name="postalcode"
+              rules={[
+                {
+                  required: true,
+                  message: "Veuillez saisir votre Code postal!",
+                },
+              ]}
+              style={{
+                border: "none",
+                borderRadius: ".5em",
+                backgroundColor: "#DED8CC",
+              }}
+            >
+              <Input
+                name="postalcode"
+                placeholder={language === 'eng' ? "Postal code" : "Code postal"}
+                size="large"
+                className={classes.inputt}
+                value={formData?.postalcode || ''}
+                onChange={(e) => handleChange("postalcode", e.target.value)}
+              />
+            </Form.Item>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                width: "fit-content",
+                margin: "3em 0 auto auto",
+                gap: "1em",
+              }}
+            >
+              <Button
+                size="large"
+                className={classes.cancel}
+                onClick={handleClose}
+              >
+                {language === 'eng' ? "Cancel" : "Supprimer"}
+              </Button>
+              {/* <Form.Item className={classes.formItem}> */}
+                <Button
+                  size="large"
+                  htmlType="submit"
+                  disabled={addloading ? true : false}
+                style={{
+                    cursor: addloading ? "wait" : "pointer",
+                }}
+                  className={classes.addAddBtn}
+                >
+                  {language === 'eng' ? "Add" : "Ajouter"}
+                </Button>
+              {/* </Form.Item> */}
+              <Button
+                size="large"
+                className={classes.cancelmob}
+                onClick={handleClose}
+              >
+                {language === 'eng' ? "Cancel" : "Supprimer"}
+              </Button>
+            </div>
+            {/* </div>  */}
+          </Form>
+        </Box>
       </Modal>
     </div>
   );

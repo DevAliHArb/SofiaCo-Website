@@ -26,13 +26,14 @@ import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { AddressCountries } from "../../../Common/Constants/Data";
 import data from '../../../../Data.json'
+import nodata from '../../../../assets/noaddresses.svg'
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "90%",
+  width: "80%",
   maxWidth: 800,
   bgcolor: "var(--authbg-color)",
   boxShadow: 24,
@@ -252,7 +253,15 @@ console.log(formData)
             </h3>
           </div>
         </div>
-        <div className={classes.adressCardContainer}>
+          {addresseslist?.length === 0 ? 
+          <div className={classes.nodata}>
+            <div className={classes.nodata_img}>
+              <img src={nodata} alt="" />
+            </div>
+            <h1>{language === 'eng' ? "No addresses found!" : "No addresses found!_fr"}</h1>
+          </div>
+            :
+            <div className={classes.adressCardContainer}>
           {addresseslist?.map((item, index) => (
             <div key={index} style={{ flex: "1", width: "100%" }}>
               <div
@@ -294,7 +303,7 @@ console.log(formData)
                             marginRight: ".3em",
                           }}
                         >
-                          <span style={{position:'absolute', width:'.5em', height:'0.5em', background: item.default === 'true' ? 'var(--secondary-color)' : '#fff', margin:'0.1em', borderRadius:'50%'}}></span>
+                          <span style={{position:'absolute', width:'.5em', height:'0.5em', background: item.default === 'true' ? 'var(--secondary-color)' : '#fff', margin:'0.11em', borderRadius:'50%'}}></span>
                         </p>
                         <p style={{ margin: ".2em 0" }}>Default</p>
                       </div>
@@ -333,7 +342,9 @@ console.log(formData)
               </div>
             </div>
           ))}
+          
         </div>
+          }
         <button
             className={classes.addBtn}
             onClick={() => {
@@ -637,7 +648,7 @@ console.log(formData)
               >
                 {language === 'eng' ? "Cancel" : "Supprimer"}
               </Button>
-              <Form.Item className={classes.formItem}>
+              {/* <Form.Item className={classes.formItem}> */}
                 <Button
                   size="large"
                   htmlType="submit"
@@ -649,7 +660,7 @@ console.log(formData)
                 >
                   {language === 'eng' ? "Add" : "Ajouter"}
                 </Button>
-              </Form.Item>
+              {/* </Form.Item> */}
               <Button
                 size="large"
                 className={classes.cancelmob}

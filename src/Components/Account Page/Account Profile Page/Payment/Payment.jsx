@@ -22,6 +22,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import data from '../../../../Data.json'
+import nodata from '../../../../assets/nopayments.svg'
 
 
 const { Option } = Select;
@@ -54,7 +55,7 @@ const maskConstant = (constant) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "90%",
+    width: "80%",
     maxWidth: 800,
     bgcolor: "var(--authbg-color)",
     boxShadow: 24,
@@ -251,7 +252,15 @@ useEffect(() => {
               {data.AccountProfilePage.Payment.subtitle[language]}
               </h3></div>
             </div>
-            <div className={classes.cardContainer}>
+              {paymentslist?.length === 0 ? 
+        <div className={classes.nodata}>
+          <div className={classes.nodata_img}>
+            <img src={nodata} alt="" />
+          </div>
+          <h1>{language === 'eng' ? "No payment options found!" : "No payment options found!_fr"}</h1>
+        </div>
+          :
+          <div className={classes.cardContainer}> 
             {paymentslist?.map((item, index) => (
             <div key={item.id} onClick={()=>{ handleChange1(item.id)}} className={`${item.default === 'true' ? classes.paymentCardSelected : classes.paymentCard}`} >
               <div className={classes.contantContainer}>
@@ -295,6 +304,7 @@ useEffect(() => {
                                                                      handleOpen();}} style={{color:selectedPayment === item.id ? 'var(--secondary-color)': 'var(--forth-color)'}}> 
                                                 Edit</button> */}
                         <button className={classes.deleteBtn}
+                        style={{background: item.default === 'true' ? 'var(--secondary-color)' : 'var(--primary-color)'}}
                           onClick={()=>{dispatch(deletePayment(item.id)),handleDeletePayment(item.id)}}
                         >
                           <img src={DeleteIcon} style={{width:'1.6em',marginTop:'.1em'}}/>
@@ -303,7 +313,9 @@ useEffect(() => {
                     </div>
                 </div>
                 ))}
+                
             </div>
+                }
             <button className={classes.addBtn} onClick={()=>{handleOpen();
                                                                seteditMode(false)
                                                                setFormData({})}}>
@@ -450,7 +462,7 @@ useEffect(() => {
               >
                 {language === 'eng' ? "Cancel" : "Supprimer"}
               </Button>
-              <Form.Item className={classes.formItem}>
+              {/* <Form.Item className={classes.formItem}> */}
                 <Button
                   size="large"
                   htmlType="submit"
@@ -462,7 +474,7 @@ useEffect(() => {
                 >
                   {language === 'eng' ? "Add" : "Ajouter"}
                 </Button>
-              </Form.Item>
+              {/* </Form.Item> */}
               <Button
                 size="large"
                 className={classes.cancelmob}

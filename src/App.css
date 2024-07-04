@@ -53,6 +53,24 @@
 .ant-select-selection-placeholder{
   color: var(--secondary-color) !important;
 }
+ .MuiSelect-root {
+  display: flex;
+  align-items: center;
+}
+
+.MuiInputBase-root-MuiOutlinedInput-root:focus{
+  outline: none;
+}
+
+.MuiInputBase-root-MuiOutlinedInput-root{
+  
+  display: flex;
+  align-items: center;
+}
+
+ .MuiSelect-icon {
+  margin-left: 1em; /* Adjust the gap between value and icon */
+}
 
 @media screen and (max-width: 950px) {
   .swiper-pagination {
@@ -60,6 +78,10 @@
   }
   .App{
     background-image: url(./assets/HomePageBGmob.svg);
+    background-position: right top ;
+  }
+  .App1{
+    background-image: url(./assets/accountbgmob.svg);
     background-position: right top ;
   }
 }
