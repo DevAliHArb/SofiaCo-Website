@@ -270,6 +270,7 @@ const Coupons = () => {
                 padding: ".6em ",
                 borderRadius: ".7em",
                 height: "3.2em",
+                fontFamily:'var(--font-family)'
               }}
             />
           </Form.Item>

@@ -82,6 +82,7 @@
           border: 2px solid transparent;
           margin: 2em auto 3em auto;
           cursor: pointer;
+          font-family: var(--font-family);
       }
       
       .addBtn:hover{
@@ -214,6 +215,7 @@
             background-color: #fff;
             color: var(--secondary-color);
             border: none;
+            font-family: var(--font-family);
         }
 
         .addAddBtn{
@@ -227,6 +229,7 @@
               font-size: calc(.7rem + 0.3vw);
               border-radius: .7em;
               border: 2px solid transparent;
+              font-family: var(--font-family) !important;
           }
           
           .addAddBtn:hover{
@@ -245,6 +248,7 @@
             font-size: calc(.7rem + 0.3vw);
             border-radius: .7em;
             border: 2px solid #fff;
+            font-family: var(--font-family) !important;
           }
           
           .cancel:hover{
@@ -265,6 +269,7 @@
             font-size: calc(.7rem + 0.3vw);
             border-radius: .7em;
             border: 2px solid #fff;
+            font-family: var(--font-family) !important;
           }
         
 

@@ -1,0 +1,160 @@
+.mentions {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  max-width: 1900px;
+  margin: 0 auto;
+  height: fit-content;
+  padding-bottom: 3em;
+  background-color: #fff;
+  background-image: url(../../assets/collab-abs.png);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 25%; /* Adjusted to 50% */
+  margin-bottom: -1em;
+}
+
+
+.img_abs{
+  position: absolute;
+  object-fit: contain;
+  right:0;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  width: 20%;
+}
+
+
+
+.content{
+    width: 88%;
+    margin: 0 auto;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5em;
+    padding: 5em;
+    padding-bottom: 15em;
+}
+
+.top{
+  display: flex;
+  flex-direction: column;
+}
+
+.top h3{
+  font-family: var(--font-family);
+  font-size: calc(0.8rem + 0.5vw);
+  font-weight: 700;
+  letter-spacing: 0.01rem;
+  text-align: start;
+  color: var(--primary-color);
+  line-height: 0;
+}
+
+.top p{
+  font-family: var(--font-family);
+  font-size: calc(0.7rem + 0.3vw);
+  letter-spacing: 0.01rem;
+  line-height: 180%;
+  text-align: start;
+  color: var(--secondary-color);
+  font-weight: 500;
+}
+
+
+.middle h3{
+  font-family: var(--font-family);
+  font-size: calc(0.8rem + 0.5vw);
+  font-weight: 700;
+  letter-spacing: 0.01rem;
+  text-align: start;
+  color: var(--primary-color);
+  line-height: 0;
+  margin-bottom: 2em;
+}
+
+.middle p{
+  font-family: var(--font-family);
+  font-size: calc(0.7rem + 0.3vw);
+  letter-spacing: 0.01rem;
+  line-height: 180%;
+  text-align: start;
+  color: var(--secondary-color);
+  font-weight: 500;
+}
+
+
+.bottom h3{
+  font-family: var(--font-family);
+  font-size: calc(0.8rem + 0.5vw);
+  font-weight: 700;
+  letter-spacing: 0.01rem;
+  text-align: start;
+  color: var(--primary-color);
+  line-height: 0;
+  margin-bottom: 2em;
+}
+
+.bottom p{
+  font-family: var(--font-family);
+  font-size: calc(0.7rem + 0.3vw);
+  letter-spacing: 0.01rem;
+  line-height: 180%;
+  text-align: start;
+  color: var(--secondary-color);
+  font-weight: 500;
+}
+  
+  
+@media screen and (max-width:950px) {
+
+  .mentions{
+    background-size: 50%;
+  }
+    
+.collab_image_con{
+    margin-top: 0;
+}
+
+.img_abs{
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+}
+
+.content{
+    padding: 2em 0 7em 0;
+} 
+
+.ViewTabCont{
+    display: none;
+}
+  
+.mentions_image_con{
+  margin-top: 0;
+}
+
+.content{
+  padding-bottom: 2em;
+}
+
+}
+
+
+@media screen and (max-width:750px) {
+  .imageContent {
+    width: fit-content; 
+    left: 0;
+    right: 0;
+    margin: auto;
+    transform: none; 
+  }
+    
+.img_abs{
+  width: 50%;
+  height: 50%;
+  object-fit: contain;
+}
+}

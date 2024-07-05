@@ -356,6 +356,7 @@ useEffect(() => {
                 justifyItems: "center",
                 maxHeight:'80vh',
                 padding:'2em',
+                fontFamily: "var(--font-family)",
                 }}
       >
         <Form.Item name="card_type" rules={[{ required: true, message: 'Please select an option!' }]} >
@@ -387,7 +388,7 @@ useEffect(() => {
                   placeholder='Card Number'
                   size="large" 
                   value={formData?.card_number}
-                        style={{ height:'2.5em',backgroundColor:'#fff'}}
+                  style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
                         onChange={(e) => handleChange('card_number', e.target.value)}
                   />
         </Form.Item>
@@ -449,7 +450,7 @@ useEffect(() => {
                   placeholder='CVV'
                   size="large"
                   // value={formData?.CVV}
-                        style={{ height:'2.5em',backgroundColor:'#fff'}}
+                style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
                         onChange={(e) => handleChange('cvv', e.target.value)}
                   />
         </Form.Item>
@@ -469,6 +470,7 @@ useEffect(() => {
                   disabled={addloading ? true : false}
                 style={{
                     cursor: addloading ? "wait" : "pointer",
+                    fontFamily: "var(--font-family)",
                 }}
                   className={classes.addAddBtn}
                 >

@@ -296,7 +296,7 @@ const AccountDetails = () => {
                 size="large"
                 name="company_name"
                 placeholder= {language === "eng" ? "Company name" : "Companie nom"}
-                style={{ height: "3em", backgroundColor: "#fff" }}
+                style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
                 onChange={handleChange}
               />
             </Form.Item>
@@ -312,7 +312,7 @@ const AccountDetails = () => {
                 size="large"
                 name="first_name"
                 placeholder= {language === "eng" ? "First name" : "Prenom"}
-                style={{ height: "3em", backgroundColor: "#fff" }}
+                style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
                 onChange={handleChange}
               />
             </Form.Item>
@@ -326,7 +326,7 @@ const AccountDetails = () => {
                 name="last_name"
                 size="large"
                 placeholder= {language === "eng" ? "Last name" : "Nom"}
-                style={{ height: "3em", backgroundColor: "#fff" }}
+                style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
                 onChange={handleChange}
               />
             </Form.Item>
@@ -341,7 +341,7 @@ const AccountDetails = () => {
                 size="large"
                 name="company_address"
                 placeholder= {language === "eng" ? "Company address" : "Company address_fr"}
-                style={{ height: "3em", backgroundColor: "#fff" }}
+                style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
                 onChange={handleChange}
               />
             </Form.Item>
@@ -356,7 +356,7 @@ const AccountDetails = () => {
                 size="large"
                 name="company_city"
                 placeholder= {language === "eng" ? "Company city" : "Company city_fr"}
-                style={{ height: "3em", backgroundColor: "#fff" }}
+                style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
                 onChange={handleChange}
               />
             </Form.Item>
@@ -382,7 +382,7 @@ const AccountDetails = () => {
                 name="phone"
                 size="large"
                 placeholder= {language === "eng" ? "Telephone" : "Téléphone"}
-                style={{ height: "3em", backgroundColor: "#fff" }}
+                style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
                 onChange={handleChange}
               />
             </Form.Item>
@@ -399,7 +399,7 @@ const AccountDetails = () => {
                 name="email"
                 disabled
                 placeholder= {language === "eng" ? "Email" : "Email"}
-                style={{ height: "3em", backgroundColor: "#fff" }}
+                style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
                 onChange={handleChange}
               />
             </Form.Item>
@@ -414,7 +414,7 @@ const AccountDetails = () => {
                 size="large"
                 name="tva"
                 placeholder= {language === "eng" ? "TVA" : "TVA"}
-                style={{ height: "3em", backgroundColor: "#fff" }}
+                style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
                 onChange={handleChange}
               />
             </Form.Item>
@@ -429,7 +429,7 @@ const AccountDetails = () => {
                 size="large"
                 name="siret"
                 placeholder= {language === "eng" ? "Siret_en" : "Siret"}
-                style={{ height: "3em", backgroundColor: "#fff" }}
+                style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
                 onChange={handleChange}
               />
             </Form.Item>
@@ -486,7 +486,7 @@ const AccountDetails = () => {
                 name="currentPassword"
                 type="password"
                 placeholder= {language === "eng" ? "Current Password" : "Current Password_fr"}
-                style={{ height: "3em", backgroundColor: "#fff" }}
+                style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
                 onChange={handlepassChange}
               />
             </Form.Item>
@@ -499,7 +499,7 @@ const AccountDetails = () => {
                 name="newpassword"
                 type="password"
                 placeholder= {language === "eng" ? "New Password" : "New Password_fr"}
-                style={{ height: "3em", backgroundColor: "#fff" }}
+                style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
                 onChange={handlepassChange}
               />
             </Form.Item>
@@ -512,7 +512,7 @@ const AccountDetails = () => {
                 name="confirmpassword"
                 type="password"
                 placeholder= {language === "eng" ? "Confirm New Password" : "Confirm New Password_fr"}
-                style={{ height: "3em", backgroundColor: "#fff" }}
+                style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
                 onChange={handlepassChange}
               />
             </Form.Item>

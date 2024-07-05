@@ -90,6 +90,7 @@
   display: grid;
   grid-template-columns: repeat(3, 31%);
   justify-content: space-between;
+  font-family: var(--font-family);
 }
 .btnsContainer{
   position: relative;
@@ -111,6 +112,7 @@
     font-size: calc(.7rem + 0.3vw);
     border-radius: .7em;
     border: 2px solid transparent;
+    font-family: var(--font-family);
 }
 
 .saveBtn:hover{
@@ -130,6 +132,7 @@
   font-size: calc(.7rem + 0.3vw);
   border-radius: .7em;
   border: 2px solid transparent;
+  font-family: var(--font-family);
 }
 
 .passBtn:hover{
@@ -149,6 +152,7 @@
   font-size: calc(.7rem + 0.3vw);
   border-radius: .7em;
   border: 2px solid transparent;
+  font-family: var(--font-family);
 }
 
 .cancel{
@@ -162,6 +166,7 @@
   font-size: calc(.7rem + 0.3vw);
   border-radius: .7em;
   border: 2px solid #fff;
+  font-family: var(--font-family);
 }
 
 .cancel:hover{
@@ -182,6 +187,7 @@
   font-size: calc(.7rem + 0.3vw);
   border-radius: .7em;
   border: 2px solid #fff;
+  font-family: var(--font-family);
 }
 
 @media screen and (max-width: 950px) {

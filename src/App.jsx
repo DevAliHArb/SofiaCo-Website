@@ -27,6 +27,7 @@ import BooksPage from './Components/Books page/BooksPage';
 import BookDetailsPage from './Components/Book Details Page/BookDetailsPage';
 import Favorite from './Components/Favorite Page/Favorite';
 import AccountPage from './Components/Account Page/AccountPage';
+import Mentions from './Components/Mentions Légales/Mentions';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -109,6 +110,7 @@ function App() {
           <Route path="/books" element={<ScrollToTop><BooksPage /></ScrollToTop>} />
           <Route path="/bookdetails/:id" element={<ScrollToTop><BookDetailsPage cartToggle={cartToggle} /></ScrollToTop>} />
           <Route path="/account/:pageId" element={user ? <ScrollToTop><AccountPage /></ScrollToTop> : <Navigate to="/login" replace />} />
+          <Route path="/policies" element={<ScrollToTop><Mentions /></ScrollToTop>} />
         </Routes>
       </div>
       {!isAuthPages && <Footer />}
