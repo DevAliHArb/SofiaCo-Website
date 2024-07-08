@@ -250,8 +250,8 @@
     font-size: calc(.8rem + .3vw);
 }
 .deleteBtn{
-    width: 3em;
-    height: 3em;
+    width: 2.5em;
+    height: 2.5em;
     background-color: var(--primary-color);
     color: #DED8CC;
     border-radius: .5em;
@@ -260,6 +260,7 @@
     font-size: calc(.6rem + .2vw);
     cursor: pointer;
     transition: all 0.5s ease, color 1s ease;
+    margin: 0 auto 0 auto;
     }
     
     .deleteBtn:hover{
@@ -276,6 +277,8 @@
         border: none;
         cursor: pointer;
         transition: all 0.5s ease, color 1s ease;
+        margin: 0 auto;
+        text-align: center;
         }
         
         .editBtn:hover{

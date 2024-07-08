@@ -284,7 +284,7 @@ console.log(formData)
                     </p>
                     <p style={{ margin: ".1em 0" }}>{item.postalcode} </p>
                     {/* {item.default === 'true' && ( */}
-                      <div
+                        <div
                         style={{
                           display: "flex",
                           flexDirection: "row",
@@ -294,8 +294,8 @@ console.log(formData)
                       >
                         <p
                           style={{
-                            width: ".7em",
-                            height: ".7em",
+                            width: "1em",
+                            height: "1em",
                             border: item.default === 'true' ? ".2em solid var(--secondary-color)" : ".2em solid var(--primary-color)",
                             borderRadius: "50%",
                             margin: ".3em 0",
@@ -303,9 +303,9 @@ console.log(formData)
                             marginRight: ".3em",
                           }}
                         >
-                          <span style={{position:'absolute', width:'.5em', height:'0.5em', background: item.default === 'true' ? 'var(--secondary-color)' : '#fff', margin:'0.11em', borderRadius:'50%'}}></span>
+                          <span style={{position:'absolute', width:'.7em', height:'0.7em', background: item.default === 'true' ? 'var(--secondary-color)' : '#fff', margin:'0.15em', borderRadius:'50%'}}></span>
                         </p>
-                        <p style={{ margin: ".2em 0" }}>Default</p>
+                        <p style={{ margin: ".2em 0", alignSelf:'center' }}>Default</p>
                       </div>
                     {/* )} */}
                   </div>
@@ -334,7 +334,7 @@ console.log(formData)
                     >
                       <img
                         src={DeleteIcon}
-                        style={{ width: "1.6em", marginTop: ".1em" }}
+                        style={{ width: "1.5em", marginTop: ".05em 0.1em" }}
                       />
                     </button>
                   </div>

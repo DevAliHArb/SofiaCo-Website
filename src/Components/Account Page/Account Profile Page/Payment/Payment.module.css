@@ -179,8 +179,8 @@
     font-size: calc(.8rem + .3vw);
 }
 .deleteBtn{
-    width: 3em;
-    height: 3em;
+    width: 2.5em;
+    height: 2.5em;
     background-color: var(--primary-color);
     color: #DED8CC;
     border-radius: .5em;

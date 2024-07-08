@@ -307,7 +307,8 @@ useEffect(() => {
                         style={{background: item.default === 'true' ? 'var(--secondary-color)' : 'var(--primary-color)'}}
                           onClick={()=>{dispatch(deletePayment(item.id)),handleDeletePayment(item.id)}}
                         >
-                          <img src={DeleteIcon} style={{width:'1.6em',marginTop:'.1em'}}/>
+                          <img src={DeleteIcon}
+                        style={{ width: "1.5em", marginTop: ".05em 0.1em" }}/>
                         </button>
                       </div>
                     </div>
