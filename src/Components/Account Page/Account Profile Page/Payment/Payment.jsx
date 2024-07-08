@@ -293,7 +293,7 @@ useEffect(() => {
                         >
                           <span style={{position:'absolute', width:'.5em', height:'0.5em', background: item.default === 'true' ? 'var(--secondary-color)' : '#fff', margin:'0.1em', borderRadius:'50%'}}></span>
                         </p>
-                        <p style={{ margin: ".2em 0" }}>Default</p>
+                        <p style={{ margin: ".2em 0",alignSelf:'center' }}>Default</p>
                       </div>
                         </div>
                     <div className={classes.addtocart}>
