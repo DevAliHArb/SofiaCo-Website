@@ -146,10 +146,20 @@
   height: 10vw;
 }
 }
+
+
+@media screen and (max-width:500px) {
+  .hex_item{
+    width: 7em;
+    height: 29vw;
+  }
+}
+
+
 @media screen and (max-width:400px) {
   .hex_item{
     width: 7em;
-    height: 34vw;
+    height: 31.5vw;
   }
 }
 @media screen and (max-width:350px) {

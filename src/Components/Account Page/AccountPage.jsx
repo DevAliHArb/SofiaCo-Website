@@ -9,7 +9,7 @@ import Coupons from './Account Profile Page/Coupons/Coupons';
 import { useSelector } from 'react-redux';
 // import Commands from './Account Profile Page/Commands/Commands';
 import data from '../../Data.json'
-import { MenuItem, OutlinedInput, Select } from '@mui/material';
+import { MenuItem, Select } from '@mui/material';
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 
 const AccountPage = () => {
@@ -56,7 +56,6 @@ const AccountPage = () => {
               style={{width:'100%'}}
               displayEmpty
               value={pageId}
-              input={<OutlinedInput />}
               onChange={(e)=>navigate(`/account/${e.target.value}`)}
               className={classes.select}
               IconComponent={() => (

@@ -27,6 +27,8 @@
   display: none;
   position: absolute;
   width: 100%;
+  max-width: 100vw;
+  overflow: hidden;
   top: -7em;
   left: -1.5em;
   bottom: 0;
