@@ -321,7 +321,7 @@ const Coupons = () => {
                   <p>
                     <span
                       style={{
-                        padding: "0.5em 1em",
+                        padding: "0.5em 0",
                         background: "transparent",
                         borderRadius: "1em",
                         color: "#fff",
@@ -338,8 +338,8 @@ props.active !== "true" ?
                     <p>
                     <span
                       style={{
-                        padding: "0.5em 1em",
-                        background: "var(--primary-color)",
+                        padding: "0.5em 0",
+                        background: "transparent",
                         borderRadius: "1em",
                         color: "#fff",
                       }}
@@ -351,7 +351,7 @@ props.active !== "true" ?
                   <p>
                   <span
                     style={{
-                      padding: "0.5em 1em",
+                      padding: "0.5em 0",
                       background: "var(--primary-color)",
                       borderRadius: "1em",
                       color: "#fff",
