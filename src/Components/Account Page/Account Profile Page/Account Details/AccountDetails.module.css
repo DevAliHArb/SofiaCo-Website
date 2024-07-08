@@ -153,6 +153,7 @@
   border-radius: .7em;
   border: 2px solid transparent;
   font-family: var(--font-family);
+  margin-bottom: 3em;
 }
 
 .cancel{
@@ -188,6 +189,7 @@
   border-radius: .7em;
   border: 2px solid #fff;
   font-family: var(--font-family);
+  margin-top: 1em;
 }
 
 @media screen and (max-width: 950px) {
