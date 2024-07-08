@@ -96,7 +96,7 @@
   position: relative;
   display: flex;
   flex-direction: row;
-  column-gap: 2em;
+  column-gap: 4em;
   margin: 2em auto;
   justify-content: center;
 }

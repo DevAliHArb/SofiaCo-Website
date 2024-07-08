@@ -517,15 +517,7 @@ const AccountDetails = () => {
               />
             </Form.Item>
             </div>
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                width: "fit-content",
-                margin: "auto",
-                gap: "1em",
-              }}
-            >
+          <div className={classes.btnsContainer}>
               <Button
                 size="large"
                 onClick={handlemodelClose}
@@ -542,7 +534,7 @@ const AccountDetails = () => {
                     cursor: loading ? "wait" : "pointer",
                   }}
                 >
-                {language === "eng" ? "Add" : "Ajouter"}
+                {language === "eng" ? "Save" : "Save_fr"}
                 </Button>
               <Button
                 size="large"

@@ -658,7 +658,8 @@ console.log(formData)
                 }}
                   className={classes.addAddBtn}
                 >
-                  {language === 'eng' ? "Add" : "Ajouter"}
+                  {!editMode ? language === 'eng' ? "Add" : "Ajouter":
+                  language === "eng" ? "Save" : "Save_fr"}
                 </Button>
               {/* </Form.Item> */}
               <Button
