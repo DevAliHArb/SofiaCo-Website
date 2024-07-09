@@ -1,0 +1,336 @@
+.ordertrack_con{
+    width: 100%;
+    position: relative;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+.header{
+  position: relative;
+  width: 100%;
+  justify-content: space-between;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+.headtitle{
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  font-family: var(--font-family);
+  font-size: calc(.8rem + 0.3vw);
+  text-align: center;
+  color: #fff;
+  font-weight: 600;
+  margin: auto;
+}
+
+.btnsContainer{
+  width: fit-content;
+  max-width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+}
+.hexagon {
+  overflow: visible;
+  position: relative;
+  width: 5em !important; /* Adjust width */
+  height: 8.66em; /* Adjust height */
+  background-color: var(--secondary-color);
+  margin: 1em 3em; /* 50% of height */
+  border-radius: 1em /.5em;
+  cursor: pointer;
+  transition: background-color 0.5s ease, color 1s ease;
+  rotate: 90deg;
+  font-family: var(--font-family);
+  color: #fff;
+  font-weight: 500;
+}
+.hexagon:hover {
+  background-color: var(--primary-color);
+}
+
+.hexagon:before,
+.hexagon:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: inherit;
+  background: inherit;
+ /*  width: inherit;*/
+  border-radius: 1em /.5em; 
+}
+
+.hexagon:before {
+  width: 5em;
+  transform: rotate(60deg);
+}
+
+.hexagon::after {
+  width: 5em;
+  transform: rotate(-60deg);
+}
+
+
+.headerss{
+  width: 90%;
+  height: fit-content;
+  padding: 1.5em 0;
+  border-radius: 1em;
+  margin: 1.5em auto;
+  font-family: var(--font-family);
+  cursor: pointer;
+  background-color: var(--secondary-color);
+  display: grid;
+  grid-template-columns: 15% 25% 20% 20% 20%;
+}
+.headerss h3{
+  font-family: var(--font-family);
+  color: #fff;
+  font-size: calc(.8rem + .3vw);
+  font-weight: 600;
+  margin: auto;
+}
+.header1{
+  position: relative;
+  width: 100%;
+  justify-content: space-between;
+  text-align: start;
+  display: flex;
+  flex-direction: row;
+}
+
+
+.selectCont{
+  position: relative;
+  width: fit-content;
+}
+
+.selectt{
+  width: 20em;
+}
+.btn{
+  font-family: var(--font-family);
+  font-weight: 500;
+  border: none;
+  background-color: var(--primary-color);
+  border-radius: .5em;
+  padding: .6em 2em;
+  font-size: calc(.7rem + .3vw);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.5s ease, color 1s ease;
+}
+.btn:hover{
+  background-color: var(--secondary-color);
+}
+
+.deliveredBtn{
+  border: none;
+  background-color: var(--forth-color);
+  border-radius: .5em;
+  padding: .5em 2em;
+  font-size: calc(.7rem + .3vw);
+  color: #DED8CC;
+  cursor: pointer;
+  transition: background-color 0.5s ease, color 1s ease;
+}
+.deliveredBtn:hover{
+  background-color: var(--accent-color);
+}
+
+.deliveredMob{
+  display: none;
+}
+.reviewbtn{
+  border: none;
+  background-color: var(--accent-color);
+  border-radius: .5em;
+  padding: .5em 2em;
+  font-size: calc(.7rem + .3vw);
+  color: #DED8CC;
+  cursor: pointer;
+  transition: background-color 0.5s ease, color 1s ease;
+  margin-right: 2em;
+}
+.reviewbtn:hover{
+  background-color: var(--forth-color);
+}
+
+.detailsCard{
+  width: 90%;
+ margin: auto;
+
+}
+.detailsContainer{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+
+}
+
+
+.total_con{
+  position: relative;
+  width: 90%;
+  background-color: var(--primary-color);
+  padding: 2% 5% 0% 5%;
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: 5%;
+  border-radius: 1em;
+  margin: 14% 0 1% 0;
+  height: fit-content;
+}
+
+.total{
+  width: 100%;
+  margin: 0 auto;
+}
+
+.totalrows{
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(2, 49%);
+  text-align: start;
+  color: #DED8CC;
+  margin: 0;
+  font-family: var(--font-family) ;
+  font-weight: 500;
+  column-gap: 2%;
+  font-size: calc(.9rem + 0.3vw);
+}
+.totalrows p{
+  margin: 0.4em 0;
+  align-self: center;
+}
+
+.card{
+  width: 95%;
+  position: relative;
+  height: fit-content;
+  display: grid;
+  grid-template-columns: 83% 15%;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 2% 3%;
+  margin: 1% 0 3% 0;
+  color: #DED8CC;
+}
+.cardCont{
+  height: 20em;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.cardCont::-webkit-scrollbar {
+  width: .3em !important; /* Change the width as needed */
+}
+
+.imageCont{
+  position: relative;
+  width: 30%;
+  max-width: 5em;
+  max-height: 7em;
+}
+
+.card p{
+  margin: 0;
+}
+
+.quantity{
+  position: relative;
+  width: 100%;
+  height: fit-content;
+  margin: auto 0;
+  font-size: calc(.7rem + 0.3vw);
+  font-family: var(--font-family);
+  font-weight: 600;
+  text-align: end;
+}
+
+
+.orderStep{
+  position: relative;
+  width: 100%;
+  text-align: start;
+  padding:0 0 0 1em;
+  margin-top: .3em;
+  height: fit-content;
+  min-height: 6em;
+  font-family: var(--font-family);
+}
+.stepdot{
+  position: absolute;
+  width: 1.2em;
+  height: 1.2em;
+  border-radius: 50%;
+  top: -.5em;
+  left: -.7em;
+  border-bottom:.5em solid #fff;
+  border-top:.5em solid #fff ;
+}
+.adressCard{
+display: grid;
+grid-template-columns: 7% 90%;
+font-family: var(--font-family);
+font-weight:500 ;
+font-size: calc(.8rem + .2vw);
+color: var(--accent-color);
+}
+
+@media screen and (max-width:950px) {
+  .detailsCard{
+  width: 100%;
+  margin: 0 auto;
+
+}
+}
+@media screen and (max-width:750px) {
+  .detailsContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .total_con{
+    width: 100%;
+    margin: 4% 0 1% -4%;
+  }
+  .adressCard{
+    border: 1px solid var(--accent-color);
+    border-radius:1em;
+    padding: 0% 5%;
+    margin-top: 1em;
+    width: 100%;
+    margin-left: -5%;
+    }
+  .header1{
+    position: relative;
+    width: 100%;
+    justify-content: space-between;
+    text-align: start;
+    display: flex;
+    flex-direction: row;
+    margin: 1em 0 2em 0;
+  }
+}
+@media screen and (max-width:600px) {
+  
+  .header{
+    gap: 2em;
+    flex-direction: column;
+  }
+  .selectt{
+    width: 100%;
+  }
+  .deliveredBtn{
+    display: none;
+  }
+  
+  .deliveredMob{
+    display: flex;
+    width: fit-content;
+    margin: 1em auto;
+  }
+}
