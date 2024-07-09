@@ -494,6 +494,13 @@ const AccountDetails = () => {
             <Form.Item
               name="newpassword"
               style={{ border: "none", borderRadius: ".5em" }}
+              rules={[
+                { required: true, message: 'Please confirm your new password!' },
+                {
+                  pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+                  message: 'Password must be at least 8 characters long and include at least one lowercase letter, one uppercase letter, and one number.'
+                }
+              ]}
             >
               <Input.Password
                 name="newpassword"
@@ -507,6 +514,13 @@ const AccountDetails = () => {
             <Form.Item
               name="confirmpassword"
               style={{ border: "none", borderRadius: ".5em" }}
+              rules={[
+                { required: true, message: 'Please confirm your new password!' },
+                {
+                  pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+                  message: 'Password must be at least 8 characters long and include at least one lowercase letter, one uppercase letter, and one number.'
+                }
+              ]}
             >
               <Input.Password
                 name="confirmpassword"

@@ -45,6 +45,9 @@
 .ant-input{
   color: var(--secondary-color) !important;
 }
+.ant-form-item-explain-error {
+  color: white !important; /* Sets the text color of the error message to white */
+}
 
 .ant-input::placeholder{
   color: var(--secondary-color) !important;
