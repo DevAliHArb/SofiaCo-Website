@@ -3,8 +3,10 @@ import classes from './OurSelectionBanner.module.css'
 import img from '../../../assets/ouselectionbanner.png'
 import data from '../../../Data.json'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 const OurSelectionBanner = () => {
+  const navigate = useNavigate()
   const language = useSelector(
     (state) => state.products.selectedLanguage[0].Language
   );
@@ -17,7 +19,7 @@ const OurSelectionBanner = () => {
         <div className={classes.data}>
           <h1>{data.OurSelectionBanner.title[language]}</h1>
           <p>{data.OurSelectionBanner.description[language]}</p>
-          <button className={classes.buttoncart}>{data.OurSelectionBanner.button[language]}</button>
+          <button onClick={()=>navigate(`/books`)} className={classes.buttoncart}>{data.OurSelectionBanner.button[language]}</button>
         </div>
       </div>
     </div>
