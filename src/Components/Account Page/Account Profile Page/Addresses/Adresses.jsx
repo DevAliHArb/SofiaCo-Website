@@ -290,6 +290,7 @@ console.log(formData)
                           flexDirection: "row",
                           color: '#fff',
                           marginTop: ".5em",
+                          margin:'auto 0 0 0'
                         }}
                       >
                         <p
@@ -303,7 +304,7 @@ console.log(formData)
                             marginRight: ".3em",
                           }}
                         >
-                          <span style={{position:'absolute', width:'.7em', height:'0.7em', background: item.default === 'true' ? 'var(--secondary-color)' : '#fff', margin:'0.15em', borderRadius:'50%'}}></span>
+                          <span style={{position:'absolute', width:'.7em', height:'0.7em', background: item.default === 'true' ? 'var(--secondary-color)' : '#fff', margin:'0.17em 0.13em', borderRadius:'50%'}}></span>
                         </p>
                         <p style={{ margin: ".2em 0", alignSelf:'center' }}>Default</p>
                       </div>
