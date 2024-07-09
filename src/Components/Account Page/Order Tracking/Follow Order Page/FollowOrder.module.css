@@ -1,0 +1,281 @@
+.followorder{
+    width: 100%;
+    position: relative;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding: 4em 0 4em 0;
+    max-width: 1900px;
+    margin: 0 auto;
+}
+.header{
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+  text-align: start;
+  justify-content: center;
+  margin-bottom: 3em;
+  font-family: Poppins;
+}
+
+.headtitle{
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  align-self: self-start;
+  font-family: Metropolis;
+  font-size: calc(1.3rem + .2vw);
+  letter-spacing: 0.01rem;
+  text-align: center;
+  color: #999999;
+}
+
+.border{
+  position: relative;
+  width: 40%;
+  margin: 0 auto;
+  height: fit-content;
+  justify-content: center;
+  background-color: #0085B0;
+  border: 3px #0085B0 solid;
+  border-radius: 10px;
+  align-self: center;
+}
+
+.laPoste{
+  margin: auto;
+}
+.laPosteMob{
+  display: none;
+}
+.content{
+    width: 70%;
+    margin: 0 auto;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    row-gap: 8em;
+}
+
+.followorderbarCard{
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #F6C91B;
+  border-radius: 1em;
+}
+.titleee{
+  width: fit-content;
+  margin: 0 auto;
+}
+.followorderbar{
+    position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 20% 50% 30%;
+}
+
+.followorderbar_info{
+    text-align: start;
+    display: flex;
+    margin: auto 0;
+    flex-direction: column;
+    row-gap: .3em;
+}
+
+.followorderbar_info h3{
+  display: flex;
+  flex-direction: row;
+  font-size: calc(0.7rem + 0.6vw);
+}
+.progress_con{
+    position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.progressheader{
+    width: 100%;
+    margin: auto;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    /* padding: 1em 2em; */
+    align-items: center;
+    background-color: #D6DADD;
+    border-radius: 4em 0 4em 0 ;
+}
+
+.btn_con{
+    background-color: rgba(68, 68, 68, 0.11);
+    padding: 1em 3em;
+    /* width: 40%; */
+    border-radius: 4em 0 4em 0 ;
+    border: 2px solid #fff;
+    font-weight: 700;
+}
+
+.btn_con button{
+    font-size: calc(0.8rem + 0.4vw);
+    font-weight: 700;
+}
+
+.estimation{
+    width: 100%;
+    padding: 2em 0;
+    display: grid;
+    grid-template-columns: 55% 42%;
+    gap: 3%;
+}
+
+.tracking{
+    border-top: 1px solid #D6DADD;
+}
+.custom_div {
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    margin: auto 0;
+    justify-self: end;
+    border: 3px solid #F6C91B; /* Set your desired border color and width */
+    padding: 2em 0em 0 0em; /* Set your desired padding */
+  
+    /* You can add other styling for the div here */
+  }
+  
+  .cutout {
+    position: absolute;
+    top: -18px; /* Adjust this value to control the cutout's position */
+    left: 2%;
+    width: 100px; /* Set the width of the cutout */
+    height: 20px; /* Set the height of the cutout */
+    background-color: #fff; /* Set the background color to match the page background */
+    /* Rotate the cutout to create the diagonal effect */
+    font-weight: 700;
+    font-size: calc(0.7rem + 0.5vw);
+  }
+
+  .swiper{
+    position: relative;
+    width: 85%;
+    margin: 0 auto;
+    /* display: flex;
+    flex-direction: row; */
+    /* margin-top: 5vh; */
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.detailss{
+  cursor: pointer;
+  margin-top: 2em;
+  text-decoration: underline;
+}
+.orderStep{
+  position: relative;
+  width: 100%;
+  text-align: start;
+  padding:0 0 3em 1em;
+}
+.stepdot{
+  position: absolute;
+  width: 1.2em;
+  height: 1.2em;
+  border-radius: 50%;
+  top: 0;
+  left: -.6em;
+  border:1px solid #C9C9C9;
+}
+.breakpoint{
+  display: none;
+}
+
+@media screen and (max-width:950px) {
+  .content{
+    row-gap: 2em;
+}
+  .progressheader{
+    margin: 0 auto;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: transparent;
+    border-radius: 0 ;
+    row-gap: 2em;
+  }
+  .estimation{
+    width: 100%;
+    padding: 2em 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3%;
+}
+.swiper{
+  margin-bottom: 2em;
+}
+
+.header{
+  margin-bottom: 1.5em;
+}
+}
+
+@media screen and (max-width:750px) {
+  .followorder{
+    padding: 3em 0 0em 0;
+}
+  .content{
+      width: 90%;
+  }
+  .followorderbar{
+    position: relative;
+    width: 95%;
+    margin-left: 5%;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    background-color: #F6C91B;
+    border-radius: 1em;
+  }
+  .laPoste{
+    display: none;
+  }
+  .detailss{
+    display: none;
+  }
+  .laPosteMob{
+    width: 95%;
+    margin-left: 5%;
+    display: grid;
+    grid-template-columns: 30% 70%;
+  }
+  
+.followorderbar_info h3{
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  align-items: center;
+  font-size: calc(0.7rem + 0.6vw);
+  margin-bottom: 1em;
+}
+.btn_con{
+  background-color: rgba(68, 68, 68, 0.11);
+  width: 100%;
+  padding: 1em;
+  /* width: 40%; */
+  border-radius: 4em 0 4em 0 ;
+  border: 2px solid #fff;
+}
+}
+
+@media screen and (max-width:550px) {
+  .breakpoint{
+    display: inline;
+  }
+  .btn_con{
+    width: 110%;
+    padding: 1em;
+    border-radius: 4em 0 4em 0 ;
+    border: 2px solid #fff;
+  }
+}

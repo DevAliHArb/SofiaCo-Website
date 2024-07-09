@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import data from '../../Data.json'
 import { MenuItem, Select } from '@mui/material';
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
+import OrderTracking from './Order Tracking/OrderTracking';
 
 const AccountPage = () => {
     const navigate = useNavigate();
@@ -74,7 +75,7 @@ const AccountPage = () => {
         <div className={classes.auth_bg} />
             {pageId == 'profile' && <AccountDetails />}
             {pageId == 'addresses' && <Adresses />}
-            {/* {pageId == 'order-tracking' && <Commands />} */}
+            {pageId == 'order-tracking' && <OrderTracking />}
             {pageId == 'payments' && <Payment />}
             {pageId === 'coupons' && <Coupons/>}
         </div>

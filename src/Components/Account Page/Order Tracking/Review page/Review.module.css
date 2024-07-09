@@ -1,0 +1,120 @@
+.review_con{
+    width: 100%;
+    position: relative;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    max-width: 1900px;
+    margin: 0 auto;
+}
+
+.content{
+    width: 100%;
+    margin: 0 auto;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    column-gap: 5%;
+    padding: 2em 0 1em 0;
+    justify-content: space-between;
+    font-size: calc(0.7rem + 0.3vw);
+    border-bottom: 1px solid var(--accent-color);
+}
+.titleMob{
+  display: none;
+}
+.imgContainer{
+  width: 8em;
+  text-align: start;
+  margin: 1em 0;
+}
+.imgContainerh3{
+  font-size: calc(.7rem + .2vw);
+  color: var(--accent-color);
+  font-family: montserrat;
+  margin: 0.3em 0;
+  font-weight: 600;
+}
+.bookName{
+  display: flex;
+  flex-direction: column;
+}
+.mobilebookName{
+  display: none;
+  flex-direction: column;
+}
+.btn_con{
+    width: fit-content;
+    padding: 0 0 3em 0;
+    margin: auto 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.btn_con button{
+  border: none;
+  background-color: var(--forth-color);
+  border-radius: .5em;
+  padding: .5em 2em;
+  font-size: calc(.7rem + .3vw);
+  color: #DED8CC;
+  cursor: pointer;
+  transition: background-color 0.5s ease, color 1s ease;
+}
+.btn_con button:hover{
+  background-color: var(--accent-color);
+}
+
+.textArea{
+  width: 100%;
+}
+.textAreaMob{
+  width: 100%;
+  display: none;
+}
+
+.radioContainer{
+  display: flex;
+  flex-direction: row !important;
+  gap: 2em;
+}
+
+.addbtn{
+  width: fit-content;
+  height: fit-content;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--forth-color);
+  border: none;
+  border-radius: 1em;
+  padding: 1em 2em;
+  color: #DED8CC;
+  font-size: calc(.7rem + .3vw);
+  cursor: pointer;
+  transition: background-color .6s ease, color 1s ease;
+}
+.addbtn:hover{
+  background-color: var(--accent-color) !important;
+  color: #DED8CC !important;
+}
+
+@media screen and (max-width:950px) {
+  .bookName{
+    display: none;
+  }
+  .mobilebookName{
+    display: flex;
+  }
+  .btn_con{
+    margin: 0 auto 0 0;
+    padding: 1.3em 0;
+}
+}
+
+@media screen and (max-width:650px) {
+  
+}
+@media screen and (max-width:500px) {
+  
+}
