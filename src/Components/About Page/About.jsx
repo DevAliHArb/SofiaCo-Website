@@ -76,7 +76,7 @@ useEffect(() => {
           </div>
       </div>
           <div className={classes.big_container}>
-          <h1 className={classes.LocationContainerh1}>{data.AboutPage.TrackersSection.title[language]}</h1>
+          <h1 className={classes.LocationContainerh1} style={{marginTop:"0"}}>{data.AboutPage.TrackersSection.title[language]}</h1>
                   <h2 className={classes.LocationContainerh2}>{data.AboutPage.TrackersSection.subtitle[language]}</h2>
           <div className={classes.details_box}>
             <div className={classes.detail_item}>
