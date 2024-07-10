@@ -378,6 +378,7 @@ const BooksView = ({carttoggle}) => {
 
     dispatch(editSearchData(newData));
     fetchArticles();
+    setIsOpen(false);
   };
 
   
