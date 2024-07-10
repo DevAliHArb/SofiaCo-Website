@@ -22,6 +22,7 @@ import bookPlaceHolder from '../../../assets/bookPlaceholder.png';
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import EmptyCart from "../../../assets/EmptyOrder.png";
+import Rating from "@mui/material/Rating";
 
 import { Button } from "antd";
 import { toast } from 'react-toastify';
@@ -30,6 +31,11 @@ import { PiNotebook } from "react-icons/pi";
 import { PiPackageDuotone } from "react-icons/pi";
 import { PiTruck } from "react-icons/pi";
 import { PiHandshake } from "react-icons/pi";
+import { PiChecks } from "react-icons/pi";
+import { PiMapPinLine } from "react-icons/pi";
+import { PiCheckCircle } from "react-icons/pi";
+import { PiNotepad } from "react-icons/pi";
+
 
 
 const ConfirmationPopup = ({ message, onConfirm, onCancel, showPopup }) => {
@@ -199,25 +205,25 @@ let stepss = [
   {
       id: 2,
       label: 'Confirmed',
-      description1:'',
+      description:'Your order has been confirmed.',
       icon: <PiNotebook/>,
   },
   {
       id: 3,
       label: 'Processing',
-      description1:'',
+      description:'Your order is  in progress.',
       icon: <PiPackageDuotone/>
   },
   {
       id: 4,
       label: 'Shipped',
-      description1:'',
+      description:'Your order has been Shipped.',
       icon: <PiTruck/>
   },
   {
       id: 5,
       label: 'Delivered',
-      description1:'',
+      description:'Your order has been delivered. Thank you for shopping at Sofiaco!',
       icon: <PiHandshake/>
   }
   
@@ -232,14 +238,14 @@ const stepsHandler =(props)=>{
         id: order.id,
         label: order.label, 
         estimatedDate: index.time,
-        description1: '', 
+        description: order.description, 
       });
     } else {
       testt.push({
         id: order.id,
         label: order.label, 
         estimatedDate: "",
-        description1: '', 
+        description: order.description, 
       });
     }
   });
@@ -407,7 +413,7 @@ const reviewHandler =()=>setisReviewMood(true);
       </div>
       <div className={classes.detailsContainer}>
         <div style={{width:'100%',display:'grid',gridTemplateColumns:"25% 25% 25% 25%",margin:'3em 0 1em 12.5%'}}>
-        {steps.map((step) => {
+        {steps?.sort((a, b) => a.id - b.id).map((step) => {
             return (
               <div key={step.id} className={classes.orderStep}  style={step.id == 5 ? {borderTop:'.2em solid transparent'} : {borderTop:step.id < categoryId ? '.2em solid var(--primary-color)':'.2em solid rgba(255,255,255,0.5)'}}>
                 <div className={classes.stepdot} style={step.id == categoryId ? {backgroundColor:'var(--primary-color)',boxShadow:'0px 0px 0px .6em rgba(233, 119, 4, 50%)'} : step.id < categoryId ? {backgroundColor:'var(--primary-color)'} : {backgroundColor:'rgba(255,255,255,0.5)'}}/>
@@ -418,7 +424,64 @@ const reviewHandler =()=>setisReviewMood(true);
                   <p style={{textAlign:'start', color:'#999999'}}>{step.description1}</p>
               </div>
             )})}
-            <div>
+        </div>
+         <div className={classes.orderActivityCont}>
+          <h2>Order Activity</h2>
+          {steps?.sort((a, b) => b.id - a.id).map((step) => {
+              return (
+                <div style={{display:"flex",flexDirection:"row", width:'100%',margin:'1em 0'}}>
+                  <div style={{color:'#fff',width:'3em', height:'3em',borderRadius:'.3em',backgroundColor:"var(--primary-color)",display:'flex',marginRight:'.5em'}}>
+                    {step.id === 2 ? <PiNotepad style={{fontSize:"1.7em",margin:'auto'}}/> : step.id === 3 ? <PiCheckCircle style={{fontSize:"1.7em",margin:'auto'}}/> : step.id === 4 ? <PiMapPinLine style={{fontSize:"1.7em",margin:'auto'}}/> : <PiChecks style={{fontSize:"1.7em",margin:'auto'}}/>}
+                  </div>
+                  <div>
+                    <p style={{marginTop:'0'}}>{step.description} </p>
+                    <p style={{marginBottom:'0',fontWeight:'500',color:'var(--secondary-color)'}}>{ new Date(step.estimatedDate).toDateString()} at: { new Date(step.estimatedDate).toLocaleTimeString()}</p>
+                  </div>
+                </div>
+              )})}
+              <div style={{display:"flex",flexDirection:"row", width:'100%',margin:'1em 0'}}>
+                <div style={{color:'#fff',width:'3em', height:'3em',borderRadius:'.3em',backgroundColor:"var(--primary-color)",display:'flex',marginRight:'.5em'}}>
+                  <PiNotebook style={{fontSize:"1.7em",margin:'auto'}}/>
+                </div>
+                <div>
+                  <p style={{marginTop:'0'}}>Your order is placed. </p>
+                  <p style={{marginBottom:'0',fontWeight:'500',color:'var(--secondary-color)'}}>{ new Date(selectedOrder.date).toDateString()} at: { new Date(selectedOrder.date).toLocaleTimeString()}</p>
+                </div>
+              </div>
+        </div>
+        <div className={classes.total_con }>
+        <div className={classes.total}>
+        <div className={classes.totalrows}>
+            <p style={{textAlign:"start",paddingLeft:'10%'}}>Products</p>
+            <p>Price</p>
+            <p>Quantity</p>
+            <p>Sub-Total</p>
+          </div>
+          <div className={classes.cardCont}>
+             {selectedOrder.order_invoice_items?.map((props)=>{
+            return(
+        <div className={classes.card} key={props._id} onClick={()=>console.log(props)}>
+            <div style={{display:"flex",flexDirection:"row",gap:".5em",width:'100%'}}>
+            <div className={classes.imageCont}>
+              <img src={props.article.articleimage[0]?.link ? props.article.articleimage[0].link : bookPlaceHolder} alt="" style={{height:'100%', width: '100%',objectFit:'cover' }}/>
+            </div>
+            <div style={{height:'fit-content',textAlign:'start',margin:'auto 0',justifyContent:'space-between',display:'flex', flexDirection:'column',width:'70%',fontSize:'calc(.7rem + 0.3vw)',fontFamily:'var(--font-family)'}}>
+              <p style={{fontWeight:'600',marginBottom:"1em"}}>{props.article.designation}</p>
+              <p style={{fontWeight:'600',fontSize:'calc(.6rem + 0.2vw)'}}>{props.article.dc_auteur}</p>
+              <p className={classes.dicription} dangerouslySetInnerHTML={{ __html: props.article.descriptif }}/>
+              </div>
+            </div>
+            <p className={classes.quantity}> {selectedOrder.currency === 'usd' ? '$' : '€' }{props.price} </p>
+            <p className={classes.quantity}> x{props.quantity} </p>
+            <p className={classes.quantity}>{selectedOrder.currency === 'usd' ? '$' : '€' }{(props.price * props.quantity).toFixed(2)} </p>
+          </div>
+             )
+          })} 
+          </div>
+        </div>
+          
+      </div>
+            {/* <div>
             <div className={classes.header}>
               <div className={classes.headtitle} style={{color:'var(--accent-color)'}}>Shipping Address</div>
             </div>
@@ -442,57 +505,7 @@ const reviewHandler =()=>setisReviewMood(true);
                   
                </div>
             </div>
-      </div>
-        </div>
-
-        <div className={classes.total_con }>
-        <div className={classes.total}>
-        <div className={classes.totalrows} style={{margin:'1em 0'}} >
-            <p style={{fontWeight:'600',fontSize:'larger'}}>Order # {selectedOrder.id}</p>
-            <p style={{ textAlign: "end" }}>( {selectedOrder.order_invoice_items?.length } items )</p>
-          </div>
-          <div className={classes.cardCont}>
-             {selectedOrder.order_invoice_items?.map((props)=>{
-            return(
-        <div className={classes.card} key={props._id}>
-            <div style={{display:"flex",flexDirection:"row",gap:".5em",width:'100%'}}>
-            <div className={classes.imageCont}>
-              <img src={props.article.articleimage[0]?.link ? props.article.articleimage[0].link : bookPlaceHolder} alt="" style={{height:'100%', width: '100%',objectFit:'cover' }}/>
-            </div>
-            <div style={{height:'100%',justifyContent:'space-between',display:'flex', flexDirection:'column',width:'80%',fontSize:'calc(.7rem + 0.3vw)',fontFamily:'var(--font-family)'}}>
-              <p style={{fontWeight:'600'}}>{props.article.designation}</p>
-              <p style={{fontWeight:'400',fontSize:'calc(.6rem + 0.2vw)'}}>{props.article.dc_auteur} {props.article.dc_collection} {FormatDate(props.article.dc_parution)}</p>
-              <p style={{fontWeight:'500'}}> QTY : {props.quantity} </p>
-            </div>
-            </div>
-            <div className={classes.quantity}>
-              <p style={{color:'var(--forth-color)',fontSize:'large'}}>{props.price}{selectedOrder.currency === 'usd' ? '$' : '€' } </p>
-            </div>
-          </div>
-             )
-          })} 
-          </div>
-       
-          <Divider style={{background:'#fff',margin:'1em 0'}}/>
-          <div className={classes.totalrows} >
-            <p>SUBTOTAL</p>
-            <p style={{ textAlign: "end",fontWeight:"600" }}>{selectedOrder.base_price}{selectedOrder.currency === 'usd' ? '$' : '€' }</p>
-          </div><div className={classes.totalrows}>
-            <p>TAXES</p>
-            <p style={{ textAlign: "end" ,fontWeight:"600"}}>{(selectedOrder.base_price - calculateTotalPrice(selectedOrder.order_invoice_items)).toFixed(2)}{selectedOrder.currency === 'usd' ? '$' : '€' }</p>
-          </div>
-          <div className={classes.totalrows}>
-            <p>DELIVERY</p>
-            <p style={{ textAlign: "end" ,fontWeight:"600"}}>{(selectedOrder.total_price - calculateTotalPrice(selectedOrder.order_invoice_items)).toFixed(2)}{selectedOrder.currency === 'usd' ? '$' : '€' }</p>
-          </div>
-          <Divider style={{background:'#fff',margin:'1em 0'}}/>
-          <div className={classes.totalrows} style={{marginBottom:'3em' }}>
-            <p>TOTAL</p>
-            <p style={{ textAlign: "end",fontWeight:"600"}}>{selectedOrder.total_price}{selectedOrder.currency === 'usd' ? '$' : '€' }</p>
-          </div>
-        </div>
-          
-      </div>
+      </div> */}
         </div>
       </div>}
       { isReviewMood && <div> 
