@@ -26,6 +26,11 @@ import EmptyCart from "../../../assets/EmptyOrder.png";
 import { Button } from "antd";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { PiNotebook } from "react-icons/pi";
+import { PiPackageDuotone } from "react-icons/pi";
+import { PiTruck } from "react-icons/pi";
+import { PiHandshake } from "react-icons/pi";
+
 
 const ConfirmationPopup = ({ message, onConfirm, onCancel, showPopup }) => {
   const language = useSelector((state) => state.products.selectedLanguage[0].Language);
@@ -195,21 +200,25 @@ let stepss = [
       id: 2,
       label: 'Confirmed',
       description1:'',
+      icon: <PiNotebook/>,
   },
   {
       id: 3,
       label: 'Processing',
       description1:'',
+      icon: <PiPackageDuotone/>
   },
   {
       id: 4,
       label: 'Shipped',
       description1:'',
+      icon: <PiTruck/>
   },
   {
       id: 5,
-      label: categoryId == 5 ? 'Delivered' : 'Estimated Delivery',
+      label: 'Delivered',
       description1:'',
+      icon: <PiHandshake/>
   }
   
 ];
@@ -387,36 +396,26 @@ const reviewHandler =()=>setisReviewMood(true);
       </>}
       { isSelected && 
       <div className={classes.detailsCard}>
+        <h4 onClick={()=>setisSelected(false) & setselectedOrder({})} style={{color:'var(--secondary-color)',fontSize:'calc(1rem + .3vw)',margin:'-1em 0 0 -10%',cursor:'pointer',fontFamily:'var(--font-family)',width:'100%',textAlign:'start',fontWeight:'500'}}><IoIosArrowBack style={{marginBottom:'-.15em'}}/> Back</h4>
         <div className={classes.header1}>
-      <div className={classes.headtitle} onClick={()=>console.log(steps)}>Order # {selectedOrder.id}</div>
+      <div className={classes.headtitle} style={{margin:"0 0 0 1em",textAlign:'start',fontWeight:'500',lineHeight:'130%'}} onClick={()=>console.log(steps)}>Order # {selectedOrder.id}<br/> Placed on {new Date(selectedOrder.date).getDate()}/{new Date(selectedOrder.date).getMonth()}/{new Date(selectedOrder.date).getFullYear()}</div>
+      <div className={classes.headtitle} style={{margin:"auto 1em auto auto",fontWeight:'500'}} onClick={()=>console.log(steps)}>{selectedOrder.currency === 'eur' ? '€' : '$'}{selectedOrder.total_price}</div>
       <div style={{display:'flex',flexDirection:'row'}}>
-        <h4 onClick={()=>setisSelected(false) & setselectedOrder({})} style={{color:'var(--accent-color)',fontSize:'calc(1rem + .3vw)',margin:'0.5em 1.5em',cursor:'pointer',fontFamily:'var(--font-family)',fontWeight:'500'}}><IoIosArrowBack style={{marginBottom:'-.15em'}}/> Back</h4>
-      {categoryId == 4 && <button className={classes.reviewbtn} onClick={()=>setisReviewMood(true) & setisSelected(false)}>Review</button> }
-      {categoryId == 2 ? <button className={classes.btn}  onClick={(event) => setShowPopup(true) & event.stopPropagation()}>Cancel Order</button> : <button onClick={AddAllToCart} className={`${categoryId == 4 ? classes.deliveredBtn : classes.btn}`} >Repurchase</button>}
+      {/* {categoryId == 4 && <button className={classes.reviewbtn} onClick={()=>setisReviewMood(true) & setisSelected(false)}>Review</button> }
+      {categoryId == 2 ? <button className={classes.btn}  onClick={(event) => setShowPopup(true) & event.stopPropagation()}>Cancel Order</button> : <button onClick={AddAllToCart} className={`${categoryId == 4 ? classes.deliveredBtn : classes.btn}`} >Repurchase</button>} */}
       </div>
       </div>
       <div className={classes.detailsContainer}>
-
-        <div style={{width:'100%'}}>
-        <div className={classes.header}>
-          {selectedOrder.status_id !== 5 && <div onClick={()=>console.log(selectedOrder)} className={classes.headtitle} style={{color:'var(--accent-color)',padding:'1em 0 2em 0',fontSize:'calc(.9rem  + .3vw)'}}>Estimated delivery: {EstimatedDeliveryDate}</div>}
-        </div>
+        <div style={{width:'100%',display:'grid',gridTemplateColumns:"25% 25% 25% 25%",margin:'3em 0 1em 12.5%'}}>
         {steps.map((step) => {
             return (
-              <div key={step.id} className={classes.orderStep}  style={step.id == 5 ? {borderLeft:'.2em solid transparent'} : {borderLeft:step.id < categoryId ? '.2em solid var(--accent-color)':'.2em solid var(--primary-color)'}}>
-                <div className={classes.stepdot} style={step.id == categoryId ? {backgroundColor:'var(--forth-color)'} : step.id < categoryId ? {backgroundColor:'var(--accent-color)'} : {backgroundColor:'var(--primary-color)'}}/>
-                <h1 style={{color: step.id == categoryId ? 'var(--forth-color)' : step.id < categoryId ? 'var(--accent-color)':'var(--primary-color)',fontSize:'calc(1rem + 0.3vw)',lineHeight:'100%',fontWeight:'600'}}>
-                  {step.label} {(step.id <= categoryId || step.id === 5)&& <span style={{fontSize:'smaller',color:'var(--primary-color)',fontWeight:'500',paddingLeft:'.5em'}}>{(step.id === 5 && step.estimatedDate === "") ?  EstimatedDeliveryDate : (step.id !== 5 ? new Date(step.estimatedDate).toDateString() : new Date(step.estimatedDate).toDateString())} </span>} 
+              <div key={step.id} className={classes.orderStep}  style={step.id == 5 ? {borderTop:'.2em solid transparent'} : {borderTop:step.id < categoryId ? '.2em solid var(--primary-color)':'.2em solid rgba(255,255,255,0.5)'}}>
+                <div className={classes.stepdot} style={step.id == categoryId ? {backgroundColor:'var(--primary-color)',boxShadow:'0px 0px 0px .6em rgba(233, 119, 4, 50%)'} : step.id < categoryId ? {backgroundColor:'var(--primary-color)'} : {backgroundColor:'rgba(255,255,255,0.5)'}}/>
+                <h1 style={{color: step.id > categoryId ? 'rgba(255,255,255,0.5)':'#fff',fontSize:'calc(1rem + 0.3vw)',lineHeight:'100%',fontWeight:'600',marginLeft:'-50%',textAlign:'center',width:'100%'}}>
+                 {step.id === 2 ? <PiNotebook style={{fontSize:"2em"}}/> : step.id === 3 ? <PiPackageDuotone style={{fontSize:"2em"}}/> : step.id === 4 ? <PiTruck style={{fontSize:"2em"}}/> : <PiHandshake style={{fontSize:"2em"}}/>} <br/> {step.label} 
+                  {/* {(step.id <= categoryId || step.id === 5)&& <span style={{fontSize:'smaller',color:'var(--primary-color)',fontWeight:'500',paddingLeft:'.5em'}}>{(step.id === 5 && step.estimatedDate === "") ?  EstimatedDeliveryDate : (step.id !== 5 ? new Date(step.estimatedDate).toDateString() : new Date(step.estimatedDate).toDateString())} </span>}  */}
                 </h1>
                   <p style={{textAlign:'start', color:'#999999'}}>{step.description1}</p>
-                  {/* {step.description2?.length !== 0 && step.id == categoryId && <div style={{padding:'1em 0 1em 1em',fontSize:'.8em'}}> {step.description2?.map((props) => {
-                    return (
-                      <div key={props.id} className={classes.orderStep}  style={props.id == step.description2?.length ? {borderLeft:'1px solid transparent',minHeight:'1em'} : {borderLeft:step.id < categoryId ? '.2em solid var(--accent-color)':'.2em solid var(--primary-color)'}}>
-                        <div className={classes.stepdot} style={{ backgroundColor:props.id == categoryId ? 'var(--forth-color)' : props.id < categoryId ? 'var(--accent-color)' : 'var(--primary-color)'}}/>
-                        <h1 style={{ color: props.id == categoryId ? 'var(--forth-color)' : props.id < categoryId ? 'var(--accent-color)':'var(--primary-color)',fontSize:'calc(.7rem + 0.2vw)',lineHeight:'100%',fontWeight:'700'}}>{props.label}</h1>
-                          <p style={{textAlign:'start', color:'#999999'}}>{props.description}</p>
-                      </div>
-                    )})}</div>} */}
               </div>
             )})}
             <div>

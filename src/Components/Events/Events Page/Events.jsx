@@ -3,6 +3,7 @@ import classes from "./Events.module.css";
 // import collab_image from "../../../assets/collab-head.png";
 import { FaCalendarAlt } from "react-icons/fa";
 import { CiClock2, CiLocationOn } from "react-icons/ci";
+import { FaRegClock } from "react-icons/fa6";
 import { MdLocationOn } from "react-icons/md";
 import { CiUser } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
@@ -74,7 +75,7 @@ useEffect(() => {
                       <p className={classes.p}>{props.description_eng?.substring(0, 60)}{props.description_eng?.length > 60 && "..."}</p>
                   <div className={classes.card_text_head}>
                   <p><FaCalendarAlt className={classes.iconss}/> {formatDate(props.date)}</p>
-                  <p><CiClock2 className={classes.iconss}/> {formatTime(props.start_time)} - {formatTime(props.end_time)}</p>
+                  <p><FaRegClock className={classes.iconss}/> {formatTime(props.start_time)} - {formatTime(props.end_time)}</p>
                   <p style={{height:'2.5em'}}><MdLocationOn className={classes.iconss}/> {props.location}</p>
                   </div>
                       <button className={classes.btn}>Lire Plus</button>

@@ -228,7 +228,7 @@ console.log(eventEnded)
         <div className={classes.contentss}>
           <h2>{language == 'eng' ? eventData.name_eng : eventData.name_fr}</h2>
           <p>{language == 'eng' ? eventData.description_eng : eventData.description_fr}</p>
-          <div className={classes.contactBtn}>
+          <div className={classes.contactBtn} onClick={()=>navigate(`/contactus`)}>
             Contact Us
           </div>
         </div>
