@@ -421,7 +421,11 @@ console.log(formData)
                 rules={[
                   {
                     required: true,
-                    message: "Veuillez saisir le titre de votre adresse!",
+                    message: "Veuillez saisir le titre de votre title!",
+                  },
+                  {
+                    max: 24,
+                    message: "Le titre ne doit pas dépasser 24 caractères.",
                   },
                 ]}
                 style={{ border: "none", borderRadius: ".5em" }}
@@ -459,7 +463,11 @@ console.log(formData)
                   </p>
                 }
                 rules={[
-                  { required: true, message: "Veuillez saisir votre pays!" },
+                  { required: true, message: "Veuillez saisir votre nom!" },
+                  {
+                    max: 24,
+                    message: "Le titre ne doit pas dépasser 24 caractères.",
+                  },
                 ]}
                 style={{ border: "none", borderRadius: ".5em" }}
               >
@@ -486,7 +494,7 @@ console.log(formData)
                       fontWeight: "300",
                       fontFamily: "var(--font-family)",
                       fontSize: "calc(.8rem + .2vw)",
-                    }}
+                    }} 
                   >
                     {
                       data.AccountProfilePage.Adresses.CompanyInput[
@@ -496,6 +504,13 @@ console.log(formData)
                   </p>
                 }
                 style={{ border: "none", borderRadius: ".5em" }}
+                rules={[
+                  { required: true, message: "Veuillez saisir votre companie!" },
+                  {
+                    max: 30,
+                    message: "Le titre ne doit pas dépasser 30 caractères.",
+                  },
+                ]}
               >
                 <Input
                   size="large"
@@ -582,6 +597,11 @@ console.log(formData)
               }
               rules={[
                 { required: true, message: "Veuillez saisir votre adresse!" },
+                {
+                  max: 64,
+                  min: 12,
+                  message: "Le titre doit comporter entre 12 et 64 caractères.",
+                },
               ]}
               style={{ border: "none", borderRadius: ".5em", width: "100%" }}
             >
@@ -598,6 +618,10 @@ console.log(formData)
               name="city"
               rules={[
                 { required: true, message: "Veuillez saisir votre ville!" },
+                {
+                  max: 16,
+                  message: "Le titre ne doit pas dépasser 16 caractères.",
+                },
               ]}
               style={{ border: "none", borderRadius: ".5em" }}
             >
@@ -616,6 +640,10 @@ console.log(formData)
                 {
                   required: true,
                   message: "Veuillez saisir votre Code postal!",
+                },
+                {
+                  max: 8,
+                  message: "Le titre ne doit pas dépasser 8 caractères.",
                 },
               ]}
               style={{

@@ -288,7 +288,11 @@ const AccountDetails = () => {
             <Form.Item
               name="company_name"
               rules={[
-                { required: true, message: 'Please input your company name!' }
+                { required: true, message: 'Please input your company name!' },
+                {
+                  max: 30,
+                  message: "Le titre ne doit pas dépasser 30 caractères.",
+                },
               ]}
               style={{ border: "none", borderRadius: ".5em" }}
             >
@@ -333,7 +337,12 @@ const AccountDetails = () => {
             <Form.Item
               name="company_address"
               rules={[
-                { required: true, message: 'Please input your company address!' }
+                { required: true, message: 'Please input your company address!' },
+                {
+                  max: 64,
+                  min: 12,
+                  message: "Le titre doit comporter entre 12 et 64 caractères.",
+                },
               ]}
               style={{ border: "none", borderRadius: ".5em" }}
             >
@@ -348,7 +357,11 @@ const AccountDetails = () => {
             <Form.Item
               name="company_city"
               rules={[
-                { required: true, message: 'Please input your company city!' }
+                { required: true, message: 'Please input your company city!' },
+                {
+                  max: 16,
+                  message: "Le titre ne doit pas dépasser 16 caractères.",
+                },
               ]}
               style={{ border: "none", borderRadius: ".5em" }}
             >
@@ -366,6 +379,10 @@ const AccountDetails = () => {
                 {
                     pattern: /^\d+$/,
                     message: 'Phone number must contain only numbers!',
+                },
+                {
+                  max: 16,
+                  message: "Le titre ne doit pas dépasser 16 caractères.",
                 },
                 ({ getFieldValue }) => ({
                     validator(_, value) {
@@ -406,7 +423,11 @@ const AccountDetails = () => {
             <Form.Item
               name="tva"
               rules={[
-                { required: true, message: 'Please input your TVA!' }
+                { required: true, message: 'Please input your TVA!' },
+                {
+                  max: 16,
+                  message: "Le titre ne doit pas dépasser 16 caractères.",
+                },
               ]}
               style={{ border: "none", borderRadius: ".5em" }}
             >
@@ -421,7 +442,11 @@ const AccountDetails = () => {
             <Form.Item
               name="siret"
               rules={[
-                { required: true, message: 'Please input your siret!' }
+                { required: true, message: 'Please input your siret!' },
+                {
+                  max: 16,
+                  message: "Le titre ne doit pas dépasser 16 caractères.",
+                },
               ]}
               style={{ border: "none", borderRadius: ".5em" }}
             >
