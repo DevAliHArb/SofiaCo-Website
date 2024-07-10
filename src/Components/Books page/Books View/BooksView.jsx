@@ -345,6 +345,7 @@ const BooksView = ({carttoggle}) => {
     resetLocalStorageItems();
     setchangePricetoggle(!changepricetoggle)
     dispatch(resetSearchData());
+    setIsOpen(false);
     try {
       const response = await axios.get(
         `https://api.leonardo-service.com/api/bookshop/articles?ecom_type=bookshop`
