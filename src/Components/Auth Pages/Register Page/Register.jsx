@@ -111,7 +111,7 @@ const Register = () => {const navigate = useNavigate();
       <Form.Item
         name="company_name"
         rules={[{ required: true, message: 'Please input your Company Name!' },
-          { max: 24, message: 'Company name must be less than 25 characters!' }]}
+          { max: 30, message: 'Company name must be less than 31 characters!' }]}
       >
         <Input
         size="large"  
@@ -149,7 +149,12 @@ const Register = () => {const navigate = useNavigate();
       </Form.Item>
         <Form.Item
           name="company_address"
-          rules={[{ required: true, message: 'Please input your company address!' }]}
+          rules={[{ required: true, message: 'Please input your company address!' },
+            {
+              max: 64,
+              min: 12,
+              message: "Le titre doit comporter entre 12 et 64 caractères.",
+            },]}
         >
           <Input
           size="large"  
@@ -161,7 +166,11 @@ const Register = () => {const navigate = useNavigate();
         </Form.Item>
         <Form.Item
           name="company_city"
-          rules={[{ required: true, message: 'Please input your company city!' }]}
+          rules={[{ required: true, message: 'Please input your company city!' },
+            {
+              max: 16,
+              message: "Le titre ne doit pas dépasser 16 caractères.",
+            },]}
         >
           <Input
           size="large"  
@@ -174,7 +183,11 @@ const Register = () => {const navigate = useNavigate();
         <Form.Item
           name="phone"
           rules={[{ required: true, message: 'Please input your phone!' },
-            { pattern: /^[0-9]+$/, message: 'Phone number must contain only numbers!' }]}
+            { pattern: /^[0-9]+$/, message: 'Phone number must contain only numbers!' },
+            {
+              max: 16,
+              message: "Le titre ne doit pas dépasser 16 caractères.",
+            },]}
         >
           <Input
           size="large"  
@@ -194,7 +207,11 @@ const Register = () => {const navigate = useNavigate();
             { 
               pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 
               message: 'The input is not valid E-mail!' 
-            }
+            },
+            {
+              max: 40,
+              message: "Le titre ne doit pas dépasser 40 caractères.",
+            },
           ]}
         >
           <Input
@@ -207,7 +224,11 @@ const Register = () => {const navigate = useNavigate();
         </Form.Item>
         <Form.Item
           name="tva"
-          rules={[{ required: true, message: 'Please input your TVA!' }]}
+          rules={[{ required: true, message: 'Please input your TVA!' },
+            {
+              max: 16,
+              message: "Le titre ne doit pas dépasser 16 caractères.",
+            },]}
         >
           <Input
           size="large"  
@@ -219,7 +240,11 @@ const Register = () => {const navigate = useNavigate();
         </Form.Item>
         <Form.Item
           name="siret"
-          rules={[{ required: true, message: 'Please input your siret!' }]}
+          rules={[{ required: true, message: 'Please input your siret!' },
+            {
+              max: 16,
+              message: "Le titre ne doit pas dépasser 16 caractères.",
+            },]}
         >
           <Input
           size="large"  
