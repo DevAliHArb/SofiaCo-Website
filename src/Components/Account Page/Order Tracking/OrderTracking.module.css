@@ -100,6 +100,11 @@
   text-align: start;
   display: flex;
   flex-direction: row;
+  background-color: var(--secondary-color);
+  color: #fff;
+  padding: 1em 0;
+  border-radius: 1em;
+  margin: 1em 0;
 }
 
 
@@ -160,15 +165,14 @@
 }
 
 .detailsCard{
-  width: 90%;
+  width: 80%;
  margin: auto;
 
 }
 .detailsContainer{
   width: 100%;
-  display: grid;
-  grid-template-columns: 50% 50%;
-
+  display: flex;
+  flex-direction: column;
 }
 
 
@@ -266,10 +270,10 @@
   width: 1.2em;
   height: 1.2em;
   border-radius: 50%;
-  top: -.5em;
-  left: -.7em;
-  border-bottom:.5em solid #fff;
-  border-top:.5em solid #fff ;
+  top: -.7em;
+  left: 0;
+  /* border-bottom:.5em solid #fff; */
+  /* border-top:.5em solid #fff ; */
 }
 .adressCard{
 display: grid;

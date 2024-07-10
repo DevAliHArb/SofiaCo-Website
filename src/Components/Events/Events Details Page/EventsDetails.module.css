@@ -109,6 +109,7 @@
     height: 15vw !important;
     max-height: 16em;
     object-fit: cover !important;
+    box-shadow: 0px 7px 7px rgba(0, 0, 0, 25%);
   }
   
   .card_imgimg:nth-child(1) {
@@ -118,13 +119,13 @@
   .card_imgimg:nth-child(2) {
     z-index: 2;
     margin-left: 27%;
-    margin-top: calc(max(-6vw, -5em));  /* Ensure margin is not greater than -9em */
+    margin-top: calc(max(-8vw, -7em));  /* Ensure margin is not greater than -9em */
   }
   
   .card_imgimg:nth-child(3) {
     z-index: 3;
     margin-left: 54%;
-    margin-top: calc(max(-6vw, -5em)); /* Ensure margin is not greater than -9em */
+    margin-top: calc(max(-8vw, -7em)); /* Ensure margin is not greater than -9em */
   }
 .contentss{
     width: 88%;
@@ -159,13 +160,13 @@
     font-weight: 500;
     border-radius: .5em;
     padding: 0.5em 3em;
-    background-color: var(--primary-color);
+    background-color: var(--secondary-color);
     margin: 2em 0;
     cursor: pointer;
     transition: background-color 0.5s ease, color 1s ease;
 }
 .contactBtn:hover{
-    background-color:var(--secondary-color) ;
+    background-color:var(--authbg-color) ;
 }
 .map_con{
     padding: 2em 0;

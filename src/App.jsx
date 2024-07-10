@@ -107,6 +107,7 @@ function App() {
           <Route path="/cart" element={<ScrollToTop><Cart /></ScrollToTop>} />
           <Route path="/checkout" element={<ScrollToTop><CheckOut /></ScrollToTop>} />
           <Route path="/checkout-completed/:id" element={<ScrollToTop><CompletedOrder /></ScrollToTop>} />
+          <Route path="/contactus" element={<ScrollToTop><h1 style={{margin:'3em auto 15em auto'}}>Contact Us</h1></ScrollToTop>} />
           <Route path="/books" element={<ScrollToTop><BooksPage /></ScrollToTop>} />
           <Route path="/bookdetails/:id" element={<ScrollToTop><BookDetailsPage cartToggle={cartToggle} /></ScrollToTop>} />
           <Route path="/account/:pageId" element={user ? <ScrollToTop><AccountPage /></ScrollToTop> : <Navigate to="/login" replace />} />
