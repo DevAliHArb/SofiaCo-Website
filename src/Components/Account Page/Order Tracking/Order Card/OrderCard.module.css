@@ -94,36 +94,39 @@ max-height: 12em;
 }
 
 
-  @media screen and (max-width:600px) {
-    .priceContainerMob{
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        width: 90%;
-        margin: 0.5em auto;
-        font-size: calc(.7rem + .3vw);
+  @media screen and (max-width:750px) {
+    .orderCard{
+        width: 80%;
+        height: fit-content;
+        padding: 1.5em 5%;
+        border-radius: 1em;
+        margin: 1.5em auto;
+        font-family: var(--font-family);
+        cursor: pointer;
+        background-color: #fff;
+        display: grid;
+        grid-template-columns: 50% 50%;
     }
-    .titlesCont{
+    .orderCard h3{
         width: 100%;
-        justify-content: space-between;
+        font-family: var(--font-family);
+        color: var(--primary-color);
+        font-size: calc(.8rem + .3vw);
+        font-weight: 600;
+        margin: 1em auto;
     }
-    .titlesCont h5{
-        display: none;
-    }
-    .priceContainer{
-        display: none;
-    }
-    .date{
-        display: none;
-    }
-    .btnsCont{
-        width: 100%;
-        flex-wrap: wrap;
-    }
-    .btn{
-        margin: auto;
-    }
-    .card_img{
-        margin-bottom: 1.5em;
-        }
+    
+.btn{
+    width: fit-content;
+    border: none;
+    border-radius: .5em;
+    padding: .7em 4em;
+    font-size: calc(.7rem + .3vw);
+    color: #fff;
+    cursor: pointer;
+    background-color: var(--primary-color);
+    transition: background-color 0.5s ease, color 1s ease;
+    grid-column: span 2;
+    margin: 1em auto auto auto;
+}
   }

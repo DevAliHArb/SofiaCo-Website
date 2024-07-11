@@ -125,7 +125,7 @@ const OrderTracking = () => {
   const [loading, setLoading] = useState(true);
   const [selectedtitle, setselectedtitle] = useState('');
   const [ordertrackcategories, setordertrackcategories] = useState([])
-  const [selectedCategory, setselectedCategory] = useState(0);
+  const [selectedCategory, setselectedCategory] = useState(localStorage.getItem('selectedOrderCategory') || 0);
   const [selectedOrder, setselectedOrder] = useState({});
   const [isSelected, setisSelected] = useState(false);
   const [isReviewMood, setisReviewMood] = useState(false);
@@ -309,7 +309,7 @@ const reviewHandler =()=>setisReviewMood(true);
      {!isSelected && !isReviewMood && <>
         <div style={{margin:'0 0 3em 0'}}>
             {loading && <CircularProgress style={{marginTop:"5em",color:'var(--primary-color)'}}/>}
-            {!loading && data?.length === 0 ? 
+            {!loading && orders?.length === 0 ? 
             <div
               style={{
                 display: "flex",
@@ -341,12 +341,13 @@ const reviewHandler =()=>setisReviewMood(true);
 
                 </button>
               </div>
-            </div> :  <>
+            </div> : 
+             <>
                 <div className={classes.header} >
-                <div className={classes.headtitle}><h3 style={{fontWeight:"600",marginTop:'0.2em'}} onClick={()=>console.log(ordertrackcategories)}>Order Tracking</h3></div>
+                <div className={classes.headtitle}><h3 style={{fontWeight:"600",marginTop:'0.2em'}} onClick={()=>console.log(ordertrackcategories)}>My Orders</h3></div>
                 <div className={classes.btnsContainer}>
                 <div className={classes.hexagon} onClick={()=>setselectedCategory(0)  & localStorage.setItem('selectedOrderCategory', 0)} style={{backgroundColor:cat === 0 && 'var(--primary-color)'}}>
-                  <div style={{width:'120%',height:'60%',position:"absolute",top:'20%',left:'-10%',zIndex:'1',rotate:'270deg'}}>
+                  <div style={{width:'120%',height:'60%',position:"absolute",top:'20%',left:'-10%',zIndex:'9',rotate:'270deg'}}>
                     <img src={AllOrders} alt=""  style={{width:'50%',}}/>
                     <p style={{marginTop:'0.5em'}}>All Orders</p>
                   </div>
@@ -382,14 +383,45 @@ const reviewHandler =()=>setisReviewMood(true);
                   </div>
                 </div>
                 </div>
-                <div className={classes.headerss}>
+                {data.length !== 0 && <div className={classes.headerss}>
                   <h3>Order Number</h3>
                   <h3>Date</h3>
                   <h3 >Status</h3> 
                   <h3>Total</h3>
-                </div>
+                </div>}
             </div>
-          {!loading && data?.map((props)=>{
+          {!loading &&data?.length === 0 ? <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "2em",
+                padding: "5%",
+                margin: "auto",
+              }}
+            >
+              <div
+                style={{
+                  width: "fit-content",
+                  margin: "auto",
+                  color: "#fff",
+                  fontFamily: "var(--font-family)",
+                  fontSize: "calc(.7rem + .3vw)",
+                }}
+              >
+                <div style={{ width: "fit-content", margin: "auto" }}>
+                  <img
+                    alt="EmptyCart"
+                    src={EmptyCart}
+                    style={{ width: "13em", height: "auto" }}
+                  />
+                </div>
+                <h1 style={{ textAlign: "center",color:"#fff",fontWeight:'600' }}>{language === 'fr' ? `Vous n’avez encore aucune commande ${ordertrackcategories?.find(step => step.id === selectedCategory)?.name_fr} !` : `You haven’t any orders ${ordertrackcategories?.find(step => step.id === selectedCategory)?.name} yet!`}</h1>
+                <button className={classes.btn} onClick={()=>navigate('/books')}>
+                  {language === 'fr' ? "Commencer vos achats" : 'Start shopping'}
+
+                </button>
+              </div>
+            </div> : data?.map((props)=>{
             return(
               <>
               <div onClick={()=>setisSelected(true) & setselectedOrder(props) & setcategoryId(props.status_id ) & stepsHandler(props) & window.scrollTo({ top: 0 })}>
@@ -409,7 +441,7 @@ const reviewHandler =()=>setisReviewMood(true);
       <div style={{display:'flex',flexDirection:'row'}}></div>
       </div>
       <div className={classes.detailsContainer}>
-        <div style={{width:'100%',display:'grid',gridTemplateColumns:"25% 25% 25% 25%",margin:'3em 0 1em 12.5%'}}>
+        <div style={{width:'100%',display:'grid',gridTemplateColumns:"25% 25% 25% 25%",margin:'3em 0 1em 12.5%'}} className={classes.displayNoneMob}>
         {steps?.sort((a, b) => a.id - b.id).map((step) => {
             return (
               <div key={step.id} className={classes.orderStep}  style={step.id == 5 ? {borderTop:'.2em solid transparent'} : {borderTop:step.id < categoryId ? '.2em solid var(--primary-color)':'.2em solid rgba(255,255,255,0.5)'}}>
@@ -419,6 +451,18 @@ const reviewHandler =()=>setisReviewMood(true);
                   {/* {(step.id <= categoryId || step.id === 5)&& <span style={{fontSize:'smaller',color:'var(--primary-color)',fontWeight:'500',paddingLeft:'.5em'}}>{(step.id === 5 && step.estimatedDate === "") ?  EstimatedDeliveryDate : (step.id !== 5 ? new Date(step.estimatedDate).toDateString() : new Date(step.estimatedDate).toDateString())} </span>}  */}
                 </h1>
                   <p style={{textAlign:'start', color:'#999999'}}>{step.description1}</p>
+              </div>
+            )})}
+        </div>
+        <div className={classes.MobLineTime}>
+        {steps?.sort((a, b) => a.id - b.id).map((step) => {
+            return (
+              <div key={step.id} className={classes.orderStep}  style={step.id == 5 ? {borderLeft:'.2em solid transparent'} : {borderLeft:step.id < categoryId ? '.2em solid var(--primary-color)':'.2em solid rgba(255,255,255,0.5)'}}>
+                <div className={classes.stepdot} style={step.id == categoryId ? {backgroundColor:'var(--primary-color)',boxShadow:'0px 0px 0px .6em rgba(233, 119, 4, 50%)'} : step.id < categoryId ? {backgroundColor:'var(--primary-color)'} : {backgroundColor:'rgba(255,255,255,0.5)'}}/>
+                <h1 style={{color: step.id > categoryId ? 'rgba(255,255,255,0.5)':'#fff',fontSize:'calc(1rem + 0.3vw)',lineHeight:'100%',fontWeight:'600',textAlign:'start',margin:'-1em 0 3em 1em',width:'100%'}}>
+                 {step.id === 2 ? <PiNotebook style={{fontSize:"2em",marginBottom:'-.3em'}}/> : step.id === 3 ? <PiPackageDuotone style={{fontSize:"2em",marginBottom:'-.3em'}}/> : step.id === 4 ? <PiTruck style={{fontSize:"2em",marginBottom:'-.3em'}}/> : <PiHandshake style={{fontSize:"2em",marginBottom:'-.3em'}}/>}  {step.label} 
+                  {/* {(step.id <= categoryId || step.id === 5)&& <span style={{fontSize:'smaller',color:'var(--primary-color)',fontWeight:'500',paddingLeft:'.5em'}}>{(step.id === 5 && step.estimatedDate === "") ?  EstimatedDeliveryDate : (step.id !== 5 ? new Date(step.estimatedDate).toDateString() : new Date(step.estimatedDate).toDateString())} </span>}  */}
+                </h1>
               </div>
             )})}
         </div>
@@ -462,10 +506,10 @@ const reviewHandler =()=>setisReviewMood(true);
             <div className={classes.imageCont}>
               <img src={props.article.articleimage[0]?.link ? props.article.articleimage[0].link : bookPlaceHolder} alt="" style={{height:'100%', width: '100%',objectFit:'cover' }}/>
             </div>
-            <div style={{height:'fit-content',textAlign:'start',margin:'auto 0',justifyContent:'space-between',display:'flex', flexDirection:'column',width:'70%',fontSize:'calc(.7rem + 0.3vw)',fontFamily:'var(--font-family)'}}>
-              <p style={{fontWeight:'600',marginBottom:"1em"}}>{props.article.designation}</p>
-              <p style={{fontWeight:'600',fontSize:'calc(.6rem + 0.2vw)'}}>{props.article.dc_auteur}</p>
-              <p className={classes.dicription} dangerouslySetInnerHTML={{ __html: props.article.descriptif }}/>
+            <div style={{height:'100%',textAlign:'start',margin:'auto 0',justifyContent:'space-between',display:'flex', flexDirection:'column',width:'70%',fontSize:'calc(.7rem + 0.3vw)',fontFamily:'var(--font-family)'}}>
+              <p style={{fontWeight:'600',marginBottom:"1em",marginTop:'0'}}>{props.article.designation}</p>
+              {props.article.dc_auteur && <p style={{fontWeight:'600',fontSize:'calc(.6rem + 0.2vw)'}}>{props.article.dc_auteur}</p>}
+              {props.article.descriptif && <p className={classes.dicription} dangerouslySetInnerHTML={{ __html: props.article.descriptif }}/>}
             <div className={classes.quantityMob}>
               <p> {selectedOrder.currency === 'usd' ? '$' : '€' }{props.price} </p>
               <p style={{textAlign:'end'}}>{selectedOrder.currency === 'usd' ? '$' : '€' }{(props.price * props.quantity).toFixed(2)} </p>
@@ -502,7 +546,7 @@ const reviewHandler =()=>setisReviewMood(true);
         </div>
         <div style={{margin:'2em auto 4em auto',width:'fit-content',gap:"2em",display:'flex',flexWrap:"wrap"}}>
       {categoryId == 2 ? <button className={classes.btn}  onClick={(event) => setShowPopup(true) & event.stopPropagation()}>Cancel Order</button> : <button onClick={AddAllToCart} className={`${categoryId == 4 ? classes.deliveredBtn : classes.btn}`} >Repurchase</button>}
-      {categoryId == 4 && <button className={classes.reviewbtn} onClick={()=>setisReviewMood(true) & setisSelected(false)}>Review</button> }
+      {categoryId == 5 && <button className={classes.reviewbtn} onClick={()=>setisReviewMood(true) & setisSelected(false)}>Review</button> }
       </div>
       </div>}
       { isReviewMood && <div className={classes.detailsCard}> 

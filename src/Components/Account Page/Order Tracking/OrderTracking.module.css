@@ -12,6 +12,7 @@
   text-align: center;
   display: flex;
   flex-direction: column;
+  gap: 1em;
 }
 .headtitle{
   position: relative;
@@ -30,7 +31,8 @@
   max-width: 100%;
   margin: auto;
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 .hexagon {
   overflow: visible;
@@ -202,6 +204,7 @@
   font-family: var(--font-family) ;
   font-weight: 500;
   font-size: calc(.8rem + 0.3vw);
+  text-transform: uppercase;
 }
 .totalrows p{
   margin: 0;
@@ -366,6 +369,32 @@ color: var(--primary-color);
 .quantityMob{
   display: none;
 }
+.MobLineTime{
+  display: none;
+}
+@media screen and (max-width:1250px) {
+  .hexagon {
+    width: 3em !important; /* Adjust width */
+    height: 5.19em; /* Adjust height */
+    margin: 1em 1.5em; /* 50% of height */
+    border-radius: .6em /.4em;
+  }
+  .hexagon:before,
+  .hexagon:after {
+    border-radius: .6em /.4em; 
+  }
+  .hexagon:before {
+    width: 3em;
+  }
+  
+  .hexagon::after {
+    width: 3em;
+  }
+  .hexagon p{
+    font-size: calc(.5rem + .2vw);
+  }
+  
+}
 @media screen and (max-width:1050px) {
   .addrCont{
     width: 90%;
@@ -394,13 +423,19 @@ color: var(--primary-color);
     display: flex;
     flex-direction: column;
   }
+  .headerss{
+    display: none;
+  }
   .total_con{
     width: 100%;
+  }
+  .orderActivityCont{
+    width: 90%;
+    margin-bottom: 2em;
   }
   .adressCard{
     margin-top: 1em;
     width: 100%;
-    margin-left: -5%;
     }
   .header1{
     position: relative;
@@ -436,6 +471,23 @@ color: var(--primary-color);
   .displayNoneMob{
     display: none !important;
   }
+  .MobLineTime{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: 1em auto -3em auto;
+  }
+  
+.stepdot{
+  position: absolute;
+  width: 1.2em;
+  height: 1.2em;
+  border-radius: 50%;
+  top: -.7em;
+  left: -.7em;
+  /* border-bottom:.5em solid #fff; */
+  /* border-top:.5em solid #fff ; */
+}
   .quantity{
     display: none !important;
   }
@@ -453,7 +505,7 @@ color: var(--primary-color);
 @media screen and (max-width:600px) {
   
   .header{
-    gap: 2em;
+    gap: 0em;
     flex-direction: column;
   }
   .selectt{
@@ -467,5 +519,10 @@ color: var(--primary-color);
     display: flex;
     width: fit-content;
     margin: 1em auto;
+  }
+}
+@media screen and (max-width:350px) {
+  .hexagon {
+    margin: 1em 1em; /* 50% of height */
   }
 }
