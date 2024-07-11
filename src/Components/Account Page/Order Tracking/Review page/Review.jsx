@@ -106,65 +106,65 @@ const Review = ({props}) => {
       review_attachments: images || [] ,
       user_id: user.id
   })
-  setreviewData([...reviewData, {
-    article_id: selectedReview.article.id,
-    description: description || '',
-    rate: value || 0,
-    review_attachments: images || [] ,
-    user_id: user.id
-}])
-    // try {
-    //   const base64Images = await Promise.all((images || []).map(async (image) => {
-    //     const fileReader = new FileReader();
-    //     fileReader.readAsDataURL(image.attached_file);
-    //     return new Promise((resolve, reject) => {
-    //       fileReader.onload = () => {
-    //         resolve({
-    //           id: image.id,
-    //           attached_file: fileReader.result 
-    //         });
-    //       };
-    //       fileReader.onerror = (error) => {
-    //         reject(error);
-    //       };
-    //     });
-    //   }));
-    //   const response = await axios.post(`https://api.leonardo-service.com/api/bookshop/articles/${selectedReview.article.id}/reviews`, {
-    //     description: description || '',
-    //     rate: value || 0,
-    //     user_id: user.id,
-    //     review_attachments: base64Images || [] ,
-    //     ecom_type: 'albouraq'
-    // });
-    //   console.log('Review created:', response.data);
+    try {
+      const base64Images = await Promise.all((images || []).map(async (image) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(image.attached_file);
+        return new Promise((resolve, reject) => {
+          fileReader.onload = () => {
+            resolve({
+              id: image.id,
+              attached_file: fileReader.result 
+            });
+          };
+          fileReader.onerror = (error) => {
+            reject(error);
+          };
+        });
+      }));
+      const response = await axios.post(`https://api.leonardo-service.com/api/bookshop/articles/${selectedReview.article.id}/reviews`, {
+        description: description || '',
+        rate: value || 0,
+        user_id: user.id,
+        review_attachments: base64Images || [] ,
+        ecom_type: 'albouraq'
+    });
+      console.log('Review created:', response.data);
+      setreviewData([...reviewData, {
+        article_id: selectedReview.article.id,
+        description: description || '',
+        rate: value || 0,
+        review_attachments: images || [] ,
+        user_id: user.id
+    }])
        setValue(0);
        setdescription('');
       setimages([]);
        handleClose();
        form.resetFields();
-    //   toast.success( 'Review added successfully!' , {
-    //     position: "top-right",
-    //     autoClose: 1500,
-    //     hideProgressBar: true,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: 0,
-    //   });
-    //   // Optionally, you can handle success (e.g., show a success message, redirect to another page, etc.)
-    // } catch (error) {
-    //   console.error('Error creating review:', error);
-    //   toast.error( 'Review submit failed, try agian!' , {
-    //     position: "top-right",
-    //     autoClose: 1500,
-    //     hideProgressBar: true,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: 0,
-    //   });
-    //   // Optionally, you can handle errors (e.g., show an error message to the user)
-    // }
+      toast.success( 'Review added successfully!' , {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: 0,
+      });
+      // Optionally, you can handle success (e.g., show a success message, redirect to another page, etc.)
+    } catch (error) {
+      console.error('Error creating review:', error);
+      toast.error( 'Review submit failed, try agian!' , {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: 0,
+      });
+      // Optionally, you can handle errors (e.g., show an error message to the user)
+    }
   };
 
   return (
@@ -175,7 +175,8 @@ const Review = ({props}) => {
           <>
           <div className={classes.content}>
             <div className={classes.imgContainer} onClick={()=>console.log(reviewData)}>
-              <img src={item.article.articleimage[0]?.link ? item.article.articleimage[0].link : bookPlaceHolder} alt="" style={{width:'100%'}}/>
+              <img src={item.article.articleimage[0]?.link ? item.article.articleimage[0].link : bookPlaceHolder} alt="" style={{width:'100%',height:'100%',objectFit:'fill'}} />
+
             </div>
               <div className={classes.btn_con}>
                 <h3 className={classes.imgContainerh3}>{item.article.designation}</h3>
