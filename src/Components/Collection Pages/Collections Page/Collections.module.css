@@ -348,7 +348,7 @@
 @media screen and (max-width:650px) {
   .header{
     flex-direction: column;
-    gap: 2em;
+    gap: 0em;
     border: none;
   }
   .btn{
