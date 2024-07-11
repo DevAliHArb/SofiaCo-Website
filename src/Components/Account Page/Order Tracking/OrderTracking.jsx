@@ -402,14 +402,11 @@ const reviewHandler =()=>setisReviewMood(true);
       </>}
       { isSelected && 
       <div className={classes.detailsCard}>
-        <h4 onClick={()=>setisSelected(false) & setselectedOrder({})} style={{color:'var(--secondary-color)',fontSize:'calc(1rem + .3vw)',margin:'-1em 0 0 -10%',cursor:'pointer',fontFamily:'var(--font-family)',width:'100%',textAlign:'start',fontWeight:'500'}}><IoIosArrowBack style={{marginBottom:'-.15em'}}/> Back</h4>
+        <h4 onClick={()=>setisSelected(false) & setselectedOrder({})} className={classes.back}><IoIosArrowBack style={{marginBottom:'-.15em'}}/> Back</h4>
         <div className={classes.header1}>
       <div className={classes.headtitle} style={{margin:"0 0 0 1em",textAlign:'start',fontWeight:'500',lineHeight:'130%'}} onClick={()=>console.log(steps)}>Order # {selectedOrder.id}<br/> Placed on {new Date(selectedOrder.date).getDate()}/{new Date(selectedOrder.date).getMonth()}/{new Date(selectedOrder.date).getFullYear()}</div>
       <div className={classes.headtitle} style={{margin:"auto 1em auto auto",fontWeight:'500'}} onClick={()=>console.log(steps)}>{selectedOrder.currency === 'eur' ? '€' : '$'}{selectedOrder.total_price}</div>
-      <div style={{display:'flex',flexDirection:'row'}}>
-      {/* {categoryId == 4 && <button className={classes.reviewbtn} onClick={()=>setisReviewMood(true) & setisSelected(false)}>Review</button> }
-      {categoryId == 2 ? <button className={classes.btn}  onClick={(event) => setShowPopup(true) & event.stopPropagation()}>Cancel Order</button> : <button onClick={AddAllToCart} className={`${categoryId == 4 ? classes.deliveredBtn : classes.btn}`} >Repurchase</button>} */}
-      </div>
+      <div style={{display:'flex',flexDirection:'row'}}></div>
       </div>
       <div className={classes.detailsContainer}>
         <div style={{width:'100%',display:'grid',gridTemplateColumns:"25% 25% 25% 25%",margin:'3em 0 1em 12.5%'}}>
@@ -453,9 +450,9 @@ const reviewHandler =()=>setisReviewMood(true);
         <div className={classes.total}>
         <div className={classes.totalrows}>
             <p style={{textAlign:"start",paddingLeft:'10%'}}>Products</p>
-            <p>Price</p>
-            <p>Quantity</p>
-            <p>Sub-Total</p>
+            <p className={classes.displayNoneMob}>Price</p>
+            <p className={classes.displayNoneMob}>Quantity</p>
+            <p className={classes.displayNoneMob}>Sub-Total</p>
           </div>
           <div className={classes.cardCont}>
              {selectedOrder.order_invoice_items?.map((props)=>{
@@ -469,6 +466,10 @@ const reviewHandler =()=>setisReviewMood(true);
               <p style={{fontWeight:'600',marginBottom:"1em"}}>{props.article.designation}</p>
               <p style={{fontWeight:'600',fontSize:'calc(.6rem + 0.2vw)'}}>{props.article.dc_auteur}</p>
               <p className={classes.dicription} dangerouslySetInnerHTML={{ __html: props.article.descriptif }}/>
+            <div className={classes.quantityMob}>
+              <p> {selectedOrder.currency === 'usd' ? '$' : '€' }{props.price} </p>
+              <p style={{textAlign:'end'}}>{selectedOrder.currency === 'usd' ? '$' : '€' }{(props.price * props.quantity).toFixed(2)} </p>
+            </div>
               </div>
             </div>
             <p className={classes.quantity}> {selectedOrder.currency === 'usd' ? '$' : '€' }{props.price} </p>
@@ -481,44 +482,40 @@ const reviewHandler =()=>setisReviewMood(true);
         </div>
           
       </div>
-            {/* <div>
-            <div className={classes.header}>
-              <div className={classes.headtitle} style={{color:'var(--accent-color)'}}>Shipping Address</div>
+        <div className={classes.addrCont}>
+          <div className={classes.adressCard}>
+            <h2>Billing Address</h2>
+              <p style={{marginBottom:'1em'}}>{selectedOrder.user_address.name}</p>
+              <p style={{margin:'0',padding:'0'}}>{selectedOrder.user_address.address}, {selectedOrder.user_address.city}, {selectedOrder.user_address.postalcode}</p>
+              <p>{selectedOrder.user_address.country}</p>
+              <p style={{margin:'1em 0'}}>Phone Number:{user.phone}</p>
+              <p> Email: {user.email}</p>
+          </div>
+          <div style={{height:'80%',width:'2px',backgroundColor:'#E4E7E9',margin:"auto"}}></div>
+          <div className={classes.adressCard}>
+            <h2>Order Notes</h2>
+            <div>
+              <p>{selectedOrder.review ? selectedOrder.review : 'No notes'}</p>
             </div>
-            <div className={classes.adressCard}>
-               <Radio defaultChecked value={true} sx={{ color: 'var(--forth-color)','&.Mui-checked': { color: 'var(--forth-color)',},margin:'.8em 0 auto 0'}}/>
-               <div>
-                <p style={{fontSize:'calc(.9rem + .3vw)'}}>{selectedOrder.user_address.name} <button style={{cursor:"auto",border:'none',backgroundColor:'var(--secondary-color)',color:'var(--forth-color)',borderRadius:'.3em',marginLeft:'3%',padding:'.3em 1em',fontWeight:'500',fontFamily:'var(--font-family)',fontSize:'large'}}>{selectedOrder.user_address.title}</button></p>
-                <p>{selectedOrder.user_address.address}, {selectedOrder.user_address.city}, {selectedOrder.user_address.postalcode}</p>
-                <p>{selectedOrder.user_address.country}</p>
-               </div>
-            </div>
-            <div className={classes.header} style={{marginTop:'2em'}}>
-              <div className={classes.headtitle} style={{color:'var(--accent-color)'}}>Payment Method</div>
-            </div>
-            <div className={classes.adressCard}>
-               <Radio defaultChecked value={true} sx={{ color: 'var(--forth-color)','&.Mui-checked': { color: 'var(--forth-color)',},margin:'.5em 0 auto 0'}}/>
-               <div>
-                <p style={{fontSize:'calc(.9rem + .3vw)'}}>
-                  <img alt='visa' src={selectedOrder.user_payment.card_type === 'Master' ? master : visa} style={{width:'auto',height:'1.5em',margin:'0 1em -.5em 1em'}}/>
-                  {maskConstant(selectedOrder.user_payment.card_number)} <span style={{color:'var(--primary-color)',paddingLeft:'2em',fontWeight:'400'}}>Expires {selectedOrder.user_payment.month}/{selectedOrder.user_payment.year}</span> </p>
-                  
-               </div>
-            </div>
-      </div> */}
+          </div>
+      </div>
         </div>
+        <div style={{margin:'2em auto 4em auto',width:'fit-content',gap:"2em",display:'flex',flexWrap:"wrap"}}>
+      {categoryId == 2 ? <button className={classes.btn}  onClick={(event) => setShowPopup(true) & event.stopPropagation()}>Cancel Order</button> : <button onClick={AddAllToCart} className={`${categoryId == 4 ? classes.deliveredBtn : classes.btn}`} >Repurchase</button>}
+      {categoryId == 4 && <button className={classes.reviewbtn} onClick={()=>setisReviewMood(true) & setisSelected(false)}>Review</button> }
+      </div>
       </div>}
-      { isReviewMood && <div> 
+      { isReviewMood && <div className={classes.detailsCard}> 
+        <h4 onClick={()=>setisSelected(false) & setisReviewMood(false) & setselectedOrder({}) & window.scrollTo({ top: 0 })} className={classes.back}><IoIosArrowBack style={{marginBottom:'-.15em'}}/> Back</h4>
         <div className={classes.header1}>
-      <div className={classes.headtitle}>Order # {selectedOrder.id}</div>
-      <div style={{display:'flex',flexDirection:'row'}}>
-        <h4 onClick={()=>setisSelected(false) & setisReviewMood(false) & setselectedOrder({}) & window.scrollTo({ top: 0 })} style={{color:'var(--accent-color)',fontSize:'calc(1rem + .3vw)',margin:'0.5em 1.5em',cursor:'pointer',fontFamily:'var(--font-family)',fontWeight:'500'}}><IoIosArrowBack style={{marginBottom:'-.15em'}}/> Back</h4>
-     <button className={classes.reviewbtn} style={{backgroundColor:'var(--primary-color)',marginRight:"0"}}>Return</button> 
-      </div>
-      </div>
+      <div className={classes.headtitle} style={{margin:"0 0 0 1em",textAlign:'start',fontWeight:'500',lineHeight:'130%'}} onClick={()=>console.log(steps)}>Order # {selectedOrder.id}<br/> Placed on {new Date(selectedOrder.date).getDate()}/{new Date(selectedOrder.date).getMonth()}/{new Date(selectedOrder.date).getFullYear()}</div>
+      <div className={classes.headtitle} style={{margin:"auto 1em auto auto",fontWeight:'500'}} onClick={()=>console.log(steps)}>{selectedOrder.currency === 'eur' ? '€' : '$'}{selectedOrder.total_price}</div>
+      <div style={{display:'flex',flexDirection:'row'}}></div>
+      </div> 
+      {/* <button className={classes.reviewbtn} style={{backgroundColor:'var(--primary-color)',marginRight:"0"}}>Return</button>  */}
         <Review props={selectedOrder}/>
       </div>}
-      <div className={classes.deliveredMob}><button className={classes.btn} onClick={AddAllToCart}>Repurchase</button></div>
+      {/* <div className={classes.deliveredMob}><button className={classes.btn} onClick={AddAllToCart}>Repurchase</button></div> */}
       {showPopup && (
         <ConfirmationPopup
           message={"Are you sure you want to delete this Order?"}

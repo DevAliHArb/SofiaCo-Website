@@ -15,6 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { addSelectedEvent } from "../../Common/redux/productSlice";
 import { useNavigate } from "react-router-dom";
 import Services from "../../Home Page/Services Section/Services";
+import EventImg from "../../../assets/EventImg.png";
 
 const formatTime = (dateTimeString) => {
   const date = new Date(dateTimeString);
@@ -198,7 +199,7 @@ console.log(eventEnded)
           </div>
         </div>
         <img
-          src={`${mainEventImg?.length !== 0 && mainEventImg[0].image }`}
+          src={`${(mainEventImg?.length !== 0 && mainEventImg[0].image) || EventImg }`}
           alt="registerImage"
           style={{ height: "100%" }}
           className={classes.events_detail_image}
@@ -207,19 +208,19 @@ console.log(eventEnded)
       <div className={classes.events_detail_image_con} style={{flexDirection:"column"}}>
         <div className={classes.imagesCont}>
         <img
-          src={eventImg?.length >0 && `${eventImg[0]?.image}`}
+          src={eventImg?.length >0 && `${eventImg[0]?.image}` || EventImg}
           alt="registerImage"
           style={{ height: "100%" }}
           className={classes.card_imgimg}
         />
         <img
-          src={eventImg?.length >0 && `${eventImg[1]?.image}`}
+          src={eventImg?.length >0 && `${eventImg[1]?.image}` || EventImg}
           alt="registerImage"
           style={{ height: "100%" }}
           className={classes.card_imgimg}
         />
         <img
-          src={eventImg?.length >0 && `${eventImg[2]?.image}`}
+          src={eventImg?.length >0 && `${eventImg[2]?.image}` || EventImg}
           alt="registerImage"
           style={{ height: "100%" }}
           className={classes.card_imgimg}

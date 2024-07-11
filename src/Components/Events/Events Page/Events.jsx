@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import classes from "./Events.module.css";
-// import collab_image from "../../../assets/collab-head.png";
+import EventImg from "../../../assets/EventImg.png";
 import { FaCalendarAlt } from "react-icons/fa";
 import { CiClock2, CiLocationOn } from "react-icons/ci";
 import { FaRegClock } from "react-icons/fa6";
@@ -62,7 +62,7 @@ useEffect(() => {
            className={classes.card_container}>
               <div className={classes.card_img}>
                 <div className={classes.card_imgimg}>
-                  <img alt='' src={`${eventImg?.length === 0 ? props.event_images[0]?.image : eventImg[0]?.image }`}/>
+                  <img alt='' src={`${(eventImg?.length === 0 ? props.event_images[0]?.image : eventImg[0]?.image)||EventImg }`}/>
                 <div className={classes.icon_con}>
                   <p className={classes.icon} onClick={()=>console.log(eventImg)}>${props.price}</p>
                 </div>

@@ -134,16 +134,16 @@
 
 .deliveredBtn{
   border: none;
-  background-color: var(--forth-color);
+  background-color: var(--primary-color);
   border-radius: .5em;
   padding: .5em 2em;
   font-size: calc(.7rem + .3vw);
-  color: #DED8CC;
+  color: #fff;
   cursor: pointer;
   transition: background-color 0.5s ease, color 1s ease;
 }
 .deliveredBtn:hover{
-  background-color: var(--accent-color);
+  background-color: var(--secondary-color);
 }
 
 .deliveredMob{
@@ -151,17 +151,17 @@
 }
 .reviewbtn{
   border: none;
-  background-color: var(--accent-color);
+  background-color: var(--secondary-color);
   border-radius: .5em;
   padding: .5em 2em;
   font-size: calc(.7rem + .3vw);
-  color: #DED8CC;
+  color: #fff;
   cursor: pointer;
   transition: background-color 0.5s ease, color 1s ease;
   margin-right: 2em;
 }
 .reviewbtn:hover{
-  background-color: var(--forth-color);
+  background-color: var(--primary-color);
 }
 
 .detailsCard{
@@ -302,7 +302,19 @@
   font-weight: 600;
   text-align: center;
 }
-
+.addrCont{
+  width: 60%;
+  background-color: #fff;
+  color: var(--primary-color);
+  margin: 1em auto;
+  padding: 1em 5% 2em 5%;
+  border-radius: .5em;
+  font-family: var(--font-family) ;
+  font-weight: 500;
+  display: grid;
+  grid-template-columns: 48% 4% 48%;
+  text-align: start;
+}
 
 .orderStep{
   position: relative;
@@ -325,19 +337,55 @@
   /* border-top:.5em solid #fff ; */
 }
 .adressCard{
-display: grid;
-grid-template-columns: 7% 90%;
-font-family: var(--font-family);
-font-weight:500 ;
-font-size: calc(.8rem + .2vw);
-color: var(--accent-color);
+display: flex;
+flex-direction: column;
 }
-
+.adressCard h2{
+font-family: var(--font-family);
+font-weight:600 ;
+font-size: calc(.9rem + .2vw);
+color: var(--primary-color);
+}
+.adressCard p{
+  font-family: var(--font-family);
+  font-weight:500 ;
+  font-size: calc(.8rem + .2vw);
+  color: var(--secondary-color);
+  margin: 0;
+}
+.back{
+  color: var(--secondary-color);
+  font-size: calc(1rem + .3vw);
+  margin: -1em 0 0 -10%;
+  cursor: pointer;
+  font-family: var(--font-family);
+  width: 100%;
+  text-align: start;
+  font-weight: 500;
+}
+.quantityMob{
+  display: none;
+}
+@media screen and (max-width:1050px) {
+  .addrCont{
+    width: 90%;
+  }
+}
 @media screen and (max-width:950px) {
   .detailsCard{
-  width: 100%;
+  width: 90%;
   margin: 0 auto;
 
+}
+.back{
+  color: var(--secondary-color);
+  font-size: calc(1rem + .3vw);
+  margin: -1em 0 1em 0;
+  cursor: pointer;
+  font-family: var(--font-family);
+  width: 100%;
+  text-align: start;
+  font-weight: 500;
 }
 }
 @media screen and (max-width:750px) {
@@ -348,12 +396,8 @@ color: var(--accent-color);
   }
   .total_con{
     width: 100%;
-    margin: 4% 0 1% -4%;
   }
   .adressCard{
-    border: 1px solid var(--accent-color);
-    border-radius:1em;
-    padding: 0% 5%;
     margin-top: 1em;
     width: 100%;
     margin-left: -5%;
@@ -366,6 +410,44 @@ color: var(--accent-color);
     display: flex;
     flex-direction: row;
     margin: 1em 0 2em 0;
+  }
+  .addrCont{
+    margin: 1em auto;
+    padding: 1em 5% 2em 5%;
+    border-radius: .5em;
+    font-family: var(--font-family) ;
+    font-weight: 500;
+    display: grid;
+    grid-template-columns: 1fr;
+    text-align: start;
+  }
+  .card{
+    width: 90%;
+    position: relative;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: space-between;
+    margin: 0em 0 1em 0;
+    color: #fff;
+    padding: 1em 5% 2em 5%;
+    border-bottom: 1px solid #fff;
+  }
+  .displayNoneMob{
+    display: none !important;
+  }
+  .quantity{
+    display: none !important;
+  }
+  .quantityMob{
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+  .quantityMob p{
+    font-family: var(--font-family);
+    font-weight: 600;
+    font-size: calc(.7rem + .3vw);
+    margin: .5em 0 0 0;
   }
 }
 @media screen and (max-width:600px) {

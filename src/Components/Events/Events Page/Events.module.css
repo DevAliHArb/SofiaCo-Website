@@ -43,7 +43,7 @@
 }  
 .card_container{
     width: 80%;
-    height: fit-content;
+    height:max-content;
     background: transparent;
     font-family: var(--font-family);
     font-size: calc(0.7rem + 0.3vw);
@@ -86,6 +86,8 @@
     letter-spacing: 0.01rem;
     text-align: start;
     margin-bottom: 0.5em;
+    height: 1.3em;
+    overflow: hidden;
   }
   .p{
     width: 80%;
@@ -249,7 +251,7 @@
 }
 
 .hovered_title h2{
-  font-size: calc(.9rem + 0.3vw);
+  font-size: calc(.8rem + 0.3vw);
   margin-bottom: 0em;
 }
 .p{

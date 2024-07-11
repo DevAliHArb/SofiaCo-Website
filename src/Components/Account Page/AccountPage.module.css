@@ -213,7 +213,7 @@
 }
 
 .auth_bg{
-  transform: rotate(-5deg);
+  rotate: -4deg;
 }
 }
 @media screen and (max-width:750px) {
@@ -235,6 +235,9 @@
   .header{
     margin-bottom: 1em;
   }
-
-  
+  .auth_bg{
+    rotate: -6deg;
+    width: 140%;
+    left: -20%;
+  }
 }
