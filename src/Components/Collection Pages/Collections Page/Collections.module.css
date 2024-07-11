@@ -14,7 +14,7 @@
 .header{
   display: flex;
   flex-direction: column;
-  margin: 3em 0;
+  margin: 3em 0 1em 0;
 }
 
 .header h1{
@@ -102,7 +102,8 @@
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 22%);
-  margin-top: 3em;
+  margin-top: 0em;
+  margin-bottom: 8em;
   text-align: center;
   align-items: center;
   justify-content: center;
@@ -253,6 +254,7 @@
 
 @media screen and (max-width: 1024px) {
   .page_control{
+    border: none;
     margin: 2em auto 0 auto;
   }
   .data {
@@ -348,7 +350,7 @@
 @media screen and (max-width:650px) {
   .header{
     flex-direction: column;
-    gap: 2em;
+    gap: 0em;
     border: none;
   }
   .btn{

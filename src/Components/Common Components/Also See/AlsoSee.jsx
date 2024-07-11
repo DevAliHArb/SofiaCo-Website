@@ -89,6 +89,9 @@ const AlsoSee = () => {
                   spaceBetween: 10,
                 },
                 951: {
+                  slidesPerView: 4,
+                },
+                1200: {
                   slidesPerView: 5,
                   spaceBetween: 20,
                 },
