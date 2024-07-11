@@ -50,9 +50,9 @@ const FavoriteItem = ({ carttoggle }) => {
                   value={props.favrate}
                   readOnly
               /><p style={{margin:'0.2em 0 0 0 '}}>{props.favrate}/5</p></p>
-              <p className={classes.priceMob}>{currency === 'usd' ? `${(props.favprice * authCtx.currencyRate).toFixed(2)} $` : `${Number(props.favprice).toFixed(2)} €`} </p> 
+              <p className={classes.priceMob}>{currency === 'usd' ? `$ ${(props.favprice * authCtx.currencyRate).toFixed(2)} ` : `€ ${Number(props.favprice).toFixed(2)} `} </p> 
             </div>
-            <p className={classes.price}>{currency === 'usd' ? `${(props.favprice * authCtx.currencyRate).toFixed(2)} $` : `${Number(props.favprice).toFixed(2)} €`}</p>
+            <p className={classes.price}>{currency === 'usd' ? `$ ${(props.favprice * authCtx.currencyRate).toFixed(2)} ` : `€ ${Number(props.favprice).toFixed(2)} `}</p>
             
             <div className={classes.quantity}>
               <p
@@ -123,7 +123,7 @@ const FavoriteItem = ({ carttoggle }) => {
               </p>
             </div>
             <p className={classes.totalPrice} >
-              {currency === 'usd' ? `${(props.favquantity * props.favprice * authCtx.currencyRate).toFixed(2)} $` : `${(props.favquantity * props.favprice).toFixed(2)} €`}
+              {currency === 'usd' ? `$ ${(props.favquantity * props.favprice * authCtx.currencyRate).toFixed(2)} ` : `€ ${(props.favquantity * props.favprice).toFixed(2)} `}
             </p>
             <div className={classes.addtocart}>
               <button

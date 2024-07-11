@@ -73,7 +73,6 @@ const AlsoSee = () => {
         ) : (
           <div className={classes.swiper}>
             <Swiper
-              spaceBetween={20}
               effect={"fade"}
               navigation={{
                 nextEl: `.${classes.nav_next}`,
@@ -83,12 +82,15 @@ const AlsoSee = () => {
               breakpoints={{
                 0: {
                   slidesPerView: 2,
+                  spaceBetween: 5,
                 },
                 651: {
                   slidesPerView: 3,
+                  spaceBetween: 10,
                 },
                 951: {
                   slidesPerView: 5,
+                  spaceBetween: 20,
                 },
               }}
               onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)} // Update active slide index on change
@@ -165,7 +167,7 @@ const AlsoSee = () => {
                       <p style={{ height:'1.5em', fontSize:'small', fontWeight: 400 }}>{truncateText(stripHtmlTags(props.descriptif), 30)}</p>
                       <span style={{ display: "flex", flexDirection: "row", margin:'0 auto', columnGap:'0.5em' }}>
                         <p
-                          style={{ textAlign: "center", padding: "0 ",color: "var(--primary-color)",fontWeight:700 }}
+                          style={{ textAlign: "center", padding: "0 ",color: "var(--primary-color)",fontWeight:700,textShadow:'0px 0px 3px rgba(255,255,255,1)' }}
                         >
                           {currency === "eur"
                             ? `€${

@@ -217,6 +217,9 @@
     }
   },
   "ContactUsPage": {
+    "title": { "eng": "Get in touch", "fr": "Get in touch(fr)" },
+    "Subtitle": { "eng": "We’d love to hear from you!",
+                  "fr": "We’d love to hear from you!" },
     "description": {
       "eng": "Submit a request and we will get back to you",
       "fr": "Ecrivez-nous en remplissant le formulaire"
