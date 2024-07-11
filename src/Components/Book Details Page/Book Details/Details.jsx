@@ -21,6 +21,7 @@ import {
   deletefavorite,
 } from "../../Common/redux/productSlice";
 import { TbTruckDelivery } from "react-icons/tb";
+import { stripHtmlTags, truncateText } from "../../Common Components/TextUtils";
 
 const Details = () => {
   const authCtx = useContext(AuthContext);
@@ -268,14 +269,9 @@ const Details = () => {
           </div>
           <div className={classes.resume_content}>
           <p >{language === 'eng' ? 'Resume' : 'Résumé'}</p>
-          <p
-            dangerouslySetInnerHTML={{
-              __html:":" +
-                bookData.descriptif && bookData.descriptif.length > 500
-                  ? bookData.descriptif.substring(0, 500) + "..."
-                  : bookData.descriptif,
-            }}
-          />
+          <p>
+            : {truncateText(stripHtmlTags(bookData.descriptif), 500)}
+          </p>
           </div>
         </div>
       </div>

@@ -1,0 +1,240 @@
+.contactUsContainer{
+    width: 100%;
+    position: relative;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    max-width: 1850px;
+    margin: 0 auto 5em auto;
+    overflow: hidden;
+    z-index: 9;
+  }
+  
+  .contactImageCont{
+    position: relative;
+    width: 100%;
+    height: 20em;
+    padding: 0;
+    margin: 0;
+    margin-top: -1.7em;
+    z-index: -1;
+  }
+
+  .contactImage{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 0 0 2em 2em;
+    object-fit: cover;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .imageContent{
+    position: absolute;
+    bottom: 0;
+    width: fit-content;
+    right: 50%;
+    transform: translateX(50%);
+    background-color: var(--accent-color);
+    color: #fff;
+    font-family: var(--font-family);
+    font-style: normal;
+    padding: 1em 2em; 
+    font-size: calc(1rem + 0.4vw);
+    border-radius: 2em 2em 0 0;
+    text-align: center;
+  }
+
+  .imageContent h2{
+    font-weight: 500;
+  }
+
+
+  .header{
+    position: relative;
+    width: 80%;
+    margin: 3.5em auto;
+    text-align: center;
+    justify-content: center;
+  }
+  
+  .headtitle{
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: calc(1.2rem + 0.3vw);
+    color: #194466;
+  }
+
+  .accountContainer{
+    width: 100%;
+    margin: 0 auto;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 5em;
+  }
+
+  .accountContainer h1{
+    position: relative;
+    font-size: calc(1.5rem + 0.9vw);
+    color: var(--secondary-color);
+    font-family: var(--font-family);
+    font-weight: 700;
+    line-height: normal;
+    margin:2em auto 1em auto;
+    text-transform: capitalize;
+  }
+
+  .titlesCard{
+    position: relative;
+    width: 92%;
+    height: fit-content;
+    background-color:transparent;
+    color: #fff;
+    border-radius: 1em;
+    margin: 3em auto;
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .titlesCard button{
+    font-family: var(--font-family);
+    font-weight: 400;
+    position: relative;
+    width: 15%;
+    margin: 0 auto;
+    padding: 0.5em 1em;
+    border-radius: 0.5em;
+    font-size: calc(0.7rem + 0.3vw);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    color: #fff;
+    background-color: var(--secondary-color);
+    border: none;
+    text-transform: capitalize;
+  }
+  
+  .titlesCard button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  background-color: var(--primary-color);
+  }
+  
+  .contentContainer{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 88%;
+    box-shadow: 4px 7px 7.1px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 1em;
+    padding: 3em 0 1em 0;
+    overflow: hidden;
+    background-color: #fff;
+    margin: 0 auto !important;
+    margin-bottom: 3em;
+  }
+  
+.auth_bg{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: var(--authbg-color);
+  top: -0%;
+  left: 0%;
+  bottom: 0;
+  right: 0;
+  border-radius: 2em;
+  /* z-index: -1; */
+  /* transform: rotate(-5deg); */
+  rotate: -7deg;
+}
+.titlesCard_mob{
+  display: none;
+  width: 80%;
+  margin: 0em auto 2em auto;
+}
+  
+.select {
+  border: 2px solid #fff;
+  background-color: var(--primary-color);
+  border-radius: 1em !important;
+  height: 3.5em;
+  color: #fff !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1em;
+  text-transform: capitalize;
+  font-family: var(--font-family);
+}
+
+.select:focus{
+  outline: none;
+}
+@media screen and (max-width:950px) {
+  .contactUsContainer{
+    margin: 0 auto 3em auto;
+  }
+  .accountContainer{
+    width: 88%;
+    grid-template-columns: 100%;
+  }
+  
+  .contentContainer{
+    width: 100% !important;
+    padding-top: 1em;
+  }
+
+  .titlesCard{
+    display: none;
+  }
+
+  .titlesCard_mob{
+    display: flex;
+  }
+  .contactImageCont{
+    margin-top: 0;
+  }
+  .char{
+    width: 88%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: var(--accent-color);
+    margin: 10% auto 9% auto;
+    text-align: start;
+    font-size: calc(.7rem + 0.3vw);
+    z-index: 20;
+}
+
+.auth_bg{
+  transform: rotate(-5deg);
+}
+}
+@media screen and (max-width:750px) {
+  .header{
+    position: relative;
+    width: 88%;
+    margin: 3em auto;
+    text-align: center;
+    justify-content: center;
+  }
+  .imageContent {
+    width: fit-content; 
+    left: 0;
+    right: 0;
+    margin: auto;
+    transform: none; 
+  }
+  
+  .header{
+    margin-bottom: 1em;
+  }
+
+  
+}

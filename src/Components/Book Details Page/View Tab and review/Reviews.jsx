@@ -265,7 +265,7 @@ const handleReviewButtonClick = () => {
                 </Form.Item>
                 
         </div>
-                <div style={{width:'88%', display:"flex", flexDirection:"row", justifyContent:'space-between',margin:'0'}}>
+                <div className={classes.submit_con}>
                     <Form.Item>
                         <Button 
                         size="large"

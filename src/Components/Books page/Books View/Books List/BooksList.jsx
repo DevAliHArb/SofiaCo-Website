@@ -28,6 +28,7 @@ import nodata from "../../../../assets/nobookfound.svg";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
+import { stripHtmlTags, truncateText } from "../../../Common Components/TextUtils";
 
 
 const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChemin, selectedRate, selectedPrice }) => {
@@ -384,7 +385,10 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                     <div className={classes.bookTitle} >
                       <p >{props.designation.length > 15 ? props.designation.slice(0,15) + '...' : props.designation}</p>
                       <p style={{ height:'1em', fontSize:'small', fontWeight: 400 }}>{props.dc_auteur.length > 15 ? props.dc_auteur.slice(0,15) + '...' : props.dc_auteur}</p>
-                      <p style={{ height:'2em', fontSize:'small', fontWeight: 400 }} dangerouslySetInnerHTML={{__html: props.descriptif.length > 40 ? props.descriptif.slice(0,40) + '...' : props.descriptif}} />
+                      
+                      <p className={classes.dicription} >
+                      {truncateText(stripHtmlTags(props.descriptif), 30)}
+                      </p>
                       <span style={{ display: "flex", flexDirection: "row", margin:'0 auto', columnGap:'0.5em' }}>
                         <p
                           style={{ textAlign: "center", padding: "0 ",color: "var(--primary-color)",fontWeight:700 }}
@@ -518,9 +522,9 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                           readOnly
                           /><p style={{margin:'0.2em 0 0 0 '}}>{averageRate.toFixed(2)}/5</p>
                       </p>
-                      <p className={classes.bookRowDescription} 
-                              dangerouslySetInnerHTML={{ __html: props.descriptif.length > 250 ? props.descriptif.substring(0, 250) + "..." : props.descriptif }}
-                      />
+                      <p className={classes.bookRowDescription} >
+                      {truncateText(stripHtmlTags(props.descriptif), 80)}
+                      </p>
                       <p className={classes.priceMob}>{(props.prixpublic * 1).toFixed(2)} $</p> 
                     </div>
                   </div>
@@ -556,7 +560,49 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                           <PiShoppingCartSimpleLight className={classes.icon} />
                         </div>
                       </div>
-            <p className={classes.price}>{(props.prixpublic * 1).toFixed(2)} $</p>
+             <span style={{ display: "flex", flexDirection: "row", margin:'0', columnGap:'0.5em' }}>
+                        {props.discount > 0 && (
+                          <p
+                            style={{
+                              color: "var(--primary-color)",
+                              textDecoration: "line-through",
+                              fontSize: "small",
+                              margin:"auto 0"
+                            }}
+                          >
+                            {currency === "eur"
+                              ? `€ ${Number(props.prixpublic).toFixed(2)} `
+                              : `$ ${(
+                                  props.prixpublic * authCtx.currencyRate
+                                ).toFixed(2)} `}
+                          </p>
+                        )}
+                        <p
+                          className={classes.price}
+                        >
+                          {currency === "eur"
+                            ? `€${
+                                props.discount > 0
+                                  ? (
+                                      props.prixpublic -
+                                      props.prixpublic * (props.discount / 100)
+                                    ).toFixed(2)
+                                  : Number(props.prixpublic).toFixed(2)
+                              }`
+                            : `$${
+                                props.discount > 0
+                                  ? (
+                                      (props.prixpublic -
+                                        props.prixpublic *
+                                          (props.discount / 100)) *
+                                      authCtx.currencyRate
+                                    ).toFixed(2)
+                                  : (
+                                      props.prixpublic * authCtx.currencyRate
+                                    ).toFixed(2)
+                              }`}{" "}
+                        </p>
+                      </span>
             <div className={classes.iconslistContainerMob} >
                       {favoriteData.some(
                               (book) => book._favid === props.id

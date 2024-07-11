@@ -451,5 +451,23 @@
   "AlsoSee":{
       "title":{"eng":"You May Also Like", "fr": ""},
       "description":{"eng":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": ""}
+  },
+  "MyDocuments":{
+    "title":{"eng":"My Documents", "fr": "My Documents_fr"},
+    "button1":{
+      "title":{"eng":"Proforma Quote", "fr": "Devis Proforma"}
+    },
+    "button2":{
+      "title":{"eng":"Invoices", "fr": "Factures"}
+    },
+    "button3":{
+      "title":{"eng":"Return Authorization", "fr": "Autorisation de Retour"}
+    },
+    "button4":{
+      "title":{"eng":"Assets", "fr": "Avoirs"}
+    },
+    "button5":{
+      "title":{"eng":"My Orders", "fr": "Mes Commandes"}
+    }
   }
 }

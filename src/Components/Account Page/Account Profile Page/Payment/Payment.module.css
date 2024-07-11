@@ -70,8 +70,7 @@
       text-transform: capitalize;
     }
     .addBtn{
-        width: 35vh;
-        max-width: 35em;
+        width: fit-content;
           border: none;
           padding: .5em 4em;
           background-color: var(--primary-color);

@@ -16,6 +16,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IoMdArrowBack } from "react-icons/io";
 import { addSelectedBook } from '../../Common/redux/productSlice';
 import { IoCartOutline } from "react-icons/io5";
+import { stripHtmlTags, truncateText } from '../TextUtils';
 
 const AlsoSee = () => {
   const authCtx = useContext(AuthContext);
@@ -161,7 +162,7 @@ const AlsoSee = () => {
                     <div className={classes.bookTitle} >
                       <p >{props.designation.length > 15 ? props.designation.slice(0,15) + '...' : props.designation}</p>
                       <p style={{ height:'1em', fontSize:'small', fontWeight: 400 }}>{props.dc_auteur.length > 15 ? props.dc_auteur.slice(0,15) + '...' : props.dc_auteur}</p>
-                      <p style={{ height:'2em', fontSize:'small', fontWeight: 400 }}>{props.descriptif.length > 40 ? props.descriptif.slice(0,40) + '...' : props.descriptif}</p>
+                      <p style={{ height:'1.5em', fontSize:'small', fontWeight: 400 }}>{truncateText(stripHtmlTags(props.descriptif), 30)}</p>
                       <span style={{ display: "flex", flexDirection: "row", margin:'0 auto', columnGap:'0.5em' }}>
                         <p
                           style={{ textAlign: "center", padding: "0 ",color: "var(--primary-color)",fontWeight:700 }}

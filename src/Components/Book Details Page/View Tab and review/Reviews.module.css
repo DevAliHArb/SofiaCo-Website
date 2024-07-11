@@ -123,16 +123,23 @@
     background-color: var(--primary-color);
     border: none;
     border-radius: 10px;
-    padding: 0.5em 3em;
+    padding: 0.8em 3em;
     color: #fff;
     font-size: calc(.7rem + .3vw);
     cursor: pointer;
     transition: background-color .6s ease, color 1s ease;
-    margin-top: 2em;
+    margin: 2em auto 0 auto;
 }
 .addbtn:hover{
     background-color: var(--secondary-color) !important;
     color: #fff !important;
+}
+
+.submit_con{
+    width:88%;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between
 }
 
 .cancelbtn{
@@ -204,5 +211,21 @@
 
     .reviewsCon{
         margin-bottom: 0;
+    }
+
+    .reviewsCon h1{
+        text-align: center;
+        margin: 0 auto 1em auto;
+    }
+
+    .addbtn{
+        margin: 2em auto 0 auto;
+        justify-self: center;
+        align-self: center;
+    }
+
+    .submit_con{
+        width: 100%;
+        justify-content: center;
     }
 }

@@ -5,7 +5,8 @@
     display: flex;
     flex-direction: column;
     max-width: 1900px;
-    margin: 0 auto;
+    margin: 0 auto 5em auto;
+    padding-top: 2em;
     background-color: #fff;
     /* z-index: 1; */
 }
@@ -24,6 +25,9 @@
       height: 80%;
       object-fit: contain;
     }
+    .bookDetailsPageContaimer{
+      margin: 0 auto ;
+  }
 }
 
 @media screen and (max-width:650px) {

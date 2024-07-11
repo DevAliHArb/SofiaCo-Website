@@ -5,7 +5,7 @@ import Deals from '../Home Page/Deals/Deals'
 
 const BooksPage = ({carttoggle}) => {
   return (
-    <div style={{background:'#fff'}}>
+    <div style={{background:'#fff', paddingTop:'2em'}}>
       <OurSelectionBanner />
       <BooksView carttoggle={carttoggle}/>
       {/* <div style={{marginTop:'-4em'}}> */}

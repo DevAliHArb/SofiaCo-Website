@@ -32,6 +32,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import OurSelectionBanner from "../../Common Components/Our Selection Banner/OurSelectionBanner";
+import { stripHtmlTags, truncateText } from "../../Common Components/TextUtils";
 
 
 const CollectionDetailsPage = () => {
@@ -261,9 +262,8 @@ const CollectionDetailsPage = () => {
                       <p >{props.designation.length > 15 ? props.designation.slice(0,15) + '...' : props.designation}</p>
                       <p style={{ height:'1em', fontSize:'small', fontWeight: 400 }}>{props.dc_auteur.length > 15 ? props.dc_auteur.slice(0,15) + '...' : props.dc_auteur}</p>
                       <p
-  style={{ height: '2em', fontSize: 'small', fontWeight: 400 }}
-  dangerouslySetInnerHTML={{ __html: props.descriptif.length > 40 ? props.descriptif.slice(0, 40) + '...' : props.descriptif }}
-/>                      <span style={{ display: "flex", flexDirection: "row", margin:'0 auto', columnGap:'0.5em' }} >
+  style={{ height: '1.5em', fontSize: 'small', fontWeight: 400 }}
+>{truncateText(stripHtmlTags(props.descriptif), 40)}</p>                      <span style={{ display: "flex", flexDirection: "row", margin:'0 auto', columnGap:'0.5em' }} >
                         <p
                           style={{ textAlign: "center", padding: "0 ",color: "var(--primary-color)",fontWeight:700 }}
                         >
