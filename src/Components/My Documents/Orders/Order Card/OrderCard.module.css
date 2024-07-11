@@ -1,0 +1,151 @@
+
+.orderCard{
+    width: 90%;
+    height: fit-content;
+    padding: 1.5em 0;
+    border-radius: 1em;
+    margin: 1.5em auto;
+    font-family: var(--font-family);
+    cursor: pointer;
+    background-color: #fff;
+    display: grid;
+    grid-template-columns: 15% 25% 20% 20% 20%;
+}
+
+.orderCard h3{
+    font-family: var(--font-family);
+    color: var(--primary-color);
+    font-size: calc(.8rem + .3vw);
+    font-weight: 600;
+    margin: auto;
+}
+
+.btn{
+    width: 80%;
+    border: none;
+    border-radius: .5em;
+    padding: .7em 0;
+    font-size: calc(.7rem + .3vw);
+    color: #fff;
+    cursor: pointer;
+    background-color: var(--primary-color);
+    transition: background-color 0.5s ease, color 1s ease;
+}
+.btn:hover{
+    background-color: var(--secondary-color);
+}
+.priceContainer{
+    color: var(--forth-color);
+    font-weight: 500;
+    width: fit-content;
+}
+.priceContainerMob{
+    display: none;
+}
+.swiper{
+    position: relative;
+    width: 96% !important;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    margin-top: 1em;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin-top: 2em;
+}
+
+.download{
+    display: flex;
+    flex-direction: column;
+}
+
+.download p{
+    font-family: var(--font-family);
+    color: var(--primary-color);
+    font-size: calc(.8rem + .3vw);
+    font-weight: 600;
+    margin: 0 auto;
+}
+
+.download_icon{
+    width: 2em;
+    height: 2em;
+    margin: 0 auto;
+    color: var(--primary-color);
+}
+.card_container{
+width: fit-content;
+height: fit-content;
+background: transparent;
+font-family: var(--font-family);
+}
+
+.card_img{
+position: relative;
+width: fit-content;
+height: 20em;
+margin: 0 auto;
+height: fit-content;
+object-fit: contain;
+margin-bottom: 3em;
+}
+
+.card_img img{
+width: 95%;
+object-fit: fill;
+height: 15vw;
+max-height: 12em;
+}
+
+.date{
+    font-size: calc(.7rem + .3vw);
+    color: var(--accent-color);
+    font-weight: 500;
+    margin-top: 0.5em;
+}
+
+.btnsCont{
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    gap:  1em;
+}
+
+
+  @media screen and (max-width:750px) {
+    .orderCard{
+        width: 80%;
+        height: fit-content;
+        padding: 1.5em 5%;
+        border-radius: 1em;
+        margin: 1.5em auto;
+        font-family: var(--font-family);
+        cursor: pointer;
+        background-color: #fff;
+        display: grid;
+        grid-template-columns: 50% 50%;
+    }
+    .orderCard h3{
+        width: 100%;
+        font-family: var(--font-family);
+        color: var(--primary-color);
+        font-size: calc(.8rem + .3vw);
+        font-weight: 600;
+        margin: 1em auto;
+    }
+    
+.btn{
+    width: fit-content;
+    border: none;
+    border-radius: .5em;
+    padding: .7em 4em;
+    font-size: calc(.7rem + .3vw);
+    color: #fff;
+    cursor: pointer;
+    background-color: var(--primary-color);
+    transition: background-color 0.5s ease, color 1s ease;
+    grid-column: span 2;
+    margin: 1em auto auto auto;
+}
+  }

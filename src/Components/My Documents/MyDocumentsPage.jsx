@@ -11,6 +11,7 @@ import OrderTracking from './Order Tracking/OrderTracking';
 import Proforma from './Proforma/Proforma';
 import Factures from './Factures/Factures';
 import Avoirs from './Avoirs/Avoirs';
+import MyOrders from './Orders/MyOrders';
 
 const MyDocumentsPage = () => {
     const navigate = useNavigate();
@@ -76,7 +77,7 @@ const MyDocumentsPage = () => {
             {pageId == 'invoices' && <Factures />}
             {pageId == 'returns' && <OrderTracking />}
             {pageId == 'assets' && <Avoirs />}
-            {pageId === 'orders' && <OrderTracking/>}
+            {pageId === 'orders' && <MyOrders/>}
         </div>
       </div>
     </div>
