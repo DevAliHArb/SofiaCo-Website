@@ -86,6 +86,9 @@ const OurSelection = () => {
                   slidesPerView: 3,
                 },
                 951: {
+                  slidesPerView: 4,
+                },
+                1200: {
                   slidesPerView: 5,
                 },
               }}

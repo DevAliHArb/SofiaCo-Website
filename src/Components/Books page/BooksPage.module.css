@@ -1,0 +1,11 @@
+.container{
+    background: #fff;
+     padding-top: 2em;
+     margin-bottom: 12em;
+}
+
+@media screen and (max-width:950px) {
+    .container{
+        margin-bottom: 0;
+    }
+}
