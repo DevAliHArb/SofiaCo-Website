@@ -51,13 +51,13 @@ useEffect(() => {
           </div>
           <div className={classes.contentContainer}>
             <p>Order code:</p>
-            <p>#{data?.id}</p>
+            <p style={{paddingLeft:'1em'}}>#{data?.id}</p>
             <p>Date:</p>
-            <p>{new Date(data?.date).toDateString()}</p>
+            <p style={{paddingLeft:'1em'}}>{new Date(data?.date).toDateString()}</p>
             <p>Total:</p>
-            <p> {data?.currency === 'usd' ? '$' : '€'} {data.total_price}</p>
+            <p style={{paddingLeft:'1em'}}> {data?.currency === 'usd' ? '$' : '€'} {data.total_price}</p>
             <p style={{width:"9em"}}>Payment method:</p>
-            <p>{data?.user_payment?.card_type}</p>
+            <p style={{paddingLeft:'1em'}}>{data?.user_payment?.card_type}</p>
           </div>
           <button className={classes.btn} onClick={()=>navigate(`/account/order-tracking`)}> Track Order</button>
         </div>
