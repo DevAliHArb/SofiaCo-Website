@@ -37,6 +37,7 @@ import {
   resetCart,
 } from "../Common/redux/productSlice";
 import AlsoSee from "../Common Components/Also See/AlsoSee";
+import { toast } from "react-toastify";
 
 const { TextArea } = Input;
 
@@ -406,11 +407,11 @@ const CheckOut = () => {
     fetchAddresses();
   }, []);
 
-  useEffect(() => {
-    if(productData?.length === 0){
-      navigate('/cart')
-    }
-  }, [productData]);
+  // useEffect(() => {
+  //   if(productData?.length === 0){
+  //     navigate('/cart')
+  //   }
+  // }, [productData]);
 
   useEffect(() => {
     let updatedOrderInvoiceItems = [];
@@ -504,6 +505,7 @@ const CheckOut = () => {
 
         dispatch(resetCart());
         setorderId(response.data.order_invoice.id)
+        console.log(response.data.order_invoice.id)
         navigate(`/checkout-completed/${response.data.order_invoice.id}`);
         setLoading(false);
         toast.success(`Order success`, {
