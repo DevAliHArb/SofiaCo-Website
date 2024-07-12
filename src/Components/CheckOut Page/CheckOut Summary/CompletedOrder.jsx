@@ -4,13 +4,14 @@ import bookPlaceHolder from '../../../assets/bookPlaceholder.png';
 import "react-toastify/dist/ReactToastify.css";
 import Data from '../../../Data.json'
 import AlsoSee from '../../Common Components/Also See/AlsoSee';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const CompletedOrder = () => {
   const { id } = useParams();
   const [language, setLanguage] = React.useState('eng');
   const [data, setData] = useState({});
+  const navigate = useNavigate();
 
   const fetchOrder = async () => {
     try {
@@ -58,7 +59,7 @@ useEffect(() => {
             <p style={{width:"9em"}}>Payment method:</p>
             <p>{data?.user_payment?.card_type}</p>
           </div>
-          <button className={classes.btn}> Track Order</button>
+          <button className={classes.btn} onClick={()=>navigate(`/account/order-tracking`)}> Track Order</button>
         </div>
         <AlsoSee/>
     </div>
