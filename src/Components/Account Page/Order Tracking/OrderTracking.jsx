@@ -469,6 +469,7 @@ const reviewHandler =()=>setisReviewMood(true);
          <div className={classes.orderActivityCont}>
           <h2>Order Activity</h2>
           {steps?.sort((a, b) => b.id - a.id).map((step) => {
+            if (step.estimatedDate) {
               return (
                 <div style={{display:"flex",flexDirection:"row", width:'100%',margin:'1em 0'}}>
                   <div style={{color:'#fff',width:'3em', height:'3em',borderRadius:'.3em',backgroundColor:"var(--primary-color)",display:'flex',marginRight:'.5em'}}>
@@ -479,7 +480,9 @@ const reviewHandler =()=>setisReviewMood(true);
                     <p style={{marginBottom:'0',fontWeight:'500',color:'var(--secondary-color)'}}>{ new Date(step.estimatedDate).toDateString()} at: { new Date(step.estimatedDate).toLocaleTimeString()}</p>
                   </div>
                 </div>
-              )})}
+              )
+            }
+              })}
               <div style={{display:"flex",flexDirection:"row", width:'100%',margin:'1em 0'}}>
                 <div style={{color:'#fff',width:'3em', height:'3em',borderRadius:'.3em',backgroundColor:"var(--primary-color)",display:'flex',marginRight:'.5em'}}>
                   <PiNotebook style={{fontSize:"1.7em",margin:'auto'}}/>
