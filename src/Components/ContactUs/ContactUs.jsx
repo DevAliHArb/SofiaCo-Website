@@ -13,6 +13,7 @@ import { FaXTwitter, FaYoutube  } from "react-icons/fa6";
 import { IoIosAttach } from "react-icons/io";
 import AuthContext from '../Common/authContext';
 import TextField from "./Text Field/TextField";
+import Services from "../Home Page/Services Section/Services";
 
 
 const ContactUs = () => {
@@ -38,7 +39,7 @@ const ContactUs = () => {
       //       console.log(error.text);
       //     }
       //   );
-   
+      form.resetFields();
   };
 
   const handleChange = (e) => {
@@ -86,6 +87,10 @@ const ContactUs = () => {
           // label={<p style={{color:'var(--accent-color)',fontWeight:'500',fontFamily:'var(--font-family)',margin:'0 '}}>Company</p>}
           rules={[
             {
+              type: 'email',
+              message: "L'entrée n'est pas valide Email !",
+            },
+            {
               required: true,
               message: "S'il vous plaît entrez votre Company!",
             },
@@ -108,8 +113,8 @@ const ContactUs = () => {
           // label={<p style={{color:'var(--accent-color)',fontWeight:'500',fontFamily:'var(--font-family)',margin:'0 '}}>Email</p>}
           rules={[
             {
-              type: 'email',
-              message: "L'entrée n'est pas valide Email !",
+              pattern: /^[0-9]{6,16}$/,
+              message: 'The input is not valid Téléphone!',
             },
             {
               required: true,
@@ -131,10 +136,6 @@ const ContactUs = () => {
           name="phone"
           // label={<p style={{color:'var(--accent-color)',fontWeight:'500',fontFamily:'var(--font-family)',margin:'0 '}}>Téléphone</p>}
           rules={[
-            {
-              pattern: /^[0-9]{6,16}$/,
-              message: 'The input is not valid Téléphone!',
-            },
             {
               required: true,
               message: "S'il vous plaît entrez votre Téléphone!",
@@ -164,7 +165,7 @@ const ContactUs = () => {
               variant="standard"
               fullWidth
               multiline
-              rows={5}
+              rows={3}
               inputProps={{ style: { color: "var(--secondary-color)" } }} 
               onChange={(e) => setFormData({ ...formData, message: e.target.value })} 
               
@@ -173,11 +174,10 @@ const ContactUs = () => {
           <div className={classes.buttonContainer}>
             <Form.Item  style={{width:'fit-content'}}>
             <Button 
-            // onClick={()=>console.log('test')}
            size="large"
            htmlType="submit"  
            className="login-form-button"
-          style={{backgroundColor:'var(--secondary-color)',color: 'white',padding:'0 3em',zIndex:"99"}}>
+          style={{backgroundColor:'var(--primary-color)',color: 'white',padding:'0 5em',zIndex:"9"}}>
             Submit 
           </Button>
         </Form.Item> 
@@ -186,17 +186,17 @@ const ContactUs = () => {
         </div>
           <div className={classes.sotialsCard}>
             <h2>Contact Details</h2>
+            <div style={{zIndex:'1',width:'100%',margin:'0 auto',display:'flex',flexDirection:"row",gap:'.5em'}}>
+                <div style={{position:'relative',padding:'0.4em',color:'#fff',borderRadius:'50%',backgroundColor:'var(--primary-color)',width:'1em',height:'1em',fontSize:'1em',margin:'auto 0'}}><FaLocationDot style={{height:'1em',margin:'0'}}/></div>
+                <div><p style={{fontFamily:'var(--font-family)',fontWeight:'400',color:'#fff',maxWidth:"15em",textAlign:'start'}}>{authCtx.companySettings.location}</p></div>
+            </div>
           <div style={{zIndex:'1',width:'100%',margin:'0 auto',display:'flex',flexDirection:"row",gap:'.5em'}}>
                 <div style={{position:'relative',padding:'0.4em',color:'#fff',borderRadius:'50%',backgroundColor:'var(--primary-color)',width:'1em',height:'1em',fontSize:'1em',margin:'auto 0'}}><IoMailOutline style={{height:'1em',margin:'0'}}/></div>
-                <div><p style={{fontFamily:'var(--font-family)',fontWeight:'400',color:'#fff'}}>{authCtx.companySettings.email}</p></div>
+                <div><p style={{fontFamily:'var(--font-family)',fontWeight:'400',color:'#fff',maxWidth:"15em",textAlign:'start'}}>{authCtx.companySettings.email}</p></div>
             </div>
             <div style={{zIndex:'1',width:'100%',margin:'0 auto',display:'flex',flexDirection:"row",gap:'.5em'}}>
                 <div style={{position:'relative',padding:'0.4em',color:'#fff',borderRadius:'50%',backgroundColor:'var(--primary-color)',width:'1em',height:'1em',fontSize:'1em',margin:'auto 0'}}><HiOutlinePhone style={{height:'1em',margin:'0'}}/></div>
-                <div><p style={{fontFamily:'var(--font-family)',fontWeight:'400',color:'#fff'}}>{authCtx.companySettings.phone}</p></div>
-            </div>
-            <div style={{zIndex:'1',width:'100%',margin:'0 auto',display:'flex',flexDirection:"row",gap:'.5em'}}>
-                <div style={{position:'relative',padding:'0.4em',color:'#fff',borderRadius:'50%',backgroundColor:'var(--primary-color)',width:'1em',height:'1em',fontSize:'1em',margin:'auto 0'}}><FaLocationDot style={{height:'1em',margin:'0'}}/></div>
-                <div><p style={{fontFamily:'var(--font-family)',fontWeight:'400',color:'#fff'}}>91, rue Jean-Pierre Timbaud 75011 Paris</p></div>
+                <div><p style={{fontFamily:'var(--font-family)',fontWeight:'400',color:'#fff',maxWidth:"15em",textAlign:'start'}}>{authCtx.companySettings.phone}</p></div>
             </div>
             <div className={classes.socials}>
                         <div className={classes.social_icon} onClick={()=>openNewWindow(authCtx.companySettings.twitter)} ><FaXTwitter className={classes.icon}/></div>
@@ -207,6 +207,7 @@ const ContactUs = () => {
           </div>
                     <div className={classes.auth_bg1}></div>
       </div>
+      <Services/>
     </div>
   );
 };

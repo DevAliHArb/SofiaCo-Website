@@ -18,7 +18,7 @@
     color: var(--secondary-color);
   }
   .input-field::placeholder {
-    color: var(--secondary-color);
+    color: var(--authbg-color);
     opacity: 0.6;
   }
   .textarea-field{
@@ -37,7 +37,7 @@
     padding: 8px 10px;
 }
 .textarea-field::placeholder {
-  color: var(--secondary-color);
+  color: var(--authbg-color);
   opacity: 0.6;
 }
   /* Input label */
@@ -79,5 +79,9 @@
   }
   
  
-  
-  
+@media screen and (max-width:750PX) {
+  .input-container {
+    position: relative;
+    margin-top: 5px;
+  }
+}

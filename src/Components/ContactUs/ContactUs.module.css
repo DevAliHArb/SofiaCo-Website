@@ -1,11 +1,10 @@
 .contactUs{
-    width: 88%;
-    max-width: 1900px;
-    margin: 0 auto;
-    height: fit-content;
-    border-radius: 2em;
-    padding-bottom: 13em;
-    z-index: 30;
+  width: 88%;
+  max-width: 1900px;
+  margin: 7em auto 3em auto;
+  height: fit-content;
+  border-radius: 2em;
+  z-index: 30;
 }
 .header{
   position: relative;
@@ -36,8 +35,8 @@
 .cardsContainer{
   position: relative;
   width: 90%;
-  padding: 3em 5%;
-  margin: 0em auto;
+  padding: 6em 5% 3em 5%;
+  margin: 0em auto 8em auto;
   display: flex;
   flex-direction: row;
   font-size: calc(.7rem + 0.3vw);
@@ -58,6 +57,8 @@
   border-radius: 1em;
   font-size: calc(.7rem + 0.3vw);
   padding-left: 5%;
+  text-align: start;
+  gap: 1em;
 }
 
 .sotialsCard h2{
@@ -71,13 +72,12 @@
 
 .auth_bg1{
   position: absolute;
-  width: 90%;
-  height: 150%;
+  width: 90em;
+  height: 50em;
   background-color: var(--authbg-color);
-  top: -30%;
+  top: -10em;
   left: 65%;
   border-radius: 6em;
-  /* z-index: -1; */
   transform: rotate(-18deg);
   z-index: 0;
 }
@@ -149,8 +149,84 @@
 }
 
  
-@media screen and (max-width:950PX) {
+@media screen and (max-width:750PX) {
 
+  .cardsContainer{
+    padding: 2em 5% 3em 5%;
+    flex-direction: column-reverse;
+    margin: auto;
+  }
+  .sotialsCard{
+    width: fit-content;
+    margin: auto;
+    height: fit-content;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1em;
+    font-size: calc(.7rem + 0.3vw);
+    padding-left: 5%;
+    text-align: center;
+    gap: 1em;
+    margin-bottom: 9em;
+  }
+  
+  .socials {
+    width: fit-content;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    column-gap: 1em;
+    padding-top: 1em;
+    z-index: 1;
+  }
+  .auth_bg1{
+    position: absolute;
+    width: 90em;
+    height: 50em;
+    background-color: var(--authbg-color);
+    top: -33em;
+    left: -5em;
+    border-radius: 3em;
+    /* z-index: -1; */
+    transform: rotate(-20deg);
+    z-index: 0;
+  }
+  .card{
+    width: 90%;
+    z-index: 1;
+    margin-right: 5%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    font-size: calc(.7rem + 0.3vw);
+  }
+  
+  .card h2{
+    text-align: center;
+    color: var(--secondary-color);
+    font-size: calc(1.2rem + .3vw);
+    font-family: var(--font-family);
+    font-weight: 700;
+    z-index: 1;
+  }
+  .inputCont{
+    width: 100%;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0%;
+  }
+  .contactUs{
+    width: 88%;
+    max-width: 1900px;
+    margin:  0 auto;
+    height: fit-content;
+    border-radius: 2em;
+    z-index: 30;
+  }
 }
 
 
