@@ -27,7 +27,7 @@ const Services = () => {
   const fetchServices = async () => {
     try {
       const response = await axios.get(
-        `https://api.leonardo-service.com/api/bookshop/services?ecom_type=albouraq`
+        `https://api.leonardo-service.com/api/bookshop/services?ecom_type=sofiaco`
       );
       console.log(response.data?.data);
       setServices(response.data?.data);

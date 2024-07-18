@@ -37,7 +37,7 @@ const FeaturedBooks = () => {
   const fetchArticles = async () => {
     try {
       const response = await axios.get(
-        `https://api.leonardo-service.com/api/bookshop/articles?ecom_type=bookshop&favorites`
+        `https://api.leonardo-service.com/api/bookshop/articles?ecom_type=sofiaco&favorites`
       );
       console.log(response.data.data);
       setArticles(response.data.data);

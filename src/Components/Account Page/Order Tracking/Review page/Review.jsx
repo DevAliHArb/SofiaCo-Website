@@ -127,7 +127,7 @@ const Review = ({props}) => {
         rate: value || 0,
         user_id: user.id,
         review_attachments: base64Images || [] ,
-        ecom_type: 'albouraq'
+        ecom_type: 'sofiaco'
     });
       console.log('Review created:', response.data);
       setreviewData([...reviewData, {
