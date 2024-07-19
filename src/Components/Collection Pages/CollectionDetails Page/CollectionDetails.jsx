@@ -64,7 +64,7 @@ const CollectionDetailsPage = () => {
   const fetchArticles = async () => {
     try {
       const response = await axios.get(
-        `https://api.leonardo-service.com/api/bookshop/articles?ecom_type=bookshop&collection=${collectionData?.nom}`
+        `https://api.leonardo-service.com/api/bookshop/articles?ecom_type=sofiaco&collection=${collectionData?.nom}`
       );
       setArticles(response.data.data);
     } catch (error) {

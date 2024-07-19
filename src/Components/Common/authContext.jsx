@@ -143,7 +143,7 @@ export const AuthContextProvider = (props) => {
 const fetchArticles = async () => {
   try {
     const response = await axios.get(
-      'https://api.leonardo-service.com/api/bookshop/articles?ecom_type=albouraq'
+      'https://api.leonardo-service.com/api/bookshop/articles?ecom_type=sofiaco'
     );
     const articlesData = response.data.data;
     setArticles(articlesData);
@@ -168,7 +168,7 @@ const fetchArticles = async () => {
   
   const fetchCategories = async () => {
     try {
-      const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/categories?ecom_type=albouraq`);
+      const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/categories?ecom_type=sofiaco`);
       setCategories(response.data);
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -178,7 +178,7 @@ const fetchArticles = async () => {
   
   const fetchCollaborators = async () => {
     try {
-      const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/collaborators`);
+      const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/collaborators?ecom_type=sofiaco`);
       setCollaborators(response.data);
     } catch (error) {
       console.error('Error fetching collaborators:', error);
@@ -187,7 +187,7 @@ const fetchArticles = async () => {
   };
   const fetchCollections = async () => {
     try {
-      const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/collections`);
+      const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/collections?ecom_type=sofiaco`);
       setCollections(response.data);
     } catch (error) {
       console.error('Error fetching collections:', error);

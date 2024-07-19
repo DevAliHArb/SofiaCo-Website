@@ -168,7 +168,7 @@ const Reviews = () => {
       const response = await axios.post(`https://api.leonardo-service.com/api/bookshop/articles/${selectedBook[0].id}/reviews?ecom_type=sofiaco`, {
         ...formData,
         user_id: user.id,
-        ecom_type:'albouraq'
+        ecom_type:'sofiaco'
     }, {
       headers: {
           Authorization: `Bearer ${token}` // Include token in the headers
