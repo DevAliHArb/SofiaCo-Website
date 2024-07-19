@@ -161,7 +161,7 @@ const CollectionDetailsPage = () => {
            </div>
         <div className={classes.card} >
           <h1 style={{fontWeight:'600', textTransform:'capitalize'}}>{collectionData.nom}</h1>
-          <p style={{color:'var(--secondary-color)',fontWeight:"500", margin:'.5em 0'}}>{collectionData.discriptif}dqdqwdq</p>
+          <p style={{color:'var(--secondary-color)',fontWeight:"500", margin:'.5em 0'}}>{collectionData.description}</p>
         </div>
       </div> 
 
