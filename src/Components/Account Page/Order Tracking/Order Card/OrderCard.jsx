@@ -51,7 +51,7 @@ const ConfirmationPopup = ({ message, onConfirm, onCancel, showPopup }) => {
           </Button>
         <Button 
            onClick={onCancel}
-          style={{backgroundColor:'var(--forth-color)',color: 'white', height:'3em',width:'10em',borderRadius:'.5em',margin:'1em '}}>
+          style={{backgroundColor:'var(--secondary-color)',color: 'white', height:'3em',width:'10em',borderRadius:'.5em',margin:'1em '}}>
             {language === 'eng' ? "No" : "Non"}
           </Button></div>
         </Box>
@@ -198,7 +198,7 @@ const AddAllToCart = () => {
         </div> */}
         {/* <div className={classes.priceContainerMob}>
           <h4 style={{margin:'0',color:'var(--accent-color)',fontWeight:'500'}}>( {images?.length} items )</h4>
-          <h3 style={{margin:'0',fontWeight:'500',color:'var(--forth-color)'}}>$50</h3>
+          <h3 style={{margin:'0',fontWeight:'500',color:'var(--secondary-color)'}}>$50</h3>
         </div>
         <div style={{display:'flex',flexDirection:'row',width:'90%',margin:'1em auto 0 auto',justifyContent:'space-between'}}>
           <div className={classes.date}>{new Date(data.date).toDateString()}</div>
@@ -207,7 +207,7 @@ const AddAllToCart = () => {
            {(data.status_id === 3 || data.status_id === 4 || data.status_id === 5 ) && data.return_status === null && <button className={classes.btn} onClick={Returnhandle} style={{backgroundColor:'var(--primary-color)'}}>Return</button>}
            {data.status_id === 2  && <button onClick={(event) => setShowPopup(true) & event.stopPropagation()} className={classes.btn} style={{backgroundColor:'var(--accent-color)'}}>Cancel Order</button>}
            {data.status_id === 5 && <button className={classes.btn} style={{backgroundColor:'var(--accent-color)'}} onClick={(event)=>reviewHandler() &event.stopPropagation()&console.log('testtt')}>Review</button>}
-            <button onClick={(event)=>AddAllToCart() & event.stopPropagation()} className={classes.btn} style={{backgroundColor:'var(--forth-color)'}}>Repurchase</button>
+            <button onClick={(event)=>AddAllToCart() & event.stopPropagation()} className={classes.btn} style={{backgroundColor:'var(--secondary-color)'}}>Repurchase</button>
           </div>
         </div> */}
         {showPopup && (

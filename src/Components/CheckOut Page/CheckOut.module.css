@@ -266,6 +266,7 @@
     }
     .shopping_con{
         overflow: hidden;
+        box-shadow: none;
     }
     .cart_container{
         margin-bottom: 0;
@@ -314,11 +315,12 @@
         padding-bottom: 2em;
         border-radius: 1em;
         margin-bottom: 3em;
+        width: 100%;
     }
     .shopping{
         display: flex;
         flex-direction: column;
-        width: 95%;
+        width: 100%;
         border-top: none;
         margin-top: 0%;
         padding-top: 0%;
@@ -360,7 +362,7 @@
     }
     .removeCont{
         margin-left: 0;
-        padding-left: 8%;
+        padding-left: 10%;
         margin-right: auto;
         grid-column: 1 / span 2;
         grid-row: 2;

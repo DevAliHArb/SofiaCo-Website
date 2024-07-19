@@ -13,8 +13,8 @@
 }
 
 .imageCont{
+    margin: 0;
     width: 5em !important;
-    flex: 1;
 }
 .imageCont img{
     width: 5em !important;
