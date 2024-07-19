@@ -71,7 +71,7 @@ const ConfirmationPopup = ({ message, onConfirm, onCancel, showPopup }) => {
           </Button>
         <Button 
            onClick={onCancel}
-          style={{backgroundColor:'var(--forth-color)',color: 'white', height:'3em',width:'10em',borderRadius:'.5em',margin:'1em '}}>
+          style={{backgroundColor:'var(--secondary-color)',color: 'white', height:'3em',width:'10em',borderRadius:'.5em',margin:'1em '}}>
             {language === 'eng' ? "No" : "Non"}
           </Button></div>
         </Box>

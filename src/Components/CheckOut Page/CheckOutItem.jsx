@@ -17,13 +17,13 @@ const CheckOutItem = () => {
         {productData.map((props) => (
           
           <div className={classes.card} key={props._id}>
-            <div style={{display:"flex",flexDirection:"row",gap:"1em"}}>
+            <div style={{display:"flex",flexDirection:"row",gap:"1em",width:"90%"}}>
             <div className={classes.imageCont}>
               <img src={props.image} alt="" style={{height:'100%',objectFit:'cover' ,maxWidth:'350px' }}/>
             </div>
-            <div style={{height:'100%',justifyContent:'space-between',width:'20em',display:'flex', flexDirection:'column', margin:'auto 0',fontSize:'calc(.7rem + 0.3vw)',fontFamily:'var(--font-family)'}}>
+            <div style={{height:'100%',justifyContent:'space-between',width:'20em',maxWidth:"60%",display:'flex', flexDirection:'column', margin:'auto 0',fontSize:'calc(.7rem + 0.3vw)',fontFamily:'var(--font-family)'}}>
               <div className={classes.infoCont}>
-              <p style={{color:'var(--secondary-color)',fontSize:'calc(.9rem + 0.3vw)',fontWeight:'700',width:"97%",textAlign:'start',marginBottom:'.3em'}} onClick={()=>console.log(props)}>{props.title}</p>
+              <p style={{color:'var(--secondary-color)',fontSize:'calc(.9rem + 0.3vw)',fontWeight:'700',width:"97%",textAlign:'start',marginBottom:'.3em'}} onClick={()=>console.log(props)}>{props.title.slice(0, 20)}{props.title?.length > 20 && "..."}</p>
               <div className={classes.delete_btnMob}><img src={DeleteIcon} style={{width:'1em'}} onClick={() =>
                       dispatch(deleteItem(props._id)) &
                       toast.error(`${props.title} is removed`)
@@ -31,7 +31,7 @@ const CheckOutItem = () => {
               </div>
               <p style={{color:'var(--secondary-color)',fontSize:'.6rem + .2vw',fontWeight:'400',margin:'0',textAlign:'start'}}>{props.author}</p>
               <p style={{color:'var(--secondary-color)',fontSize:'.6rem + .2vw',fontWeight:'400',margin:'0',textAlign:'start'}}>{new Date(props.date).toDateString() }</p>
-              <p style={{color:'var(--secondary-color)',fontSize:'smaller',textAlign:'start'}}><Rate value={4} disabled  style={{color:'var(--primary-color)',fontSize:'small'}}/>4.0/5</p>
+              <p style={{color:'var(--secondary-color)',fontSize:'smaller',textAlign:'start',margin:'.3em 0'}}><Rate value={4} disabled  style={{color:'var(--primary-color)',fontSize:'small'}}/>4.0/5</p>
               {/* <p className={classes.dicription} dangerouslySetInnerHTML={{ __html: props.description }}/> */}
               <div style={{display:'flex',flexDirection:'row'}}>
             <p className={classes.price} style={{textAlign:'start'}}>$ {props.price}</p>

@@ -69,8 +69,8 @@ export default function CartSidebar({ toggle, isOpen }) {
               <h1
                   style={{  display: "flex",marginBottom:"0.3em", fontWeight: 600,color:'var(--secondary-color)' }}
                 >Mon Panier
-                <span onClick={toggle} style={{margin:'0 0 0 auto', background:'var(--primary-color)' ,borderRadius:'.3em',cursor:'pointer' }}>
-                    <ClearIcon style={{width:'2em',height:'1.5em',color:'#FFF',marginBottom:"-.2em"}} />
+                <span onClick={toggle} style={{margin:'0 0 0 auto',height:'1em', background:'var(--primary-color)' ,borderRadius:'.2em',cursor:'pointer' }}>
+                    <ClearIcon style={{width:'1.5em',height:'1.2em',color:'#FFF',marginBottom:'.4em'}} />
                   </span>
                 </h1>
                 <p style={{color:'var(--secondary-color)' ,fontWeight:'500',marginTop:'0'}}>Plus que 27,10 €ew pour profiter de la livraison à domicile à 0,01€</p>
@@ -86,15 +86,15 @@ export default function CartSidebar({ toggle, isOpen }) {
               <img src={props.image} alt="" style={{height:'100%', width: '100%',objectFit:'cover' ,maxWidth:'350px' }}/>
             </div>
             <div style={{height:'100%',overflow:'hidden',maxWidth:'30em',justifyContent:'space-between',display:'flex', flexDirection:'column', margin:'auto 0',width:'100%',fontSize:'calc(.7rem + 0.2vw)',fontFamily:'var(--font-family)'}}>
-              <p style={{color:'var(--secondary-color)',fontSize:'calc(.9rem + 0.2rem)',fontWeight:'700'}} onClick={()=>console.log(props)}>{props.title}</p>
+              <p style={{color:'var(--secondary-color)',fontSize:'calc(.9rem + 0.2vw)',fontWeight:'700'}} onClick={()=>console.log(props)}>{props.title.slice(0, 20)}{props.title?.length > 20 && "..."}</p>
               <p style={{color:'var(--secondary-color)',fontWeight:'500'}}>{props.author}</p>
-              <p style={{color:'var(--secondary-color)',fontWeight:'600',fontSize:'smaller'}}><Rate value={4} disabled  style={{color:'var(--primary-color)',fontSize:'small'}}/>4.0/5</p>
+              <p style={{color:'var(--secondary-color)',fontWeight:'600',fontSize:'smaller'}}><Rate value={props.average_rate} disabled  style={{color:'var(--primary-color)',fontSize:'small'}}/>{props?.average_rate ? Number(props.average_rate)?.toFixed(1) : 0.0}/5</p>
               <p className={classes.dicription} dangerouslySetInnerHTML={{ __html: props.description }} style={{color:"var(--secondary-color)"}}/>
               {/* <p style={{color:'var(--forth-color)'}}>Cover: Hardcover</p> */}
                   <p className={classes.price}>{currency === "eur"
-                            ? `${(props.price *1).toFixed(2)} €`
+                            ? `€${(props.price *1).toFixed(2)} `
 
-                            : `${
+                            : `$${
                                 props.discount > 0
                                   ? (
                                       (props.price) *
@@ -103,7 +103,7 @@ export default function CartSidebar({ toggle, isOpen }) {
                                   : (
                                       props.price * authCtx.currencyRate
                                     ).toFixed(2)
-                              }$`}</p>
+                              }`}</p>
                 
             <div className={classes.quantity1}>
               <p
@@ -267,7 +267,13 @@ export default function CartSidebar({ toggle, isOpen }) {
               </div>
             
             
-            <p style={{margin:'0 0 .5em auto',color:'var(--primary-color)',fontSize:'calc(.9rem + 0.3vw)',fontWeight:'600'}}>${(props.quantity * props.price).toFixed(2)}</p>
+            <p style={{margin:'0 0 .5em auto',color:'var(--primary-color)',fontSize:'calc(.9rem + 0.3vw)',fontWeight:'600'}}>
+            
+            {currency === "eur"
+                                ? `€ ${(props.quantity * props.price).toFixed(2)} `
+                                : `$ ${(
+                                    (props.quantity * props.price) * authCtx.currencyRate
+                                  ).toFixed(2)} `}</p>
             </div>
           </div>
         ))}
@@ -284,8 +290,8 @@ export default function CartSidebar({ toggle, isOpen }) {
                 <p style={{color:'var(--secondary-color)' }}>Total TTC</p>
                 <p style={{color:'var(--primary-color)'}}>
                     {currency === "eur"
-                      ? `${(totalAmt * 1).toFixed(2)} €`
-                      : `${(totalAmt * authCtx.currencyRate).toFixed(2)} $`}</p>
+                      ? `€ ${(totalAmt * 1).toFixed(2)} `
+                      : `$ ${(totalAmt * authCtx.currencyRate).toFixed(2)} `}</p>
               </div>
                 <div className={classes.btn_con}>
               <button className={classes.btn} onClick={()=>navigate(`/cart`) & toggle()}>

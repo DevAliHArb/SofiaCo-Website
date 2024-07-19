@@ -312,7 +312,7 @@ const CheckOut = () => {
         setdeliveryFees(shippingCost);
         console.log("Shipping cost:", response.data.data);
       } catch (error) {
-        window.location.reload();
+        // window.location.reload();
         setLoading(false);
         console.error("Error fetching addresses:", error);
       } finally {
@@ -357,7 +357,7 @@ const CheckOut = () => {
       console.error("Error fetching addresses:", error);
       // Set loading to false in case of error
     } finally{
-      FetchShippinCost();
+       FetchShippinCost();
     }
   };
 
@@ -806,7 +806,7 @@ const CheckOut = () => {
                           }
                         />
                       </RadioGroup>{" "}
-                      <div>
+                      <div style={{paddingLeft:'.3em'}}>
                         <p style={{ fontSize: "calc(.9rem + .3vw)" }}>
                           {address.name}{" "}
                           <button
@@ -951,7 +951,7 @@ const CheckOut = () => {
                         />
                       </RadioGroup>
                       {/* <Radio defaultChecked value={payment.id} sx={{ color: 'var(--forth-color)','&.Mui-checked': { color: 'var(--forth-color)',},margin:'.5em 0 auto 0'}}/> */}
-                      <div>
+                      <div style={{paddingLeft:'.4em'}}>
                         <p style={{ fontSize: "calc(.8rem + .3vw)" }}>
                           <img
                             alt="visa"

@@ -65,7 +65,7 @@ const ConfirmationPopup = ({ message, onConfirm, onCancel, showPopup }) => {
           </Button>
         <Button 
            onClick={onCancel}
-          style={{backgroundColor:'var(--forth-color)',color: 'white', height:'3em',width:'10em',borderRadius:'.5em',margin:'1em '}}>
+          style={{backgroundColor:'var(--secondary-color)',color: 'white', height:'3em',width:'10em',borderRadius:'.5em',margin:'1em '}}>
             {language === 'eng' ? "No" : "Non"}
           </Button></div>
         </Box>
@@ -423,9 +423,9 @@ const reviewHandler =()=>setisReviewMood(true);
               <div className={classes.headtitle} style={{color:'var(--accent-color)'}}>Shipping Address</div>
             </div>
             <div className={classes.adressCard}>
-               <Radio defaultChecked value={true} sx={{ color: 'var(--forth-color)','&.Mui-checked': { color: 'var(--forth-color)',},margin:'.8em 0 auto 0'}}/>
+               <Radio defaultChecked value={true} sx={{ color: 'var(--secondary-color)','&.Mui-checked': { color: 'var(--secondary-color)',},margin:'.8em 0 auto 0'}}/>
                <div>
-                <p style={{fontSize:'calc(.9rem + .3vw)'}}>{selectedOrder.user_address.name} <button style={{cursor:"auto",border:'none',backgroundColor:'var(--secondary-color)',color:'var(--forth-color)',borderRadius:'.3em',marginLeft:'3%',padding:'.3em 1em',fontWeight:'500',fontFamily:'var(--font-family)',fontSize:'large'}}>{selectedOrder.user_address.title}</button></p>
+                <p style={{fontSize:'calc(.9rem + .3vw)'}}>{selectedOrder.user_address.name} <button style={{cursor:"auto",border:'none',backgroundColor:'var(--secondary-color)',color:'var(--secondary-color)',borderRadius:'.3em',marginLeft:'3%',padding:'.3em 1em',fontWeight:'500',fontFamily:'var(--font-family)',fontSize:'large'}}>{selectedOrder.user_address.title}</button></p>
                 <p>{selectedOrder.user_address.address}, {selectedOrder.user_address.city}, {selectedOrder.user_address.postalcode}</p>
                 <p>{selectedOrder.user_address.country}</p>
                </div>
@@ -434,7 +434,7 @@ const reviewHandler =()=>setisReviewMood(true);
               <div className={classes.headtitle} style={{color:'var(--accent-color)'}}>Payment Method</div>
             </div>
             <div className={classes.adressCard}>
-               <Radio defaultChecked value={true} sx={{ color: 'var(--forth-color)','&.Mui-checked': { color: 'var(--forth-color)',},margin:'.5em 0 auto 0'}}/>
+               <Radio defaultChecked value={true} sx={{ color: 'var(--secondary-color)','&.Mui-checked': { color: 'var(--secondary-color)',},margin:'.5em 0 auto 0'}}/>
                <div>
                 <p style={{fontSize:'calc(.9rem + .3vw)'}}>
                   <img alt='visa' src={selectedOrder.user_payment.card_type === 'Master' ? master : visa} style={{width:'auto',height:'1.5em',margin:'0 1em -.5em 1em'}}/>
@@ -466,7 +466,7 @@ const reviewHandler =()=>setisReviewMood(true);
             </div>
             </div>
             <div className={classes.quantity}>
-              <p style={{color:'var(--forth-color)',fontSize:'large'}}>{props.price}{selectedOrder.currency === 'usd' ? '$' : '€' } </p>
+              <p style={{color:'var(--secondary-color)',fontSize:'large'}}>{props.price}{selectedOrder.currency === 'usd' ? '$' : '€' } </p>
             </div>
           </div>
              )

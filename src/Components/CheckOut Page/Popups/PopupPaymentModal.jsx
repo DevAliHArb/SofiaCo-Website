@@ -25,19 +25,21 @@ import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import axios from "axios";
 
 
+
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '80%',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "80%",
   maxWidth: 800,
-  bgcolor: '#fff',
+  bgcolor: "var(--authbg-color)",
   boxShadow: 24,
-  fontSize:'calc(0.7rem + 0.2vw)',
-  fontFamily:'var(--font-family)',
-  overflow:'hidden',
-  borderRadius:'1em'
+  fontSize: "calc(0.7rem + 0.2vw)",
+  fontFamily: "var(--font-family)",
+  overflow: "hidden",
+  borderRadius: "1em",
+  padding:'1em 2em'
 };
 
 const { Option } = Select;
@@ -94,7 +96,10 @@ function generateNewId(arrayOfObjects) {
 
 const PopupPaymentModal = ({ open, handleClose, isselectedPayment }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
+  const language = useSelector(
+    (state) => state.products.selectedLanguage[0].Language
+  );
   const user = useSelector((state) => state.products.userInfo);
   const [paymentMethod, setPaymentMethod] = useState("");
   const [editMode, seteditMode] = useState(false);
@@ -167,166 +172,187 @@ const PopupPaymentModal = ({ open, handleClose, isselectedPayment }) => {
   }, [open]);
   return (
     <div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        sx={{ overflow: "hidden",border:'none' }}
-      >
-        <Box sx={style}>
-        <div
-        style={{ width: '100%',display: 'flex', flexDirection:'column',alignItems: 'center', margin:'0', fontFamily:'var(--font-family)' }}>
-        <div style={{width:'100%', display:"flex", flexDirection:"row", justifyContent:'space-between',margin:'0.2em 0 0 0',borderBottom:'1px solid var(--primary-color)',borderRadius:'1em'}}> 
-                <p style={{ fontWeight:'600',margin:'1em auto',fontSize:'calc(1rem + .3vw)',color:'var(--accent-color)',width:'fit-content'}}>Add New Card</p>
-                <div style={{marginRight:'5%'}}>
-                <button style={{position:'relative',border:'none',backgroundColor:'transparent',color:'var(--forth-color)',cursor:'pointer',width:'fit-content'}} onClick={handleClose}>
-                <CloseSharpIcon style={{fontSize:'2em',marginTop:'0.6em'}} />
-                </button></div>
-            </div></div>
-        <Form
-                layout="vertical"
-                name="nest-messages"
-                form={form}
-                initialValues={formData}
-                onFinish={handleSubmit}
-                style={{
-                width: '100%',
-                margin:'0 auto',
-                alignItems: "center",
-                textAlign: "center",
-                justifyItems: "center",
-                maxHeight:'80vh',
-                padding:'2em',
-                }}
-      >
-        <Form.Item name="card_type" rules={[{ required: true, message: 'Please select an option!' }]} >
-          <Select 
-                name="cardType"
-                size="large" 
-                disabled={editMode}
-                value={formData.card_type}
-                placeholder="Select card type" 
-                dropdownStyle={{ zIndex: 2000 }} onChange={(e)=>setPaymentMethod(e) & handleChange('card_type', e)}>
-            <Option value="PayPal">PayPal</Option>
-          <Option value="Visa">Visa Card</Option>
-          <Option value="Master">Master Card</Option>
-        </Select>
-      </Form.Item>
-        {paymentMethod != 'PayPal' && <>
-        <div className={classes.inputsContainer}>
-        <Form.Item
-          name="card_number"
-          rules={[{ required: true, message: 'Please input your Code postal!' }]}
-          style={{border:'none',borderRadius:'.5em'}}
-        >
-                  <Input
-                  name="card_number"
-                  placeholder='Card Number'
-                  size="large" 
-                  value={formData.card_number}
-                        style={{ height:'2.5em',backgroundColor:'#DED8CC'}}
-                        onChange={(e) => handleChange('card_number', e.target.value)}
-                  />
-        </Form.Item>
-        <Form.Item
-        name="year"
-        rules={[
-          { required: true, message: 'Please select the year (YY)' },
-        ]}
-      >
-        <Select placeholder="Select year" dropdownStyle={{ zIndex: 2000 }}
-                  size="large" 
-                  name='year'
-                  onChange={(value) => handleChange('year', value)}>
-          {/* Add options for the years, adjust the range as needed */}
-          {Array.from({ length: 30 }, (_, index) => {
-            const currentYear = new Date().getFullYear();
-            const fullYear = currentYear + index;
-            const lastTwoDigits = String(fullYear).slice(-2);
+    <Modal
+     open={open}
+     onClose={handleClose}
+     aria-labelledby="modal-modal-title"
+     aria-describedby="modal-modal-description"
+     sx={{ overflow: "hidden",border:'none' }}
+   >
+     <Box sx={style}>
+     <h4
+         style={{
+           color: "#fff",
+           fontWeight: "600",
+           fontFamily: "var(--font-family)",
+           width: "100%",
+           padding: "0 2em",
+           textAlign: "start",
+           fontSize: "calc(.9rem + .3vw)",
+         }}
+       >
+         {language === 'eng' ? "Add a new card" : "Ajouter une nouvelle card"}
+       </h4>
+     <Form
+             layout="vertical"
+             name="nest-messages"
+             form={form}
+             // initialValues={formData}
+             onFinish={handleSubmit}
+             style={{
+             width: '100%',
+             margin:'0 auto',
+             alignItems: "center",
+             textAlign: "center",
+             justifyItems: "center",
+             maxHeight:'80vh',
+             padding:'2em',
+             fontFamily: "var(--font-family)",
+             }}
+   >
+     <Form.Item name="card_type" rules={[{ required: true, message: 'Please select an option!' }]} >
+       <Select 
+             name="cardType"
+             size="large" 
+             disabled={editMode}
+             value={formData.card_type}
+             placeholder="Select card type" 
+             dropdownStyle={{ zIndex: 2000 }} 
+             onChange={(e)=>setPaymentMethod(e) & handleChange('card_type', e)}>
+       <Option value="Visa">Visa Card</Option>
+       <Option value="Master">Master Card</Option>
+     </Select>
+   </Form.Item>
+     {paymentMethod != 'PayPal' && <>
+     <div className={classes.inputsContainer}>
+     <Form.Item
+       name="card_number"
+       rules={[{ required: true, message: 'Please input your Card Number!' },
+       {
+         pattern: /^\d+$/,
+         message: 'The Code postal must be digits only!',
+       }]}
+       style={{border:'none',borderRadius:'.5em'}}
+     >
+               <Input
+               name="card_number"
+               placeholder='Card Number'
+               size="large" 
+               value={formData?.card_number}
+               style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
+                     onChange={(e) => handleChange('card_number', e.target.value)}
+               />
+     </Form.Item>
+     <Form.Item
+     name="year"
+     rules={[
+       { required: true, message: 'Please select the year (YY)' },
+     ]}
+   >
+     <Select placeholder="Select year" dropdownStyle={{ zIndex: 2000 }}
+               size="large" 
+               name='year'
+               onChange={(value) => handleChange('year', value)}>
+       {/* Add options for the years, adjust the range as needed */}
+       {Array.from({ length: 30 }, (_, index) => {
+         const currentYear = new Date().getFullYear();
+         const fullYear = currentYear + index;
+         const lastTwoDigits = String(fullYear).slice(-2);
 
-            return (
-              <Option key={lastTwoDigits} value={lastTwoDigits}>
-                {fullYear}
-              </Option>
-            );
-          })}
+         return (
+           <Option key={lastTwoDigits} value={lastTwoDigits}>
+             {fullYear}
+           </Option>
+         );
+       })}
 
-        </Select>
-      </Form.Item>
+     </Select>
+   </Form.Item>
 
-      <Form.Item
-        name="month"
-        rules={[
-          { required: true, message: 'Please select the month' },
-        ]}
-      >
-        <Select placeholder="Select month" dropdownStyle={{ zIndex: 2000 }}
-                  size="large"
-                  name='month'
-                  onChange={(value) => handleChange('month', value)} >
-          {/* Add options for the months using monthNames array */}
-          {monthNames.map((month, index) => (
-            <Option key={index + 1} value={String(index + 1).padStart(2, '0')}>
-              {month} ({String(index + 1).padStart(2, '0')})
-            </Option>
-          ))}
-        </Select>
-      </Form.Item>
-        <Form.Item
-          name="cvv"
-          rules={[
-            {
-              validator: validateLessThanFourNumbers,
-            },
-          ]}
-          style={{border:'none',borderRadius:'.5em'}}
-        >
-                  <Input
-                  name="cvv"
-                  placeholder='CVV'
-                  size="large"
-                  value={formData.CVV}
-                        style={{ height:'2.5em',backgroundColor:'#DED8CC'}}
-                        onChange={(e) => handleChange('cvv', e.target.value)}
-                  />
-        </Form.Item>
-        
-        </div><div style={{display:'flex',flexWrap:'wrap' ,width:'fit-content',margin:'auto',gap:'1em'}}>
-        <Button 
-           size="large"
-           className={classes.Btn }
-          style={{backgroundColor:'#DED8CC',color: 'var(--forth-color)',cursor: addloading ? 'wait' : 'pointer',}}>
-            Supprimer
-          </Button>
-        <Form.Item className={classes.formItem}>
-        <Button 
-           size="large"
-           htmlType="submit"  
-           disabled = {addloading}         
-           style={{cursor: addloading ? 'wait' : 'pointer'}}
-           className={classes.Btn }>
-            Ajouter
-          </Button>
-        </Form.Item>
-        </div>
-        </>}
-      </Form>
-      {paymentMethod == 'PayPal' && <div style={{width:'100%',display:'flex'}}><button 
-                                        style={{margin:'0 auto',backgroundColor:'#FAAF00',padding:'1em 6em',borderRadius:'1em'}}
-                                        onClick={()=>toast.error(`en cours de construction`, {
-                                          position: "top-right",
-                                          autoClose: 1500,
-                                          hideProgressBar: true,
-                                          closeOnClick: true,
-                                          pauseOnHover: true,
-                                          draggable: true,
-                                          progress: 0,
-                                          theme: "colored",
-                                          })} > </button></div>}
-   
-        </Box>
-      </Modal>
+   <Form.Item
+     name="month"
+     rules={[
+       { required: true, message: 'Please select the month' },
+     ]}
+   >
+     <Select placeholder="Select month" dropdownStyle={{ zIndex: 2000 }}
+               size="large"
+               name='month'
+               onChange={(value) => handleChange('month', value)} >
+       {/* Add options for the months using monthNames array */}
+       {monthNames.map((month, index) => (
+         <Option key={index + 1} value={String(index + 1).padStart(2, '0')}>
+           {month} ({String(index + 1).padStart(2, '0')})
+         </Option>
+       ))}
+     </Select>
+   </Form.Item>
+     <Form.Item
+       name="cvv"
+       rules={[
+         {
+           validator: validateLessThanFourNumbers,
+         },
+       ]}
+       style={{border:'none',borderRadius:'.5em'}}
+     >
+               <Input
+               name="cvv"
+               placeholder='CVV'
+               size="large"
+               // value={formData?.CVV}
+             style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
+                     onChange={(e) => handleChange('cvv', e.target.value)}
+               />
+     </Form.Item>
+     
+     </div><div style={{display:'flex',flexWrap:'wrap' ,width:'fit-content',margin:'auto',gap:'1em'}}>
+     <Button
+             size="large"
+             className={classes.cancel}
+             onClick={handleClose}
+           >
+             {language === 'eng' ? "Cancel" : "Supprimer"}
+           </Button>
+           {/* <Form.Item className={classes.formItem}> */}
+             <Button
+               size="large"
+               htmlType="submit"
+               disabled={addloading ? true : false}
+             style={{
+                 cursor: addloading ? "wait" : "pointer",
+                 fontFamily: "var(--font-family)",
+             }}
+               className={classes.addAddBtn}
+             >
+               {language === 'eng' ? "Add" : "Ajouter"}
+             </Button>
+           {/* </Form.Item> */}
+           <Button
+             size="large"
+             className={classes.cancelmob}
+             onClick={handleClose}
+           >
+             {language === 'eng' ? "Cancel" : "Supprimer"}
+           </Button>
+     </div>
+     </>}
+   </Form>
+   {/* {paymentMethod == 'PayPal' && <div style={{width:'100%',display:'flex'}}><button 
+                                     style={{margin:'0 auto',backgroundColor:'#FAAF00',padding:'1em 6em',borderRadius:'1em'}}
+                                     onClick={()=>toast.error(`en cours de construction`, {
+                                       position: "top-right",
+                                       autoClose: 1500,
+                                       hideProgressBar: true,
+                                       closeOnClick: true,
+                                       pauseOnHover: true,
+                                       draggable: true,
+                                       progress: 0,
+                                       theme: "colored",
+                                       })} > </button></div>} */}
+
+     </Box>
+   </Modal>
     </div>
   );
 };
