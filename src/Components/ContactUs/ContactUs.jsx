@@ -14,6 +14,7 @@ import { IoIosAttach } from "react-icons/io";
 import AuthContext from '../Common/authContext';
 import TextField from "./Text Field/TextField";
 import Services from "../Home Page/Services Section/Services";
+import { toast } from "react-toastify";
 
 
 const ContactUs = () => {
@@ -25,21 +26,43 @@ const ContactUs = () => {
 
   const [formData, setFormData] = useState({});
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
       console.log("heloooo",formData)
       
-      // emailjs.send("service_f604aoj", "template_9c5qcbt", formData , "5Igpq1cdiXnfbX80E")
-      //   .then(
-      //     (result) => {
-      //       console.log(result.text);
-      //       setFormData({ fname: '', lname: '', email: '', phone: '', message: ''});
-      //       form.resetFields();
-      //     },)
-      //     .catch((error) => {
-      //       console.log(error.text);
-      //     }
-      //   );
-      form.resetFields();
+      
+      try {
+        const response = await axios.post(
+          "https://api.leonardo-service.com/api/bookshop/contact-us",
+          { ...formData, ecom_type: 'sofiaco' }
+        );
+        setFormData({});
+        form.resetFields();
+        console.log("Email sent:", response.data);
+        // You can display a success message if needed
+        toast.success('Email sent successfully', {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: 0 ,
+          theme: "colored",
+          })
+      } catch (error) {
+        console.error("Error in sending email:", error.response.data.error.email[0]);
+        // You can display an error message if needed
+        toast.error(`Error in sending email:` && error.response.data.error.email[0], {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: 0 ,
+          theme: "colored",
+          });
+      }
   };
 
   const handleChange = (e) => {
@@ -68,22 +91,22 @@ const ContactUs = () => {
       >
         <div className={classes.inputCont}>
         <Form.Item
-          name="name"
-          // label={<p style={{color:'var(--secondary-color)',fontWeight:'500',fontFamily:'var(--font-family)',margin:'0 '}}>Nom</p>}
+          name="first_name"
           rules={[{ required: true, message: "S'il vous plaît entrez votre Prénom!" }]}
         >
         <TextField
-          id="name"
+          id="first_name"
           label="Name*"
+          maxLength={50}
           placeholder="Your Name"
           variant="standard"
           rows={1}
           inputProps={{ style: { color: "var(--secondary-color)" } }}  
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })} 
+          onChange={(e) => setFormData({ ...formData, first_name: e.target.value })} 
         />
         </Form.Item>
         <Form.Item
-          name="company"
+          name="email"
           // label={<p style={{color:'var(--accent-color)',fontWeight:'500',fontFamily:'var(--font-family)',margin:'0 '}}>Company</p>}
           rules={[
             {
@@ -92,13 +115,14 @@ const ContactUs = () => {
             },
             {
               required: true,
-              message: "S'il vous plaît entrez votre Company!",
+              message: "S'il vous plaît entrez votre Email!",
             },
           ]}
         >
         <TextField
           id="email"
           label="Email Address*"
+          maxLength={100}
           placeholder="Your Email Address"
           variant="standard"
           rows={1}
@@ -109,8 +133,7 @@ const ContactUs = () => {
         </div>
         <div className={classes.inputCont}>
         <Form.Item
-          name="email"
-          // label={<p style={{color:'var(--accent-color)',fontWeight:'500',fontFamily:'var(--font-family)',margin:'0 '}}>Email</p>}
+          name="telephone"
           rules={[
             {
               pattern: /^[0-9]{6,16}$/,
@@ -118,27 +141,28 @@ const ContactUs = () => {
             },
             {
               required: true,
-              message: "S'il vous plaît entrez votre E-mail!",
+              message: "S'il vous plaît entrez votre Téléphone!",
             },
           ]}
         >
         <TextField
-          id="phone"
+          id="telephone"
           label="Phone Number*"
+          maxLength={20}
           placeholder="Your Phone Number"
           variant="standard"
           rows={1}
           inputProps={{ style: { color: "var(--secondary-color)" } }}  
-          onChange={(e) => setFormData({ ...formData, phone: e.target.value })} 
+          onChange={(e) => setFormData({ ...formData, telephone: e.target.value })} 
         />
         </Form.Item>
         <Form.Item
-          name="phone"
+          name="company"
           // label={<p style={{color:'var(--accent-color)',fontWeight:'500',fontFamily:'var(--font-family)',margin:'0 '}}>Téléphone</p>}
           rules={[
             {
               required: true,
-              message: "S'il vous plaît entrez votre Téléphone!",
+              message: "S'il vous plaît entrez votre Company!",
             },
           ]}
         >
@@ -146,6 +170,7 @@ const ContactUs = () => {
           id="company"
           label="Company*"
           placeholder="Your Company"
+          maxLength={50}
           variant="standard"
           rows={1}
           inputProps={{ style: { color: "var(--secondary-color)" } }}  
@@ -165,6 +190,7 @@ const ContactUs = () => {
               variant="standard"
               fullWidth
               multiline
+              maxLength={250}
               rows={3}
               inputProps={{ style: { color: "var(--secondary-color)" } }} 
               onChange={(e) => setFormData({ ...formData, message: e.target.value })} 
