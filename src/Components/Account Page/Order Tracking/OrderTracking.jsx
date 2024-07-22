@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import classes from './OrderTracking.module.css'
 import OrderCard from './Order Card/OrderCard';
 import visa from '../../../assets/visa_logo.png';
@@ -8,8 +8,8 @@ import AllOrders from '../../../assets/AllOrders.svg';
 import Processing from '../../../assets/Processing.svg';
 import Shipped from '../../../assets/Shipped.svg';
 import Delivered from '../../../assets/Delivered.svg';
-// import AllOrders from '../../../assets/Delivered.svg';
-// import AllOrders from '../../../assets/Delivered.svg';
+import Confirming from '../../../assets/Confirming.svg';
+import Canceled from '../../../assets/Canceled.svg';
 import Select from '@mui/material/Select';
 import { IoIosArrowBack } from "react-icons/io";
 import { Divider} from "@mui/material";
@@ -35,6 +35,7 @@ import { PiChecks } from "react-icons/pi";
 import { PiMapPinLine } from "react-icons/pi";
 import { PiCheckCircle } from "react-icons/pi";
 import { PiNotepad } from "react-icons/pi";
+import AuthContext from '../../Common/authContext';
 
 
 
@@ -123,6 +124,7 @@ const OrderTracking = () => {
   const user = useSelector((state)=>state.products.userInfo);
   const language = useSelector((state) => state.products.selectedLanguage[0].Language);
   const [loading, setLoading] = useState(true);
+  const authCtx = useContext(AuthContext)
   const [selectedtitle, setselectedtitle] = useState('');
   const [ordertrackcategories, setordertrackcategories] = useState([])
   const [selectedCategory, setselectedCategory] = useState(localStorage.getItem('selectedOrderCategory') || 0);
@@ -354,7 +356,7 @@ const reviewHandler =()=>setisReviewMood(true);
                 </div>
                 <div className={classes.hexagon} onClick={()=>setselectedCategory(2) & localStorage.setItem('selectedOrderCategory', 2)} style={{backgroundColor:cat === 2 && 'var(--primary-color)'}}>
                   <div style={{width:'120%',height:'60%',position:"absolute",top:'20%',left:'-10%',zIndex:'1',rotate:'270deg'}}>
-                    <img src={AllOrders} alt=""  style={{width:'50%',}}/>
+                    <img src={Confirming} alt=""  style={{width:'50%',}}/>
                     <p style={{marginTop:'0.5em'}}>Confirming</p>
                   </div>
                 </div>
@@ -378,7 +380,7 @@ const reviewHandler =()=>setisReviewMood(true);
                 </div>
                 <div className={classes.hexagon} onClick={()=>setselectedCategory(13) & localStorage.setItem('selectedOrderCategory', 13)} style={{backgroundColor:cat === 13 && 'var(--primary-color)'}}>
                   <div style={{width:'120%',height:'60%',position:"absolute",top:'20%',left:'-10%',zIndex:'1',rotate:'270deg'}}>
-                    <img src={AllOrders} alt=""  style={{width:'50%',}}/>
+                    <img src={Canceled} alt=""  style={{width:'50%',}}/>
                     <p style={{marginTop:'0.5em'}}>Canceled</p>
                   </div>
                 </div>
@@ -509,7 +511,7 @@ const reviewHandler =()=>setisReviewMood(true);
             <div className={classes.imageCont}>
               <img src={props.article.articleimage[0]?.link ? props.article.articleimage[0].link : bookPlaceHolder} alt="" style={{height:'100%', width: '100%',objectFit:'cover' }}/>
             </div>
-            <div style={{height:'100%',textAlign:'start',margin:'auto 0',justifyContent:'space-between',display:'flex', flexDirection:'column',width:'70%',fontSize:'calc(.7rem + 0.3vw)',fontFamily:'var(--font-family)'}}>
+            <div style={{height:'100%',textAlign:'start',margin:'auto 0 auto auto',justifyContent:'space-between',display:'flex', flexDirection:'column',width:'70%',fontSize:'calc(.7rem + 0.3vw)',fontFamily:'var(--font-family)'}}>
               <p style={{fontWeight:'600',marginBottom:"1em",marginTop:'0'}}>{props.article.designation}</p>
               {props.article.dc_auteur && <p style={{fontWeight:'600',fontSize:'calc(.6rem + 0.2vw)'}}>{props.article.dc_auteur}</p>}
               {props.article.descriptif && <p className={classes.dicription} dangerouslySetInnerHTML={{ __html: props.article.descriptif }}/>}
