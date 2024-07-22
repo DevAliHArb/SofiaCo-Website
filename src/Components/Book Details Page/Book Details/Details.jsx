@@ -38,6 +38,9 @@ const Details = () => {
   const language = useSelector(
     (state) => state.products.selectedLanguage[0].Language
   );
+  const currency = useSelector(
+    (state) => state.products.selectedCurrency[0].currency
+  );
 
   // useEffect(() => {
   //   bookDatas.forEach((element) => {
@@ -143,8 +146,27 @@ const Details = () => {
               fontWeight: "700",
             }}
           >
-            {" "}
-            ${(bookData.prixpublic * 1).toFixed(2)}
+            {currency === "eur"
+                            ? `€${
+                              bookData.discount > 0
+                                  ? (
+                                    bookData.prixpublic -
+                                    bookData.prixpublic * (bookData.discount / 100)
+                                    ).toFixed(2)
+                                  : Number(bookData.prixpublic).toFixed(2)
+                              }`
+                            : `$${
+                              bookData.discount > 0
+                                  ? (
+                                      (bookData.prixpublic -
+                                        bookData.prixpublic *
+                                          (bookData.discount / 100)) *
+                                      authCtx.currencyRate
+                                    ).toFixed(2)
+                                  : (
+                                    bookData.prixpublic * authCtx.currencyRate
+                                    ).toFixed(2)
+                              }`}{" "}
           </p>
         </div>
         <div className={classes.bottonsContainer}>
