@@ -21,11 +21,6 @@
 }
 
 .char{
-    display: flex;
-    flex-direction: column;
-}
-
-.char{
     display: grid;
     grid-template-columns: 35% 60%;
     border-bottom: 1px solid var(--authbg-color);
@@ -35,6 +30,7 @@
     text-align: start;
     font-family: var(--font-family);
     font-size: large;
+    color: var(--secondary-color);
 }
 
 .resume_content{
@@ -50,6 +46,7 @@
     text-align: start;
     font-family: var(--font-family);
     font-size: large;
+    color: var(--secondary-color);
 }
 
 .discountBtn{

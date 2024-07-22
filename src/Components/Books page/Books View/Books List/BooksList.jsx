@@ -415,7 +415,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                                     ).toFixed(2)
                               }`}{" "}
                         </p>
-                        {props.discount > 0 && (
+                        {/* {props.discount > 0 && (
                           <p
                             style={{
                               color: "var(--primary-color)",
@@ -430,7 +430,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                                   props.prixpublic * authCtx.currencyRate
                                 ).toFixed(2)} `}
                           </p>
-                        )}
+                        )} */}
                       </span>
                     </div>
                   </div>
@@ -561,7 +561,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                         </div>
                       </div>
              <span style={{ display: "flex", flexDirection: "row", margin:'0', columnGap:'0.5em' }}>
-                        {props.discount > 0 && (
+                        {/* {props.discount > 0 && (
                           <p
                             style={{
                               color: "var(--primary-color)",
@@ -576,7 +576,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                                   props.prixpublic * authCtx.currencyRate
                                 ).toFixed(2)} `}
                           </p>
-                        )}
+                        )} */}
                         <p
                           className={classes.price}
                         >
