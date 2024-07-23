@@ -445,7 +445,7 @@
   "OurSelectionBanner":{
       "title":{"eng":"Our Selection", "fr": ""},
       "description":{"eng":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": ""},
-      "button":{"eng":"Shop Now", "fr": ""}
+      "button":{"eng":"Shop Now", "fr": "Shop Now_fr"}
   },
   "MoreForCollab":{
       "title":{"eng":"More of this Collaborator", "fr": ""},
