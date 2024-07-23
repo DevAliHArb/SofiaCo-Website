@@ -330,7 +330,7 @@ const Collaborators = () => {
                     <div className={classes.hovered_title}>
                       <h2>{props.nom}</h2>
                     </div>
-                      <p className={classes.p}>{props.description_eng?.substring(0, 60)}{props.description_eng?.length > 60 && "..."}</p>
+                      <p className={classes.p}>{language === 'eng' ? props.type.name : props.type.name_fr}</p>
                 </div>
               </div>
             </div>
