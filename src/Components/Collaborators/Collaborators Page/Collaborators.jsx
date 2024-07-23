@@ -323,7 +323,7 @@ const Collaborators = () => {
                 {props.image === '' ? 
                   <img src={collabPlaceholder} alt="" width="100%" height="100%" /> 
                   : 
-                  <img src={`https://api.leonardo-service.com/img/${props.image}`} alt="" width="100%" height="100%" />  
+                  <img src={`${props.image}`} alt="" width="100%" height="100%" />  
               } 
                 </div>
                 <div className={classes.card_text}>

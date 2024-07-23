@@ -80,7 +80,7 @@ const CollaboratorDetails = () => {
         {CollaboratorData.image === '' ? 
                     <img src={collabPlaceholder} alt="" width="100%" height="100%" /> 
                     : 
-                    <img src={`https://api.leonardo-service.com/img/${CollaboratorData.image}`} alt="" width="100%" height="100%" />  
+                    <img src={`${CollaboratorData.image}`} alt="" width="100%" height="100%" />  
                 }
           {/* <div className={classes.emailContMob}>
             <div className={classes.iconCont}><IoMailOutline style={{fontSize:'1.2em',marginTop:'.3em'}}/>
