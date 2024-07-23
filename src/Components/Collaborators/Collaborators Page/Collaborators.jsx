@@ -52,11 +52,11 @@ const Collaborators = () => {
       (selectedLetter === "ALL" || author.firstLetter === selectedLetter.toLowerCase()) &&
       (searchQuery === "" ||
         author.nom.toLowerCase().includes(searchQuery.toLowerCase())) &&
-      (type === 'All' || author?.type.nom.toLowerCase() === type.toLowerCase())  // Add "which" filter
+      (type === 'All' || author?.type.name.toLowerCase() === type.toLowerCase())  // Add "which" filter
       // (major === 'All' || author.major === major.toLowerCase()) // Add "which" filter
     );
 
-  const recordsPerPage = 16;
+  const recordsPerPage = 15;
   const lastIndex = currentpage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
   const records = filteredAuthors.slice(firstIndex, lastIndex);
@@ -105,12 +105,12 @@ const Collaborators = () => {
     } else if (records.length === 0 ) {
       setto(0);
     } else{
-      setto(currentpage * 16);
+      setto(currentpage * 15);
     }
     if (records.length === 0 ) {
       setfrom(0);
     }else {
-      setfrom(currentpage * 16 - 15);
+      setfrom(currentpage * 15 - 14);
     }
   }, [currentpage, records]);
   //   var  = currentpage * 16 - 16;
@@ -340,7 +340,7 @@ const Collaborators = () => {
           <div className={classes.page_control}>
             <div className={classes.show}>
               <p>
-                Showing {from}–{to} of {records.length} results
+                Showing {from}–{to} of {filteredAuthors.length} results
               </p>
             </div>
             <div className={classes.control}>
