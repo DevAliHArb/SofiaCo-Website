@@ -1,8 +1,8 @@
 .container {
     width: 100%;
     padding: 3em 1em;
-    background-color: #f9f9f9;
-    border-radius: 8px;
+    background-color: rgba(127, 155, 201, 0.15);
+    border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     max-width: 35em;
@@ -31,6 +31,7 @@
     color: var(--secondary-color);
     margin-bottom: 1rem;
     font-family: var(--font-family);
+    margin-top: 1em;
   }
   
   .bars {

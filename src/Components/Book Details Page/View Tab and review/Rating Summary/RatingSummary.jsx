@@ -52,7 +52,7 @@ const RatingSummary = () => {
               value={getPercentage(ratingCounts[index])}
               className={styles.barFill}
               sx={{
-                flex: 5,
+                flex: 3,
                 height: 4,
                 margin: '0 0.5rem',
                 borderRadius: '5px',
