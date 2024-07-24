@@ -114,7 +114,7 @@ const CollectionsPage = () => {
                   <div className={classes.content}>
                     {props?.image !== null ? (
                       <img
-                        src={`https://api.leonardo-service.com/img/${props.image}`}
+                        src={`${props.image}`}
                         alt=""
                         width="100%"
                         height="100%"

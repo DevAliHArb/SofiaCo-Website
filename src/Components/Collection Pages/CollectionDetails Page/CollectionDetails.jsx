@@ -144,7 +144,7 @@ const CollectionDetailsPage = () => {
               <div className={classes.content}>
               {collectionData?.image !== null ? (
                       <img
-                        src={`https://api.leonardo-service.com/img/${collectionData.image}`}
+                        src={`${collectionData.image}`}
                         alt=""
                         width="100%"
                         height="100%"
