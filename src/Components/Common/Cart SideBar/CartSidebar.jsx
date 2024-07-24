@@ -270,8 +270,8 @@ export default function CartSidebar({ toggle, isOpen }) {
             <p style={{margin:'0 0 .5em auto',color:'var(--primary-color)',fontSize:'calc(.9rem + 0.3vw)',fontWeight:'600'}}>
             
             {currency === "eur"
-                                ? `€ ${(props.quantity * props.price).toFixed(2)} `
-                                : `$ ${(
+                                ? `€${(props.quantity * props.price).toFixed(2)} `
+                                : `$${(
                                     (props.quantity * props.price) * authCtx.currencyRate
                                   ).toFixed(2)} `}</p>
             </div>
@@ -290,8 +290,8 @@ export default function CartSidebar({ toggle, isOpen }) {
                 <p style={{color:'var(--secondary-color)' }}>Total TTC</p>
                 <p style={{color:'var(--primary-color)'}}>
                     {currency === "eur"
-                      ? `€ ${(totalAmt * 1).toFixed(2)} `
-                      : `$ ${(totalAmt * authCtx.currencyRate).toFixed(2)} `}</p>
+                      ? `€${(totalAmt * 1).toFixed(2)} `
+                      : `$${(totalAmt * authCtx.currencyRate).toFixed(2)} `}</p>
               </div>
                 <div className={classes.btn_con}>
               <button className={classes.btn} onClick={()=>navigate(`/cart`) & toggle()}>

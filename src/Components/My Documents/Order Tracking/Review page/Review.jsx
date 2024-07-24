@@ -217,7 +217,7 @@ const Review = ({props}) => {
                 style={{color:'var(--forth-color)',fontSize:'calc(1.8rem + .5vw)',marginTop:'.2em'}}
                     name="hover-feedback"
                     value={value}
-                    precision={0.5}
+                    precision={1}
                     getLabelText={getLabelText}
                     onChange={(event, newValue) => {
                     setValue(newValue);
