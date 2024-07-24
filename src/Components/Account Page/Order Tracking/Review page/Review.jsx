@@ -30,7 +30,7 @@ const style = {
   bgcolor: '#fff',
   boxShadow: 24,
   fontSize:'calc(0.7rem + 0.2vw)',
-  fontFamily:'montserrat',
+  fontFamily:'var(--font-family)',
   overflow:'hidden',
   borderRadius:'1em'
 };
@@ -99,7 +99,7 @@ const Review = ({props}) => {
   };
 
   const handleSubmit = async () => {
-    console.log({
+    console.log("testt",{
       article_id: selectedReview.article.id,
       description: description || '',
       rate: value || 0,
@@ -127,6 +127,7 @@ const Review = ({props}) => {
         rate: value || 0,
         user_id: user.id,
         review_attachments: base64Images || [] ,
+        order_invoice_id: selectedReview.id,
         ecom_type: 'sofiaco'
     });
       console.log('Review created:', response.data);
@@ -227,11 +228,11 @@ const Review = ({props}) => {
             flexDirection:'column',
             alignItems: 'center',
             margin:'0',
-            fontFamily:'montserrat'
+            fontFamily:'var(--font-family)'
         }}
         >
             <div style={{width:'100%', display:"flex", flexDirection:"row", justifyContent:'space-between',margin:'0.2em 0 0 0'}}> 
-                <p style={{ fontWeight:'600',marginLeft:'5%',fontSize:'calc(1rem + .3vw)',color:'var(--primary-color)',width:'fit-content'}}>Write a Review</p>
+                <p style={{ fontWeight:'600',marginLeft:'5%',fontSize:'calc(1rem + .3vw)',color:'var(--primary-color)',width:'fit-content',fontFamily:'var(--font-family)'}}>Write a Review</p>
                 <div style={{marginRight:'5%'}}>
                 <button style={{position:'relative',border:'none',backgroundColor:'transparent',color:'var(--primary-color)',cursor:'pointer',width:'fit-content'}} onClick={handleClose}>
                 <CloseSharpIcon style={{fontSize:'2em',marginTop:'0.6em'}} />
@@ -321,10 +322,11 @@ const Review = ({props}) => {
                         maxHeight:'80vh',
                         padding:'0% 5% 0% 5%',
                         }}
+                        className="reviewForm"
             >
                 <Form.Item
                 name="Feedback"
-                label={<p style={{color:'var(--primary-color)',fontWeight:'600',fontFamily:'montserrat',margin:'0 ',fontSize:'calc(0.7rem + .3vw)'}}>Feedback</p>}
+                label={<p style={{color:'var(--primary-color)',fontWeight:'600',fontFamily:'var(--font-family)',margin:'0 ',fontSize:'calc(0.7rem + .3vw)'}}>Feedback</p>}
                 rules={[{ required: true, message: 'Veuillez saisir votre adresse!' }]}
                 style={{border:'none',borderRadius:'.5em',width:'100%'}}
                 >
@@ -333,7 +335,7 @@ const Review = ({props}) => {
                 size="large" 
                 onChange={(e)=>setdescription(e.target.value)}
                 placeholder='Write down your feedback here...'
-                tyle={{backgroundColor:'var(--primary-color)',color:'#fff',textAlign:'start'}}
+                style={{backgroundColor:'var(--authbg-color)',color:'#fff',textAlign:'start'}}
                 />
                 </Form.Item>
                 <div style={{width:'fit-content',gap:'2em', display:"flex", flexDirection:"row",margin:'1em 0 0 auto'}}>
