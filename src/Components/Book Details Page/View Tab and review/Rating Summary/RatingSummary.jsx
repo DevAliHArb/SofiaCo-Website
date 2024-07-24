@@ -73,7 +73,7 @@ const RatingSummary = () => {
                 readOnly
               />
             </span>
-            <span>{getPercentage(ratingCounts[index])}%</span>
+            <span style={{color:'var(--secondary-color)'}}>{getPercentage(ratingCounts[index])}%</span>
           </div>
         ))}
       </div>

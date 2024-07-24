@@ -10,8 +10,8 @@
   }
   
   .header {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: calc(1.2rem + 0.6vw);
+    font-weight: 700;
     margin-bottom: 1rem;
     color: var(--secondary-color);
     font-family: var(--font-family);
@@ -35,6 +35,8 @@
   }
   
   .bars {
+    width: 80%;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -52,7 +54,7 @@
   
   .bar span {
     font-size: 0.875rem;
-    color: var(--primary-color) !important;
+    color: var(--primary-color) ;
     font-family: var(--font-family);
   }
   
@@ -79,6 +81,10 @@
   .container{
     max-width: 94%;
     padding: 2em 3%;
+  }
+  
+  .bars {
+    width: 88%;
   }
 }
 
