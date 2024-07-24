@@ -561,9 +561,9 @@ transition: all 0.3s ease-in-out;
     padding: 1.5em 0;
   }
 
-  /* .show{
+  .show{
     display: none;
-  } */
+  }
 
   .control{
     margin: 0 auto;
