@@ -330,7 +330,7 @@ const Collaborators = () => {
                     <div className={classes.hovered_title}>
                       <h2>{props.nom}</h2>
                     </div>
-                      <p className={classes.p}>{language === 'eng' ? props.type.name : props.type.name_fr}</p>
+                      <p className={classes.p}>{language === 'eng' ? props.type?.name : props.type?.name_fr}</p>
                 </div>
               </div>
             </div>

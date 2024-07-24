@@ -69,7 +69,7 @@ const CollaboratorDetails = () => {
       <div className={classes.cardContainer}>
         <div className={classes.card} >
           <h1 style={{fontWeight:'600'}}>{CollaboratorData.nom}</h1>
-          <p style={{fontWeight:"500", textTransform:'capitalize'}}>{language === 'eng' ? CollaboratorData.type.name : CollaboratorData.type.name_fr}</p>
+          <p style={{fontWeight:"500", textTransform:'capitalize'}}>{language === 'eng' ? CollaboratorData.type?.name : CollaboratorData.type?.name_fr}</p>
           <p>{CollaboratorData.biographie}</p>
           {/* <div className={classes.emailCont}>
             <div className={classes.iconCont}><IoMailOutline style={{fontSize:'1.2em',marginTop:'.3em'}}/>
