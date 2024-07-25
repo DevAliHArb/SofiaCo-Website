@@ -29,7 +29,7 @@
 }
 
 .scroll_con{
-    background-color: var(--primary-color);
+    background-color: var(--authbg-color);
     padding: 1em;
     border-radius: 1em;
 }

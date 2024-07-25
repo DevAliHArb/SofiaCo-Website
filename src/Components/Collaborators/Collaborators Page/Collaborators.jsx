@@ -52,7 +52,7 @@ const Collaborators = () => {
       (selectedLetter === "ALL" || author.firstLetter === selectedLetter.toLowerCase()) &&
       (searchQuery === "" ||
         author.nom.toLowerCase().includes(searchQuery.toLowerCase())) &&
-      (type === 'All' || author?.type.name.toLowerCase() === type.toLowerCase())  // Add "which" filter
+      (type === 'All' || author?.type?.name.toLowerCase() === type.toLowerCase())  // Add "which" filter
       // (major === 'All' || author.major === major.toLowerCase()) // Add "which" filter
     );
 
