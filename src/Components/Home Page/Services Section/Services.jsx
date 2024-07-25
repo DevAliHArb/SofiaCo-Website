@@ -46,7 +46,7 @@ const Services = () => {
         </div>
 
         <div className={classes.hex_container}>
-          {services.slice(0,9).map((item, index) => {
+          {services?.slice(0,9).map((item, index) => {
             return (
               <div className={classes.hex_item}>
                 <div className={classes.hex_content}>
@@ -55,19 +55,19 @@ const Services = () => {
                   </div>
                   <h2 style={{color: index % 2 === 0 ? "var(--primary-color)" : "var(--secondary-color)"}}>
                     {language === "eng"
-                      ? item.title_en.length > 14
+                      ? item.title_en?.length > 14
                         ? item.title_en.slice(0, 14) + "..."
                         : item.title_en
-                      : item.title_fr.length > 14
+                      : item.title_fr?.length > 14
                       ? item.title_fr.slice(0, 14) + "..."
                       : item.title_fr}
                   </h2>
                   <p style={{color: index % 2 === 0 ? "var(--primary-color)" : "var(--secondary-color)"}}>
                     {language === "eng"
-                      ? item.description_en.length > 40
+                      ? item.description_en?.length > 40
                         ? item.description_en.slice(0, 40) + "..."
                         : item.description_en
-                      : item.description_fr.length > 20
+                      : item.description_fr?.length > 20
                       ? item.description_fr.slice(0, 20) + "..."
                       : item.description_fr}
                   </p>
