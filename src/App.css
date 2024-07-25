@@ -97,3 +97,6 @@
   .ant-input {
     background: #E7E7E7;
   }
+  .reviewForm .ant-input{
+    color: #fff !important;
+  }

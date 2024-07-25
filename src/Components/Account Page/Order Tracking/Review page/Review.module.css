@@ -89,6 +89,7 @@
   padding: .7em 2em;
   color: #fff;
   font-size: calc(.7rem + .3vw);
+  font-family: var(--font-family) !important;
   cursor: pointer;
   transition: background-color .6s ease, color 1s ease;
 }
