@@ -148,7 +148,7 @@ const Navbar = (props) => {
     const collectionDetailsRegex = /^\/collections\/[^/]+\/details$/;
     const bookDetailsRegex = /^\/bookdetails\/[^/]+$/;
   
-    if (path === "/collaborators" || path === "/books" || path ==="/policies" || collaboratorDetailsRegex.test(path) || collectionDetailsRegex.test(path) || bookDetailsRegex.test(path)) {
+    if (path === "/collections" || path === "/collaborators" || path === "/books" || path ==="/policies" || collaboratorDetailsRegex.test(path) || collectionDetailsRegex.test(path) || bookDetailsRegex.test(path)) {
       setwithBG(true)
     } else { setwithBG(false) }
   }, [path])

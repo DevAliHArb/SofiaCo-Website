@@ -56,6 +56,21 @@ const CollectionDetailsPage = () => {
   const navigate = useNavigate();
   // Function to handle changes in the input value
   const [articles, setArticles] = useState([]);
+  
+  const [heroData, setHeroData] = useState({});
+
+  
+    const fetchHero = async () => {
+      try {
+        const response = await axios.get('https://api.leonardo-service.com/api/bookshop/website-sections?ecom_type=sofiaco&section_id=collection-details-hero');
+        setHeroData(response.data.data[0])
+      } catch (error) {
+        console.error('Error fetching services:', error);
+      }
+    };
+  useEffect(() => {
+    fetchHero();
+  }, []);
 
   useEffect(() => {
     fetchArticles();
@@ -136,7 +151,7 @@ const CollectionDetailsPage = () => {
   return (
     <>
       <div className={classes.bigContainer}>
-        <OurSelectionBanner />
+        <OurSelectionBanner props={heroData} />
        <div className={classes.detailsContainer}>
         
       <div className={classes.cardContainer}>
