@@ -62,10 +62,25 @@ const CollaboratorDetails = () => {
       toast.error(error.response.data.error)
     }
   };
+  
+  const [heroData, setHeroData] = useState({});
+
+  
+    const fetchHero = async () => {
+      try {
+        const response = await axios.get('https://api.leonardo-service.com/api/bookshop/website-sections?ecom_type=sofiaco&section_id=Collaborator-details-hero');
+        setHeroData(response.data.data[0])
+      } catch (error) {
+        console.error('Error fetching services:', error);
+      }
+    };
+  useEffect(() => {
+    fetchHero();
+  }, []);
 
   return (
     <div> <div className={classes.login_con}>
-      <OurSelectionBanner />
+      <OurSelectionBanner props={heroData} />
       <div className={classes.cardContainer}>
         <div className={classes.card} >
           <h1 style={{fontWeight:'600'}}>{CollaboratorData.nom}</h1>

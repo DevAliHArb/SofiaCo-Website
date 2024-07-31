@@ -19,6 +19,7 @@ import nodata from '../../../assets/noCollabFound.svg'
 import OurSelectionBanner from "../../Common Components/Our Selection Banner/OurSelectionBanner";
 import Deals from '../../Home Page/Deals/Deals'
 import abs from '../../../assets/collab-abs.png'
+import axios from "axios";
 
 const Collaborators = () => {
   const dispatch = useDispatch();
@@ -123,10 +124,27 @@ const Collaborators = () => {
     return text[0].toUpperCase() + text.slice(1).toLowerCase();
   }
 
+  
+  const [heroData, setHeroData] = useState({});
+
+  
+    const fetchHero = async () => {
+      try {
+        const response = await axios.get('https://api.leonardo-service.com/api/bookshop/website-sections?ecom_type=sofiaco&section_id=collaborators-hero');
+        setHeroData(response.data.data[0])
+      } catch (error) {
+        console.error('Error fetching services:', error);
+      }
+    };
+  useEffect(() => {
+    fetchHero();
+  }, []);
+
+
   return (
     <div className={classes.collab}>
       <img src={abs} alt="" className={classes.img_abs}/>
-      <OurSelectionBanner />
+      <OurSelectionBanner props={heroData} />
       <div className={classes.content}>
         <div className={classes.filters}>
           <div
