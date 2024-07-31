@@ -25,14 +25,23 @@ const RatingSummary = () => {
     }
   };
   
-  useEffect(() => {
+  // Function to calculate average rating
+  const calculateAverageRating = () => {
+    const reviews = bookData?.bookreview;
+    if (!reviews || reviews.length === 0) return 0;
+    
+    const totalRating = reviews.reduce((sum, review) => sum + parseFloat(review.rate), 0);
+    return (totalRating / reviews.length).toFixed(1); // Adjust precision as needed
+  };
 
+  useEffect(() => {
+    calculateAverageRating()
   }, [bookData]);
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>{language === 'eng' ? "CUSTOMERS FEEDBACK" : "CUSTOMERS FEEDBACK_fr"}</div>
-      <div className={styles.rating}>{bookData?.average_rate}</div>
+      <div className={styles.rating}>{calculateAverageRating()}</div>
       <Rating
         style={{
           color: "var(--primary-color)",
@@ -40,7 +49,7 @@ const RatingSummary = () => {
         size="small"
         precision={0.5}
         name="read-only"
-        value={bookData?.average_rate}
+        value={calculateAverageRating()}
         readOnly
       />
       <div className={styles.subtext}>{language === 'eng' ? "Book Rating" : "Book Rating_fr"}</div>
