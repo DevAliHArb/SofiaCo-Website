@@ -143,6 +143,7 @@ const Deals = () => {
                             display: "flex",
                             flexDirection: "row",
                             columnGap: "1em",
+                            // justifyContent:'space-between',
                             margin: "0.5em 0",
                           }}
                         >
@@ -150,10 +151,10 @@ const Deals = () => {
                             <div
                               style={{
                                 width: "fit-content",
-                                height:'1.5em',
-                                padding: "0.2em 2em",
+                                height:'fit-content',
+                                padding: "0.5em 1em",
                                 borderRadius: "1em",
-                                background: "var(--accent-color)",
+                                background: "#EEBA7F",
                               }}
                             >
                               <p
@@ -162,6 +163,7 @@ const Deals = () => {
                                   color: "var(--secondary-color)",
                                   fontSize: "calc(0.6rem + 0.2vw)",
                                   fontWeight: 400,
+                                  margin:'auto'
                                 }}
                               >
                                 {props.dc_parution.slice(0, 4)}
@@ -173,10 +175,10 @@ const Deals = () => {
                               <div
                                 style={{
                                   width: "fit-content",
-                                  padding: "0.2em 1em",
-                                  height:'1.5em',
+                                  height:'fit-content',
+                                  padding: "0.5em 1em",
                                   borderRadius: "1em",
-                                  background: "var(--accent-color)",
+                                  background: "#EEBA7F",
                                 }}
                               >
                                 <p
@@ -185,6 +187,7 @@ const Deals = () => {
                                     color: "var(--secondary-color)",
                                     fontSize: "calc(0.6rem + 0.2vw)",
                                     fontWeight: 400,
+                                    margin:'auto'
                                   }}
                                 >
                                   {props.editor._nom.length > 8
@@ -198,10 +201,10 @@ const Deals = () => {
                             className={classes.desc}
                               style={{
                                 width: "fit-content",
-                                height:'1.5em',
-                                padding: "0.2em 1em",
+                                height:'fit-content',
+                                padding: "0.5em 1em",
                                 borderRadius: "1em",
-                                background: "var(--accent-color)",
+                                background: "#EEBA7F",
                               }}
                             >
                               <p

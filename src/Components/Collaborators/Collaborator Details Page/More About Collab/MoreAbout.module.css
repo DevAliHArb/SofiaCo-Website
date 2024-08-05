@@ -236,7 +236,7 @@
 
   .nav_next{
     position: absolute;
-    top: 5em;
+    top: 3em;
     right: 6em;
     left: auto;
     width: 2em;
@@ -246,7 +246,7 @@
   }
   .nav_nb{
     position: absolute;
-    top: 4.9em;
+    top: 3em;
     right: 7.6em;
     left: auto;
     margin: auto;
@@ -259,7 +259,7 @@
   }
   .nav_prev{
     position: absolute;
-    top: 5em;
+    top: 3em;
     right: 11em;
     left: auto;
     width: 2em;

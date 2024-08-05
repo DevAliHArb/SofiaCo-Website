@@ -76,7 +76,7 @@
   text-align: start;
   font-family: var(--font-family);
   color: var(--accent-color);
-  justify-content: center;
+  justify-content: start;
 }
 
 .card h1{
