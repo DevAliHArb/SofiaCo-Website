@@ -47,7 +47,7 @@ const MyDocumentsPage = () => {
         <div className={classes.titlesCard} id='fomponent'>
         <button onClick={()=>navigate(`/my-documents/proforma`)} style={{background: pageId === 'proforma' ? 'var(--primary-color)' : ''}}>{data.MyDocuments.button1.title[language]}</button>
         <button onClick={()=>navigate(`/my-documents/invoices`)} style={{background: pageId === 'invoices' ? 'var(--primary-color)' : ''}}>{data.MyDocuments.button2.title[language]}</button>
-        <button onClick={()=>navigate(`/my-documents/returns`)} style={{background: pageId === 'returns' ? 'var(--primary-color)' : ''}}>{data.MyDocuments.button3.title[language]}</button>
+        {/* <button onClick={()=>navigate(`/my-documents/returns`)} style={{background: pageId === 'returns' ? 'var(--primary-color)' : ''}}>{data.MyDocuments.button3.title[language]}</button> */}
 
             <button onClick={()=>navigate(`/my-documents/assets`)} style={{background: pageId === 'assets' ? 'var(--primary-color)' : ''}}>{data.MyDocuments.button4.title[language]}</button>
             <button onClick={()=>navigate(`/my-documents/orders`)} style={{background: pageId === 'orders' ? 'var(--primary-color)' : ''}}>{data.MyDocuments.button5.title[language]}</button>
@@ -65,7 +65,7 @@ const MyDocumentsPage = () => {
             >
                    <MenuItem value='proforma' style={{background: pageId === 'proforma' ? 'var(--primary-color)' : ''}}>{data.MyDocuments.button1.title[language]}</MenuItem>
         <MenuItem value='invoices' style={{background: pageId === 'invoices' ? 'var(--primary-color)' : ''}}>{data.MyDocuments.button2.title[language]}</MenuItem>
-        <MenuItem value='returns' style={{background: pageId === 'returns' ? 'var(--primary-color)' : ''}}>{data.MyDocuments.button3.title[language]}</MenuItem>
+        {/* <MenuItem value='returns' style={{background: pageId === 'returns' ? 'var(--primary-color)' : ''}}>{data.MyDocuments.button3.title[language]}</MenuItem> */}
 
             <MenuItem value='assets' style={{background: pageId === 'assets' ? 'var(--primary-color)' : ''}}>{data.MyDocuments.button4.title[language]}</MenuItem>
             <MenuItem value='orders' style={{background: pageId === 'orders' ? 'var(--primary-color)' : ''}}>{data.MyDocuments.button5.title[language]}</MenuItem>
@@ -75,7 +75,7 @@ const MyDocumentsPage = () => {
         <div className={classes.auth_bg} />
             {pageId == 'proforma' && <Proforma />}
             {pageId == 'invoices' && <Factures />}
-            {pageId == 'returns' && <OrderTracking />}
+            {/* {pageId == 'returns' && <OrderTracking />} */}
             {pageId == 'assets' && <Avoirs />}
             {pageId === 'orders' && <MyOrders/>}
         </div>

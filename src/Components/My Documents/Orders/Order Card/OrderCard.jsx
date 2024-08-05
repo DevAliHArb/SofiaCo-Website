@@ -16,6 +16,7 @@ import bookPlaceHolder from '../../../../assets/bookPlaceholder.png';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { FiDownload } from "react-icons/fi";
 
 
 const ConfirmationPopup = ({ message, onConfirm, onCancel, showPopup }) => {
@@ -150,13 +151,22 @@ const AddAllToCart = () => {
     console.log(element.article)
   });
 }
+
+const handleDownload = (pdfLink) => {
+  if (pdfLink !== '') {
+    // Open the PDF link in a new tab
+    window.open(pdfLink, '_blank');
+  } else {
+    toast.error("PDF link is not available.");
+  }
+};
   return (
   <div className={classes.orderCard}>
-        <h3 style={{textAlign:'start'}}>{data.id}</h3>
-        <h3 style={{textAlign:'end'}}>{new Date(data.date).toDateString()}</h3>
+        <h3 style={{textAlign:'start'}}>{data.order_invoice.id}</h3>
+        <h3 style={{textAlign:'end'}}>{new Date(data.order_invoice.date).toDateString()}</h3>
 
-      <h3 style={{textAlign:'end'}}>{data.currency === 'usd' ? '$' : '€' }{data.total_price}</h3>
-      <span className={classes.download}>
+      <h3 style={{textAlign:'end'}}>{data.currency === 'usd' ? '$' : '€' }{data.order_invoice.total_price}</h3>
+      <span className={classes.download} onClick={()=>handleDownload(data.pdf_link)}>
         <p>PDF</p>
         <FiDownload className={classes.download_icon}/>
       </span>

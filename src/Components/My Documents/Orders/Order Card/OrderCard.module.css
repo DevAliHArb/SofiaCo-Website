@@ -124,7 +124,7 @@ max-height: 12em;
         cursor: pointer;
         background-color: #fff;
         display: grid;
-        grid-template-columns: 50% 50%;
+        grid-template-columns: 25% 25% 25% 25%;
     }
     .orderCard h3{
         width: 100%;
@@ -136,6 +136,7 @@ max-height: 12em;
     }
     
 .btn{
+    display: none;
     width: fit-content;
     border: none;
     border-radius: .5em;

@@ -60,6 +60,8 @@ const ConfirmationPopup = ({ message, onConfirm, onCancel, showPopup }) => {
 };
 
 const Factures = () => {
+  const dispatch = useDispatch();
+  const authCtx = useContext(AuthContext);
   const getcat = () => {
     const storedValue = localStorage.getItem('selectedOrderCategory');
     if (storedValue) {
@@ -72,7 +74,6 @@ const Factures = () => {
   const navigate = useNavigate();
   const user = useSelector((state)=>state.products.userInfo);
   const language = useSelector((state) => state.products.selectedLanguage[0].Language);
-  const [loading, setLoading] = useState(true);
   const [selectedtitle, setselectedtitle] = useState('');
   const [ordertrackcategories, setordertrackcategories] = useState([])
   const [selectedCategory, setselectedCategory] = useState(0);
@@ -80,9 +81,8 @@ const Factures = () => {
   const [isSelected, setisSelected] = useState(false);
   const [isReviewMood, setisReviewMood] = useState(false);
   const [categoryId, setcategoryId] = useState(0);
-  const [orders, setorders] = useState([]) 
   const [steps, setsteps] = useState([]) 
-  const [data, setData] = useState(orders)
+  const [data, setData] = useState(authCtx.mydocuments)
   const [showPopup, setShowPopup] = useState(false);
 
   const getToken = () => {
@@ -91,32 +91,12 @@ const Factures = () => {
 
   const token = getToken()
 
-  const fetchOrders = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/users/${user.id}/order_invoice`, {
-        headers: {
-            Authorization: `Bearer ${token}` // Include token in the headers
-        }
-    });
-    const sortedData = response.data.data?.sort((a, b) => new Date(b.date) - new Date(a.date));
-      console.log('Response data:', response.data.data);
-      const filteredInvoices = sortedData.filter(orderInvoice => orderInvoice.status_id !== 20);
-      setorders(filteredInvoices);
-    } catch (error) {
-      console.error('Error fetching addresses:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
   
-  const dispatch = useDispatch();
-  const authCtx = useContext(AuthContext);
   const [pagenbroute, setpagenbroute] = useState(1);
   const [currentpage, setCurrentPage] = useState(1);
   const [from, setfrom] = useState(1);
   const [to, setto] = useState(1);
-  const [recordsPerPage, setrecordsPerPage] = useState(9);
+  const [recordsPerPage, setrecordsPerPage] = useState(5);
 
   const lastIndex = currentpage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
@@ -141,76 +121,18 @@ const Factures = () => {
     }
   };
 
-  const fetchStatus = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/lookups?parent_id=1`);
-      console.log('Response data:', response.data.data);
-      const allCategories = { id: 0, name: 'All Orders', name_fr:"Toutes les commandes" };
-      const filteredData = response.data.data.filter(item => item.id !== 6 && item.id !== 7 && item.id !== 8);
-        const categoriesWithAll = [allCategories, ...filteredData];
-        
-        setordertrackcategories(categoriesWithAll);
-    } catch (error) {
-      console.error('Error fetching addresses:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchStatus();
-    fetchOrders();
-  }, []);
-
-  const CancleOrderHandler = () => {
-    axios.put(`https://api.leonardo-service.com/api/bookshop/order_invoices/${selectedOrder.id}?status_id=13`)
-    .then(() => {
-        console.log("delete request successful:");
-          toast.success(`Delete request successful`, {
-            position: "top-right",
-            autoClose: 1500,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: 0,
-            theme: "colored",
-          });
-          setShowPopup(false);
-          window.location.reload();
-    })
-    .catch((error) => {
-        console.error("Error in delete request:", error);
-        toast.error("Failed to delete item .", {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: 0,
-          theme: "colored",
-        });
-    });
-  }
 
   useEffect(()=>{
-    if (cat === 0){
-      const nonHistoryOrders = orders?.filter((item) => item.status_id !== 6 && item.status_id !== 7 && item.status_id !== 8);
+      const nonHistoryOrders = authCtx.mydocuments?.filter((item) => item.status_id === 36);
       setData(nonHistoryOrders);
-    }else {
-    const unpaidOrders = orders?.filter((item) => item.status_id === cat);
-    setData(unpaidOrders);
-    }
     
-  },[selectedCategory, orders, cat])
+  },[authCtx.mydocuments])
   return (
     <div className={classes.ordertrack_con}>
      {!isSelected && !isReviewMood && <>
         <div style={{margin:'0 0 3em 0'}}>
-            {loading && <CircularProgress style={{marginTop:"5em",color:'var(--primary-color)'}}/>}
-            {!loading && records?.length === 0 ? 
+            {/* {loading && <CircularProgress style={{marginTop:"5em",color:'var(--primary-color)'}}/>} */}
+            {records?.length === 0 ? 
             <div
               style={{
                 display: "flex",
@@ -249,7 +171,7 @@ const Factures = () => {
                   <h3>Total</h3>
                   <h3 >Download</h3> 
                 </div>
-          {!loading && records?.map((props)=>{
+          {records?.map((props)=>{
             return(
               <>
               <div onClick={()=>setisSelected(true) & setselectedOrder(props) & setcategoryId(props.status_id ) & window.scrollTo({ top: 0 })}>
@@ -305,14 +227,14 @@ const Factures = () => {
           </>}
         </div>
       </>}
-      {showPopup && (
+      {/* {showPopup && (
         <ConfirmationPopup
           message={"Are you sure you want to delete this Order?"}
           onConfirm={CancleOrderHandler}
           onCancel={() => setShowPopup(false)}
           showPopup={showPopup}
         />
-      )}
+      )} */}
     </div>
   )
 }

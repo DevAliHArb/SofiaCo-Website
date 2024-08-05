@@ -234,7 +234,9 @@ font-weight: 700;
   .detailsCard{
   width: 100%;
   margin: 0 auto;
-
+}
+.headerss{
+  grid-template-columns: 25% 25% 25% 25%;
 }
 
 }

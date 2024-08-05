@@ -27,6 +27,8 @@ const AuthContext = React.createContext({
   fetchArticles: () => {},
   categories: [],
   setCategories: () => {},
+  mydocuments: [],
+  setMydocuments: () => {},
   fetchCategories: () => {},
   collections: [],
   setCollections: () => {},
@@ -64,6 +66,7 @@ export const AuthContextProvider = (props) => {
   const [ReturnSelectedPage, setReturnSelectedPage] = useState('all');
   const [articles, setArticles] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [mydocuments, setMydocuments] = useState([]);
   const [collaborators, setCollaborators] = useState([]);
   const [collections, setCollections] = useState([]);
   const [themes, setThemes] = useState([]);
@@ -194,6 +197,14 @@ const fetchArticles = async () => {
     }
   };
 
+  const fetchMyDocuments = async () => {
+    try {
+      const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/my-documents?ecom_type=sofiaco`);
+      setMydocuments(response.data);
+    } catch (error) {
+      console.error('Error fetching my documents:', error);
+    }
+  };
   
   const fetchThemes = async () => {
     // try {
@@ -593,6 +604,7 @@ const fetchArticles = async () => {
     fetchCollections();
     fetchThemes();
     fetchCompanySettings();
+    fetchMyDocuments();
   }, []);
 
   const contextValue = {
@@ -612,6 +624,9 @@ const fetchArticles = async () => {
     collections: collections,
     fetchCollections: fetchCollections,
     themes: themes,
+    mydocuments,
+    fetchMyDocuments,
+    setMydocuments,
     fetchThemes: fetchThemes,
     setreturnEditmode: setreturnEditmode,
     setselectedcurrency: setselectedCurrencyhandler,

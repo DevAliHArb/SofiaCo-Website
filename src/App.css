@@ -32,9 +32,9 @@
   --authbg-color: #7F9BC9;
   --font-family: Raleway;  
 }
-.css-1160xiw-MuiPaper-root-MuiDrawer-paper{
-  background-color: transparent !important;
-}
+/* .css-1160xiw-MuiPaper-root-MuiDrawer-paper{
+  background-color: #fff !important;
+} */
 /* Target all Ant Design input components */
 /* .ant-input is a class used by Ant Design for input components */
 

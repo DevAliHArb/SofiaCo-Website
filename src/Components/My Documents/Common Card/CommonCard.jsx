@@ -63,109 +63,38 @@ const ConfirmationPopup = ({ message, onConfirm, onCancel, showPopup }) => {
 const CommonCard = ({data ,reviewHandler}) => {
   const language = useSelector((state) => state.products.selectedLanguage[0].Language);
   const [filtereddata, setFiltereddata] = useState([])
-  const [images, setImages] = useState([])
   const [title, setTitle] = useState('')
   const navigate = useNavigate()
   const authCtx = useContext(AuthContext)
   const [showPopup, setShowPopup] = useState(false);
 
-  useEffect(()=>{
-    setFiltereddata(data)
-    const items = data.order_invoice_items?.map(item => {
-      // const article = EnArticles.find(article => article.id === item.article_id);
-      
-      // Return the desired object format
-      return {
-        id: item.article_id,
-        order_invoice_item_id: item.id,
-        price: item.price,
-        quantity:item.quantity,
-        date: data.date,
-        article_id: item.article_id,
-        // image: item.article.articleimage[0]?.link ? item.article.articleimage[0].link : bookPlaceHolder
-      };
-  });
-    setImages(items)
-  },[data])
-    const sign = '>';
 
-    const Reviewhandle = () => {
-      authCtx.setReviewData(images);
-      navigate(`/review`)
+  const handleDownload = (pdfLink) => {
+    if (pdfLink !== '') {
+      // Open the PDF link in a new tab
+      window.open(pdfLink, '_blank');
+    } else {
+      toast.error("PDF link is not available.");
     }
+  };
 
-    const Returnhandle = () => {
-      authCtx.setReturnData(data);
-      authCtx.setReturnSelectedPage('add-return')
-      authCtx.seteditReturnData({
-        return_items:{},
-        received_order: null,
-        return_order: null ,
-        return_price: '' ,
-        reason: '' ,
-        quantity: 0 ,
-        description: '',
-        user_name: '' ,
-        user_email: '' ,
-        user_phone: '',
-        images: [],
-        videos: [],} )
-      navigate(`/account/orders/order-returns`)
-}
-const CancleOrderHandler = () => {
-  axios.put(`https://api.leonardo-service.com/api/bookshop/order_invoices/${data.id}?status_id=13`)
-  .then(() => {
-      console.log("delete request successful:");
-        toast.success(`Delete request successful`, {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: 0,
-          theme: "colored",
-        });
-        setShowPopup(false);
-        window.location.reload();
-  })
-  .catch((error) => {
-      console.error("Error in delete request:", error);
-      toast.error("Failed to delete item .", {
-        position: "top-right",
-        autoClose: 1500,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: 0,
-        theme: "colored",
-      });
-  });
-}
-const AddAllToCart = () => {
-  data.order_invoice_items?.forEach(element => {
-    authCtx.addToCart({props: element.article, carttoggle:()=>{}});
-    console.log(element.article)
-  });
-}
   return (
   <div className={classes.orderCard}>
-        <h3>{data.id}</h3>
-        <h3>{new Date(data.date).toDateString()}</h3>
-        <h3>{data.total_price}{data.currency === 'usd' ? '$' : '€' }</h3>
-      <div className={classes.download}>
+        <h3>{data.order_invoice.id}</h3>
+        <h3>{new Date(data.order_invoice.date).toDateString()}</h3>
+        <h3>{data.order_invoice.total_price}{data.order_invoice.currency === 'usd' ? '$' : '€' }</h3>
+      <div className={classes.download} onClick={()=>handleDownload(data.pdf_link)}>
         <p>PDF</p>
         <FiDownload className={classes.download_icon}/>
       </div>
-        {showPopup && (
+        {/* {showPopup && (
         <ConfirmationPopup
           message={"Are you sure you want to delete this Order?"}
           onConfirm={CancleOrderHandler}
           onCancel={() => setShowPopup(false)}
           showPopup={showPopup}
         />
-      )}
+      )} */}
     </div>
   )
 }

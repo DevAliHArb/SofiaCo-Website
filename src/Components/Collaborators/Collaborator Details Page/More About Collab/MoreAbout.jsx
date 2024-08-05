@@ -14,6 +14,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IoMdArrowBack } from "react-icons/io";
 import AuthContext from '../../../Common/authContext';
+import { IoCartOutline } from "react-icons/io5";
 
 const MoreAbout = () => {
   const authCtx = useContext(AuthContext);
@@ -142,6 +143,17 @@ const MoreAbout = () => {
                             }}
                           />
                         )}
+                      </div>
+                      
+                      <div className={classes.cartIcon}>
+                          <IoCartOutline
+                            className={classes.fav}
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              authCtx.addToCart({props: props}); 
+                            }}
+                            fontSize="inherit"
+                          />
                       </div>
                     </div>
                     
