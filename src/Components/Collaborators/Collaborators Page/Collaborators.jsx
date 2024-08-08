@@ -84,6 +84,7 @@ const Collaborators = () => {
   const changepage = (id) => {
     setCurrentPage(id);
     setpagenbroute(id);
+    scrollToTop()
   };
   const prevpage = () => {
     if (currentpage !== 1) {
