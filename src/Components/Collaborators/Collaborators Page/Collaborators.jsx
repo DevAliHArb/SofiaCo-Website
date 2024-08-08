@@ -64,10 +64,15 @@ const Collaborators = () => {
   const pagenb = Math.ceil(filteredAuthors.length / recordsPerPage);
   const numbers = [...Array(pagenb + 1).keys()].slice(1);
 
+  const scrollToTop = () => {
+    document.getElementById('top').scrollIntoView({ behavior: 'smooth' });
+  };
+
   const nextpage = () => {
     if (currentpage !== pagenb) {
       setCurrentPage(currentpage + 1);
       setpagenbroute(pagenbroute + 1);
+      scrollToTop()
     }
   };
 
@@ -84,6 +89,7 @@ const Collaborators = () => {
     if (currentpage !== 1) {
       setCurrentPage(currentpage - 1);
       setpagenbroute(pagenbroute - 1);
+      scrollToTop()
     }
   };
   const prev2page = () => {
@@ -145,7 +151,7 @@ const Collaborators = () => {
     <div className={classes.collab}>
       <img src={abs} alt="" className={classes.img_abs}/>
       <OurSelectionBanner props={heroData} />
-      <div className={classes.content}>
+      <div className={classes.content} id='top'>
         <div className={classes.filters}>
           <div
             style={{
