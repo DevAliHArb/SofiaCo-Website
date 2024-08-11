@@ -215,9 +215,15 @@ const MoreAbout = () => {
       <div className={`${classes.nav_prev}`}>
         <IoMdArrowBack className={classes.nav_icon}/>
       </div>
-      <div className={`${classes.nav_nb}`}>
+      {articles?.length > 2 && <div className={classes.nav_nb0}>
         {activeIndex + 1}
-      </div>
+      </div>}
+      {articles?.length > 3 && <div className={classes.nav_nb651}>
+        {activeIndex + 1}
+      </div>}
+      {articles?.length > 5 && <div className={classes.nav_nb951}>
+        {activeIndex + 1}
+      </div>}
       <div className={` ${classes.nav_next}`}>
         <IoMdArrowBack className={classes.nav_icon} style={{transform:'rotate(180deg)'}}/>
       </div>

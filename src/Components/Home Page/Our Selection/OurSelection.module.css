@@ -255,7 +255,36 @@
     border-radius: 50%;
     background-color: var(--primary-color);
   }
-  .nav_nb{
+  
+  .nav_nb0{
+    position: absolute;
+    top: 4.9em;
+    right: 7.6em;
+    left: auto;
+    margin: auto;
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    font-size: large;
+    text-align: center;
+    color: var(--secondary-color);
+    display: none;
+  }
+  .nav_nb651{
+    position: absolute;
+    top: 4.9em;
+    right: 7.6em;
+    left: auto;
+    margin: auto;
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    font-size: large;
+    text-align: center;
+    color: var(--secondary-color);
+    display: none;
+  }
+  .nav_nb951{
     position: absolute;
     top: 4.9em;
     right: 7.6em;
@@ -303,10 +332,21 @@
     .nav_prev{
       top: 0;
       right: 9em;
-    }
-    .nav_nb{
+    }    
+    .nav_nb0{
       top: 0.4em;
       right: 4.6em;
+      display: none;
+    }
+    .nav_nb651{
+      top: 0.4em;
+      right: 4.6em;
+      display: flex;
+    }
+    .nav_nb951{
+      top: 0.4em;
+      right: 4.6em;
+      display: none;
     }
     .header p{
         width: 88%;
@@ -344,10 +384,23 @@
       width: 1.2em;
       height: 1.2em;
     }
-    .nav_nb{
+    .nav_nb0{
       right: 1.15em;
       top: 0.1em;
       font-size: medium;
+      display: flex;
+    }
+    .nav_nb651{
+      right: 1.15em;
+      top: 0.1em;
+      font-size: medium;
+      display: none;
+    }
+    .nav_nb951{
+      right: 1.15em;
+      top: 0.1em;
+      font-size: medium;
+      display: none;
     }
 
   .card_img{
