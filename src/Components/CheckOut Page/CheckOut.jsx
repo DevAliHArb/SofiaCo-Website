@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import classes from "./CheckOut.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Form, Input, Select } from "antd";
@@ -38,6 +38,9 @@ import {
 } from "../Common/redux/productSlice";
 import AlsoSee from "../Common Components/Also See/AlsoSee";
 import { toast } from "react-toastify";
+import { PayPalButtons } from "@paypal/react-paypal-js";
+import { useStripe } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
 const { TextArea } = Input;
 
@@ -65,10 +68,27 @@ const style = {
   p: 4,
 };
 
+const style1 = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "fit-content",
+  bgcolor: "background.paper",
+  border: "none",
+  borderRadius: "1em",
+  boxShadow: 24,
+  p: 4,
+};
+
 const CheckOut = () => {
   const [form] = Form.useForm();
-  const language = useSelector((state) => state.products.selectedLanguage[0].Language);
-  const currency = useSelector( (state) => state.products.selectedCurrency[0].currency);
+  const language = useSelector(
+    (state) => state.products.selectedLanguage[0].Language
+  );
+  const currency = useSelector(
+    (state) => state.products.selectedCurrency[0].currency
+  );
   const authCtx = useContext(AuthContext);
   const productData = useSelector((state) => state.products.productData);
   const dispatch = useDispatch();
@@ -102,13 +122,153 @@ const CheckOut = () => {
   const [shippingCosts, setshippingCosts] = useState([]); // State to store the coupon code input
   const [couponList, setCouponList] = useState([]); // State to store the list of coupons
   const [selectedCoupon, setSelectedCoupon] = useState(""); // State to store the selected coupon
-  
+
   const [editMode, seteditMode] = useState(false);
   const [formData, setFormData] = useState({});
   const [editaddressId, setEditaddressid] = useState();
+  const [ispaypal, setIspaypal] = useState(false);
+  const [directPay, setdirectPay] = useState(false);
+  const [delivery, setDelivery] = useState("standard");
+  const [paymentId, setPaymentId] = useState(null);
+
+  const [openpaypal, setOpenpaypal] = React.useState(false);
+  const handleOpenpaypal = () => setOpenpaypal(true);
+  const handleClosepaypal = () => setOpenpaypal(false);
+
+  const [colissimoPopupOpen, setColissimoPopupOpen] = useState(false);
+  const [colissimoPointData, setColissimoPointData] = useState(null);
+  const widgetRef = useRef(null);
+
+  useEffect(() => {
+    if (colissimoPointData === null) {
+      setDelivery("standard");
+    }
+  }, [colissimoPointData]);
+
+  useEffect(() => {
+    // Function to load external scripts
+    const loadScript = (src, onLoad) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.async = true;
+      script.onload = onLoad;
+      // script.onerror = () => console.error(`Failed to load script: ${src}`);
+      document.body.appendChild(script);
+    };
+
+    // Function to fetch authentication token
+    const fetchAuthToken = async () => {
+      const data = {
+        login: import.meta.env.VITE_COLISSIMO_LOGIN,
+        password: import.meta.env.VITE_COLISSIMO_PASSWORD,
+      };
+
+      console.log(data);
+
+      try {
+        const response = await axios.post(
+          "https://ws.colissimo.fr/widget-colissimo/rest/authenticate.rest",
+          data
+        );
+        return response.data.token;
+        console.log(response.data);
+        
+      } catch (error) {
+        console.error('Error fetching auth token:', error);
+        return null;
+      }
+    };
+
+    // Initialize the Colissimo widget
+    const initializeColissimoWidget = async () => {
+      // URL du serveur Colissimo
+      const url_serveur = "https://ws.colissimo.fr";
+
+      const token = await fetchAuthToken();
+      if (!token) return;
+
+      const user_address = addresseslist.find((add) => add.default === "true");
+
+      // Load jQuery first
+      loadScript(
+        "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js",
+        () => {
+          // Ensure jQuery is available
+          if (window.$) {
+            // Load Colissimo widget script
+            loadScript(
+              "https://ws.colissimo.fr/widget-colissimo/js/jquery.plugin.colissimo.min.js",
+              () => {
+                if (
+                  window.$ &&
+                  typeof window.$.fn.frameColissimoOpen === "function"
+                ) {
+                  // Ensure widgetRef is set and the element exists
+                  if (widgetRef.current) {
+                    window.$(widgetRef.current).frameColissimoOpen({
+                      URLColissimo: url_serveur,
+                      callBackFrame: "maMethodeDeCallBack",
+                      ceCountry: "FR",
+                      ceAddress: user_address.address,
+                      ceZipCode: user_address.postalcode,
+                      ceTown: user_address.city,
+                      token: token,
+                    });
+                  } else {
+                    // console.error('Widget reference is null.');
+                  }
+                } else {
+                  // console.error('Colissimo widget function is not available.');
+                }
+              }
+            );
+          } else {
+            // console.error('jQuery is not available.');
+          }
+        }
+      );
+    };
+
+    // Load and initialize widget
+    if (colissimoPopupOpen) {
+      initializeColissimoWidget();
+    }
+
+    // Cleanup function
+    return () => {
+      if (window.$ && widgetRef.current) {
+        window.$(widgetRef.current).frameColissimoClose();
+      }
+    };
+  }, [colissimoPopupOpen]);
+
+  // Callback method
+  useEffect(() => {
+    window.maMethodeDeCallBack = (point) => {
+      setColissimoPointData(point);
+
+      if (point && typeof point === "object") {
+        // Example: Check if necessary properties are available
+      } else {
+        // console.error('Invalid point data received:', point);
+      }
+
+      // Ensure to close widget and update state
+      if (window.$ && widgetRef.current) {
+        window.$(widgetRef.current).frameColissimoClose();
+      }
+      setColissimoPopupOpen(false);
+    };
+
+    // Cleanup callback when component unmounts
+    return () => {
+      setColissimoPopupOpen(false);
+      delete window.maMethodeDeCallBack;
+    };
+  }, []);
 
   function getShippingCost(orderCartCost, orderWeight, shippingCostss) {
-    console.log("heloooo", {orderCartCost, orderWeight, shippingCostss})
+    console.log("heloooo", { orderCartCost, orderWeight, shippingCostss });
     // Filter out items with null cart_cost and sort the remaining items by cart_cost in ascending order
     const sortedByCartCost = shippingCostss
       .filter((item) => item.cart_cost !== null)
@@ -121,7 +281,7 @@ const CheckOut = () => {
 
       // Check if the order's cart cost falls below the current cost range
       if (orderCartCost < cartCost) {
-        setdeliveryId(costItem.id)
+        setdeliveryId(costItem.id);
         return parseFloat(costItem.cost);
       }
     }
@@ -138,18 +298,17 @@ const CheckOut = () => {
 
       // Check if the order's weight falls below the current weight range
       if (orderWeight < weight) {
-        setdeliveryId(costItem.id)
+        setdeliveryId(costItem.id);
         return parseFloat(costItem.cost);
       }
     }
 
     // If no applicable cost found, return 0 or some default value
-    setdeliveryId(null)
+    setdeliveryId(null);
     return 0;
   }
 
   const handleCouponChange = (e) => {
-    console.log(e)
     setSelectedCoupon(e); // Update selected coupon value
   };
 
@@ -305,14 +464,14 @@ const CheckOut = () => {
         console.log("Response data del:", response.data);
         setshippingCosts(response.data.data);
         const shippingCost = getShippingCost(
-          orderCartCost ,
+          orderCartCost,
           orderWeight,
           response.data.data
         );
         setdeliveryFees(shippingCost);
         console.log("Shipping cost:", response.data.data);
       } catch (error) {
-        // window.location.reload();
+        window.location.reload();
         setLoading(false);
         console.error("Error fetching addresses:", error);
       } finally {
@@ -322,8 +481,16 @@ const CheckOut = () => {
   };
 
   useEffect(() => {
+    if (colissimoPointData) {
+      setdeliveryFees(0);
+    } else {
       FetchShippinCost();
-  }, [addresseslist, subtotalAmt,totalWeight]);
+    }
+  }, [colissimoPointData]);
+
+  useEffect(() => {
+    FetchShippinCost();
+  }, [addresseslist, subtotalAmt, totalWeight]);
 
   const fetchAddresses = async () => {
     try {
@@ -356,8 +523,8 @@ const CheckOut = () => {
     } catch (error) {
       console.error("Error fetching addresses:", error);
       // Set loading to false in case of error
-    } finally{
-       FetchShippinCost();
+    } finally {
+      FetchShippinCost();
     }
   };
 
@@ -394,7 +561,7 @@ const CheckOut = () => {
     setAdressModalOpen(false);
     setTimeout(() => {
       fetchAddresses();
-      console.log(addresseslist);
+      // console.log(addresseslist);
     }, 500);
   };
 
@@ -407,41 +574,63 @@ const CheckOut = () => {
     fetchAddresses();
   }, []);
 
-  // useEffect(() => {
-  //   if(productData?.length === 0){
-  //     navigate('/cart')
-  //   }
-  // }, [productData]);
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+
+      // Adjust this threshold based on your requirements
+      const threshold = documentHeight - windowHeight - 1100;
+
+      // Update the state to hide the container when reaching the bottom
+      setContainerVisible(scrollPosition < threshold);
+    };
+
+    // Attach the scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     let updatedOrderInvoiceItems = [];
     let totalPrice = 0;
     let totalWeight = 0;
     let totalTVA = 0;
+
     productData.forEach((item) => {
-      updatedOrderInvoiceItems.push({
-        article_id: item._id,
-        quantity: item.quantity,
-        cost:
-          (item.discount > 0
-            ? (item.price - item.price * (item.discount / 100)).toFixed(2)
-            : Number(item.price).toFixed(2)) * 1,
-        review: item.note || "-",
-        price:
-          (item.discount > 0
-            ? (item.price - item.price * (item.discount / 100)).toFixed(2)
-            : Number(item.price).toFixed(2)) * 1,
-      });
-      totalPrice +=
-        item.quantity *
+      // Skip the item if _qte_a_terme_calcule is less than 1
+      if (item._qte_a_terme_calcule < 1) {
+        return;
+      }
+
+      // Calculate the price considering the discount
+      const price =
         (item.discount > 0
           ? (item.price - item.price * (item.discount / 100)).toFixed(2)
-          : Number(item.price).toFixed(2));
+          : Number(item.price).toFixed(2)) * 1;
+
+      updatedOrderInvoiceItems.push({
+        article_id: item._id,
+        name: item.title,
+        quantity: item.quantity,
+        cost: price,
+        review: item.note || "-",
+        price: price,
+      });
+
+      totalPrice += item.quantity * price;
       totalWeight += item.quantity * item.weight;
       totalTVA += (item.price_ttc - item.price) * item.quantity;
     });
+
     setorder_invoice_items(updatedOrderInvoiceItems);
     settotalWeight(totalWeight);
+
     if (currency === "usd") {
       setsubTotalAmt((totalPrice * authCtx.currencyRate + totalTVA).toFixed(2));
       setTVA((totalTVA * authCtx.currencyRate).toFixed(2));
@@ -450,11 +639,16 @@ const CheckOut = () => {
       setTVA(totalTVA.toFixed(2));
     }
   }, [productData, currency]);
+
   useEffect(() => {
     if (totalAmt < 0) {
       setTotalAmt(0);
     }
   }, [totalAmt]);
+
+  const stripePromise = loadStripe(
+    `pk_test_51Nu98ME6k93Bb6mWMQsVFcHPpzFuXN92URPblTVJXAmLC0yPWLoS6omx9CPEASH4oQRJafTkgZC9gkZvGLNaUzap00bQZl4Qr5`
+  );
 
   const CheckOutHandler = async () => {
     if (!user.defaultAdd) {
@@ -484,53 +678,104 @@ const CheckOut = () => {
         const requestData = {
           user_id: user.id,
           user_address_id: user.defaultAdd,
-          user_payment_id: user.defaultPay,
+          user_payment_id: directPay ? null : user.defaultPay,
           delivery_id: deliveryId,
           base_price: subtotalAmt,
           date: generatedate(),
           total_price: totalAmt,
           review: reviewMsg,
           order_invoice_items: order_invoice_items,
+          shipping_type_id: delivery === "standard" ? 40 : 39,
+          colissimo_code:
+            delivery === "standard" ? null : colissimoPointData?.identifiant,
           currency: currency,
         };
-
+        const requestData1 = {
+          user_id: user.id,
+          user_address_id: user.defaultAdd,
+          user_payment_id: directPay ? null : user.defaultPay,
+          delivery_id: deliveryId,
+          base_price: subtotalAmt,
+          tvaAmount: TVA,
+          date: generatedate(),
+          total_price: totalAmt,
+          review: reviewMsg,
+          order_invoice_items: order_invoice_items,
+          currency: currency,
+          shippingPrice: delivery !== "standard" ? 0 : deliveryFees,
+          shipping_type_id: delivery === "standard" ? 40 : 39,
+          colissimo_code:
+            delivery === "standard" ? null : colissimoPointData?.identifiant,
+          coupon_discount: coupon.reduction ? coupon.reduction : 0,
+          coupon_type: coupon.type,
+        };
         if (userCoupon.length > 0) {
           requestData.user_coupon_id = userCoupon[0].id;
         }
-        setLoading(true);
-        const response = await axios.post(
-          "https://api.leonardo-service.com/api/bookshop/order_invoices",
-          requestData
-        );
 
-        dispatch(resetCart());
-        setorderId(response.data.order_invoice.id)
-        console.log(response.data.order_invoice.id)
-        navigate(`/checkout-completed/${response.data.order_invoice.id}`);
+        setLoading(true);
+
+        if (delivery === "Colissimo" && !colissimoPointData) {
+          toast.error(
+            `${
+              language === "eng"
+                ? "Please select pickup point"
+                : "Veuillez sélectionner le point de ramassage"
+            }`,
+            { hideProgressBar: true }
+          );
+        } else {
+          if (directPay) {
+            console.log('direct pay');
+            
+            // Request to create a Checkout Session from your server
+            const response = await axios.post(
+              "https://api.leonardo-service.com/api/bookshop/create-checkout-session",
+              requestData1
+            );
+            const sessionId = response.data.sessionId;
+
+            // Redirect to Stripe Checkout
+            const stripe = await stripePromise;
+            const { error } = await stripe.redirectToCheckout({ sessionId });
+
+            if (error) {
+              // console.error("Stripe Checkout error:", error);
+              toast.error("Error with Stripe Checkout. Please try again.");
+            }
+
+            // if (!error) {
+            dispatch(resetCart());
+            // }
+          } else {
+            // Normal order processing
+            await axios.post(
+              "https://api.leonardo-service.com/api/bookshop/order_invoices",
+              requestData
+            );
+
+            dispatch(resetCart());
+            navigate("/");
+            toast.success(`Order success`, {
+              position: "top-right",
+              autoClose: 1500,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: 0,
+              theme: "colored",
+            });
+          }
+        }
+
         setLoading(false);
-        toast.success(`Order success`, {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: 0,
-          theme: "colored",
-        });
       } catch (error) {
-        console.error("Error in ordering:", error);
+        // console.error("Error in ordering:", error);
         setLoading(false);
-        toast.error("Failed to order items.", {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: 0,
-          theme: "colored",
-        });
+        handleErrorOpen(
+          error.response?.data?.error || "An unexpected error occurred"
+        );
       }
     }
   };
@@ -574,6 +819,64 @@ const CheckOut = () => {
     return expiryDateObj < currentDate;
   };
 
+  const checkoutPaypalHandler = async (name) => {
+    try {
+      const requestData = {
+        user_id: user.id,
+        user_address_id: user.defaultAdd,
+        paypal: true,
+        delivery_id: deliveryId,
+        base_price: subtotalAmt,
+        date: generatedate(),
+        total_price: totalAmt,
+        review: reviewMsg,
+        order_invoice_items: order_invoice_items,
+        currency: "usd",
+        shippingPrice: delivery !== "standard" ? 0 : deliveryFees,
+        shipping_type_id: delivery === "standard" ? 40 : 39,
+        colissimo_code:
+          delivery === "standard" ? null : colissimoPointData?.identifiant,
+      };
+
+      if (userCoupon.length > 0) {
+        requestData.user_coupon_id = userCoupon[0].id;
+      }
+      setLoading(true);
+      await axios.post(
+        "https://api.leonardo-service.com/api/bookshop/order_invoices",
+        requestData
+      );
+
+      dispatch(resetCart());
+      navigate("/");
+      setLoading(false);
+      toast.success(`Order success`, {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: 0,
+        theme: "colored",
+      });
+    } catch (error) {
+      // console.error("Error in ordering:", error);
+      setLoading(false);
+      setErrorMessage(
+        error.response?.data?.error || "An unexpected error occurred"
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (paymentslist.length === 0) {
+      setdirectPay(true);
+    } else {
+      setdirectPay(false);
+    }
+  }, [paymentslist.length]);
+
   const userInfo = useSelector((state) => state.products.userInfo);
   const [value, setValue] = React.useState("option1");
   const [isFixed, setIsFixed] = React.useState(true);
@@ -588,27 +891,49 @@ const CheckOut = () => {
     setValue(event.target.value);
   };
 
+  const handleDeliveryChange = (e) => {
+    const selectedDelivery = e.target.value;
+    setDelivery(selectedDelivery);
+    if (selectedDelivery === "Colissimo") {
+      setColissimoPopupOpen(true);
+    } else {
+      setColissimoPopupOpen(false);
+    }
+  };
+
   const handleChange1 = async (id) => {
-    try {
-      // Update the database to set the selected address as default
-      await axios.put(
-        `https://api.leonardo-service.com/api/bookshop/users/${user.id}/payments/${id}`,
-        {
-          default: "true",
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, // Include token in the headers
+    setdisplayedPayment(1)
+    setPaymentId(id)
+    if (id === 'paypal') {
+      setIspaypal(true)
+      setdirectPay(false)
+    } else if (id === 'direct') {
+      setdirectPay(true)
+      setIspaypal(false)
+    } else {
+      setIspaypal(false)
+      setdirectPay(false)
+      try {
+        // Update the database to set the selected address as default
+        await axios.put(
+          `https://api.leonardo-service.com/api/bookshop/users/${user.id}/payments/${id}`,
+          {
+            default: "true",
           },
-        }
-      );
-      fetchPayments();
-      toast.success("Default Payment card is set successfully", {
-        // Toast configuration
-        hideProgressBar: true,
-      });
-    } catch (error) {
-      console.error("Error setting default payment:", error);
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Include token in the headers
+            },
+          }
+        );
+        fetchPayments();
+        toast.success("Default Payment card is set successfully", {
+          // Toast configuration
+          hideProgressBar: true,
+        });
+      } catch (error) {
+        console.error("Error setting default payment:", error);
+      }
     }
   };
 
@@ -641,7 +966,7 @@ const CheckOut = () => {
       console.error("Error setting default address:", error);
     }
   };
-  
+
   const handleDeletePayment = async (id) => {
     try {
       await axios.delete(
@@ -664,7 +989,6 @@ const CheckOut = () => {
     }
   };
 
-  
   const handleDeleteAddress = async (id) => {
     try {
       await axios.delete(
@@ -677,28 +1001,58 @@ const CheckOut = () => {
       );
       setAddressesList((prevAddresses) =>
         prevAddresses.filter((address) => address.id !== id)
-      );  
-      toast.success('Address Deleted', {
+      );
+      toast.success("Address Deleted", {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: 0 ,
+        progress: 0,
         theme: "colored",
-        })
+      });
     } catch (error) {
       console.error("Error deleting address:", error);
     }
   };
+
+  const [heroData, setHeroData] = useState({});
+
+  const fetchHero = async () => {
+    try {
+      const response = await axios.get(
+        "https://api.leonardo-service.com/api/bookshop/website-sections?ecom_type=albouraq&section_id=home-hero"
+      );
+      setHeroData(response.data.data[0]);
+    } catch (error) {
+      console.error("Error fetching Heroo:", error);
+    }
+  };
+  useEffect(() => {
+    fetchHero();
+  }, []);
+
+  useEffect(() => {
+    if (paymentslist.length > 0) {
+     const paymentID = addresseslist.find((item) => item.default === "true")?.id
+     setPaymentId(paymentID)
+     setdirectPay(false)
+     setIspaypal(false)
+    } else {
+      setPaymentId("direct")
+      setdirectPay(true)
+      setIspaypal(false)
+    }
+  }, []);
 
   return (
     <div className={classes.cart_container}>
       {loading && <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(224, 195, 137, 0.2)', zIndex: 9999 }}><CircularProgress style={{margin:"45vh",color:'var(--primary-color)'}}/></div>} 
       
       <div className={classes.headTitles}>
-        <h1>Checkout</h1>
+        <h1>
+        {language === "eng" ? "Checkout" : "Procéder au paiement"}</h1>
         <div style={{width:'fit-content',margin:"2em auto",display:'flex',flexDirection:"row",gap:"2em"}}>
           <h4 style={{padding:'1em',margin:'0 .5em',cursor:"pointer"}} onClick={()=>navigate('/cart')}><span style={{padding:'.3em .5em',backgroundColor:'var(--primary-color)',color:'#fff',borderRadius:'50%'}}>1</span> {Data.Cart.title1[language]}</h4>
           <h4 style={{padding:'1em',margin:'0 .5em',cursor:'default',borderBottom:".2em solid var(--primary-color)"}}><span style={{padding:'.3em .5em',backgroundColor:'var(--primary-color)',color:'#fff',borderRadius:'50%'}}>2</span> {Data.Cart.title2[language]}</h4>
@@ -733,17 +1087,22 @@ const CheckOut = () => {
                     style={{ width: "10em", height: "auto" }}
                   />
                 </div>
-                <h1 style={{ textAlign: "center",fontFamily: "var(--font-family)" }}>Your Cart is empty!</h1>
+                <h1 style={{ textAlign: "center",fontFamily: "var(--font-family)" }}>
+                  {language === "eng"
+                    ? "Your Cart is empty!"
+                    : "Votre panier est vide!"}</h1>
                 <p style={{ textAlign: "center" ,fontFamily: "var(--font-family)"}}>
                   {" "}
-                  You have no items in your shopping cart
+                  {language === "eng"
+                    ? "You have no items in your shopping cart"
+                    : "Vous n'avez aucun article dans votre panier"}
                 </p>
                 <button
                   className={classes.browseBtn}
                   onClick={() => navigate("/")}
                 >
-                  Browse
-                </button>
+                  {language === "eng" ? "Browse" : "Parcourir"}
+                  </button>
               </div>
             </div>
           ) : (
@@ -765,16 +1124,16 @@ const CheckOut = () => {
                       fontWeight: "500",
                     }}
                   >
-                    Address
-                  </h2>
+                    {language === "eng" ? "Address" : "Adresse"}
+                    </h2>
                   <button
                     className={classes.btn}
                     onClick={() => {
                       setdisplayedAddress(addresseslist?.length);
                     }}
                   >
-                    My Addresses
-                  </button>
+                    {language === "eng" ? "My Addresses" : "Mes Adresses"}
+                    </button>
                 </div>
                 {addresseslist?.slice(0, displayedAddress).map((address) => {
                   return (
@@ -846,8 +1205,8 @@ const CheckOut = () => {
                             handleAdressOpen();
                             setEditaddressid(address.id)
                           }}                        >
-                          Edit
-                        </p>
+                          {language === "eng" ? "Edit" : "Editer"}
+                          </p>
                         <p
                           style={{
                             width: "fit-content",
@@ -858,8 +1217,8 @@ const CheckOut = () => {
                           }}
                           onClick={()=>handleDeleteAddress(address.id)}
                         >
-                          Remove
-                        </p>
+                          {language === "eng" ? "Remove" : "Retirer"}
+                          </p>
                       </div>
                     </div>
                   );
@@ -890,7 +1249,9 @@ const CheckOut = () => {
                   >
                     +
                   </p>{" "}
-                  Add New Address
+                  {language === "eng"
+                    ? "Add New Address"
+                    : "Ajouter une Nouvelle Adresse"}
                 </p>
                 <div
                   style={{
@@ -909,7 +1270,7 @@ const CheckOut = () => {
                       fontWeight: "500",
                     }}
                   >
-                    Payment Method
+                    {language === "eng" ? "Payment Method" : "Mode de Paiement"}
                   </h2>
                   <button
                     className={classes.btn}
@@ -917,22 +1278,20 @@ const CheckOut = () => {
                       setdisplayedPayment(paymentslist?.length);
                     }}
                   >
-                    My Payment Methods
+                    {language === "eng"
+                      ? "My Payment Methods"
+                      : "Mes Modes de Paiement"}
                   </button>
                 </div>
+                      <RadioGroup
+                        value={paymentId}
+                        onChange={(e) =>
+                          handleChange1(e.target.value) 
+                        }
+                      >
                 {paymentslist?.slice(0, displayedPayment).map((payment) => {
                   return (
                     <div className={classes.adressCard}>
-                      <RadioGroup
-                        value={
-                          paymentslist.find((item) => item.default === "true")
-                            ?.id
-                        }
-                        onChange={() =>
-                          handleChange1(payment.id) &
-                          console.log(payment.default)
-                        }
-                      >
                         <FormControlLabel
                           value={payment.id}
                           control={
@@ -949,13 +1308,12 @@ const CheckOut = () => {
                             />
                           }
                         />
-                      </RadioGroup>
                       {/* <Radio defaultChecked value={payment.id} sx={{ color: 'var(--forth-color)','&.Mui-checked': { color: 'var(--forth-color)',},margin:'.5em 0 auto 0'}}/> */}
-                      <div style={{paddingLeft:'.4em'}}>
+                      <div>
                         <p style={{ fontSize: "calc(.8rem + .3vw)" }}>
                           <img
                             alt="visa"
-                            src={payment.card_type === 'Master' ? master : visa}
+                            src={payment.card_type === "Master" ? master : visa}
                             style={{
                               width: "auto",
                               height: "1.5em",
@@ -965,12 +1323,13 @@ const CheckOut = () => {
                           {maskConstant(payment.card_number)}{" "}
                           <span
                             style={{
-                              color: "var(--authbg-color)",
+                              color: "var(--primary-color)",
                               paddingLeft: "2em",
                               fontWeight: "400",
                             }}
-                          > <br className={classes.break}/> <br className={classes.break}/> 
-                            Expires {payment.month}/{payment.year}
+                          >
+                            {language === "eng" ? "Expires" : "Expire"}{" "}
+                            {payment.month}/{payment.year}
                           </span>{" "}
                         </p>
                       </div>
@@ -983,14 +1342,61 @@ const CheckOut = () => {
                             marginLeft: "auto",
                             fontWeight: "600",
                           }}
-                          onClick={()=>handleDeletePayment(payment.id)}
+                          onClick={() => handleDeletePayment(payment.id)}
                         >
-                          Remove
+                          {language === "eng" ? "Remove" : "Retirer"}
                         </p>
                       </div>
                     </div>
                   );
                 })}
+               
+        {displayedPayment === paymentslist?.length && <div className={classes.adressCard}>
+        <FormControlLabel
+          value='paypal'
+          control={
+            <Radio
+            sx={{
+              color: "var(--primary-color)",
+              "&.Mui-checked": {
+                color: "var(--primary-color)",
+              },
+              margin: "1em 0",
+            }}
+            />
+          }
+          label={<p style={{ margin: "auto 0em auto 1.2em", whiteSpace: "normal" }}>
+          {language === "eng"
+            ? "Paypal"
+            : "Paypal"}
+        </p>}
+        />
+        </div>}
+        {displayedPayment === paymentslist?.length && <div className={classes.adressCard} style={{display:'flex', flexDirection:'row'}}>
+        <FormControlLabel
+          value='direct'
+          control={
+            <Radio
+            sx={{
+              color: "var(--primary-color)",
+              "&.Mui-checked": {
+                color: "var(--primary-color)",
+              },
+              margin: "1em 0",
+            }}
+            />
+          }
+          label={
+            <p style={{ margin: "auto 0 auto 1.2em", whiteSpace: "normal" }}>
+              {language === "eng"
+                ? "Direct Pay"
+                : "Paiement Direct"}
+            </p>
+          }
+        />
+        </div>}
+        
+                      </RadioGroup>
                 <p
                   onClick={() => {
                     handlePaymentOpen();
@@ -1015,8 +1421,97 @@ const CheckOut = () => {
                   >
                     +
                   </p>{" "}
-                  Add New Payment Method
+                  {language === "eng"
+                    ? "Add New Payment Method"
+                    : "Ajouter un Nouveau Mode de Paiement"}
                 </p>
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "space-between",
+                    margin: "4em 0 0em 0",
+                  }}
+                >
+                  <h2
+                    style={{
+                      color: "var(--secondary-color)",
+                      fontFamily: "var(--font-family)",
+                      fontSize: "calc(1.2rem + .3vw)",
+                      marginTop: "0",
+                      fontWeight: "500",
+                    }}
+                  >
+                    {language === "eng" ? "Delivery" : "Livraison"}
+                  </h2>
+                  {/* <button
+                    className={classes.btn}
+                    onClick={() => {
+                      setdisplayedPayment(paymentslist?.length);
+                    }}
+                  >
+                    {language === 'eng' ? 'My Payment Methods' : "Mon Mode de Paiement"}
+                  </button> */}
+                </div>
+                <div
+                  className={classes.adressCard}
+                  style={{
+                    border: "none",
+                    display: "flex",
+                    flexDirection: "row",
+                  }}
+                >
+                  <RadioGroup
+                    value={delivery}
+                    onChange={(e) => handleDeliveryChange(e) & handleClose()}
+                  >
+                    <FormControlLabel
+                      value="standard"
+                      label={
+                        <p style={{ margin: '0 0 0 1.2em' }}>
+                          {language === "eng"
+                            ? "Standard delivery charges"
+                            : "Frais de livraison standard"}
+                        </p>
+                      }
+                      control={
+                        <Radio
+                          defaultChecked
+                          value="standard"
+                          sx={{
+                            color: "var(--primary-color)",
+                            "&.Mui-checked": {
+                              color: "var(--primary-color)",
+                            },
+                            margin: " auto 0",
+                          }}
+                        />
+                      }
+                    />
+                    <FormControlLabel
+                      value="Colissimo"
+                      label={
+                        <p style={{ margin: "auto 0 auto 1.2em", whiteSpace: "normal" }}>
+                          {language === "eng"
+                            ? "Retriat Point"
+                            : "Point de Retriat"}
+                        </p>
+                      }
+                      control={
+                        <Radio
+                          value="Colissimo"
+                          sx={{
+                            color: "var(--primary-color)",
+                            "&.Mui-checked": {
+                              color: "var(--primary-color)",
+                            },
+                            margin: " auto 0",
+                          }}
+                        />
+                      }
+                    />
+                  </RadioGroup>
+                </div>
           <div className={classes.noteContainer}>
             <h2
               style={{
@@ -1028,14 +1523,14 @@ const CheckOut = () => {
                 textAlign:'start',paddingLeft:".3em"
               }}
             >
-              Add a note to your order
-            </h2>
+              {language === "eng" ? "Add a note to your order" : "Ajouter une note à votre commande"}
+              </h2>
             <TextArea
               name="note"
               rows={5}
               value={reviewMsg}
               onChange={(e) => setreviewMsg(e.target.value)}
-              placeholder="Notes concernant votre commande, par exemple des notes spéciales pour la livraison…"
+              placeholder={language === "eng" ? "Notes about your order, e.g. special delivery notes..." : "Notes concernant votre commande, par exemple des notes spéciales pour la livraison…"}
               style={{
                 border: "none",
                 padding: "1em 2em",
@@ -1074,19 +1569,27 @@ const CheckOut = () => {
                   $ {totalAmt}
                 </p>
               </div>
-              <button
-                className={classes.checkout_btn}
-                id="footer111"
-                onClick={CheckOutHandler}
-                style={{
-                  height: "3em",
-                  margin: "1em auto ",
-                  fontSize: "calc(.7rem + 0.3vw)",
-                  width: "80%",
-                }}
-              >
-                Checkout
-              </button>
+            {ispaypal ? (
+                <button
+                  className={classes.checkout_btn}
+                  onClick={() => setOpenpaypal(true)}
+                  disabled={loading || productData?.length === 0}
+                  id="footer"
+              style={{ margin: "2em 0" }}
+                >
+                  {language === "eng" ? "Place My Order" : "Valider mon panier"}
+                </button>
+              ) : (
+                <button
+                  className={classes.checkout_btn}
+                  onClick={CheckOutHandler}
+                  disabled={loading || productData?.length === 0}
+                  id="footer"
+              style={{ margin: "2em 0" }}
+                >
+                  {language === "eng" ? "Place My Order" : "Valider mon panier"}
+                </button>
+              )}
             </div>
           )}
         </div>
@@ -1095,7 +1598,7 @@ const CheckOut = () => {
         <div className={classes.total_con} id="fixed-component11">
             <div className={classes.total}>
               <div className={classes.totalrows}>
-                <h2>Mon Panier</h2>
+                <h2>{language === "eng" ? "My Basket" : "Mon Panier"}</h2>
                 <p style={{ textAlign: "end" }}>
                   ( {productData?.length} ITEMS )
                 </p>
@@ -1120,7 +1623,7 @@ const CheckOut = () => {
                 </p>
               </div>
               <div className={classes.totalrows}>
-                <p>Frais de port</p>
+                <p>{language === "eng" ? "Shipping cost" : "Frais de port"}</p>
                 <p style={{ textAlign: "end" }}>
                   {deliveryFees === 0 ? "Free" : deliveryFees}{" "}
                   {deliveryFees != 0 && (currency === "eur" ? `€` : `$`)}
@@ -1128,7 +1631,7 @@ const CheckOut = () => {
               </div>
               <div className={classes.totalrows}>
                 <p>
-                  Remise{" "}
+                  {" "}{language === "eng" ? "Discount" : "Remise"}
                   {coupon.reduction &&
                     coupon.type === "Percentage" &&
                     `(${coupon.reduction} % OFF)`}
@@ -1216,7 +1719,7 @@ const CheckOut = () => {
                     htmlType="submit"
                     className={classes.checkout_btn}
                   >
-                    Submit
+                    {language === "eng" ? "Submit" : "Soumettre"}
                   </Button>
                 </Form.Item>
               </Form>
@@ -1252,13 +1755,27 @@ const CheckOut = () => {
                 </p>
               </div>
             </div>
-            <button
-              className={classes.checkout_btn}
-              onClick={CheckOutHandler}
-              style={{ margin: "2em 0" ,cursor:'pointer'}}
-            >
-              Checkout
-            </button>
+            {ispaypal ? (
+                <button
+                  className={classes.checkout_btn}
+                  onClick={() => setOpenpaypal(true)}
+                  disabled={loading || productData?.length === 0}
+                  id="footer"
+              style={{ margin: "2em 0" }}
+                >
+                  {language === "eng" ? "Place My Order" : "Valider mon panier"}
+                </button>
+              ) : (
+                <button
+                  className={classes.checkout_btn}
+                  onClick={CheckOutHandler}
+                  disabled={loading || productData?.length === 0}
+                  id="footer"
+              style={{ margin: "2em 0" }}
+                >
+                  {language === "eng" ? "Place My Order" : "Valider mon panier"}
+                </button>
+              )}
         </div>
       </div>
       </div>
@@ -1283,6 +1800,57 @@ const CheckOut = () => {
         orderId={orderId}
         handleClose={handleConfirmedClose}
       />
+      <Modal
+        open={colissimoPopupOpen}
+        onClose={() => setColissimoPopupOpen(false)}
+        aria-labelledby="colissimo-widget-title"
+        aria-describedby="colissimo-widget-description"
+        className={classes.modalpopup}
+      >
+        <Box sx={style1} className={classes.modalpopup}>
+          <div ref={widgetRef} id="monIdDeWidgetColissimo" className=""></div>
+
+          {/* <div id="monIdDeWidgetColissimo" className=""></div> */}
+        </Box>
+      </Modal>
+
+      <Modal
+        open={openpaypal}
+        onClose={handleClosepaypal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        className={classes.modalpopup}
+      >
+        <Box sx={style} className={classes.modalpopup}>
+          <PayPalButtons
+            createOrder={(data, actions) => {
+              return actions.order.create({
+                purchase_units: [
+                  {
+                    amount: {
+                      value:
+                        currency === "eur"
+                          ? (totalAmt * authCtx.currencyRate).toFixed(2)
+                          : totalAmt,
+                    },
+                  },
+                ],
+              });
+            }}
+            onApprove={(data, actions) => {
+              return actions.order.capture().then((details) => {
+                const name = details.payer.name.given_name;
+                checkoutPaypalHandler(name);
+                // Optionally, handle transaction completion logic here
+              });
+            }}
+            onError={(err) => {
+              console.log(err);
+              toast.error(`${err}`);
+            }}
+          />
+        </Box>
+      </Modal>
     </div>
   );
 };
