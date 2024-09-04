@@ -128,8 +128,9 @@ const CheckOut = () => {
   const [editaddressId, setEditaddressid] = useState();
   const [ispaypal, setIspaypal] = useState(false);
   const [directPay, setdirectPay] = useState(false);
+  const [openPay, setopenPay] = useState(false);
   const [delivery, setDelivery] = useState("standard");
-  const [paymentId, setPaymentId] = useState(null);
+  const [paymentId, setPaymentId] = useState("direct");
 
   const [openpaypal, setOpenpaypal] = React.useState(false);
   const handleOpenpaypal = () => setOpenpaypal(true);
@@ -138,6 +139,14 @@ const CheckOut = () => {
   const [colissimoPopupOpen, setColissimoPopupOpen] = useState(false);
   const [colissimoPointData, setColissimoPointData] = useState(null);
   const widgetRef = useRef(null);
+  
+  useEffect(() => {
+    const outOfStockItems = productData.filter(item => item._qte_a_terme_calcule < 1);
+    const removedItems = productData.filter(item => item?.removed);
+    if (outOfStockItems.length > 0 ) {
+      navigate('/cart');
+    }
+  }, [productData]);
 
   useEffect(() => {
     if (colissimoPointData === null) {
@@ -545,9 +554,11 @@ const CheckOut = () => {
       });
       setPaymentsList(sortedPayments);
       setdisplayedPayment(1);
+      setopenPay(false);
       response?.data.data.forEach((element) => {
         if (element.default === "true") {
           dispatch(editDefaultPAY(element.id));
+          setPaymentId(element.id)
         }
       });
       // Set loading to false after fetching data
@@ -903,6 +914,7 @@ const CheckOut = () => {
 
   const handleChange1 = async (id) => {
     setdisplayedPayment(1)
+    setopenPay(false);
     setPaymentId(id)
     if (id === 'paypal') {
       setIspaypal(true)
@@ -1276,6 +1288,7 @@ const CheckOut = () => {
                     className={classes.btn}
                     onClick={() => {
                       setdisplayedPayment(paymentslist?.length);
+                      setopenPay(true);
                     }}
                   >
                     {language === "eng"
@@ -1286,12 +1299,14 @@ const CheckOut = () => {
                       <RadioGroup
                         value={paymentId}
                         onChange={(e) =>
-                          handleChange1(e.target.value) 
+                          handleChange1(e.target.value)  &
+                          setopenPay(false)
                         }
                       >
                 {paymentslist?.slice(0, displayedPayment).map((payment) => {
                   return (
-                    <div className={classes.adressCard}>
+                    <>
+                      {((!openPay && Number(payment.id) === Number(paymentId)) || openPay) && <div className={classes.adressCard}>
                         <FormControlLabel
                           value={payment.id}
                           control={
@@ -1347,11 +1362,12 @@ const CheckOut = () => {
                           {language === "eng" ? "Remove" : "Retirer"}
                         </p>
                       </div>
-                    </div>
+                    </div>}
+                    </>
                   );
                 })}
                
-        {displayedPayment === paymentslist?.length && <div className={classes.adressCard}>
+        {((!openPay && 'paypal'=== paymentId) || openPay) && <div style={{display:'flex', flexDirection:'row'}} className={classes.adressCard}>
         <FormControlLabel
           value='paypal'
           control={
@@ -1367,12 +1383,12 @@ const CheckOut = () => {
           }
           label={<p style={{ margin: "auto 0em auto 1.2em", whiteSpace: "normal" }}>
           {language === "eng"
-            ? "Paypal"
-            : "Paypal"}
+            ? "Pay with Paypal"
+            : "Payer avec Paypal"}
         </p>}
         />
         </div>}
-        {displayedPayment === paymentslist?.length && <div className={classes.adressCard} style={{display:'flex', flexDirection:'row'}}>
+        {((!openPay && 'direct'=== paymentId) || openPay) && <div className={classes.adressCard} style={{display:'flex', flexDirection:'row'}}>
         <FormControlLabel
           value='direct'
           control={
