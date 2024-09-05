@@ -5,7 +5,34 @@
     height: fit-content;
     margin: 5em auto;
 }
+     
+.out_of_stock{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  background-color: rgba(194, 194, 194, 0.5);
+  z-index: 9;
+  cursor: auto;
+}
 
+.out_of_stock p {
+  width: fit-content;
+  height: fit-content;
+  margin: auto;
+  font-family: var(--font-family);
+  font-size: calc(0.7rem + 0.3vw);
+  text-align: center;
+  justify-self: center;
+  align-self: center;
+  color: #fff;
+  padding: 0.2em 0.8em;
+  border-radius: 5px;
+  background-color: var(--primary-color);
+}
 .content{
     width: 88%;
     margin: 0 auto;
@@ -102,8 +129,8 @@
     width: 90%;
     margin: 0 auto;
     border-radius: 1em;
-    /* overflow: hidden; */
-    padding: 5% 0 0% 0;
+    overflow: hidden;
+    padding: 0% 0 0% 0;
     height: 22vw;
     max-height: 22em;
   }

@@ -173,6 +173,7 @@ const Details = () => {
           <TextField
             type="number"
             value={count}
+            disabled={bookData._qte_a_terme_calcule < 1}
             onChange={handleCountChange}
             InputProps={{
               inputProps: { min: 1 },
@@ -186,6 +187,7 @@ const Details = () => {
             className={classes.inputt}
           />
           <button
+          disabled={bookData._qte_a_terme_calcule < 1} style={{cursor:bookData._qte_a_terme_calcule < 1 &&'not-allowed'}}
             className={classes.addToCartBtn}
             onClick={(event) =>
               authCtx.addToCart({ props: bookData }) &
