@@ -3,12 +3,12 @@
     "Deals": {
       "title": { "eng": "<b>Deals</b> of the <b>Week</b>", "fr": "<b>Deals</b> of the <b>Week</b>_fr" },
       "description": { "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua._fr" },
-      "button": { "eng": "Add to cart", "fr": "Add to cart_fr" }
+      "button": { "eng": "Add to cart", "fr": "Ajouter au panier" }
     },
     "FeaturedBooks": {
       "title": { "eng": "Featured Books", "fr": "Featured Books_fr" },
       "description": { "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua._fr" },
-      "button": { "eng": "Add to cart", "fr": "Add to cart_fr" }
+      "button": { "eng": "Add to cart", "fr": "Ajouter au panier" }
     },
     "Hero": {
       "title": { "eng": "Find your next great read <br/>at our online book store", "fr": "Find your next great read <br/>at our online book store_fr" }
@@ -18,14 +18,14 @@
       "description": { "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua._fr" }
     },
     "NewArrivals": {
-      "title": { "eng": "New Releases", "fr": "New Releases_fr" },
-      "Cat1": { "eng": "Categories", "fr": "Categories_fr" },
-      "Cat2": { "eng": "Editors", "fr": "Editors_fr" }
+      "title": { "eng": "New Releases", "fr": "Nouveautés" },
+      "Cat1": { "eng": "Categories", "fr": "Catégories" },
+      "Cat2": { "eng": "Editors", "fr": "Éditeurs" }
     },
     "OurServices": {
       "title": {
         "eng": "Our Services",
-        "fr": "Our Services_fr"
+        "fr": "Nos Services"
       },
       "description": { "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua._fr" }
     },
@@ -35,26 +35,26 @@
   },
   "Footer": {
     "ContactInfo": {
-      "title": { "eng": "Contact Info", "fr": "Contact Info_fr" }
+      "title": { "eng": "Contact Info", "fr": "Contact " }
     },
     "Menu": {
-      "title": { "eng": "Menu", "fr": "Menu_fr" },
-      "point1": { "eng": "Shop All", "fr": "Shop All_fr" },
-      "point2": { "eng": "Events", "fr": "Events_fr" },
-      "point3": { "eng": "Collaborators", "fr": "Collaborators_fr" },
-      "point4": { "eng": "Collections", "fr": "Collections_fr" }
+      "title": { "eng": "Menu", "fr": "Menu" },
+      "point1": { "eng": "Shop All", "fr": "Livres" },
+      "point2": { "eng": "Events", "fr": "Evénements" },
+      "point3": { "eng": "Collaborators", "fr": "Collaborateurs" },
+      "point4": { "eng": "Collections", "fr": "Collections" }
     },
     "CUSTOMERSERVICE": {
-      "title": { "eng": "CUSTOMER SERVICE", "fr": "CUSTOMER SERVICE_fr" },
-      "point1": { "eng": "My Account", "fr": "My Account_fr" },
-      "point2": { "eng": "My Documents", "fr": "My Documents_fr" },
-      "point3": { "eng": "Term of Use", "fr": "Term of Use_fr" }
+      "title": { "eng": "CUSTOMER SERVICE", "fr": "SERVICE CLIENTÈLE" },
+      "point1": { "eng": "My Account", "fr": "Mon Compte" },
+      "point2": { "eng": "My Documents", "fr": "Mes documents" },
+      "point3": { "eng": "Term of Use", "fr": "Conditions d'utilisation" }
     },
     "GENERAL": {
-      "title": { "eng": "GENERAL", "fr": "GENERAL_fr" },
-      "point1": { "eng": "About Us", "fr": "About Us_fr" },
-      "point2": { "eng": "Contact Us", "fr": "Contact Us_fr" },
-      "point3": { "eng": "Our Services", "fr": "Our Services_fr" }
+      "title": { "eng": "GENERAL", "fr": "GÉNÉRALITÉS" },
+      "point1": { "eng": "About Us", "fr": "À Propos" },
+      "point2": { "eng": "Contact Us", "fr": "CONTACTEZ " },
+      "point3": { "eng": "Our Services", "fr": "Nos Services" }
     }
   },
   "AboutPage": {
@@ -77,18 +77,18 @@
     "title": { "eng": "my account", "fr": "mon compte" },
     "AccountDetails": {
       "title": { "eng": "Profile", "fr": "Profil" },
-      "subtitle": { "eng": "Account Details", "fr": "Account Details_fr" },
+      "subtitle": { "eng": "Account Details", "fr": "Détails du compte" },
       "changePassTitle": {
         "eng": "Password",
-        "fr": "Password_fr "
+        "fr": "Mot de passe "
       }
     },
     "Adresses": {
       "title": { "eng": " Addresses", "fr": " Adresses" },
-      "subtitle": { "eng": "my addresses", "fr": "my addresses_fr" },
+      "subtitle": { "eng": "my addresses", "fr": "mes adresses" },
       "AdresseInputTitle": {
         "eng": "Nickname",
-        "fr": "Nickname_fr"
+        "fr": "Surnom"
       },
       "CompanyInput": {
         "eng": "Company",
@@ -116,12 +116,12 @@
       }
     },
     "orders": {
-      "title": { "eng": "Order Tracking", "fr": "Order Tracking_fr" },
-      "subtitle": { "eng": "my orders", "fr": "my orders_fr" }
+      "title": { "eng": "Order Tracking", "fr": "Suivi des commandes" },
+      "subtitle": { "eng": "my orders", "fr": "mes commandes" }
     },
     "Coupons": {
       "title": { "eng": " coupons", "fr": " coupons" },
-      "subtitle": { "eng": "my coupons", "fr": "my coupons_fr" },
+      "subtitle": { "eng": "my coupons", "fr": "mes coupons" },
       "description": {
         "eng": "Add Your Coupon",
         "fr": "Ajoutez Votre Coupon"
@@ -132,7 +132,7 @@
       }
     },
     "Favorits": {
-      "title": { "eng": "MY FAVORITES", "fr": "MES FAVORIS" },
+      "title": { "eng": "MY WishList", "fr": "Mes listes" },
       "description": {
         "eng": "",
         "fr": ""
@@ -143,18 +143,18 @@
         "eng": " payment Options",
         "fr": "VOS MOYENS DE PAIEMENT"
       },
-      "subtitle": { "eng": "my payments", "fr": "my payments_fr" },
+      "subtitle": { "eng": "my payments", "fr": "mes paiements" },
       "CardnbInput": {
         "eng": "Card Number",
-        "fr": "Card Number_fr"
+        "fr": "Numéro de carte"
       },
       "MonthInput": {
         "eng": "Expiry Month",
-        "fr": "Expiry Month_fr"
+        "fr": "Mois d'expiration"
       },
       "YearInput": {
         "eng": "Expiry Year",
-        "fr": "Expiry Year_fr"
+        "fr": "Année d'expiration"
       },
       "CvvInput": {
         "eng": "CVV",
@@ -176,7 +176,7 @@
       }
     },
     "VoirAussi": {
-      "title": { "eng": "See more", "fr": "Voir aussi" }
+      "title": { "eng": "See more", "fr": "Voir plus" }
     }
   },
   "BookPage": {
@@ -189,31 +189,31 @@
     }
   },
   "Cart": {
-    "title1": { "eng": "Shopping cart", "fr": " Shopping cart (fr)" },
-    "title2": { "eng": "Checkout details", "fr": "Checkout details (fr)" },
-    "title3": { "eng": "Order complete", "fr": " Order complete (fr)" },
+    "title1": { "eng": "Shopping cart", "fr": " Mon Panier" },
+    "title2": { "eng": "Checkout details", "fr": "Détails de l'encaissement" },
+    "title3": { "eng": "Order complete", "fr": "Commande complète" },
     "emptyCart": {
       "eng": "Your Cart Is Empty!",
-      "fr": "Your Cart Is Empty!(fr)"
+      "fr": "Votre panier est vide !"
     },
     "emptyCartBtn": {
       "eng": "Start Shopping",
-      "fr": "Start Shopping (fr)"
+      "fr": "Commencer les achats"
     }
   },
   "Favorite": {
-    "title": { "eng": "Wishlist", "fr": " Wishlist (fr)" },
+    "title": { "eng": "Wishlist", "fr": "Mes Liste" },
     "emptyCart": {
       "eng": "Your Wishlist Is Empty!",
-      "fr": "Your Wishlist Is Empty!(fr)"
+      "fr": "Votre liste de souhaits est vide!"
     },
     "emptyCartBtn": {
       "eng": "Start Shopping",
-      "fr": "Start Shopping (fr)"
+      "fr": "Commencer les achats"
     },
     "addAllBtn": {
       "eng": "Move All To Cart",
-      "fr": "Move All To Cart (fr)"
+      "fr": "TOUT AJOUTER "
     }
   },
   "ContactUsPage": {
@@ -232,87 +232,6 @@
     "description": {
       "eng": "",
       "fr": ""
-    }
-  },
-  "Librairie": {
-    "title": { "eng": "", "fr": "" },
-    "description": {
-      "eng": "",
-      "fr": ""
-    }
-  },
-  "Login": {
-    "title": { "eng": "", "fr": "" },
-    "description": {
-      "eng": "",
-      "fr": ""
-    }
-  },
-  "OrderTrackingPages": {
-    "OrderTracking": {
-      "title": { "eng": "", "fr": "" },
-      "description": {
-        "eng": "",
-        "fr": ""
-      }
-    },
-    "FollowOrder": {
-      "title": { "eng": "", "fr": "" },
-      "description": {
-        "eng": "",
-        "fr": ""
-      }
-    },
-    "Review": {
-      "title": { "eng": "", "fr": "" },
-      "description": {
-        "eng": "",
-        "fr": ""
-      }
-    }
-  },
-  "Register": {
-    "title": { "eng": "", "fr": "" },
-    "description": {
-      "eng": "",
-      "fr": ""
-    }
-  },
-  "ResetPassword": {
-    "title": { "eng": "", "fr": "" },
-    "description": {
-      "eng": "",
-      "fr": ""
-    }
-  },
-  "ReturnPages": {
-    "AddReturnRefund": {
-      "title": { "eng": "", "fr": "" },
-      "description": {
-        "eng": "",
-        "fr": ""
-      }
-    },
-    "CompletedReturn": {
-      "title": { "eng": "", "fr": "" },
-      "description": {
-        "eng": "",
-        "fr": ""
-      }
-    },
-    "RetourHistory": {
-      "title": { "eng": "", "fr": "" },
-      "description": {
-        "eng": "",
-        "fr": ""
-      }
-    },
-    "ViewRetour": {
-      "title": { "eng": "", "fr": "" },
-      "description": {
-        "eng": "",
-        "fr": ""
-      }
     }
   },
   "placeholders": {
@@ -434,29 +353,29 @@
   },
   "Collections":{
     "CollectionsPage":{
-      "title":{"eng":"Our Collections", "fr": ""},
+      "title":{"eng":"Our Collections", "fr": "Nos Collections"},
       "description":{"eng":"We’d love to hear from you!", "fr": ""}
     },
     "CollectionsDetails":{
-      "title":{"eng":"More of this Collection", "fr": ""},
+      "title":{"eng":"More of this Collection", "fr": "Plus de cette Collection"},
       "description":{"eng":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": ""}
     }
   },
   "OurSelectionBanner":{
       "title":{"eng":"Our Selection", "fr": ""},
       "description":{"eng":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": ""},
-      "button":{"eng":"Shop Now", "fr": "Shop Now_fr"}
+      "button":{"eng":"Shop Now", "fr": "Acheter"}
   },
   "MoreForCollab":{
-      "title":{"eng":"More of this Collaborator", "fr": ""},
+      "title":{"eng":"More of this Collaborator", "fr": "Plus de ce Collaborateur"},
       "description":{"eng":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": ""}
   },
   "AlsoSee":{
-      "title":{"eng":"You May Also Like", "fr": ""},
+      "title":{"eng":"You May Also Like", "fr": "Vous Pouvez Aussi Aimer"},
       "description":{"eng":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": ""}
   },
   "MyDocuments":{
-    "title":{"eng":"My Documents", "fr": "My Documents_fr"},
+    "title":{"eng":"My Documents", "fr": "Mes documents"},
     "button1":{
       "title":{"eng":"Proforma Quote", "fr": "Devis Proforma"}
     },
@@ -471,6 +390,87 @@
     },
     "button5":{
       "title":{"eng":"My Orders", "fr": "Mes Commandes"}
+    }
+  },
+  "Librairie": {
+    "title": { "eng": "", "fr": "" },
+    "description": {
+      "eng": "",
+      "fr": ""
+    }
+  },
+  "Login": {
+    "title": { "eng": "", "fr": "" },
+    "description": {
+      "eng": "",
+      "fr": ""
+    }
+  },
+  "OrderTrackingPages": {
+    "OrderTracking": {
+      "title": { "eng": "", "fr": "" },
+      "description": {
+        "eng": "",
+        "fr": ""
+      }
+    },
+    "FollowOrder": {
+      "title": { "eng": "", "fr": "" },
+      "description": {
+        "eng": "",
+        "fr": ""
+      }
+    },
+    "Review": {
+      "title": { "eng": "", "fr": "" },
+      "description": {
+        "eng": "",
+        "fr": ""
+      }
+    }
+  },
+  "Register": {
+    "title": { "eng": "", "fr": "" },
+    "description": {
+      "eng": "",
+      "fr": ""
+    }
+  },
+  "ResetPassword": {
+    "title": { "eng": "", "fr": "" },
+    "description": {
+      "eng": "",
+      "fr": ""
+    }
+  },
+  "ReturnPages": {
+    "AddReturnRefund": {
+      "title": { "eng": "", "fr": "" },
+      "description": {
+        "eng": "",
+        "fr": ""
+      }
+    },
+    "CompletedReturn": {
+      "title": { "eng": "", "fr": "" },
+      "description": {
+        "eng": "",
+        "fr": ""
+      }
+    },
+    "RetourHistory": {
+      "title": { "eng": "", "fr": "" },
+      "description": {
+        "eng": "",
+        "fr": ""
+      }
+    },
+    "ViewRetour": {
+      "title": { "eng": "", "fr": "" },
+      "description": {
+        "eng": "",
+        "fr": ""
+      }
     }
   }
 }

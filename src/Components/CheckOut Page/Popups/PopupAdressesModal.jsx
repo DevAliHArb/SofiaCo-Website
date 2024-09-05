@@ -375,7 +375,7 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
               <Input
                 name="address"
                 size="large"
-                placeholder={language === 'eng' ? "Street name, apartment, etc." : "Street name, apartment, etc._fr"}
+                placeholder={language === 'eng' ? "Street name, apartment, ..." : "Nom de la rue, appartement, ..."}
                 className={classes.inputt}
                 value={formData?.address || ''}
                 onChange={(e) => handleChange("address", e.target.value)}

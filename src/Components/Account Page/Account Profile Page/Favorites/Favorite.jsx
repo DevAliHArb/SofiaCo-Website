@@ -19,6 +19,7 @@ import { FiShoppingCart } from "react-icons/fi";
 
 import contactUsImage from '../../../../assets/contactUsImage.png'
 import AuthContext from '../../../Common/authContext';
+import Data from '../../../../Data.json'
 
 const categories = [
   {id:0 , title:'All'},
@@ -89,9 +90,9 @@ const Favorite = ({carttoggle}) => {
         {favoriteData.length == 0 ? <></> :
         <div className={classes.header}>
           <div className={classes.headtitle}>
-          <h3 style={{fontWeight:"600",marginTop:'0.2em'}}>Mes Listes </h3>
+          <h3 style={{fontWeight:"600",marginTop:'0.2em'}}>{Data.Favorite.title[language]} </h3>
           </div>
-          <button onClick={AddAllHandler}><FiShoppingCart style={{fontSize:'1.3em',margin:'0 .5em -.15em 0'}}/> Move All To Cart</button>
+          <button onClick={AddAllHandler}><FiShoppingCart style={{fontSize:'1.3em',margin:'0 .5em -.15em 0'}}/> {Data.Favorite.emptyCartBtn[language]}</button>
         </div>}
         <div className={classes.cardsContainer}>
         {/* {favoriteData.length == 0 ? <></> :
@@ -126,10 +127,10 @@ const Favorite = ({carttoggle}) => {
             </div>}
             {favoriteData.length == 0 ? <></> :
         <div className={classes.tableHead}>
-          <p style={{textAlign:'start'}}>Produit</p>
-          <p>Prix</p>
-          <p>Quantité</p>
-          <p>Subtotal</p>
+          <p style={{textAlign:'start'}}>{language === 'eng' ? "Items" : "Articles"}</p>
+          <p>{language === 'eng' ? "Price" : "Prix"}</p>
+          <p>{language === 'eng' ? "Quantity" : "Quantité"}</p>
+          <p>Total</p>
         </div>}
         <div className={classes.cards}>
           {favoriteData.length == 0 ? (
@@ -147,9 +148,9 @@ const Favorite = ({carttoggle}) => {
                 <div style={{width:'fit-content',margin:'auto'}}>
                 <img alt='EmptyWishlist' src={EmptyWishlist} style={{width:"10em" , height:"auto"}}/>
                 </div>
-                <h1 style={{textAlign:'center'}}>Your wishlist is empty!</h1>
-                <p  style={{textAlign:'center'}}> You have no items in your shopping cart</p>
-                <button className={classes.browseBtn}  onClick={()=>navigate('/')}>Browse</button>
+                <h1 style={{textAlign:'center'}}>{language === 'eng' ? "Your wishlist is empty!" : "Votre liste de souhaits est vide !" }</h1>
+                <p  style={{textAlign:'center'}}> {language === 'eng' ? "You have no items in your shopping cart" : "Vous n'avez aucun article dans votre panier" }</p>
+                <button className={classes.browseBtn}  onClick={()=>navigate('/')}>{language === 'eng' ? "Browse" : "Parcourir" }</button>
               </div>
             </div>
           ) : (
@@ -157,7 +158,7 @@ const Favorite = ({carttoggle}) => {
           )}
         </div>
         {favoriteData.length == 0 ? <></> : 
-        <button className={classes.btnMobile}><FiShoppingCart style={{fontSize:'1.3em',margin:'0 .5em -.15em 0'}} onClick={AddAllHandler}/> Move All To Cart</button>
+        <button className={classes.btnMobile}><FiShoppingCart style={{fontSize:'1.3em',margin:'0 .5em -.15em 0'}} onClick={AddAllHandler}/> {Data.Favorite.addAllBtn[language]}</button>
           }
         </div>
     </div>

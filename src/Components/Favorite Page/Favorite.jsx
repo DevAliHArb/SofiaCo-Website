@@ -94,7 +94,7 @@ const Favorite = ({carttoggle}) => {
            </div>
          </div> 
           ) : (
-      <div className={classes.shopping_con}>
+      <div className={classes.shopping_con}> 
         <div className={classes.auth_bg}></div>
       <div className={classes.shopping}>
       <div className={classes.header}>

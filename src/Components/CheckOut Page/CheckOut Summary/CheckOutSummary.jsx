@@ -82,17 +82,17 @@ const maskConstant = (constant) => {
     <div className={classes.cart_container}>
       <div className={classes.contactImageCont} >
             <div className={classes.imageContent}>
-              <h2 style={{margin:'0'}}>Mon Panier</h2>
-              <p style={{margin:'.2em 0 0 0'}}>Home / Mon Panier</p>
+              <h2 style={{margin:'0'}}>{language === "eng" ? "My Basket" : "Mon Panier"}</h2>
+              <p style={{margin:'.2em 0 0 0'}}>{language === "eng" ? "/ My Basket" : "Accueil /Mon Panier"}</p>
             </div>
         </div>
       <div className={classes.shopping_con}>
       <div className={classes.shopping}>
             <>
-            <h2 onClick={()=>console.log(data)} style={{color:"var(--accent-color)",borderBottom:"1px solid #6E90A9",paddingBottom:'1em',fontFamily:'var(--font-family)',fontSize:'calc(1.2rem + .3vw)',marginTop:"0",fontWeight:'500'}}>Order #{data.id}</h2>
+            <h2 onClick={()=>console.log(data)} style={{color:"var(--accent-color)",borderBottom:"1px solid #6E90A9",paddingBottom:'1em',fontFamily:'var(--font-family)',fontSize:'calc(1.2rem + .3vw)',marginTop:"0",fontWeight:'500'}}>{language === 'eng' ? "Commande" : "Order" } #{data.id}</h2>
               <CheckOutSummaryItem data={data.order_invoice_items}/>
             <div className={classes.container}>
-                <h2 style={{color:"var(--accent-color)",fontFamily:'var(--font-family)',fontSize:'calc(1.2rem + .3vw)',marginTop:"0",fontWeight:'500'}}>Shipping Address</h2>
+                <h2 style={{color:"var(--accent-color)",fontFamily:'var(--font-family)',fontSize:'calc(1.2rem + .3vw)',marginTop:"0",fontWeight:'500'}}>{language === 'eng' ? "Shipping Address" : "Adresse de livraison" }</h2>
             <div className={classes.adressCard}>
                <Radio defaultChecked value={true} sx={{ color: 'var(--forth-color)','&.Mui-checked': { color: 'var(--forth-color)',},margin:'.8em 0 auto 0'}}/>
                <div>
@@ -101,7 +101,7 @@ const maskConstant = (constant) => {
                 <p>{data.user_address?.country}</p>
                </div>
             </div>
-                <h2 style={{color:"var(--accent-color)",fontFamily:'var(--font-family)',fontSize:'calc(1.2rem + .3vw)',margin:'3em 0 1em 0',fontWeight:'500'}}>Payment Method</h2>
+                <h2 style={{color:"var(--accent-color)",fontFamily:'var(--font-family)',fontSize:'calc(1.2rem + .3vw)',margin:'3em 0 1em 0',fontWeight:'500'}}>{language === 'eng' ? "Payment Method" : "Mode de paiement" }</h2>
             <div className={classes.adressCard}>
                <Radio defaultChecked value={true} sx={{ color: 'var(--forth-color)','&.Mui-checked': { color: 'var(--forth-color)',},margin:'.5em 0 auto 0'}}/>
                
@@ -114,8 +114,8 @@ const maskConstant = (constant) => {
       <div className={classes.total_conCard } id="fixed-component">
         <div className={classes.total}>
           <div className={classes.totalrows}>
-            <h2>Mon Panier</h2>
-            <p style={{ textAlign: "end" }}>( {data.order_invoice_items?.length} ITEMS )</p>
+            <h2>{language === 'eng' ? "My Basket" : "Mon Panier" }</h2>
+            <p style={{ textAlign: "end" }}>( {data.order_invoice_items?.length} {language === 'eng' ? "ITEMS" : "ARTICLES" } )</p>
           </div>
           {/* <div className={classes.totalrows}>
             <p>Total TTC</p>
@@ -130,7 +130,7 @@ const maskConstant = (constant) => {
             <p style={{ textAlign: "end" }}>{(data.base_price - calculateTotalPrice(data.order_invoice_items)).toFixed(2)}{data.currency === 'usd' ? '$' : '€' }</p>
           </div>
           <div className={classes.totalrows}>
-            <p>Frais de port</p>
+            <p>{language === 'eng' ? "Shipping costs" : "Frais de port" }</p>
             <p style={{ textAlign: "end" }}>{(data.total_price - calculateTotalPrice(data.order_invoice_items)).toFixed(2)}{data.currency === 'usd' ? '$' : '€' }</p>
           </div>
           {/* <div className={classes.totalrows}>
@@ -146,7 +146,7 @@ const maskConstant = (constant) => {
           </div>
         </div>
         <div className={classes.totalrows} style={{display:"flex",flexWrap:'wrap',justifyContent:'space-between',gap:'0',marginBottom:'1.5em'}}>
-            <p >Date de livraison prévue</p>
+            <p >{language === 'eng' ? " Delivery date" : "Date de livraison" }</p>
             <p >{formatDate(data.date)}</p>
           </div>
           

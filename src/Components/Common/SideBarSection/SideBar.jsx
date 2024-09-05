@@ -106,7 +106,7 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
         <ListItem disablePadding>
           <ListItemButton >
             <ListItemText className={classes.text}>
-            {language === 'eng' ? 'Jouets_en' : 'Jouets'}
+            {language === 'eng' ? 'Toys' : 'Jouets'}
             {/* {collopen ? <IoIosArrowDown style={{transform:'rotate(180deg)'}} /> : <IoIosArrowDown /> } */}
             </ListItemText>
           </ListItemButton>
@@ -118,7 +118,7 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemText className={classes.text}>
-            {language === 'eng' ? 'parfum_en' : 'parfum'}
+            {language === 'eng' ? 'perfume' : 'parfum'}
             </ListItemText>
           </ListItemButton>
         </ListItem>
@@ -128,7 +128,7 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
          <ListItem disablePadding>
           <ListItemButton>
             <ListItemText className={classes.text}>
-            {language === 'eng' ? 'vetements_en' : 'vetements'}
+            {language === 'eng' ? 'vetements' : 'vetements'}
             </ListItemText>
           </ListItemButton>
         </ListItem>
@@ -139,7 +139,7 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemText className={classes.text}>
-            {language === 'eng' ? 'tapis de priere_en' : 'tapis de priere'}
+            {language === 'eng' ? 'prayer mat' : 'tapis de priere'}
             </ListItemText>
           </ListItemButton>
         </ListItem>
@@ -149,7 +149,7 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemText className={classes.text}>
-            {language === 'eng' ? 'Nos éditeurs_en' : 'Nos éditeurs'}
+            {language === 'eng' ? 'Our publishers' : 'Nos éditeurs'}
             </ListItemText>
           </ListItemButton>
         </ListItem>
@@ -159,7 +159,7 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
 <ListItem disablePadding>
   <ListItemButton>
     <ListItemText className={classes.text}>
-    {language === 'eng' ? 'AGENDA_en' : 'AGENDA'}
+    {language === 'eng' ? 'AGENDA' : 'AGENDA'}
     </ListItemText>
   </ListItemButton>
 </ListItem>
@@ -169,7 +169,7 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
 <ListItem disablePadding>
   <ListItemButton>
     <ListItemText className={classes.text}>
-    {language === 'eng' ? 'nos services_en' : 'nos services'}
+    {language === 'eng' ? 'our services' : 'nos services'}
     </ListItemText>
   </ListItemButton>
 </ListItem>

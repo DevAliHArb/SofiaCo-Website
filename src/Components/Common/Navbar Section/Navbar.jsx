@@ -172,10 +172,10 @@ const Navbar = (props) => {
                 <p style={{display:'Flex', flexDirection:'row'}}> <FiPhoneCall style={{width:'1.3em', height:'1.3em', margin:'auto 0.5em auto auto', color:'var(--secondary-color)'}}/>{authCtx.companySettings?.phone}</p>
               </div>
               <div className={classes.header_top_content}>
-                <p style={{display:'Flex', flexDirection:'row'}}> {language === 'eng' ? "Jusqu'à 50 % de réduction sur les articles_en" : "Jusqu'à 50 % de réduction sur les articles"} <FaArrowRightLong style={{width:'1.3em', height:'1.3em', margin:'auto auto auto 0.5em', color:'var(--secondary-color)'}}/></p>
+                <p style={{display:'Flex', flexDirection:'row'}}> {language === 'eng' ? "Up to 50% off items" : "Jusqu'à 50 % de réduction sur les articles"} <FaArrowRightLong style={{width:'1.3em', height:'1.3em', margin:'auto auto auto 0.5em', color:'var(--secondary-color)'}}/></p>
               </div>
               <div className={classes.header_top_content1}>
-                <p style={{display:'Flex', flexDirection:'row'}}> <FiTruck style={{width:'1em', height:'1em', margin:'auto 0.5em auto auto', color:'var(--secondary-color)'}}/> {language === 'eng' ? "Suivre votre commande_en" : "Suivre votre commande"}</p>
+                <p style={{display:'Flex', flexDirection:'row'}}> <FiTruck style={{width:'1em', height:'1em', margin:'auto 0.5em auto auto', color:'var(--secondary-color)'}}/> {language === 'eng' ? "Track your order" : "Suivre votre commande"}</p>
 
                 <p className={classes.long_line}></p>
                 <div className={classes.select}>
@@ -272,27 +272,27 @@ const Navbar = (props) => {
               <p onClick={() => navigate(`/books`)}>
                 {language === 'eng' ? 'Books' : 'Livres'}
               </p>
-              <p onClick={() => toast.info("En Cours De Construction!")}>
-                {language === 'eng' ? 'Jouets_en' : 'Jouets'}
+              <p onClick={() => navigate(`/about`)}>
+              {language === 'eng' ? "ABOUT US" : "À PROPOS" }
               </p>
-              <p onClick={() => toast.info("En Cours De Construction!")}>
-                {language === 'eng' ? 'parfum_en' : 'parfum'}
+              <p onClick={() => navigate(`/events`)}>
+              {language === 'eng' ? "EVENTS" : "ÉVÉNEMENTS" }
               </p>
-              <p onClick={() => toast.info("En Cours De Construction!")}>
-                {language === 'eng' ? 'vetements_en' : 'vetements'}
+              <p onClick={() => navigate(`/services`)}>
+              {language === 'eng' ? "SERVICES" : "SERVICES" }
               </p>
-              <p onClick={() => toast.info("En Cours De Construction!")}>
-                {language === 'eng' ? 'tapis de priere_en' : 'tapis de priere'}
+              <p onClick={() => navigate(`/collaborators`)}>
+              {language === 'eng' ? "COLLABORATORS" : "COLLABORATEURS" }
               </p>
-              <p onClick={() => toast.info("En Cours De Construction!")}>
-                {language === 'eng' ? 'Nos éditeurs_en' : 'Nos éditeurs'}
+              <p onClick={() => navigate(`/collections`)}>
+                {language === 'eng' ? 'collections' : 'collections'}
               </p>
-              <p onClick={() => toast.info("En Cours De Construction!")}>
-                {language === 'eng' ? 'AGENDA_en' : 'AGENDA'}
+              <p onClick={() => navigate(`/contact`)}>
+              {language === 'eng' ? "CONTACT" : "CONTACTEZ" }
               </p>
-              <p onClick={() => toast.info("En Cours De Construction!")}>
-                {language === 'eng' ? 'nos services_en' : 'nos services'}
-              </p>
+              {/* <p onClick={() => navigate(`/`)}>
+                {language === 'eng' ? 'our services' : 'nos services'}
+              </p> */}
               <div className={classes.icons}>
                 <div style={{position:'relative',cursor:'pointer'}} onClick={()=>navigate(`/favorites`)}>
                 <MdFavoriteBorder className={classes.icon} />
@@ -340,7 +340,7 @@ const Navbar = (props) => {
                      <Typography textAlign="center">{language === 'eng' ? "Orders Tracking" : "Suivi des Commandes"}</Typography>
                    </MenuItem>
                    <MenuItem key={3} onClick={()=>{ navigate(`/my-documents/proforma`); handleCloseUserMenu()}} >
-                     <Typography textAlign="center">{language === 'eng' ? "My Documents" : "My Documents_fr"}</Typography>
+                     <Typography textAlign="center">{language === 'eng' ? "My Documents" : "Mes Documents"}</Typography>
                    </MenuItem>
                    <MenuItem key={4} onClick={()=>{handleCloseUserMenu() ; logout()}} >
                         <Typography textAlign="center">{language === 'eng' ? "Logout" : "Se Déconnecter"} </Typography>
@@ -381,10 +381,10 @@ const Navbar = (props) => {
                 <p style={{display:'Flex', flexDirection:'row'}}> <FiPhoneCall style={{width:'1.3em', height:'1.3em', margin:'auto 0.5em auto auto', color:'var(--secondary-color)'}}/>{authCtx.companySettings?.phone}</p>
               </div>
               <div className={classes.header_top_content}>
-                <p style={{display:'Flex', flexDirection:'row'}}> {language === 'eng' ? "Jusqu'à 50 % de réduction sur les articles_en" : "Jusqu'à 50 % de réduction sur les articles"} <FaArrowRightLong style={{width:'1.3em', height:'1.3em', margin:'auto auto auto 0.5em', color:'var(--secondary-color)'}}/></p>
+                <p style={{display:'Flex', flexDirection:'row'}}> {language === 'eng' ? "Up to 50% off items" : "Jusqu'à 50 % de réduction sur les articles"} <FaArrowRightLong style={{width:'1.3em', height:'1.3em', margin:'auto auto auto 0.5em', color:'var(--secondary-color)'}}/></p>
               </div>
               <div className={classes.header_top_content1}>
-                <p style={{display:'Flex', flexDirection:'row'}}> <FiTruck style={{width:'1em', height:'1em', margin:'auto 0.5em auto auto', color:'var(--secondary-color)'}}/> {language === 'eng' ? "Suivre votre commande_en" : "Suivre votre commande"}</p>
+                <p style={{display:'Flex', flexDirection:'row'}}> <FiTruck style={{width:'1em', height:'1em', margin:'auto 0.5em auto auto', color:'var(--secondary-color)'}}/> {language === 'eng' ? "Track your order" : "Suivre votre commande"}</p>
 
                 <p className={classes.long_line}></p>
                 <div className={classes.select}>
@@ -481,26 +481,23 @@ const Navbar = (props) => {
               <p onClick={() => navigate(`/books`)}>
                 {language === 'eng' ? 'Books' : 'Livres'}
               </p>
-              <p onClick={() => toast.info("En Cours De Construction!")}>
-                {language === 'eng' ? 'Jouets_en' : 'Jouets'}
+              <p onClick={() => navigate(`/about`)}>
+              {language === 'eng' ? "ABOUT US" : "À PROPOS" }
               </p>
-              <p onClick={() => toast.info("En Cours De Construction!")}>
-                {language === 'eng' ? 'parfum_en' : 'parfum'}
+              <p onClick={() => navigate(`/events`)}>
+              {language === 'eng' ? "EVENTS" : "ÉVÉNEMENTS" }
               </p>
-              <p onClick={() => toast.info("En Cours De Construction!")}>
-                {language === 'eng' ? 'vetements_en' : 'vetements'}
+              <p onClick={() => navigate(`/services`)}>
+              {language === 'eng' ? "SERVICES" : "SERVICES" }
               </p>
-              <p onClick={() => toast.info("En Cours De Construction!")}>
-                {language === 'eng' ? 'tapis de priere_en' : 'tapis de priere'}
+              <p onClick={() => navigate(`/collaborators`)}>
+              {language === 'eng' ? "COLLABORATORS" : "COLLABORATEURS" }
               </p>
-              <p onClick={() => toast.info("En Cours De Construction!")}>
-                {language === 'eng' ? 'Nos éditeurs_en' : 'Nos éditeurs'}
+              <p onClick={() => navigate(`/collections`)}>
+                {language === 'eng' ? 'collections' : 'collections'}
               </p>
-              <p onClick={() => toast.info("En Cours De Construction!")}>
-                {language === 'eng' ? 'AGENDA_en' : 'AGENDA'}
-              </p>
-              <p onClick={() => toast.info("En Cours De Construction!")}>
-                {language === 'eng' ? 'nos services_en' : 'nos services'}
+              <p onClick={() => navigate(`/contact`)}>
+              {language === 'eng' ? "CONTACT" : "CONTACTEZ" }
               </p>
               <div className={classes.icons}>
                 <div style={{position:'relative', cursor:'pointer'}} onClick={()=>navigate(`/favorites`)}>

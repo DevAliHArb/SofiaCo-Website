@@ -180,11 +180,11 @@ const onFinish = async () => {
            disabled={loading}
            style={{cursor: loading ? 'wait' : 'pointer'}}
            className={classes.logInButton}>
-            Let’s Get Started
+            {language === 'eng' ? "Let’s Get Started" : "Commençons" }
           </Button>
         </Form.Item> 
       </Form>
-      {language === 'eng' ? <h4>Vous n’avez pas de compte? <span style={{fontWeight:700, textDecoration:'underline', cursor:'pointer'}} onClick={()=>navigate(`/register`)}>Register!</span></h4> : <h4>Vous n’avez pas de compte? <span style={{fontWeight:700, textDecoration:'underline', cursor:'pointer'}} onClick={()=>navigate(`/register`)}>Créez en un!</span></h4>}
+      {language === 'eng' ? <h4>{language === 'eng' ? "Don't have an account?" : "Vous n’avez pas de compte?" } <span style={{fontWeight:700, textDecoration:'underline', cursor:'pointer'}} onClick={()=>navigate(`/register`)}>Register!</span></h4> : <h4>{language === 'eng' ? "Don't have an account?" : "Vous n’avez pas de compte?" } <span style={{fontWeight:700, textDecoration:'underline', cursor:'pointer'}} onClick={()=>navigate(`/register`)}>{language === 'eng' ? "Create one!" : "Créez en un!" }</span></h4>}
       <p>{authCtx.companySettings?.copyrights_en}</p>
         </div>
     </div>

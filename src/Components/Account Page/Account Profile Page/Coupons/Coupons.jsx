@@ -262,7 +262,7 @@ const Coupons = () => {
                   style={{ color: "var(--primary-color)", fontSize: "2em" }}
                 />
               }
-              placeholder={language === 'eng' ? "Votre Coupon ici_en" : "Votre Coupon ici"}
+              placeholder={language === 'eng' ? "Your Coupon here" : "Votre Coupon ici"}
               onChange={(e) => setthecoupon(e.target.value)}
               style={{
                 border: "none",
@@ -306,7 +306,7 @@ const Coupons = () => {
           <div className={classes.nodata_img}>
             <img src={nodata} alt="" />
           </div>
-          <h1>{language === 'eng' ? "No coupons found!" : "No coupons found!_fr"}</h1>
+          <h1>{language === 'eng' ? "No coupons found!" : "Aucun coupon n'a été trouvé !"}</h1>
         </div>
           :
           <>
