@@ -141,7 +141,7 @@
   height: fit-content;
   margin: auto;
   font-family: var(--font-family);
-  font-size: calc(0.7rem + 0.3vw);
+  font-size: calc(0.9rem + 0.3vw);
   text-align: center;
   justify-self: center;
   align-self: center;
