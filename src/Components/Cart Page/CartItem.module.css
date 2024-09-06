@@ -17,6 +17,60 @@
     color: var(--secondary-color) !important;
 }
 
+     
+.out_of_stock{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-color: rgba(194, 194, 194, 0.5);
+    z-index: 9;
+    cursor: auto;
+  }
+  
+  .out_of_stock p {
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+    font-family: var(--font-family);
+    font-size: calc(0.6rem + 0.2vw);
+    text-align: center;
+    justify-self: center;
+    align-self: center;
+    color: #fff;
+    padding: 0.2em 0.8em;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+  }
+  .removed_item{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    top: 0;
+    left: 0;
+    display: flex;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5));
+    
+    z-index: 19;
+    cursor: auto;
+  }
+  
+  .removed_item p {
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+    font-family: var(--font-family);
+    font-size: calc(0.9rem + 0.2vw);
+    text-align: center;
+    justify-self: center;
+    align-self: center;
+    font-weight: 700;
+    color: rgb(255, 66, 66);
+  }
 
 .cardmobile{
     display: none;

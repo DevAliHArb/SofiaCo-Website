@@ -55,13 +55,20 @@ const Favorite = ({carttoggle}) => {
     const AddAllHandler = () => {
       favoriteData.forEach( props => 
         authCtx.addToCartWithQty(
-          props={id: props._favid,
-          designation: props.favtitle,
-          dc_auteur: props.favauthor,
-          image: props.favimage,
-          prixpublic: props.favprice,
-          quantity: props.favquantity,
-          descriptif: props.favdescription
+          props={
+            _id: props.id,
+            title: props.designation,
+            author: props.dc_auteur,
+            image: props.image,
+            price: props.prixpublic,
+            _qte_a_terme_calcule: props._qte_a_terme_calcule,
+            discount: props.discount,
+            quantity: props.quantity,
+            description: props.descriptif,
+            weight: props._poids_net,
+            cart_id: response.data.data.id,
+            price_ttc: props._prix_public_ttc,
+            article_stock: props.article_stock
         })
     );
     };

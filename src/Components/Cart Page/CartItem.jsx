@@ -75,8 +75,14 @@ const CartItem = () => {
     <>
       {productData?.map((props, index) => (
         <>
-          <div className={classes.card} key={index} style={{borderBottom:(index + 1) !== productData?.length && "1px solid var(--primary-color)"}}>
-            <div style={{ paddingLeft: "2em" }}>
+          <div className={classes.card} key={index} onClick={()=>console.log(props)} style={{borderBottom:(index + 1) !== productData?.length && "1px solid var(--primary-color)",position:'relative'}}>
+          {props?.removed && <div className={classes.removed_item}>
+             <p>{language === "eng" ? "NOT AVAILABLE ANYMORE!" : "N'EST PLUS DISPONIBLE !"}</p>
+           </div>}
+            <div style={{ marginLeft: "2em",position:"relative",overflow:'hidden' }}>
+                     {props._qte_a_terme_calcule < 1 && <div onClick={(e)=>e.stopPropagation()} className={classes.out_of_stock}>
+                        <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
+                      </div>}
               <img src={props.image} alt="" width="100%" style={{width:'100%',height:'100%',objectFit:'fill',minHeight:'8em'}} />
             </div>
             <div
@@ -86,14 +92,15 @@ const CartItem = () => {
                 flexDirection: "column",
                 rowGap: ".5em",
                 margin: " 0 0 0 auto",
+                justifyContent:'space-between'
               }}
             >
-              <p style={{width:'100%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"600"}} onClick={()=>console.log(props)}>{props.title.slice(0,20)}</p>
-              <p style={{width:'100%',textAlign:"start",fontSize:"calc(.6rem + .3vw)",fontWeight:"500"}}>{props.author.slice(0,20)}</p>
-              <p style={{width:'100%',textAlign:"start",fontSize:"calc(.6rem + .3vw)",fontWeight:"500"}}>{new Date(props.date).toDateString()}</p>
+              <p style={{width:'100%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"600",margin:'0'}} onClick={()=>console.log(props)}>{props.title.slice(0,20)}</p>
+              <p style={{width:'100%',textAlign:"start",fontSize:"calc(.6rem + .3vw)",fontWeight:"500",margin:'0'}}>{props.author.slice(0,20)}</p>
+              <p style={{width:'100%',textAlign:"start",fontSize:"calc(.6rem + .3vw)",fontWeight:"500",margin:'0'}}>{new Date(props.date).toDateString()}</p>
               <p style={{color:'var(--secondary-color)',fontSize:'smaller',textAlign:'start'}}><Rate value={4} disabled  style={{color:'var(--primary-color)',fontSize:'small'}}/>4.0/5</p>
             </div>
-            <div className={classes.quantity}>
+            {props._qte_a_terme_calcule > 0 ?<div className={classes.quantity}>
               <p
                 style={{
                   fontWeight: 500,
@@ -208,7 +215,7 @@ const CartItem = () => {
               >
                 +
               </p>
-            </div>
+            </div> : <div/>}
             <span style={{display:'flex', flexDirection:'column',margin:'auto'}}>
             <p
                 
@@ -228,10 +235,16 @@ const CartItem = () => {
                     props.quantity *((Number(props.price))) * authCtx.currencyRate
                   ).toFixed(2)}`}
             </p>
-            <div className={classes.delete_btn}><img src={DeleteIcon} style={{width:'1em'}}  onClick={() => setShowPopup(props._id)} /></div>
+            <div className={classes.delete_btn} style={{zIndex:'50'}}><img src={DeleteIcon} style={{width:'1em'}}  onClick={() => setShowPopup(props._id)} /></div>
           </div>
-          <div className={classes.cardmobile} key={index} style={{borderBottom:(index + 1) !== productData?.length && "1px solid var(--primary-color)"}}>
-            <div style={{paddingRight:'.5em'}}>
+          <div className={classes.cardmobile} key={index} style={{borderBottom:(index + 1) !== productData?.length && "1px solid var(--primary-color)",position:'relative',overflow:'hidden'}}>
+          {props?.removed && <div className={classes.removed_item}>
+             <p>{language === "eng" ? "NOT AVAILABLE ANYMORE!" : "N'EST PLUS DISPONIBLE !"}</p>
+           </div>}
+            <div  style={{ marginRight: ".5em",position:"relative",overflow:'hidden' }}>
+                     {props._qte_a_terme_calcule < 1 && <div onClick={(e)=>e.stopPropagation()} className={classes.out_of_stock}>
+                        <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
+                      </div>}
               <img src={props.image} alt="" width="100%" style={{width:'100%',height:'100%',objectFit:'fill',minHeight:'8em'}} />
             </div>
             <div style={{width:"100%",height:"100%",display:'flex',flexDirection:"column"}}>
@@ -248,7 +261,7 @@ const CartItem = () => {
               <p style={{width:'80%',textAlign:"start",fontSize:"calc(.8rem + .3vw)",fontWeight:"600"}}>{props.title.slice(0,20)}</p>
               
            
-              <div className={classes.delete_btn}><img src={DeleteIcon} style={{width:'1.5em'}}  onClick={() => setShowPopup(props._id)} /></div>
+              <div className={classes.delete_btn} style={{zIndex:'50'}}><img src={DeleteIcon} style={{width:'1.5em'}}  onClick={() => setShowPopup(props._id)} /></div>
             </div>
               <p style={{margin:'0.2em 0', width:'100%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"500"}}>{props.author.slice(0,20)}</p>
               <p style={{margin:'0.2em 0', width:'100%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"500"}}>{new Date(props.date).toDateString()}</p>
@@ -273,7 +286,7 @@ const CartItem = () => {
                   props.price * authCtx.currencyRate
                 ).toFixed(2)} `}
           </p>
-            <div className={classes.quantity}>
+          {props._qte_a_terme_calcule > 0 &&  <div className={classes.quantity}>
               <p
                 style={{
                   fontWeight: 500,
@@ -388,7 +401,7 @@ const CartItem = () => {
               >
                 +
               </p>
-            </div>
+            </div>}
             <p style={{ margin: "auto 0",color:"var(--primary-color)", fontWeight: "700" }}>
               {" "}
               {currency === "eur"
