@@ -86,6 +86,7 @@ const CollaboratorDetails = () => {
           <h1 style={{fontWeight:'600'}}>{CollaboratorData.nom}</h1>
           <p style={{fontWeight:"500", textTransform:'capitalize'}}>{language === 'eng' ? CollaboratorData.type?.name : CollaboratorData.type?.name_fr}</p>
           <p>{CollaboratorData.biographie}</p>
+          <button onClick={()=>handleSuivreClick(CollaboratorData.id)}>{language === 'eng' ? "Follow" : "Suivre" }</button>
           {/* <div className={classes.emailCont}>
             <div className={classes.iconCont}><IoMailOutline style={{fontSize:'1.2em',marginTop:'.3em'}}/>
            </div> <p style={{margin:'auto 0',fontWeight:"500"}}>{CollaboratorData.email}</p>

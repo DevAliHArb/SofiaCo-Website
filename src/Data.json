@@ -119,6 +119,40 @@
       "title": { "eng": "Order Tracking", "fr": "Order Tracking_fr" },
       "subtitle": { "eng": "my orders", "fr": "my orders_fr" }
     },
+    "DeleteAccount": {
+    "title": { "eng": "Delete my account",
+                "fr": "Supprimer Mon Compte"
+                },
+   "data1": { "eng": "Do you want to delete your account? If your account exists, an email has been sent to you.",
+               "fr": "Vous souhaitez supprimer votre compte? Si votre compte existe, un email vous a été envoyé."
+                },
+   "button1": { "eng": "Email sent",
+                "fr": "Email envoyé"
+               },
+   "data2": { "eng": "Check your email address to delete your account.",
+               "fr": "Vérifiez votre adresse de messagerie pour supprimer votre compte."
+               },
+   "button2": { "eng": "< Return to login form",
+                "fr": "< Retour au formulaire de connexion"
+                }
+    },
+    "Subscriptions": {
+    "title": { "eng": "MY Subscriptions",
+                "fr": "Mes abonnements"
+                },
+   "button1": { "eng": "ALL MY SUBSCRIPTIONS",
+                "fr": "TOUTES MES ABONNEMEMENTS"
+               },
+   "button2": { "eng": "Authors",
+                "fr": "Auteures"
+                },
+   "button3": { "eng": "Collections",
+                "fr": "Collections"
+                },
+   "button4": { "eng": "Categories",
+                "fr": "Catégories"
+                }
+    },
     "Coupons": {
       "title": { "eng": " coupons", "fr": " coupons" },
       "subtitle": { "eng": "my coupons", "fr": "my coupons_fr" },

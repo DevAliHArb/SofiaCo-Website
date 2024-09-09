@@ -32,6 +32,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import {
+  addOrderData,
   editDefaultAdd,
   editDefaultPAY,
   resetCart,
@@ -131,10 +132,16 @@ const CheckOut = () => {
   const [openPay, setopenPay] = useState(false);
   const [delivery, setDelivery] = useState("standard");
   const [paymentId, setPaymentId] = useState("direct");
+  const [EURTVA, setEURTVA] = useState(0);
 
   const [openpaypal, setOpenpaypal] = React.useState(false);
   const handleOpenpaypal = () => setOpenpaypal(true);
   const handleClosepaypal = () => setOpenpaypal(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const handleErrorOpen = (message) => {
+    setErrorMessage(message);
+    setErrorModalOpen(true);
+  };
 
   const [colissimoPopupOpen, setColissimoPopupOpen] = useState(false);
   const [colissimoPointData, setColissimoPointData] = useState(null);
@@ -612,42 +619,49 @@ const CheckOut = () => {
     let totalPrice = 0;
     let totalWeight = 0;
     let totalTVA = 0;
-
+  
     productData.forEach((item) => {
       // Skip the item if _qte_a_terme_calcule is less than 1
       if (item._qte_a_terme_calcule < 1) {
         return;
       }
-
+  
       // Calculate the price considering the discount
       const price =
-        (item.discount > 0
-          ? (item.price - item.price * (item.discount / 100)).toFixed(2)
-          : Number(item.price).toFixed(2)) * 1;
+      (item.discount > 0
+        ? (item.price - item.price * (item.discount / 100)).toFixed(2)
+        : Number(item.price).toFixed(2)) * 1;
 
-      updatedOrderInvoiceItems.push({
-        article_id: item._id,
-        name: item.title,
-        quantity: item.quantity,
-        cost: price,
-        review: item.note || "-",
-        price: price,
-      });
-
-      totalPrice += item.quantity * price;
-      totalWeight += item.quantity * item.weight;
-      totalTVA += (item.price_ttc - item.price) * item.quantity;
+    updatedOrderInvoiceItems.push({
+      article_id: item._id,
+      name: item.title,
+      quantity: item.quantity,
+      cost: price,
+      review: item.note || "-",
+      price: price,
     });
 
-    setorder_invoice_items(updatedOrderInvoiceItems);
-    settotalWeight(totalWeight);
+    totalPrice += item.quantity * price;
+    totalWeight += item.quantity * item.weight;
+    totalTVA += (item.price_ttc - item.price) * item.quantity;
+  });
 
-    if (currency === "usd") {
-      setsubTotalAmt((totalPrice * authCtx.currencyRate + totalTVA).toFixed(2));
-      setTVA((totalTVA * authCtx.currencyRate).toFixed(2));
-    } else {
-      setsubTotalAmt((totalPrice + totalTVA).toFixed(2));
-      setTVA(totalTVA.toFixed(2));
+  setorder_invoice_items(updatedOrderInvoiceItems);
+  settotalWeight(totalWeight);
+
+  if (currency === "usd") {
+    // Convert both totalPrice and totalTVA to USD
+    const convertedTotalPrice = totalPrice * authCtx.currencyRate;
+    const convertedTotalTVA = totalTVA * authCtx.currencyRate;
+    
+    setsubTotalAmt((convertedTotalPrice + convertedTotalTVA).toFixed(2));
+    setTVA(convertedTotalTVA.toFixed(2));
+    setEURTVA(totalTVA)
+  } else {
+    // For EUR, keep the original values
+    setsubTotalAmt((totalPrice + totalTVA).toFixed(2));
+    setTVA(totalTVA.toFixed(2));
+    setEURTVA(totalTVA)
     }
   }, [productData, currency]);
 
@@ -660,6 +674,7 @@ const CheckOut = () => {
   const stripePromise = loadStripe(
     `pk_test_51Nu98ME6k93Bb6mWMQsVFcHPpzFuXN92URPblTVJXAmLC0yPWLoS6omx9CPEASH4oQRJafTkgZC9gkZvGLNaUzap00bQZl4Qr5`
   );
+  
 
   const CheckOutHandler = async () => {
     if (!user.defaultAdd) {
@@ -691,14 +706,18 @@ const CheckOut = () => {
           user_address_id: user.defaultAdd,
           user_payment_id: directPay ? null : user.defaultPay,
           delivery_id: deliveryId,
-          base_price: subtotalAmt,
+          base_price: ((subtotalAmt - TVA).toFixed(2)),
+          tva: TVA,
+          ttc_price: subtotalAmt,
+          shipping_fees: currency === "eur" ?  deliveryFees : (deliveryFees * authCtx.currencyRate).toFixed(2),
+          weight: totalWeight,
+          ecom_type: 'albouraq',
           date: generatedate(),
           total_price: totalAmt,
           review: reviewMsg,
           order_invoice_items: order_invoice_items,
-          shipping_type_id: delivery === "standard" ? 40 : 39,
-          colissimo_code:
-            delivery === "standard" ? null : colissimoPointData?.identifiant,
+          shipping_type_id: delivery === 'standard' ? 40 : 39,
+          colissimo_code: delivery === 'standard'? null : colissimoPointData?.identifiant,
           currency: currency,
         };
         const requestData1 = {
@@ -706,25 +725,31 @@ const CheckOut = () => {
           user_address_id: user.defaultAdd,
           user_payment_id: directPay ? null : user.defaultPay,
           delivery_id: deliveryId,
-          base_price: subtotalAmt,
-          tvaAmount: TVA,
+          base_price: ((subtotalAmt - TVA).toFixed(2)),
+          tva: TVA,
+          ttc_price: subtotalAmt,
+          shipping_fees:  currency === "eur" ?  deliveryFees : (deliveryFees * authCtx.currencyRate).toFixed(2),
+          weight: totalWeight,
+          ecom_type: 'albouraq',
+          tvaAmount: EURTVA,
           date: generatedate(),
           total_price: totalAmt,
           review: reviewMsg,
           order_invoice_items: order_invoice_items,
           currency: currency,
-          shippingPrice: delivery !== "standard" ? 0 : deliveryFees,
-          shipping_type_id: delivery === "standard" ? 40 : 39,
-          colissimo_code:
-            delivery === "standard" ? null : colissimoPointData?.identifiant,
+          shippingPrice: delivery !== 'standard' ? 0 : deliveryFees,
+          shipping_type_id: delivery === 'standard' ? 40 : 39,
+          colissimo_code: delivery === 'standard'? null : colissimoPointData?.identifiant,
           coupon_discount: coupon.reduction ? coupon.reduction : 0,
-          coupon_type: coupon.type,
+          coupon_type: coupon.type
         };
         if (userCoupon.length > 0) {
           requestData.user_coupon_id = userCoupon[0].id;
         }
 
         setLoading(true);
+        console.log("deed");
+        
 
         if (delivery === "Colissimo" && !colissimoPointData) {
           toast.error(
@@ -737,7 +762,8 @@ const CheckOut = () => {
           );
         } else {
           if (directPay) {
-            console.log('direct pay');
+            
+            dispatch(addOrderData(requestData1))
             
             // Request to create a Checkout Session from your server
             const response = await axios.post(
@@ -752,12 +778,9 @@ const CheckOut = () => {
 
             if (error) {
               // console.error("Stripe Checkout error:", error);
-              toast.error("Error with Stripe Checkout. Please try again.");
+              toast.error(`${language === 'eng' ? "Error with Stripe Checkout. Please try again." : "Erreur avec Stripe Checkout. Veuillez réessayer."}`);
             }
 
-            // if (!error) {
-            dispatch(resetCart());
-            // }
           } else {
             // Normal order processing
             await axios.post(
@@ -782,11 +805,11 @@ const CheckOut = () => {
 
         setLoading(false);
       } catch (error) {
-        // console.error("Error in ordering:", error);
+        console.error("Error in ordering:", error);
         setLoading(false);
-        handleErrorOpen(
-          error.response?.data?.error || "An unexpected error occurred"
-        );
+        // handleErrorOpen(
+        //   error.response?.data?.error || "An unexpected error occurred"
+        // );
       }
     }
   };
@@ -809,16 +832,16 @@ const CheckOut = () => {
           (currency === "usd"
             ? coupon.reduction * authCtx.currencyRate
             : parseFloat(coupon.reduction));
-        const total = parseFloat(deliveryFees) + parseFloat(subTotal);
+        const total = currency === "eur" ? parseFloat(deliveryFees) + parseFloat(subTotal) : parseFloat(deliveryFees * authCtx.currencyRate) + parseFloat(subTotal);
         setTotalAmt(total.toFixed(2));
       }
       if (coupon.type === "Percentage") {
         const subTotal = calculateReduction(subtotalAmt, coupon.reduction);
-        const total = parseFloat(deliveryFees) + parseFloat(subTotal);
+        const total = currency === "eur" ? parseFloat(deliveryFees) + parseFloat(subTotal) : parseFloat(deliveryFees * authCtx.currencyRate) + parseFloat(subTotal);
         setTotalAmt(total.toFixed(2));
       }
     } else {
-      const total = parseFloat(deliveryFees) + parseFloat(subtotalAmt);
+      const total = currency === "eur" ? parseFloat(deliveryFees) + parseFloat(subtotalAmt) : parseFloat(deliveryFees * authCtx.currencyRate) + parseFloat(subtotalAmt);
       setTotalAmt(total.toFixed(2));
     }
   }, [deliveryFees, coupon, subtotalAmt]);
@@ -837,16 +860,20 @@ const CheckOut = () => {
         user_address_id: user.defaultAdd,
         paypal: true,
         delivery_id: deliveryId,
-        base_price: subtotalAmt,
+        base_price: ((subtotalAmt - TVA).toFixed(2)),
+        tva: TVA,
+        shipping_fees: currency === "eur" ?  deliveryFees : (deliveryFees * authCtx.currencyRate).toFixed(2),
+        ttc_price: subtotalAmt,
+        weight: totalWeight,
+        ecom_type: 'albouraq',
         date: generatedate(),
         total_price: totalAmt,
         review: reviewMsg,
         order_invoice_items: order_invoice_items,
         currency: "usd",
-        shippingPrice: delivery !== "standard" ? 0 : deliveryFees,
-        shipping_type_id: delivery === "standard" ? 40 : 39,
-        colissimo_code:
-          delivery === "standard" ? null : colissimoPointData?.identifiant,
+        shippingPrice: delivery !== 'standard' ? 0 : deliveryFees,
+        shipping_type_id: delivery === 'standard' ? 40 : 39,
+        colissimo_code: delivery === 'standard'? null : colissimoPointData?.identifiant,
       };
 
       if (userCoupon.length > 0) {
@@ -874,9 +901,9 @@ const CheckOut = () => {
     } catch (error) {
       // console.error("Error in ordering:", error);
       setLoading(false);
-      setErrorMessage(
-        error.response?.data?.error || "An unexpected error occurred"
-      );
+      // setErrorMessage(
+      //   error.response?.data?.error || "An unexpected error occurred"
+      // );
     }
   };
 
@@ -1620,9 +1647,9 @@ const CheckOut = () => {
                 </p>
               </div>
               <div className={classes.totalrows}>
-                <p>Total TTC</p>
+                <p>{language === "eng" ? "Weight" : "Poids"}</p>
                 <p style={{ textAlign: "end" }}>
-                  {(subtotalAmt * 1).toFixed(2)} {currency == "eur" ? `€` : `$`}
+                {totalWeight} g
                 </p>
               </div>
               <div className={classes.totalrows}>
@@ -1639,15 +1666,22 @@ const CheckOut = () => {
                 </p>
               </div>
               <div className={classes.totalrows}>
-                <p>{language === "eng" ? "Shipping cost" : "Frais de port"}</p>
+                <p>Total TTC</p>
                 <p style={{ textAlign: "end" }}>
-                  {deliveryFees === 0 ? "Free" : deliveryFees}{" "}
-                  {deliveryFees != 0 && (currency === "eur" ? `€` : `$`)}
+                  {(subtotalAmt * 1).toFixed(2)} {currency == "eur" ? `€` : `$`}
                 </p>
               </div>
               <div className={classes.totalrows}>
                 <p>
-                  {" "}{language === "eng" ? "Discount" : "Remise"}
+                {language === "eng" ? "Shipping Costs" : "Frais de port"}</p>
+                <p style={{ textAlign: "end" }}>
+                {deliveryFees === 0 ? "Free" : currency === "eur" ?  deliveryFees : (deliveryFees * authCtx.currencyRate).toFixed(2)}{" "}
+                {deliveryFees != 0 && (currency === "eur" ? ` €` : ` $`)}
+                </p>
+              </div>
+              <div className={classes.totalrows}>
+                <p>
+                  {language === "eng" ? "Discount" : "Remise"}{" "}
                   {coupon.reduction &&
                     coupon.type === "Percentage" &&
                     `(${coupon.reduction} % OFF)`}

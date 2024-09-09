@@ -191,6 +191,29 @@
   
 }
 
+.card button{
+  width: fit-content;
+  max-width: 40em;
+    border: none;
+    padding: .5em 2em;
+    background-color: var(--primary-color);
+    color: #fff !important;
+    transition: all 0.5s ease, color 1s ease;
+    font-size: calc(.7rem + 0.3vw);
+    border-radius: .7em;
+    border: 2px solid transparent;
+    cursor: pointer;
+    font-family: var(--font-family) !important;
+    justify-self: flex-end;
+    margin-top: 2em;
+}
+
+.card button:hover{
+    color: var(--primary-color) !important;
+    background-color: #fff !important;
+    border: 2px solid var(--primary-color) !important;
+}
+
 @media screen and (max-width:950px) {
   .heroContainer{
     margin-top: 0em;

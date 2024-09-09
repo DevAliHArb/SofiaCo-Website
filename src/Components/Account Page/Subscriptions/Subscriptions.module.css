@@ -1,0 +1,200 @@
+.settingsContainer {
+  width: 88%;
+  position: relative;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  margin: 1em auto;
+}
+
+.header {
+  position: relative;
+  width: 100%;
+  justify-content: space-between;
+  text-align: start;
+  display: grid;
+  grid-template-columns: repeat(3, 32%);
+}
+
+.headtitle {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  font-family: var(--font-family);
+  font-size: calc(0.9rem + 0.3vw);
+  letter-spacing: 0.01rem;
+  text-align: center;
+  color: #fff;
+  margin: 0em auto 0 auto;
+  text-transform: capitalize;
+}
+
+.selectt {
+  border: 2px solid #fff !important;
+  background-color: var(--primary-color) !important;
+  border-radius: 1em !important;
+  height: 3.5em;
+  color: #fff !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1em;
+  text-transform: capitalize;
+  font-family: var(--font-family);
+  width: 15em;
+  justify-self: flex-end;
+}
+
+.selectt:focus {
+  outline: none !important;
+}
+
+.cardContainer {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.settingCard {
+  width: 100%;
+  position: relative;
+  display: flex;
+  height: fit-content;
+  justify-content: space-between;
+  flex-direction: column;
+  border-radius: 1em;
+  background-color: var(--secondary-color);
+  overflow: hidden;
+  color: var(--accent-color);
+  cursor: pointer;
+  gap: 1em;
+}
+
+.contantContainer {
+  width: 90%;
+  margin: 0 auto;
+  padding: 1em 0;
+  height: fit-content;
+  font-family: var(--font-family-primary);
+  text-align: start;
+  font-size: calc(0.9rem + 0.3vw);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.contant {
+  max-width: 65%;
+  margin: 0;
+  text-align: start;
+  display: flex;
+  flex-direction: column;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 15%);
+  justify-content: space-between;
+  margin: 0 auto;
+  margin-top: 2em;
+  max-height: calc(2 * (20% + 4%)); /* Adjust height for 2 rows */
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: hidden;
+}
+
+.card_container {
+  width: 100%;
+  height: fit-content;
+  background: transparent;
+  font-family: var(--font-family);
+  font-size: calc(0.9rem + 0.2vw);
+  background-color: transparent;
+  transition: all 0.3s ease-in-out;
+  text-align: center;
+  font-weight: 600;
+  color: var(--accent-color);
+}
+
+.card_container:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.card_img {
+  position: relative;
+  width: 100%;
+  border-radius: .7em !important;
+  overflow: hidden;
+}
+
+.card_img img {
+  width: 100%;
+  object-fit: contain;
+}
+
+.deleteBtn {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 2em;
+  height: 2em;
+  background-color: var(--primary-color);
+  color: #DED8CC;
+  border-radius: .4em;
+  text-align: center;
+  border: none;
+  font-size: calc(.5rem + .2vw);
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 0.5s ease, color 1s ease;
+}
+
+.deleteBtn:hover {
+  background-color: var(--secondary-color) !important;
+}
+
+@media screen and (max-width: 950px) {
+  .grid {
+      grid-template-columns: repeat(3, 32%);
+      gap: 1em;
+  }
+.deleteBtn{
+  top: 2em;
+}
+  .card_container {
+      width: 100%;
+      height: fit-content;
+      background: transparent;
+  }
+
+  .header {
+      display: flex;
+      flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .grid {
+      grid-template-columns: repeat(2, 48%);
+  }
+
+  .header {
+      flex-direction: column;
+  }
+
+  .selectt {
+      width: 100%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  /* Add any specific styles for this breakpoint if needed */
+}
+
+@media screen and (max-width: 290px) {
+  /* Add any specific styles for this breakpoint if needed */
+}

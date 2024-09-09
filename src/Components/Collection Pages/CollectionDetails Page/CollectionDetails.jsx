@@ -59,6 +59,33 @@ const CollectionDetailsPage = () => {
   
   const [heroData, setHeroData] = useState({});
 
+  const getToken = () => {
+    return localStorage.getItem('token');
+  };
+
+  const token = getToken();
+  
+  const handleSuivreClick = async (id) => {
+    if (!user) {
+      // If user is not defined, throw an error
+      toast.error('Please log in first');
+      return;
+  }
+    try {
+      const response = await axios.post(`https://api.leonardo-service.com/api/bookshop/users/${user.id}/subscriptions`, {
+        collection_id: id,
+      }, {
+        headers: {
+            Authorization: `Bearer ${token}` // Include token in the headers
+        }
+    });
+      console.log(response.data);
+      toast.success(`${collectionData.nom} subscribed successfully!`) // You can handle the response here
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error(error.response.data.error)
+    }
+  };
   
     const fetchHero = async () => {
       try {
@@ -177,7 +204,8 @@ const CollectionDetailsPage = () => {
         <div className={classes.card} >
           <h1 style={{fontWeight:'600', textTransform:'capitalize'}}>{collectionData.nom}</h1>
           <p style={{color:'var(--secondary-color)',fontWeight:"500", margin:'.5em 0'}}>{collectionData.description}</p>
-        </div>
+          <button onClick={()=>handleSuivreClick(collectionData.id)}>{language === 'eng' ? "Follow" : "Suivre" }</button>
+          </div>
       </div> 
 
        

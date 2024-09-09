@@ -38,6 +38,21 @@
 /* Target all Ant Design input components */
 /* .ant-input is a class used by Ant Design for input components */
 
+  
+::-webkit-scrollbar {
+  width: 6px; /* Set the width of the scrollbar */
+  height: 4px; /* Set the height of the scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color); /* Set the color of the thumb */
+  border-radius: 5px; /* Set the radius of the thumb */
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--secondary-color); /* Set the color of the track */
+}
+
 
 .swiper-pagination {
   margin-left: -20%; /* Move left by 20px */

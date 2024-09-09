@@ -22,6 +22,7 @@ const initialState = {
   selectedLanguage:[{Language:'fr'}],
   selectedCurrency:[{currency:"eur"}],
   searchData: [],
+  orderData: [],
 };
 
 export const productSlice = createSlice({
@@ -405,12 +406,23 @@ export const productSlice = createSlice({
     resetSearchData: (state) => {
         state.searchData = [];
     },
+    addOrderData: (state, action) => {
+      state.orderData = []
+      const data = action.payload;
+
+          state.orderData.push(data);
+  },
+  resetOrderData: (state) => {
+      state.orderData = []
+  },
   },
 });
 
 export const {
   addTocart,
   deleteItem,
+  addOrderData,
+  resetOrderData,
   addSelectedEvent,
   resetCart,
   addSelectedCollab,

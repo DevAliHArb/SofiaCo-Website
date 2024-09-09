@@ -1,0 +1,94 @@
+
+.AccountDetailsContainer{
+    width: 100%;
+    position: relative;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.header{
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin: 2em auto;
+  justify-content: space-between;
+}
+
+.headtitle{
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    font-family: var(--font-family);
+    font-size: calc(0.9rem + 0.3vw);
+    letter-spacing: 0.01rem;
+    text-align: center;
+    color: #fff;
+    margin: 0em auto 0 auto;
+    text-transform: capitalize;
+  }
+.border{
+  position: relative;
+  width: 40%;
+  margin: 0 auto;
+  height: fit-content;
+  justify-content: center;
+  background-color: var(--primary-color);
+  border: 3px var(--primary-color) solid;
+  border-radius: 10px;
+  align-self: center;
+}
+
+.content{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3em;
+}
+
+.content_data{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.content_data p{
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  align-self: center;
+  font-family: var(--font-family);
+  font-size: calc(0.8rem + 0.4vw);
+  letter-spacing: 0.01rem;
+  text-align: center;
+  color: var(--accent-color);
+  margin-bottom: 1em;
+}
+
+
+.content_data button{
+  width: fit-content;
+  max-width: 40em;
+    border: none;
+    padding: .5em 2em;
+    background-color: var(--primary-color);
+    color: #fff !important;
+    transition: all 0.5s ease, color 1s ease;
+    font-size: calc(.7rem + 0.3vw);
+    border-radius: .7em;
+    border: 2px solid transparent;
+    cursor: pointer;
+    font-family: var(--font-family) !important;
+}
+
+.content_data button:hover{
+    color: var(--primary-color) !important;
+    border: 2px solid var(--primary-color) !important;
+}
+
+@media screen and (max-width:950px) {
+  
+}

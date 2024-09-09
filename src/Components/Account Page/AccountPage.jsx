@@ -12,6 +12,8 @@ import data from '../../Data.json'
 import { MenuItem, Select } from '@mui/material';
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import OrderTracking from './Order Tracking/OrderTracking';
+import DeleteAccount from './Delete Account/DeleteAccount';
+import Subscriptions from './Subscriptions/Subscriptions';
 
 const AccountPage = () => {
     const navigate = useNavigate();
@@ -51,6 +53,8 @@ const AccountPage = () => {
 
             <button onClick={()=>navigate(`/account/order-tracking`)} style={{background: pageId === 'order-tracking' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.orders.title[language]}</button>
             <button onClick={()=>navigate(`/account/coupons`)} style={{background: pageId === 'coupons' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.Coupons.title[language]}</button>
+            <button onClick={()=>navigate(`/account/subscription`)} style={{background: pageId === 'subscription' ? 'var(--primary-color)' : ''}}>{language === 'eng' ? "Subscription" : "Abonnement" }</button>
+            <button onClick={()=>navigate(`/account/delete-account`)} style={{background: pageId === 'delete-account' ? 'var(--primary-color)' : ''}}>{language === 'eng' ? "Delete Account" : "Supprimer le compte" }</button>
         </div>
         <div className={classes.titlesCard_mob} id='fomponent'>
         <Select
@@ -69,6 +73,8 @@ const AccountPage = () => {
 
             <MenuItem value='order-tracking' onClick={()=>navigate(`/account/order-tracking`)} style={{background: pageId === 'order-tracking' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.orders.title[language]}</MenuItem>
             <MenuItem value='coupons' onClick={()=>navigate(`/account/coupons`)} style={{background: pageId === 'coupons' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.Coupons.title[language]}</MenuItem>
+            <MenuItem value='subscription' onClick={()=>navigate(`/account/subscription`)} style={{background: pageId === 'subscription' ? 'var(--primary-color)' : ''}}>{language === 'eng' ? "Subscription" : "Abonnement" }</MenuItem>
+            <MenuItem value='delete-account' onClick={()=>navigate(`/account/delete-account`)} style={{background: pageId === 'delete-account' ? 'var(--primary-color)' : ''}}>{language === 'eng' ? "Delete Account" : "Supprimer le compte" }</MenuItem>
             </Select>
             </div>
         <div className={classes.contentContainer} style={  (pageId ==='wishlist' ||pageId === 'coupons')? {width:'90%' ,margin:'0 0 0 auto'}:{}}>
@@ -78,6 +84,8 @@ const AccountPage = () => {
             {pageId == 'order-tracking' && <OrderTracking />}
             {pageId == 'payments' && <Payment />}
             {pageId === 'coupons' && <Coupons/>}
+            {pageId === 'subscription' && <Subscriptions />}
+            {pageId === 'delete-account' && <DeleteAccount />}
         </div>
       </div>
     </div>
