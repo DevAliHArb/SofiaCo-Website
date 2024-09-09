@@ -33,8 +33,14 @@ const FavoriteItem = ({ carttoggle }) => {
     <>
       {favoriteData?.map((props, index) => (
         <>
-          <div className={classes.card} key={props._id} style={{borderBottom: (index + 1) < favoriteData?.length && "1.5px solid var(--primary-color)"}}>
+          <div className={classes.card} key={props._id} style={{borderBottom: (index + 1) < favoriteData?.length && "1.5px solid var(--primary-color)",position:'relative',overflow:'hidden'}}>
+          {props?.removed && <div className={classes.removed_item}>
+             <p>{language === "eng" ? "NOT AVAILABLE ANYMORE!" : "N'EST PLUS DISPONIBLE !"}</p>
+           </div>}
             <div className={classes.imgCont}>
+                     {props._qte_a_terme_calcule < 1 && <div onClick={(e)=>e.stopPropagation()} className={classes.out_of_stock}>
+                        <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
+                      </div>}
               <img src={props.favimage} alt="" width="100%" />
             </div>
             <div className={classes.contentContainer}>
@@ -54,7 +60,7 @@ const FavoriteItem = ({ carttoggle }) => {
             </div>
             <p className={classes.price}>{currency === 'usd' ? `$ ${(props.favprice * authCtx.currencyRate).toFixed(2)} ` : `€ ${Number(props.favprice).toFixed(2)} `}</p>
             
-            <div className={classes.quantity}>
+           {props._qte_a_terme_calcule > 0 ? <div className={classes.quantity}>
               <p
                 style={{
                   color: "var(--secondary-color)",
@@ -121,28 +127,35 @@ const FavoriteItem = ({ carttoggle }) => {
               >
                 +
               </p>
-            </div>
+            </div> : <div/>}
             <p className={classes.totalPrice} >
               {currency === 'usd' ? `$ ${(props.favquantity * props.favprice * authCtx.currencyRate).toFixed(2)} ` : `€ ${(props.favquantity * props.favprice).toFixed(2)} `}
             </p>
             <div className={classes.addtocart}>
-              <button
+              {props._qte_a_terme_calcule > 0 &&<button
               onClick={(event)=>{ 
                 event.stopPropagation();
                 authCtx.addToCartWithQty(
-                  props={id: props._favid,
-                  designation: props.favtitle,
-                  dc_auteur: props.favauthor,
-                  image: props.favimage,
-                  prixpublic: props.favprice,
-                  quantity: props.favquantity,
-                  descriptif: props.favdescription
+                  props={
+                    _id: props.id,
+                    title: props.designation,
+                    author: props.dc_auteur,
+                    image: props.image,
+                    price: props.prixpublic,
+                    _qte_a_terme_calcule: props._qte_a_terme_calcule,
+                    discount: props.discount,
+                    quantity: props.quantity,
+                    description: props.descriptif,
+                    weight: props._poids_net,
+                    cart_id: response.data.data.id,
+                    price_ttc: props._prix_public_ttc,
+                    article_stock: props.article_stock
                 });
                 }}
               >
                 <FiShoppingCart style={{fontSize:'1.6em',marginTop:'.4em'}}/>
-              </button>
-              <button
+              </button>}
+              <button style={{zIndex:'50'}}
                 onClick={(event) => {
                   event.stopPropagation();
                   authCtx.deleteFavorite(props._favid);

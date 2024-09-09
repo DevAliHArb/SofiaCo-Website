@@ -147,7 +147,10 @@ const Hero = ({ carttoggle }) => {
                         navigate(`/bookdetails/${props.id}`);
                       }}
                     >
-                      <div className={classes.card_img}>
+                      <div className={classes.card_img} style={{position:"relative"}}>
+                     {props._qte_a_terme_calcule < 1 && <div onClick={(e)=>e.stopPropagation()} className={classes.out_of_stock}>
+                        <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
+                      </div>}
                         {props.articleimage[0] ? (
                           <img
                             src={`${props.articleimage[0].link}`}

@@ -78,7 +78,7 @@ useEffect(() => {
                   <p><FaRegClock className={classes.iconss}/> {formatTime(props.start_time)} - {formatTime(props.end_time)}</p>
                   <p style={{height:'2.5em'}}><MdLocationOn className={classes.iconss}/> {props.location}</p>
                   </div>
-                      <button className={classes.btn}>Lire Plus</button>
+                      <button className={classes.btn}>{language === 'eng' ? "Read more" : "Lire Plus" }</button>
                 </div>
               </div>
             </div>

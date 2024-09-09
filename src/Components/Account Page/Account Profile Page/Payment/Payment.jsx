@@ -257,7 +257,7 @@ useEffect(() => {
           <div className={classes.nodata_img}>
             <img src={nodata} alt="" />
           </div>
-          <h1>{language === 'eng' ? "No payment options found!" : "No payment options found!_fr"}</h1>
+          <h1>{language === 'eng' ? "No payment options found!" : "Aucune option de paiement n'a été trouvée !"}</h1>
         </div>
           :
           <div className={classes.cardContainer}> 

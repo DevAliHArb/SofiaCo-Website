@@ -63,10 +63,12 @@ const onFinish = async () => {
           author: cartItem.article.dc_auteur,
           image: cartItem.article.articleimage[0]?.link ? cartItem.article.articleimage[0].link : bookPlaceHolder,
           price: cartItem.article.prixpublic,
+          _qte_a_terme_calcule: cartItem.article._qte_a_terme_calcule,
           quantity: cartItem.quantity,
           description: cartItem.article.descriptif,
           weight: cartItem.article._poids_net,
           price_ttc: cartItem.article._prix_public_ttc,
+          removed: cartItem.removed,
           article_stock: cartItem.article.article_stock
           }));
       }
@@ -89,10 +91,12 @@ const onFinish = async () => {
             favauthor: favtItem.article.dc_auteur,
             favimage: favtItem.article.articleimage[0]?.link ? favtItem.article.articleimage[0].link : bookPlaceHolder,
             favprice: favtItem.article.prixpublic,
+            _qte_a_terme_calcule: favtItem.article._qte_a_terme_calcule,
             favdescription: favtItem.article.descriptif,
             favquantity: 1,
             weight: favtItem.article._poids_net,
             price_ttc: favtItem.article._prix_public_ttc,
+            removed: favtItem.removed,
             article_stock: favtItem.article.article_stock
           }));
       }
@@ -180,11 +184,11 @@ const onFinish = async () => {
            disabled={loading}
            style={{cursor: loading ? 'wait' : 'pointer'}}
            className={classes.logInButton}>
-            Let’s Get Started
+            {language === 'eng' ? "Let’s Get Started" : "Commençons" }
           </Button>
         </Form.Item> 
       </Form>
-      {language === 'eng' ? <h4>Vous n’avez pas de compte? <span style={{fontWeight:700, textDecoration:'underline', cursor:'pointer'}} onClick={()=>navigate(`/register`)}>Register!</span></h4> : <h4>Vous n’avez pas de compte? <span style={{fontWeight:700, textDecoration:'underline', cursor:'pointer'}} onClick={()=>navigate(`/register`)}>Créez en un!</span></h4>}
+      {language === 'eng' ? <h4>{language === 'eng' ? "Don't have an account?" : "Vous n’avez pas de compte?" } <span style={{fontWeight:700, textDecoration:'underline', cursor:'pointer'}} onClick={()=>navigate(`/register`)}>Register!</span></h4> : <h4>{language === 'eng' ? "Don't have an account?" : "Vous n’avez pas de compte?" } <span style={{fontWeight:700, textDecoration:'underline', cursor:'pointer'}} onClick={()=>navigate(`/register`)}>{language === 'eng' ? "Create one!" : "Créez en un!" }</span></h4>}
       <p>{authCtx.companySettings?.copyrights_en}</p>
         </div>
     </div>

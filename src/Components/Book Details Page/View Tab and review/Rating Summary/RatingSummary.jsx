@@ -40,7 +40,7 @@ const RatingSummary = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>{language === 'eng' ? "CUSTOMERS FEEDBACK" : "CUSTOMERS FEEDBACK_fr"}</div>
+      <div className={styles.header}>{language === 'eng' ? "CUSTOMERS FEEDBACK" : "COMMENTAIRES DES CLIENTS"}</div>
       <div className={styles.rating}>{calculateAverageRating()}</div>
       <Rating
         style={{
@@ -52,7 +52,7 @@ const RatingSummary = () => {
         value={calculateAverageRating()}
         readOnly
       />
-      <div className={styles.subtext}>{language === 'eng' ? "Book Rating" : "Book Rating_fr"}</div>
+     <div className={styles.subtext}>{language === 'eng' ? "Book Rating" : "Cote du livre"}</div>
       <div className={styles.bars}>
         {[5, 4, 3, 2, 1].map((stars, index) => (
           <div key={stars} className={styles.bar}>

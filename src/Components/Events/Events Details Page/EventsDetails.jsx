@@ -230,7 +230,7 @@ console.log(eventEnded)
           <h2>{language == 'eng' ? eventData.name_eng : eventData.name_fr}</h2>
           <p>{language == 'eng' ? eventData.description_eng : eventData.description_fr}</p>
           <div className={classes.contactBtn} onClick={()=>navigate(`/contact`)}>
-            Contact Us
+          {language === 'eng' ? "Contact Us" : "Contactez" }  
           </div>
         </div>
       </div>

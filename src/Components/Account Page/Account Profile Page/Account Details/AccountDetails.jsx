@@ -349,7 +349,7 @@ const AccountDetails = () => {
               <Input
                 size="large"
                 name="company_address"
-                placeholder= {language === "eng" ? "Company address" : "Company address_fr"}
+                placeholder= {language === "eng" ? "Company address" : "Adresse de l'entreprise"}
                 style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
                 onChange={handleChange}
               />
@@ -368,7 +368,7 @@ const AccountDetails = () => {
               <Input
                 size="large"
                 name="company_city"
-                placeholder= {language === "eng" ? "Company city" : "Company city_fr"}
+                placeholder= {language === "eng" ? "Company city" : "Ville de l'entreprise"}
                 style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
                 onChange={handleChange}
               />
@@ -453,7 +453,7 @@ const AccountDetails = () => {
               <Input
                 size="large"
                 name="siret"
-                placeholder= {language === "eng" ? "Siret_en" : "Siret"}
+                placeholder= {language === "eng" ? "Company name" : "Siret"}
                 style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
                 onChange={handleChange}
               />
@@ -465,7 +465,7 @@ const AccountDetails = () => {
             onClick={handlemodelOpen}
                 className={classes.passBtn}
               >
-              {language === "eng" ? "Change Password" : "Change Password_fr"}
+              {language === "eng" ? "Change Password" : "Modifier le mot de passe"}
               </Button>
             <Form.Item>
               <Button
@@ -475,7 +475,7 @@ const AccountDetails = () => {
                 disabled={loading }
                 style={{ cursor: loading ? "wait" : "pointer" }}
               >
-               {language === "eng" ? "Save" : "Save_fr"}
+               {language === "eng" ? "Save" : "Économiser"}
               </Button>
             </Form.Item>
               <Button
@@ -483,7 +483,7 @@ const AccountDetails = () => {
             onClick={handlemodelOpen}
                 className={classes.passBtnmob}
               >
-              {language === "eng" ? "Change Password" : "Change Password_fr"}
+              {language === "eng" ? "Change Password" : "Modifier le mot de passe"}
               </Button>
           </div>
         </Form>
@@ -510,7 +510,7 @@ const AccountDetails = () => {
               <Input.Password
                 name="currentPassword"
                 type="password"
-                placeholder= {language === "eng" ? "Current Password" : "Current Password_fr"}
+                placeholder= {language === "eng" ? "Current Password" : "Mot de passe actuel"}
                 style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
                 onChange={handlepassChange}
               />
@@ -530,7 +530,7 @@ const AccountDetails = () => {
               <Input.Password
                 name="newpassword"
                 type="password"
-                placeholder= {language === "eng" ? "New Password" : "New Password_fr"}
+                placeholder= {language === "eng" ? "New Password" : "Nouveau mot de passe"}
                 style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
                 onChange={handlepassChange}
               />
@@ -550,7 +550,7 @@ const AccountDetails = () => {
               <Input.Password
                 name="confirmpassword"
                 type="password"
-                placeholder= {language === "eng" ? "Confirm New Password" : "Confirm New Password_fr"}
+                placeholder= {language === "eng" ? "Confirm New Password" : "Confirmer le nouveau mot de passe"}
                 style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
                 onChange={handlepassChange}
               />
@@ -573,7 +573,7 @@ const AccountDetails = () => {
                     cursor: loading ? "wait" : "pointer",
                   }}
                 >
-                {language === "eng" ? "Save" : "Save_fr"}
+                {language === "eng" ? "Save" : "Économiser"}
                 </Button>
               <Button
                 size="large"

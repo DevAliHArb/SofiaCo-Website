@@ -330,6 +330,9 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                     }}
                   >
                     <div className={classes.card_img}>
+                     {props._qte_a_terme_calcule < 1 && <div onClick={(e)=>e.stopPropagation()} className={classes.out_of_stock}>
+                        <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
+                      </div>}
                       {props.articleimage[0] ? (
                         <img
                           src={`${props.articleimage[0]?.link}`}
@@ -370,7 +373,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                           />
                         )}
                       </div>
-                      <div className={classes.cartIcon}>
+                     {props._qte_a_terme_calcule > 0 && <div className={classes.cartIcon}>
                           <IoCartOutline
                             className={classes.fav}
                             onClick={(event) => {
@@ -379,7 +382,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                             }}
                             fontSize="inherit"
                           />
-                      </div>
+                      </div>}
                     </div>
                     
                     <div className={classes.bookTitle} >
@@ -478,6 +481,9 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                 }}>
                   <div className={classes.leftContainer}>
                      <div className={classes.imgCont}>
+                     {props._qte_a_terme_calcule < 1 && <div onClick={(e)=>e.stopPropagation()} className={classes.out_of_stock}>
+                        <p style={{fontSize:'calc(.4rem + .2vw)',padding:'.3em'}}>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
+                      </div>}
                     {props.articleimage[0] ? (
                       <img
                         src={`${props.articleimage[0]?.link}`}
@@ -551,14 +557,14 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                                 <FavoriteBorderIcon className={classes.icon} style={{margin:'0.25em 0'}}/>
                               </div>
                             )}
-                        <div className={classes.icon_con}  
+                        {props._qte_a_terme_calcule > 0 &&<div className={classes.icon_con}  
                         onClick={(event) => {
                           event.stopPropagation();
                           authCtx.addToCart({props: props}); 
                         }}
                         >
                           <PiShoppingCartSimpleLight className={classes.icon} />
-                        </div>
+                        </div>}
                       </div>
              <span style={{ display: "flex", flexDirection: "row", margin:'0', columnGap:'0.5em' }}>
                         {/* {props.discount > 0 && (
@@ -627,14 +633,14 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                         {/* <div className={classes.icon_con}>
                           <HiOutlineBookOpen className={classes.icon} />
                         </div> */}
-                        <div className={classes.icon_con}  
+                       {props._qte_a_terme_calcule > 0 && <div className={classes.icon_con}  
                         onClick={(event) => {
                           event.stopPropagation();
                           authCtx.addToCart({props: props}); 
                         }}
                         >
                           <PiShoppingCartSimpleLight className={classes.icon} />
-                        </div>
+                        </div>}
                       </div>
              </div>
             

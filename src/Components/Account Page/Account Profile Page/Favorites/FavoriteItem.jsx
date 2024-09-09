@@ -33,6 +33,9 @@ const FavoriteItem = ({ carttoggle }) => {
         <>
           <div className={classes.card} key={props._id}>
             <div className={classes.imgCont}>
+                {props._qte_a_terme_calcule < 1 && <div onClick={(e)=>e.stopPropagation()} className={classes.out_of_stock}>
+                  <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
+                </div>}
               <img src={props.favimage} alt="" width="100%" />
             </div>
             <div className={classes.contentContainer}>
@@ -85,8 +88,12 @@ const FavoriteItem = ({ carttoggle }) => {
                       dc_auteur: props.favauthor,
                       image: props.favimage,
                       prixpublic: props.favprice,
+                      discount:props.discount,
                       quantity: props.favquantity,
-                      descriptif: props.favdescription
+                      _qte_a_terme_calcule: props._qte_a_terme_calcule,
+                      _poids_net: props.weight,
+                      _prix_public_ttc: props.price_ttc,
+                      descriptif: props.favdescription,
                   });
                   }}
               >

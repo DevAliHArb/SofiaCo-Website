@@ -102,12 +102,13 @@ export const AuthContextProvider = (props) => {
               author: cartItem.article.dc_auteur,
               image: cartItem.article.articleimage[0]?.link ? cartItem.article.articleimage[0].link : bookPlaceHolder,
               price: cartItem.article.prixpublic,
+              _qte_a_terme_calcule: cartItem.article?._qte_a_terme_calcule,
               discount: cartItem.discount,
-              date: cartItem.article.dc_parution,
               quantity: cartItem.quantity,
               description: cartItem.article.descriptif,
               weight: cartItem.article._poids_net,
               price_ttc: cartItem.article._prix_public_ttc,
+              removed: cartItem.removed,
               article_stock: cartItem.article.article_stock
             }));
     });
@@ -124,16 +125,17 @@ export const AuthContextProvider = (props) => {
             dispatch(addTofavorite({
               id: favtItem.id,
               _favid: favtItem.article.id,
-              date: favtItem.article.dc_parution,
               favtitle: favtItem.article.designation,
               favauthor: favtItem.article.dc_auteur,
               favimage: favtItem.article.articleimage[0]?.link ? favtItem.article.articleimage[0].link : bookPlaceHolder,
               favprice: favtItem.article.prixpublic,
+              _qte_a_terme_calcule: favtItem.article?._qte_a_terme_calcule,
               favdescription: favtItem.article.descriptif,
               favquantity: 1,
               discount: favtItem.discount,
               weight: favtItem.article._poids_net,
               price_ttc: favtItem.article._prix_public_ttc,
+              removed: favtItem.removed,
               article_stock: favtItem.article.article_stock
             }));
     });
@@ -242,16 +244,17 @@ const fetchArticles = async () => {
       dispatch(addTocart({
         _id: props.id,
         title: props.designation,
-        date: props.add_date,
         author: props.dc_auteur,
         image: props.articleimage[0]?.link ? props.articleimage[0].link : bookPlaceHolder,
         price: props.prixpublic,
+        _qte_a_terme_calcule: props._qte_a_terme_calcule,
         quantity: 1,
+        discount: props.discount,
         description: props.descriptif,
         cart_id: response.data.data.id,
         weight: props._poids_net,
         price_ttc: props._prix_public_ttc,
-        article_stock: props.article_stock
+        article_stock:props.article_stock
       }));
       if (carttoggle) {
         carttoggle();
@@ -335,14 +338,15 @@ const fetchArticles = async () => {
       dispatch(addTocart({
         _id: props.id,
         title: props.designation,
-        date: props.add_date,
         author: props.dc_auteur,
         image: props.image,
         price: props.prixpublic,
+        _qte_a_terme_calcule: props._qte_a_terme_calcule,
+        discount: props.discount,
         quantity: props.quantity,
         description: props.descriptif,
-        cart_id: response.data.data.id,
         weight: props._poids_net,
+        cart_id: response.data.data.id,
         price_ttc: props._prix_public_ttc,
         article_stock: props.article_stock
       }));
@@ -503,10 +507,11 @@ const fetchArticles = async () => {
         id: response.data.data.id,
         _favid: props.id,
         favtitle: props.designation,
-        date: props.add_date,
         favauthor: props.dc_auteur,
         favimage: props.articleimage[0]?.link ? props.articleimage[0].link : bookPlaceHolder,
         favprice: props.prixpublic,
+        _qte_a_terme_calcule: props._qte_a_terme_calcule,
+        discount: props.discount,
         favquantity: 1,
         favdescription: props.descriptif,
         weight: props._poids_net,

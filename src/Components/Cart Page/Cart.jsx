@@ -13,6 +13,8 @@ import CartItem from "./CartItem";
 // import CoupsDeCoeur from "../Common/CoupsDeCoeur Section/CoupsDeCoeur";
 import AuthContext from "../Common/authContext";
 import AlsoSee from "../Common Components/Also See/AlsoSee";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
 
 const Cart = () => {
 
@@ -32,7 +34,37 @@ const Cart = () => {
 
   const navigate = useNavigate();
 
-
+  const handleCheckout = () => {
+    const outOfStockItems = productData.filter(item => item._qte_a_terme_calcule < 1);
+    const removedItems = productData.filter(item => item?.removed);
+    console.log(productData)
+    if (removedItems.length > 0) {
+      toast.error(language === 'eng' ? "Please remove all items that are deleted!" : "Veuillez supprimer tous les éléments qui ont été supprimés !", {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: 0,
+        theme: "colored",
+      });
+    } else if (outOfStockItems.length > 0) {
+      toast.error(language === 'eng' ? "Please remove all items that are out of stock!" : "Veuillez retirer tous les articles HORS STOCK !", {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: 0,
+        theme: "colored",
+      });
+    } else {
+      navigate('/checkout');
+    }
+    
+  };
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -78,7 +110,7 @@ const Cart = () => {
         <h1>Cart</h1>
         <div style={{width:'fit-content',margin:"2em auto",display:'flex',flexDirection:"row",gap:"2em"}}>
           <h4 style={{padding:'1em',margin:'0 .5em',cursor:'default',borderBottom:".2em solid var(--primary-color)"}}><span style={{padding:'.3em .5em',backgroundColor:'var(--primary-color)',color:'#fff',borderRadius:'50%'}}>1</span> {Data.Cart.title1[language]}</h4>
-          <h4 style={{padding:'1em',margin:'0 .5em',cursor:'pointer'}} onClick={()=>navigate('/checkout')}><span style={{padding:'.3em .5em',backgroundColor:'#EEBA7F',color:'#fff',borderRadius:'50%'}}>2</span> {Data.Cart.title2[language]}</h4>
+          <h4 style={{padding:'1em',margin:'0 .5em',cursor:'pointer'}} onClick={handleCheckout}><span style={{padding:'.3em .5em',backgroundColor:'#EEBA7F',color:'#fff',borderRadius:'50%'}}>2</span> {Data.Cart.title2[language]}</h4>
           <h4 style={{padding:'1em',margin:'0 .5em',cursor:'not-allowed'}}><span style={{padding:'.3em .5em',backgroundColor:'#EEBA7F',color:'#fff',borderRadius:'50%'}}>3</span> {Data.Cart.title3[language]}</h4>
         </div>
       </div>
@@ -185,7 +217,7 @@ const Cart = () => {
             <p style={{ textAlign: "end" }}>{(totalAmt * 1).toFixed(2)} {currency == 'eur' ? `€` : `$`}</p>
           </div>
         </div>
-          <button className={classes.checkout_btn} id="footer" onClick={()=>{navigate(`/checkout`)}} style={{margin:'2em 0'}}>{language === 'eng' ? 'Checkout' : 'Valider mon panier'}</button>
+          <button className={classes.checkout_btn} id="footer" onClick={handleCheckout} style={{margin:'2em 0'}}>{language === 'eng' ? 'Checkout' : 'Valider mon panier'}</button>
           
       </div>
       </div>

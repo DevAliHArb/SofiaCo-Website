@@ -258,7 +258,7 @@ console.log(formData)
             <div className={classes.nodata_img}>
               <img src={nodata} alt="" />
             </div>
-            <h1>{language === 'eng' ? "No addresses found!" : "No addresses found!_fr"}</h1>
+            <h1>{language === 'eng' ? "No addresses found!" : "Aucune adresse trouvée !"}</h1>
           </div>
             :
             <div className={classes.adressCardContainer}>
@@ -608,7 +608,7 @@ console.log(formData)
               <Input
                 name="address"
                 size="large"
-                placeholder={language === 'eng' ? "Street name, apartment, etc." : "Street name, apartment, etc._fr"}
+                placeholder={language === 'eng' ? "Street name, apartment, etc." : "Nom de la rue, appartement, etc."}
                 className={classes.inputt}
                 value={formData?.address || ''}
                 onChange={(e) => handleChange("address", e.target.value)}
@@ -688,7 +688,7 @@ console.log(formData)
                   className={classes.addAddBtn}
                 >
                   {!editMode ? language === 'eng' ? "Add" : "Ajouter":
-                  language === "eng" ? "Save" : "Save_fr"}
+                  language === "eng" ? "Save" : "Économiser"}
                 </Button>
               {/* </Form.Item> */}
               <Button

@@ -81,8 +81,14 @@ export default function CartSidebar({ toggle, isOpen }) {
         <>
         {productData.map((props) => (
           
-          <div className={classes.card} key={props._id}>
+          <div className={classes.card} key={props._id} style={{position:'relative'}}>
+          {props?.removed && <div className={classes.removed_item}>
+             <p>{language === "eng" ? "NOT AVAILABLE ANYMORE!" : "N'EST PLUS DISPONIBLE !"}</p>
+           </div>}
             <div className={classes.imageCont}>
+                     {props._qte_a_terme_calcule < 1 && <div onClick={(e)=>e.stopPropagation()} className={classes.out_of_stock}>
+                        <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
+                      </div>}
               <img src={props.image} alt="" style={{height:'100%', width: '100%',objectFit:'cover' ,maxWidth:'350px' }}/>
             </div>
             <div style={{height:'100%',overflow:'hidden',maxWidth:'30em',justifyContent:'space-between',display:'flex', flexDirection:'column', margin:'auto 0',width:'100%',fontSize:'calc(.7rem + 0.2vw)',fontFamily:'var(--font-family)'}}>
@@ -105,7 +111,7 @@ export default function CartSidebar({ toggle, isOpen }) {
                                     ).toFixed(2)
                               }`}</p>
                 
-            <div className={classes.quantity1}>
+            {props._qte_a_terme_calcule > 0 &&<div className={classes.quantity1}>
               <p
                 style={{
                   fontWeight: 500,
@@ -220,7 +226,7 @@ export default function CartSidebar({ toggle, isOpen }) {
               >
                 +
               </p>
-            </div>
+            </div>}
             </div>
             <div className={classes.quantity}>
               <div style={{display:'flex',flexDirection:'column', gap:'1em'}}>
@@ -261,7 +267,7 @@ export default function CartSidebar({ toggle, isOpen }) {
                      
                      
                      
-                <div className={classes.delete_btn}>
+                <div className={classes.delete_btn} style={{zIndex:'50'}}>
                   <img src={DeleteIcon} style={{width:'1.3em'}} onClick={() =>authCtx.deleteFromcart(props._id)} />
                   </div> 
               </div>

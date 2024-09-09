@@ -127,8 +127,8 @@ const Reviews = () => {
                 >
                     <div className={classes.input_box_content}>
                         <div className={classes.rev_input_head}>
-                            <h1>{language === 'eng' ? "Write a Review" : "Write a Review_fr"}</h1>
-                            <p>{language === 'eng' ? 'How would you rate it?' : 'How would you rate it?_fr'}</p>
+                            <h1>{language === 'eng' ? "Write a Review" : "Écrire un commentaire"}</h1>
+                            <p>{language === 'eng' ? 'How would you rate it?' : "Comment l'évaluez-vous ?"}</p>
                             <Rating
                                 style={{ color: 'var(--primary-color)', fontSize: 'calc(1.3rem + .5vw)' }}
                                 name="rate"
@@ -142,15 +142,15 @@ const Reviews = () => {
                         </div>
                         <Form.Item
                             name="description"
-                            label={<p>{language === 'eng' ? 'Review Content' : 'Review Content_fr'}</p>}
-                            rules={[{ required: true, message: `${language === 'eng' ? "Please enter the content" : " Please enter the content_fr"}` }]}
+                            label={<p>{language === 'eng' ? 'Review Content' : 'Contenu de la révision'}</p>}
+                            rules={[{ required: true, message: `${language === 'eng' ? "Please enter the content" : "Veuillez saisir le contenu"}` }]}
                             style={{ border: 'none', borderRadius: '.5em', width: '88%', margin: '2em auto', background: 'transparent' }}
                         >
                             <Input.TextArea
                                 rows={3}
                                 name="description"
                                 size="large"
-                                placeholder={language === 'eng' ? 'Write down your feedback here...' : 'Write down your feedback here..._fr'}
+                                placeholder={language === 'eng' ? 'Write down your feedback here...' : 'Notez vos commentaires ici...'}
                                 value={formData.description}
                                 style={{ border: 'none', color: 'var(--secondary-color)', textAlign: 'start', background: 'transparent' }}
                                 onChange={handleChange}
@@ -173,7 +173,7 @@ const Reviews = () => {
                 </Form>
             </div>
             <div className={classes.reviewsCon}>
-                <h1>{language === 'eng' ? "All Reviews" : "All Reviews_fr"}</h1>
+                <h1>{language === 'eng' ? "All Reviews" : "Tous les commentaires"}</h1>
                 <div className={classes.big_con}>
                     {bookreview?.slice(0, displayedObjects).map((item, index) => (
                         <div className={classes.reviews_con} key={item.id}>
@@ -197,7 +197,7 @@ const Reviews = () => {
                 </div>
                 {bookreview.length > 2 && (
                     <p style={{ margin: '0em' }} onClick={displayedObjects < bookreview.length ? showMore : showLess} className={classes.addbtn}>
-                        {displayedObjects < bookreview.length ? (language === 'eng' ? 'View All Reviews' : 'View All Reviews_fr') : (language === 'eng' ? 'View Less' : 'Voir Moins')}
+                        {displayedObjects < bookreview.length ? (language === 'eng' ? 'View All Reviews' : 'Voir tous les commentaires') : (language === 'eng' ? 'View Less' : 'Voir Moins')}
                     </p>
                 )}
             </div>
