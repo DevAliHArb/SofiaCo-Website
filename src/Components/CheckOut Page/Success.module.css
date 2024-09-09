@@ -9,7 +9,7 @@
 
 .success p{
     font-size: x-large;
-    font-family: var(--font-family-primary);
+    font-family: var(--font-family);
     text-align: center;
     margin: auto;
 }

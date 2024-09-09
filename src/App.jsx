@@ -30,6 +30,7 @@ import AccountPage from './Components/Account Page/AccountPage';
 import Mentions from './Components/Mentions Légales/Mentions';
 import MyDocumentsPage from './Components/My Documents/MyDocumentsPage';
 import ContactUs from './Components/ContactUs/ContactUs';
+import SuccessPage from './Components/CheckOut Page/SuccessPage';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -115,7 +116,8 @@ function App() {
           <Route path="/account/:pageId" element={user ? <ScrollToTop><AccountPage /></ScrollToTop> : <Navigate to="/login" replace />} />
           <Route path="/my-documents/:pageId" element={user ? <ScrollToTop><MyDocumentsPage /></ScrollToTop> : <Navigate to="/login" replace />} />
           <Route path="/policies" element={<ScrollToTop><Mentions /></ScrollToTop>} />
-        </Routes>
+          <Route path='/order-success' element={<ScrollToTop><SuccessPage/></ScrollToTop>} />        
+          </Routes>
       </div>
       {!isAuthPages && <Footer />}
       <ToastContainer
