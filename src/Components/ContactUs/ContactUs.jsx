@@ -81,7 +81,7 @@ const ContactUs = () => {
       </div>
         <div className={classes.cardsContainer}>
         <div className={classes.card} >
-            <h2>Drop us a message</h2>
+            <h2>{language === 'eng' ? "Drop us a message" : "Envoyez-nous un message" }</h2>
             <Form
                 layout="vertical"
                 name="nest-messages"
@@ -211,7 +211,7 @@ const ContactUs = () => {
       </Form>
         </div>
           <div className={classes.sotialsCard}>
-            <h2>Contact Details</h2>
+            <h2>{language === 'eng' ? "Contact Details" : "Coordonnées De Contact" }</h2>
             <div style={{zIndex:'1',width:'100%',margin:'0 auto',display:'flex',flexDirection:"row",gap:'.5em'}}>
                 <div style={{position:'relative',padding:'0.4em',color:'#fff',borderRadius:'50%',backgroundColor:'var(--primary-color)',width:'1em',height:'1em',fontSize:'1em',margin:'auto 0'}}><FaLocationDot style={{height:'1em',margin:'0'}}/></div>
                 <div><p style={{fontFamily:'var(--font-family)',fontWeight:'400',color:'#fff',maxWidth:"15em",textAlign:'start'}}>{authCtx.companySettings.location}</p></div>

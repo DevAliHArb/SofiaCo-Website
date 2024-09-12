@@ -106,7 +106,7 @@ function App() {
           <Route path="/collections/:id/details" element={<ScrollToTop><CollectionDetailsPage /></ScrollToTop>} />
           <Route path="/collaborators" element={<ScrollToTop><Collaborators /></ScrollToTop>} />
           <Route path="/collaborators/:id/details" element={<ScrollToTop><CollaboratorDetails /></ScrollToTop>} />
-          <Route path="/favorites" element={<ScrollToTop><Favorite /></ScrollToTop>} />
+          <Route path="/wishlist" element={<ScrollToTop><Favorite /></ScrollToTop>} />
           <Route path="/cart" element={<ScrollToTop><Cart /></ScrollToTop>} />
           <Route path="/checkout" element={<ScrollToTop><CheckOut /></ScrollToTop>} />
           <Route path="/checkout-completed/:id" element={<ScrollToTop><CompletedOrder /></ScrollToTop>} />

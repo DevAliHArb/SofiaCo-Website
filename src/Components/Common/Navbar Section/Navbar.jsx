@@ -278,9 +278,9 @@ const Navbar = (props) => {
               <p onClick={() => navigate(`/events`)}>
               {language === 'eng' ? "EVENTS" : "ÉVÉNEMENTS" }
               </p>
-              <p onClick={() => navigate(`/services`)}>
+              {/* <p onClick={() => navigate(`/services`)}>
               {language === 'eng' ? "SERVICES" : "SERVICES" }
-              </p>
+              </p> */}
               <p onClick={() => navigate(`/collaborators`)}>
               {language === 'eng' ? "COLLABORATORS" : "COLLABORATEURS" }
               </p>
@@ -294,7 +294,7 @@ const Navbar = (props) => {
                 {language === 'eng' ? 'our services' : 'nos services'}
               </p> */}
               <div className={classes.icons}>
-                <div style={{position:'relative',cursor:'pointer'}} onClick={()=>navigate(`/favorites`)}>
+                <div style={{position:'relative',cursor:'pointer'}} onClick={()=>navigate(`/wishlist`)}>
                 <MdFavoriteBorder className={classes.icon} />
                 {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.1em'}}>{favoriteData?.length}</span>}
                 </div>
@@ -487,9 +487,9 @@ const Navbar = (props) => {
               <p onClick={() => navigate(`/events`)}>
               {language === 'eng' ? "EVENTS" : "ÉVÉNEMENTS" }
               </p>
-              <p onClick={() => navigate(`/services`)}>
+              {/* <p onClick={() => navigate(`/services`)}>
               {language === 'eng' ? "SERVICES" : "SERVICES" }
-              </p>
+              </p> */}
               <p onClick={() => navigate(`/collaborators`)}>
               {language === 'eng' ? "COLLABORATORS" : "COLLABORATEURS" }
               </p>
@@ -500,7 +500,7 @@ const Navbar = (props) => {
               {language === 'eng' ? "CONTACT" : "CONTACTEZ" }
               </p>
               <div className={classes.icons}>
-                <div style={{position:'relative', cursor:'pointer'}} onClick={()=>navigate(`/favorites`)}>
+                <div style={{position:'relative', cursor:'pointer'}} onClick={()=>navigate(`/wishlist`)}>
                 <MdFavoriteBorder className={classes.icon} />
                 {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.25em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.1em'}}>{favoriteData?.length}</span>}
                 </div>
@@ -573,7 +573,7 @@ const Navbar = (props) => {
             />
           </div>
           <div className={classes.icons}>
-                <div style={{position:'relative', cursor:'pointer'}} onClick={()=>navigate(`/favorites`)}>
+                <div style={{position:'relative', cursor:'pointer'}} onClick={()=>navigate(`/wishlist`)}>
                 <MdFavoriteBorder className={classes.icon}  />
                 {favoriteData?.length !== 0  && <span style={{width:'1.3em', height:'1.2em', position:'absolute',borderRadius:'5px', background:'var(--primary-color)',left:'1.2em', top:'-0.5em',color:'#fff',paddingTop:'0.1em'}}>{favoriteData?.length}</span>}
                 </div>

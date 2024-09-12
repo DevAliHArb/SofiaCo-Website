@@ -1,21 +1,21 @@
 {
   "HomePage": {
     "Deals": {
-      "title": { "eng": "<b>Deals</b> of the <b>Week</b>", "fr": "<b>Deals</b> of the <b>Week</b>_fr" },
-      "description": { "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua._fr" },
+      "title": { "eng": "<b>Deals</b> of the <b>Week</b>", "fr": "<b>Offres</b> de la <b>semaine </b>" },
+      "description": { "eng": "Discover our weekly deals! A variety of products, new products and inspiration await you. Stay tuned so you don't miss a thing!", "fr": "Découvrez nos offres de la semaine! Produits variés, nouveautés et inspirations vous attendent. Restez à l’affût pour ne rien manquer!" },
       "button": { "eng": "Add to cart", "fr": "Ajouter au panier" }
     },
     "FeaturedBooks": {
-      "title": { "eng": "Featured Books", "fr": "Featured Books_fr" },
+      "title": { "eng": "Featured Books", "fr": "Livres à l'honneur" },
       "description": { "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua._fr" },
       "button": { "eng": "Add to cart", "fr": "Ajouter au panier" }
     },
     "Hero": {
-      "title": { "eng": "Find your next great read <br/>at our online book store", "fr": "Find your next great read <br/>at our online book store_fr" }
+      "title": { "eng": "Find your next great read <br/>at our online book store", "fr": "Trouvez votre prochaine grande lecture<br/> dans notre librairie en ligne" }
     },
     "OurSelection": {
-      "title": { "eng": "Our Selection", "fr": "Our Selection_fr" },
-      "description": { "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua._fr" }
+      "title": { "eng": "Our Selection", "fr": "Notre Selection " },
+      "description": { "eng": "Discover our selection of the moment! Products carefully chosen to inspire you and satisfy your desires. Don't miss these must-haves!", "fr": "Découvrez notre sélection du moment ! Des produits choisis avec soin pour vous inspirer et répondre à vos envies. Ne manquez pas ces incontournables!" }
     },
     "NewArrivals": {
       "title": { "eng": "New Releases", "fr": "Nouveautés" },
@@ -27,7 +27,7 @@
         "eng": "Our Services",
         "fr": "Nos Services"
       },
-      "description": { "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua._fr" }
+      "description": { "eng": "Discover our services: diffusion and distribution of books and specialized products on the Arab-Muslim world, printing, publishing (EDT and white label), and stocking.", "fr": "Découvrez nos services : diffusion et distribution de livres et produits spécialisés sur le monde arabo-musulman, impression, éditions (EDT et white label), et stockage." }
     },
     "Quote": {
       "title": { "eng": "<b>Quote</b> of the <b>Day</b>", "fr": "<b>Citation</b> Du <b>Jour</b>" }
@@ -59,17 +59,17 @@
   },
   "AboutPage": {
     "LocationSection": {
-      "title": { "eng": "Check Our Locations", "fr": "Check Our Locations(FR)" },
+      "title": { "eng": "Check Our Locations", "fr": "Consultez Nos Sites" },
       "subtitle": {
-        "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "fr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.(fr)"
+        "eng": "Visit our website to find out where we are! Find us easily and discover our offers.",
+        "fr": "Consultez notre site pour connaître notre emplacement ! Trouvez-nous facilement et venez découvrir nos offres."
       }
     },
     "TrackersSection": {
-      "title": { "eng": "Why Choose Us?", "fr": "Why Choose Us?(fr)" },
+      "title": { "eng": "Why Choose Us?", "fr": "Pourquoi nous choisir ?" },
       "subtitle": {
-        "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "fr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.(fr)"
+        "eng": "Expertise, speed and personalized service for uncompromising distribution solutions. ",
+        "fr": "Expertise, rapidité, et service personnalisé pour des solutions de distribution sans compromis."
       }
     }
   },
@@ -251,16 +251,16 @@
     }
   },
   "ContactUsPage": {
-    "title": { "eng": "Get in touch", "fr": "Get in touch(fr)" },
+    "title": { "eng": "Get in touch", "fr": "Contactez-Nous" },
     "Subtitle": { "eng": "We’d love to hear from you!",
-                  "fr": "We’d love to hear from you!" },
+                  "fr": "N'hésitez pas à nous contacter !" },
     "description": {
       "eng": "Submit a request and we will get back to you",
       "fr": "Ecrivez-nous en remplissant le formulaire"
     }
   },
   "Event": {
-    "title": { "eng": "Our Events", "fr": "Our Events(fr)" },
+    "title": { "eng": "Our Events", "fr": "Nos événements" },
     "Subtitle": { "eng": "We’d love to hear from you!",
                   "fr": "We’d love to hear from you!" },
     "description": {
