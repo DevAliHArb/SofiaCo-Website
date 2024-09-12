@@ -49,21 +49,22 @@ function openNewWindow(url) {
                 <div className={classes.info}>
                 <h3>{data.Footer.Menu.title[language]}</h3>
                     <p onClick={()=>navigate(`/books`)}>{data.Footer.Menu.point1[language]}</p>
+                    <p onClick={()=>navigate(`/about`)}>{data.Footer.GENERAL.point1[language]}</p>
                     <p onClick={()=>navigate(`/events`)}>{data.Footer.Menu.point2[language]}</p>
+                    <p onClick={()=>navigate(`/contact`)}>{data.Footer.GENERAL.point2[language]}</p>
                     <p onClick={()=>navigate(`/collaborators`)}>{data.Footer.Menu.point3[language]}</p>
                     <p onClick={()=>navigate(`/collections`)}>{data.Footer.Menu.point4[language]}</p>
                 </div>
                 <div className={classes.info}>
                 <h3>{data.Footer.CUSTOMERSERVICE.title[language]}</h3>
                     <p onClick={()=>navigate(`/account/profile`)}>{data.Footer.CUSTOMERSERVICE.point1[language]}</p>
-                    <p onClick={()=>navigate(`/events`)}>{data.Footer.CUSTOMERSERVICE.point2[language]}</p>
+                    <p onClick={()=>navigate(`/my-documents/proforma`)}>{data.Footer.CUSTOMERSERVICE.point2[language]}</p>
                     <p onClick={()=>navigate(`/policies`)}>{data.Footer.CUSTOMERSERVICE.point3[language]}</p>
                 </div>
                 <div className={classes.info}>
-                <h3>{data.Footer.GENERAL.title[language]}</h3>
-                    <p onClick={()=>navigate(`/about`)}>{data.Footer.GENERAL.point1[language]}</p>
-                    <p onClick={()=>navigate(`/contact`)}>{data.Footer.GENERAL.point2[language]}</p>
-                    <p onClick={()=>navigate(`/collaborators`)}>{data.Footer.GENERAL.point3[language]}</p>
+                {/* <h3>{data.Footer.GENERAL.title[language]}</h3> */}
+                <h3></h3>
+                    {/* <p onClick={()=>navigate(`/collaborators`)}>{data.Footer.GENERAL.point3[language]}</p> */}
                 </div>
                 </div>
             </div>
