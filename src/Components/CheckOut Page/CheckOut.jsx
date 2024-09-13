@@ -636,7 +636,11 @@ const CheckOut = () => {
       article_id: item._id,
       name: item.title,
       quantity: item.quantity,
-      cost: price,
+      cost: price - (item.price_ttc - item.price),
+      tva: item.price_ttc - item.price,
+      total_tva: (item.price_ttc - item.price) * item.quantity,
+      total_cost: (price - (item.price_ttc - item.price)) * item.quantity,
+      total_price: item.quantity * price,
       review: item.note || "-",
       price: price,
     });
@@ -706,42 +710,68 @@ const CheckOut = () => {
           user_address_id: user.defaultAdd,
           user_payment_id: directPay ? null : user.defaultPay,
           delivery_id: deliveryId,
-          base_price: ((subtotalAmt - TVA).toFixed(2)),
+          base_price: (subtotalAmt - TVA).toFixed(3),
           tva: TVA,
           ttc_price: subtotalAmt,
-          shipping_fees: currency === "eur" ?  deliveryFees : (deliveryFees * authCtx.currencyRate).toFixed(2),
+          shipping_fees:
+            currency === "eur"
+              ? deliveryFees
+              : (deliveryFees * authCtx.currencyRate).toFixed(3),
           weight: totalWeight,
-          ecom_type: 'sofiaco',
+          ecom_type: "sofiaco",
           date: generatedate(),
-          total_price: totalAmt,
+          total_price: (totalAmt * 1).toFixed(2),
           review: reviewMsg,
           order_invoice_items: order_invoice_items,
-          shipping_type_id: delivery === 'standard' ? 40 : 39,
-          colissimo_code: delivery === 'standard'? null : colissimoPointData?.identifiant,
+          shipping_type_id: delivery === "standard" ? 40 : 39,
+          colissimo_code:
+            delivery === "standard" ? null : colissimoPointData?.identifiant,
           currency: currency,
+          coupon_amount: coupon.reduction
+            ? coupon.type === "Percentage"
+              ? calculateReductionAmt(subtotalAmt, coupon.reduction).toFixed(3)
+              : currency === "usd"
+              ? (coupon.reduction * authCtx.currencyRate).toFixed(3)
+              : coupon.reduction
+            : 0,
+            payment_method_id: 17,
+            rate: authCtx.currencyRate,
         };
         const requestData1 = {
           user_id: user.id,
           user_address_id: user.defaultAdd,
           user_payment_id: directPay ? null : user.defaultPay,
           delivery_id: deliveryId,
-          base_price: ((subtotalAmt - TVA).toFixed(2)),
+          base_price: subtotalAmt - TVA,
           tva: TVA,
           ttc_price: subtotalAmt,
-          shipping_fees:  currency === "eur" ?  deliveryFees : (deliveryFees * authCtx.currencyRate).toFixed(2),
+          shipping_fees:
+            currency === "eur"
+              ? deliveryFees
+              : deliveryFees * authCtx.currencyRate,
           weight: totalWeight,
-          ecom_type: 'sofiaco',
+          ecom_type: "sofiaco",
           tvaAmount: EURTVA,
           date: generatedate(),
           total_price: totalAmt,
           review: reviewMsg,
           order_invoice_items: order_invoice_items,
           currency: currency,
-          shippingPrice: delivery !== 'standard' ? 0 : deliveryFees,
-          shipping_type_id: delivery === 'standard' ? 40 : 39,
-          colissimo_code: delivery === 'standard'? null : colissimoPointData?.identifiant,
+          shippingPrice: delivery !== "standard" ? 0 : deliveryFees,
+          shipping_type_id: delivery === "standard" ? 40 : 39,
+          colissimo_code:
+            delivery === "standard" ? null : colissimoPointData?.identifiant,
           coupon_discount: coupon.reduction ? coupon.reduction : 0,
-          coupon_type: coupon.type
+          coupon_type: coupon.type,
+          coupon_amount: coupon.reduction
+            ? coupon.type === "Percentage"
+              ? calculateReductionAmt(subtotalAmt, coupon.reduction).toFixed(3)
+              : currency === "usd"
+              ? (coupon.reduction * authCtx.currencyRate).toFixed(3)
+              : coupon.reduction
+            : 0,
+            payment_method_id: 41,
+            rate: authCtx.currencyRate,
         };
         if (userCoupon.length > 0) {
           requestData.user_coupon_id = userCoupon[0].id;
@@ -860,20 +890,33 @@ const CheckOut = () => {
         user_address_id: user.defaultAdd,
         paypal: true,
         delivery_id: deliveryId,
-        base_price: ((subtotalAmt - TVA).toFixed(2)),
+        base_price: (subtotalAmt - TVA).toFixed(3),
         tva: TVA,
-        shipping_fees: currency === "eur" ?  deliveryFees : (deliveryFees * authCtx.currencyRate).toFixed(2),
+        shipping_fees:
+          currency === "eur"
+            ? deliveryFees
+            : (deliveryFees * authCtx.currencyRate).toFixed(3),
         ttc_price: subtotalAmt,
         weight: totalWeight,
-        ecom_type: 'sofiaco',
+        ecom_type: "sofiaco",
         date: generatedate(),
         total_price: totalAmt,
         review: reviewMsg,
         order_invoice_items: order_invoice_items,
         currency: "usd",
-        shippingPrice: delivery !== 'standard' ? 0 : deliveryFees,
-        shipping_type_id: delivery === 'standard' ? 40 : 39,
-        colissimo_code: delivery === 'standard'? null : colissimoPointData?.identifiant,
+        shippingPrice: delivery !== "standard" ? 0 : deliveryFees,
+        shipping_type_id: delivery === "standard" ? 40 : 39,
+        colissimo_code:
+          delivery === "standard" ? null : colissimoPointData?.identifiant,
+          coupon_amount: coupon.reduction
+            ? coupon.type === "Percentage"
+              ? calculateReductionAmt(subtotalAmt, coupon.reduction).toFixed(3)
+              : currency === "usd"
+              ? (coupon.reduction * authCtx.currencyRate).toFixed(3)
+              : coupon.reduction
+            : 0,
+            payment_method_id: 16,
+            rate: authCtx.currencyRate,
       };
 
       if (userCoupon.length > 0) {

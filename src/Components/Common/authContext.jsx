@@ -70,7 +70,7 @@ export const AuthContextProvider = (props) => {
   const [collaborators, setCollaborators] = useState([]);
   const [collections, setCollections] = useState([]);
   const [themes, setThemes] = useState([]);
-  const [currencyRate, setcurrencyRate] = useState(1.07);
+  const [currencyRate, setcurrencyRate] = useState(null);
   const [selectedlanguage, setselectedlanguage] = useState('fr');
   const [companySettings, setCompanySettings] = useState([]);
   const [editors, setEditors] = useState([]);
@@ -490,6 +490,9 @@ const fetchArticles = async () => {
     try {
       const response = await axios.get('https://api.leonardo-service.com/api/bookshop/company-settings/3');
       setCompanySettings(response.data.data);
+      if (response.data.data?.usd_rate) {
+        setcurrencyRate(response.data.data?.usd_rate)
+      }
     } catch (error) {
       console.error('Error fetching company settings:', error);
     }

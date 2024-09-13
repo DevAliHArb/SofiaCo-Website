@@ -27,7 +27,23 @@ import { MdOutlineMail } from "react-icons/md";
 import { FiPhoneCall } from "react-icons/fi";
 import { FiTruck } from "react-icons/fi";
 import { FaArrowRightLong } from "react-icons/fa6";
+import Modal from "@mui/material/Modal";
+import InfoIcon from '@mui/icons-material/Info';
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "fit-content",
+  bgcolor: "background.paper",
+  border: "2px solid #ACACAC",
+  borderRadius: "1em",
+  boxShadow: 24,
+  display:'flex',
+  flexDirection:'column',
+  p: 4,
+};
 
 const Navbar = (props) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -40,6 +56,7 @@ const Navbar = (props) => {
   const favoriteData = useSelector((state) => state.products.favorites);
   const compareData = useSelector((state) => state.products.compare);
   const userInfo = useSelector((state) => state.products.userInfo);
+  const [openmodal, setOpenmodal] = useState(false)
   const language = useSelector(
     (state) => state.products.selectedLanguage[0].Language
   );
@@ -55,12 +72,23 @@ const Navbar = (props) => {
 
   const token = getToken();
 
+  const handleCloseModal = () => {
+    setOpenmodal(false);
+  };
+
   const handleChangeCurrency = async (event) => {
     const cur = event.target.value;
+    
+    // Check for currency and currencyRate
+    if (currency === 'eur' && !authCtx.currencyRate) {
+        return setOpenmodal(true)
+    }
+  
     dispatch(changeCurrency({ currency: cur }));
+  
     try {
       await axios.put(
-        `https://api.leonardo-service.com/api/bookshop/users/${userInfo.id}`,
+        `https://api.leonardo-service.com/api/bookshop/users/${user.id}`,
         { currency: cur },
         {
           headers: {
@@ -598,6 +626,25 @@ const Navbar = (props) => {
               </div>
       </div>
       </div>
+      
+    <Modal
+        open={openmodal}
+        onClose={handleCloseModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <InfoIcon style={{color:"red",margin:"0 auto .5em auto",fontSize:"3em"}}/>
+        <h3 style={{color:"red"}}>{language === "eng" ? "You cannot change the currency. Please contact the administration." : "Vous ne pouvez pas changer la devise. Veuillez contacter l\'administration."}</h3>
+        <div style={{width:'fit-content',margin:'auto',display:'flex',flexWrap:'wrap'}}>
+        <Button 
+           onClick={()=>{handleCloseModal(); navigate(`/contact`)}}
+          style={{backgroundColor:'var(--primary-color)',color: 'white', height:'3em',width:'15em',borderRadius:'10px',margin:'2em auto 0 auto'}}>
+            {language === "eng" ? "Contact us" : "Nous contacter"}
+          </Button>
+          </div>
+        </Box>
+      </Modal>
     </>
   );
 };
