@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import classes from "./PopupModal.module.css";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -23,8 +23,8 @@ import { useNavigate } from "react-router-dom";
 import { FiEdit } from "react-icons/fi";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import axios from "axios";
-import { AddressCountries } from "../../Common/Constants/Data";
 import data from '../../../Data.json'
+import AuthContext from "../../Common/authContext";
 
 
 const style = {
@@ -61,6 +61,7 @@ function generateNewId(arrayOfObjects) {
 const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, formDataa, editaddressId }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const authCtx = useContext(AuthContext);
   const user = useSelector((state) => state.products.userInfo);
   const [formData, setFormData] = useState(formDataa);
   const [addloading, setaddLoading] = useState(false);
@@ -335,7 +336,7 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
                     onChange={(e) => handleChange("country", e)}
                   >
                     {/* Add options for all countries */}
-                    {AddressCountries.map((country, index) => (
+                    {authCtx.countries?.map((country, index) => (
                       <Option key={index} value={country.name}>
                         {country.name}
                       </Option>

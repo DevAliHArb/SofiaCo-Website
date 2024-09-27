@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import classes from "./Adresses.module.css";
 import CloseIcon from "@mui/icons-material/Close";
 import Radio from "@mui/material/Radio";
@@ -24,9 +24,9 @@ import DeleteIcon from "../../../../assets/DeleteIcon.svg";
 import axios from "axios";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { AddressCountries } from "../../../Common/Constants/Data";
 import data from '../../../../Data.json'
 import nodata from '../../../../assets/noaddresses.svg'
+import AuthContext from "../../../Common/authContext";
 
 const style = {
   position: "absolute",
@@ -56,6 +56,7 @@ function generateNewId(arrayOfObjects) {
 }
 const Adresses = () => {
   const dispatch = useDispatch();
+  const authCtx = useContext(AuthContext);
   const user = useSelector((state) => state.products.userInfo);
   const [selectedAdress, setselectedAdress] = useState(1);
   const [editMode, setEditMode] = useState(false);
@@ -568,7 +569,7 @@ console.log(formData)
                     onChange={(e) => handleChange("country", e)}
                   >
                     {/* Add options for all countries */}
-                    {AddressCountries.map((country, index) => (
+                    {authCtx.countries?.map((country, index) => (
                       <Option key={index} value={country.name}>
                         {country.name}
                       </Option>

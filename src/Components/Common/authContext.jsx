@@ -53,6 +53,9 @@ const AuthContext = React.createContext({
   setCompanySettings: () => {},
   fetchCompanySettings: () => {},
 
+  
+  countries: [],
+  setCountries: () => {},
 });
 
 export const AuthContextProvider = (props) => {
@@ -74,6 +77,7 @@ export const AuthContextProvider = (props) => {
   const [selectedlanguage, setselectedlanguage] = useState('fr');
   const [companySettings, setCompanySettings] = useState([]);
   const [editors, setEditors] = useState([]);
+  const [countries, setCountries] = useState([]);
   const dispatch = useDispatch();
   const productData = useSelector((state)=>state.products.productData);
   const favorites = useSelector((state)=>state.products.favorites);
@@ -205,6 +209,15 @@ const fetchArticles = async () => {
       setMydocuments(response.data);
     } catch (error) {
       console.error('Error fetching my documents:', error);
+    }
+  };
+
+  const fetchCountries = async () => {
+    try {
+      const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/countries?ecom_type=bookshop`);
+      setCountries(response.data);
+    } catch (error) {
+      console.error('Error fetching countries:', error);
     }
   };
   
@@ -613,6 +626,7 @@ const fetchArticles = async () => {
     fetchThemes();
     fetchCompanySettings();
     fetchMyDocuments();
+    fetchCountries();
   }, []);
 
   const contextValue = {
@@ -658,6 +672,8 @@ const fetchArticles = async () => {
     addToFavorite: addToFavoritehandler,
     deleteFavorite: deleteFavoritehandler,
     setCompanySettings: setCompanySettingshandler,
+
+    countries,
   }
 
   
