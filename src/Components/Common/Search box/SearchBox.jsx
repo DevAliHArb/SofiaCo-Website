@@ -9,11 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { addSearchData, addSelectedBook, deleteSelectedBook, editSearchData } from "../redux/productSlice";
 import { useNavigate } from "react-router-dom";
 import img from "../../../assets/bookPlaceholder.png";
+import { stripHtmlTags, truncateText } from "../TextUtils";
 
 const { Search } = Input;
 
 function SearchBox() {
   const language = useSelector((state) => state.products.selectedLanguage[0].Language);
+  const currency = useSelector((state) => state.products.selectedCurrency[0].currency);
   const [selectedOption, setSelectedOption] = useState("Book"); // Default selected option
   const [searchQuery, setSearchQuery] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -128,8 +130,39 @@ function SearchBox() {
                       )}
                     </div>
                     <div className={classes.dropdown_card_content}>
-                      <h3>{article.designation}</h3>
-                      <p>{article.prixpublic}</p>
+                    <h3 style={{margin:'0'}}>{article.designation}</h3>
+                      <p style={{ margin: "1em 0", fontSize: "calc(0.6rem + 0.3vw)" }}>{truncateText(stripHtmlTags(article.descriptif), 70)}</p>
+                      <p
+                        style={{
+                          color: "var(--primary-color)",
+                          fontWeight: 600,
+                          fontSize: " calc(0.8rem + 0.3vw)",margin:"0"
+                        }}
+                      >
+                        {currency === "eur"
+                            ? `${
+                              article.discount > 0
+                                  ? (
+                                    article.prixpublic -
+                                    article.prixpublic * (article.discount / 100)
+                                    ).toFixed(2)
+                                  : Number(article.prixpublic).toFixed(2)
+                              } €`
+                            : `${
+                              article.discount > 0
+                                  ? (
+                                      (article.prixpublic -
+                                        article.prixpublic *
+                                          (article.discount / 100)) *
+                                      authCtx.currencyRate
+                                    ).toFixed(2)
+                                  : (
+                                    article.prixpublic * authCtx.currencyRate
+                                    ).toFixed(2)
+                              } $`}  {" "}                   
+                     {article.discount > 0 && <span style={{opacity: "0.8",textDecoration:'line-through'}} >
+                      {currency === "eur" ? `${Number(article.prixpublic).toFixed(2)} € `: `${(article.prixpublic * authCtx.currencyRate ).toFixed(2)} $ `}</span>} 
+                      </p>
                     </div>
                   </div>
                 ))}

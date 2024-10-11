@@ -37,7 +37,7 @@ const FeaturedBooks = () => {
   const fetchArticles = async () => {
     try {
       const response = await axios.get(
-        `https://api.leonardo-service.com/api/bookshop/articles?ecom_type=sofiaco&favorites`
+        `https://api.leonardo-service.com/api/bookshop/articles?ecom_type=albouraq&favorites`
       );
       console.log(response.data.data);
       setArticles(response.data.data);
@@ -103,7 +103,7 @@ const FeaturedBooks = () => {
                     }}
                   >
                     <div className={classes.card_img} style={{position:"relative"}}>
-                     {props._qte_a_terme_calcule < 1 && <div onClick={(e)=>e.stopPropagation()} className={classes.out_of_stock}>
+                     {props._qte_a_terme_calcule < 1 && <div  className={classes.out_of_stock}>
                         <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
                       </div>}
                       {props.articleimage[0] ? (
