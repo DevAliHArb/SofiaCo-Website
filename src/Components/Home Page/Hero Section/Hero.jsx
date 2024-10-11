@@ -44,7 +44,7 @@ const Hero = ({ carttoggle }) => {
   const fetchArticles = async () => {
     try {
       const response = await axios.get(
-        `https://api.leonardo-service.com/api/bookshop/articles?ecom_type=sofiaco&is_selected`
+        `https://api.leonardo-service.com/api/bookshop/articles?ecom_type=albouraq&hero_slider`
       );
       
       setArticles(response.data.data);
