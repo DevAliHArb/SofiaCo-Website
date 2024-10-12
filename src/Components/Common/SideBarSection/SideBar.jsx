@@ -102,11 +102,11 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
         </ListItem>
         </Link>
 
-        <Link  to='/' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+        <Link  to='/about' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
         <ListItem disablePadding>
           <ListItemButton >
             <ListItemText className={classes.text}>
-            {language === 'eng' ? 'Toys' : 'Jouets'}
+            {language === 'eng' ? "ABOUT US" : "À PROPOS" }
             {/* {collopen ? <IoIosArrowDown style={{transform:'rotate(180deg)'}} /> : <IoIosArrowDown /> } */}
             </ListItemText>
           </ListItemButton>
@@ -114,11 +114,11 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
         </Link>
 
 
-        <Link  to='/' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+        <Link  to='/events' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemText className={classes.text}>
-            {language === 'eng' ? 'perfume' : 'parfum'}
+            {language === 'eng' ? "EVENTS" : "ÉVÉNEMENTS" }
             </ListItemText>
           </ListItemButton>
         </ListItem>
@@ -135,11 +135,11 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
         </Link>
 
 
-        <Link  to='/' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+        <Link  to='/collaborators' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemText className={classes.text}>
-            {language === 'eng' ? 'prayer mat' : 'tapis de priere'}
+            {language === 'eng' ? "COLLABORATORS" : "COLLABORATEURS" }
             </ListItemText>
           </ListItemButton>
         </ListItem>
@@ -155,21 +155,21 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
         </ListItem>
         </Link>
 
-<Link  to='/' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+<Link  to='/collections' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
 <ListItem disablePadding>
   <ListItemButton>
     <ListItemText className={classes.text}>
-    {language === 'eng' ? 'AGENDA' : 'AGENDA'}
+    {language === 'eng' ? 'collections' : 'collections'}
     </ListItemText>
   </ListItemButton>
 </ListItem>
 </Link>
 
-<Link  to='/' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+<Link  to='/contact' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
 <ListItem disablePadding>
   <ListItemButton>
     <ListItemText className={classes.text}>
-    {language === 'eng' ? 'our services' : 'nos services'}
+    {language === 'eng' ? "CONTACT" : "CONTACTEZ" }
     </ListItemText>
   </ListItemButton>
 </ListItem>
