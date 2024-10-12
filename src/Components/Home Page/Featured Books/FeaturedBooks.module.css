@@ -25,6 +25,7 @@
   z-index: 9;
   cursor: auto;
   cursor: pointer;
+  cursor: pointer;
 }
 
 .out_of_stock p {
@@ -249,6 +250,12 @@
   }
   
   @media screen and (max-width:950px) {
+    .nodata{
+      flex-direction: column;
+    }
+    .nodata h1{
+      text-align: center;
+    }
     .iconsContainer{
       opacity: 1;
     }

@@ -17,6 +17,7 @@
   background-color: rgba(194, 194, 194, 0.5);
   z-index: 9;
   cursor: auto;
+  cursor: pointer;
 }
 
 .out_of_stock p {
@@ -317,6 +318,12 @@
     cursor: pointer;
   }
   @media screen and (max-width:950px) {
+    .nodata{
+      flex-direction: column;
+    }
+    .nodata h1{
+      text-align: center;
+    }
 
     .favoriteIcon{
       top: 1.5em;

@@ -33,7 +33,7 @@ const FavoriteItem = ({ carttoggle }) => {
         <>
           <div className={classes.card} key={props._id}>
             <div className={classes.imgCont}>
-                {props._qte_a_terme_calcule < 1 && <div onClick={(e)=>e.stopPropagation()} className={classes.out_of_stock}>
+                {props._qte_a_terme_calcule < 1 && <div className={classes.out_of_stock}>
                   <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
                 </div>}
               <img src={props.favimage} alt="" width="100%" />

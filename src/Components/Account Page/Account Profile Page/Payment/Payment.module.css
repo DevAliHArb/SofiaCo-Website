@@ -275,6 +275,12 @@
 
 
 @media screen and (max-width:950px) {
+    .nodata{
+      flex-direction: column;
+    }
+    .nodata h1{
+      text-align: center;
+    }
     .inputsContainer{
         display: flex;
         flex-direction: column;

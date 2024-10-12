@@ -118,7 +118,7 @@ swiper.slideTo(index)};
               return (
                 <SwiperSlide style={{padding:'0 0%'}}>
                     <div className={classes.imageContainer}>
-                     {props._qte_a_terme_calcule < 1 && <div onClick={(e)=>e.stopPropagation()} className={classes.out_of_stock}>
+                     {props._qte_a_terme_calcule < 1 && <div className={classes.out_of_stock}>
                         <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
                       </div>}
                         <img src={props.link} alt="Book Cover" onMouseMove={handleMouseMove}/>
@@ -130,7 +130,7 @@ swiper.slideTo(index)};
             :
                 <SwiperSlide style={{padding:'0 0%'}}>
                     <div className={classes.imageContainer}>
-                     {selectedBook._qte_a_terme_calcule < 1 && <div onClick={(e)=>e.stopPropagation()} className={classes.out_of_stock}>
+                     {selectedBook._qte_a_terme_calcule < 1 && <div className={classes.out_of_stock}>
                         <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
                       </div>}
                         <img src={img} alt="Book Cover" onMouseMove={handleMouseMove}/>

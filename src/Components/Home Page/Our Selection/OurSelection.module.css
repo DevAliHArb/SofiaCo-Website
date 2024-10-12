@@ -348,6 +348,12 @@
     cursor: pointer;
   }
   @media screen and (max-width:950px) {
+    .nodata{
+      flex-direction: column;
+    }
+    .nodata h1{
+      text-align: center;
+    }
 
     .favoriteIcon{
       top: 1.5em;
@@ -416,7 +422,7 @@
       height: 1.2em;
     }
     .nav_nb0{
-      right: 1.15em;
+      right: 0.4em;
       top: 0.1em;
       font-size: medium;
       display: flex;
