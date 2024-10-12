@@ -168,11 +168,17 @@
       margin: 0 auto;
   }
 
+  .mob_only{
+    display: none;
+  }
 @media screen and (max-width:1024px) {
   .coupon_con{
     width: 88%;
   }
 
+  .mob_only{
+    display: inline;
+  }
   .form{
     flex-direction: column;
     width: 100%;

@@ -45,11 +45,14 @@ const BooksView = ({carttoggle}) => {
   const [selectedCollection, setSelectedCollection] = useState('all');
   const [selectedRate, setSelectedRate] = useState(0);
   const [changepricetoggle, setchangePricetoggle] = useState(false);
+  const [totalArticlesNumber, setTotalArticlesNumber] = useState(null);
 
   const changechemin = async () => {
     try {
       const storedCategory = localStorage.getItem("category");
-      // Fetch category path data from the backend API
+      
+      if (storedCategory) {
+        // Fetch category path data from the backend API
       const response = await axios.get(
         `https://api.leonardo-service.com/api/bookshop/categories/${storedCategory}`
       ); // Adjust the URL as per your backend API
@@ -57,6 +60,9 @@ const BooksView = ({carttoggle}) => {
 
       // Update the state with the category path
       setCatChemin(categoryPath);
+      } else{
+        setCatChemin('')
+      }
     } catch (error) {
       console.error("Error fetching category path:", error);
       // Handle error appropriately
@@ -78,9 +84,16 @@ const BooksView = ({carttoggle}) => {
       event.stopPropagation();
       setIsOpen(false);
 
-         // Check if the clicked category is the same as the currently stored category
-  if (localStorage.getItem("category") === id.toString()) {
-    return; // Exit early if the category is already selected
+     if (localStorage.getItem("category") === id.toString()) {
+    // If the clicked category is already selected, deselect it
+    localStorage.removeItem("category"); // Clear the selected category from local storage
+    // Dispatch the action to clear the search data
+    dispatch(editSearchData({ category: null }));
+    setArticles([]); // Clear the articles list
+    fetchArticles(selectedRate,null, null, 1);
+    setCatChemin("");// Fetch articles with no category
+    changechemin();
+    return; // Exit early as the category was deselected
   }
 
       const clickedCategory = authCtx.categories.find(
@@ -98,8 +111,7 @@ const BooksView = ({carttoggle}) => {
         // Fetch articles with the new category ID
         // fetchArticles(null, id);
         setArticles([])
-        console.log(selectedRate)
-        fetchArticles(selectedRate, null,id, 1);
+        fetchArticles(selectedRate,null, null, 1);
         changechemin()
       }
     };
@@ -268,17 +280,20 @@ const BooksView = ({carttoggle}) => {
         : ``;
 
       // Finalize the URL by combining all parameters
-      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedCollectionParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedcollectionParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}&ecom_type=sofiaco`;
+      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedCollectionParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedcollectionParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}&ecom_type=albouraq`;
 
       // Fetch articles using the finalized URL
       const response = await axios.get(finalUrl);
 
-      if ( !rate && !selectedCollectionParam && !CatID && articles.length > 0) {
+      // If page > 1 or articles exist, append new data to the current articles
+      if (page !== 1) {
         setArticles((prevArticles) => [...prevArticles, ...response.data.data]);
       } else {
-        // Otherwise, set the fetched data as articles
+        // Otherwise, replace the articles
         setArticles(response.data.data);
       }
+      // Set the total articles number
+      setTotalArticlesNumber(response.data?.total);
     } catch (error) {
       console.error("Error fetching articles:", error);
     } finally {
@@ -348,9 +363,10 @@ const BooksView = ({carttoggle}) => {
     setIsOpen(false);
     try {
       const response = await axios.get(
-        `https://api.leonardo-service.com/api/bookshop/articles?ecom_type=sofiaco`
+        `https://api.leonardo-service.com/api/bookshop/articles?ecom_type=albouraq`
       );
       setArticles(response.data.data);
+      setTotalArticlesNumber(response.data?.total)
     } catch (error) {
       console.error("Error fetching categories:", error);
       toast.error("Failed to fetch categories.");
@@ -635,6 +651,7 @@ const BooksView = ({carttoggle}) => {
             catChemin={catChemin}
             selectedRate={selectedRate}
             selectedPrice={changepricetoggle}
+            totalArticlesNumber={totalArticlesNumber}
           />
         </div>
       </div>

@@ -22,6 +22,8 @@ import {
 } from "../../Common/redux/productSlice";
 import { TbTruckDelivery } from "react-icons/tb";
 import { stripHtmlTags, truncateText } from "../../Common Components/TextUtils";
+import axios from "axios";
+import { MdAddBox } from "react-icons/md";
 
 const Details = () => {
   const authCtx = useContext(AuthContext);
@@ -41,6 +43,7 @@ const Details = () => {
   const currency = useSelector(
     (state) => state.products.selectedCurrency[0].currency
   );
+  const [categoryItem, setCategoryItem] = useState(null);
 
   // useEffect(() => {
   //   bookDatas.forEach((element) => {
@@ -94,7 +97,7 @@ const Details = () => {
   }, [bookData]);
 
   const FavoriteClick = () => {
-    if (user) {
+    if (user?.id) {
       if (favorite) {
         authCtx.deleteFavorite(bookData.id);
       } else {
@@ -102,7 +105,7 @@ const Details = () => {
       }
       setfavorite(!favorite);
     } else {
-      toast.error(`Please log in to add favorites.`, {
+      toast.error(`${language === 'eng' ? "Please login to add to wishlist." : "Veuillez vous connecter pour ajouter à votre liste de souhaits."}`, {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -114,7 +117,213 @@ const Details = () => {
       });
     }
   };
-  const numberOptions = Array.from({ length: 50 }, (_, index) => index + 1);
+
+  const getToken = () => {
+    return localStorage.getItem('token');
+  };
+
+  const token = getToken();
+  
+  const handleSuivreCollab = async () => {
+    if (!user) {
+        // If user is not defined, throw an error
+        toast.error(`${language === 'eng' ? "Please log in first" : "Veuillez d'abord vous connecter"}`);
+        return;
+    }
+
+    try {
+        // Fetch the list of collaborators
+        const collaboratorsResponse = await axios.get('https://api.leonardo-service.com/api/bookshop/collaborators?ecom_type=albouraq');
+        const collaborators = collaboratorsResponse.data;
+
+        const cleanedAuteur = bookData.dc_auteur.trim();
+        // Find the collaborator whose nom + prenom matches bookData.dc_auteur
+        const collaborator = collaborators.find(collaborator => {
+            const fullName = `${collaborator.nom}`;
+            console.log(fullName.toLowerCase())
+            console.log(cleanedAuteur.toLowerCase())
+            return fullName.toLowerCase() === cleanedAuteur.toLowerCase();
+        });
+        
+        if (!collaborator) {
+            throw new Error('Collaborator not found');
+        }
+
+        // Send the subscription request with the found collaborator's id
+        const response = await axios.post(`https://api.leonardo-service.com/api/bookshop/users/${user.id}/subscriptions`, {
+            collaborator_id: collaborator.id,
+            ecom_type: 'bookshop'
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}` // Include token in the headers
+            }
+        });
+
+        // console.log(response.data);
+        toast.success(`${collaborator.nom} subscribed successfully!`, {hideProgressBar: true}); // You can handle the response here
+    } catch (error) {
+        // console.error('Error:', error);
+        toast.error(error.response?.data?.error || error.message);
+    }
+};
+
+const handleSuivreEditor = async () => {
+  if (!user) {
+      // If user is not defined, throw an error
+      toast.error(`${language === 'eng' ? "Please log in first" : "Veuillez d'abord vous connecter"}`);
+      return;
+  }
+
+  try {
+      // Fetch the list of collaborators
+      const collaboratorsResponse = await axios.get('https://api.leonardo-service.com/api/bookshop/collaborators?ecom_type=albouraq');
+      const collaborators = collaboratorsResponse.data;
+
+      const cleanedAuteur = bookData.editor._nom.trim();
+      // Find the collaborator whose nom + prenom matches bookData.dc_auteur
+      const collaborator = collaborators.find(collaborator => {
+          const fullName = `${collaborator.nom}`;
+          // console.log(fullName.toLowerCase())
+          // console.log(cleanedAuteur.toLowerCase())
+          return fullName.toLowerCase() === cleanedAuteur.toLowerCase();
+      });
+
+      if (!collaborator) {
+          throw new Error('Collaborator not found');
+      }
+
+      // Send the subscription request with the found collaborator's id
+      const response = await axios.post(`https://api.leonardo-service.com/api/bookshop/users/${user.id}/subscriptions`, {
+          collaborator_id: collaborator.id,
+          ecom_type: 'bookshop'
+      }, {
+          headers: {
+              Authorization: `Bearer ${token}` // Include token in the headers
+          }
+      });
+
+      // console.log(response.data);
+      toast.success(`${language === 'eng' ? `${collaborator.nom} subscribed successfully!` : `${collaborator.nom} abonné avec succès !!`}`, {hideProgressBar: true}); // You can handle the response here
+  } catch (error) {
+      // console.error('Error:', error);
+      toast.error(error.response?.data?.error || error.message);
+  }
+};
+
+const handleSuivreTranslator = async () => {
+  if (!user) {
+      // If user is not defined, throw an error
+      toast.error(`${language === 'eng' ? "Please log in first" : "Veuillez d'abord vous connecter"}`);
+      return;
+  }
+
+  try {
+      // Fetch the list of collaborators
+      const collaboratorsResponse = await axios.get('https://api.leonardo-service.com/api/bookshop/collaborators?ecom_type=albouraq');
+      const collaborators = collaboratorsResponse.data;
+
+      const cleanedAuteur = bookData.dc_traducteur.trim();
+      // Find the collaborator whose nom + prenom matches bookData.dc_auteur
+      const collaborator = collaborators.find(collaborator => {
+          const fullName = `${collaborator.nom}`;
+          // console.log(fullName.toLowerCase())
+          // console.log(cleanedAuteur.toLowerCase())
+          return fullName.toLowerCase() === cleanedAuteur.toLowerCase();
+      });
+
+      if (!collaborator) {
+          throw new Error('Collaborator not found');
+      }
+
+      // Send the subscription request with the found collaborator's id
+      const response = await axios.post(`https://api.leonardo-service.com/api/bookshop/users/${user.id}/subscriptions`, {
+          collaborator_id: collaborator.id,
+          ecom_type: 'bookshop'
+      }, {
+          headers: {
+              Authorization: `Bearer ${token}` // Include token in the headers
+          }
+      });
+
+      // console.log(response.data);
+      toast.success(`${language === 'eng' ? `${collaborator.nom} subscribed successfully!` : `${collaborator.nom} abonné avec succès !!`}`, {hideProgressBar: true}); // You can handle the response here
+  } catch (error) {
+      // console.error('Error:', error);
+      toast.error(error.response?.data?.error || error.message);
+  }
+};
+
+
+const handleSuivreCollection = async () => {
+  if (!user) {
+      // If user is not defined, throw an error
+      toast.error(`${language === 'eng' ? "Please log in first" : "Veuillez d'abord vous connecter"}`);
+      return;
+  }
+
+  try {
+      // Fetch the list of collaborators
+      const collectionsResponse = await axios.get('https://api.leonardo-service.com/api/bookshop/collections?ecom_type=albouraq');
+      const collections = collectionsResponse.data;
+      const cleanedCollec = bookData.dc_collection.trim();
+      // Find the collaborator whose nom + prenom matches bookData.dc_auteur
+      const Collectiondata = collections.find(collaborator => {
+          const fullName = `${collaborator.nom}`;
+          // console.log(fullName.toLowerCase())
+          // console.log(cleanedCollec.toLowerCase())
+          return fullName.toLowerCase() === cleanedCollec.toLowerCase();
+      });
+
+      if (!Collectiondata) {
+          throw new Error('Collection not found');
+      }
+
+      // Send the subscription request with the found collaborator's id
+      const response = await axios.post(`https://api.leonardo-service.com/api/bookshop/users/${user.id}/subscriptions`, {
+          collection_id: Collectiondata.id,
+          ecom_type: 'sofiaco'
+      }, {
+          headers: {
+              Authorization: `Bearer ${token}` // Include token in the headers
+          }
+      });
+
+      // console.log(response.data);
+      toast.success(`${language === 'eng' ? `${Collectiondata.nom} subscribed successfully!` : `${Collectiondata.nom} abonné avec succès !!`}`, {hideProgressBar: true}); // You can handle the response here
+  } catch (error) {
+      console.error('Error:', error);
+      toast.error(error.response?.data?.error || error.message);
+  }
+};
+
+useEffect(() => {
+  const foundItem = authCtx.categories.find(category => category.id === bookData.b_usr_articletheme_id);
+  setCategoryItem(foundItem);
+}, [bookData.b_usr_articletheme_id, authCtx.categories]);
+
+const handleSuivreCategory = async () => {
+  if (!user) {
+    // If user is not defined, throw an error
+    toast.error(`${language === 'eng' ? "Please log in first" : "Veuillez d'abord vous connecter"}`, {hideProgressBar: true});
+    return;
+}
+  try {
+    const response = await axios.post(`https://api.leonardo-service.com/api/bookshop/users/${user.id}/subscriptions`, {
+      category_id: categoryItem?.id,
+      ecom_type: 'sofiaco'
+    }, {
+      headers: {
+          Authorization: `Bearer ${token}` // Include token in the headers
+      }
+  });
+    // console.log(response.data);
+    toast.success(`${language === 'eng' ? `${categoryItem?._nom} subscribed successfully!` : `${categoryItem._nom} abonné avec succès !!`}`, {hideProgressBar: true}) // You can handle the response here
+  } catch (error) {
+    // console.error('Error:', error);
+    toast.error(error.response?.data?.error, {hideProgressBar: true})
+  }
+};
+
   return (
     <>
       <div className={classes.contantContainer}>
@@ -150,21 +359,21 @@ const Details = () => {
                             ? `€${
                               bookData.discount > 0
                                   ? (
-                                    bookData.prixpublic -
-                                    bookData.prixpublic * (bookData.discount / 100)
+                                    bookData._prix_public_ttc -
+                                    bookData._prix_public_ttc * (bookData.discount / 100)
                                     ).toFixed(2)
-                                  : Number(bookData.prixpublic).toFixed(2)
+                                  : Number(bookData._prix_public_ttc).toFixed(2)
                               }`
                             : `$${
                               bookData.discount > 0
                                   ? (
-                                      (bookData.prixpublic -
-                                        bookData.prixpublic *
+                                      (bookData._prix_public_ttc -
+                                        bookData._prix_public_ttc *
                                           (bookData.discount / 100)) *
                                       authCtx.currencyRate
                                     ).toFixed(2)
                                   : (
-                                    bookData.prixpublic * authCtx.currencyRate
+                                    bookData._prix_public_ttc * authCtx.currencyRate
                                     ).toFixed(2)
                               }`}{" "}
           </p>
@@ -197,26 +406,20 @@ const Details = () => {
             {" "}
             {language === 'eng' ? 'Add to cart' : 'Ajouter Au Panier'}
           </button>
-                          <div className={classes.favoriteIcon}>
+                          <div className={classes.favoriteIcon}
+                            onClick={FavoriteClick}
+                          >
                             {favoriteData?.some(
                               (book) => book._favid === bookData.id
                             ) ? (
                               <FavoriteIcon
                                 className={classes.fav}
-                                onClick={(event) => {
-                                  event.stopPropagation();
-                                  authCtx.deleteFavorite(bookData.id);
-                                }}
                                 fontSize="inherit"
                               />
                             ) : (
                               <FavoriteBorderIcon
                                 className={classes.nonfav}
                                 fontSize="inherit"
-                                onClick={(event) => {
-                                  event.stopPropagation();
-                                  authCtx.addToFavorite(bookData);
-                                }}
                               />
                             )}
                           </div>
@@ -233,6 +436,20 @@ const Details = () => {
             >
               : {bookData.dc_auteur}
             </p>
+            {bookData.dc_auteur && bookData.dc_auteur !== "" && <span  style={{
+                background: "var(--primary-color)",
+                color:'#fff',
+                height:'fit-content',
+                fontWeight: "500",
+                cursor: "pointer",
+                borderRadius:'0.2em',
+                padding:'0.2em 0.5em',
+                margin:'auto',
+                display:'flex'
+              }}
+               onClick={handleSuivreCollab}> 
+                <MdAddBox style={{fontSize:'1.5em', margin:'auto'}}/> 
+               </span>}
           </div>
           <div className={classes.char}>
             <p >{language === 'eng' ? 'Translator' : 'Traducteur'}</p>
@@ -248,10 +465,38 @@ const Details = () => {
             >
               : {bookData.dc_traducteur}
             </p>
+            {bookData.dc_traducteur && bookData.dc_traducteur !== "" && <span  style={{
+                background: "var(--primary-color)",
+                color:'#fff',
+                height:'fit-content',
+                fontWeight: "500",
+                cursor: "pointer",
+                borderRadius:'0.2em',
+                padding:'0.2em 0.5em',
+                margin:'auto',
+                display:'flex'
+              }}
+               onClick={handleSuivreTranslator}> 
+                <MdAddBox style={{fontSize:'1.5em', margin:'auto'}}/> 
+               </span>}
           </div>
           <div className={classes.char}>
             <p > {language === 'eng' ? 'Illustrator' : 'Illustrateur'}</p>
             <p >: {bookData.dc_illustrateur}</p>
+            {/* {bookData.dc_illustrateur && bookData.dc_illustrateur !== "" && <span  style={{
+                background: "var(--primary-color)",
+                color:'#fff',
+                height:'fit-content',
+                fontWeight: "500",
+                cursor: "pointer",
+                borderRadius:'0.2em',
+                padding:'0.2em 0.5em',
+                margin:'auto',
+                display:'flex'
+              }}
+               onClick={handleSuivreTranslator}> 
+                <MdAddBox style={{fontSize:'1.5em', margin:'auto'}}/> 
+               </span>} */}
           </div>
           <div className={classes.char}>
             <p >{language === 'eng' ? 'Collection' : 'Collection'}</p>
@@ -267,6 +512,51 @@ const Details = () => {
             >
               : {bookData.dc_collection}
             </p>
+            {bookData.dc_collection && bookData.dc_collection !== "" && <span  style={{
+                background: "var(--primary-color)",
+                color:'#fff',
+                height:'fit-content',
+                fontWeight: "500",
+                cursor: "pointer",
+                borderRadius:'0.2em',
+                padding:'0.2em 0.5em',
+                margin:'auto',
+                display:'flex'
+              }}
+               onClick={handleSuivreCollection}> 
+                <MdAddBox style={{fontSize:'1.5em', margin:'auto'}}/> 
+               </span>}
+          </div>
+          <div className={classes.char}>
+            <p >{language === 'eng' ? 'Category' : 'Catégorie'}</p>
+            <p
+              onClick={() => {
+                localStorage.removeItem("category");
+                dispatch(
+                  editSearchData({
+                    category: bookData.b_usr_articletheme_id,
+                  })
+                );
+                navigate(`/books`);
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              : {categoryItem?._nom}
+            </p>
+            {categoryItem && categoryItem?._nom !== "" && <span  style={{
+                background: "var(--primary-color)",
+                color:'#fff',
+                height:'fit-content',
+                fontWeight: "500",
+                cursor: "pointer",
+                borderRadius:'0.2em',
+                padding:'0.2em 0.5em',
+                margin:'auto',
+                display:'flex'
+              }}
+               onClick={handleSuivreCategory}> 
+                <MdAddBox style={{fontSize:'1.5em', margin:'auto'}}/> 
+               </span>}
           </div>
           <div className={classes.char}>
             <p > {language === 'eng' ? 'Editor' : 'Editeur'}</p>
@@ -280,6 +570,20 @@ const Details = () => {
             >
               : {bookData.editor?._nom}
             </p>
+            {bookData.editor && bookData.editor !== "" && <span  style={{
+                background: "var(--primary-color)",
+                color:'#fff',
+                height:'fit-content',
+                fontWeight: "500",
+                cursor: "pointer",
+                borderRadius:'0.2em',
+                padding:'0.2em 0.5em',
+                margin:'auto',
+                display:'flex'
+              }}
+               onClick={handleSuivreEditor}> 
+                <MdAddBox style={{fontSize:'1.5em', margin:'auto'}}/> 
+               </span>}
           </div>
           <div className={classes.char}>
             <p >{language === 'eng' ? 'Number pf pages' : 'Nombre de pages'}</p>

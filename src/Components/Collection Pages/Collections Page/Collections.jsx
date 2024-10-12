@@ -118,13 +118,19 @@ const CollectionsPage = () => {
             <div className={classes.nodata_img}>
               <img src={nodata} alt="" />
             </div>
-            <h1>No Collections <br />were found!</h1>
+            {language === 'eng' ? (
+  <>No Collections <br /> were found!</>
+) : (
+  <>Aucune collection <br /> n'a été trouvée !</>
+)}
+
           </div>
         ) : (
           <div className={classes.data}>
             {records.map((props) => {
               return (
                 <div key={props.id} className={classes.logo_con} onClick={() => {
+                  // console.log(props)
                   dispatch(addCollection(props));
                   navigate(`/collections/${props.id}/details`);
                 }}>

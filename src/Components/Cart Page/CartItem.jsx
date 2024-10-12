@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classes from "./CartItem.module.css";
-import { decreamentQuantity, increamentQuantity } from "../Common/redux/productSlice";
+import { addTocart, decreamentQuantity, increamentQuantity } from "../Common/redux/productSlice";
 import DeleteIcon from "../../assets/DeleteIcon.svg";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -70,6 +70,101 @@ const CartItem = () => {
     authCtx.deleteFromcart(itemId);
     setShowPopup(false);
   };
+  
+  const [localQuantities, setLocalQuantities] = React.useState({});
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  
+  React.useEffect(() => {
+    const initialQuantities = productData.reduce((acc, item) => {
+      acc[item._id] = item.quantity;
+      return acc;
+    }, {});
+    setLocalQuantities(initialQuantities);
+  }, [productData]);
+
+  
+  const updateQuantity = (item) => {
+    if (!isLoading) {
+    const newQuantity = localQuantities[item._id];
+    if (newQuantity !== item.quantity) {
+    setIsLoading(true)
+      axios
+        .put(`https://api.leonardo-service.com/api/bookshop/cart/${item.cart_id}`, {
+          quantity: newQuantity,
+        })
+        .then(() => {
+          dispatch(
+            addTocart({
+              _id: item._id,
+              title: item.name,
+              author: item.author,
+              image: item.image,
+              price: item.price,
+              quantity: newQuantity - item.quantity, // The difference in quantities
+              description: item.resume,
+            })
+          );
+        })
+        .catch((error) => {
+          console.log(error)
+          toast.error(
+            language === "eng"
+              ? "Failed to update item quantity."
+              : "Échec de la mise à jour de la quantité.",
+            {
+              position: "top-right",
+              autoClose: 1500,
+              hideProgressBar: true,
+              theme: "colored",
+            }
+          );
+        }).finally(
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 1000)
+        );
+    }
+
+    }
+  };
+
+  const handleKeyPress = (e, item) => {
+    if (e.key === "Enter" || e.key === "Tab") {
+      updateQuantity(item);
+    }
+  };
+
+  const handleBlur = (item) => {
+    updateQuantity(item);
+  };
+    
+  const handleInputChange = (id, value, maxQuantity) => {
+    // Ensure only numeric values are parsed
+    let numericValue = parseInt(value.replace(/\D/g, ''), 10) || 1; // Remove non-numeric characters
+    let adjustedValue = Math.max(1, Math.min(maxQuantity, numericValue));
+    
+    // If the value exceeds maxQuantity, show a toast message
+    if (adjustedValue > maxQuantity) {
+      // Uncomment this for toast notifications
+      toast.info(
+        language === "eng"
+          ? "No more items in stock"
+          : "Plus d'articles en stock",
+        {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: true,
+          theme: "colored",
+        }
+      );
+    }
+
+    setLocalQuantities((prev) => ({
+      ...prev,
+      [id]: adjustedValue,
+    }));
+  };
 
   return (
     <>
@@ -98,142 +193,64 @@ const CartItem = () => {
               <p style={{width:'100%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"600",margin:'0'}} onClick={()=>console.log(props)}>{props.title.slice(0,20)}</p>
               <p style={{width:'100%',textAlign:"start",fontSize:"calc(.6rem + .3vw)",fontWeight:"500",margin:'0'}}>{props.author.slice(0,20)}</p>
               <p style={{width:'100%',textAlign:"start",fontSize:"calc(.6rem + .3vw)",fontWeight:"500",margin:'0'}}>{new Date(props.date).toDateString()}</p>
-              <p style={{color:'var(--secondary-color)',fontSize:'smaller',textAlign:'start'}}><Rate value={4} disabled  style={{color:'var(--primary-color)',fontSize:'small'}}/>4.0/5</p>
-            </div>
-            {props._qte_a_terme_calcule > 0 ?<div className={classes.quantity}>
-              <p
-                style={{
-                  fontWeight: 500,
-                  margin: "auto",
-                  fontSize: "30px",
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  if (props.quantity != 1) {
-                    const item = productData.find(
-                      (item) => item._id === props._id
-                    );
-                    const newQuantity = props.quantity - 1;
-                    axios
-                      .put(
-                        `https://api.leonardo-service.com/api/bookshop/cart/${item.cart_id}`,
-                        {
-                          quantity: newQuantity,
-                        }
-                      )
-                      .then((response) => {
-                        console.log("PUT request successful:", response.data);
-                        dispatch(
-                          decreamentQuantity({
-                            _id: props._id,
-                            title: props.name,
-                            author: props.author,
-                            image: props.image,
-                            price: props.price,
-                            quantity: 1,
-                            description: props.resume,
-                          })
-                        );
-                      })
-                      .catch((error) => {
-                        console.error("Error in PUT request:", error);
-                        toast.error("Failed to add item to cart.", {
-                          position: "top-right",
-                          autoClose: 1500,
-                          hideProgressBar: true,
-                          closeOnClick: true,
-                          pauseOnHover: true,
-                          draggable: true,
-                          progress: 0,
-                          theme: "colored",
-                        });
-                      });
-                  } else {
-                    setShowPopup(props._id)
-                    // authCtx.deleteFromcart(props._id);
+              <p style={{color:'var(--secondary-color)',fontSize:'smaller',textAlign:'start'}}><Rate value={props.average_rate} disabled  style={{color:'var(--primary-color)',fontSize:'small'}}/>{props.average_rate}/5</p>
+              <p style={{ margin: ".5em auto .5em 0",color:props._qte_a_terme_calcule > 0 ? "var(--forth-color)" : "#EE5858",fontWeight:"600" }}>{props._qte_a_terme_calcule > 0 ? `${(props._qte_a_terme_calcule * 1).toFixed(0)} in stock` : `${language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}`} </p>
+              </div>
+           
+              {props?._qte_a_terme_calcule > 0 && 
+                <Input 
+                  type="number" 
+                  placeholder="Quantity"
+                  min={1} 
+                  max={99999} 
+                  defaultValue={1} 
+                  disabled={isLoading}
+                  className={classes.quantity1}
+                  value={localQuantities[props._id] || ""}
+                  onChange={(e) =>
+                    handleInputChange(props._id, e.target.value, props._qte_a_terme_calcule)
                   }
-                }}
-              >
-                -
-              </p>
-              <p
-                style={{
-                  fontWeight: 500,
-                  fontSize: "20px",
-                  margin: "auto",
-                }}
-              >
-                {props.quantity}
-              </p>
-              <p
-                style={{
-                  fontWeight: 500,
-                  margin: "auto",
-                  fontSize: "30px",
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  const item = productData.find(
-                    (item) => item._id === props._id
-                  );
-                  const newQuantity = props.quantity + 1;
-                  axios
-                    .put(
-                      `https://api.leonardo-service.com/api/bookshop/cart/${item.cart_id}`,
-                      {
-                        quantity: newQuantity,
-                      }
-                    )
-                    .then((response) => {
-                      console.log("PUT request successful:", response.data);
-                      dispatch(
-                        increamentQuantity({
-                          _id: props._id,
-                          title: props.name,
-                          author: props.author,
-                          image: props.image,
-                          price: props.price,
-                          quantity: 1,
-                          description: props.resume,
-                        })
-                      );
-                    })
-                    .catch((error) => {
-                      console.error("Error in PUT request:", error);
-                      toast.error("Failed to add item to cart.", {
-                        position: "top-right",
-                        autoClose: 1500,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: 0,
-                        theme: "colored",
-                      });
-                    });
-                }}
-              >
-                +
-              </p>
-            </div> : <div/>}
+                  onBlur={() => handleBlur(props)} 
+                  onKeyPress={(e) => handleKeyPress(e, props)}
+                  />}
             <span style={{display:'flex', flexDirection:'column',margin:'auto'}}>
-            <p
-                
+            <p style={{color:'var(--forth-color)',fontFamily:"var(--font-family-primary)",fontWeight:'500'}}>
+            {currency === "eur"
+  ? `${
+      props.discount > 0
+        ? (props.price_ttc - props.price_ttc * (props.discount / 100)).toFixed(2)
+        : (Number(props.price_ttc)).toFixed(2)
+    }€`
+  : `${props.discount > 0
+        ? (
+            (props.price_ttc - props.price_ttc * (props.discount / 100)).toFixed(2) * authCtx.currencyRate
+          ).toFixed(2)
+        : (props.price_ttc * authCtx.currencyRate).toFixed(2)
+    }$`}
+            {props.discount > 0 && <span
+                style={{
+                  color: "var(--primary-color)",
+                  textDecoration: "line-through",
+                  fontSize: "small",
+                  margin:'0'
+                }}
               >
                 {currency === "eur"
-                  ? `€ ${Number(props.price).toFixed(2)} `
-                  : `$ ${(
-                      props.price * authCtx.currencyRate
-                    ).toFixed(2)} `}
-              </p>
+                  ? ` ${Number(props.price_ttc).toFixed(2)}€`
+                  : ` ${(
+                      props.price_ttc * authCtx.currencyRate
+                    ).toFixed(2)}$`}
+              </span>}</p>
             </span>
             <p style={{ margin: "auto", fontWeight: "600" }}>
               {" "}
               {currency === "eur"
-                ? `€ ${(props.quantity * (Number(props.price))).toFixed(2)} `
-                : `$ ${(
-                    props.quantity *((Number(props.price))) * authCtx.currencyRate
-                  ).toFixed(2)}`}
+  ? ` ${(props.quantity * (props.discount > 0
+      ? parseFloat((props.price_ttc - props.price_ttc * (props.discount / 100)).toFixed(2))
+      : (Number(props.price_ttc))).toFixed(2)).toFixed(2)}€`
+  : `${(props.discount > 0
+      ? ((props.price_ttc - props.price_ttc * (props.discount / 100)) * authCtx.currencyRate).toFixed(2) * props.quantity
+      : (props.price_ttc * authCtx.currencyRate) * props.quantity).toFixed(2)}$`}
             </p>
             <div className={classes.delete_btn} style={{zIndex:'50'}}><img src={DeleteIcon} style={{width:'1em'}}  onClick={() => setShowPopup(props._id)} /></div>
           </div>
@@ -241,6 +258,7 @@ const CartItem = () => {
           {props?.removed && <div className={classes.removed_item}>
              <p>{language === "eng" ? "NOT AVAILABLE ANYMORE!" : "N'EST PLUS DISPONIBLE !"}</p>
            </div>}
+            <div className={classes.mobcard_content}>
             <div  style={{ marginRight: ".5em",position:"relative",overflow:'hidden' }}>
                      {props._qte_a_terme_calcule < 1 && <div onClick={(e)=>e.stopPropagation()} className={classes.out_of_stock}>
                         <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
@@ -265,8 +283,11 @@ const CartItem = () => {
             </div>
               <p style={{margin:'0.2em 0', width:'100%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"500"}}>{props.author.slice(0,20)}</p>
               <p style={{margin:'0.2em 0', width:'100%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"500"}}>{new Date(props.date).toDateString()}</p>
-              <p style={{margin:'0.2em 0', color:'var(--secondary-color)',fontSize:'smaller',textAlign:'start'}}><Rate value={4} disabled  style={{color:'var(--primary-color)',fontSize:'small'}}/>4.0/5</p>
-            <div
+              <p style={{color:'var(--secondary-color)',fontSize:'smaller',textAlign:'start'}}><Rate value={props.average_rate} disabled  style={{color:'var(--primary-color)',fontSize:'small'}}/>{props.average_rate}/5</p>
+              <p style={{ margin: ".5em auto .5em 0",color:props._qte_a_terme_calcule > 0 ? "var(--forth-color)" : "#EE5858",fontWeight:"600", fontSize:"calc(.7rem + .3vw)", }}>{props._qte_a_terme_calcule > 0 ? `${(props._qte_a_terme_calcule * 1).toFixed(0)} in stock` : `${language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}`} </p>
+          </div>
+            </div>
+          <div
               style={{
                 width:"100%",
                 height:'fit-content',
@@ -281,136 +302,38 @@ const CartItem = () => {
             style={{textAlign:'start'}}
           >
             {currency === "eur"
-              ? `€ ${Number(props.price).toFixed(2)} `
+              ? `€ ${Number(props.price_ttc).toFixed(2)} `
               : `$ ${(
-                  props.price * authCtx.currencyRate
+                  props.price_ttc * authCtx.currencyRate
                 ).toFixed(2)} `}
           </p>
-          {props._qte_a_terme_calcule > 0 &&  <div className={classes.quantity}>
-              <p
-                style={{
-                  fontWeight: 500,
-                  margin: "auto",
-                  fontSize: "30px",
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  if (props.quantity != 1) {
-                    const item = productData.find(
-                      (item) => item._id === props._id
-                    );
-                    const newQuantity = props.quantity - 1;
-                    axios
-                      .put(
-                        `https://api.leonardo-service.com/api/bookshop/cart/${item.cart_id}`,
-                        {
-                          quantity: newQuantity,
-                        }
-                      )
-                      .then((response) => {
-                        console.log("PUT request successful:", response.data);
-                        dispatch(
-                          decreamentQuantity({
-                            _id: props._id,
-                            title: props.name,
-                            author: props.author,
-                            image: props.image,
-                            price: props.price,
-                            quantity: 1,
-                            description: props.resume,
-                          })
-                        );
-                      })
-                      .catch((error) => {
-                        console.error("Error in PUT request:", error);
-                        toast.error("Failed to add item to cart.", {
-                          position: "top-right",
-                          autoClose: 1500,
-                          hideProgressBar: true,
-                          closeOnClick: true,
-                          pauseOnHover: true,
-                          draggable: true,
-                          progress: 0,
-                          theme: "colored",
-                        });
-                      });
-                  } else {
-                    setShowPopup(props._id)
-                    // authCtx.deleteFromcart(props._id);
+              {props?._qte_a_terme_calcule > 0 && 
+                <Input 
+                  type="number" 
+                  placeholder="Quantity"
+                  min={1} 
+                  max={99999} 
+                  defaultValue={1} 
+                  disabled={isLoading}
+                  className={classes.quantity1}
+                  value={localQuantities[props._id] || ""}
+                  onChange={(e) =>
+                    handleInputChange(props._id, e.target.value, props._qte_a_terme_calcule)
                   }
-                }}
-              >
-                -
-              </p>
-              <p
-                style={{
-                  fontWeight: 500,
-                  fontSize: "20px",
-                  margin: "auto",
-                }}
-              >
-                {props.quantity}
-              </p>
-              <p
-                style={{
-                  fontWeight: 500,
-                  margin: "auto",
-                  fontSize: "30px",
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  const item = productData.find(
-                    (item) => item._id === props._id
-                  );
-                  const newQuantity = props.quantity + 1;
-                  axios
-                    .put(
-                      `https://api.leonardo-service.com/api/bookshop/cart/${item.cart_id}`,
-                      {
-                        quantity: newQuantity,
-                      }
-                    )
-                    .then((response) => {
-                      console.log("PUT request successful:", response.data);
-                      dispatch(
-                        increamentQuantity({
-                          _id: props._id,
-                          title: props.name,
-                          author: props.author,
-                          image: props.image,
-                          price: props.price,
-                          quantity: 1,
-                          description: props.resume,
-                        })
-                      );
-                    })
-                    .catch((error) => {
-                      console.error("Error in PUT request:", error);
-                      toast.error("Failed to add item to cart.", {
-                        position: "top-right",
-                        autoClose: 1500,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: 0,
-                        theme: "colored",
-                      });
-                    });
-                }}
-              >
-                +
-              </p>
-            </div>}
-            <p style={{ margin: "auto 0",color:"var(--primary-color)", fontWeight: "700" }}>
+                  onBlur={() => handleBlur(props)} 
+                  onKeyPress={(e) => handleKeyPress(e, props)}
+                  />}
+            <p style={{ margin: "auto 0",color:"var(--secondary-color)", fontWeight: "700" }}>
               {" "}
+             
               {currency === "eur"
-                ? `€ ${(props.quantity * (Number(props.price))).toFixed(2)} `
-                : `$ ${(
-                    props.quantity *((Number(props.price))) * authCtx.currencyRate
-                  ).toFixed(2)}`}
+  ? ` ${(props.quantity * (props.discount > 0
+      ? parseFloat((props.price_ttc - props.price_ttc * (props.discount / 100)).toFixed(2))
+      : (Number(props.price_ttc))).toFixed(2)).toFixed(2)}€`
+  : `${(props.discount > 0
+      ? ((props.price_ttc - props.price_ttc * (props.discount / 100)) * authCtx.currencyRate).toFixed(2) * props.quantity
+      : (props.price_ttc * authCtx.currencyRate) * props.quantity).toFixed(2)}$`}
             </p></div>
-          </div>
           </div>
           {showPopup && (
         <ConfirmationPopup

@@ -43,18 +43,18 @@ const Reviews = () => {
 
     const fetchBook = async () => {
         try {
-            const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/articles?id=${selectedBook[0].id}`);
-            const book = response.data;
-            dispatch(addSelectedBook(book));
+          const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/articles?id=${selectedBook[0].id}&ecom_type=albouraq`);
+          const book = response.data;
+          dispatch(addSelectedBook(book))
+          
         } catch (error) {
-            console.error('Error fetching the book:', error);
+          console.error('Error fetching the book:', error);
         }
-    };
+      };
 
     const fetchReviews = async () => {
         try {
-            const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/articles/${selectedBook[0].id}/reviews`);
-            console.log('Response data:', response.data);
+            const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/articles/${selectedBook[0].id}/reviews?ecom_type=albouraq`);
             const reviews = response.data.data;
             setBookreview(reviews);
         } catch (error) {
@@ -78,10 +78,10 @@ const Reviews = () => {
         }
 
         try {
-            const response = await axios.post(`https://api.leonardo-service.com/api/bookshop/articles/${selectedBook[0].id}/reviews?ecom_type=sofiaco`, {
+            const response = await axios.post(`https://api.leonardo-service.com/api/bookshop/articles/${selectedBook[0].id}/reviews`, {
                 ...formData,
                 user_id: user.id,
-                ecom_type: 'sofiaco'
+                ecom_type: 'albouraq'
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -166,7 +166,7 @@ const Reviews = () => {
                                 style={{ cursor: loading ? 'wait' : 'pointer' }}
                                 className={classes.addbtn}
                             >
-                                Submit Review
+                                {language === 'eng' ? "Submit Review" : "Soumettre un avis"}
                             </Button>
                         </Form.Item>
                     </div>

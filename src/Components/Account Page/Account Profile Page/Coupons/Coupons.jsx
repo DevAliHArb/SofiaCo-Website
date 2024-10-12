@@ -99,7 +99,7 @@ const Coupons = () => {
       // Save coupon data in state
       setCouponsData(resolvedCoupons);
     } catch (error) {
-      console.error("Error fetching user coupons:", error);
+      // console.error("Error fetching user coupons:", error);
       setLoading(false);
     }
   };
@@ -113,7 +113,7 @@ const Coupons = () => {
     try {
       // First, fetch the coupon by code
       const couponResponse = await axios.get(
-        `https://api.leonardo-service.com/api/bookshop/coupons?code=${thecoupon}`,
+        `https://api.leonardo-service.com/api/bookshop/coupons?ecom_type=sofiaco&code=${thecoupon}`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers
@@ -132,7 +132,6 @@ const Coupons = () => {
         return;
       }
 
-      console.log(coupon.id);
       // Add the coupon to the user_coupons table
       // Assuming you have a user ID stored in a variable named 'user.id'
       const userId = user.id;
@@ -165,7 +164,7 @@ const Coupons = () => {
           hideProgressBar: true,
         });
       } else {
-        console.error("Error adding coupon:", error);
+        // console.error("Error adding coupon:", error);
         toast.error(errorMessage, {
           hideProgressBar: true,
         });
@@ -194,7 +193,7 @@ const Coupons = () => {
 
       if (!userCoupon) {
         // Handle the case where the user_coupon entry is not found
-        console.error("User coupon not found");
+        // console.error("User coupon not found");
         return;
       }
 
@@ -221,7 +220,7 @@ const Coupons = () => {
         hideProgressBar: true,
       });
     } catch (error) {
-      console.error("Error deleting coupon:", error);
+      // console.error("Error deleting coupon:", error);
       // Display error message
       toast.error("Error deleting coupon", {
         hideProgressBar: true,
@@ -290,8 +289,8 @@ const Coupons = () => {
         <div className={classes.tableHead}>
           <p>Coupon</p>
           <p>Code</p>
-          <p>Expiration Date</p>
-          <p>Value</p>
+          <p>{language === "eng" ? "Expiry" : "Expiration "}</p>
+          <p>{language === 'eng' ? "Value" : "Valeur " }</p>
           <p>Status</p>
         </div>
       </div>
@@ -313,10 +312,10 @@ const Coupons = () => {
           {couponsData?.map((props) => {
             return (
               <div className={classes.tableRow} style={{background: !isCouponExpired(props.expiry) && props.active === "true" ? "var(--primary-color)" : ""}}>
-                <p>{props.title}</p>
-                <p>{props.code}</p>
-                <p>{props.expiry.substring(0, 10)}</p>
-                <p>{props.reduction} {props.type.toLowerCase() === 'percentage' ? "%" : "€"}</p>
+                <p><span className={classes.mob_only} style={{fontWeight:700}}>{language === 'eng' ? 'Coupon' : 'Coupon'} :</span> {props.title}</p>
+                <p><span className={classes.mob_only} style={{fontWeight:700}}>{language === "eng" ? "Code" : "Code"}:</span> {props.code}</p>
+                <p><span className={classes.mob_only} style={{fontWeight:700}}>{language === "eng" ? "Expiry" : "Expiration"}:</span> {props.expiry.substring(0, 10)}</p>
+                <p><span className={classes.mob_only} style={{fontWeight:700}}>{language === "eng" ? "Value" : "Valeur"}:</span> {props.reduction} {props.type.toLowerCase() === 'percentage' ? "%" : currency === "usd" ? "$" : "€"}</p>
                 {isCouponExpired(props.expiry) ? (
                   <p>
                     <span
@@ -327,13 +326,13 @@ const Coupons = () => {
                         color: "#fff",
                       }}
                     >
-                      Expired
-                    </span>
+                     {language === 'eng' ? "Expired" : "Expiré" } 
+                     </span>
                   </p>
                 ) : (
                   <>
                     {
-props.active !== "true" ?
+props.user_id === null ?
                     
                     <p>
                     <span
@@ -344,8 +343,8 @@ props.active !== "true" ?
                         color: "#fff",
                       }}
                     >
-                      Used
-                    </span>
+                     {language === 'eng' ? "Used" : "Utilisé" } 
+                     </span>
                   </p>
                   :  
                   <p>
@@ -357,7 +356,7 @@ props.active !== "true" ?
                       color: "#fff",
                     }}
                   >
-                    Available
+                    {language === 'eng' ? "Available" : "Disponible"}
                   </span>
                 </p>
                   }

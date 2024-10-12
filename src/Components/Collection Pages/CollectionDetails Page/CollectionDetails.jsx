@@ -68,7 +68,7 @@ const CollectionDetailsPage = () => {
   const handleSuivreClick = async (id) => {
     if (!user) {
       // If user is not defined, throw an error
-      toast.error('Please log in first');
+      toast.error(`${language === 'eng' ? 'Please log in first' : "Veuillez d'abord vous connecter"}`);
       return;
   }
     try {
@@ -80,7 +80,7 @@ const CollectionDetailsPage = () => {
         }
     });
       console.log(response.data);
-      toast.success(`${collectionData.nom} subscribed successfully!`) // You can handle the response here
+      toast.success(`${collectionData.nom} ${language === 'eng' ? "subscribed successfully!" : "Abonné avec succès !"}`) // You can handle the response here
     } catch (error) {
       console.error('Error:', error);
       toast.error(error.response.data.error)
@@ -314,21 +314,21 @@ const CollectionDetailsPage = () => {
                             ? `€${
                                 props.discount > 0
                                   ? (
-                                      props.prixpublic -
-                                      props.prixpublic * (props.discount / 100)
+                                      props._prix_public_ttc -
+                                      props._prix_public_ttc * (props.discount / 100)
                                     ).toFixed(2)
-                                  : Number(props.prixpublic).toFixed(2)
+                                  : Number(props._prix_public_ttc).toFixed(2)
                               }`
                             : `$${
                                 props.discount > 0
                                   ? (
-                                      (props.prixpublic -
-                                        props.prixpublic *
+                                      (props._prix_public_ttc -
+                                        props._prix_public_ttc *
                                           (props.discount / 100)) *
                                       authCtx.currencyRate
                                     ).toFixed(2)
                                   : (
-                                      props.prixpublic * authCtx.currencyRate
+                                      props._prix_public_ttc * authCtx.currencyRate
                                     ).toFixed(2)
                               }`}{" "}
                         </p>
@@ -342,9 +342,9 @@ const CollectionDetailsPage = () => {
                             }}
                           >
                             {currency === "eur"
-                              ? `€ ${Number(props.prixpublic).toFixed(2)} `
+                              ? `€ ${Number(props._prix_public_ttc).toFixed(2)} `
                               : `$ ${(
-                                  props.prixpublic * authCtx.currencyRate
+                                  props._prix_public_ttc * authCtx.currencyRate
                                 ).toFixed(2)} `}
                           </p>
                         )}

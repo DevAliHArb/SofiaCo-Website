@@ -78,6 +78,7 @@
 .nodata_img{
   width: 15em;
   height: 15em;
+  margin: auto;
 }
 
 .nodata_img img{
@@ -209,7 +210,7 @@
     opacity: 1; /* Show when class 'show' is added */
     visibility: visible; /* Make visible */
     transition: opacity 0.3s ease;
-    max-height: 200px; 
+    max-height: 250px; 
   }
 
   .drop_down button{

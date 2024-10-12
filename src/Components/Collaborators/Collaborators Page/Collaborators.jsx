@@ -53,7 +53,7 @@ const Collaborators = () => {
       (selectedLetter === "ALL" || author.firstLetter === selectedLetter.toLowerCase()) &&
       (searchQuery === "" ||
         author.nom.toLowerCase().includes(searchQuery.toLowerCase())) &&
-      (type === 'All' || author?.type?.name.toLowerCase() === type.toLowerCase())  // Add "which" filter
+      (type === 'All' || author?.type?.name_fr.toLowerCase() === type.toLowerCase())  // Add "which" filter
       // (major === 'All' || author.major === major.toLowerCase()) // Add "which" filter
     );
 
@@ -140,7 +140,7 @@ const Collaborators = () => {
         const response = await axios.get('https://api.leonardo-service.com/api/bookshop/website-sections?ecom_type=sofiaco&section_id=collaborators-hero');
         setHeroData(response.data.data[0])
       } catch (error) {
-        console.error('Error fetching services:', error);
+        // console.error('Error fetching services:', error);
       }
     };
   useEffect(() => {
@@ -148,6 +148,27 @@ const Collaborators = () => {
   }, []);
 
 
+  const gettype = (type) => {
+    switch (type) {
+      case "All":
+        const name = language === "eng" ? "All" : "Tout";
+        return name;
+      case "auteur":
+        const name1 = language === "eng" ? "Authors" : "Auteurs";
+        return name1;
+      case "traducteur":
+        const  name2 = language === "eng" ? "Translators" : "Traducteurs";
+       return name2;
+       case "illustrateur":
+         const  name3 = language === "eng" ? "Illustators" : "Illustrateurs";
+        return name3;
+        case "editeur":
+          const  name4 = language === "eng" ? "Editor" : "Editeur";
+         return name4;
+      default:
+        return "";
+    }
+  };
   return (
     <div className={classes.collab}>
       <img src={abs} alt="" className={classes.img_abs}/>
@@ -166,7 +187,7 @@ const Collaborators = () => {
           >
             <input
               type="text"
-              placeholder="Search"
+              placeholder={language === 'eng' ? "Search" : "Recherche" }
               value={searchQuery}
               className={classes.input}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -245,7 +266,7 @@ const Collaborators = () => {
                 className={classes.btn}
                 onClick={() => setTypeopen(!typeopen)}
               >
-                {type} {typeopen ? <IoIosClose /> : <IoIosArrowDown />}
+                {gettype(type)} {typeopen ? <IoIosClose /> : <IoIosArrowDown />}
               </button>
               <div
                 className={`${classes.drop_down} ${
@@ -253,24 +274,31 @@ const Collaborators = () => {
                 }`}
               >
                 <button onClick={() => setType("All") & setTypeopen(false)}>
-                  All
+                {language === 'eng' ? "All" : "Tout" } 
                 </button>
                 <div className={classes.border}/>
                 <button onClick={() => setType("auteur") & setTypeopen(false)}>
-                  Auteurs
+                {language === 'eng' ? "Authors" : "Auteurs" }
                 </button>
                 <div className={classes.border}/>
                 <button
                   onClick={() => setType("traducteur") & setTypeopen(false)}
                 >
-                  Traducteurs
+                {language === 'eng' ? "Translators" : "Traducteurs" }
                 </button>
                 <div className={classes.border}/>
                 <button
                   style={{ borderBottom: "none" }}
                   onClick={() => setType("illustrateur") & setTypeopen(false)}
                 >
-                  Illustrateurs
+                  {language === 'eng' ? "Illustrators" : "Illustrateurs" }
+                </button>
+                <div className={classes.border}/>
+                <button
+                  style={{ borderBottom: "none" }}
+                  onClick={() => setType("editeur") & setTypeopen(false)}
+                >
+                  {language === 'eng' ? "Editor" : "Editeur" }
                 </button>
               </div>
             </div>
@@ -330,7 +358,11 @@ const Collaborators = () => {
             <div className={classes.nodata_img}>
               <img src={nodata} alt="" />
             </div>
-            <h1>No collaborators <br/>were found!</h1>
+            {language === 'eng' ? (
+  <h1>No collaborators <br /> were found!</h1>
+) : (
+  <h1>Aucun collaborateur <br /> n'a été trouvé !</h1>
+)}
           </div>
           :
           <div className={classes.grid}>
@@ -365,7 +397,11 @@ const Collaborators = () => {
           <div className={classes.page_control}>
             <div className={classes.show}>
               <p>
-                Showing {from}–{to} of {filteredAuthors.length} results
+              {language === 'eng' ? (
+  <>Showing {from}–{to} of {filteredAuthors.length} results</>
+) : (
+  <>Affichage de {from}–{to} sur {filteredAuthors.length} résultats</>
+)}
               </p>
             </div>
             <div className={classes.control}>

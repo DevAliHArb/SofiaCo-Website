@@ -8,11 +8,26 @@ import Reviews from './View Tab and review/Reviews'
 import ViewTab from './View Tab and review/ViewTab'
 import abs from '../../assets/collab-abs.png'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { addSelectedBook } from '../Common/redux/productSlice'
+import { useParams } from 'react-router-dom'
 
 const BookDetailsPage = () => {
+  const dispatch = useDispatch()
+  const { id } = useParams();
   
   const [heroData, setHeroData] = useState({});
 
+  const fetchBook = async () => {
+    try {
+      const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/articles?id=${id}&ecom_type=albouraq`);
+      const book = response.data;
+      dispatch(addSelectedBook(book))
+      
+    } catch (error) {
+      console.error('Error fetching the book:', error);
+    }
+  };
   
     const fetchHero = async () => {
       try {
@@ -24,6 +39,7 @@ const BookDetailsPage = () => {
     };
   useEffect(() => {
     fetchHero();
+    fetchBook()
   }, []);
   return (
     <div className={classes.bookDetailsPageContaimer}>
@@ -32,7 +48,7 @@ const BookDetailsPage = () => {
       <BookDetails/>
         <ViewTab />
         <AlsoSee />
-      <div style={{marginTop:'-4em'}}>
+      <div className={classes.deals_con}>
       <Deals />
       </div>
     </div>

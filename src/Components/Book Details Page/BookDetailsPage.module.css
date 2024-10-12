@@ -19,6 +19,10 @@
     margin: auto 0;
   }
 
+  .deals_con{
+    margin-top: -4em
+  }
+
   @media screen and (max-width:1024px) {
     .img_abs{
       width: 80%;
@@ -27,6 +31,10 @@
     }
     .bookDetailsPageContaimer{
       margin: 0 auto ;
+  }
+  
+  .deals_con{
+    margin-top: 0em
   }
 }
 

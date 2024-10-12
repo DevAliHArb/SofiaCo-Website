@@ -129,7 +129,7 @@ function SearchBox() {
                     </div>
                     <div className={classes.dropdown_card_content}>
                       <h3>{article.designation}</h3>
-                      <p>{article.prixpublic}</p>
+                      <p>{article._prix_public_ttc}</p>
                     </div>
                   </div>
                 ))}

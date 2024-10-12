@@ -75,34 +75,65 @@ const Cart = () => {
     let totalPrice = 0;
     let totalWeight = 0;
     let totalTVA = 0;
+    let totalPricedollar = 0;
+    let totalTVAdollar = 0;
+  
     productData.forEach((item) => {
-        updatedOrderInvoiceItems.push({
-            article_id: item._id,
-            quantity: item.quantity,
-            cost: ((item.discount > 0
-              ? (item.price - item.price * (item.discount / 100)).toFixed(2)
-              : (Number(item.price)).toFixed(2))*1),
-            review: item.note || '-',
-            price: ((item.discount > 0
-              ? (item.price - item.price * (item.discount / 100)).toFixed(2)
-              : (Number(item.price)).toFixed(2))*1),
-        });
-        totalPrice += item.quantity * (item.discount > 0
-          ? (item.price - item.price * (item.discount / 100)).toFixed(2)
-          : (Number(item.price)).toFixed(2));
-        totalWeight += item.quantity * item.weight;
-        totalTVA += (item.price_ttc - item.price) * item.quantity;
+      // Skip the item if _qte_a_terme_calcule is less than 1
+      if (item._qte_a_terme_calcule < 1) {
+        return;
+      }
+  
+      // Calculate the price considering the discount
+      const discountedPrice = item.discount > 0
+        ? (item.price - (item.price * (item.discount / 100))).toFixed(2)
+        : Number(item.price).toFixed(2);
+      const price = discountedPrice ;
+      const priceTTC = item.price_ttc;
+      const priceNet = item.price * 1;
+
+      // Calculate the cost and TVA
+      const cost = price - (priceTTC - priceNet);
+      const tva = item.discount > 0
+        ? (priceTTC - priceNet) - ((priceTTC - priceNet) * (item.discount / 100))
+        : priceTTC - priceNet;
+  
+      updatedOrderInvoiceItems.push({
+        article_id: item._id,
+        name: item.title,
+        quantity: item.quantity,
+        cost: parseFloat(cost.toFixed(2)),
+        tva: parseFloat(tva.toFixed(2)),
+        total_tva: parseFloat((tva * 1).toFixed(2) * item.quantity),
+        total_cost: parseFloat((cost * 1).toFixed(2) * item.quantity),
+        total_price: parseFloat((price * 1).toFixed(2) * item.quantity),
+        review: item.note || "-",
+        price: price,
+      });
+  
+      totalPrice +=  (price * 1).toFixed(2) * item.quantity;
+      totalWeight += item.quantity * item.weight;
+      totalTVA += (tva * 1).toFixed(2) * item.quantity;
+      totalPricedollar +=  (price * authCtx.currencyRate).toFixed(2) * item.quantity;
+      totalTVAdollar += (Number(tva).toFixed(2) * authCtx.currencyRate).toFixed(2) * item.quantity;
     });
+  
     setorder_invoice_items(updatedOrderInvoiceItems);
     settotalWeight(totalWeight);
-    if (currency === 'usd') {
-      setTotalAmt((totalPrice * authCtx.currencyRate + totalTVA).toFixed(2));
-      setTVA((totalTVA * authCtx.currencyRate).toFixed(2))
+  
+    if (currency === "usd") {
+      const sum = (totalPricedollar + totalTVAdollar);
+      
+      // For EUR, keep the original values
+      setTotalAmt(Number(sum).toFixed(2));
+      setTVA(parseFloat((totalTVAdollar)));
     } else {
-      setTotalAmt((totalPrice + totalTVA).toFixed(2));
-      setTVA(totalTVA.toFixed(2))
-    }
-}, [productData ,currency]);
+      const sum = (totalPrice + totalTVA);
+      // For EUR, keep the original values
+      setTotalAmt(Number(sum));
+      setTVA(parseFloat((totalTVA * 1)));
+      }
+  }, [productData, currency]);
 
   return (
     <div className={classes.cart_container}>
@@ -161,17 +192,17 @@ const Cart = () => {
             <p>{language == 'eng' ? "Weight" : "Poids"}</p>
             <p style={{ textAlign: "end" }}>{totalWeight} g</p>
           </div>
-          <div className={classes.totalrows}>
+          {/* <div className={classes.totalrows}>
             <p>Total TTC</p>
             <p style={{ textAlign: "end" }}>{(totalAmt * 1).toFixed(2)} {currency == 'eur' ? `€` : `$`}</p>
-          </div>
+          </div> */}
           <div className={classes.totalrows}>
             <p>Total HT</p>
-            <p style={{ textAlign: "end" }}>{(totalAmt - TVA).toFixed(2)} {currency == 'eur' ? `€` : `$`}</p>
+            <p style={{ textAlign: "end" }}>{(totalAmt - TVA).toFixed(2)}{currency === 'eur' ? ` €` : ` $`}</p>
           </div>
           <div className={classes.totalrows}>
             <p>Total TVA</p>
-            <p style={{ textAlign: "end" }}>{TVA} {currency == 'eur' ? `€` : `$`}</p>
+            <p style={{ textAlign: "end" }}> {Number(TVA).toFixed(2)}{currency === 'eur' ? ` €` : ` $`}</p>
           </div>
           {/* <div className={classes.totalrows}>
             <p>Frais de port</p>
@@ -214,7 +245,7 @@ const Cart = () => {
           />
           <div className={classes.totalrows}>
             <p>Total</p>
-            <p style={{ textAlign: "end" }}>{(totalAmt * 1).toFixed(2)} {currency == 'eur' ? `€` : `$`}</p>
+            <p style={{ textAlign: "end" }}>{(totalAmt * 1).toFixed(2)}{currency === 'eur' ? ` €` : ` $`}</p>
           </div>
         </div>
           <button className={classes.checkout_btn} id="footer" onClick={handleCheckout} style={{margin:'2em 0'}}>{language === 'eng' ? 'Checkout' : 'Valider mon panier'}</button>

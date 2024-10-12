@@ -25,7 +25,7 @@ const CheckOutSummaryItem = ({data}) => {
               <p style={{color:'var(--primary-color)',fontWeight:'500'}}>{props.article.dc_auteur}</p>
               <p className={classes.dicription} dangerouslySetInnerHTML={{ __html: props.article.descriptif }}/> 
               {/* <p style={{color:'var(--forth-color)'}} onClick={()=>console.log(data)}>Cover: Hardcover</p> */}
-            <p className={classes.price}>$ {props.article.prixpublic}</p>
+            <p className={classes.price}>$ {props.article._prix_public_ttc}</p>
             </div>
             </div>
           </div>

@@ -31,7 +31,7 @@ import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
 import { stripHtmlTags, truncateText } from "../../../Common Components/TextUtils";
 
 
-const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChemin, selectedRate, selectedPrice }) => {
+const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChemin, selectedRate, selectedPrice, totalArticlesNumber }) => {
    const authCtx = useContext(AuthContext);
   const [filter, setFilter] = useState("Public");
   const [listview, setListview] = useState("grid");
@@ -66,18 +66,21 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
   
   const cat = localStorage.getItem('category')
   const storedRate = localStorage.getItem('rate')
+  const storedmaxprice = localStorage.getItem("max_price");
+  const storedminprice = localStorage.getItem("min_price");
  
   useEffect(() => {
     setpagenbroute(1)
     setCurrentPage(1)
-  }, [cat, storedRate, selectedPrice]);
+    setarraypage(1)
+  }, [cat, storedRate, selectedPrice, storedmaxprice, storedminprice]);
 
   const nextpage = () => {
     if (currentpage !== pagenb) {
       setCurrentPage(currentpage + 1);
       setpagenbroute(pagenbroute + 1);
     }
-    if (currentpage === pagenb - 2) {
+    if (currentpage === pagenb - 2 || currentpage === pagenb - 1) {
       setarraypage(arraypage +1)
       fetchArticles(selectedRate, null, null, arraypage);
     }
@@ -142,9 +145,9 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
       case 'titleZA':
         return [...records].sort((a, b) => b.designation.localeCompare(a.designation));
       case 'priceLow':
-        return [...records].sort((a, b) => a.prixpublic - b.prixpublic);
+        return [...records].sort((a, b) => a._prix_public_ttc - b._prix_public_ttc);
       case 'priceHigh':
-        return [...records].sort((a, b) => b.prixpublic - a.prixpublic);
+        return [...records].sort((a, b) => b._prix_public_ttc - a._prix_public_ttc);
       default:
         return records;
     }
@@ -183,8 +186,8 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
           </p>
         </div>
         <div className={classes.gridrowviews}>
-          <div className={classes.viewBtnContainer} style={{backgroundColor: listview === "grid" && 'var(--primary-color)'}}><img src={gridview} style={{width:"60%",margin:"auto"}} alt="grid" onClick={() => {setListview("grid"); setpagenbroute(1)}} /></div>
-          <div className={classes.viewBtnContainer} style={{backgroundColor: listview === "list" && 'var(--primary-color)'}}><img src={rowsview} style={{width:"60%",margin:"auto"}} alt="grid" onClick={() => {setListview("list"); setpagenbroute(1)}} /></div>
+          <div className={classes.viewBtnContainer} style={{backgroundColor: listview === "grid" && 'var(--primary-color)'}}><img src={gridview} style={{width:"60%",margin:"auto"}} alt="grid" onClick={() => {setListview("grid")}} /></div>
+          <div className={classes.viewBtnContainer} style={{backgroundColor: listview === "list" && 'var(--primary-color)'}}><img src={rowsview} style={{width:"60%",margin:"auto"}} alt="grid" onClick={() => {setListview("list")}} /></div>
         </div>
         <div className={classes.category}>
           <p style={{ display: "flex", flexDirection: "row" }} >
@@ -278,6 +281,11 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
               <MdKeyboardDoubleArrowRight className={classes.icon1} />
             </button> */}
           </div>
+            <div className={classes.show}>
+              <p>
+              {language === 'eng' ? "Showing" : "Montrer" } {from}–{to} {language === 'eng' ? "of" : "de " }  {totalArticlesNumber} {language === 'eng' ? "results" : "résultats" }
+              </p>
+            </div>
         </div>
           {sortBooks(sortBy).length === 0 ? 
           <div className={classes.nodata}>
@@ -400,25 +408,25 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                             ? `€${
                                 props.discount > 0
                                   ? (
-                                      props.prixpublic -
-                                      props.prixpublic * (props.discount / 100)
+                                      props._prix_public_ttc -
+                                      props._prix_public_ttc * (props.discount / 100)
                                     ).toFixed(2)
-                                  : Number(props.prixpublic).toFixed(2)
+                                  : Number(props._prix_public_ttc).toFixed(2)
                               }`
                             : `$${
                                 props.discount > 0
                                   ? (
-                                      (props.prixpublic -
-                                        props.prixpublic *
+                                      (props._prix_public_ttc -
+                                        props._prix_public_ttc *
                                           (props.discount / 100)) *
                                       authCtx.currencyRate
                                     ).toFixed(2)
                                   : (
-                                      props.prixpublic * authCtx.currencyRate
+                                      props._prix_public_ttc * authCtx.currencyRate
                                     ).toFixed(2)
                               }`}{" "}
                         </p>
-                        {/* {props.discount > 0 && (
+                        {props.discount > 0 && (
                           <p
                             style={{
                               color: "var(--primary-color)",
@@ -428,12 +436,12 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                             }}
                           >
                             {currency === "eur"
-                              ? `€ ${Number(props.prixpublic).toFixed(2)} `
+                              ? `€ ${Number(props._prix_public_ttc).toFixed(2)} `
                               : `$ ${(
-                                  props.prixpublic * authCtx.currencyRate
+                                  props._prix_public_ttc * authCtx.currencyRate
                                 ).toFixed(2)} `}
                           </p>
-                        )} */}
+                        )}
                       </span>
                     </div>
                   </div>
@@ -501,20 +509,23 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                     )}{" "}
                     </div>
                     <div className={classes.contentContainer}>
-                      <p className={classes.bookRowTitle}>{props.designation}
-                      <p className={classes.rate}>
-                        <Rating
-                          style={{
-                              color: "var(--primary-color)",
-                              margin:'0 .5em 0 0',
-                          }}
-                          size='small'
-                          name="read-only"
-                          value={averageRate}
-                          readOnly
-                      /><p style={{margin:'0.2em 0 0 0 '}}>{averageRate.toFixed(2)}/5</p>
-                      </p>
-                      </p>
+                    <p className={classes.bookRowTitle}>
+  <span className={classes.title}>{props.designation}</span>
+  <span className={classes.rate}>
+    <Rating
+      style={{
+        color: "var(--primary-color)",
+        margin: '0 .5em 0 0',
+      }}
+      size="small"
+      name="read-only"
+      value={averageRate}
+      readOnly
+    />
+    <span style={{margin: '0.2em 0 0 0 '}}>{averageRate.toFixed(2)}/5</span>
+  </span>
+</p>
+
                       <p className={classes.bookRowAuthor}>{props.dc_auteur} LE : {props.dc_parution?.substring(0, 10)}</p>
                       <p className={classes.rateMob}>
                         <Rating
@@ -531,7 +542,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                       <p className={classes.bookRowDescription} >
                       {truncateText(stripHtmlTags(props.descriptif), 80)}
                       </p>
-                      <p className={classes.priceMob}>{(props.prixpublic * 1).toFixed(2)} $</p> 
+                      <p className={classes.priceMob}>{(props._prix_public_ttc * 1).toFixed(2)} $</p> 
                     </div>
                   </div>
             
@@ -567,7 +578,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                         </div>}
                       </div>
              <span style={{ display: "flex", flexDirection: "row", margin:'0', columnGap:'0.5em' }}>
-                        {/* {props.discount > 0 && (
+                        {props.discount > 0 && (
                           <p
                             style={{
                               color: "var(--primary-color)",
@@ -577,12 +588,12 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                             }}
                           >
                             {currency === "eur"
-                              ? `€ ${Number(props.prixpublic).toFixed(2)} `
+                              ? `€ ${Number(props._prix_public_ttc).toFixed(2)} `
                               : `$ ${(
-                                  props.prixpublic * authCtx.currencyRate
+                                  props._prix_public_ttc * authCtx.currencyRate
                                 ).toFixed(2)} `}
                           </p>
-                        )} */}
+                        )}
                         <p
                           className={classes.price}
                         >
@@ -590,21 +601,21 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                             ? `€${
                                 props.discount > 0
                                   ? (
-                                      props.prixpublic -
-                                      props.prixpublic * (props.discount / 100)
+                                      props._prix_public_ttc -
+                                      props._prix_public_ttc * (props.discount / 100)
                                     ).toFixed(2)
-                                  : Number(props.prixpublic).toFixed(2)
+                                  : Number(props._prix_public_ttc).toFixed(2)
                               }`
                             : `$${
                                 props.discount > 0
                                   ? (
-                                      (props.prixpublic -
-                                        props.prixpublic *
+                                      (props._prix_public_ttc -
+                                        props._prix_public_ttc *
                                           (props.discount / 100)) *
                                       authCtx.currencyRate
                                     ).toFixed(2)
                                   : (
-                                      props.prixpublic * authCtx.currencyRate
+                                      props._prix_public_ttc * authCtx.currencyRate
                                     ).toFixed(2)
                               }`}{" "}
                         </p>
@@ -702,6 +713,11 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
               <MdKeyboardDoubleArrowRight className={classes.icon1} />
             </button> */}
           </div>
+            <div className={classes.show}>
+              <p>
+              {language === 'eng' ? "Showing" : "Montrer" } {from}–{to} {language === 'eng' ? "of" : "de " }  {totalArticlesNumber} {language === 'eng' ? "results" : "résultats" }
+              </p>
+            </div>
         </div>
     </div>
   );

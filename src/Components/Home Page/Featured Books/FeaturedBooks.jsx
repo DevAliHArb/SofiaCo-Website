@@ -134,21 +134,21 @@ const FeaturedBooks = () => {
                               ? `€${
                                   props.discount > 0
                                     ? (
-                                        props.prixpublic -
-                                        props.prixpublic * (props.discount / 100)
+                                        props._prix_public_ttc -
+                                        props._prix_public_ttc * (props.discount / 100)
                                       ).toFixed(2)
-                                    : Number(props.prixpublic).toFixed(2)
+                                    : Number(props._prix_public_ttc).toFixed(2)
                                 }`
                               : `$${
                                   props.discount > 0
                                     ? (
-                                        (props.prixpublic -
-                                          props.prixpublic *
+                                        (props._prix_public_ttc -
+                                          props._prix_public_ttc *
                                             (props.discount / 100)) *
                                         authCtx.currencyRate
                                       ).toFixed(2)
                                     : (
-                                        props.prixpublic * authCtx.currencyRate
+                                        props._prix_public_ttc * authCtx.currencyRate
                                       ).toFixed(2)
                                 }`}{" "}
                           </p>
@@ -162,9 +162,9 @@ const FeaturedBooks = () => {
                               }}
                             >
                               {currency === "eur"
-                                ? `€ ${Number(props.prixpublic).toFixed(2)} `
+                                ? `€ ${Number(props._prix_public_ttc).toFixed(2)} `
                                 : `$ ${(
-                                    props.prixpublic * authCtx.currencyRate
+                                    props._prix_public_ttc * authCtx.currencyRate
                                   ).toFixed(2)} `}
                             </p>
                           )}

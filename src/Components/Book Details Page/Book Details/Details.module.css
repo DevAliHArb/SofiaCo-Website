@@ -22,7 +22,7 @@
 
 .char{
     display: grid;
-    grid-template-columns: 35% 60%;
+    grid-template-columns: 35% 50% 10%;
     border-bottom: 1px solid var(--authbg-color);
 }
 
