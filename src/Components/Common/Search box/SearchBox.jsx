@@ -143,25 +143,25 @@ function SearchBox() {
                             ? `${
                               article.discount > 0
                                   ? (
-                                    article.prixpublic -
-                                    article.prixpublic * (article.discount / 100)
+                                    article._prix_public_ttc -
+                                    article._prix_public_ttc * (article.discount / 100)
                                     ).toFixed(2)
-                                  : Number(article.prixpublic).toFixed(2)
+                                  : Number(article._prix_public_ttc).toFixed(2)
                               } €`
                             : `${
                               article.discount > 0
                                   ? (
-                                      (article.prixpublic -
-                                        article.prixpublic *
+                                      (article._prix_public_ttc -
+                                        article._prix_public_ttc *
                                           (article.discount / 100)) *
                                       authCtx.currencyRate
                                     ).toFixed(2)
                                   : (
-                                    article.prixpublic * authCtx.currencyRate
+                                    article._prix_public_ttc * authCtx.currencyRate
                                     ).toFixed(2)
                               } $`}  {" "}                   
                      {article.discount > 0 && <span style={{opacity: "0.8",textDecoration:'line-through'}} >
-                      {currency === "eur" ? `${Number(article.prixpublic).toFixed(2)} € `: `${(article.prixpublic * authCtx.currencyRate ).toFixed(2)} $ `}</span>} 
+                      {currency === "eur" ? `${Number(article._prix_public_ttc).toFixed(2)} € `: `${(article._prix_public_ttc * authCtx.currencyRate ).toFixed(2)} $ `}</span>} 
                       </p>
                     </div>
                   </div>
