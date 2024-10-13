@@ -83,6 +83,7 @@ export const AuthContextProvider = (props) => {
   const favorites = useSelector((state)=>state.products.favorites);
   const user = useSelector((state)=>state.products.userInfo);
   const token = localStorage.getItem('token');
+  const [isLoading, setIsLoading] = useState(false);
    
   const fetchfavandcartSettings = async () => {
     if (user) {
@@ -339,14 +340,16 @@ const fetchArticles = async () => {
   }
 
   const addToCartWithQtyhandler = async (props) => {
+    console.log(props)
+    const maxQuantity = props._qte_a_terme_calcule;
     const item = productData.find(item => item._id === props.id);
      if (!item) {
      try {
-      const response = await axios.post("https://api.leonardo-service.com/api/bookshop/cart", {
+      setIsLoading(true);
+      const response = await axios.post("https://api.leonardo-service.com/api/bookshop/cart?ecom_type=bookshop", {
         user_id: user.id,
         article_id: props.id,
         quantity: props.quantity,
-        ecom_type: 'sofiaco'
       });
       dispatch(addTocart({
         _id: props.id,
@@ -364,7 +367,7 @@ const fetchArticles = async () => {
         article_stock: props.article_stock
       }));
 
-      toast.success(language === "eng" ? `${props.name ? props.name : "Article"} is added` : `${props.name ? props.name : "Article"} a été ajouté`, {
+      toast.success(`${language === 'eng' ? "Book is added to Cart" : "Le livre est ajouté au panier"}`, {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -376,7 +379,7 @@ const fetchArticles = async () => {
       });
     } catch (error) {
       // console.error("Error adding to cart:", error);
-      toast.error(language === "eng" ? "Failed to add item to cart." : "Échec de l'ajout de l'article au panier.", {
+      toast.error(`${language === 'eng' ? "Failed to add item to cart." : "Échec de l'ajout d'un article au panier."}`, {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -386,10 +389,57 @@ const fetchArticles = async () => {
         progress: 0,
         theme: "colored",
       });
+      console.log(error)
+    } finally{
+      setIsLoading(false);
     };
      } else {
-      const newQuantity = Number(item.quantity) + Number(props.quantity);
-      axios.put(`https://api.leonardo-service.com/api/bookshop/cart/${item.cart_id}`, {
+      const newQuantity = Number(item.quantity * 1) + Number(props.quantity * 1);
+      const newQuantityMax = Number(maxQuantity) - Number(item.quantity * 1);
+      // console.log("item.quantity", item.quantity)
+      // console.log("props.quantity", props.quantity)
+      // console.log("newQuantity", newQuantity)
+      setIsLoading(true);
+      if (Number(newQuantity) > Number(maxQuantity)) {
+        
+        axios.put(`https://api.leonardo-service.com/api/bookshop/cart/${item.cart_id}`, {
+          quantity: Number(maxQuantity).toFixed(0),
+          })
+          .then((response) => {
+              // console.log("PUT request successful:", response.data);
+              dispatch(addTocart({
+                  _id: props.id,
+                  quantity: Number(newQuantityMax).toFixed(0),
+                }))
+                setIsLoading(false);
+                toast.success(`${language === 'eng' ? "Book is added to Cart" : "Le livre est ajouté au panier"}`, {
+                  position: "top-right",
+                  autoClose: 1500,
+                  hideProgressBar: true,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: 0,
+                  theme: "colored",
+                });
+          })
+          .catch((error) => {
+              console.error("Error in PUT request:", error);
+              setIsLoading(false);
+              toast.error(`${language === 'eng' ? "Failed to add item to cart." : "Échec de l'ajout d'un article au panier."}`, {
+                position: "top-right",
+                autoClose: 1500,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: 0,
+                theme: "colored",
+              });
+          });
+      } else {
+        
+        axios.put(`https://api.leonardo-service.com/api/bookshop/cart/${item.cart_id}`, {
           quantity: newQuantity,
           })
           .then((response) => {
@@ -398,7 +448,8 @@ const fetchArticles = async () => {
                   _id: props.id,
                   quantity: props.quantity,
                 }))
-                toast.success(language === "eng" ? `${props.name ? props.name : "Article"} is added` : `${props.name ? props.name : "Article"} a été ajouté`, {
+                setIsLoading(false);
+                toast.success(`${language === 'eng' ? "Book is added to Cart" : "Le livre est ajouté au panier"}`, {
                   position: "top-right",
                   autoClose: 1500,
                   hideProgressBar: true,
@@ -411,7 +462,8 @@ const fetchArticles = async () => {
           })
           .catch((error) => {
               // console.error("Error in PUT request:", error);
-              toast.error(language === "eng" ? "Failed to add item to cart." : "Échec de l'ajout de l'article au panier.", {
+              setIsLoading(false);
+              toast.error(`${language === 'eng' ? "Failed to add item to cart." : "Échec de l'ajout d'un article au panier."}`, {
                 position: "top-right",
                 autoClose: 1500,
                 hideProgressBar: true,
@@ -422,6 +474,7 @@ const fetchArticles = async () => {
                 theme: "colored",
               });
           });
+      }
       
     }
   }
@@ -512,12 +565,24 @@ const fetchArticles = async () => {
   };
 
   const addToFavoritehandler = async (props) => {
+    if (!user?.id) {
+      toast.error(`${language === 'eng' ? "Please login to add to Wishlist." : "Veuillez vous connecter pour ajouter à la liste de souhaits."}`, {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: 0,
+        theme: "colored",
+      });
+    } else {
     const item = favorites.find(item => item._favid === props.id);
      try {
       const response = await axios.post("https://api.leonardo-service.com/api/bookshop/favorites", {
         user_id: user.id,
         article_id: props.id,
-        ecom_type: 'sofiaco'
+        ecom_type: 'albouraq'
       });
       dispatch(addTofavorite({
         id: response.data.data.id,
@@ -535,7 +600,7 @@ const fetchArticles = async () => {
         article_stock: props.article_stock
       }));
 
-      toast.success(language === "eng" ? `${props.name ? props.name : "Article"} is added` : `${props.name ? props.name : "Article"} a été ajouté`, {
+      toast.success(`${language === 'eng' ? `Product is added to Favorites` : "Le produit est ajouté à la liste de souhaits"}`, {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -546,8 +611,8 @@ const fetchArticles = async () => {
         theme: "colored",
       });
     } catch (error) {
-      // console.error("Error adding to Favorites:", error);
-      toast.error(language === "eng" ? "Failed to add item to cart." : "Échec de l'ajout de l'article au panier.", {
+      console.error("Error adding to Favorites:", error);
+      toast.error(`${language === 'eng' ? "Failed to add item to Wishlist." : "Échec de l'ajout d'un article à la liste de souhaits."}`, {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -558,7 +623,7 @@ const fetchArticles = async () => {
         theme: "colored",
       });
     };
-     
+  }
   }
 
   const deleteFavoritehandler = async (props) => {

@@ -11,7 +11,7 @@ import Modal from '@mui/material/Modal';
 import { Row, Col, Button,  Select, Form, Input } from 'antd';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useDispatch, useSelector } from 'react-redux';
-import { addPayment, deletePayment, editPayment, editDefaultPAY } from '../../../Common/redux/productSlice';
+import { addPayment, deletePayment, editPayment, editDefaultPAY, editUser } from '../../../Common/redux/productSlice';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { GiCheckMark } from "react-icons/gi";
 import DeleteIcon from "../../../../assets/DeleteIcon.svg";
@@ -23,6 +23,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import data from '../../../../Data.json'
 import nodata from '../../../../assets/nopayments.svg'
+import directPay from '../../../../assets/directPay.png'
+import PayPal from '../../../../assets/PayPal.png'
 
 
 const { Option } = Select;
@@ -141,6 +143,7 @@ useEffect(() => {
         `https://api.leonardo-service.com/api/bookshop/users/${user.id}/payments/${id}`,
         {
           default: "true",
+          default_pay: 'card'
         },
         {
           headers: {
@@ -148,13 +151,51 @@ useEffect(() => {
           },
         }
       );
+      dispatch(editUser({...user, default_pay: 'card'}));
       fetchPayments();
-      toast.success(language === "eng" ? "Default payment card is set successfully" : "La carte de paiement par défaut est définie avec succès", {
+      toast.success(`${language === 'eng' ? "Default Payment card is set successfully" : "La carte de paiement par défaut a été définie avec succès"}`, {
         // Toast configuration
         hideProgressBar: true,
       });
     } catch (error) {
       // console.error("Error setting default payment:", error);
+    }
+  };
+  const handleChange2 = async (props) => {
+    if (user.default_pay !== props) {
+    try {
+      // console.log(passData)
+        // Make API call to change password
+        const response = await axios.put(`https://api.leonardo-service.com/api/bookshop/users/${user.id}`, {default_pay: props}, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        console.log("Default Payment card is set successfully");
+      dispatch(editUser({...user, default_pay: props}));
+        toast.success(`${language === 'eng' ? "Default Payment card is set successfully" : "La carte de paiement par défaut a été définie avec succès"}`, {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: 0 ,
+          theme: "colored",
+          })
+    } catch (error) {
+        toast.error(error, {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: 0 ,
+          theme: "colored",
+          })
+    }
+      
     }
   };
 
@@ -262,7 +303,7 @@ useEffect(() => {
           :
           <div className={classes.cardContainer}> 
             {paymentslist?.map((item, index) => (
-            <div key={item.id} onClick={()=>{ handleChange1(item.id)}} className={`${item.default === 'true' ? classes.paymentCardSelected : classes.paymentCard}`} >
+            <div key={item.id} onClick={()=>{ handleChange1(item.id)}} className={`${(item.default === 'true' && user.default_pay === 'card') ? classes.paymentCardSelected : classes.paymentCard}`} >
               <div className={classes.contantContainer}>
                       <div className={classes.contant}>
                         <div style={{display:'flex',flexDirection:"row"}} >
@@ -284,14 +325,14 @@ useEffect(() => {
                           style={{
                             width: ".7em",
                             height: ".7em",
-                            border: item.default === 'true' ? ".2em solid var(--secondary-color)" : ".2em solid var(--primary-color)",
+                            border: (item.default === 'true' && user.default_pay === 'card') ? ".2em solid var(--secondary-color)" : ".2em solid var(--primary-color)",
                             borderRadius: "50%",
                             margin: ".3em 0",
                             backgroundColor: "#fff",
                             marginRight: ".3em",
                           }}
                         >
-                          <span style={{position:'absolute', width:'.5em', height:'0.5em', background: item.default === 'true' ? 'var(--secondary-color)' : '#fff', margin:'0.1em', borderRadius:'50%'}}></span>
+                          <span style={{position:'absolute', width:'.5em', height:'0.5em', background: (item.default === 'true' && user.default_pay === 'card') ? 'var(--secondary-color)' : '#fff', margin:'0.1em', borderRadius:'50%'}}></span>
                         </p>
                         <p style={{ margin: ".2em 0",alignSelf:'center' }}>Default</p>
                       </div>
@@ -304,7 +345,7 @@ useEffect(() => {
                                                                      handleOpen();}} style={{color:selectedPayment === item.id ? 'var(--secondary-color)': 'var(--forth-color)'}}> 
                                                 Edit</button> */}
                         <button className={classes.deleteBtn}
-                        style={{background: item.default === 'true' ? 'var(--secondary-color)' : 'var(--primary-color)'}}
+                        style={{background: (item.default === 'true' && user.default_pay === 'card') ? 'var(--secondary-color)' : 'var(--primary-color)'}}
                           onClick={()=>{dispatch(deletePayment(item.id)),handleDeletePayment(item.id)}}
                         >
                           <img src={DeleteIcon}
@@ -314,6 +355,82 @@ useEffect(() => {
                     </div>
                 </div>
                 ))}
+                <div onClick={()=>{ handleChange2('direct')}} className={`${user.default_pay === 'direct' ? classes.paymentCardSelected : classes.paymentCard}`} >
+                  <div className={classes.contantContainer}>
+                          <div className={classes.contant}>
+                            <div style={{display:'flex',flexDirection:"row"}} >
+                            <img alt='' src={directPay} style={{height:'4em',width:'auto',margin:'0 0 0 -.55em',padding:'0'}}/>
+                            <div style={{display:'flex',flexDirection:'column'}}>
+                              <p style={{margin:'auto .2em',fontWeight:"500"}}> Direct Payment</p>
+                              {/* <p style={{margin:'.2em'}}>vtvf</p> */}
+                            </div>
+                            </div>
+                        <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          color: '#fff',
+                          marginTop: ".5em",
+                        }}
+                      >
+                        <p
+                          style={{
+                            width: ".7em",
+                            height: ".7em",
+                            border: user.default_pay === 'direct' ? ".2em solid var(--secondary-color)" : ".2em solid var(--primary-color)",
+                            borderRadius: "50%",
+                            margin: ".3em 0",
+                            backgroundColor: "#fff",
+                            marginRight: ".3em",
+                          }}
+                        >
+                          <span style={{position:'absolute', width:'.5em', height:'0.5em', background: user.default_pay === 'direct' ? 'var(--secondary-color)' : '#fff', margin:'0.1em', borderRadius:'50%'}}></span>
+                        </p>
+                        <p style={{ margin: ".2em 0",alignSelf:'center' }}>Default</p>
+                      </div>
+                            </div>
+                        <div className={classes.addtocart}>
+                          </div>
+                        </div>
+                    </div>
+                <div onClick={()=>{ handleChange2('paypal')}} className={`${user.default_pay === 'paypal' ? classes.paymentCardSelected : classes.paymentCard}`} >
+                  <div className={classes.contantContainer}>
+                          <div className={classes.contant}>
+                            <div style={{display:'flex',flexDirection:"row"}} >
+                            <img alt='' src={PayPal} style={{height:'4em',width:'auto',margin:'0 0 0 -.55em',padding:'0'}}/>
+                            <div style={{display:'flex',flexDirection:'column'}}>
+                              <p style={{margin:'auto .2em',fontWeight:"500"}}> PayPal</p>
+                              {/* <p style={{margin:'.2em'}}>vtvf</p> */}
+                            </div>
+                            </div>
+                        <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          color: '#fff',
+                          marginTop: ".5em",
+                        }}
+                      >
+                        <p
+                          style={{
+                            width: ".7em",
+                            height: ".7em",
+                            border: user.default_pay === 'paypal' ? ".2em solid var(--secondary-color)" : ".2em solid var(--primary-color)",
+                            borderRadius: "50%",
+                            margin: ".3em 0",
+                            backgroundColor: "#fff",
+                            marginRight: ".3em",
+                          }}
+                        >
+                          <span style={{position:'absolute', width:'.5em', height:'0.5em', background: user.default_pay === 'paypal' ? 'var(--secondary-color)' : '#fff', margin:'0.1em', borderRadius:'50%'}}></span>
+                        </p>
+                        <p style={{ margin: ".2em 0",alignSelf:'center' }}>Default</p>
+                      </div>
+                            </div>
+                        <div className={classes.addtocart}>
+                          </div>
+                        </div>
+                    </div>
                 
             </div>
                 }

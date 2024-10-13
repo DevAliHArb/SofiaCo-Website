@@ -89,6 +89,15 @@
  .MuiSelect-icon {
   margin-left: 1em; /* Adjust the gap between value and icon */
 }
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none; /* Chrome, Safari, Edge, Opera */
+  margin: 0;
+}
 
 @media screen and (max-width: 950px) {
   .swiper-pagination {

@@ -31,6 +31,7 @@ import Mentions from './Components/Mentions Légales/Mentions';
 import MyDocumentsPage from './Components/My Documents/MyDocumentsPage';
 import ContactUs from './Components/ContactUs/ContactUs';
 import SuccessPage from './Components/CheckOut Page/SuccessPage';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);

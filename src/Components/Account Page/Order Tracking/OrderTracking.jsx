@@ -3,7 +3,7 @@ import classes from './OrderTracking.module.css'
 import OrderCard from './Order Card/OrderCard';
 import visa from '../../../assets/visa_logo.png';
 import master from "../../../assets/master_logo.png";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import AllOrders from '../../../assets/AllOrders.svg';
 import Processing from '../../../assets/Processing.svg';
 import Shipped from '../../../assets/Shipped.svg';
@@ -36,6 +36,7 @@ import { PiMapPinLine } from "react-icons/pi";
 import { PiCheckCircle } from "react-icons/pi";
 import { PiNotepad } from "react-icons/pi";
 import AuthContext from '../../Common/authContext';
+import { addTocart } from '../../Common/redux/productSlice';
 
 
 
@@ -136,6 +137,9 @@ const OrderTracking = () => {
   const [steps, setsteps] = useState([]) 
   const [data, setData] = useState(orders)
   const [showPopup, setShowPopup] = useState(false);
+  const dispatch = useDispatch();
+  const productData = useSelector((state)=>state.products.productData);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getToken = () => {
     return localStorage.getItem('token');
@@ -258,10 +262,117 @@ const reviewHandler =()=>setisReviewMood(true);
   formattedDate.setDate(formattedDate.getDate() + 3);
   const EstimatedDeliveryDate = formattedDate.toDateString();
 
+  const addToCartWithQtyhandler = async (props) => {
+    console.log(props)
+    const maxQuantity = props._qte_a_terme_calcule;
+    const item = productData.find(item => item._id === props.id);
+     if (!item) {
+     try {
+      setIsLoading(true);
+      const response = await axios.post("https://api.leonardo-service.com/api/bookshop/cart?ecom_type=bookshop", {
+        user_id: user.id,
+        article_id: props.id,
+        quantity: props.quantity,
+      });
+      dispatch(addTocart({
+        _id: props.id,
+        title: props.designation,
+        author: props.dc_auteur,
+        image: props.image,
+        price: props.prixpublic,
+        _qte_a_terme_calcule: props._qte_a_terme_calcule,
+        discount: props.discount,
+        quantity: props.quantity,
+        description: props.descriptif,
+        weight: props._poids_net,
+        cart_id: response.data.data.id,
+        price_ttc: props._prix_public_ttc,
+        article_stock: props.article_stock
+      }));
+    } catch (error) {
+      // console.error("Error adding to cart:", error);
+      console.log(error)
+    } finally{
+      setIsLoading(false);
+    };
+     } else {
+      const newQuantity = Number(item.quantity * 1) + Number(props.quantity * 1);
+      const newQuantityMax = Number(maxQuantity) - Number(item.quantity * 1);
+      setIsLoading(true);
+      if (Number(newQuantity) > Number(maxQuantity)) {
+        
+        axios.put(`https://api.leonardo-service.com/api/bookshop/cart/${item.cart_id}`, {
+          quantity: Number(maxQuantity).toFixed(0),
+          })
+          .then((response) => {
+              // console.log("PUT request successful:", response.data);
+              dispatch(addTocart({
+                  _id: props.id,
+                  quantity: Number(newQuantityMax).toFixed(0),
+                }))
+                setIsLoading(false);
+          })
+          .catch((error) => {
+              // console.error("Error in PUT request:", error);
+              setIsLoading(false);
+          });
+      } else {
+        
+        axios.put(`https://api.leonardo-service.com/api/bookshop/cart/${item.cart_id}`, {
+          quantity: newQuantity,
+          })
+          .then((response) => {
+              // console.log("PUT request successful:", response.data);
+              dispatch(addTocart({
+                  _id: props.id,
+                  quantity: props.quantity,
+                }))
+          })
+          .catch((error) => {
+              // console.error("Error in PUT request:", error);
+              setIsLoading(false);
+          });
+      }
+      
+    }
+  }
   const AddAllToCart = () => {
-      // console.log(selectedOrder)
-      selectedOrder.order_invoice_items?.forEach(element => {
-      authCtx.addToCart({props: element.article, carttoggle:()=>{}});
+    selectedOrder.order_invoice_items?.forEach(element => {
+      console.log(element.article._qte_a_terme_calcule);
+      if (element.article._qte_a_terme_calcule > 0) {
+        const quantityToAdd =
+    element.quantity > element.article._qte_a_terme_calcule
+      ? element.article._qte_a_terme_calcule
+      : element.quantity;
+      addToCartWithQtyhandler(
+        ({ 
+            id: element.article.id,
+            designation: element.article.designation,
+            dc_auteur: element.article.dc_auteur,
+            image: element.article.articleimage[0]?.link ? element.article.articleimage[0].link : bookPlaceHolder,
+            prixpublic: element.article.prixpublic,
+            _qte_a_terme_calcule: element.article._qte_a_terme_calcule,
+            _code_barre: element.article._code_barre,
+            quantity: Number(quantityToAdd).toFixed(0),
+            discount:element.article.discount,
+            descriptif: element.article.descriptif,
+            _poids_net: element.article._poids_net,
+            _prix_public_ttc: element.article._prix_public_ttc,
+          })
+        );
+          
+        }
+    });
+    
+    toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès de l'ordre de rachat"}`, {
+      position: "top-right",
+      autoClose: 1500,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: 0,
+      theme: "colored",
     });
   }
   const CancleOrderHandler = () => {

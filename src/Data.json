@@ -166,7 +166,7 @@
       }
     },
     "Favorits": {
-      "title": { "eng": "MY WishList", "fr": "Mes listes" },
+      "title": { "eng": "MY WishList", "fr": "Liste De Souhaits" },
       "description": {
         "eng": "",
         "fr": ""
@@ -236,7 +236,7 @@
     }
   },
   "Favorite": {
-    "title": { "eng": "Wishlist", "fr": "Mes Liste" },
+    "title": { "eng": "Wishlist", "fr": "Liste De Souhaits" },
     "emptyCart": {
       "eng": "Your Wishlist Is Empty!",
       "fr": "Votre liste de souhaits est vide!"

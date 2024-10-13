@@ -6,11 +6,11 @@ import TextField from '@mui/material/TextField';
 import DeleteIcon from "../../assets/DeleteIcon.svg";
 import {
   addTocart,
+  changeFavorite,
   decreamentQuantity,
   decreamentfavQuantity,
-  deleteItem,
   deletefavorite,
-  changeFavorite,
+  increamentQuantity,
   increamentfavQuantity,
   resetfavorite,
 } from "../Common/redux/productSlice";
@@ -56,11 +56,56 @@ const FavoriteItem = ({ carttoggle }) => {
                   value={props.favrate}
                   readOnly
               /><p style={{margin:'0.2em 0 0 0 '}}>{props.favrate}/5</p></p>
-              <p className={classes.priceMob}>{currency === 'usd' ? `$ ${(props.favprice * authCtx.currencyRate).toFixed(2)} ` : `€ ${Number(props.favprice).toFixed(2)} `} </p> 
+              <p className={classes.priceMob}>{currency === "eur"
+                            ? `${
+                              props.discount > 0
+                                  ? (
+                                    props.favprice -
+                                    props.favprice * (props.discount / 100)
+                                    ).toFixed(2)
+                                  : Number(props.favprice).toFixed(2)
+                              } €`
+                            : `${
+                              props.discount > 0
+                                  ? (
+                                      (props.favprice -
+                                        props.favprice *
+                                          (props.discount / 100)) *
+                                      authCtx.currencyRate
+                                    ).toFixed(2)
+                                  : (
+                                    props.favprice * authCtx.currencyRate
+                                    ).toFixed(2)
+                              } $`}  {" "}                   
+                     {props.discount > 0 && <span style={{opacity: "0.8",textDecoration:'line-through'}} >
+                      {currency === "eur" ? `${Number(props.favprice).toFixed(2)} € `: `${(props.favprice * authCtx.currencyRate ).toFixed(2)} $ `}</span>}  </p> 
             </div>
-            <p className={classes.price}>{currency === 'usd' ? `$ ${(props.favprice * authCtx.currencyRate).toFixed(2)} ` : `€ ${Number(props.favprice).toFixed(2)} `}</p>
+            <p className={classes.price}>{currency === "eur"
+                            ? `${
+                              props.discount > 0
+                                  ? (
+                                    props.favprice -
+                                    props.favprice * (props.discount / 100)
+                                    ).toFixed(2)
+                                  : Number(props.favprice).toFixed(2)
+                              } €`
+                            : `${
+                              props.discount > 0
+                                  ? (
+                                      (props.favprice -
+                                        props.favprice *
+                                          (props.discount / 100)) *
+                                      authCtx.currencyRate
+                                    ).toFixed(2)
+                                  : (
+                                    props.favprice * authCtx.currencyRate
+                                    ).toFixed(2)
+                              } $`}  {" "}                   
+                     {props.discount > 0 && <span style={{opacity: "0.8",textDecoration:'line-through'}} >
+                      {currency === "eur" ? `${Number(props.favprice).toFixed(2)} € `: `${(props.favprice * authCtx.currencyRate ).toFixed(2)} $ `}</span>} </p>
             
-           {props._qte_a_terme_calcule > 0 ? <div className={classes.quantity}>
+           {props._qte_a_terme_calcule > 0 ? 
+           <div style={{margin:'auto 0'}}><div className={classes.quantity}>
               <p
                 style={{
                   color: "var(--secondary-color)",
@@ -70,7 +115,8 @@ const FavoriteItem = ({ carttoggle }) => {
                   cursor: "pointer",
                 }}
                 onClick={() => {
-                  if (props.favquantity != 1) {
+                  if (props._qte_a_terme_calcule > 0) {
+                    if (props.favquantity != 1) {
                     dispatch(
                       decreamentfavQuantity({
                         _favid: props._favid,
@@ -87,19 +133,69 @@ const FavoriteItem = ({ carttoggle }) => {
                   } else {
                     authCtx.deleteFavorite(props._favid);
                   }
+                    
+                  }
                 }}
               >
                 -
               </p>
               <p
                 style={{
-                  color: "var(--secondary-color)",
-                  fontWeight: 500,
-                  fontSize: "18px",
                   margin: "auto",
                 }}
               >
-                {props.favquantity}
+                <input
+                  type="number"
+                  value={props.favquantity}
+                  // min="1"
+                  onChange={(e) => {
+                    const newQuantity = parseInt(e.target.value, 10);
+                    console.log(newQuantity)
+                    if (!isNaN(newQuantity) && newQuantity >= 1 ) {
+                      if (newQuantity <= props._qte_a_terme_calcule) {
+                        dispatch(
+                          changeFavorite({
+                            _favid: props._favid,
+                            favtitle: props.favname,
+                            favauthor: props.favauthor,
+                            favimage: props.favimage,
+                            favprice: props.favprice,
+                            favquantity: newQuantity,
+                            favdescription: props.favresume,
+                            weight: props.weight,
+                            price_ttc: props.price_ttc,
+                          })
+                        );
+                      } else {
+                        dispatch(
+                          changeFavorite({
+                            _favid: props._favid,
+                            favtitle: props.favname,
+                            favauthor: props.favauthor,
+                            favimage: props.favimage,
+                            favprice: props.favprice,
+                            favquantity: Number(props._qte_a_terme_calcule).toFixed(0),
+                            favdescription: props.favresume,
+                            weight: props.weight,
+                            price_ttc: props.price_ttc,
+                          })
+                        );
+                        
+                      }
+                    }
+                  }}
+                  style={{
+                    color: "var(--secondary-color)",
+                    fontWeight: 500,
+                    fontSize: "20px",
+                    margin: "auto",
+                    width: "2em",
+                    textAlign: "center",
+                    backgroundColor: "transparent",
+                    border: "none",
+                    outline: "none",
+                  }}
+                />
               </p>
               <p
                 style={{
@@ -109,48 +205,62 @@ const FavoriteItem = ({ carttoggle }) => {
                   fontSize: "26px",
                   cursor: "pointer",
                 }}
-                onClick={() =>
-                  dispatch(
-                    increamentfavQuantity({
-                      _favid: props._favid,
-                      favtitle: props.favname,
-                      favauthor: props.favauthor,
-                      favimage: props.favimage,
-                      favprice: props.favprice,
-                      favquantity: 1,
-                      favdescription: props.favresume,
-                      weight: props.weight,
-                      price_ttc: props.price_ttc,
-                    })
-                  )
-                }
+                onClick={() =>{
+                  if (props._qte_a_terme_calcule > 0  && props.favquantity < props._qte_a_terme_calcule) {
+                    dispatch(
+                      increamentfavQuantity({
+                        _favid: props._favid,
+                        favtitle: props.favname,
+                        favauthor: props.favauthor,
+                        favimage: props.favimage,
+                        favprice: props.favprice,
+                        favquantity: 1,
+                        favdescription: props.favresume,
+                        weight: props.weight,
+                        price_ttc: props.price_ttc,
+                      })
+                    )
+                  }
+                }}
               >
                 +
               </p>
+            </div>
+            <p style={{ margin: ".5em auto auto auto",color:props._qte_a_terme_calcule > 0 ? "#2DB224" : "#EE5858",fontWeight:"600" }}>{props._qte_a_terme_calcule > 0 ? `${Number(props._qte_a_terme_calcule).toFixed(0)} in stock` : `${language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}`} </p>
             </div> : <div/>}
             <p className={classes.totalPrice} >
-              {currency === 'usd' ? `$ ${(props.favquantity * props.favprice * authCtx.currencyRate).toFixed(2)} ` : `€ ${(props.favquantity * props.favprice).toFixed(2)} `}
+            {currency === "eur"
+                ? `${(props.favquantity * (props.discount > 0
+                  ? (props.price_ttc - props.price_ttc * (props.discount / 100))
+                  : (Number(props.price_ttc)))).toFixed(2)} €`
+                : `${(
+                    props.favquantity *
+                    (props.discount > 0
+                      ? (props.price_ttc - props.price_ttc * (props.discount / 100))
+                      : (Number(props.price_ttc))) *
+                    authCtx.currencyRate
+                  ).toFixed(2)} $`}
             </p>
             <div className={classes.addtocart}>
               {props._qte_a_terme_calcule > 0 &&<button
               onClick={(event)=>{ 
                 event.stopPropagation();
                 authCtx.addToCartWithQty(
-                  props={
-                    _id: props.id,
-                    title: props.designation,
-                    author: props.dc_auteur,
-                    image: props.image,
-                    price: props.prixpublic,
+                  (props = {
+                    id: props._favid,
+                    designation: props.favtitle,
+                    dc_auteur: props.favauthor,
+                    image: props.favimage,
+                    prixpublic: props.favprice,
                     _qte_a_terme_calcule: props._qte_a_terme_calcule,
-                    discount: props.discount,
-                    quantity: props.quantity,
-                    description: props.descriptif,
-                    weight: props._poids_net,
-                    cart_id: response.data.data.id,
-                    price_ttc: props._prix_public_ttc,
-                    article_stock: props.article_stock
-                });
+                    _code_barre: props._code_barre,
+                    quantity: props.favquantity,
+                    discount:props.discount,
+                    descriptif: props.favdescription,
+                    _poids_net: props.weight,
+                    _prix_public_ttc: props.price_ttc,
+                  })
+                );
                 }}
               >
                 <FiShoppingCart style={{fontSize:'1.6em',marginTop:'.4em'}}/>
