@@ -12,7 +12,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin: 4em auto 3em auto;
+  margin: 3em auto 1em auto;
 }
 
 .headerh1{
@@ -86,7 +86,12 @@
     letter-spacing: 0.01rem;
     text-align: start;
     margin-bottom: 0.5em;
-    height: 1.3em;
+    white-space: normal; 
+    overflow: hidden;    
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
     overflow: hidden;
   }
   .p{
@@ -96,9 +101,13 @@
     text-align: start;
     font-weight: 500;
     margin: 0 auto;
-    height: 3.5em ;
     line-height: 150%;
-    overflow: hidden;
+    overflow: hidden;white-space: normal; 
+    overflow: hidden;    
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
   }
   .card_text_head{
     width: 80%;
@@ -257,7 +266,6 @@
 .p{
   font-size: calc(0.6rem + 0.2vw);
   line-height: 120%;
-  height: 3.5em ;
 }
 .card_text_head p{
   margin: 0em 0;

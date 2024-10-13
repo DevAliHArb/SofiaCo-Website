@@ -60,10 +60,11 @@
 
 
 .header{
+  width: 90% !important;
   position: relative;
   width: fit-content;
   height: fit-content;
-  margin: auto;
+  margin: auto 0 auto auto;
 }
 
 .header h1{
@@ -223,6 +224,10 @@ color: var(--secondary-color);
 }
 
 @media screen and (max-width:950px) {
+  .header{
+    width: 100% !important;
+    margin: auto;
+  }
   .nodata{
     flex-direction: column;
   }
