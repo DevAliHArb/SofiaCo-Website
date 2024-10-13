@@ -201,6 +201,12 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
                 <Input
                   size="large"
                   name="title"
+                    style={{
+                      width: "100%",
+                      height: "3em",
+                      textAlign: "start",
+                      backgroundColor: "#fff",
+                    }}
                     placeholder={
                       data.AccountProfilePage.Adresses.AdresseInputTitle[
                         language
@@ -242,6 +248,12 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
                 <Input
                   name="name"
                   size="large"
+                    style={{
+                      width: "100%",
+                      height: "3em",
+                      textAlign: "start",
+                      backgroundColor: "#fff",
+                    }}
                     placeholder={
                       data.AccountProfilePage.Adresses.NomInput[
                         language
@@ -282,6 +294,12 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
               >
                 <Input
                   size="large"
+                    style={{
+                      width: "100%",
+                      height: "3em",
+                      textAlign: "start",
+                      backgroundColor: "#fff",
+                    }}
                     placeholder={
                       data.AccountProfilePage.Adresses.CompanyInput[
                         language
@@ -376,6 +394,12 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
               <Input
                 name="address"
                 size="large"
+                    style={{
+                      width: "100%",
+                      height: "3em",
+                      textAlign: "start",
+                      backgroundColor: "#fff",
+                    }}
                 placeholder={language === 'eng' ? "Street name, apartment, ..." : "Nom de la rue, appartement, ..."}
                 className={classes.inputt}
                 value={formData?.address || ''}
@@ -396,6 +420,12 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
               <Input
                 size="large"
                 name="city"
+                    style={{
+                      width: "100%",
+                      height: "3em",
+                      textAlign: "start",
+                      backgroundColor: "#fff",
+                    }}
                 placeholder={language === 'eng' ? "City" : "Ville"}
                 className={classes.inputt}
                 value={formData?.city || ''}
@@ -424,6 +454,12 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
                 name="postalcode"
                 placeholder={language === 'eng' ? "Postal code" : "Code postal"}
                 size="large"
+                    style={{
+                      width: "100%",
+                      height: "3em",
+                      textAlign: "start",
+                      backgroundColor: "#fff",
+                    }}
                 className={classes.inputt}
                 value={formData?.postalcode || ''}
                 onChange={(e) => handleChange("postalcode", e.target.value)}

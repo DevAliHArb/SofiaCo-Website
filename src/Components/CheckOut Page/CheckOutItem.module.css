@@ -1,65 +1,130 @@
+/* .card{
+    display: grid;
+    grid-template-columns: 20% 30% 20% 13% 13% 3%;
+    padding: 2% 0;
+    color: var(--secondary-color);
+    font-family: var(--font-family);
+} */
+
 .card{
-    width: 80%;
+    width: 86%;
     position: relative;
     height: fit-content;
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 20% 30% 20% 13% 13% 3%;
     justify-content: space-between;
-    padding: 2% 4%;
+    padding: 2% 2% 2% 0% ;
     color: var(--secondary-color);
     margin: 1% auto ;
-    border-top: 1px solid var(--primary-color);
-    padding-bottom: 4%;
-}
-
-.imageCont{
-    margin: 0;
-    width: 5em !important;
-}
-.imageCont img{
-    width: 5em !important;
-}
-
-.card p{
-    margin: 0.4em 0;
-}
-
-.quantity{
-    position: relative;
-    width: fit-content;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    font-size: calc(.7rem + 0.3vw);
+    /* border-top: 1px solid var(--primary-color); */
     font-family: var(--font-family);
 }
 
+.quantity{
+    width: 70%;
+    display: grid;
+    grid-template-columns: 30% 40% 30%;
+    margin: auto;
+    border-radius: .5em;
+    padding: 1% 0;
+    border: 1px solid #7F9BC9;
+    color: var(--secondary-color) !important;
+}
+
+.quantity1{
+    width: fit-content;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    margin: auto;
+    border-radius: .5em;
+    /* padding: 1%; */
+    background-color: #fff;
+    border: 1px solid #7F9BC9;
+    color: var(--secondary-color) !important;
+    cursor: pointer;
+}
+     
+.out_of_stock{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-color: rgba(194, 194, 194, 0.5);
+    z-index: 9;
+    cursor: auto;
+  }
+  
+  .out_of_stock p {
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+    font-family: var(--font-family);
+    font-size: calc(0.6rem + 0.2vw);
+    text-align: center;
+    justify-self: center;
+    align-self: center;
+    color: #fff;
+    padding: 0.2em 0.8em;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+  }
+  .removed_item{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    top: 0;
+    left: 0;
+    display: flex;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5));
+    
+    z-index: 19;
+    cursor: auto;
+  }
+  
+  .removed_item p {
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+    font-family: var(--font-family);
+    font-size: calc(0.9rem + 0.2vw);
+    text-align: center;
+    justify-self: center;
+    align-self: center;
+    font-weight: 700;
+    color: rgb(255, 66, 66);
+  }
 
 .cardmobile{
     display: none;
-    grid-template-columns: 30% 70%;
+    flex-direction: column;
+    padding: 4% 0;
     color: var(--secondary-color);
-    margin: 5% 0 0% 0;
-    border: 1px solid #D3DADC;
-    border-radius: 20px;
+    font-family: var(--font-family) !important;
+    font-size: calc(1rem + .3vw);
+}
+
+.mobcard_content{
+    display: grid;
+    grid-template-columns: 25% 75% ;
 }
 
 .quantitymobile{
-    width: 100%;
-    display: none;
-    flex-direction: row;
-    margin-top: 1em;
-    justify-content: space-between;
+    width: 60%;
+    display: grid;
+    grid-template-columns: 30% 40% 30%;
+    margin: auto 0;
+    border-radius: 20px;
+    padding: 0% 0;
+    background-color: var(--primary-color);
 }
 
 .font_size{
     font-size: calc(0.6vw + 0.3rem);
 }
-.infoCont{
-    width: 100%;
-    display: flex;
-}
-
 .delete_btn{
     width: fit-content;
     height: fit-content;
@@ -78,97 +143,36 @@
     background-color: var(--secondary-color) !important;
 
 }
-.delete_btnMob{
-    display: none;
-    width: fit-content;
-    height: fit-content;
-    border: none;
-    background-color: var(--primary-color);
-    color: #fff !important;
-    transition: background-color 0.5s ease, color 1s ease;
-    font-size: calc(.7rem + 0.3vw);
-    border-radius: .5em;
-    padding: 0.6em .6em;
-    margin-left: auto;
-}
+@media screen and (max-width: 1024px) {
 
-.delete_btnMob:hover{
-    background-color: var(--secondary-color) !important;
-
-}
-.dicription{
-    width: 30em;
-    overflow: hidden;
-    height: 4.3em;
-    color: var(--secondary-color);
-    font-size: calc(.6rem + 0.2vw);
-}
-.dicription ,
-.dicription p,
-.dicription span,
-.dicription h1,
-.dicription h2,
-.dicription h3,
-.dicription h4,
-.dicription h5,
-.dicription h6,
-.dicription div {
-    color: var(--secondary-color) !important;
-    font-size: calc(0.6rem + 0.2vw) !important;
-    line-height: 1.5em !important;
-    margin: 0 !important;
-    font-weight: 500 !important;
-    font-style: normal !important;
-    font-family: var(--font-family) !important;
-    background-color: transparent !important;
-}
-.price{
-    color: var(--secondary-color);
-    font-weight: 500;
-    font-size: large;
-}
-.totalPriceMob{
-    display: none;
-}
-@media screen and (max-width: 1400px) {
-    .dicription{
-        width: 17em;
-        color: var(--secondary-color);
-        font-size: small;
-    }
 .font_size{
     font-size: calc(0.6vw + 0.4rem);
 }
 }
 
 
-@media screen and ( max-width: 750px) {
-    
-      .quantity{
-        display: none;
-      }
-      .card p{
-        margin: 0.1em 0;
-    }
-    .totalPrice{
-        display: none;
-    }
-    .font_size{
-        font-size: calc(0.6vw + 0.6rem);
-    }
-    .quantitymobile{
+@media screen and ( max-width: 650px) {
+    .cardmobile{
         display: flex;
+    }   
+    .quantity1{
+        margin: auto;
     }
-    .infoCont{
-        text-align: start !important;
-        width: 96%;
+    .quantity{
+        width: 30%;
         display: grid;
-        grid-template-columns: 90% 10%;
+        grid-template-columns: 30% 40% 30%;
+        margin: auto auto auto 1em;
+        border-radius: .5em;
+        padding: 0% 0;
+        border: 1px solid #7F9BC9;
+        color: var(--secondary-color) !important;
     }
-    
-.totalPriceMob{
-    display: inline;
-    font-size: calc(1.2rem + .3vw);
+    .card{
+        display: none;
+    }
+       
+.font_size{
+    font-size: calc(0.6vw + 0.6rem);
 }
-    
 }

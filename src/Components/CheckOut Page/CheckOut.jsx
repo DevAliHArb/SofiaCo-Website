@@ -388,6 +388,7 @@ const CheckOut = () => {
 
   const token = getToken();
 
+  
   const handleApplyCoupon = async () => {
     try {
       // Step 1: Check if the coupon code exists in the coupons table
@@ -396,6 +397,7 @@ const CheckOut = () => {
         {
           params: {
             code: selectedCoupon,
+            ecom_type: 'sofiaco',
           },
         },
         {
@@ -422,52 +424,74 @@ const CheckOut = () => {
         );
 
         setSelectedCoupon("");
+        form.resetFields()
         setcoupon(couponResponse.data.data);
         setuserCoupon(userCouponResponse.data.data);
         // Notify the user about successful coupon application
-        toast.success(`Coupon applied successfully.`, {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: 0,
-          theme: "colored",
-        });
+        toast.success(
+          `${
+            language === "eng"
+              ? `Coupon applied successfully.`
+              : "Coupon appliqué avec succès."
+          }`,
+          {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: 0,
+            theme: "colored",
+          }
+        );
       } else {
-        toast.error(`Invalid coupon code.`, {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: 0,
-          theme: "colored",
-        });
+        toast.error(
+          `${
+            language === "eng"
+              ? `Invalid coupon code.`
+              : "Code de coupon invalide."
+          }`,
+          {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: 0,
+            theme: "colored",
+          }
+        );
       }
     } catch (error) {
       console.error("Error applying coupon:", error);
-      toast.error("Failed to apply coupon.", {
-        position: "top-right",
-        autoClose: 1500,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: 0,
-        theme: "colored",
-      });
+      toast.error(
+        `${
+          language === "eng"
+            ? "Failed to apply coupon."
+            : "Le coupon n'a pas été appliqué."
+        }`,
+        {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: 0,
+          theme: "colored",
+        }
+      );
     }
   };
 
-  const FetchShippinCost = async () => {
+  const FetchShippinCost = async (id) => {
     if (addresseslist?.length === 0) {
       setshippingCosts([]);
     } else {
       const activeAddress = addresseslist?.find(
-        (address) => address.default === "true"
+        (address) => address.id === id ? id : user.defaultAdd 
       );
       console.log(activeAddress.country);
       try {
@@ -475,17 +499,16 @@ const CheckOut = () => {
         const orderWeight = totalWeight;
         setLoading(true);
         const response = await axios.get(
-          `https://api.leonardo-service.com/api/bookshop/shipping-costs?country_name=${activeAddress.country}`
+          `https://api.leonardo-service.com/api/bookshop/shipping-costs?ecom_type=sofiaco&country_name=${activeAddress.country}`
         );
-        console.log("Response data del:", response.data);
         setshippingCosts(response.data.data);
         const shippingCost = getShippingCost(
           orderCartCost,
           orderWeight,
           response.data.data
         );
-        setdeliveryFees(shippingCost);
-        console.log("Shipping cost:", response.data.data);
+        const roundedShippingCost = parseFloat(shippingCost).toFixed(2);
+        setdeliveryFees(roundedShippingCost);
       } catch (error) {
         window.location.reload();
         setLoading(false);
@@ -599,7 +622,7 @@ const CheckOut = () => {
       const documentHeight = document.documentElement.scrollHeight;
 
       // Adjust this threshold based on your requirements
-      const threshold = documentHeight - windowHeight - 1100;
+      const threshold = documentHeight - windowHeight - 2500;
 
       // Update the state to hide the container when reaching the bottom
       setContainerVisible(scrollPosition < threshold);
@@ -619,53 +642,65 @@ const CheckOut = () => {
     let totalPrice = 0;
     let totalWeight = 0;
     let totalTVA = 0;
-  
+    let totalPricedollar = 0;
+    let totalTVAdollar = 0;
+
     productData.forEach((item) => {
       // Skip the item if _qte_a_terme_calcule is less than 1
       if (item._qte_a_terme_calcule < 1) {
         return;
       }
-  
-      // Calculate the price considering the discount
-      const price =
-      (item.discount > 0
-        ? (item.price - item.price * (item.discount / 100)).toFixed(2)
-        : Number(item.price).toFixed(2)) * 1;
 
-    updatedOrderInvoiceItems.push({
-      article_id: item._id,
-      name: item.title,
-      quantity: item.quantity,
-      cost: price - (item.price_ttc - item.price),
-      tva: item.price_ttc - item.price,
-      total_tva: (item.price_ttc - item.price) * item.quantity,
-      total_cost: (price - (item.price_ttc - item.price)) * item.quantity,
-      total_price: item.quantity * price,
-      review: item.note || "-",
-      price: price,
+      // Calculate the price considering the discount
+      const discountedPrice = item.discount > 0
+        ? item.price - (item.price * (item.discount / 100))
+        : item.price;
+        const price = discountedPrice ;
+        const priceTTC = item.price_ttc;
+        const priceNet = item.price * 1;
+
+      // Calculate the cost and TVA
+      const cost = price - (priceTTC - priceNet);
+      const tva = item.discount > 0
+        ? (priceTTC - priceNet) - ((priceTTC - priceNet) * (item.discount / 100))
+        : priceTTC - priceNet;
+
+      updatedOrderInvoiceItems.push({
+        article_id: item._id,
+        name: item.title,
+        quantity: item.quantity,
+        cost: parseFloat(cost.toFixed(2)),
+        tva: parseFloat(tva.toFixed(2)),
+        total_tva: parseFloat((tva * item.quantity).toFixed(2)),
+        total_cost: parseFloat((cost * item.quantity).toFixed(2)),
+        total_price: parseFloat((price * item.quantity).toFixed(2)),
+        review: item.note || "-",
+        price: price,
+      });
+
+      totalPrice +=  (price * 1).toFixed(2) * item.quantity;
+      totalWeight += item.quantity * item.weight;
+      totalTVA += (tva * 1).toFixed(2) * item.quantity;
+      totalPricedollar +=  (price * authCtx.currencyRate).toFixed(2) * item.quantity;
+      totalTVAdollar += (Number(tva).toFixed(2) * authCtx.currencyRate).toFixed(2) * item.quantity;
     });
 
-    totalPrice += item.quantity * price;
-    totalWeight += item.quantity * item.weight;
-    totalTVA += (item.price_ttc - item.price) * item.quantity;
-  });
+    setorder_invoice_items(updatedOrderInvoiceItems);
+    settotalWeight(totalWeight);
 
-  setorder_invoice_items(updatedOrderInvoiceItems);
-  settotalWeight(totalWeight);
-
-  if (currency === "usd") {
-    // Convert both totalPrice and totalTVA to USD
-    const convertedTotalPrice = totalPrice * authCtx.currencyRate;
-    const convertedTotalTVA = totalTVA * authCtx.currencyRate;
-    
-    setsubTotalAmt((convertedTotalPrice + convertedTotalTVA).toFixed(2));
-    setTVA(convertedTotalTVA.toFixed(2));
-    setEURTVA(totalTVA)
-  } else {
-    // For EUR, keep the original values
-    setsubTotalAmt((totalPrice + totalTVA).toFixed(2));
-    setTVA(totalTVA.toFixed(2));
-    setEURTVA(totalTVA)
+    if (currency === "usd") {
+      const sum = (totalPricedollar + totalTVAdollar).toFixed(2);
+      const fixedtva = totalTVAdollar.toFixed(2)
+      
+      setsubTotalAmt(sum);
+      setTVA(fixedtva);
+      setEURTVA(totalTVAdollar);
+    } else {
+      // For EUR, keep the original values
+      
+      setsubTotalAmt(parseFloat((totalPrice + totalTVA)));
+      setTVA(parseFloat((totalTVA * 1)));
+      setEURTVA(totalTVA);
     }
   }, [productData, currency]);
 
@@ -682,7 +717,7 @@ const CheckOut = () => {
 
   const CheckOutHandler = async () => {
     if (!user.defaultAdd) {
-      toast.error("Please add a default Address.", {
+      toast.error(`${language === 'eng' ? "Please add a default Address." : "Veuillez ajouter une adresse par défaut."}`, {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -693,7 +728,7 @@ const CheckOut = () => {
         theme: "colored",
       });
     } else if (!user.defaultPay) {
-      toast.error("Please add a default Payment.", {
+      toast.error(`${language === 'eng' ? "Please add a default Payment." : "Veuillez ajouter un paiement par défaut."}`, {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -710,13 +745,13 @@ const CheckOut = () => {
           user_address_id: user.defaultAdd,
           user_payment_id: directPay ? null : user.defaultPay,
           delivery_id: deliveryId,
-          base_price: (subtotalAmt - TVA).toFixed(3),
+          base_price: (subtotalAmt - TVA).toFixed(2),
           tva: TVA,
           ttc_price: subtotalAmt,
           shipping_fees:
             currency === "eur"
               ? deliveryFees
-              : (deliveryFees * authCtx.currencyRate).toFixed(3),
+              : (deliveryFees * authCtx.currencyRate).toFixed(2),
           weight: totalWeight,
           ecom_type: "sofiaco",
           date: generatedate(),
@@ -729,9 +764,9 @@ const CheckOut = () => {
           currency: currency,
           coupon_amount: coupon.reduction
             ? coupon.type === "Percentage"
-              ? calculateReductionAmt(subtotalAmt, coupon.reduction).toFixed(3)
+              ? calculateReductionAmt(subtotalAmt, coupon.reduction).toFixed(2)
               : currency === "usd"
-              ? (coupon.reduction * authCtx.currencyRate).toFixed(3)
+              ? (coupon.reduction * authCtx.currencyRate).toFixed(2)
               : coupon.reduction
             : 0,
             payment_method_id: 17,
@@ -765,9 +800,9 @@ const CheckOut = () => {
           coupon_type: coupon.type,
           coupon_amount: coupon.reduction
             ? coupon.type === "Percentage"
-              ? calculateReductionAmt(subtotalAmt, coupon.reduction).toFixed(3)
+              ? calculateReductionAmt(subtotalAmt, coupon.reduction).toFixed(2)
               : currency === "usd"
-              ? (coupon.reduction * authCtx.currencyRate).toFixed(3)
+              ? (coupon.reduction * authCtx.currencyRate).toFixed(2)
               : coupon.reduction
             : 0,
             payment_method_id: 41,
@@ -820,7 +855,7 @@ const CheckOut = () => {
 
             dispatch(resetCart());
             navigate("/");
-            toast.success(`Order success`, {
+            toast.success(`${language === 'eng' ? `Order success` : "Succès de la commande"}`, {
               position: "top-right",
               autoClose: 1500,
               hideProgressBar: true,
@@ -862,17 +897,29 @@ const CheckOut = () => {
           (currency === "usd"
             ? coupon.reduction * authCtx.currencyRate
             : parseFloat(coupon.reduction));
-        const total = currency === "eur" ? parseFloat(deliveryFees) + parseFloat(subTotal) : parseFloat(deliveryFees * authCtx.currencyRate) + parseFloat(subTotal);
-        setTotalAmt(total.toFixed(2));
+        const total =
+          currency === "eur"
+            ? parseFloat(deliveryFees) + parseFloat(subTotal)
+            : parseFloat(deliveryFees * authCtx.currencyRate) +
+              parseFloat(subTotal);
+        setTotalAmt(total);
       }
       if (coupon.type === "Percentage") {
         const subTotal = calculateReduction(subtotalAmt, coupon.reduction);
-        const total = currency === "eur" ? parseFloat(deliveryFees) + parseFloat(subTotal) : parseFloat(deliveryFees * authCtx.currencyRate) + parseFloat(subTotal);
-        setTotalAmt(total.toFixed(2));
+        const total =
+          currency === "eur"
+            ? parseFloat(deliveryFees) + parseFloat(subTotal)
+            : parseFloat(deliveryFees * authCtx.currencyRate) +
+              parseFloat(subTotal);
+        setTotalAmt(total);
       }
     } else {
-      const total = currency === "eur" ? parseFloat(deliveryFees) + parseFloat(subtotalAmt) : parseFloat(deliveryFees * authCtx.currencyRate) + parseFloat(subtotalAmt);
-      setTotalAmt(total.toFixed(2));
+      const total =
+        currency === "eur"
+          ? parseFloat(deliveryFees) + parseFloat(subtotalAmt)
+          : parseFloat(deliveryFees * authCtx.currencyRate) +
+            parseFloat(subtotalAmt);
+      setTotalAmt(total);
     }
   }, [deliveryFees, coupon, subtotalAmt]);
 
@@ -890,12 +937,12 @@ const CheckOut = () => {
         user_address_id: user.defaultAdd,
         paypal: true,
         delivery_id: deliveryId,
-        base_price: (subtotalAmt - TVA).toFixed(3),
+        base_price: (subtotalAmt - TVA).toFixed(2),
         tva: TVA,
         shipping_fees:
           currency === "eur"
             ? deliveryFees
-            : (deliveryFees * authCtx.currencyRate).toFixed(3),
+            : (deliveryFees * authCtx.currencyRate).toFixed(2),
         ttc_price: subtotalAmt,
         weight: totalWeight,
         ecom_type: "sofiaco",
@@ -910,9 +957,9 @@ const CheckOut = () => {
           delivery === "standard" ? null : colissimoPointData?.identifiant,
           coupon_amount: coupon.reduction
             ? coupon.type === "Percentage"
-              ? calculateReductionAmt(subtotalAmt, coupon.reduction).toFixed(3)
+              ? calculateReductionAmt(subtotalAmt, coupon.reduction).toFixed(2)
               : currency === "usd"
-              ? (coupon.reduction * authCtx.currencyRate).toFixed(3)
+              ? (coupon.reduction * authCtx.currencyRate).toFixed(2)
               : coupon.reduction
             : 0,
             payment_method_id: 16,
@@ -931,7 +978,7 @@ const CheckOut = () => {
       dispatch(resetCart());
       navigate("/");
       setLoading(false);
-      toast.success(`Order success`, {
+      toast.success(`${language === 'eng' ? `Order success` : "Succès de la commande"}`, {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -950,15 +997,23 @@ const CheckOut = () => {
     }
   };
 
+  const userInfo = useSelector((state) => state.products.userInfo);
   useEffect(() => {
-    if (paymentslist.length === 0) {
+    console.log('vojoniue',userInfo.default_pay);
+    if (userInfo.default_pay === 'direct') {
+      setPaymentId("direct")
       setdirectPay(true);
+    } else if (userInfo.default_pay === 'paypal') {
+      setPaymentId("paypal")
+      setIspaypal(true)
     } else {
-      setdirectPay(false);
+    if (paymentslist.length === 0 && userInfo.default_pay !== 'direct' && userInfo.default_pay !== 'paypal') {
+      setdirectPay(true);
+      setPaymentId("direct")
+    }
     }
   }, [paymentslist.length]);
 
-  const userInfo = useSelector((state) => state.products.userInfo);
   const [value, setValue] = React.useState("option1");
   const [isFixed, setIsFixed] = React.useState(true);
   const [orderId, setorderId] = React.useState(0);
@@ -995,58 +1050,76 @@ const CheckOut = () => {
     } else {
       setIspaypal(false)
       setdirectPay(false)
-      try {
-        // Update the database to set the selected address as default
-        await axios.put(
-          `https://api.leonardo-service.com/api/bookshop/users/${user.id}/payments/${id}`,
-          {
-            default: "true",
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`, // Include token in the headers
-            },
-          }
-        );
-        fetchPayments();
-        toast.success("Default Payment card is set successfully", {
-          // Toast configuration
-          hideProgressBar: true,
-        });
-      } catch (error) {
-        console.error("Error setting default payment:", error);
-      }
+      dispatch(editDefaultPAY(id));
+      const sortedPayments = response.data.data.sort((a, b) => {
+        if (a.id === id ) return -1;
+        if (b.id === id ) return 1;
+        return a.id - b.id;
+      });
+      setPaymentsList(sortedPayments);
+      // try {
+      //   // Update the database to set the selected address as default
+      //   await axios.put(
+      //     `https://api.leonardo-service.com/api/bookshop/users/${user.id}/payments/${id}`,
+      //     {
+      //       default: "true",
+      //     },
+      //     {
+      //       headers: {
+      //         Authorization: `Bearer ${token}`, // Include token in the headers
+      //       },
+      //     }
+      //   );
+      //   fetchPayments();
+      //   toast.success(`${language === 'eng' ? "Default Payment card is set successfully" : "La carte de paiement par défaut a été définie avec succès"}`, {
+      //     // Toast configuration
+      //     hideProgressBar: true,
+      //   });
+      // } catch (error) {
+      //   console.error("Error setting default payment:", error);
+      // }
     }
   };
 
   const handleChange2 = async (id) => {
-    try {
-      // Update the database to set the selected address as default
-      await axios.put(
-        `https://api.leonardo-service.com/api/bookshop/users/${user.id}/addresses/${id}`,
-        {
-          default: "true",
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, // Include token in the headers
-          },
-        }
-      );
-      fetchAddresses();
-      toast.success("Default address is set!", {
-        position: "top-right",
-        autoClose: 1500,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: 0,
-        theme: "colored",
-      });
-    } catch (error) {
-      console.error("Error setting default address:", error);
-    }
+    // try {
+    //   // Update the database to set the selected address as default
+    //   await axios.put(
+    //     `https://api.leonardo-service.com/api/bookshop/users/${user.id}/addresses/${id}`,
+    //     {
+    //       default: "true",
+    //     },
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${token}`, // Include token in the headers
+    //       },
+    //     }
+    //   );
+    //   fetchAddresses();
+    //   toast.success(`${language === 'eng' ? "Default address is set!" : "L'adresse par défaut est définie !"}`, {
+    //     position: "top-right",
+    //     autoClose: 1500,
+    //     hideProgressBar: true,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: 0,
+    //     theme: "colored",
+    //   });
+    // } catch (error) {
+    //   console.error("Error setting default address:", error);
+    // }
+    const sortedAddresses = addresseslist.sort((a, b) => {
+      if (a.id === id) return -1;
+      if (b.id === id) return 1;
+      return a.id - b.id;
+    });
+
+    setAddressesList(sortedAddresses);
+    dispatch(editDefaultAdd(id));
+    setdisplayedAddress(1);
+    FetchShippinCost(id);
+
   };
 
   const handleDeletePayment = async (id) => {
@@ -1062,7 +1135,7 @@ const CheckOut = () => {
       setPaymentsList((prevPayments) =>
         prevPayments.filter((payment) => payment.id !== id)
       );
-      toast.success("Payment card deleted successfully", {
+      toast.success(`${language === 'eng' ? "Payment card deleted successfully" : "Carte de paiement supprimée avec succès"}`, {
         // Toast configuration
         hideProgressBar: true,
       });
@@ -1084,7 +1157,7 @@ const CheckOut = () => {
       setAddressesList((prevAddresses) =>
         prevAddresses.filter((address) => address.id !== id)
       );
-      toast.success("Address Deleted", {
+      toast.success(`${language === 'eng' ? "Address Deleted" : "Adresse supprimée"}`, {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -1104,7 +1177,7 @@ const CheckOut = () => {
   const fetchHero = async () => {
     try {
       const response = await axios.get(
-        "https://api.leonardo-service.com/api/bookshop/website-sections?ecom_type=albouraq&section_id=home-hero"
+        "https://api.leonardo-service.com/api/bookshop/website-sections?ecom_type=sofiaco&section_id=checkout-hero"
       );
       setHeroData(response.data.data[0]);
     } catch (error) {
@@ -1122,12 +1195,15 @@ const CheckOut = () => {
      setdirectPay(false)
      setIspaypal(false)
     } else {
-      setPaymentId("direct")
-      setdirectPay(true)
-      setIspaypal(false)
     }
   }, []);
 
+  
+  const handleRemoveCoupon = async () => {
+    setSelectedCoupon("");
+    setcoupon({});
+    setuserCoupon([]);
+};
   return (
     <div className={classes.cart_container}>
       {loading && <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(224, 195, 137, 0.2)', zIndex: 9999 }}><CircularProgress style={{margin:"45vh",color:'var(--primary-color)'}}/></div>} 
@@ -1684,7 +1760,7 @@ const CheckOut = () => {
         <div className={classes.total_con} id="fixed-component11">
             <div className={classes.total}>
               <div className={classes.totalrows}>
-                <h2>{language === "eng" ? "My Basket" : "Mon Panier"}</h2>
+                <h2>{language === "eng" ? "Order Summary" : "Résumé de la commande"}</h2>
                 <p style={{ textAlign: "end" }}>
                   ( {productData?.length} ITEMS )
                 </p>
@@ -1716,14 +1792,6 @@ const CheckOut = () => {
               </div>
               <div className={classes.totalrows}>
                 <p>
-                {language === "eng" ? "Shipping Costs" : "Frais de port"}</p>
-                <p style={{ textAlign: "end" }}>
-                {deliveryFees === 0 ? "Free" : currency === "eur" ?  deliveryFees : (deliveryFees * authCtx.currencyRate).toFixed(2)}{" "}
-                {deliveryFees != 0 && (currency === "eur" ? ` €` : ` $`)}
-                </p>
-              </div>
-              <div className={classes.totalrows}>
-                <p>
                   {language === "eng" ? "Discount" : "Remise"}{" "}
                   {coupon.reduction &&
                     coupon.type === "Percentage" &&
@@ -1746,11 +1814,19 @@ const CheckOut = () => {
                     : "0.00"}
                 </p>
               </div>
+              <div className={classes.totalrows}>
+                <p>
+                {language === "eng" ? "Shipping Costs" : "Frais de port"}</p>
+                <p style={{ textAlign: "end" }}>
+                {deliveryFees === 0 ? "Free" : currency === "eur" ?  deliveryFees : (deliveryFees * authCtx.currencyRate).toFixed(2)}{" "}
+                {deliveryFees != 0 && (currency === "eur" ? ` €` : ` $`)}
+                </p>
+              </div>
               <Form
                 layout="vertical"
                 name="nest-messages"
                 form={form}
-                onFinish={handleApplyCoupon}
+                onFinish={coupon.type ? handleRemoveCoupon : handleApplyCoupon}
                 className={classes.totalrows}
                 style={{ marginTop: "2em",gridTemplateColumns:'65% 35%' }}
               >
@@ -1785,7 +1861,7 @@ const CheckOut = () => {
                     {couponList
                       .filter(
                         (coupon) =>
-                          coupon.active === "true" &&
+                          coupon.user_id === null &&
                           !isCouponExpired(coupon.expiry)
                       )
                       .map((coupon) => (
@@ -1812,8 +1888,8 @@ const CheckOut = () => {
                     htmlType="submit"
                     className={classes.checkout_btn}
                   >
-                    {language === "eng" ? "Submit" : "Soumettre"}
-                  </Button>
+                    {coupon.type ? language === "eng" ? "Remove Coupon" : "Supprimer le coupon" : language === "eng" ? "Submit" : "Soumettre"}
+                    </Button>
                 </Form.Item>
               </Form>
               <Divider className={classes.divider} />
@@ -1864,7 +1940,7 @@ const CheckOut = () => {
                   onClick={CheckOutHandler}
                   disabled={loading || productData?.length === 0}
                   id="footer"
-              style={{ margin: "2em 0" }}
+              style={{ margin: "2em 0", cursor:'pointer' }}
                 >
                   {language === "eng" ? "Place My Order" : "Valider mon panier"}
                 </button>

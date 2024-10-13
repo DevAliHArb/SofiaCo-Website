@@ -193,7 +193,7 @@ const CartItem = () => {
               <p style={{width:'100%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"600",margin:'0'}} onClick={()=>console.log(props)}>{props.title.slice(0,20)}</p>
               <p style={{width:'100%',textAlign:"start",fontSize:"calc(.6rem + .3vw)",fontWeight:"500",margin:'0'}}>{props.author.slice(0,20)}</p>
               <p style={{width:'100%',textAlign:"start",fontSize:"calc(.6rem + .3vw)",fontWeight:"500",margin:'0'}}>{new Date(props.date).toDateString()}</p>
-              <p style={{color:'var(--secondary-color)',fontSize:'smaller',textAlign:'start'}}><Rate value={props.average_rate} disabled  style={{color:'var(--primary-color)',fontSize:'small'}}/>{props.average_rate}/5</p>
+              <p style={{color:'var(--secondary-color)',fontSize:'smaller',textAlign:'start'}}><Rate value={props.average_rate} disabled  style={{color:'var(--primary-color)',fontSize:'small'}}/>{props?.average_rate ? Number(props.average_rate)?.toFixed(1) : 0.0}/5</p>
               <p style={{ margin: ".5em auto .5em 0",color:props._qte_a_terme_calcule > 0 ? "var(--forth-color)" : "#EE5858",fontWeight:"600" }}>{props._qte_a_terme_calcule > 0 ? `${(props._qte_a_terme_calcule * 1).toFixed(0)} in stock` : `${language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}`} </p>
               </div>
            
