@@ -87,11 +87,12 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
     console.log(formData);
   };
 
-  console.log(editModee);
-
   useEffect(() => {
     form.resetFields();
     setFormData({});
+    if (editModee) {
+      form.setFieldsValue(formDataa)
+    }
   }, [open]);
 
   const handleSubmit = async () => {
@@ -152,7 +153,7 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
                 layout="vertical"
                 name="nest-messages"
                 form={form}
-                initialValues={formDataa}
+                // initialValues={formDataa}
                 onFinish={handleSubmit}
                 style={{
                 width: '100%',
