@@ -92,13 +92,13 @@ const ContactUs = () => {
         <div className={classes.inputCont}>
         <Form.Item
           name="first_name"
-          rules={[{ required: true, message: "S'il vous plaît entrez votre Prénom!" }]}
+          rules={[{ required: true, message: `${language === 'eng' ? "Please enter your name!" : "S'il vous plaît entrez votre Prénom!"}` }]}
         >
         <TextField
           id="first_name"
           label="Name*"
           maxLength={50}
-          placeholder="Your Name"
+          placeholder={language === 'eng' ? "Your Name" : "Votre nom"}
           variant="standard"
           rows={1}
           inputProps={{ style: { color: "var(--secondary-color)" } }}  
@@ -111,11 +111,11 @@ const ContactUs = () => {
           rules={[
             {
               type: 'email',
-              message: "L'entrée n'est pas valide Email !",
+              message: `${language === 'eng' ? "Please enter valid email!" : "L'entrée n'est pas valide Email !"}`,
             },
             {
               required: true,
-              message: "S'il vous plaît entrez votre Email!",
+              message: `${language === 'eng' ? "Please enter your email!" : "S'il vous plaît entrez votre Email!"}`,
             },
           ]}
         >
@@ -123,7 +123,7 @@ const ContactUs = () => {
           id="email"
           label="Email Address*"
           maxLength={100}
-          placeholder="Your Email Address"
+          placeholder={language === 'eng' ? "Your Email Address" : "Votre adresse électronique" }
           variant="standard"
           rows={1}
           inputProps={{ style: { color: "var(--secondary-color)" } }}  
@@ -137,11 +137,11 @@ const ContactUs = () => {
           rules={[
             {
               pattern: /^[0-9]{6,16}$/,
-              message: 'The input is not valid Téléphone!',
+              message: `${language === 'eng' ? 'Please enter valid phone!' : "The input is not valid Téléphone!"}`,
             },
             {
               required: true,
-              message: "S'il vous plaît entrez votre Téléphone!",
+              message: `${language === 'eng' ? "Please enter your phone!" : "S'il vous plaît entrez votre Téléphone!"}`,
             },
           ]}
         >
@@ -149,7 +149,7 @@ const ContactUs = () => {
           id="telephone"
           label="Phone Number*"
           maxLength={20}
-          placeholder="Your Phone Number"
+          placeholder={language === 'eng' ? "Your Phone Number" : "Votre numéro de téléphone" }
           variant="standard"
           rows={1}
           inputProps={{ style: { color: "var(--secondary-color)" } }}  
@@ -162,14 +162,14 @@ const ContactUs = () => {
           rules={[
             {
               required: true,
-              message: "S'il vous plaît entrez votre Company!",
+              message: `${language === 'eng' ? "Please enter your company!" : "S'il vous plaît entrez votre Company!"}`,
             },
           ]}
         >
         <TextField
           id="company"
           label="Company*"
-          placeholder="Your Company"
+          placeholder={language === 'eng' ? "Your Company" : "Votre entreprise" }
           maxLength={50}
           variant="standard"
           rows={1}
@@ -181,12 +181,12 @@ const ContactUs = () => {
         <Form.Item
           name="message"
           // label={<p style={{color:'var(--accent-color)',fontWeight:'500',fontFamily:'var(--font-family)',margin:'0'}}>Message</p>}
-          rules={[{ required: true, message: "S'il vous plaît entrez votre Votre Message!" }]}
+          rules={[{ required: true, message: `${language === 'eng' ? "Please enter your message!" : "S'il vous plaît entrez votre Votre Message!"}` }]}
         >
         <TextField
               id="message"
               label="Message"
-              placeholder="Your Message"
+              placeholder={language === 'eng' ? "Your Message" : "Votre message" }
               variant="standard"
               fullWidth
               multiline

@@ -997,23 +997,17 @@ const CheckOut = () => {
     }
   };
 
-  const userInfo = useSelector((state) => state.products.userInfo);
-  useEffect(() => {
-    console.log('vojoniue',userInfo.default_pay);
-    if (userInfo.default_pay === 'direct') {
-      setPaymentId("direct")
-      setdirectPay(true);
-    } else if (userInfo.default_pay === 'paypal') {
-      setPaymentId("paypal")
-      setIspaypal(true)
+    useEffect(() => {
+    if (paymentslist.length > 0) {
+     const paymentID = addresseslist.find((item) => item.default === "true")?.id
+     setPaymentId(paymentID)
+     setdirectPay(false)
+     setIspaypal(false)
     } else {
-    if (paymentslist.length === 0 && userInfo.default_pay !== 'direct' && userInfo.default_pay !== 'paypal') {
-      setdirectPay(true);
-      setPaymentId("direct")
     }
-    }
-  }, [paymentslist.length]);
+  }, []);
 
+  const userInfo = useSelector((state) => state.products.userInfo);
   const [value, setValue] = React.useState("option1");
   const [isFixed, setIsFixed] = React.useState(true);
   const [orderId, setorderId] = React.useState(0);
@@ -1189,14 +1183,19 @@ const CheckOut = () => {
   }, []);
 
   useEffect(() => {
-    if (paymentslist.length > 0) {
-     const paymentID = addresseslist.find((item) => item.default === "true")?.id
-     setPaymentId(paymentID)
-     setdirectPay(false)
-     setIspaypal(false)
+    if (userInfo.default_pay === 'direct') {
+      setPaymentId("direct")
+      setdirectPay(true);
+    } else if (userInfo.default_pay === 'paypal') {
+      setPaymentId("paypal")
+      setIspaypal(true)
     } else {
+    if (paymentslist.length === 0 && userInfo.default_pay !== 'direct' && userInfo.default_pay !== 'paypal') {
+      setdirectPay(true);
+      setPaymentId("direct")
     }
-  }, []);
+    }
+  }, [paymentslist]);
 
   
   const handleRemoveCoupon = async () => {
@@ -1298,7 +1297,7 @@ const CheckOut = () => {
                     <div className={classes.adressCard}>
                       <RadioGroup
                         value={
-                          addresseslist.find((item) => item.default === "true")
+                          addresseslist.find((item) => item.id === user.defaultAdd)
                             ?.id
                         }
                         onChange={() =>
@@ -1449,10 +1448,10 @@ const CheckOut = () => {
                           setopenPay(false)
                         }
                       >
-                {paymentslist?.slice(0, displayedPayment).map((payment) => {
+                {paymentslist?.map((payment) => {
                   return (
                     <>
-                      {((!openPay && Number(payment.id) === Number(paymentId)) || openPay) && <div className={classes.adressCard}>
+                    {((!openPay && Number(payment.id) === Number(paymentId)) || openPay) && <div className={classes.adressCard}>
                         <FormControlLabel
                           value={payment.id}
                           control={
