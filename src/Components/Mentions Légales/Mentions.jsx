@@ -17,7 +17,7 @@ const Mentions = () => {
         const response = await axios.get('https://api.leonardo-service.com/api/bookshop/website-sections?ecom_type=sofiaco&section_id=policies-hero');
         setHeroData(response.data.data[0])
       } catch (error) {
-        console.error('Error fetching services:', error);
+        // console.error('Error fetching services:', error);
       }
     };
   useEffect(() => {
@@ -26,10 +26,10 @@ const Mentions = () => {
   const fetchPolicy = async () => {
     try {
       const response = await axios.get('https://api.leonardo-service.com/api/bookshop/policy_conditions?ecom_type=sofiaco');
-      console.log('Response data:', response.data);
+      // console.log('Response data:', response.data);
       setpolicyData(response.data.data[0])
     } catch (error) {
-      console.error('Error fetching metaverse:', error);
+      // console.error('Error fetching metaverse:', error);
     }
   };
 

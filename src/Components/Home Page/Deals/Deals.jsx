@@ -43,8 +43,8 @@ const Deals = () => {
       setArticles(response.data.data);
       setActiveIndex(0);
     } catch (error) {
-      console.error("Error fetching articles:", error);
-      toast.error("Failed to fetch articles.");
+      // console.error("Error fetching articles:", error);
+      // toast.error("Failed to fetch articles.");
     }
   };
 

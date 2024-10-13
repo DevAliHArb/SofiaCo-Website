@@ -37,7 +37,7 @@ const Cart = () => {
   const handleCheckout = () => {
     const outOfStockItems = productData.filter(item => item._qte_a_terme_calcule < 1);
     const removedItems = productData.filter(item => item?.removed);
-    console.log(productData)
+    // console.log(productData)
     if (removedItems.length > 0) {
       toast.error(language === 'eng' ? "Please remove all items that are deleted!" : "Veuillez supprimer tous les éléments qui ont été supprimés !", {
         position: "top-right",

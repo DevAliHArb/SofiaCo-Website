@@ -97,7 +97,7 @@ const Navbar = (props) => {
         }
       );
     } catch (error) {
-      console.error("Error updating currency:", error);
+      // console.error("Error updating currency:", error);
     }
   };
 
@@ -115,11 +115,11 @@ const Navbar = (props) => {
         }
       );
     } catch (error) {
-      console.error("Error updating language:", error);
+      // console.error("Error updating language:", error);
     }
   };
   const logout = async () => {
-    console.log('ok')
+    // console.log('ok')
     try {
       // Get the token from local storage
       const token = localStorage.getItem('token');
@@ -145,7 +145,7 @@ const Navbar = (props) => {
       navigate(`/login`);
       // Add any additional logic you may need, such as redirecting the user to the login page or updating the application state
     } catch (error) {
-      console.error('Error logging out:', error);
+      // console.error('Error logging out:', error);
       // Handle any errors that occur during logout
     }
   };

@@ -97,7 +97,7 @@ const FollowOrder = () => {
         document.body.removeChild(tempTextArea);
     
         // Optionally, provide feedback to the user
-        toast.success(`id copied to clipboard!`, {
+        toast.success(language === "eng" ? "ID copied to clipboard!" : "ID copié dans le presse-papiers !", {
             position: "top-right",
             autoClose: 1500,
             hideProgressBar: true,

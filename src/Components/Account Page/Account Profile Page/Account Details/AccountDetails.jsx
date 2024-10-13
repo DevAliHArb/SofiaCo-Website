@@ -66,10 +66,10 @@ const AccountDetails = () => {
       );
       // console.log(response.data.data)
       dispatch(editUser(response.data.data));
-      console.log(userInfo);
+      // console.log(userInfo);
       // Set loading to false after fetching data
     } catch (error) {
-      console.error("Error fetching user:", error);
+      // console.error("Error fetching user:", error);
       // Set loading to false in case of error
     }
   };
@@ -100,9 +100,9 @@ const AccountDetails = () => {
         }
       );
       fetchUser();
-      console.log(userInfo);
-      console.log("Image uploaded successfully:", response.data);
-      toast.success("Image uploaded successfully", {
+      // console.log(userInfo);
+      // console.log("Image uploaded successfully:", response.data);
+      toast.success(language === "eng" ? "Image uploaded successfully" : "Image téléchargée avec succès", {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -114,8 +114,8 @@ const AccountDetails = () => {
       });
       // Update local state or dispatch an action to update user data
     } catch (error) {
-      console.error("Error uploading image:", error);
-      toast.error("error.response.data", {
+      // console.error("Error uploading image:", error);
+      toast.error(language === "eng" ? "Error uploading image:" : "Erreur lors du téléchargement de l'image :", {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -151,7 +151,7 @@ const AccountDetails = () => {
     setLoading(true);
     if (passData.newpassword === passData.confirmpassword) {
       try {
-        console.log(passData);
+        // console.log(passData);
         // Make API call to change password
         const response = await axios.put(
           `https://api.leonardo-service.com/api/bookshop/users/${userInfo.id}`,
@@ -162,7 +162,7 @@ const AccountDetails = () => {
             },
           }
         );
-        console.log(response.data);
+        // console.log(response.data);
         toast.success(response.data.message, {
           position: "top-right",
           autoClose: 1500,
@@ -180,7 +180,7 @@ const AccountDetails = () => {
         handlemodelClose();
         setLoading(false);
       } catch (error) {
-        console.error("Error changing password:", error);
+        // console.error("Error changing password:", error);
         toast.error(error.response.data.error, {
           position: "top-right",
           autoClose: 1500,
@@ -197,7 +197,8 @@ const AccountDetails = () => {
         setLoading(false);
       }
     } else {
-      toast.error("confirm password doesn't match", {
+      toast.error(
+        language === "eng" ? "Confirm password doesn't match" : "Le mot de passe de confirmation ne correspond pas", {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -224,7 +225,7 @@ const AccountDetails = () => {
   };
 
   const handleEditUser = async (values) => {
-    console.log(formData);
+    // console.log(formData);
     setLoading(true);
     if (changedimage !== null) {
       handleImageChange();
@@ -239,9 +240,9 @@ const AccountDetails = () => {
           },
         }
       );
-      console.log(response.data); // Handle response as needed
+      // console.log(response.data); // Handle response as needed
       dispatch(editUser(values));
-      toast.success("Data saved successfully", {
+      toast.success(language === "eng" ? "Data saved successfully" : "Données enregistrées avec succès", {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -252,7 +253,7 @@ const AccountDetails = () => {
         theme: "colored",
       });
     } catch (error) {
-      console.error("Error updating user:", error);
+      // console.error("Error updating user:", error);
     } finally {
       setLoading(false);
     }

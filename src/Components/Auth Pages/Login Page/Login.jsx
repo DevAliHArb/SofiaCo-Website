@@ -29,7 +29,7 @@ const handleChange = (e) => {
   const { name, value } = e.target;
   const lowercasedValue = name === 'email' ? value.toLowerCase() : value;
   setFormData({ ...formData, [name]: lowercasedValue });
-  console.log(formData);
+  // console.log(formData);
 };
 
 const onFinish = async () => {
@@ -41,7 +41,7 @@ const onFinish = async () => {
     const user = response.data;
     const userInfo = user.user;
     const userId = userInfo.id;
-    console.log(userInfo);
+    // console.log(userInfo);
     // Dispatch action to add user to Redux store
     dispatch(addUser(userInfo));
 
@@ -51,7 +51,7 @@ const onFinish = async () => {
       }
   });
   const userCart = cartResponse.data.data; // Assuming cart data is returned in the response
-  console.log("User Cart:", userCart);
+  // console.log("User Cart:", userCart);
   userCart?.forEach(cartItem => {
       const article_id = cartItem.article_id;
       const foundBook = authCtx.articles.find(book => book.id === article_id);
@@ -101,7 +101,7 @@ const onFinish = async () => {
           }));
       }
   });
-    toast.success("Login successful!", {
+    toast.success(language === "eng" ? "Login successful!" : "Connexion réussie !", {
       position: "top-right",
       autoClose: 1500,
       hideProgressBar: true,
@@ -116,8 +116,8 @@ const onFinish = async () => {
     navigate(`/`);
   } catch (error) {
     const errormsg = error.response.data?.error;
-    console.error('Error in Login:', error);
-    toast.error( `Error in Login: ${errormsg}` , {
+    // console.error('Error in Login:', error);
+    toast.error( language === "eng" ? `Error in Login: ${errormsg}` : `Erreur de connexion : ${errormsg}` , {
       position: "top-right",
       autoClose: 1500,
       hideProgressBar: true,

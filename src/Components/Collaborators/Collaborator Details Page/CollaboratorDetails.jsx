@@ -44,7 +44,7 @@ const CollaboratorDetails = () => {
   const handleSuivreClick = async (id) => {
     if (!user) {
       // If user is not defined, throw an error
-      toast.error('Please log in first');
+      toast.error(language === "eng" ? "Please log in first." : "Veuillez vous connecter d'abord.");
       return;
   }
     try {
@@ -55,10 +55,10 @@ const CollaboratorDetails = () => {
             Authorization: `Bearer ${token}` // Include token in the headers
         }
     });
-      console.log(response.data);
-      toast.success(`${CollaboratorData.nom} subscribed successfully!`) // You can handle the response here
+      // console.log(response.data);
+      toast.success(language === "eng" ? `${CollaboratorData.nom} subscribed successfully!` : `${CollaboratorData.nom} s'est abonné avec succès !`) // You can handle the response here
     } catch (error) {
-      console.error('Error:', error);
+      // console.error('Error:', error);
       toast.error(error.response.data.error)
     }
   };
@@ -71,7 +71,7 @@ const CollaboratorDetails = () => {
         const response = await axios.get('https://api.leonardo-service.com/api/bookshop/website-sections?ecom_type=sofiaco&section_id=Collaborator-details-hero');
         setHeroData(response.data.data[0])
       } catch (error) {
-        console.error('Error fetching services:', error);
+        // console.error('Error fetching services:', error);
       }
     };
   useEffect(() => {

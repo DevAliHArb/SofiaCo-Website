@@ -84,7 +84,7 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
 
   const handleChange = (name, value) => {
     setFormData({ ...formData, [name]: value });
-    console.log(formData);
+    // console.log(formData);
   };
 
   useEffect(() => {
@@ -99,7 +99,7 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
     setaddLoading(true)
     try {
       if (editModee) {
-        console.log(formData)
+        // console.log(formData)
         await axios.put(`https://api.leonardo-service.com/api/bookshop/users/${user.id}/addresses/${editaddressId}`, formData, {
           headers: {
               Authorization: `Bearer ${token}` // Include token in the headers
@@ -119,7 +119,7 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
       fetchAddresses();
       form.resetFields()
     } catch (error) {
-      console.error('Error submitting address:', error);
+      // console.error('Error submitting address:', error);
     } finally {
       setaddLoading(false)
     }

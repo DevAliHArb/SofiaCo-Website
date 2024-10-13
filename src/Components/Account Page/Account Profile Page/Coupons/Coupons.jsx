@@ -126,8 +126,8 @@ const Coupons = () => {
 
       // Check if a coupon was found
       if (coupon?.length === 0) {
-        toast.error("Coupon not found", {
-          // Toast configuration
+        toast.error(language === "eng" ? "Coupon not found" : "Coupon non trouvé", {
+          hideProgressBar:true
         });
         return;
       }
@@ -153,7 +153,7 @@ const Coupons = () => {
 
       fetchUserCoupons();
 
-      toast.success("Coupon added successfully", {
+      toast.success(language === "eng" ? "Coupon added successfully" : "Coupon ajouté avec succès", {
         // Toast configuration
         hideProgressBar: true,
       });
@@ -216,13 +216,13 @@ const Coupons = () => {
       );
 
       // Display success message
-      toast.success("Coupon deleted successfully", {
+      toast.success(language === "eng" ? "Coupon deleted successfully" : "Coupon supprimé avec succès", {
         hideProgressBar: true,
       });
     } catch (error) {
       // console.error("Error deleting coupon:", error);
       // Display error message
-      toast.error("Error deleting coupon", {
+      toast.error(language === "eng" ? "Error deleting coupon" : "Erreur lors de la suppression du coupon", {
         hideProgressBar: true,
       });
     }

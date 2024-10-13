@@ -152,11 +152,11 @@ const OrderTracking = () => {
         }
     });
     const sortedData = response.data.data?.sort((a, b) => new Date(b.date) - new Date(a.date));
-      console.log('Response data:', response.data.data);
+      // console.log('Response data:', response.data.data);
       const filteredInvoices = sortedData.filter(orderInvoice => orderInvoice.status_id !== 20);
       setorders(filteredInvoices);
     } catch (error) {
-      console.error('Error fetching addresses:', error);
+      // console.error('Error fetching addresses:', error);
     } finally {
       setLoading(false);
     }
@@ -165,14 +165,14 @@ const OrderTracking = () => {
     try {
       setLoading(true);
       const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/lookups?parent_id=1`);
-      console.log('Response data:', response.data.data);
+      // console.log('Response data:', response.data.data);
       const allCategories = { id: 0, name: 'All Orders', name_fr:"Toutes les commandes" };
       const filteredData = response.data.data.filter(item => item.id !== 6 && item.id !== 7 && item.id !== 8);
         const categoriesWithAll = [allCategories, ...filteredData];
         
         setordertrackcategories(categoriesWithAll);
     } catch (error) {
-      console.error('Error fetching addresses:', error);
+      // console.error('Error fetching addresses:', error);
     } finally {
       setLoading(false);
     }
@@ -201,7 +201,7 @@ const OrderTracking = () => {
       setData(unpaidOrders);
   }
     setselectedCategory(e.target.value) 
-    console.log(data)
+    // console.log(data)
   }
 let stepss = [
   {
@@ -234,7 +234,7 @@ const stepsHandler =(props)=>{
   let testt = []
   stepss.forEach(order => {
     let index = props.order_status_history?.find(step => step.status_id === order.id);
-    console.log("helllooo",index)
+    // console.log("helllooo",index)
     if (index) {
       testt.push({
         id: order.id,
@@ -259,7 +259,7 @@ const reviewHandler =()=>setisReviewMood(true);
   const EstimatedDeliveryDate = formattedDate.toDateString();
 
   const AddAllToCart = () => {
-      console.log(selectedOrder)
+      // console.log(selectedOrder)
       selectedOrder.order_invoice_items?.forEach(element => {
       authCtx.addToCart({props: element.article, carttoggle:()=>{}});
     });
@@ -267,8 +267,8 @@ const reviewHandler =()=>setisReviewMood(true);
   const CancleOrderHandler = () => {
     axios.put(`https://api.leonardo-service.com/api/bookshop/order_invoices/${selectedOrder.id}?status_id=13`)
     .then(() => {
-        console.log("delete request successful:");
-          toast.success(`Delete request successful`, {
+        // console.log("delete request successful:");
+          toast.success(language === "eng" ? "Delete request successful." : "Demande de suppression réussie.", {
             position: "top-right",
             autoClose: 1500,
             hideProgressBar: true,
@@ -282,8 +282,8 @@ const reviewHandler =()=>setisReviewMood(true);
           window.location.reload();
     })
     .catch((error) => {
-        console.error("Error in delete request:", error);
-        toast.error("Failed to delete item .", {
+        // console.error("Error in delete request:", error);
+        toast.error(language === "eng" ? "Failed to delete item." : "Échec de la suppression de l'élément.", {
           position: "top-right",
           autoClose: 1500,
           hideProgressBar: true,

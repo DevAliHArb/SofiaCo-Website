@@ -95,7 +95,7 @@ export const AuthContextProvider = (props) => {
     const userCart = cartResponse.data.data; 
     dispatch(resetCart());
     
-    console.log('Error in Login:', userCart);
+    // console.log('Error in Login:', userCart);
     userCart.forEach(cartItem => {
         const article_id = cartItem.article_id;
         const foundBook = articles.find(book => book.id === article_id);
@@ -144,7 +144,7 @@ export const AuthContextProvider = (props) => {
             }));
     });
 } catch (error) {
-    console.error('Error in Login:', error);
+    // console.error('Error in Login:', error);
 }
       
     }
@@ -168,7 +168,7 @@ const fetchArticles = async () => {
     setEditors(Array.from(editorsMap.values()));
     fetchfavandcartSettings();
   } catch (error) {
-    console.error('Error fetching articles:', error);
+    // console.error('Error fetching articles:', error);
   }
 };
 
@@ -180,7 +180,7 @@ const fetchArticles = async () => {
       const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/categories?ecom_type=albouraq`);
       setCategories(response.data);
     } catch (error) {
-      console.error('Error fetching categories:', error);
+      // console.error('Error fetching categories:', error);
     }
   };
 
@@ -208,7 +208,7 @@ const fetchArticles = async () => {
       const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/my-documents?ecom_type=sofiaco`);
       setMydocuments(response.data);
     } catch (error) {
-      console.error('Error fetching my documents:', error);
+      // console.error('Error fetching my documents:', error);
     }
   };
 
@@ -217,7 +217,7 @@ const fetchArticles = async () => {
       const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/countries?ecom_type=bookshop`);
       setCountries(response.data);
     } catch (error) {
-      console.error('Error fetching countries:', error);
+      // console.error('Error fetching countries:', error);
     }
   };
   
@@ -234,7 +234,7 @@ const fetchArticles = async () => {
 
   const addToCarthandler = async ({props , carttoggle}) => {
     if (!user) {
-      toast.error("Please login to add to cart.", {
+      toast.error(language === "eng" ? "Please login to add to cart." : "Veuillez vous connecter pour ajouter au panier.", {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -272,7 +272,7 @@ const fetchArticles = async () => {
       if (carttoggle) {
         carttoggle();
       }
-      toast.success(`${props.name ? props.name : "Book"} is added`, {
+      toast.success(language === "eng" ? `${props.name ? props.name : "Article"} is added` : `${props.name ? props.name : "Article"} a été ajouté`, {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -283,8 +283,8 @@ const fetchArticles = async () => {
         theme: "colored",
       });
     } catch (error) {
-      console.error("Error adding to cart:", error);
-      toast.error("Failed to add item to cart.", {
+      // console.error("Error adding to cart:", error);
+      toast.error(language === "eng" ? "Failed to add item to cart." : "Échec de l'ajout de l'article au panier.", {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -301,11 +301,11 @@ const fetchArticles = async () => {
           quantity: newQuantity,
           })
           .then((response) => {
-              console.log("PUT request successful:", response.data);
+              // console.log("PUT request successful:", response.data);
               dispatch(addTocart({
                   _id: props.id,
                 }))
-                toast.success(`${props.name ? props.name : "Book"} is added`, {
+                toast.success(language === "eng" ? `${props.name ? props.name : "Book"} is added` : `${props.name ? props.name : "Livre"} a été ajouté`, {
                   position: "top-right",
                   autoClose: 1500,
                   hideProgressBar: true,
@@ -320,8 +320,8 @@ const fetchArticles = async () => {
                 }
           })
           .catch((error) => {
-              console.error("Error in PUT request:", error);
-              toast.error("Failed to add item to cart.", {
+              // console.error("Error in PUT request:", error);
+              toast.error(language === "eng" ? "Failed to add item to cart." : "Échec de l'ajout de l'article au panier.", {
                 position: "top-right",
                 autoClose: 1500,
                 hideProgressBar: true,
@@ -364,7 +364,7 @@ const fetchArticles = async () => {
         article_stock: props.article_stock
       }));
 
-      toast.success(`${props.name ? props.name : "Book"} is added`, {
+      toast.success(language === "eng" ? `${props.name ? props.name : "Article"} is added` : `${props.name ? props.name : "Article"} a été ajouté`, {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -375,8 +375,8 @@ const fetchArticles = async () => {
         theme: "colored",
       });
     } catch (error) {
-      console.error("Error adding to cart:", error);
-      toast.error("Failed to add item to cart.", {
+      // console.error("Error adding to cart:", error);
+      toast.error(language === "eng" ? "Failed to add item to cart." : "Échec de l'ajout de l'article au panier.", {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -393,12 +393,12 @@ const fetchArticles = async () => {
           quantity: newQuantity,
           })
           .then((response) => {
-              console.log("PUT request successful:", response.data);
+              // console.log("PUT request successful:", response.data);
               dispatch(addTocart({
                   _id: props.id,
                   quantity: props.quantity,
                 }))
-                toast.success(`${props.name ? props.name : "Book"} is added`, {
+                toast.success(language === "eng" ? `${props.name ? props.name : "Article"} is added` : `${props.name ? props.name : "Article"} a été ajouté`, {
                   position: "top-right",
                   autoClose: 1500,
                   hideProgressBar: true,
@@ -410,8 +410,8 @@ const fetchArticles = async () => {
                 });
           })
           .catch((error) => {
-              console.error("Error in PUT request:", error);
-              toast.error("Failed to add item to cart.", {
+              // console.error("Error in PUT request:", error);
+              toast.error(language === "eng" ? "Failed to add item to cart." : "Échec de l'ajout de l'article au panier.", {
                 position: "top-right",
                 autoClose: 1500,
                 hideProgressBar: true,
@@ -427,19 +427,19 @@ const fetchArticles = async () => {
   }
   const changeCartQtyhandler = async (props) => {
      if (props.quantity > 0)  {
-      console.log("helooo",props.id, props.quantity);
+      // console.log("helooo",props.id, props.quantity);
       axios.put(`https://api.leonardo-service.com/api/bookshop/cart/${props.id}`, {
           quantity: props.quantity,
           })
           .then((response) => {
-              console.log("PUT request successful:", response.data);
+              // console.log("PUT request successful:", response.data);
               dispatch(
                 changeQuantity({
                   _id: props._id,
                   quantity: props.quantity,
                 })
               )
-                toast.success(`${props.name ? props.name : "Book"} is added`, {
+                toast.success(language === "eng" ? `${props.name ? props.name : "Article"} is added` : `${props.name ? props.name : "Article"} a été ajouté`, {
                   position: "top-right",
                   autoClose: 1500,
                   hideProgressBar: true,
@@ -451,8 +451,8 @@ const fetchArticles = async () => {
                 });
           })
           .catch((error) => {
-              console.error("Error in PUT request:", error);
-              toast.error("Failed to add item to cart.", {
+              // console.error("Error in PUT request:", error);
+              toast.error(language === "eng" ? "Failed to add item to cart." : "Échec de l'ajout de l'article au panier.", {
                 position: "top-right",
                 autoClose: 1500,
                 hideProgressBar: true,
@@ -470,9 +470,9 @@ const fetchArticles = async () => {
     const item = productData.find(item => item._id === props);
     axios.delete(`https://api.leonardo-service.com/api/bookshop/cart/${item.cart_id}`)
       .then(() => {
-          console.log("delete request successful:");
+          // console.log("delete request successful:");
           dispatch(deleteItem(props))
-            toast.success(`Book is removed`, {
+            toast.success(language === "eng" ? "Book is removed." : "Le livre est supprimé.", {
               position: "top-right",
               autoClose: 1500,
               hideProgressBar: true,
@@ -484,8 +484,8 @@ const fetchArticles = async () => {
             });
       })
       .catch((error) => {
-          console.error("Error in delete request:", error);
-          toast.error("Failed to delete item from cart.", {
+          // console.error("Error in delete request:", error);
+          toast.error(language === "eng" ? "Failed to add item to cart." : "Échec de l'ajout de l'article au panier.", {
             position: "top-right",
             autoClose: 1500,
             hideProgressBar: true,
@@ -507,7 +507,7 @@ const fetchArticles = async () => {
         setcurrencyRate(response.data.data?.usd_rate)
       }
     } catch (error) {
-      console.error('Error fetching company settings:', error);
+      // console.error('Error fetching company settings:', error);
     }
   };
 
@@ -535,7 +535,7 @@ const fetchArticles = async () => {
         article_stock: props.article_stock
       }));
 
-      toast.success(`${props.name ? props.name : "Book"}  is added to Favorites`, {
+      toast.success(language === "eng" ? `${props.name ? props.name : "Article"} is added` : `${props.name ? props.name : "Article"} a été ajouté`, {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -546,8 +546,8 @@ const fetchArticles = async () => {
         theme: "colored",
       });
     } catch (error) {
-      console.error("Error adding to Favorites:", error);
-      toast.error("Failed to add item to Favorites.", {
+      // console.error("Error adding to Favorites:", error);
+      toast.error(language === "eng" ? "Failed to add item to cart." : "Échec de l'ajout de l'article au panier.", {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -563,12 +563,12 @@ const fetchArticles = async () => {
 
   const deleteFavoritehandler = async (props) => {
     const item = favorites.find(item => item._favid === props);
-    console.log(props)
+    // console.log(props)
      try {
       const response = await axios.delete(`https://api.leonardo-service.com/api/bookshop/favorites/${item.id}`);
       dispatch(deletefavorite(item.id));
 
-      toast.success(`${props.name ? props.name : "Book"}   is removed from Favorites`, {
+      toast.success(language === "eng" ? `${props.name ? props.name : "Book"} is removed from Favorites` : `${props.name ? props.name : "Livre"} a été retiré des Favoris`, {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -579,8 +579,8 @@ const fetchArticles = async () => {
         theme: "colored",
       });
     } catch (error) {
-      console.error("Failed to remove book from Favorite:", error);
-      toast.error("Failed to remove book from Favorites.", {
+      // console.error("Failed to remove book from Favorite:", error);
+      toast.error(language === "eng" ? "Failed to add item to cart." : "Échec de l'ajout de l'article au panier.", {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,

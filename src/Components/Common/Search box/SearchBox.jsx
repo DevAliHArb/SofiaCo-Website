@@ -53,8 +53,8 @@ function SearchBox() {
       // Update the state with fetched articles
       setArticles(response.data.data);
     } catch (error) {
-      console.error("Error fetching articles:", error);
-      toast.error("Failed to fetch articles.");
+      // console.error("Error fetching articles:", error);
+      // toast.error("Failed to fetch articles.");
     } finally {
       setLoading(false); // Set loading to false after fetching data
     }

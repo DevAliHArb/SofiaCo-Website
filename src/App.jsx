@@ -42,10 +42,10 @@ function App() {
   const [withBG, setWithBG] = useState(false);
 
   useEffect(() => {
-    console.log('Current path:', path);
+    // console.log('Current path:', path);
   
     const accountDetailsRegex = /^\/account\/\w+/;
-    console.log('Regex test result:', accountDetailsRegex.test(path));
+    // console.log('Regex test result:', accountDetailsRegex.test(path));
   
     if (accountDetailsRegex.test(path)) {
       setWithBG(true);

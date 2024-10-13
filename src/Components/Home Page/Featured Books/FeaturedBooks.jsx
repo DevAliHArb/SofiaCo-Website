@@ -40,12 +40,12 @@ const FeaturedBooks = () => {
       const response = await axios.get(
         `https://api.leonardo-service.com/api/bookshop/articles?ecom_type=albouraq&favorites`
       );
-      console.log(response.data.data);
+      // console.log(response.data.data);
       setArticles(response.data.data);
       setActiveIndex(Math.floor(response.data.data.length / 2));
     } catch (error) {
-      console.error("Error fetching articles:", error);
-      toast.error("Failed to fetch articles.");
+      // console.error("Error fetching articles:", error);
+      // toast.error("Failed to fetch articles.");
     }
   };
 

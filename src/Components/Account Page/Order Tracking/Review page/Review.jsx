@@ -99,13 +99,13 @@ const Review = ({props}) => {
   };
 
   const handleSubmit = async () => {
-    console.log("testt",{
-      article_id: selectedReview.article.id,
-      description: description || '',
-      rate: value || 0,
-      review_attachments: images || [] ,
-      user_id: user.id
-  })
+  //   console.log("testt",{
+  //     article_id: selectedReview.article.id,
+  //     description: description || '',
+  //     rate: value || 0,
+  //     review_attachments: images || [] ,
+  //     user_id: user.id
+  // })
     try {
       const base64Images = await Promise.all((images || []).map(async (image) => {
         const fileReader = new FileReader();
@@ -130,7 +130,7 @@ const Review = ({props}) => {
         order_invoice_id: selectedReview.id,
         ecom_type: 'sofiaco'
     });
-      console.log('Review created:', response.data);
+      // console.log('Review created:', response.data);
       setreviewData([...reviewData, {
         article_id: selectedReview.article.id,
         description: description || '',
@@ -143,7 +143,8 @@ const Review = ({props}) => {
       setimages([]);
        handleClose();
        form.resetFields();
-      toast.success( 'Review added successfully!' , {
+      toast.success( 
+        language === "eng" ? "Review added successfully!" : "Avis ajouté avec succès !" , {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -154,8 +155,8 @@ const Review = ({props}) => {
       });
       // Optionally, you can handle success (e.g., show a success message, redirect to another page, etc.)
     } catch (error) {
-      console.error('Error creating review:', error);
-      toast.error( 'Review submit failed, try agian!' , {
+      // console.error('Error creating review:', error);
+      toast.error( language === "eng" ? "Review submit failed, try again!" : "Échec de la soumission de l'avis, veuillez réessayer !" , {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,

@@ -107,7 +107,7 @@ const CartItem = () => {
           );
         })
         .catch((error) => {
-          console.log(error)
+          // console.log(error)
           toast.error(
             language === "eng"
               ? "Failed to update item quantity."

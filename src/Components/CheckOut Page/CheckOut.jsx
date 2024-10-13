@@ -179,7 +179,7 @@ const CheckOut = () => {
         password: import.meta.env.VITE_COLISSIMO_PASSWORD,
       };
 
-      console.log(data);
+      // console.log(data);
 
       try {
         const response = await axios.post(
@@ -187,10 +187,10 @@ const CheckOut = () => {
           data
         );
         return response.data.token;
-        console.log(response.data);
+        // console.log(response.data);
         
       } catch (error) {
-        console.error('Error fetching auth token:', error);
+        // console.error('Error fetching auth token:', error);
         return null;
       }
     };
@@ -284,7 +284,7 @@ const CheckOut = () => {
   }, []);
 
   function getShippingCost(orderCartCost, orderWeight, shippingCostss) {
-    console.log("heloooo", { orderCartCost, orderWeight, shippingCostss });
+    // console.log("heloooo", { orderCartCost, orderWeight, shippingCostss });
     // Filter out items with null cart_cost and sort the remaining items by cart_cost in ascending order
     const sortedByCartCost = shippingCostss
       .filter((item) => item.cart_cost !== null)
@@ -361,7 +361,7 @@ const CheckOut = () => {
       // Save coupon data in state
       setCouponList(resolvedCoupons);
     } catch (error) {
-      console.error("Error fetching user coupons:", error);
+      // console.error("Error fetching user coupons:", error);
     }
   };
 
@@ -465,7 +465,7 @@ const CheckOut = () => {
         );
       }
     } catch (error) {
-      console.error("Error applying coupon:", error);
+      // console.error("Error applying coupon:", error);
       toast.error(
         `${
           language === "eng"
@@ -493,7 +493,7 @@ const CheckOut = () => {
       const activeAddress = addresseslist?.find(
         (address) => address.id === id ? id : user.defaultAdd 
       );
-      console.log(activeAddress.country);
+      // console.log(activeAddress.country);
       try {
         const orderCartCost = subtotalAmt;
         const orderWeight = totalWeight;
@@ -512,7 +512,7 @@ const CheckOut = () => {
       } catch (error) {
         window.location.reload();
         setLoading(false);
-        console.error("Error fetching addresses:", error);
+        // console.error("Error fetching addresses:", error);
       } finally {
         setLoading(false);
       }
@@ -560,7 +560,7 @@ const CheckOut = () => {
       });
       // Set loading to false after fetching data
     } catch (error) {
-      console.error("Error fetching addresses:", error);
+      // console.error("Error fetching addresses:", error);
       // Set loading to false in case of error
     } finally {
       FetchShippinCost();
@@ -593,7 +593,7 @@ const CheckOut = () => {
       });
       // Set loading to false after fetching data
     } catch (error) {
-      console.error("Error fetching addresses:", error);
+      // console.error("Error fetching addresses:", error);
       // Set loading to false in case of error
     }
   };
@@ -813,7 +813,7 @@ const CheckOut = () => {
         }
 
         setLoading(true);
-        console.log("deed");
+        // console.log("deed");
         
 
         if (delivery === "Colissimo" && !colissimoPointData) {
@@ -870,7 +870,7 @@ const CheckOut = () => {
 
         setLoading(false);
       } catch (error) {
-        console.error("Error in ordering:", error);
+        // console.error("Error in ordering:", error);
         setLoading(false);
         // handleErrorOpen(
         //   error.response?.data?.error || "An unexpected error occurred"
@@ -1134,7 +1134,7 @@ const CheckOut = () => {
         hideProgressBar: true,
       });
     } catch (error) {
-      console.error("Error deleting payment:", error);
+      // console.error("Error deleting payment:", error);
     }
   };
 
@@ -1162,7 +1162,7 @@ const CheckOut = () => {
         theme: "colored",
       });
     } catch (error) {
-      console.error("Error deleting address:", error);
+      // console.error("Error deleting address:", error);
     }
   };
 
@@ -1175,7 +1175,7 @@ const CheckOut = () => {
       );
       setHeroData(response.data.data[0]);
     } catch (error) {
-      console.error("Error fetching Heroo:", error);
+      // console.error("Error fetching Heroo:", error);
     }
   };
   useEffect(() => {
@@ -1301,8 +1301,8 @@ const CheckOut = () => {
                             ?.id
                         }
                         onChange={() =>
-                          handleChange2(address.id) &
-                          console.log(address.default)
+                          handleChange2(address.id) 
+                          // console.log(address.default)
                         }
                       >
                         <FormControlLabel
@@ -2013,7 +2013,7 @@ const CheckOut = () => {
               });
             }}
             onError={(err) => {
-              console.log(err);
+              // console.log(err);
               toast.error(`${err}`);
             }}
           />

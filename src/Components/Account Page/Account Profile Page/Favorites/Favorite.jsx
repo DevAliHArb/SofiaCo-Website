@@ -43,7 +43,7 @@ const Favorite = ({carttoggle}) => {
   const handleClose = () => setalertOpen(false);
   const handleConfirm = () => {
     // Perform actions on confirmation
-    console.log('Delete confirmed!');
+    // console.log('Delete confirmed!');
     // Additional logic...
     dispatch(resetfavorite())
     // Close the modal

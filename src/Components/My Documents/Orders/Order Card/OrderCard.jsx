@@ -117,9 +117,9 @@ const OrderCard = ({data ,reviewHandler}) => {
 const CancleOrderHandler = () => {
   axios.put(`https://api.leonardo-service.com/api/bookshop/order_invoices/${data.id}?status_id=13`)
   .then(() => {
-      console.log("delete request successful:");
-        toast.success(`Delete request successful`, {
-          position: "top-right",
+      // console.log("delete request successful:");
+      toast.success(language === "eng" ? "Delete request successful." : "Demande de suppression réussie.", {
+        position: "top-right",
           autoClose: 1500,
           hideProgressBar: true,
           closeOnClick: true,
@@ -132,8 +132,8 @@ const CancleOrderHandler = () => {
         window.location.reload();
   })
   .catch((error) => {
-      console.error("Error in delete request:", error);
-      toast.error("Failed to delete item .", {
+      // console.error("Error in delete request:", error);
+      toast.error(language === "eng" ? "Failed to delete item." : "Échec de la suppression de l'élément.", {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -148,7 +148,7 @@ const CancleOrderHandler = () => {
 const AddAllToCart = () => {
   data.order_invoice_items?.forEach(element => {
     authCtx.addToCart({props: element.article, carttoggle:()=>{}});
-    console.log(element.article)
+    // console.log(element.article)
   });
 }
 
@@ -157,7 +157,7 @@ const handleDownload = (pdfLink) => {
     // Open the PDF link in a new tab
     window.open(pdfLink, '_blank');
   } else {
-    toast.error("PDF link is not available.");
+    toast.error(language === "eng" ? "PDF link is not available." : "Le lien PDF n'est pas disponible.");
   }
 };
   return (

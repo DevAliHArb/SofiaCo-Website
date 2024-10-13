@@ -34,10 +34,10 @@ const Events = () => {
   const fetchAbout = async () => {
     try {
       const response = await axios.get('https://api.leonardo-service.com/api/bookshop/events?ecom_type=sofiaco');
-      console.log('Response data:', response.data);
+      // console.log('Response data:', response.data);
       seteventData(response.data.data || {})
     } catch (error) {
-      console.error('Error fetching addresses:', error);
+      // console.error('Error fetching addresses:', error);
     }
   };
 useEffect(() => {

@@ -45,7 +45,7 @@ const Register = () => {const navigate = useNavigate();
           const updatedFormData = { ...formData, google: "false", type:'sofiaco' };
   
           await axios.post("https://api.leonardo-service.com/api/bookshop/register", updatedFormData);
-          toast.success("Registration successful!", {
+          toast.success(language === "eng" ? "Registration successful!" : "Inscription réussie !", {
             position: "top-right",
             autoClose: 1500,
             hideProgressBar: true,
@@ -66,7 +66,7 @@ const Register = () => {const navigate = useNavigate();
           form.resetFields();
           navigate(`/verify-email`);
         } catch (error) {
-          console.error("Error registering:", error);
+          // console.error("Error registering:", error);
           toast.error(
             error.response.data.error,
             {

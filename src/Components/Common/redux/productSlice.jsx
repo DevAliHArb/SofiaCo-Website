@@ -34,7 +34,7 @@ export const productSlice = createSlice({
     }, 
     addTocart: (state, action) => {
         if (!state.userInfo) {
-            toast.error(`Please log in to add items.`, {
+            toast.error(language === "eng" ? "Please log in to add items." : "Veuillez vous connecter pour ajouter des articles.", {
                 position: "top-right",
                 autoClose: 1500,
                 hideProgressBar: true,
@@ -60,7 +60,7 @@ export const productSlice = createSlice({
         state.productData = state.productData.filter(
             (item) => item._id !== action.payload
         )
-            console.log(state.productData);
+            // console.log(state.productData);
     },
     resetCart: (state) => {
         state.productData = [];
@@ -81,7 +81,7 @@ export const productSlice = createSlice({
     },
     changeQuantity: (state, action) => {
       const item = state.productData.find((item) => item._id === action.payload._id);
-      console.log('testttt', item)
+      // console.log('testttt', item)
       if (item) {
           item.quantity = action.payload.quantity;
       }
@@ -255,7 +255,7 @@ export const productSlice = createSlice({
     
     addTofavorite: (state, action)=>{
       if (!state.userInfo) {
-          toast.error(`Please log in to add items.`, {
+          toast.error(language === "eng" ? "Please log in to add items." : "Veuillez vous connecter pour ajouter des articles.", {
           position: "top-right",
           autoClose: 1500,
           hideProgressBar: true,
@@ -302,7 +302,7 @@ export const productSlice = createSlice({
     },
     addTocompare: (state, action) => {
       if (!state.userInfo) {
-        toast.error(`Please log in to add items.`, {
+        toast.error(language === "eng" ? "Please log in to add items." : "Veuillez vous connecter pour ajouter des articles.", {
           position: "top-right",
           autoClose: 1500,
           hideProgressBar: true,
@@ -316,7 +316,7 @@ export const productSlice = createSlice({
       } else {
         if (state.compare.length < 3) {
           state.compare.push(action.payload);
-          console.log(action.payload.comtitle);
+          // console.log(action.payload.comtitle);
           toast.success(
             `${
               action.payload.comtitle ? action.payload.comtitle : "Book"
@@ -333,7 +333,7 @@ export const productSlice = createSlice({
             }
           );
         } else {
-          toast.error("Can't add more than 3", {
+          toast.error(language === "eng" ? "Can't add more than 3." : "Impossible d'ajouter plus de 3.", {
             position: "top-right",
             autoClose: 1500,
             hideProgressBar: true,
@@ -369,7 +369,7 @@ export const productSlice = createSlice({
           ...state.returnRefund[existingItemIndex],
           ...updatedData,
         };
-        toast.success(`Item updated with new data`, {
+        toast.success(language === "eng" ? "Item updated with new data." : "Article mis à jour avec de nouvelles données.", {
           position: "top-right",
           autoClose: 1500,
           hideProgressBar: true,
@@ -380,8 +380,8 @@ export const productSlice = createSlice({
           theme: "colored",
         });
       } else {
-        console.error("Item not found for editing.");
-        toast.error("Item not found for editing.");
+        // console.error("Item not found for editing.");
+        toast.error(language === "eng" ? "Item not found for editing." : "Article non trouvé pour modification.");
       }
     },
     deletereturnRefund: (state, action) => {

@@ -15,7 +15,7 @@ const BooksPage = ({carttoggle}) => {
         const response = await axios.get('https://api.leonardo-service.com/api/bookshop/website-sections?ecom_type=sofiaco&section_id=products-hero');
         setHeroData(response.data.data[0])
       } catch (error) {
-        console.error('Error fetching services:', error);
+        // console.error('Error fetching services:', error);
       }
     };
   useEffect(() => {

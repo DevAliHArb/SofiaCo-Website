@@ -25,14 +25,14 @@ const Video = () => {
           setSelectedVideo(data.items[0].id.videoId); // Set the first video as default
         }
       } catch (error) {
-        console.error('There was a problem with the fetch operation:', error);
+        // console.error('There was a problem with the fetch operation:', error);
       }
     };
 
     fetchVideos();
   }, []);// Empty dependency array ensures the effect runs only once
 
-  console.log(videos)
+  // console.log(videos)
 
   const handleVideoSelect = (videoId) => {
     setSelectedVideo(videoId);

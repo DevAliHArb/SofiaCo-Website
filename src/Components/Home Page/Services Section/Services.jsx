@@ -29,11 +29,11 @@ const Services = () => {
       const response = await axios.get(
         `https://api.leonardo-service.com/api/bookshop/services?ecom_type=sofiaco`
       );
-      console.log(response.data?.data);
+      // console.log(response.data?.data);
       setServices(response.data?.data);
     } catch (error) {
-      console.error("Error fetching articles:", error);
-      toast.error("Failed to fetch articles.");
+      // console.error("Error fetching articles:", error);
+      // toast.error("Failed to fetch articles.");
     }
   };
 

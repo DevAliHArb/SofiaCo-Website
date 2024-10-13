@@ -43,12 +43,12 @@ const AlsoSee = () => {
         `https://api.leonardo-service.com/api/bookshop/articles?ecom_type=sofiaco&alsosee`
         // `https://api.leonardo-service.com/api/bookshop/articles?ecom_type=sofiaco`
       );
-      console.log(response.data.data);
+      // console.log(response.data.data);
       setArticles(response.data.data);
       setActiveIndex(0);
     } catch (error) {
-      console.error("Error fetching articles:", error);
-      toast.error("Failed to fetch articles.");
+      // console.error("Error fetching articles:", error);
+      // toast.error("Failed to fetch articles.");
     }
   };
 

@@ -79,7 +79,7 @@ const BookDetails = () => {
       }
     });
   }, [constantValue]);
-console.log(constantValue)
+// console.log(constantValue)
 
   const [swiper, setSwiper] = useState(null);
 

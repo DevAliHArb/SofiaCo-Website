@@ -52,7 +52,7 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
         }
       );
     } catch (error) {
-      console.error("Error updating currency:", error);
+      // console.error("Error updating currency:", error);
     }
   };
 
@@ -69,7 +69,7 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
         }
       );
     } catch (error) {
-      console.error("Error updating language:", error);
+      // console.error("Error updating language:", error);
     }
   };
   const list = (anchor) => ( 

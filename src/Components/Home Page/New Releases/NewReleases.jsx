@@ -38,7 +38,7 @@ const NewReleases = () => {
 
   useEffect(() => {
     fetchArticles();
-    console.log('done')
+    // console.log('done')
   }, [selectedCatFilter, selectedEdtrFilter]);
 
   const fetchArticles = async () => {
@@ -53,11 +53,11 @@ const NewReleases = () => {
         }
     
         const response = await axios.get(url);
-      console.log(response.data.data)
+      // console.log(response.data.data)
       setArticles(response.data.data);
     } catch (error) {
-      console.error("Error fetching articles:", error);
-      toast.error("Failed to fetch articles.");
+      // console.error("Error fetching articles:", error);
+      // toast.error("Failed to fetch articles.");
     } finally {
       setLoading(false);
     }

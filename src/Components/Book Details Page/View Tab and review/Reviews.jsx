@@ -48,7 +48,7 @@ const Reviews = () => {
           dispatch(addSelectedBook(book))
           
         } catch (error) {
-          console.error('Error fetching the book:', error);
+        //   console.error('Error fetching the book:', error);
         }
       };
 
@@ -58,7 +58,7 @@ const Reviews = () => {
             const reviews = response.data.data;
             setBookreview(reviews);
         } catch (error) {
-            console.error('Error fetching reviews:', error);
+            // console.error('Error fetching reviews:', error);
         }
     };
 
@@ -69,10 +69,10 @@ const Reviews = () => {
 
     const handleSubmit = async () => {
         setLoading(true);
-        console.log('Review created:', { ...formData, user_id: user.id });
+        // console.log('Review created:', { ...formData, user_id: user.id });
 
         if (!user) {
-            toast.error('Please login first', { hideProgressBar: true });
+            toast.error(language === "eng" ? "Please login first." : "Veuillez d'abord vous connecter.", { hideProgressBar: true });
             setLoading(false);
             return;
         }
@@ -92,10 +92,10 @@ const Reviews = () => {
             fetchBook();
             setFormData({ ...formData, rate: 0 }); // Resetting the rating value to 0
             form.resetFields();
-            toast.success('Review added successfully!', { position: "top-right", autoClose: 1500 });
+            toast.success(language === "eng" ? "Review added successfully!" : "Avis ajouté avec succès !", { position: "top-right", autoClose: 1500 });
         } catch (error) {
-            console.error('Error creating review:', error);
-            toast.error('Review submit failed, try again!', { position: "top-right", autoClose: 1500 });
+            // console.error('Error creating review:', error);
+            toast.error(language === "eng" ? "Review submission failed, try again!" : "Échec de la soumission de l'avis, veuillez réessayer !", { position: "top-right", autoClose: 1500 });
         } finally {
             setLoading(false);
         }
@@ -111,7 +111,8 @@ const Reviews = () => {
             setFormData({ ...formData, rate: 0 }); // Clear form data including rating value
             setLoading(false); // Reset loading state
         } else {
-            toast.info('Please login first', { hideProgressBar: true });
+            toast.info(
+                language === "eng" ? "Please login first." : "Veuillez d'abord vous connecter.", { hideProgressBar: true });
         }
     };
 

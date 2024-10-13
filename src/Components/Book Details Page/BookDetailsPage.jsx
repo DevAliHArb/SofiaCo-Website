@@ -25,7 +25,7 @@ const BookDetailsPage = () => {
       dispatch(addSelectedBook(book))
       
     } catch (error) {
-      console.error('Error fetching the book:', error);
+      // console.error('Error fetching the book:', error);
     }
   };
   
@@ -34,7 +34,7 @@ const BookDetailsPage = () => {
         const response = await axios.get('https://api.leonardo-service.com/api/bookshop/website-sections?ecom_type=sofiaco&section_id=product-details-hero');
         setHeroData(response.data.data[0])
       } catch (error) {
-        console.error('Error fetching services:', error);
+        // console.error('Error fetching services:', error);
       }
     };
   useEffect(() => {

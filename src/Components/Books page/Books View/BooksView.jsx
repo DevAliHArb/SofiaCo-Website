@@ -64,7 +64,7 @@ const BooksView = ({carttoggle}) => {
         setCatChemin('')
       }
     } catch (error) {
-      console.error("Error fetching category path:", error);
+      // console.error("Error fetching category path:", error);
       // Handle error appropriately
     }
   }
@@ -203,10 +203,10 @@ const BooksView = ({carttoggle}) => {
         }
       });
     } else {
-      console.error(
-        "Data property does not contain an array of categories:",
-        authCtx.categories
-      );
+      // console.error(
+      //   "Data property does not contain an array of categories:",
+      //   authCtx.categories
+      // );
     }
   }, [authCtx.categories]);
 
@@ -295,7 +295,7 @@ const BooksView = ({carttoggle}) => {
       // Set the total articles number
       setTotalArticlesNumber(response.data?.total);
     } catch (error) {
-      console.error("Error fetching articles:", error);
+      // console.error("Error fetching articles:", error);
     } finally {
       setLoading(false);
     }
@@ -339,7 +339,7 @@ const BooksView = ({carttoggle}) => {
       }
     }
     // Optionally, you can add a message or perform any other action after deletion
-    console.log("Items with prefix 'isExpanded_' deleted from localStorage.");
+    // console.log("Items with prefix 'isExpanded_' deleted from localStorage.");
   };
   const ResetRateHandle = async () => {
     setSelectedRate(0)
@@ -368,8 +368,8 @@ const BooksView = ({carttoggle}) => {
       setArticles(response.data.data);
       setTotalArticlesNumber(response.data?.total)
     } catch (error) {
-      console.error("Error fetching categories:", error);
-      toast.error("Failed to fetch categories.");
+      // console.error("Error fetching categories:", error);
+      // toast.error("Failed to fetch categories.");
     }
   };
 

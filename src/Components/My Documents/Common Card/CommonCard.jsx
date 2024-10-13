@@ -74,7 +74,7 @@ const CommonCard = ({data ,reviewHandler}) => {
       // Open the PDF link in a new tab
       window.open(pdfLink, '_blank');
     } else {
-      toast.error("PDF link is not available.");
+      toast.error(language === "eng" ? "PDF link is not available." : "Le lien PDF n'est pas disponible.");
     }
   };
 

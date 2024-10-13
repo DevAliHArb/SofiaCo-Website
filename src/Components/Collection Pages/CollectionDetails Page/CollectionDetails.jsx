@@ -79,10 +79,10 @@ const CollectionDetailsPage = () => {
             Authorization: `Bearer ${token}` // Include token in the headers
         }
     });
-      console.log(response.data);
+      // console.log(response.data);
       toast.success(`${collectionData.nom} ${language === 'eng' ? "subscribed successfully!" : "Abonné avec succès !"}`) // You can handle the response here
     } catch (error) {
-      console.error('Error:', error);
+      // console.error('Error:', error);
       toast.error(error.response.data.error)
     }
   };
@@ -92,7 +92,7 @@ const CollectionDetailsPage = () => {
         const response = await axios.get('https://api.leonardo-service.com/api/bookshop/website-sections?ecom_type=sofiaco&section_id=collection-details-hero');
         setHeroData(response.data.data[0])
       } catch (error) {
-        console.error('Error fetching services:', error);
+        // console.error('Error fetching services:', error);
       }
     };
   useEffect(() => {
@@ -110,7 +110,7 @@ const CollectionDetailsPage = () => {
       );
       setArticles(response.data.data);
     } catch (error) {
-      console.error("Error fetching articles:", error);
+      // console.error("Error fetching articles:", error);
       toast.error("Failed to fetch articles.");
     }
   };

@@ -69,11 +69,11 @@ const Subscriptions = () => {
         .map((item) => item.collaborator_id)
         .filter((id) => id !== null);
 
-      console.log(collaboratorIds);
+      // console.log(collaboratorIds);
 
          // Check if collaboratorIds array is empty
     if (collaboratorIds.length === 0) {
-      console.log("No collaborators to fetch");
+      // console.log("No collaborators to fetch");
       return; // Exit the function if there are no collaborators
     }
 
@@ -87,10 +87,10 @@ const Subscriptions = () => {
         },
       });
 
-      console.log(response2);
+      // console.log(response2);
       setData(response2?.data);
     } catch (error) {
-      console.error("Error fetching collaborators:", error);
+      // console.error("Error fetching collaborators:", error);
     } finally {
       setLoading(false);
     }
@@ -113,7 +113,7 @@ const Subscriptions = () => {
       
          // Check if collaboratorIds array is empty
     if (collectionIds.length === 0) {
-      console.log("No collections to fetch");
+      // console.log("No collections to fetch");
       return; // Exit the function if there are no collaborators
     }
 
@@ -127,10 +127,10 @@ const Subscriptions = () => {
         },
       });
 
-      console.log(response2);
+      // console.log(response2);
       setCollectionData(response2?.data);
     } catch (error) {
-      console.error("Error fetching collaborators:", error);
+      // console.error("Error fetching collaborators:", error);
     } finally {
       setLoading(false);
     }
@@ -211,14 +211,14 @@ const Subscriptions = () => {
       );
   
       if (!subscription) {
-        console.error("Subscription not found");
+        // console.error("Subscription not found");
         return;
       }
   
       // Get the ID of the subscription entry
       const subscriptionId = subscription.id;
   
-      console.log(subscriptionId);
+      // console.log(subscriptionId);
       // Send a DELETE request to the API endpoint with the subscriptionId
       await axios.delete(
         `https://api.leonardo-service.com/api/bookshop/users/${user.id}/subscriptions/${subscriptionId}`,
@@ -230,7 +230,8 @@ const Subscriptions = () => {
       );
   
       // Display success message
-      toast.success("Collaborator deleted successfully", {
+      toast.success(
+        language === "eng" ? "Collaborator deleted successfully." : "Collaborateur supprimé avec succès.", {
         hideProgressBar: true,
       });
   
@@ -238,9 +239,9 @@ const Subscriptions = () => {
         prevData.filter((collab) => collab.id !== collaboratorId)
       );
     } catch (error) {
-      console.error("Error deleting collaborator:", error);
+      // console.error("Error deleting collaborator:", error);
       // Display error message
-      toast.error("Error deleting collaborator", {
+      toast.error(language === "eng" ? "Error deleting collaborator." : "Erreur lors de la suppression du collaborateur.", {
         hideProgressBar: true,
       });
     }
@@ -261,7 +262,7 @@ const Subscriptions = () => {
         (sub) => sub.user_id === user.id && sub.collection_id === collectionId
       );
   
-      console.log(subscription);
+      // console.log(subscription);
   
       if (!subscription) {
         // console.error("Subscription not found");
@@ -282,7 +283,7 @@ const Subscriptions = () => {
       );
   
       // Display success message
-      toast.success("Collection deleted successfully", {
+      toast.success(language === "eng" ? "Collection deleted successfully." : "Collection supprimée avec succès.", {
         hideProgressBar: true,
       });
   
@@ -291,9 +292,9 @@ const Subscriptions = () => {
         prevData.filter((collec) => collec.id !== collectionId)
       );
     } catch (error) {
-      console.error("Error deleting collection:", error);
+      // console.error("Error deleting collection:", error);
       // Display error message
-      toast.error("Error deleting collection", {
+      toast.error(language === "eng" ? "Error deleting collection." : "Erreur lors de la suppression de la collection.", {
         hideProgressBar: true,
       });
     }

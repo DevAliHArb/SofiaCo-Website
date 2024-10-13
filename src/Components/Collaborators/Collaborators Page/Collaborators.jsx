@@ -47,7 +47,7 @@ const Collaborators = () => {
     return { ...person, firstLetter };
   });
 
-  console.log(withFirstLetters)
+  // console.log(withFirstLetters)
   const filteredAuthors = withFirstLetters.filter(
     (author) =>
       (selectedLetter === "ALL" || author.firstLetter === selectedLetter.toLowerCase()) &&

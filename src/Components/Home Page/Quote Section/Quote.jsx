@@ -29,8 +29,8 @@ const Quote = () => {
       setTheQuote(response.data.data);
       setconstantValue(response.data.data[0]?.id)
     } catch (error) {
-      console.error('Error fetching articles:', error);
-      toast.error('Failed to fetch articles.');
+      // console.error('Error fetching articles:', error);
+      error('Failed to fetch articles.');
     }
   };
   const handleSlideChange = (swiper) => {

@@ -140,8 +140,8 @@ const Details = () => {
         // Find the collaborator whose nom + prenom matches bookData.dc_auteur
         const collaborator = collaborators.find(collaborator => {
             const fullName = `${collaborator.nom}`;
-            console.log(fullName.toLowerCase())
-            console.log(cleanedAuteur.toLowerCase())
+            // console.log(fullName.toLowerCase())
+            // console.log(cleanedAuteur.toLowerCase())
             return fullName.toLowerCase() === cleanedAuteur.toLowerCase();
         });
         
@@ -160,7 +160,7 @@ const Details = () => {
         });
 
         // console.log(response.data);
-        toast.success(`${collaborator.nom} subscribed successfully!`, {hideProgressBar: true}); // You can handle the response here
+        toast.success(language === "eng" ? `${collaborator.nom} subscribed successfully!` : `${collaborator.nom} s'est abonné avec succès !`, {hideProgressBar: true}); // You can handle the response here
     } catch (error) {
         // console.error('Error:', error);
         toast.error(error.response?.data?.error || error.message);
@@ -291,7 +291,7 @@ const handleSuivreCollection = async () => {
       // console.log(response.data);
       toast.success(`${language === 'eng' ? `${Collectiondata.nom} subscribed successfully!` : `${Collectiondata.nom} abonné avec succès !!`}`, {hideProgressBar: true}); // You can handle the response here
   } catch (error) {
-      console.error('Error:', error);
+      // console.error('Error:', error);
       toast.error(error.response?.data?.error || error.message);
   }
 };

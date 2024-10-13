@@ -128,7 +128,7 @@ useEffect(() => {
       setPaymentsList(sortedPayments);
       setLoading(false); // Set loading to false after fetching data
     } catch (error) {
-      console.error("Error fetching addresses:", error);
+      // console.error("Error fetching addresses:", error);
       setLoading(false); // Set loading to false in case of error
     }
   };
@@ -149,12 +149,12 @@ useEffect(() => {
         }
       );
       fetchPayments();
-      toast.success("Default Payment card is set successfully", {
+      toast.success(language === "eng" ? "Default payment card is set successfully" : "La carte de paiement par défaut est définie avec succès", {
         // Toast configuration
         hideProgressBar: true,
       });
     } catch (error) {
-      console.error("Error setting default payment:", error);
+      // console.error("Error setting default payment:", error);
     }
   };
 
@@ -168,7 +168,7 @@ useEffect(() => {
     setaddLoading(true)
     try {
       if (editMode) {
-        console.log(formData);
+        // console.log(formData);
         await axios.put(
           `https://api.leonardo-service.com/api/bookshop/users/${user.id}/payments/${editpaymentId}`,
           formData,
@@ -178,7 +178,7 @@ useEffect(() => {
             },
           }
         );
-        toast.success("Payment card edited successfully", {
+        toast.success(language === "eng" ? "Payment card edited successfully" : "Carte de paiement modifiée avec succès", {
           // Toast configuration
           hideProgressBar: true,
         });
@@ -195,7 +195,7 @@ useEffect(() => {
             },
           }
         );
-        toast.success("Payment card added successfully", {
+        toast.success(language === "eng" ? "Payment card added successfully" : "Carte de paiement ajoutée avec succès", {
           // Toast configuration
           hideProgressBar: true,
         });
@@ -207,7 +207,7 @@ useEffect(() => {
       // Toast configuration
       hideProgressBar: true,
     });
-      console.error("Error submitting payment:", error);
+      // console.error("Error submitting payment:", error);
     } finally {
       setaddLoading(false)
     }
@@ -226,12 +226,12 @@ useEffect(() => {
       setPaymentsList((prevPayments) =>
         prevPayments.filter((payment) => payment.id !== id)
       );
-      toast.success("Payment card deleted successfully", {
+      toast.success(language === "eng" ? "Payment card deleted successfully" : "Carte de paiement supprimée avec succès", {
         // Toast configuration
         hideProgressBar: true,
       });
     } catch (error) {
-      console.error("Error deleting payment:", error);
+      // console.error("Error deleting payment:", error);
     }
   };
 

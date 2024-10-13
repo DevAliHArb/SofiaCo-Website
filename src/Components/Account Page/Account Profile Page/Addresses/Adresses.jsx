@@ -95,12 +95,12 @@ const Adresses = () => {
           },
         }
       );
-      console.log("Response data:", response.data);
+      // console.log("Response data:", response.data);
       const sortedAddresses = response.data.data.sort((a, b) => a.id - b.id);
         setAddressesList(sortedAddresses);
       setLoading(false); // Set loading to false after fetching data
     } catch (error) {
-      console.error("Error fetching addresses:", error);
+      // console.error("Error fetching addresses:", error);
       setLoading(false); // Set loading to false in case of error
     }
   };
@@ -123,7 +123,7 @@ const Adresses = () => {
         }
       );
       fetchAddresses();
-      toast.success("Default address is set!", {
+      toast.success(language === "eng" ? "Default address is set!" : "L'adresse par défaut est définie !", {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -134,20 +134,20 @@ const Adresses = () => {
         theme: "colored",
       });
     } catch (error) {
-      console.error("Error setting default address:", error);
+      // console.error("Error setting default address:", error);
     }
   };
 
   const handleChange = (name, value) => {
     setFormData({ ...formData, [name]: value });
-    console.log(formData);
+    // console.log(formData);
   };
 
   const handleSubmit = async () => {
     setaddLoading(true);
     try {
       if (editMode) {
-        console.log(formData);
+        // console.log(formData);
         await axios.put(
           `https://api.leonardo-service.com/api/bookshop/users/${user.id}/addresses/${editaddressId}`,
           formData,
@@ -157,7 +157,7 @@ const Adresses = () => {
             },
           }
         );
-        toast.success("Address Edited!", {
+        toast.success(language === "eng" ? "Address Edited!" : "Adresse modifiée !", {
           position: "top-right",
           autoClose: 1500,
           hideProgressBar: true,
@@ -180,7 +180,7 @@ const Adresses = () => {
             },
           }
         );
-        toast.success("Address added!", {
+        toast.success(language === "eng" ? "Address added!" : "Adresse ajoutée !", {
           position: "top-right",
           autoClose: 1500,
           hideProgressBar: true,
@@ -194,7 +194,7 @@ const Adresses = () => {
       handleClose();
       fetchAddresses();
     } catch (error) {
-      console.error("Error submitting address:", error);
+      // console.error("Error submitting address:", error);
     } finally {
       setaddLoading(false);
       window.location.reload();
@@ -214,7 +214,7 @@ const Adresses = () => {
       setAddressesList((prevAddresses) =>
         prevAddresses.filter((address) => address.id !== id)
       );
-      toast.success("Address Deleted", {
+      toast.success(language === "eng" ? "Address Deleted" : "Adresse supprimée", {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -225,7 +225,7 @@ const Adresses = () => {
         theme: "colored",
       });
     } catch (error) {
-      console.error("Error deleting address:", error);
+      // console.error("Error deleting address:", error);
     }
   };
   
@@ -240,7 +240,7 @@ const Adresses = () => {
     }
   }, [open]);
 
-console.log(formData)
+// console.log(formData)
   if (loading) {
     return <div>Loading...</div>; // Render a loading indicator while fetching data
   }

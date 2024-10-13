@@ -49,8 +49,8 @@ const Hero = ({ carttoggle }) => {
       
       setArticles(response.data.data);
     } catch (error) {
-      console.error("Error fetching articles:", error);
-      toast.error("Failed to fetch articles.");
+      // console.error("Error fetching articles:", error);
+      // toast.error("Failed to fetch articles.");
     }
   };
 

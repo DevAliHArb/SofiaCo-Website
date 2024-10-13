@@ -39,10 +39,10 @@ const CheckOutSummary = () => {
   const fetchOrder = async () => {
     try {
       const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/order_invoices/${id}`);
-      console.log('Response data:', response.data);
+      // console.log('Response data:', response.data);
       setData(response.data.data || {})
     } catch (error) {
-      console.error('Error fetching addresses:', error);
+      // console.error('Error fetching addresses:', error);
     }
   };
 useEffect(() => {

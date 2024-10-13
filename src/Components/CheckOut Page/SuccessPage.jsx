@@ -39,10 +39,10 @@ const SuccessPage = () => {
           dispatch(resetCart());
           dispatch(resetOrderData())
 
-          toast.success("Order placed successfully!");
+          toast.success(language === "eng" ? "Order placed successfully!" : "Commande passée avec succès !");
         } catch (err) {
-          console.error("Error creating order invoice:", err);
-          setError("Failed to create order. Please try again.");
+          // console.error("Error creating order invoice:", err);
+          setError(language === "eng" ? "Failed to create order. Please try again." : "Échec de la création de la commande. Veuillez réessayer.");
         } finally {
           setLoading(false);
         }

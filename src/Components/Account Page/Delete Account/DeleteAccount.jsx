@@ -65,12 +65,12 @@ const logout = async () => {
       logout() // Example: dispatch an action to update Redux state after deletion
 
       // Show success message
-      toast.success('Email Sent. Please verify your email', {hideProgressBar: true});
+      toast.success(language === "eng" ? "Email sent. Please verify your email." : "Email envoyé. Veuillez vérifier votre email.", {hideProgressBar: true});
     })
     .catch(error => {
       // Handle error
       // console.log(error);
-      toast.error('An error occurred. Please try again later!', {hideProgressBar:true});
+      toast.error(language === "eng" ? "An error occurred. Please try again later!" : "Une erreur s'est produite. Veuillez réessayer plus tard !", {hideProgressBar:true});
     });
   };
 

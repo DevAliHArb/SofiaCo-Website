@@ -48,10 +48,10 @@ const EventsDetails = () => {
   const fetchAbout = async () => {
     try {
       const response = await axios.get('https://api.leonardo-service.com/api/bookshop/events?ecom_type=sofiaco');
-      console.log('Response data:', response.data);
+      // console.log('Response data:', response.data);
       setlatestEvents(response.data.data || {})
     } catch (error) {
-      console.error('Error fetching addresses:', error);
+      // console.error('Error fetching addresses:', error);
     }
   };
 useEffect(() => {
@@ -70,13 +70,13 @@ useEffect(() => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const [eventEnded, setEventEnded] = useState(false);
-console.log(eventEnded)
+// console.log(eventEnded)
   useEffect(() => {
     const currentDate = new Date();
     const eventDate = eventitem[0].date;
 
-    console.log(currentDate)
-    console.log(eventDate)
+    // console.log(currentDate)
+    // console.log(eventDate)
     // Check if the event date is in the past
     const hasEventEnded = currentDate > eventDate;
     if (hasEventEnded) {
@@ -109,8 +109,8 @@ console.log(eventEnded)
           `https://api.leonardo-service.com/api/bookshop/events/${eventData.id}/replies`,
           { ...formData, user_id: user.id }
         );
-        console.log("Event replied successfully:", response.data);
-        toast.success("Event replied successfully", {
+        // console.log("Event replied successfully:", response.data);
+        toast.success(language === "eng" ? "Event replied successfully." : "Réponse à l'événement réussie.", {
           position: "top-right",
           autoClose: 1500,
           hideProgressBar: true,
@@ -130,8 +130,8 @@ console.log(eventEnded)
         form.resetFields();
         setFormData({ reply: "" });
       } catch (error) {
-        console.error("Error replying event:", error);
-        toast.error("Error replying event", {
+        // console.error("Error replying event:", error);
+        toast.error(language === "eng" ? "Error replying to event." : "Erreur lors de la réponse à l'événement.", {
           position: "top-right",
           autoClose: 1500,
           hideProgressBar: true,
@@ -143,7 +143,7 @@ console.log(eventEnded)
         });
       }
     } else {
-      toast.error("Please login to leave a reply", {
+      toast.error(language === "eng" ? "Please login to leave a reply." : "Veuillez vous connecter pour laisser une réponse.", {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,

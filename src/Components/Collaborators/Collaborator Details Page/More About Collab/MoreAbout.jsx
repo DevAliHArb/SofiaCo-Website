@@ -41,12 +41,12 @@ const MoreAbout = () => {
       const response = await axios.get(
         `https://api.leonardo-service.com/api/bookshop/articles?ecom_type=sofiaco&author=${CollaboratorData?.nom}`
       );
-      console.log(response.data.data);
+      // console.log(response.data.data);
       setArticles(response.data.data);
       setActiveIndex(0);
     } catch (error) {
-      console.error("Error fetching articles:", error);
-      toast.error("Failed to fetch articles.");
+      // console.error("Error fetching articles:", error);
+      // toast.error("Failed to fetch articles.");
     }
   };
 

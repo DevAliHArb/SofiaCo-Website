@@ -126,7 +126,7 @@ const PopupPaymentModal = ({ open, handleClose, isselectedPayment }) => {
     setaddLoading(true)
     try {
       if (editMode) {
-        console.log(formData);
+        // console.log(formData);
         await axios.put(
           `https://api.leonardo-service.com/api/bookshop/users/${user.id}/payments/${editpaymentId}`,
           formData, {
@@ -147,7 +147,7 @@ const PopupPaymentModal = ({ open, handleClose, isselectedPayment }) => {
       }
       handleClose();
       fetchPayments();
-      toast.success("Payment card added successfully", {
+      toast.success(language === "eng" ? "Payment card added successfully." : "Carte de paiement ajoutée avec succès.", {
         // Toast configuration
         hideProgressBar: true,
       });
@@ -156,7 +156,7 @@ const PopupPaymentModal = ({ open, handleClose, isselectedPayment }) => {
       // Toast configuration
       hideProgressBar: true,
     });
-      console.error("Error submitting address:", error);
+      // console.error("Error submitting address:", error);
     } finally {
       setaddLoading(false)
     }

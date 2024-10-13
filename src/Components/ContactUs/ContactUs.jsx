@@ -27,7 +27,7 @@ const ContactUs = () => {
   const [formData, setFormData] = useState({});
 
   const handleSubmit = async () => {
-      console.log("heloooo",formData)
+      // console.log("heloooo",formData)
       
       
       try {
@@ -37,9 +37,9 @@ const ContactUs = () => {
         );
         setFormData({});
         form.resetFields();
-        console.log("Email sent:", response.data);
+        // console.log("Email sent:", response.data);
         // You can display a success message if needed
-        toast.success('Email sent successfully', {
+        toast.success(language === "eng" ? "Email sent successfully." : "Email envoyé avec succès.", {
           position: "top-right",
           autoClose: 1500,
           hideProgressBar: true,
@@ -50,9 +50,9 @@ const ContactUs = () => {
           theme: "colored",
           })
       } catch (error) {
-        console.error("Error in sending email:", error.response.data.error.email[0]);
+        // console.error("Error in sending email:", error.response.data.error.email[0]);
         // You can display an error message if needed
-        toast.error(`Error in sending email:` && error.response.data.error.email[0], {
+        toast.error(language === "eng" ? "Error in sending email:" : "Erreur lors de l'envoi de l'email :" && error.response.data.error.email[0], {
           position: "top-right",
           autoClose: 1500,
           hideProgressBar: true,

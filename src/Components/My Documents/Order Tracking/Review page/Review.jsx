@@ -100,13 +100,13 @@ const Review = ({props}) => {
   // const imagefileInputRefs = data.map(() => React.createRef());
   // const videofileInputRefs = data.map(() => React.createRef());
   const handleSubmit = async () => {
-    console.log({
-      article_id: selectedReview,
-      description: description || '',
-      rate: value || 0,
-      review_attachments: images || [] ,
-      user_id: user.id
-  })
+  //   console.log({
+  //     article_id: selectedReview,
+  //     description: description || '',
+  //     rate: value || 0,
+  //     review_attachments: images || [] ,
+  //     user_id: user.id
+  // })
     try {
       const base64Images = await Promise.all((images || []).map(async (image) => {
         const fileReader = new FileReader();
@@ -130,13 +130,13 @@ const Review = ({props}) => {
         review_attachments: base64Images || [] ,
         ecom_type: 'sofiaco'
     });
-      console.log('Review created:', response.data);
+      // console.log('Review created:', response.data);
       setValue(0);
       setdescription('');
       setimages([]);
       handleClose();
       form.resetFields();
-      toast.success( 'Review added successfully!' , {
+      toast.success( language === "eng" ? "Review added successfully!" : "Avis ajouté avec succès !" , {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -147,8 +147,8 @@ const Review = ({props}) => {
       });
       // Optionally, you can handle success (e.g., show a success message, redirect to another page, etc.)
     } catch (error) {
-      console.error('Error creating review:', error);
-      toast.error( 'Review submit failed, try agian!' , {
+      // console.error('Error creating review:', error);
+      toast.error( language === "eng" ? "Review submission failed, try again!" : "Échec de la soumission de l'avis, veuillez réessayer !" , {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
