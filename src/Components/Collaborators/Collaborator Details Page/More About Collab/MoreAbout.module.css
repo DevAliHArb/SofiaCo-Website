@@ -316,6 +316,12 @@
     cursor: pointer;
   }
   @media screen and (max-width:950px) {
+    .nodata{
+      flex-direction: column;
+    }
+    .nodata h1{
+      text-align: center;
+    }
 .big_container{
   margin: 5em auto;
 }

@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../Common/authContext';
 import { Scale } from '@mui/icons-material';
 import { addSelectedBook } from '../../Common/redux/productSlice';
+import { stripHtmlTags, truncateText } from '../../Common/TextUtils';
 
 const FeaturedBooks = () => {
   const authCtx = useContext(AuthContext);
@@ -125,7 +126,8 @@ const FeaturedBooks = () => {
                       )}
                     </div>
                       <div className={classes.bookTitle} style={{opacity: index === activeIndex ? 1 : 0}}>
-                        <p >{props.designation.length > 20 ? props.designation.slice(0,20) + '...' : props.designation}</p>
+                      <p style={{ margin:'0em' }}>{truncateText(stripHtmlTags(props.designation), 15)}</p>
+                      <p style={{ margin:'.3em 0em', fontSize:'small', fontWeight: 400 }}>{truncateText(stripHtmlTags(props.descriptif), 40)}</p>
                         <span style={{ display: "flex", flexDirection: "row", margin:'0 auto', columnGap:'0.5em' }}>
                           <p
                             style={{ textAlign: "center", padding: "0 ",color: "var(--primary-color)",fontWeight:700 }}

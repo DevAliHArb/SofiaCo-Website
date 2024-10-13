@@ -16,6 +16,7 @@
   background-color: rgba(194, 194, 194, 0.5);
   z-index: 9;
   cursor: auto;
+  cursor: pointer;
 }
 
 .out_of_stock p {
@@ -296,6 +297,12 @@
 }
 
 @media screen and (max-width:650px) {
+  .nodata{
+    flex-direction: column;
+  }
+  .nodata h1{
+    text-align: center;
+  }
   .card_img{
     height: 45vw;
   }

@@ -33,6 +33,7 @@
   background-color: rgba(194, 194, 194, 0.5);
   z-index: 9;
   cursor: auto;
+  cursor: pointer;
 }
 
 .out_of_stock p {
@@ -59,10 +60,11 @@
 
 
 .header{
+  width: 90% !important;
   position: relative;
   width: fit-content;
   height: fit-content;
-  margin: auto;
+  margin: auto 0 auto auto;
 }
 
 .header h1{
@@ -222,6 +224,19 @@ color: var(--secondary-color);
 }
 
 @media screen and (max-width:950px) {
+  .header{
+    width: 100% !important;
+    margin: auto;
+  }
+  .nodata{
+    flex-direction: column;
+  }
+  .nodata h1{
+    text-align: center;
+  }
+  .out_of_stock p {
+    font-size: calc(0.5rem + 0.2vw);
+  }
   .discriptionCard{
     position: absolute;
     width: 42%;

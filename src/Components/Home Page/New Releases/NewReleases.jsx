@@ -44,7 +44,7 @@ const NewReleases = () => {
   const fetchArticles = async () => {
     setLoading(true);
     try {
-        let url = 'https://api.leonardo-service.com/api/bookshop/articles?ecom_type=sofiaco&page=1';
+        let url = 'https://api.leonardo-service.com/api/bookshop/articles?ecom_type=albouraq&page=1';
 
         if (selectedCategory === 'categories') {
           url += `&category=${selectedCatFilter}`;
@@ -168,7 +168,7 @@ const NewReleases = () => {
                       }}
                     >
                       <div className={classes.card_img} style={{position:"relative"}}>
-                     {props._qte_a_terme_calcule < 1 && <div onClick={(e)=>e.stopPropagation()} className={classes.out_of_stock}>
+                     {props._qte_a_terme_calcule < 1 && <div className={classes.out_of_stock}>
                         <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
                       </div>}
                         {props.articleimage[0] ? (
@@ -285,7 +285,7 @@ const NewReleases = () => {
                       }}
                     >
                       <div className={classes.card_img} style={{position:"relative"}}>
-                     {props._qte_a_terme_calcule < 1 && <div onClick={(e)=>e.stopPropagation()} className={classes.out_of_stock}>
+                     {props._qte_a_terme_calcule < 1 && <div className={classes.out_of_stock}>
                         <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
                       </div>}
                         {props.articleimage[0] ? (

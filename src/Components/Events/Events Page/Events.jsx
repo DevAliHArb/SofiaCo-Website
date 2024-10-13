@@ -48,7 +48,7 @@ useEffect(() => {
     <div className={classes.events}>
       <div className={classes.header}>
         <h1 className={classes.headerh1}>{data.Event.title[language]}</h1>
-        <h2 className={classes.headerh2}>{data.Event.Subtitle[language]}</h2>
+        {/* <h2 className={classes.headerh2}>{data.Event.Subtitle[language]}</h2> */}
       </div>
       <div className={classes.content}>
        {eventData?.map((props) => {

@@ -7,7 +7,7 @@
     },
     "FeaturedBooks": {
       "title": { "eng": "Featured Books", "fr": "Livres à l'honneur" },
-      "description": { "eng": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua._fr" },
+      "description": { "eng": "Discover our top book picks! Curated selections that will ignite your curiosity and elevate your reading experience. Don’t miss these essential reads!", "fr": "Découvrez nos livres incontournables ! Une sélection soignée qui éveillera votre curiosité et enrichira votre expérience de lecture. Ne manquez pas ces lectures indispensables !" },
       "button": { "eng": "Add to cart", "fr": "Ajouter au panier" }
     },
     "Hero": {

@@ -175,7 +175,7 @@ const CartItem = () => {
              <p>{language === "eng" ? "NOT AVAILABLE ANYMORE!" : "N'EST PLUS DISPONIBLE !"}</p>
            </div>}
             <div style={{ marginLeft: "2em",position:"relative",overflow:'hidden' }}>
-                     {props._qte_a_terme_calcule < 1 && <div onClick={(e)=>e.stopPropagation()} className={classes.out_of_stock}>
+                     {props._qte_a_terme_calcule < 1 && <div className={classes.out_of_stock}>
                         <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
                       </div>}
               <img src={props.image} alt="" width="100%" style={{width:'100%',height:'100%',objectFit:'fill',minHeight:'8em'}} />
@@ -260,7 +260,7 @@ const CartItem = () => {
            </div>}
             <div className={classes.mobcard_content}>
             <div  style={{ marginRight: ".5em",position:"relative",overflow:'hidden' }}>
-                     {props._qte_a_terme_calcule < 1 && <div onClick={(e)=>e.stopPropagation()} className={classes.out_of_stock}>
+                     {props._qte_a_terme_calcule < 1 && <div className={classes.out_of_stock}>
                         <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
                       </div>}
               <img src={props.image} alt="" width="100%" style={{width:'100%',height:'100%',objectFit:'fill',minHeight:'8em'}} />

@@ -148,7 +148,7 @@ const Hero = ({ carttoggle }) => {
                       }}
                     >
                       <div className={classes.card_img} style={{position:"relative"}}>
-                     {props._qte_a_terme_calcule < 1 && <div onClick={(e)=>e.stopPropagation()} className={classes.out_of_stock}>
+                     {props._qte_a_terme_calcule < 1 && <div className={classes.out_of_stock}>
                         <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
                       </div>}
                         {props.articleimage[0] ? (

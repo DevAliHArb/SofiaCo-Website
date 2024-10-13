@@ -338,7 +338,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                     }}
                   >
                     <div className={classes.card_img}>
-                     {props._qte_a_terme_calcule < 1 && <div onClick={(e)=>e.stopPropagation()} className={classes.out_of_stock}>
+                     {props._qte_a_terme_calcule < 1 && <div className={classes.out_of_stock}>
                         <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
                       </div>}
                       {props.articleimage[0] ? (
@@ -489,7 +489,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                 }}>
                   <div className={classes.leftContainer}>
                      <div className={classes.imgCont}>
-                     {props._qte_a_terme_calcule < 1 && <div onClick={(e)=>e.stopPropagation()} className={classes.out_of_stock}>
+                     {props._qte_a_terme_calcule < 1 && <div className={classes.out_of_stock}>
                         <p style={{fontSize:'calc(.4rem + .2vw)',padding:'.3em'}}>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
                       </div>}
                     {props.articleimage[0] ? (
