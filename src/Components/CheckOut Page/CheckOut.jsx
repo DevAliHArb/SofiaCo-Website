@@ -1003,7 +1003,9 @@ const CheckOut = () => {
      setPaymentId(paymentID)
      setdirectPay(false)
      setIspaypal(false)
-    } else {
+    } else if (paymentslist.length === 0 && userInfo.default_pay !== 'direct' && userInfo.default_pay !== 'paypal') {
+      setdirectPay(true);
+      setPaymentId("direct")
     }
   }, []);
 
@@ -1189,11 +1191,6 @@ const CheckOut = () => {
     } else if (userInfo.default_pay === 'paypal') {
       setPaymentId("paypal")
       setIspaypal(true)
-    } else {
-    if (paymentslist.length === 0 && userInfo.default_pay !== 'direct' && userInfo.default_pay !== 'paypal') {
-      setdirectPay(true);
-      setPaymentId("direct")
-    }
     }
   }, [paymentslist]);
 
