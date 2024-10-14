@@ -54,6 +54,8 @@ function getLabelText(value) {
 
 const Review = ({props}) => {
   const user = useSelector((state) => state.products.userInfo);
+  const language = useSelector((state) => state.products.selectedLanguage[0].Language);
+  const [indexSelected, setIndexSelected] = React.useState(0);
   const [value, setValue] = React.useState(0);
   const [hover, setHover] = React.useState(-1);
   const [data, setData] = useState([]);
@@ -98,65 +100,67 @@ const Review = ({props}) => {
     setimages((prevImages) => prevImages.filter((image) => image.id !== imageId));
   };
 
-  const handleSubmit = async () => {
-  //   console.log("testt",{
-  //     article_id: selectedReview.article.id,
-  //     description: description || '',
-  //     rate: value || 0,
-  //     review_attachments: images || [] ,
+  const handleSubmit = async ({index}) => {
+  //   console.log({
+  //     article_id: data[index].article_id,
+  //     description: data[index].description || '',
+  //     rate: data[index].rate || 0,
+  //     review_attachments: data[index].review_attachment || [] ,
   //     user_id: user.id
   // })
-    try {
-      const base64Images = await Promise.all((images || []).map(async (image) => {
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(image.attached_file);
-        return new Promise((resolve, reject) => {
-          fileReader.onload = () => {
-            resolve({
-              id: image.id,
-              attached_file: fileReader.result 
-            });
-          };
-          fileReader.onerror = (error) => {
-            reject(error);
-          };
-        });
-      }));
-      const response = await axios.post(`https://api.leonardo-service.com/api/bookshop/articles/${selectedReview.article.id}/reviews`, {
-        description: description || '',
-        rate: value || 0,
-        user_id: user.id,
-        review_attachments: base64Images || [] ,
-        order_invoice_id: selectedReview.id,
-        ecom_type: 'sofiaco'
-    });
-      // console.log('Review created:', response.data);
-      setreviewData([...reviewData, {
-        article_id: selectedReview.article.id,
-        description: description || '',
-        rate: value || 0,
-        review_attachments: images || [] ,
-        user_id: user.id
-    }])
-       setValue(0);
-       setdescription('');
-      setimages([]);
-       handleClose();
-       form.resetFields();
-      toast.success( 
-        language === "eng" ? "Review added successfully!" : "Avis ajouté avec succès !" , {
-        position: "top-right",
-        autoClose: 1500,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: 0,
+  try {
+    const base64Images = await Promise.all((images || []).map(async (image) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(image.attached_file);
+      return new Promise((resolve, reject) => {
+        fileReader.onload = () => {
+          resolve({
+            id: image.id,
+            attached_file: fileReader.result // Extract base64 data from Data URL
+          });
+        };
+        fileReader.onerror = (error) => {
+          reject(error);
+        };
       });
-      // Optionally, you can handle success (e.g., show a success message, redirect to another page, etc.)
-    } catch (error) {
-      // console.error('Error creating review:', error);
-      toast.error( language === "eng" ? "Review submit failed, try again!" : "Échec de la soumission de l'avis, veuillez réessayer !" , {
+    }));
+    const response = await axios.post(`https://api.leonardo-service.com/api/bookshop/articles/${selectedReview.article.id}/reviews`, {
+      description: description || '',
+      rate: value || 0,
+      user_id: user.id,
+      review_attachments: base64Images || [] ,
+      order_invoice_id: selectedReview.order_invoice_id,
+      order_invoice_item_id: selectedReview.id,
+      ecom_type: 'albouraq'
+  });
+  
+  setData((prevData) => {
+    const newData = [...prevData.order_invoice_items];
+    newData[indexSelected].book_reviews = [{
+      description: description || '',
+      rate: value || 0,
+      review_attachment: base64Images || [] ,}];
+    return {...prevData, order_invoice_items: newData};
+  });
+    console.log('Review created:', response.data);
+    setValue(0);
+    setdescription('');
+    setimages([]);
+    handleClose();
+    form.resetFields();
+    toast.success( `${language === 'eng' ? 'Review added successfully!' : "Révision ajoutée avec succès !"}` , {
+      position: "top-right",
+      autoClose: 1500,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: 0,
+    });
+    // Optionally, you can handle success (e.g., show a success message, redirect to another page, etc.)
+  } catch (error) {
+      console.error('Error creating review:', error);
+      toast.error( `${language === 'eng' ? 'Review submit failed, try agian!' : "L'envoi du commentaire a échoué, essayez à nouveau !"}` , {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
@@ -172,7 +176,7 @@ const Review = ({props}) => {
   return (
     <div className={classes.review_con}>
       {data.order_invoice_items?.map((item, index) => {
-        let isReviewed = reviewData?.find(data => data.article_id === item.article.id);
+        const hasReviews = item.book_reviews && item.book_reviews.length > 0;
         return (
           <>
           <div className={classes.content}>
@@ -182,32 +186,59 @@ const Review = ({props}) => {
             </div>
               <div className={classes.btn_con}>
                 <h3 className={classes.imgContainerh3}>{item.article.designation}</h3>
-                {!isReviewed ? <button onClick={()=>setselectedReview(item) & handleOpen()}>Review</button> : 
+                {!hasReviews ? <button onClick={()=>setselectedReview(item) & setIndexSelected(index) & handleOpen()}>Review</button> : 
                 <div style={{display:'flex',flexDirection:'column',fontFamily:'var(--font-family)'}}>
-               <p style={{width:'100%',textAlign:'start',fontSize:'calc(.6rem + .2vw)',display:'flex',flexDirection:'row',marginBottom:'0'}}><Rating
+               <p style={{width:'100%',textAlign:'start',fontSize:'calc(.6rem + .2vw)',display:'flex',flexDirection:'row',margin:'0.3em 0'}}><Rating
                 style={{color:'var(--primary-color)',fontSize:'calc(.6rem + .3vw)',marginBottom:'-2em'}}
                     name="hover-feedback"
-                    value={isReviewed.rate}
+                    value={item.book_reviews[0]?.rate}
                     precision={0.5}
                     getLabelText={getLabelText}
                     emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-                /> <p style={{margin:'.1em 0 0 .3em'}}>{isReviewed.rate}/5 </p></p> 
-                <p style={{width:'100%',textAlign:'start',fontSize:'calc(.7rem + .3vw)'}}>{isReviewed.description}</p>
-                <div style={{width:'100%',display:'flex',flexWrap:'wrap',gap:'.5em'}}>
-                  {(isReviewed.review_attachments || []).map((image) => (
-                      <img
-                        src={URL.createObjectURL(image.attached_file)}
-                        alt={`Image ${image.id}`}
-                        style={{
-                          width: "3em",
-                          height: "3em",
-                          objectFit:'cover',
-                          cursor: "pointer",
-                        }}
-                        onDoubleClick={()=>{setFullScreenImage(URL.createObjectURL(image.attached_file));handleOpen()}}
-                      />
-                  ))}
-                </div></div>
+                /> <p style={{margin:'-.1em 0 0 .3em'}}>{item.book_reviews[0]?.rate}/5 </p></p> 
+                <p style={{width:'100%',textAlign:'start',fontSize:'calc(.7rem + .3vw)',margin:'.3em 0'}}>{item.book_reviews[0]?.description}</p>
+                <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '2em',
+              padding: ' .3em 0 1em 0',
+            }}
+          >
+            {(item.book_reviews[0]?.review_attachment || []).map((image) => (
+              <div key={image.id} style={{ position: 'relative' }}>
+                <img
+                  src={image.attached_file.startsWith('data:image/')
+                    ? image.attached_file // Use base64 directly if it's a base64 string
+                    : `https://api.leonardo-service.com/img/${image.attached_file}`} // Use the URL if it's not base64
+                  alt={`Image ${image.id}`}
+                  style={{
+                    width: '6em',
+                    height: '6em',
+                    objectFit: 'cover',
+                    cursor: 'pointer',
+                  }}
+                  onDoubleClick={() => {
+                    setFullScreenImage(
+                      image.attached_file.startsWith('data:image/')
+                        ? image.attached_file // Base64 for full-screen as well
+                        : `https://api.leonardo-service.com/img/${image.attached_file}` // URL for full-screen
+                    );
+                    handleOpen();
+                  }}
+                />
+              </div>
+            ))}
+            <input
+              type="file"
+              accept="image/*"
+              style={{ display: 'none' }}
+              onChange={(event) => handleImageChange(event, index)}
+              ref={imagefileInputRefs[index]}
+              disabled={hasReviews} // Disable file input if there are reviews
+            />
+          </div>
+                </div>
                 }
               </div>
           </div>

@@ -26,7 +26,7 @@ import Rating from "@mui/material/Rating";
 
 import { Button } from "antd";
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { PiNotebook } from "react-icons/pi";
 import { PiPackageDuotone } from "react-icons/pi";
 import { PiTruck } from "react-icons/pi";
@@ -122,6 +122,10 @@ const OrderTracking = () => {
 
   const cat = getcat();
   const navigate = useNavigate();
+  const location = useLocation();
+  const pathParts = location.pathname.replace(/\/$/, '').split('/');
+  const orderId = pathParts.pop();
+  const reviewParam = pathParts.pop();
   const user = useSelector((state)=>state.products.userInfo);
   const language = useSelector((state) => state.products.selectedLanguage[0].Language);
   const [loading, setLoading] = useState(true);
@@ -210,26 +214,34 @@ const OrderTracking = () => {
 let stepss = [
   {
       id: 2,
-      label: 'Confirmed',
+      label: 'Confirming',
+      label_fr: 'Confirmation',
       description:'Your order has been confirmed.',
+      description_fr:'Votre commande a été confirmée.',
       icon: <PiNotebook/>,
   },
   {
       id: 3,
       label: 'Processing',
+      label_fr: 'En Cours',
       description:'Your order is  in progress.',
+      description_fr:'Votre commande est en cours.',
       icon: <PiPackageDuotone/>
   },
   {
       id: 4,
-      label: 'Shipped',
+      label: 'Shipping',
+      label_fr: 'Expédiée',
       description:'Your order has been Shipped.',
+      description_fr:'Votre commande a été expédiée.',
       icon: <PiTruck/>
   },
   {
       id: 5,
-      label: 'Delivered',
+      label: 'Confirming Recieved',
+      label_fr: 'Confirmation Reçu',
       description:'Your order has been delivered. Thank you for shopping at Sofiaco!',
+      description_fr:"Votre commande a été livrée. Merci d'avoir fait vos achats chez Sofiaco !",
       icon: <PiHandshake/>
   }
   
@@ -243,22 +255,26 @@ const stepsHandler =(props)=>{
       testt.push({
         id: order.id,
         label: order.label, 
-        estimatedDate: index.time,
-        description: order.description, 
+        label_fr: order.label_fr, 
+        description: order.description,
+        description_fr: order.description_fr,
+        estimatedDate: index.time, 
       });
     } else {
       testt.push({
         id: order.id,
         label: order.label, 
+        label_fr: order.label_fr, 
         estimatedDate: "",
         description: order.description, 
+        description_fr: order.description_fr,
       });
     }
   });
   setsteps(testt)
 };
 const reviewHandler =()=>setisReviewMood(true);
-  const formattedDate = new Date(selectedOrder.date);
+  const formattedDate = new Date(selectedOrder?.date);
   formattedDate.setDate(formattedDate.getDate() + 3);
   const EstimatedDeliveryDate = formattedDate.toDateString();
 
@@ -337,7 +353,7 @@ const reviewHandler =()=>setisReviewMood(true);
     }
   }
   const AddAllToCart = () => {
-    selectedOrder.order_invoice_items?.forEach(element => {
+    selectedOrder?.order_invoice_items?.forEach(element => {
       console.log(element.article._qte_a_terme_calcule);
       if (element.article._qte_a_terme_calcule > 0) {
         const quantityToAdd =
@@ -376,7 +392,7 @@ const reviewHandler =()=>setisReviewMood(true);
     });
   }
   const CancleOrderHandler = () => {
-    axios.put(`https://api.leonardo-service.com/api/bookshop/order_invoices/${selectedOrder.id}?status_id=13`)
+    axios.put(`https://api.leonardo-service.com/api/bookshop/order_invoices/${selectedOrder?.id}?status_id=13`)
     .then(() => {
         // console.log("delete request successful:");
           toast.success(language === "eng" ? "Delete request successful." : "Demande de suppression réussie.", {
@@ -417,6 +433,35 @@ const reviewHandler =()=>setisReviewMood(true);
     }
     
   },[selectedCategory, orders, cat])
+    
+  useEffect(() => {
+    if (!isNaN(parseInt(orderId, 10))) {
+      // Use '===' for proper comparison
+      const selected = data?.filter((item) => item.id === parseInt(orderId, 10)); 
+      
+      if (selected && selected.length > 0) {
+        setisSelected(true);
+        setselectedOrder(selected[0]);
+        setcategoryId(selected[0]?.status_id);
+        stepsHandler(selected[0]);
+      } else {
+        setisSelected(false);
+      }
+    } else {
+      setisSelected(false);
+    }
+  }, [orderId, data]);
+  useEffect(() => {
+    if (reviewParam === 'review') {
+      const selected = data?.filter((item) => item.id = parseInt(orderId, 10))
+      console.log('testttt', selected)
+      setselectedOrder(selected[0]) ;
+      setTimeout(() => {
+        setisReviewMood(true) ;
+        setisSelected(false) ;
+      }, 1000)
+    } else{setisReviewMood(false)}
+  }, [reviewParam, data]);
   return (
     <div className={classes.ordertrack_con}>
      {!isSelected && !isReviewMood && <>
@@ -462,44 +507,44 @@ const reviewHandler =()=>setisReviewMood(true);
                 <div className={classes.hexagon} onClick={()=>setselectedCategory(0)  & localStorage.setItem('selectedOrderCategory', 0)} style={{backgroundColor:cat === 0 && 'var(--primary-color)'}}>
                   <div style={{width:'120%',height:'60%',position:"absolute",top:'20%',left:'-10%',zIndex:'9',rotate:'270deg'}}>
                     <img src={AllOrders} alt=""  style={{width:'50%',}}/>
-                    <p style={{marginTop:'0.5em'}}>All Orders</p>
+                    <p style={{marginTop:'0.5em'}}>{language === 'eng' ? "All Orders" : "Toutes les commandes" }</p>
                   </div>
                 </div>
                 <div className={classes.hexagon} onClick={()=>setselectedCategory(2) & localStorage.setItem('selectedOrderCategory', 2)} style={{backgroundColor:cat === 2 && 'var(--primary-color)'}}>
                   <div style={{width:'120%',height:'60%',position:"absolute",top:'20%',left:'-10%',zIndex:'1',rotate:'270deg'}}>
                     <img src={Confirming} alt=""  style={{width:'50%',}}/>
-                    <p style={{marginTop:'0.5em'}}>Confirming</p>
+                    <p style={{marginTop:'0.5em'}}>{language === 'eng' ? "Confirming" : "Confirmation" }</p>
                   </div>
                 </div>
                 <div className={classes.hexagon} onClick={()=>setselectedCategory(3) & localStorage.setItem('selectedOrderCategory', 3)} style={{backgroundColor:cat === 3 && 'var(--primary-color)'}}>
                   <div style={{width:'120%',height:'60%',position:"absolute",top:'20%',left:'-10%',zIndex:'1',rotate:'270deg'}}>
                     <img src={Processing} alt=""  style={{width:'50%',}}/>
-                    <p style={{marginTop:'0.5em'}}>Processing</p>
+                    <p style={{marginTop:'0.5em'}}>{language === 'eng' ? "Processing" : "Traitement" }</p>
                   </div>
                 </div>
                 <div className={classes.hexagon} onClick={()=>setselectedCategory(4) & localStorage.setItem('selectedOrderCategory', 4)} style={{backgroundColor:cat === 4 && 'var(--primary-color)'}}>
                   <div style={{width:'120%',height:'60%',position:"absolute",top:'20%',left:'-10%',zIndex:'1',rotate:'270deg'}}>
                     <img src={Shipped} alt=""  style={{width:'50%',}}/>
-                    <p style={{marginTop:'0.5em'}}>Shipped</p>
+                    <p style={{marginTop:'0.5em'}}>{language === 'eng' ? "Shipped" : "Expédié" }</p>
                   </div>
                 </div>
                 <div className={classes.hexagon} onClick={()=>setselectedCategory(5) & localStorage.setItem('selectedOrderCategory', 5)} style={{backgroundColor:cat === 5 && 'var(--primary-color)'}}>
                   <div style={{width:'120%',height:'60%',position:"absolute",top:'20%',left:'-10%',zIndex:'1',rotate:'270deg'}}>
                     <img src={Delivered} alt=""  style={{width:'50%',}}/>
-                    <p style={{marginTop:'0.5em'}}>Delivered</p>
+                    <p style={{marginTop:'0.5em'}}>{language === 'eng' ? "Delivered" : "Livrée" }</p>
                   </div>
                 </div>
                 <div className={classes.hexagon} onClick={()=>setselectedCategory(13) & localStorage.setItem('selectedOrderCategory', 13)} style={{backgroundColor:cat === 13 && 'var(--primary-color)'}}>
                   <div style={{width:'120%',height:'60%',position:"absolute",top:'20%',left:'-10%',zIndex:'1',rotate:'270deg'}}>
                     <img src={Canceled} alt=""  style={{width:'50%',}}/>
-                    <p style={{marginTop:'0.5em'}}>Canceled</p>
+                    <p style={{marginTop:'0.5em'}}>{language === 'eng' ? "Canceled" : "Annulé" }</p>
                   </div>
                 </div>
                 </div>
                 {data.length !== 0 && <div className={classes.headerss}>
-                  <h3>Order Number</h3>
-                  <h3>Date</h3>
-                  <h3 >Status</h3> 
+                  <h3>{language === 'eng' ? "Order Number" : "Numéro de commande" }</h3>
+                  <h3>Date{language === 'eng' ? "" : "" }</h3>
+                  <h3 >{language === 'eng' ? "Status" : "Statut" }</h3> 
                   <h3>Total</h3>
                 </div>}
             </div>
@@ -537,7 +582,7 @@ const reviewHandler =()=>setisReviewMood(true);
             </div> : data?.map((props)=>{
             return(
               <>
-              <div onClick={()=>setisSelected(true) & setselectedOrder(props) & setcategoryId(props.status_id ) & stepsHandler(props) & window.scrollTo({ top: 0 })}>
+              <div onClick={()=>navigate(`/account/order-tracking/${props.id}`) & setisSelected(true) & setselectedOrder(props) & setcategoryId(props.status_id ) & stepsHandler(props) & window.scrollTo({ top: 0 })}>
               <OrderCard data={props} reviewHandler={()=>{setisReviewMood(true);setselectedOrder(props)}}/>
               </div>
               </>
@@ -547,10 +592,10 @@ const reviewHandler =()=>setisReviewMood(true);
       </>}
       { isSelected && 
       <div className={classes.detailsCard}>
-        <h4 onClick={()=>setisSelected(false) & setselectedOrder({})} className={classes.back}><IoIosArrowBack style={{marginBottom:'-.15em'}}/> Back</h4>
+        <h4 onClick={()=>setisSelected(false) & setselectedOrder({}) & navigate('/account/order-tracking')} className={classes.back}><IoIosArrowBack style={{marginBottom:'-.15em'}}/> Back</h4>
         <div className={classes.header1}>
-      <div className={classes.headtitle} style={{margin:"0 0 0 1em",textAlign:'start',fontWeight:'500',lineHeight:'130%'}} onClick={()=>console.log(steps)}>Order # {selectedOrder.id}<br/> Placed on {new Date(selectedOrder.date).getDate()}/{new Date(selectedOrder.date).getMonth()}/{new Date(selectedOrder.date).getFullYear()}</div>
-      <div className={classes.headtitle} style={{margin:"auto 1em auto auto",fontWeight:'500'}} onClick={()=>console.log(steps)}>{selectedOrder.currency === 'eur' ? '€' : '$'}{selectedOrder.total_price}</div>
+      <div className={classes.headtitle} style={{margin:"0 0 0 1em",textAlign:'start',fontWeight:'500',lineHeight:'130%'}} onClick={()=>console.log(steps)}>Order # {selectedOrder?.id}<br/> Placed on {new Date(selectedOrder?.date).getDate()}/{new Date(selectedOrder?.date).getMonth()}/{new Date(selectedOrder?.date).getFullYear()}</div>
+      <div className={classes.headtitle} style={{margin:"auto 1em auto auto",fontWeight:'500'}} onClick={()=>console.log(steps)}>{selectedOrder?.currency === 'eur' ? '€' : '$'}{selectedOrder?.total_price}</div>
       <div style={{display:'flex',flexDirection:'row'}}></div>
       </div>
       <div className={classes.detailsContainer}>
@@ -560,7 +605,7 @@ const reviewHandler =()=>setisReviewMood(true);
               <div key={step.id} className={classes.orderStep}  style={step.id == 5 ? {borderTop:'.2em solid transparent'} : {borderTop:step.id < categoryId ? '.2em solid var(--primary-color)':'.2em solid rgba(255,255,255,0.5)'}}>
                 <div className={classes.stepdot} style={step.id == categoryId ? {backgroundColor:'var(--primary-color)',boxShadow:'0px 0px 0px .6em rgba(233, 119, 4, 50%)'} : step.id < categoryId ? {backgroundColor:'var(--primary-color)'} : {backgroundColor:'rgba(255,255,255,0.5)'}}/>
                 <h1 style={{color: step.id > categoryId ? 'rgba(255,255,255,0.5)':'#fff',fontSize:'calc(1rem + 0.3vw)',lineHeight:'100%',fontWeight:'600',marginLeft:'-50%',textAlign:'center',width:'100%'}}>
-                 {step.id === 2 ? <PiNotebook style={{fontSize:"2em"}}/> : step.id === 3 ? <PiPackageDuotone style={{fontSize:"2em"}}/> : step.id === 4 ? <PiTruck style={{fontSize:"2em"}}/> : <PiHandshake style={{fontSize:"2em"}}/>} <br/> {step.label} 
+                 {step.id === 2 ? <PiNotebook style={{fontSize:"2em"}}/> : step.id === 3 ? <PiPackageDuotone style={{fontSize:"2em"}}/> : step.id === 4 ? <PiTruck style={{fontSize:"2em"}}/> : <PiHandshake style={{fontSize:"2em"}}/>} <br/> {language === 'eng' ? step.label : step.label_fr} 
                   {/* {(step.id <= categoryId || step.id === 5)&& <span style={{fontSize:'smaller',color:'var(--primary-color)',fontWeight:'500',paddingLeft:'.5em'}}>{(step.id === 5 && step.estimatedDate === "") ?  EstimatedDeliveryDate : (step.id !== 5 ? new Date(step.estimatedDate).toDateString() : new Date(step.estimatedDate).toDateString())} </span>}  */}
                 </h1>
                   <p style={{textAlign:'start', color:'#999999'}}>{step.description1}</p>
@@ -573,14 +618,14 @@ const reviewHandler =()=>setisReviewMood(true);
               <div key={step.id} className={classes.orderStep}  style={step.id == 5 ? {borderLeft:'.2em solid transparent'} : {borderLeft:step.id < categoryId ? '.2em solid var(--primary-color)':'.2em solid rgba(255,255,255,0.5)'}}>
                 <div className={classes.stepdot} style={step.id == categoryId ? {backgroundColor:'var(--primary-color)',boxShadow:'0px 0px 0px .6em rgba(233, 119, 4, 50%)'} : step.id < categoryId ? {backgroundColor:'var(--primary-color)'} : {backgroundColor:'rgba(255,255,255,0.5)'}}/>
                 <h1 style={{color: step.id > categoryId ? 'rgba(255,255,255,0.5)':'#fff',fontSize:'calc(1rem + 0.3vw)',lineHeight:'100%',fontWeight:'600',textAlign:'start',margin:'-1em 0 3em 1em',width:'100%'}}>
-                 {step.id === 2 ? <PiNotebook style={{fontSize:"2em",marginBottom:'-.3em'}}/> : step.id === 3 ? <PiPackageDuotone style={{fontSize:"2em",marginBottom:'-.3em'}}/> : step.id === 4 ? <PiTruck style={{fontSize:"2em",marginBottom:'-.3em'}}/> : <PiHandshake style={{fontSize:"2em",marginBottom:'-.3em'}}/>}  {step.label} 
+                 {step.id === 2 ? <PiNotebook style={{fontSize:"2em",marginBottom:'-.3em'}}/> : step.id === 3 ? <PiPackageDuotone style={{fontSize:"2em",marginBottom:'-.3em'}}/> : step.id === 4 ? <PiTruck style={{fontSize:"2em",marginBottom:'-.3em'}}/> : <PiHandshake style={{fontSize:"2em",marginBottom:'-.3em'}}/>}  {language === 'eng' ? step.label : step.label_fr} 
                   {/* {(step.id <= categoryId || step.id === 5)&& <span style={{fontSize:'smaller',color:'var(--primary-color)',fontWeight:'500',paddingLeft:'.5em'}}>{(step.id === 5 && step.estimatedDate === "") ?  EstimatedDeliveryDate : (step.id !== 5 ? new Date(step.estimatedDate).toDateString() : new Date(step.estimatedDate).toDateString())} </span>}  */}
                 </h1>
               </div>
             )})}
         </div>
          <div className={classes.orderActivityCont}>
-          <h2>Order Activity</h2>
+          <h2>{language === 'eng' ? "Order Activity" : "Activité de commande" }</h2>
           {steps?.sort((a, b) => b.id - a.id).map((step) => {
             if (step.estimatedDate) {
               return (
@@ -589,7 +634,7 @@ const reviewHandler =()=>setisReviewMood(true);
                     {step.id === 2 ? <PiNotepad style={{fontSize:"1.7em",margin:'auto'}}/> : step.id === 3 ? <PiCheckCircle style={{fontSize:"1.7em",margin:'auto'}}/> : step.id === 4 ? <PiMapPinLine style={{fontSize:"1.7em",margin:'auto'}}/> : <PiChecks style={{fontSize:"1.7em",margin:'auto'}}/>}
                   </div>
                   <div>
-                    <p style={{marginTop:'0'}}>{step.description} </p>
+                    <p style={{marginTop:'0'}}>{language === 'eng' ? step.description : step.description_fr} </p>
                     <p style={{marginBottom:'0',fontWeight:'500',color:'var(--secondary-color)'}}>{ new Date(step.estimatedDate).toDateString()} at: { new Date(step.estimatedDate).toLocaleTimeString()}</p>
                   </div>
                 </div>
@@ -601,21 +646,21 @@ const reviewHandler =()=>setisReviewMood(true);
                   <PiNotebook style={{fontSize:"1.7em",margin:'auto'}}/>
                 </div>
                 <div>
-                  <p style={{marginTop:'0'}}>Your order is placed. </p>
-                  <p style={{marginBottom:'0',fontWeight:'500',color:'var(--secondary-color)'}}>{ new Date(selectedOrder.date).toDateString()} at: { new Date(selectedOrder.date).toLocaleTimeString()}</p>
+                  <p style={{marginTop:'0'}}>{language === 'eng' ? "Your order is placed." : "Votre commande est passée." } </p>
+                  <p style={{marginBottom:'0',fontWeight:'500',color:'var(--secondary-color)'}}>{ new Date(selectedOrder?.date).toDateString()} at: { new Date(selectedOrder?.date).toLocaleTimeString()}</p>
                 </div>
               </div>
         </div>
         <div className={classes.total_con }>
         <div className={classes.total}>
         <div className={classes.totalrows}>
-            <p style={{textAlign:"start",paddingLeft:'10%'}}>Products</p>
-            <p className={classes.displayNoneMob}>Price</p>
-            <p className={classes.displayNoneMob}>Quantity</p>
+            <p style={{textAlign:"start",paddingLeft:'10%'}}>{language === 'eng' ? "Products" : "Produits" }</p>
+            <p className={classes.displayNoneMob}>{language === 'eng' ? "Price" : "Prix" }</p>
+            <p className={classes.displayNoneMob}>{language === 'eng' ? "Quantity" : "Quantité" }</p>
             <p className={classes.displayNoneMob}>Sub-Total</p>
           </div>
           <div className={classes.cardCont}>
-             {selectedOrder.order_invoice_items?.map((props)=>{
+             {selectedOrder?.order_invoice_items?.map((props)=>{
             return(
         <div className={classes.card} key={props._id} onClick={()=>console.log(props)}>
             <div style={{display:"flex",flexDirection:"row",gap:".5em",width:'100%'}}>
@@ -627,14 +672,14 @@ const reviewHandler =()=>setisReviewMood(true);
               {props.article.dc_auteur && <p style={{fontWeight:'600',fontSize:'calc(.6rem + 0.2vw)'}}>{props.article.dc_auteur}</p>}
               {props.article.descriptif && <p className={classes.dicription} dangerouslySetInnerHTML={{ __html: props.article.descriptif }}/>}
             <div className={classes.quantityMob}>
-              <p> {selectedOrder.currency === 'usd' ? '$' : '€' }{props.price} </p>
-              <p style={{textAlign:'end'}}>{selectedOrder.currency === 'usd' ? '$' : '€' }{(props.price * props.quantity).toFixed(2)} </p>
+              <p> {selectedOrder?.currency === 'usd' ? '$' : '€' }{props.price} </p>
+              <p style={{textAlign:'end'}}>{selectedOrder?.currency === 'usd' ? '$' : '€' }{(props.price * props.quantity).toFixed(2)} </p>
             </div>
               </div>
             </div>
-            <p className={classes.quantity}> {selectedOrder.currency === 'usd' ? '$' : '€' }{props.price} </p>
+            <p className={classes.quantity}> {selectedOrder?.currency === 'usd' ? '$' : '€' }{props.price} </p>
             <p className={classes.quantity}> x{props.quantity} </p>
-            <p className={classes.quantity}>{selectedOrder.currency === 'usd' ? '$' : '€' }{(props.price * props.quantity).toFixed(2)} </p>
+            <p className={classes.quantity}>{selectedOrder?.currency === 'usd' ? '$' : '€' }{(props.price * props.quantity).toFixed(2)} </p>
           </div>
              )
           })} 
@@ -644,32 +689,32 @@ const reviewHandler =()=>setisReviewMood(true);
       </div>
         <div className={classes.addrCont}>
           <div className={classes.adressCard}>
-            <h2>Billing Address</h2>
-              <p style={{marginBottom:'1em'}}>{selectedOrder.user_address.name}</p>
-              <p style={{margin:'0',padding:'0'}}>{selectedOrder.user_address.address}, {selectedOrder.user_address.city}, {selectedOrder.user_address.postalcode}</p>
-              <p>{selectedOrder.user_address.country}</p>
-              <p style={{margin:'1em 0'}}>Phone Number:{user.phone}</p>
-              <p> Email: {user.email}</p>
+            <h2>{language === 'eng' ? "Billing Address" : "Adresse de Facturation" }</h2>
+              <p style={{marginBottom:'1em'}}>{selectedOrder?.user_address.name}</p>
+              <p style={{margin:'0',padding:'0'}}>{selectedOrder?.user_address.address}, {selectedOrder?.user_address.city}, {selectedOrder?.user_address.postalcode}</p>
+              <p>{selectedOrder?.user_address.country}</p>
+              <p style={{margin:'1em 0'}}>{language === 'eng' ? "Phone Number:" : "Numéro de téléphone :" }{user.phone}</p>
+              <p> E-mail: {user.email}</p>
           </div>
           <div style={{height:'80%',width:'2px',backgroundColor:'#E4E7E9',margin:"auto"}}></div>
           <div className={classes.adressCard}>
-            <h2>Order Notes</h2>
+            <h2>{language === 'eng' ? "Order Notes" : "Notes de commande" }</h2>
             <div>
-              <p>{selectedOrder.review ? selectedOrder.review : 'No notes'}</p>
+              <p>{selectedOrder?.review ? selectedOrder?.review : 'No notes'}</p>
             </div>
           </div>
       </div>
         </div>
         <div style={{margin:'2em auto 4em auto',width:'fit-content',gap:"2em",display:'flex',flexWrap:"wrap"}}>
-      {categoryId == 2 ? <button className={classes.btn}  onClick={(event) => setShowPopup(true) & event.stopPropagation()}>Cancel Order</button> : <button onClick={AddAllToCart} className={`${categoryId == 4 ? classes.deliveredBtn : classes.btn}`} >Repurchase</button>}
-      {categoryId == 5 && <button className={classes.reviewbtn} onClick={()=>setisReviewMood(true) & setisSelected(false)}>Review</button> }
+      {categoryId == 2 ? <button className={classes.btn}  onClick={(event) => setShowPopup(true) & event.stopPropagation()}>{language === 'eng' ? "Cancel Order" : "Annuler la commande" }</button> : <button onClick={AddAllToCart} className={`${categoryId == 4 ? classes.deliveredBtn : classes.btn}`} >Repurchase</button>}
+      {categoryId == 5 && <button className={classes.reviewbtn} onClick={()=>navigate(`/account/order-tracking/review/${selectedOrder.id}`) & setisReviewMood(true) & setisSelected(false)}>{language === 'eng' ? "Review" : "Révision " }</button> }
       </div>
       </div>}
       { isReviewMood && <div className={classes.detailsCard}> 
-        <h4 onClick={()=>setisSelected(false) & setisReviewMood(false) & setselectedOrder({}) & window.scrollTo({ top: 0 })} className={classes.back}><IoIosArrowBack style={{marginBottom:'-.15em'}}/> Back</h4>
+        <h4 onClick={()=>setisSelected(false) & setisReviewMood(false) & setselectedOrder({}) & window.scrollTo({ top: 0 })} className={classes.back}><IoIosArrowBack style={{marginBottom:'-.15em'}}/> {language === 'eng' ? "Back" : "Dos" }</h4>
         <div className={classes.header1}>
-      <div className={classes.headtitle} style={{margin:"0 0 0 1em",textAlign:'start',fontWeight:'500',lineHeight:'130%'}} onClick={()=>console.log(steps)}>Order # {selectedOrder.id}<br/> Placed on {new Date(selectedOrder.date).getDate()}/{new Date(selectedOrder.date).getMonth()}/{new Date(selectedOrder.date).getFullYear()}</div>
-      <div className={classes.headtitle} style={{margin:"auto 1em auto auto",fontWeight:'500'}} onClick={()=>console.log(steps)}>{selectedOrder.currency === 'eur' ? '€' : '$'}{selectedOrder.total_price}</div>
+      <div className={classes.headtitle} style={{margin:"0 0 0 1em",textAlign:'start',fontWeight:'500',lineHeight:'130%'}} onClick={()=>console.log(steps)}>Order # {selectedOrder?.id}<br/> {language === 'eng' ? "Placed on" : "Placé sur" } {new Date(selectedOrder?.date).getDate()}/{new Date(selectedOrder?.date).getMonth()}/{new Date(selectedOrder?.date).getFullYear()}</div>
+      <div className={classes.headtitle} style={{margin:"auto 1em auto auto",fontWeight:'500'}} onClick={()=>console.log(steps)}>{selectedOrder?.currency === 'eur' ? '€' : '$'}{selectedOrder?.total_price}</div>
       <div style={{display:'flex',flexDirection:'row'}}></div>
       </div> 
       {/* <button className={classes.reviewbtn} style={{backgroundColor:'var(--primary-color)',marginRight:"0"}}>Return</button>  */}
@@ -678,7 +723,7 @@ const reviewHandler =()=>setisReviewMood(true);
       {/* <div className={classes.deliveredMob}><button className={classes.btn} onClick={AddAllToCart}>Repurchase</button></div> */}
       {showPopup && (
         <ConfirmationPopup
-          message={"Are you sure you want to delete this Order?"}
+          message={language === 'eng' ? "Are you sure you want to delete this Order?" : "Êtes-vous sûr de vouloir supprimer cet ordre ?"}
           onConfirm={CancleOrderHandler}
           onCancel={() => setShowPopup(false)}
           showPopup={showPopup}
