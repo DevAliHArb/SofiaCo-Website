@@ -727,17 +727,6 @@ const CheckOut = () => {
         progress: 0,
         theme: "colored",
       });
-    } else if (!user.defaultPay) {
-      toast.error(`${language === 'eng' ? "Please add a default Payment." : "Veuillez ajouter un paiement par défaut."}`, {
-        position: "top-right",
-        autoClose: 1500,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: 0,
-        theme: "colored",
-      });
     } else {
       try {
         const requestData = {
