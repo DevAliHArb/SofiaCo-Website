@@ -82,7 +82,7 @@ const Factures = () => {
   const [isReviewMood, setisReviewMood] = useState(false);
   const [categoryId, setcategoryId] = useState(0);
   const [steps, setsteps] = useState([]) 
-  const [data, setData] = useState(authCtx.mydocuments)
+  const [data, setData] = useState([])
   const [showPopup, setShowPopup] = useState(false);
 
   const getToken = () => {
@@ -123,7 +123,7 @@ const Factures = () => {
 
 
   useEffect(()=>{
-      const nonHistoryOrders = authCtx.mydocuments?.filter((item) => item.status_id === 36);
+      const nonHistoryOrders = authCtx.mydocuments?.filter((item) => item.b_usr_documenttype_id === 4);
       setData(nonHistoryOrders);
     
   },[authCtx.mydocuments])
@@ -166,10 +166,14 @@ const Factures = () => {
               </div>
             </div> :  <>
                 <div className={classes.headerss}>
-                  <h3>Reference Number</h3>
-                  <h3>Date</h3>
-                  <h3>Total</h3>
-                  <h3 >Download</h3> 
+                <h3>
+                    {language === "eng"
+                      ? "Reference Number"
+                      : "Numéro de référence"}
+                  </h3>
+                  <h3>{language === "eng" ? "Date" : "Date"}</h3>
+                  <h3>{language === "eng" ? "Total" : "Total"}</h3>
+                  <h3>{language === "eng" ? "Download" : "Télécharger"}</h3>
                 </div>
           {records?.map((props)=>{
             return(

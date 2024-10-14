@@ -124,11 +124,12 @@ const MyOrders = () => {
   const [from, setfrom] = useState(1);
   const [to, setto] = useState(1);
   const [recordsPerPage, setrecordsPerPage] = useState(5);
+  const [data, setData] = useState([]);
 
   const lastIndex = currentpage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  const records = authCtx.mydocuments?.slice(firstIndex, lastIndex);
-  const pagenb = Math.ceil(authCtx.mydocuments?.length / recordsPerPage);
+  const records = data?.slice(firstIndex, lastIndex);
+  const pagenb = Math.ceil(data?.length / recordsPerPage);
   const numbers = [...Array(pagenb + 1).keys()].slice(1);
 
   const nextpage = () => {
@@ -147,6 +148,14 @@ const MyOrders = () => {
       setpagenbroute(pagenbroute - 1);
     }
   };
+  
+
+  useEffect(() => {
+    const nonHistoryOrders = authCtx.mydocuments?.filter(
+      (item) => item.b_usr_documenttype_id === 2
+    );
+    setData(nonHistoryOrders);
+  }, [authCtx.mydocuments]);
 
   return (
     <div className={classes.ordertrack_con}>
@@ -208,10 +217,14 @@ const MyOrders = () => {
             ) : (
               <>
                 <div className={classes.headerss}>
-                  <h3>Reference Number</h3>
-                  <h3>Date</h3>
-                  <h3>Total</h3>
-                  <h3>Download</h3>
+                <h3>
+                    {language === "eng"
+                      ? "Reference Number"
+                      : "Numéro de référence"}
+                  </h3>
+                  <h3>{language === "eng" ? "Date" : "Date"}</h3>
+                  <h3>{language === "eng" ? "Total" : "Total"}</h3>
+                  <h3>{language === "eng" ? "Download" : "Télécharger"}</h3>
                 </div>
                 {
                   records?.map((props) => {
@@ -225,7 +238,7 @@ const MyOrders = () => {
                             window.scrollTo({ top: 0 })
                           }
                         >
-                          <OrderCard
+                          <CommonCard
                             data={props}
                             reviewHandler={() => {
                               setisReviewMood(true);

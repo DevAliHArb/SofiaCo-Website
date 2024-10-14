@@ -70,19 +70,25 @@ const CommonCard = ({data ,reviewHandler}) => {
 
 
   const handleDownload = (pdfLink) => {
-    if (pdfLink !== '') {
-      // Open the PDF link in a new tab
-      window.open(pdfLink, '_blank');
+    if (pdfLink !== null) {
+      // Create an anchor element programmatically
+      const link = document.createElement('a');
+      link.href = pdfLink;
+      link.setAttribute('download', 'file.pdf'); // Set the download attribute with a default file name
+      document.body.appendChild(link);
+      link.click(); // Trigger the download
+      document.body.removeChild(link); // Clean up
     } else {
       toast.error(language === "eng" ? "PDF link is not available." : "Le lien PDF n'est pas disponible.");
     }
   };
+  
 
   return (
   <div className={classes.orderCard}>
-        <h3>{data.order_invoice.id}</h3>
-        <h3>{new Date(data.order_invoice.date).toDateString()}</h3>
-        <h3>{data.order_invoice.total_price}{data.order_invoice.currency === 'usd' ? '$' : '€' }</h3>
+        <h3>{data.numero}</h3>
+        <h3>{new Date(data.datecreation).toDateString()}</h3>
+        <h3>{data.montantttc}</h3>
       <div className={classes.download} onClick={()=>handleDownload(data.pdf_link)}>
         <p>PDF</p>
         <FiDownload className={classes.download_icon}/>
