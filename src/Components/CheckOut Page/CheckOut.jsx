@@ -799,6 +799,7 @@ const CheckOut = () => {
         };
         if (userCoupon.length > 0) {
           requestData.user_coupon_id = userCoupon[0].id;
+          requestData1.user_coupon_id = userCoupon[0].id;
         }
 
         setLoading(true);
