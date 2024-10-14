@@ -502,7 +502,7 @@ const reviewHandler =()=>setisReviewMood(true);
             </div> : 
              <>
                 <div className={classes.header} >
-                <div className={classes.headtitle}><h3 style={{fontWeight:"600",marginTop:'0.2em'}} onClick={()=>console.log(ordertrackcategories)}>My Orders</h3></div>
+                <div className={classes.headtitle}><h3 style={{fontWeight:"600",marginTop:'0.2em'}} onClick={()=>console.log(ordertrackcategories)}>{language === 'eng' ? "My Orders" : "Mes Commandes" }</h3></div>
                 <div className={classes.btnsContainer}>
                 <div className={classes.hexagon} onClick={()=>setselectedCategory(0)  & localStorage.setItem('selectedOrderCategory', 0)} style={{backgroundColor:cat === 0 && 'var(--primary-color)'}}>
                   <div style={{width:'120%',height:'60%',position:"absolute",top:'20%',left:'-10%',zIndex:'9',rotate:'270deg'}}>
