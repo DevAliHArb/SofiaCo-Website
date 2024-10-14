@@ -88,7 +88,12 @@ const CommonCard = ({data ,reviewHandler}) => {
   <div className={classes.orderCard}>
         <h3>{data.numero}</h3>
         <h3>{new Date(data.datecreation).toDateString()}</h3>
-        <h3>{data.montantttc}</h3>
+        <h3>{data.montantttc}
+          {/* {data.order_invoice.currency === 'usd' ? '$' :  */}
+          €
+          {/* // } */}
+
+        </h3>
       <div className={classes.download} onClick={()=>handleDownload(data.pdf_link)}>
         <p>PDF</p>
         <FiDownload className={classes.download_icon}/>
