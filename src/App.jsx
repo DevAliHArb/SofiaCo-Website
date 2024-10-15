@@ -114,7 +114,7 @@ function App() {
           <Route path="/contact" element={<ScrollToTop><ContactUs/></ScrollToTop>} />
           <Route path="/books" element={<ScrollToTop><BooksPage /></ScrollToTop>} />
           <Route path="/bookdetails/:id" element={<ScrollToTop><BookDetailsPage cartToggle={cartToggle} /></ScrollToTop>} />
-          <Route path="/account/:pageId" element={user ? <ScrollToTop><AccountPage /></ScrollToTop> : <Navigate to="/login" replace />} />
+          <Route path="/account/:pageId/*" element={user ? <ScrollToTop><AccountPage /></ScrollToTop> : <Navigate to="/login" replace />} />
           <Route path="/my-documents/:pageId" element={user ? <ScrollToTop><MyDocumentsPage /></ScrollToTop> : <Navigate to="/login" replace />} />
           <Route path="/policies" element={<ScrollToTop><Mentions /></ScrollToTop>} />
           <Route path='/order-success' element={<ScrollToTop><SuccessPage/></ScrollToTop>} />        
