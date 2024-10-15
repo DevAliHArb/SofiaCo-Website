@@ -660,7 +660,7 @@ const CheckOut = () => {
         const priceNet = item.price * 1;
 
       // Calculate the cost and TVA
-      const cost = price - (priceTTC - priceNet);
+      const cost = priceTTC - (priceTTC - priceNet);
       const tva = item.discount > 0
         ? (priceTTC - priceNet) - ((priceTTC - priceNet) * (item.discount / 100))
         : priceTTC - priceNet;
@@ -673,9 +673,9 @@ const CheckOut = () => {
         tva: parseFloat(tva.toFixed(2)),
         total_tva: parseFloat((tva * item.quantity).toFixed(2)),
         total_cost: parseFloat((cost * item.quantity).toFixed(2)),
-        total_price: parseFloat((price * item.quantity).toFixed(2)),
+        total_price: parseFloat((priceTTC * item.quantity).toFixed(2)),
         review: item.note || "-",
-        price: price,
+        price: priceTTC,
       });
 
       totalPrice +=  (price * 1).toFixed(2) * item.quantity;
@@ -940,7 +940,7 @@ const CheckOut = () => {
         total_price: totalAmt,
         review: reviewMsg,
         order_invoice_items: order_invoice_items,
-        currency: "usd",
+        currency: currency,
         shippingPrice: delivery !== "standard" ? 0 : deliveryFees,
         shipping_type_id: delivery === "standard" ? 40 : 39,
         colissimo_code:
@@ -1351,7 +1351,7 @@ const CheckOut = () => {
                           }}                        >
                           {language === "eng" ? "Edit" : "Editer"}
                           </p>
-                        <p
+                        {/* <p
                           style={{
                             width: "fit-content",
                             cursor: "pointer",
@@ -1362,7 +1362,7 @@ const CheckOut = () => {
                           onClick={()=>handleDeleteAddress(address.id)}
                         >
                           {language === "eng" ? "Remove" : "Retirer"}
-                          </p>
+                          </p> */}
                       </div>
                     </div>
                   );
@@ -1481,7 +1481,7 @@ const CheckOut = () => {
                         </p>
                       </div>
                       <div className={classes.removeCont}>
-                        <p
+                        {/* <p
                           style={{
                             width: "fit-content",
                             cursor: "pointer",
@@ -1492,7 +1492,7 @@ const CheckOut = () => {
                           onClick={() => handleDeletePayment(payment.id)}
                         >
                           {language === "eng" ? "Remove" : "Retirer"}
-                        </p>
+                        </p> */}
                       </div>
                     </div>}
                     </>
@@ -1977,33 +1977,39 @@ const CheckOut = () => {
         className={classes.modalpopup}
       >
         <Box sx={style} className={classes.modalpopup}>
-          <PayPalButtons
-            createOrder={(data, actions) => {
-              return actions.order.create({
-                purchase_units: [
-                  {
-                    amount: {
-                      value:
-                        currency === "eur"
-                          ? (totalAmt * authCtx.currencyRate).toFixed(2)
-                          : totalAmt,
-                    },
-                  },
-                ],
-              });
-            }}
-            onApprove={(data, actions) => {
-              return actions.order.capture().then((details) => {
-                const name = details.payer.name.given_name;
-                checkoutPaypalHandler(name);
-                // Optionally, handle transaction completion logic here
-              });
-            }}
-            onError={(err) => {
-              // console.log(err);
-              toast.error(`${err}`);
-            }}
-          />
+        <PayPalButtons
+  createOrder={(data, actions) => {
+    // Calculate the amount based on currency and rate
+    const finalAmount =
+      currency === "eur"
+        ? (totalAmt * authCtx.currencyRate).toFixed(2)
+        : Number(totalAmt).toFixed(2);
+
+    // Create the order with the necessary fields
+    return actions.order.create({
+      purchase_units: [
+        {
+          amount: {
+            value: finalAmount,
+          },
+        },
+      ],
+    });
+  }}
+  onApprove={(data, actions) => {
+    return actions.order.capture().then((details) => {
+      const name = details.payer.name.given_name;
+      checkoutPaypalHandler(name);
+      // Optionally, handle transaction completion logic here
+    });
+  }}
+  onError={(err) => {
+    console.log(err);
+    
+    toast.error(`${err}`);
+  }}
+/>
+
         </Box>
       </Modal>
     </div>

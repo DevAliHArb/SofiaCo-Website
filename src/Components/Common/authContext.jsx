@@ -206,7 +206,7 @@ const fetchArticles = async () => {
 
   const fetchMyDocuments = async () => {
     try {
-      const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/my-documents?client_id=249428`);
+      const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/my-documents?client_id=${user.client_id}`);
       setMydocuments(response.data);
     } catch (error) {
       // console.error('Error fetching my documents:', error);
