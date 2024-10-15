@@ -940,7 +940,7 @@ const CheckOut = () => {
         total_price: totalAmt,
         review: reviewMsg,
         order_invoice_items: order_invoice_items,
-        currency: "usd",
+        currency: currency,
         shippingPrice: delivery !== "standard" ? 0 : deliveryFees,
         shipping_type_id: delivery === "standard" ? 40 : 39,
         colissimo_code:
@@ -1977,33 +1977,39 @@ const CheckOut = () => {
         className={classes.modalpopup}
       >
         <Box sx={style} className={classes.modalpopup}>
-          <PayPalButtons
-            createOrder={(data, actions) => {
-              return actions.order.create({
-                purchase_units: [
-                  {
-                    amount: {
-                      value:
-                        currency === "eur"
-                          ? (totalAmt * authCtx.currencyRate).toFixed(2)
-                          : totalAmt,
-                    },
-                  },
-                ],
-              });
-            }}
-            onApprove={(data, actions) => {
-              return actions.order.capture().then((details) => {
-                const name = details.payer.name.given_name;
-                checkoutPaypalHandler(name);
-                // Optionally, handle transaction completion logic here
-              });
-            }}
-            onError={(err) => {
-              // console.log(err);
-              toast.error(`${err}`);
-            }}
-          />
+        <PayPalButtons
+  createOrder={(data, actions) => {
+    // Calculate the amount based on currency and rate
+    const finalAmount =
+      currency === "eur"
+        ? (totalAmt * authCtx.currencyRate).toFixed(2)
+        : Number(totalAmt).toFixed(2);
+
+    // Create the order with the necessary fields
+    return actions.order.create({
+      purchase_units: [
+        {
+          amount: {
+            value: finalAmount,
+          },
+        },
+      ],
+    });
+  }}
+  onApprove={(data, actions) => {
+    return actions.order.capture().then((details) => {
+      const name = details.payer.name.given_name;
+      checkoutPaypalHandler(name);
+      // Optionally, handle transaction completion logic here
+    });
+  }}
+  onError={(err) => {
+    console.log(err);
+    
+    toast.error(`${err}`);
+  }}
+/>
+
         </Box>
       </Modal>
     </div>

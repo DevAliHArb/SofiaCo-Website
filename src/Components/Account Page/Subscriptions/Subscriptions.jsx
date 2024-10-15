@@ -127,7 +127,7 @@ const Subscriptions = () => {
         },
       });
 
-      // console.log(response2);
+      console.log(response2);
       setCollectionData(response2?.data);
     } catch (error) {
       // console.error("Error fetching collaborators:", error);
@@ -141,7 +141,7 @@ const Subscriptions = () => {
     try {
       // Fetch collaborator_id from subscriptions
       const response1 = await axios.get(
-        `https://api.leonardo-service.com/api/bookshop/users/${user.id}/subscriptions?ecom_type=albouraq`,
+        `https://api.leonardo-service.com/api/bookshop/users/${user.id}/subscriptions?ecom_type=sofiaco`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers
@@ -542,7 +542,7 @@ const Subscriptions = () => {
                               : { height: "13em" }
                           }
                         >
-                          {collection.image && collection.image !== null ? (
+                          {collection.image !== null ? (
                             <img
                               src={collection.image}
                               alt=""
