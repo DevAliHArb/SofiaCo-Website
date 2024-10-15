@@ -660,7 +660,7 @@ const CheckOut = () => {
         const priceNet = item.price * 1;
 
       // Calculate the cost and TVA
-      const cost = price - (priceTTC - priceNet);
+      const cost = priceTTC - (priceTTC - priceNet);
       const tva = item.discount > 0
         ? (priceTTC - priceNet) - ((priceTTC - priceNet) * (item.discount / 100))
         : priceTTC - priceNet;
@@ -673,9 +673,9 @@ const CheckOut = () => {
         tva: parseFloat(tva.toFixed(2)),
         total_tva: parseFloat((tva * item.quantity).toFixed(2)),
         total_cost: parseFloat((cost * item.quantity).toFixed(2)),
-        total_price: parseFloat((price * item.quantity).toFixed(2)),
+        total_price: parseFloat((priceTTC * item.quantity).toFixed(2)),
         review: item.note || "-",
-        price: price,
+        price: priceTTC,
       });
 
       totalPrice +=  (price * 1).toFixed(2) * item.quantity;
