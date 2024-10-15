@@ -1351,7 +1351,7 @@ const CheckOut = () => {
                           }}                        >
                           {language === "eng" ? "Edit" : "Editer"}
                           </p>
-                        <p
+                        {/* <p
                           style={{
                             width: "fit-content",
                             cursor: "pointer",
@@ -1362,7 +1362,7 @@ const CheckOut = () => {
                           onClick={()=>handleDeleteAddress(address.id)}
                         >
                           {language === "eng" ? "Remove" : "Retirer"}
-                          </p>
+                          </p> */}
                       </div>
                     </div>
                   );
@@ -1481,7 +1481,7 @@ const CheckOut = () => {
                         </p>
                       </div>
                       <div className={classes.removeCont}>
-                        <p
+                        {/* <p
                           style={{
                             width: "fit-content",
                             cursor: "pointer",
@@ -1492,7 +1492,7 @@ const CheckOut = () => {
                           onClick={() => handleDeletePayment(payment.id)}
                         >
                           {language === "eng" ? "Remove" : "Retirer"}
-                        </p>
+                        </p> */}
                       </div>
                     </div>}
                     </>
