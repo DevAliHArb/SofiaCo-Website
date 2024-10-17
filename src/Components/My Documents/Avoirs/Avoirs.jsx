@@ -123,7 +123,7 @@ const Avoirs = () => {
 
 
   useEffect(()=>{
-      const documents = authCtx.mydocuments?.filter((item) => item.b_usr_documenttype_id === 10);
+      const documents = authCtx.mydocuments?.filter((item) => item.b_usr_documenttype_id === 21 && item.b_usr_documenttype_id === 22);
       setData(documents);
     
   },[authCtx.mydocuments])
