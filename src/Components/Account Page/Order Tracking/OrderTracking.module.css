@@ -306,7 +306,7 @@
   text-align: center;
 }
 .addrCont{
-  width: 60%;
+  width: 90%;
   background-color: #fff;
   color: var(--primary-color);
   margin: 1em auto;
@@ -315,7 +315,7 @@
   font-family: var(--font-family) ;
   font-weight: 500;
   display: grid;
-  grid-template-columns: 48% 4% 48%;
+  grid-template-columns: 31% 3.5% 31% 3.5% 31%;
   text-align: start;
 }
 

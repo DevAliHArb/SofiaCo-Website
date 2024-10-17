@@ -3,6 +3,8 @@ import classes from './OrderTracking.module.css'
 import OrderCard from './Order Card/OrderCard';
 import visa from '../../../assets/visa_logo.png';
 import master from "../../../assets/master_logo.png";
+import directPay from "../../../assets/directPay.png";
+import PayPal from "../../../assets/PayPal.png";
 import { useDispatch, useSelector } from 'react-redux';
 import AllOrders from '../../../assets/AllOrders.svg';
 import Processing from '../../../assets/Processing.svg';
@@ -592,12 +594,21 @@ const reviewHandler =()=>setisReviewMood(true);
       </>}
       { isSelected && 
       <div className={classes.detailsCard}>
-        <h4 onClick={()=>setisSelected(false) & setselectedOrder({}) & navigate('/account/order-tracking')} className={classes.back}><IoIosArrowBack style={{marginBottom:'-.15em'}}/> Back</h4>
+        <h4 onClick={()=>setisSelected(false) & setselectedOrder({}) & navigate('/account/order-tracking')} className={classes.back}><IoIosArrowBack style={{marginBottom:'-.15em'}}/> {language === 'eng' ? "Back" : "Dos" }</h4>
         <div className={classes.header1}>
-      <div className={classes.headtitle} style={{margin:"0 0 0 1em",textAlign:'start',fontWeight:'500',lineHeight:'130%'}} onClick={()=>console.log(steps)}>Order # {selectedOrder?.id}<br/> Placed on {new Date(selectedOrder?.date).getDate()}/{new Date(selectedOrder?.date).getMonth()}/{new Date(selectedOrder?.date).getFullYear()}</div>
+      <div className={classes.headtitle} style={{margin:"0 0 0 1em",textAlign:'start',fontWeight:'500',lineHeight:'130%'}} onClick={()=>console.log(steps)}>{language === 'eng' ? "Order" : "Commande " } # {selectedOrder?.id}<br/> {language === 'eng' ? "Placed on" : "Placé sur" } {new Date(selectedOrder?.date).getDate()}/{new Date(selectedOrder?.date).getMonth()}/{new Date(selectedOrder?.date).getFullYear()}</div>
       <div className={classes.headtitle} style={{margin:"auto 1em auto auto",fontWeight:'500'}} onClick={()=>console.log(steps)}>{selectedOrder?.currency === 'eur' ? '€' : '$'}{selectedOrder?.total_price}</div>
       <div style={{display:'flex',flexDirection:'row'}}></div>
       </div>
+      {selectedOrder?.tracking_number && <div style={{display:'flex',flexDirection:'row',border:'none',marginTop:'1em'}}className={classes.adressCard}>
+            <p style={{color:'var(--accent-color)'}}> {language === 'eng' ? "Tracking number" : "Numéro de suivi"}:{' '}</p>
+            <p style={{paddingLeft:'.3em',paddingRight:'1em',color:'var(--accent-color)'}}>{selectedOrder?.tracking_number}</p>
+            <p style={{textDecoration:'underline', cursor:'pointer',color:'var(--accent-color)'}}
+                  onClick={() => {if (selectedOrder.tracking_link) {
+                    window.open(selectedOrder.tracking_link, '_blank')
+                  } }}>{language === 'eng' ? "See the details" : "Voir les détails"}</p>
+          </div>}
+          
       <div className={classes.detailsContainer}>
         <div style={{width:'100%',display:'grid',gridTemplateColumns:"25% 25% 25% 25%",margin:'3em 0 1em 12.5%'}} className={classes.displayNoneMob}>
         {steps?.sort((a, b) => a.id - b.id).map((step) => {
@@ -700,6 +711,26 @@ const reviewHandler =()=>setisReviewMood(true);
           </div>
           <div style={{height:'80%',width:'2px',backgroundColor:'#E4E7E9',margin:"auto"}}></div>
           <div className={classes.adressCard}>
+            <h2>{language === 'eng' ? "Payment Method" : "Mode de paiement" }</h2>
+            {selectedOrder?.payment_method_id === 17 && <div>
+              <p onClick={()=>console.log(selectedOrder)}><img alt='visa' src={selectedOrder?.user_payment?.card_type === 'Master' ? master : visa} style={{width:'auto',height:'1.5em',margin:'0 1em -.5em 1em'}}/>
+                  {maskConstant(selectedOrder?.user_payment?.card_number)}</p>
+            </div>}
+            {selectedOrder?.payment_method_id === 41 && <div>
+                <p style={{fontSize:'calc(.9rem + .3vw)'}}>
+                  <img alt='visa' src={directPay} style={{width:'auto',height:'1.5em',borderRadius:'.1em',margin:'0 1em -.5em 1em',boxShadow:'0px 0px 11px rgba(0,0,0,.5)'}}/>
+                  Direct Pay </p>
+                  
+               </div>}
+               {selectedOrder?.payment_method_id === 16 && <div>
+                <p style={{fontSize:'calc(.9rem + .3vw)'}}>
+                  <img alt='visa' src={PayPal} style={{width:'auto',height:'1.5em',borderRadius:'.1em',margin:'0 1em -.5em 1em',boxShadow:'0px 0px 11px rgba(0,0,0,.5)'}}/>
+                  PayPal </p>
+                  
+               </div>}
+          </div>
+          <div style={{height:'80%',width:'2px',backgroundColor:'#E4E7E9',margin:"auto"}}></div>
+          <div className={classes.adressCard}>
             <h2>{language === 'eng' ? "Order Notes" : "Notes de commande" }</h2>
             <div>
               <p>{selectedOrder?.review ? selectedOrder?.review : 'No notes'}</p>
@@ -715,7 +746,7 @@ const reviewHandler =()=>setisReviewMood(true);
       { isReviewMood && <div className={classes.detailsCard}> 
         <h4 onClick={()=>setisSelected(false) & setisReviewMood(false) & setselectedOrder({}) & window.scrollTo({ top: 0 })} className={classes.back}><IoIosArrowBack style={{marginBottom:'-.15em'}}/> {language === 'eng' ? "Back" : "Dos" }</h4>
         <div className={classes.header1}>
-      <div className={classes.headtitle} style={{margin:"0 0 0 1em",textAlign:'start',fontWeight:'500',lineHeight:'130%'}} onClick={()=>console.log(steps)}>Order # {selectedOrder?.id}<br/> {language === 'eng' ? "Placed on" : "Placé sur" } {new Date(selectedOrder?.date).getDate()}/{new Date(selectedOrder?.date).getMonth()}/{new Date(selectedOrder?.date).getFullYear()}</div>
+      <div className={classes.headtitle} style={{margin:"0 0 0 1em",textAlign:'start',fontWeight:'500',lineHeight:'130%'}} onClick={()=>console.log(steps)}>{language === 'eng' ? "Order" : "Commande " } # {selectedOrder?.id}<br/> {language === 'eng' ? "Placed on" : "Placé sur" } {new Date(selectedOrder?.date).getDate()}/{new Date(selectedOrder?.date).getMonth()}/{new Date(selectedOrder?.date).getFullYear()}</div>
       <div className={classes.headtitle} style={{margin:"auto 1em auto auto",fontWeight:'500'}} onClick={()=>console.log(steps)}>{selectedOrder?.currency === 'eur' ? '€' : '$'}{selectedOrder?.total_price}</div>
       <div style={{display:'flex',flexDirection:'row'}}></div>
       </div> 
