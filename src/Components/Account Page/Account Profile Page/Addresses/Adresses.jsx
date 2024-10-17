@@ -230,8 +230,12 @@ const Adresses = () => {
   };
   
   useEffect(() => {
-      form.setFieldsValue(formData);
-  }, [formData]);
+    form.resetFields();
+    setFormData({});
+    if (editMode) {
+      form.setFieldsValue(formData)
+    }
+  }, [open]);
 
   useEffect(() => {
     if (!open) {
@@ -384,7 +388,7 @@ const Adresses = () => {
             name="nest-messages"
             form={form}
             // initialValues={Object.keys(formData)?.length !== 0 ? formData : {}}
-            initialValues={formData}
+            // initialValues={formData}
             onFinish={handleSubmit}
             style={{
               width: "100%",

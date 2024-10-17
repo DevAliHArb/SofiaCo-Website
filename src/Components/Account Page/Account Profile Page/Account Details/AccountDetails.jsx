@@ -288,6 +288,19 @@ const AccountDetails = () => {
           <div className={classes.inputsContainer}>
             <Form.Item
               name="company_name"
+              label={
+                <p
+                  style={{
+                    color: "#fff",
+                    margin: "0",
+                    fontWeight: "300",
+                    fontFamily: "var(--font-family)",
+                    fontSize: "calc(.8rem + .2vw)",
+                  }}
+                >
+                  {language === "eng" ? "Company" : "Entreprise"}
+                </p>
+              }
               rules={[
                 { required: true, message: 'Please input your company name!' },
                 {
@@ -307,6 +320,19 @@ const AccountDetails = () => {
             </Form.Item>
             <Form.Item
               name="first_name"
+              label={
+                <p
+                  style={{
+                    color: "#fff",
+                    margin: "0",
+                    fontWeight: "300",
+                    fontFamily: "var(--font-family)",
+                    fontSize: "calc(.8rem + .2vw)",
+                  }}
+                >
+                  {language === "eng" ? "First Name" : "Prenom"}
+                </p>
+              }
               rules={[
                 { required: true, message: 'Please input your first name!' },
                 { max: 16, message: 'First name must be less than 17 characters!' }
@@ -323,6 +349,19 @@ const AccountDetails = () => {
             </Form.Item>
             <Form.Item
               name="last_name"
+              label={
+                <p
+                  style={{
+                    color: "#fff",
+                    margin: "0",
+                    fontWeight: "300",
+                    fontFamily: "var(--font-family)",
+                    fontSize: "calc(.8rem + .2vw)",
+                  }}
+                >
+                  {language === "eng" ? "Last Name" : "Nom"}
+                </p>
+              }
               rules={[{ required: true, message: 'Please input your last_name!' },
                 { max: 16, message: 'First name must be less than 17 characters!' }]}
               style={{ border: "none", borderRadius: ".5em" }}
@@ -337,6 +376,19 @@ const AccountDetails = () => {
             </Form.Item>
             <Form.Item
               name="company_address"
+              label={
+                <p
+                  style={{
+                    color: "#fff",
+                    margin: "0",
+                    fontWeight: "300",
+                    fontFamily: "var(--font-family)",
+                    fontSize: "calc(.8rem + .2vw)",
+                  }}
+                >
+                  {language === "eng" ? "Address" : "Adresse"}
+                </p>
+              }
               rules={[
                 { required: true, message: 'Please input your company address!' },
                 {
@@ -357,6 +409,19 @@ const AccountDetails = () => {
             </Form.Item>
             <Form.Item
               name="company_city"
+              label={
+                <p
+                  style={{
+                    color: "#fff",
+                    margin: "0",
+                    fontWeight: "300",
+                    fontFamily: "var(--font-family)",
+                    fontSize: "calc(.8rem + .2vw)",
+                  }}
+                >
+                  {language === "eng" ? "City" : "Ville"}
+                </p>
+              }
               rules={[
                 { required: true, message: 'Please input your company city!' },
                 {
@@ -376,6 +441,19 @@ const AccountDetails = () => {
             </Form.Item>
             <Form.Item
               name="phone"
+              label={
+                <p
+                  style={{
+                    color: "#fff",
+                    margin: "0",
+                    fontWeight: "300",
+                    fontFamily: "var(--font-family)",
+                    fontSize: "calc(.8rem + .2vw)",
+                  }}
+                >
+                  {language === "eng" ? "Phone" : "Téléphone"}
+                </p>
+              }
               rules={[
                 {
                     pattern: /^\d+$/,
@@ -406,6 +484,19 @@ const AccountDetails = () => {
             </Form.Item>
             <Form.Item
               name="email"
+              label={
+                <p
+                  style={{
+                    color: "#fff",
+                    margin: "0",
+                    fontWeight: "300",
+                    fontFamily: "var(--font-family)",
+                    fontSize: "calc(.8rem + .2vw)",
+                  }}
+                >
+                  {language === "eng" ? "E-mail" : "E-mail"}
+                </p>
+              }
               rules={[
                 { required: true, message: 'Please input your email!' },
                 { type: 'email', message: 'The input is not a valid email!' }
@@ -423,6 +514,19 @@ const AccountDetails = () => {
             </Form.Item>
             <Form.Item
               name="tva"
+              label={
+                <p
+                  style={{
+                    color: "#fff",
+                    margin: "0",
+                    fontWeight: "300",
+                    fontFamily: "var(--font-family)",
+                    fontSize: "calc(.8rem + .2vw)",
+                  }}
+                >
+                  {language === "eng" ? "TVA" : "TVA"}
+                </p>
+              }
               rules={[
                 { required: true, message: 'Please input your TVA!' },
                 {
@@ -442,6 +546,19 @@ const AccountDetails = () => {
             </Form.Item>
             <Form.Item
               name="siret"
+              label={
+                <p
+                  style={{
+                    color: "#fff",
+                    margin: "0",
+                    fontWeight: "300",
+                    fontFamily: "var(--font-family)",
+                    fontSize: "calc(.8rem + .2vw)",
+                  }}
+                >
+                  {language === "eng" ? "Siret" : "Siret"}
+                </p>
+              }
               rules={[
                 { required: true, message: 'Please input your siret!' },
                 {
