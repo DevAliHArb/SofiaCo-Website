@@ -690,9 +690,11 @@ const reviewHandler =()=>setisReviewMood(true);
         <div className={classes.addrCont}>
           <div className={classes.adressCard}>
             <h2>{language === 'eng' ? "Billing Address" : "Adresse de Facturation" }</h2>
-              <p style={{marginBottom:'1em'}}>{selectedOrder?.user_address.name}</p>
-              <p style={{margin:'0',padding:'0'}}>{selectedOrder?.user_address.address}, {selectedOrder?.user_address.city}, {selectedOrder?.user_address.postalcode}</p>
-              <p>{selectedOrder?.user_address.country}</p>
+            {selectedOrder?.shipping_type_id === 39 ? <p style={{marginBottom:'1em'}}>{language === "eng" ? "Retriat Point" : "Point de Retriat"}</p>: 
+              <p style={{marginBottom:'1em'}}>{selectedOrder?.user_address.name}</p>}
+              {selectedOrder?.shipping_type_id === 39 ? <p style={{margin:'0',padding:'0'}}>Colissimo: {selectedOrder?.colissimo_code}</p> : 
+              <p style={{margin:'0',padding:'0'}}>{selectedOrder?.user_address.address}, {selectedOrder?.user_address.city}, {selectedOrder?.user_address.postalcode}</p>}
+              {selectedOrder?.shipping_type_id !== 39 && <p>{selectedOrder?.user_address.country}</p>}
               <p style={{margin:'1em 0'}}>{language === 'eng' ? "Phone Number:" : "Numéro de téléphone :" }{user.phone}</p>
               <p> E-mail: {user.email}</p>
           </div>
