@@ -15,6 +15,8 @@ import AuthContext from '../../Common/authContext';
 import { Scale } from '@mui/icons-material';
 import { addSelectedBook } from '../../Common/redux/productSlice';
 import { stripHtmlTags, truncateText } from '../../Common/TextUtils';
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const FeaturedBooks = () => {
   const authCtx = useContext(AuthContext);
@@ -124,6 +126,29 @@ const FeaturedBooks = () => {
                           height="100%"
                         />
                       )}
+                      <div className={classes.favoriteIcon}>
+                        {favoriteData?.some(
+                          (book) => book._favid === props.id
+                        ) ? (
+                          <FavoriteIcon
+                            className={classes.fav}
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              authCtx.deleteFavorite(props.id);
+                            }}
+                            fontSize="inherit"
+                          />
+                        ) : (
+                          <FavoriteBorderIcon
+                            className={classes.nonfav}
+                            fontSize="inherit"
+                            onClick={(event) =>{
+                              event.stopPropagation();
+                              authCtx.addToFavorite(props) ;
+                            }}
+                          />
+                        )}
+                      </div>
                     </div>
                       <div className={classes.bookTitle} style={{opacity: index === activeIndex ? 1 : 0}}>
                       <p style={{ margin:'0em' }}>{truncateText(stripHtmlTags(props.designation), 15)}</p>

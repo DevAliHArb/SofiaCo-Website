@@ -9,6 +9,7 @@ import "swiper/css/pagination";
 import { FreeMode, Pagination } from "swiper/modules";
 import nodata from "../../../assets/nobookfound.svg";
 
+import { IoCartOutline } from "react-icons/io5";
 import img from "../../../assets/bookPlaceholder.png";
 import { toast } from "react-toastify";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -168,6 +169,39 @@ const Hero = ({ carttoggle }) => {
                             height="100%"
                           />
                         )}
+                        <div className={classes.favoriteIcon}>
+                          {favoriteData?.some(
+                            (book) => book._favid === props.id
+                          ) ? (
+                            <FavoriteIcon
+                              className={classes.fav}
+                              onClick={(event) => {
+                                event.stopPropagation();
+                                authCtx.deleteFavorite(props.id);
+                              }}
+                              fontSize="inherit"
+                            />
+                          ) : (
+                            <FavoriteBorderIcon
+                              className={classes.nonfav}
+                              fontSize="inherit"
+                              onClick={(event) =>{
+                                event.stopPropagation();
+                                authCtx.addToFavorite(props) ;
+                              }}
+                            />
+                          )}
+                        </div>
+                        {props._qte_a_terme_calcule > 0 &&<div className={classes.cartIcon}>
+                            <IoCartOutline
+                              className={classes.fav}
+                              onClick={(event) => {
+                                event.stopPropagation();
+                                authCtx.addToCart({props: props}); 
+                              }}
+                              fontSize="inherit"
+                            />
+                        </div>}
                       </div>
                     </div>
                   </SwiperSlide>

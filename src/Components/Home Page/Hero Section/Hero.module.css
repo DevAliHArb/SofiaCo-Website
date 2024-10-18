@@ -128,6 +128,70 @@
 }
 
 
+.favoriteIcon{
+  position: absolute;
+  height: 1em;
+  width: 1em;
+  top: .7em;
+  right: 0.7em;
+  background-color: var(--primary-color);
+  padding: 0.5em;
+  border-radius: 50%;
+  z-index: 10;
+  color: #fff;
+}
+
+.cartIcon{
+  position: absolute;
+  height: 1em;
+  width: 1em;
+  top: 3em;
+  right: 0.7em;
+  background-color: var(--primary-color);
+  padding: 0.5em;
+  border-radius: 50%;
+  z-index: 9;
+  transition: all 0.3s ease-in-out;
+}
+
+.cartIcon:hover{
+  cursor: pointer;
+  transform: scale(1.1);
+}
+.fav{
+  width: 1.2em !important;
+  height: 1.2em !important;
+  margin: auto !important;
+  margin-left: -0.07em !important;
+  margin-top: -0.05em !important;
+  color: white !important;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  
+}
+
+.fav:hover{
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.nonfav{
+  width: 1.2em !important;
+  height: 1.2em !important;
+  margin: auto !important;
+  margin-left: -0.07em !important;
+  margin-top: -0.05em !important;
+  cursor: pointer;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+.nonfav:hover{
+  color: white;
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
 .img{
   object-fit: fill !important;
   height: 100%;
@@ -157,12 +221,12 @@
   opacity: 1;
 }
 
-.favoriteIcon{
+/* .favoriteIcon{
   position: relative;
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-}
+} */
 
 .favoriteIcon:hover {
 cursor: pointer;

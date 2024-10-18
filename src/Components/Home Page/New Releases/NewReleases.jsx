@@ -12,11 +12,15 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import { addSelectedBook } from "../../Common/redux/productSlice";
+import { IoCartOutline } from "react-icons/io5";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 const NewReleases = () => {
   const [selectedCategory, setSelectedCategory] = useState(
     localStorage.getItem("NewarrivalCat") || "categories"
   );
+  const favoriteData = useSelector((state) => state.products.favorites);
   const [selectedCatFilter, setselectedCatFilter] = useState(null);
   const [selectedEdtrFilter, setselectedEdtrFilter] = useState('');
   const [articles, setArticles] = useState([]);
@@ -188,6 +192,39 @@ const NewReleases = () => {
                             height="100%"
                           />
                         )}
+                        <div className={classes.favoriteIcon}>
+                          {favoriteData?.some(
+                            (book) => book._favid === props.id
+                          ) ? (
+                            <FavoriteIcon
+                              className={classes.fav}
+                              onClick={(event) => {
+                                event.stopPropagation();
+                                authCtx.deleteFavorite(props.id);
+                              }}
+                              fontSize="inherit"
+                            />
+                          ) : (
+                            <FavoriteBorderIcon
+                              className={classes.nonfav}
+                              fontSize="inherit"
+                              onClick={(event) =>{
+                                event.stopPropagation();
+                                authCtx.addToFavorite(props) ;
+                              }}
+                            />
+                          )}
+                        </div>
+                        {props._qte_a_terme_calcule > 0 &&<div className={classes.cartIcon}>
+                            <IoCartOutline
+                              className={classes.fav}
+                              onClick={(event) => {
+                                event.stopPropagation();
+                                authCtx.addToCart({props: props}); 
+                              }}
+                              fontSize="inherit"
+                            />
+                        </div>}
                       </div>
       
                       <div className={classes.bookTitle}>
