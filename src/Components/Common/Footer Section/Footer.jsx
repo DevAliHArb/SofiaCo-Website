@@ -19,6 +19,7 @@ import { FaLocationDot } from "react-icons/fa6";
 
 const Footer = () => { 
     const language = useSelector((state) => state.products.selectedLanguage[0].Language);
+    const userInfo = useSelector((state) => state.products.userInfo);
   const authCtx = useContext(AuthContext);
   const navigate = useNavigate();
     
@@ -57,8 +58,8 @@ function openNewWindow(url) {
                 </div>
                 <div className={classes.info}>
                 <h3>{data.Footer.CUSTOMERSERVICE.title[language]}</h3>
-                    <p onClick={()=>navigate(`/account/profile`)}>{data.Footer.CUSTOMERSERVICE.point1[language]}</p>
-                    <p onClick={()=>navigate(`/my-documents/proforma`)}>{data.Footer.CUSTOMERSERVICE.point2[language]}</p>
+                {userInfo?.id ? <p onClick={()=>navigate(`/account/profile`)}>{data.Footer.CUSTOMERSERVICE.point1[language]}</p> : <p onClick={()=>navigate(`login`)}>{language === 'eng' ? "Login" : "Se Connecter"}</p>}
+                {userInfo?.id ? <p onClick={()=>navigate(`/my-documents/proforma`)}>{data.Footer.CUSTOMERSERVICE.point2[language]}</p> : <p onClick={()=>navigate(`register`)}>{language === 'eng' ? "Register" : "Registre"}</p>}
                     <p onClick={()=>navigate(`/policies`)}>{data.Footer.CUSTOMERSERVICE.point3[language]}</p>
                 </div>
                 <div className={classes.info}>
