@@ -200,10 +200,10 @@ const Navbar = (props) => {
                 <p style={{display:'Flex', flexDirection:'row'}}> <FiPhoneCall style={{width:'1.3em', height:'1.3em', margin:'auto 0.5em auto auto', color:'var(--secondary-color)'}}/>{authCtx.companySettings?.phone}</p>
               </div>
               <div className={classes.header_top_content}>
-                <p style={{display:'Flex', flexDirection:'row'}}> {language === 'eng' ? "Up to 50% off items" : "Jusqu'à 50 % de réduction sur les articles"} <FaArrowRightLong style={{width:'1.3em', height:'1.3em', margin:'auto auto auto 0.5em', color:'var(--secondary-color)'}}/></p>
+                <p style={{display:'Flex', flexDirection:'row'}}> {language === 'eng' ? authCtx.companySettings?.announcement_bar_text_en : authCtx.companySettings?.announcement_bar_text_fr }{authCtx.companySettings?.announcement_bar_url && <FaArrowRightLong style={{width:'1.3em', height:'1.3em', margin:'auto auto auto 0.5em', color:'var(--secondary-color)',cursor:'pointer'}} onClick={()=>window.open(authCtx.companySettings?.announcement_bar_url , '_blank')}/>}</p>
               </div>
               <div className={classes.header_top_content1}>
-                <p style={{display:'Flex', flexDirection:'row'}}> <FiTruck style={{width:'1em', height:'1em', margin:'auto 0.5em auto auto', color:'var(--secondary-color)'}}/> {language === 'eng' ? "Track your order" : "Suivre votre commande"}</p>
+                <p onClick={()=>navigate('/account/order-tracking')} style={{display:'Flex',cursor:'pointer', flexDirection:'row'}}> <FiTruck style={{width:'1em', height:'1em', margin:'auto 0.5em auto auto', color:'var(--secondary-color)'}}/> {language === 'eng' ? "Track your order" : "Suivre votre commande"}</p>
 
                 <p className={classes.long_line}></p>
                 <div className={classes.select}>
@@ -409,10 +409,10 @@ const Navbar = (props) => {
                 <p style={{display:'Flex', flexDirection:'row'}}> <FiPhoneCall style={{width:'1.3em', height:'1.3em', margin:'auto 0.5em auto auto', color:'var(--secondary-color)'}}/>{authCtx.companySettings?.phone}</p>
               </div>
               <div className={classes.header_top_content}>
-                <p style={{display:'Flex', flexDirection:'row'}}> {language === 'eng' ? "Up to 50% off items" : "Jusqu'à 50 % de réduction sur les articles"} <FaArrowRightLong style={{width:'1.3em', height:'1.3em', margin:'auto auto auto 0.5em', color:'var(--secondary-color)'}}/></p>
+                <p style={{display:'Flex', flexDirection:'row'}}> {language === 'eng' ? authCtx.companySettings?.announcement_bar_text_en : authCtx.companySettings?.announcement_bar_text_fr }{authCtx.companySettings?.announcement_bar_url && <FaArrowRightLong style={{width:'1.3em', height:'1.3em', margin:'auto auto auto 0.5em', color:'var(--secondary-color)',cursor:'pointer'}} onClick={()=>window.open(authCtx.companySettings?.announcement_bar_url , '_blank')}/>}</p>
               </div>
               <div className={classes.header_top_content1}>
-                <p style={{display:'Flex', flexDirection:'row'}}> <FiTruck style={{width:'1em', height:'1em', margin:'auto 0.5em auto auto', color:'var(--secondary-color)'}}/> {language === 'eng' ? "Track your order" : "Suivre votre commande"}</p>
+                <p onClick={()=>navigate('/account/order-tracking')} style={{display:'Flex',cursor:'pointer', flexDirection:'row'}}> <FiTruck style={{width:'1em', height:'1em', margin:'auto 0.5em auto auto', color:'var(--secondary-color)'}}/> {language === 'eng' ? "Track your order" : "Suivre votre commande"}</p>
 
                 <p className={classes.long_line}></p>
                 <div className={classes.select}>
