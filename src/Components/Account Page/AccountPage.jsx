@@ -67,14 +67,14 @@ const AccountPage = () => {
                 <ExpandMoreOutlinedIcon style={{ color: '#fff', marginLeft:'-1.5em' }} /> // Adjust color to white (#fff)
               )}
             >
-                   <MenuItem value='profile' style={{background: pageId === 'profile' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.AccountDetails.title[language]}</MenuItem>
-        <MenuItem value='addresses' style={{background: pageId === 'addresses' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.Adresses.title[language]}</MenuItem>
-        <MenuItem value='payments' style={{background: pageId === 'payments' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.Payment.title[language]}</MenuItem>
+                   <MenuItem value='profile' style={{textTransform:"capitalize",background: pageId === 'profile' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.AccountDetails.title[language]}</MenuItem>
+        <MenuItem value='addresses' style={{textTransform:"capitalize",background: pageId === 'addresses' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.Adresses.title[language]}</MenuItem>
+        <MenuItem value='payments' style={{textTransform:"capitalize",background: pageId === 'payments' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.Payment.title[language]}</MenuItem>
 
-            <MenuItem value='order-tracking' onClick={()=>navigate(`/account/order-tracking`)} style={{background: pageId === 'order-tracking' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.orders.title[language]}</MenuItem>
-            <MenuItem value='coupons' onClick={()=>navigate(`/account/coupons`)} style={{background: pageId === 'coupons' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.Coupons.title[language]}</MenuItem>
-            <MenuItem value='subscription' onClick={()=>navigate(`/account/subscription`)} style={{background: pageId === 'subscription' ? 'var(--primary-color)' : ''}}>{language === 'eng' ? "Subscription" : "Abonnement" }</MenuItem>
-            <MenuItem value='delete-account' onClick={()=>navigate(`/account/delete-account`)} style={{background: pageId === 'delete-account' ? 'var(--primary-color)' : ''}}>{language === 'eng' ? "Delete Account" : "Supprimer le compte" }</MenuItem>
+            <MenuItem value='order-tracking' onClick={()=>navigate(`/account/order-tracking`)} style={{textTransform:"capitalize",background: pageId === 'order-tracking' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.orders.title[language]}</MenuItem>
+            <MenuItem value='coupons' onClick={()=>navigate(`/account/coupons`)} style={{textTransform:"capitalize",background: pageId === 'coupons' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.Coupons.title[language]}</MenuItem>
+            <MenuItem value='subscription' onClick={()=>navigate(`/account/subscription`)} style={{textTransform:"capitalize",background: pageId === 'subscription' ? 'var(--primary-color)' : ''}}>{language === 'eng' ? "Subscription" : "Abonnement" }</MenuItem>
+            <MenuItem value='delete-account' onClick={()=>navigate(`/account/delete-account`)} style={{textTransform:"capitalize",background: pageId === 'delete-account' ? 'var(--primary-color)' : ''}}>{language === 'eng' ? "Delete Account" : "Supprimer le compte" }</MenuItem>
             </Select>
             </div>
         <div className={classes.contentContainer} style={  (pageId ==='wishlist' ||pageId === 'coupons')? {width:'90%' ,margin:'0 0 0 auto'}:{}}>
