@@ -153,7 +153,7 @@ export const AuthContextProvider = (props) => {
 const fetchArticles = async () => {
   try {
     const response = await axios.get(
-      'https://api.leonardo-service.com/api/bookshop/articles?ecom_type=albouraq'
+      'https://api.leonardo-service.com/api/bookshop/articles?ecom_type=sofiaco'
     );
     const articlesData = response.data.data;
     setArticles(articlesData);
@@ -178,7 +178,7 @@ const fetchArticles = async () => {
   
   const fetchCategories = async () => {
     try {
-      const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/categories?ecom_type=albouraq`);
+      const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/categories?ecom_type=sofiaco`);
       setCategories(response.data);
     } catch (error) {
       // console.error('Error fetching categories:', error);
@@ -582,7 +582,7 @@ const fetchArticles = async () => {
       const response = await axios.post("https://api.leonardo-service.com/api/bookshop/favorites", {
         user_id: user.id,
         article_id: props.id,
-        ecom_type: 'albouraq'
+        ecom_type: 'sofiaco'
       });
       dispatch(addTofavorite({
         id: response.data.data.id,

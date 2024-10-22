@@ -131,7 +131,7 @@ const Review = ({props}) => {
       review_attachments: base64Images || [] ,
       order_invoice_id: selectedReview.order_invoice_id,
       order_invoice_item_id: selectedReview.id,
-      ecom_type: 'albouraq'
+      ecom_type: 'sofiaco'
   });
   
   setData((prevData) => {

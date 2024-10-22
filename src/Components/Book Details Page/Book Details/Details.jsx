@@ -133,7 +133,7 @@ const Details = () => {
 
     try {
         // Fetch the list of collaborators
-        const collaboratorsResponse = await axios.get('https://api.leonardo-service.com/api/bookshop/collaborators?ecom_type=albouraq');
+        const collaboratorsResponse = await axios.get('https://api.leonardo-service.com/api/bookshop/collaborators?ecom_type=sofiaco');
         const collaborators = collaboratorsResponse.data;
 
         const cleanedAuteur = bookData.dc_auteur.trim();
@@ -176,7 +176,7 @@ const handleSuivreEditor = async () => {
 
   try {
       // Fetch the list of collaborators
-      const collaboratorsResponse = await axios.get('https://api.leonardo-service.com/api/bookshop/collaborators?ecom_type=albouraq');
+      const collaboratorsResponse = await axios.get('https://api.leonardo-service.com/api/bookshop/collaborators?ecom_type=sofiaco');
       const collaborators = collaboratorsResponse.data;
 
       const cleanedAuteur = bookData.editor._nom.trim();
@@ -219,7 +219,7 @@ const handleSuivreTranslator = async () => {
 
   try {
       // Fetch the list of collaborators
-      const collaboratorsResponse = await axios.get('https://api.leonardo-service.com/api/bookshop/collaborators?ecom_type=albouraq');
+      const collaboratorsResponse = await axios.get('https://api.leonardo-service.com/api/bookshop/collaborators?ecom_type=sofiaco');
       const collaborators = collaboratorsResponse.data;
 
       const cleanedAuteur = bookData.dc_traducteur.trim();
@@ -263,7 +263,7 @@ const handleSuivreCollection = async () => {
 
   try {
       // Fetch the list of collaborators
-      const collectionsResponse = await axios.get('https://api.leonardo-service.com/api/bookshop/collections?ecom_type=albouraq');
+      const collectionsResponse = await axios.get('https://api.leonardo-service.com/api/bookshop/collections?ecom_type=sofiaco');
       const collections = collectionsResponse.data;
       const cleanedCollec = bookData.dc_collection.trim();
       // Find the collaborator whose nom + prenom matches bookData.dc_auteur
