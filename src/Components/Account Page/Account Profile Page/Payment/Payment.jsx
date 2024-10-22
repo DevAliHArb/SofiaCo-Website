@@ -293,14 +293,6 @@ useEffect(() => {
               {data.AccountProfilePage.Payment.subtitle[language]}
               </h3></div>
             </div>
-              {paymentslist?.length === 0 ? 
-        <div className={classes.nodata}>
-          <div className={classes.nodata_img}>
-            <img src={nodata} alt="" />
-          </div>
-          <h1>{language === 'eng' ? "No payment options found!" : "Aucune option de paiement n'a été trouvée !"}</h1>
-        </div>
-          :
           <div className={classes.cardContainer}> 
             {paymentslist?.map((item, index) => (
             <div key={item.id} onClick={()=>{ handleChange1(item.id)}} className={`${(item.default === 'true' && user.default_pay === 'card') ? classes.paymentCardSelected : classes.paymentCard}`} >
@@ -359,7 +351,7 @@ useEffect(() => {
                   <div className={classes.contantContainer}>
                           <div className={classes.contant}>
                             <div style={{display:'flex',flexDirection:"row"}} >
-                            <img alt='' src={directPay} style={{height:'4em',width:'auto',margin:'0 0 0 -.55em',padding:'0'}}/>
+                            <img alt='' src={directPay} style={{height:'3em',width:'auto',margin:'0 0 1em 0',padding:'0'}}/>
                             <div style={{display:'flex',flexDirection:'column'}}>
                               <p style={{margin:'auto .2em',fontWeight:"500"}}> Direct Payment</p>
                               {/* <p style={{margin:'.2em'}}>vtvf</p> */}
@@ -397,8 +389,8 @@ useEffect(() => {
                   <div className={classes.contantContainer}>
                           <div className={classes.contant}>
                             <div style={{display:'flex',flexDirection:"row"}} >
-                            <img alt='' src={PayPal} style={{height:'4em',width:'auto',margin:'0 0 0 -.55em',padding:'0'}}/>
-                            <div style={{display:'flex',flexDirection:'column'}}>
+                            <img alt='' src={PayPal} style={{height:'3em',width:'auto',margin:'0 0 1em 0',padding:'0'}}/>
+                            <div style={{display:'flex',flexDirection:'column',margin:"auto 0"}}>
                               <p style={{margin:'auto .2em',fontWeight:"500"}}> PayPal</p>
                               {/* <p style={{margin:'.2em'}}>vtvf</p> */}
                             </div>
@@ -433,7 +425,6 @@ useEffect(() => {
                     </div>
                 
             </div>
-                }
             <button className={classes.addBtn} onClick={()=>{handleOpen();
                                                                seteditMode(false)
                                                                setFormData({})}}>

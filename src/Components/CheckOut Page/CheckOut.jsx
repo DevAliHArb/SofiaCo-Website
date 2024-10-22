@@ -585,15 +585,18 @@ const CheckOut = () => {
       setPaymentsList(sortedPayments);
       setdisplayedPayment(1);
       setopenPay(false);
-      response?.data.data.forEach((element) => {
-        if (element.default === "true") {
-          dispatch(editDefaultPAY(element.id));
-          setPaymentId(element.id)
-        }
-      });
+      if (userInfo.default_pay === 'card')
+       {response?.data.data.forEach((element) => {
+        setdirectPay(false);
+        setIspaypal(false)
+         if (element.default === "true") {
+           dispatch(editDefaultPAY(element.id));
+           setPaymentId(element.id)
+         }
+       });}
       // Set loading to false after fetching data
     } catch (error) {
-      // console.error("Error fetching addresses:", error);
+      console.error("Error fetching addresses:", error);
       // Set loading to false in case of error
     }
   };
@@ -985,19 +988,7 @@ const CheckOut = () => {
       //   error.response?.data?.error || "An unexpected error occurred"
       // );
     }
-  };
-
-    useEffect(() => {
-    if (paymentslist.length > 0) {
-     const paymentID = addresseslist.find((item) => item.default === "true")?.id
-     setPaymentId(paymentID)
-     setdirectPay(false)
-     setIspaypal(false)
-    } else if (paymentslist.length === 0 && userInfo.default_pay !== 'direct' && userInfo.default_pay !== 'paypal') {
-      setdirectPay(true);
-      setPaymentId("direct")
-    }
-  }, []);
+  }
 
   const userInfo = useSelector((state) => state.products.userInfo);
   const [value, setValue] = React.useState("option1");
@@ -1174,15 +1165,27 @@ const CheckOut = () => {
     fetchHero();
   }, []);
 
+
   useEffect(() => {
-    if (userInfo.default_pay === 'direct') {
-      setPaymentId("direct")
-      setdirectPay(true);
+    if (paymentslist.length > 0 && userInfo.default_pay === 'card') {
+     const paymentID = addresseslist.find((item) => item.default === "true")?.id
+     setPaymentId(paymentID)
+     setdirectPay(false)
+     setIspaypal(false)
     } else if (userInfo.default_pay === 'paypal') {
       setPaymentId("paypal")
       setIspaypal(true)
+      setdirectPay(false);
+    }else if (userInfo.default_pay === 'direct') {
+      setPaymentId("direct")
+      setdirectPay(true);
+      setIspaypal(false)
+    }  else if (paymentslist.length === 0 && userInfo.default_pay !== 'direct' && userInfo.default_pay !== 'paypal') {
+      setdirectPay(true);
+      setPaymentId("direct")
     }
-  }, [paymentslist]);
+  }, []);
+
 
   
   const handleRemoveCoupon = async () => {
@@ -1905,7 +1908,7 @@ const CheckOut = () => {
               <div className={classes.totalrows}>
                 <p>TOTAL </p>
                 <p style={{ textAlign: "end" }}>
-                  {totalAmt}
+                {Number(totalAmt).toFixed(2)}
                   {currency === "usd" ? "$" : "€"}
                 </p>
               </div>
