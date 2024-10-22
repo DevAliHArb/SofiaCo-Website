@@ -43,7 +43,7 @@ const Reviews = () => {
 
     const fetchBook = async () => {
         try {
-          const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/articles?id=${selectedBook[0].id}&ecom_type=albouraq`);
+          const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/articles?id=${selectedBook[0].id}&ecom_type=sofiaco`);
           const book = response.data;
           dispatch(addSelectedBook(book))
           
@@ -54,7 +54,7 @@ const Reviews = () => {
 
     const fetchReviews = async () => {
         try {
-            const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/articles/${selectedBook[0].id}/reviews?ecom_type=albouraq`);
+            const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/articles/${selectedBook[0].id}/reviews?ecom_type=sofiaco`);
             const reviews = response.data.data;
             setBookreview(reviews);
         } catch (error) {
@@ -81,7 +81,7 @@ const Reviews = () => {
             const response = await axios.post(`https://api.leonardo-service.com/api/bookshop/articles/${selectedBook[0].id}/reviews`, {
                 ...formData,
                 user_id: user.id,
-                ecom_type: 'albouraq'
+                ecom_type: 'sofiaco'
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`

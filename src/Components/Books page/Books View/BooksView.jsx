@@ -280,7 +280,7 @@ const BooksView = ({carttoggle}) => {
         : ``;
 
       // Finalize the URL by combining all parameters
-      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedCollectionParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedcollectionParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}&ecom_type=albouraq`;
+      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedCollectionParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedcollectionParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}&ecom_type=sofiaco`;
 
       // Fetch articles using the finalized URL
       const response = await axios.get(finalUrl);
@@ -363,7 +363,7 @@ const BooksView = ({carttoggle}) => {
     setIsOpen(false);
     try {
       const response = await axios.get(
-        `https://api.leonardo-service.com/api/bookshop/articles?ecom_type=albouraq`
+        `https://api.leonardo-service.com/api/bookshop/articles?ecom_type=sofiaco`
       );
       setArticles(response.data.data);
       setTotalArticlesNumber(response.data?.total)

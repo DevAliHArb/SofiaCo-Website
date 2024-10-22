@@ -20,7 +20,7 @@ const BookDetailsPage = () => {
 
   const fetchBook = async () => {
     try {
-      const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/articles?id=${id}&ecom_type=albouraq`);
+      const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/articles?id=${id}&ecom_type=sofiaco`);
       const book = response.data;
       dispatch(addSelectedBook(book))
       
