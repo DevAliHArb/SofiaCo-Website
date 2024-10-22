@@ -92,7 +92,7 @@
   .nodata h1{
     font-family: var(--font-family);
     font-size: calc(1.5rem + 0.8vw);
-    color: var(--primary-color);
+    color: #EEBA7F;
     text-align: start;
   }
   
