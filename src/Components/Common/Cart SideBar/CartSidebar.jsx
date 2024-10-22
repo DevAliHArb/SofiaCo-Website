@@ -269,9 +269,9 @@ export default function CartSidebar({ toggle, isOpen }) {
                                 }}
                               >
                                 {currency === "eur"
-                                  ? ` ${Number(props.price).toFixed(2)}€`
+                                  ? ` ${Number(props.price_ttc).toFixed(2)}€`
                                   : ` ${(
-                                      props.price * authCtx.currencyRate
+                                      props.price_ttc * authCtx.currencyRate
                                     ).toFixed(2)}$`}
                               </span>}    
                            </p>

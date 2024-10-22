@@ -387,7 +387,7 @@ const Subscriptions = () => {
                     style={{
                       textAlign: "center",
                       borderBottom: "1px solid #DED8CC",
-                      color: "#DED8CC",
+                      color: "var(--primary-color)",
                       backgroundColor: "var(--forth-color)",
                     }}
                   >
@@ -450,7 +450,7 @@ const Subscriptions = () => {
                           dispatch(deleteSelectedCollab());
                           dispatch(addSelectedCollab(collab));
                           navigate(
-                            `/collaborators/collaborator-details/${collab.id}`
+                            `/collaborators/${collab.id}/details`
                           );
                         }}
                       >
