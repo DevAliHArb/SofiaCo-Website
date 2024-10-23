@@ -276,6 +276,24 @@ useEffect(() => {
     }
   };
 
+  
+  const [inputValue, setInputValue] = useState('');
+
+  const handleChangeNumber = (e) => {
+    const { value } = e.target;
+
+    // Remove all non-digit characters from the input value
+    const digits = value.replace(/\D/g, '');
+
+    // Format the digits to add spaces every 4 digits
+    const formattedValue = digits.replace(/(.{4})/g, '$1 ').trim();
+
+    // Update the input state and form data
+    setInputValue(formattedValue);
+    form.setFieldValue('card_number',formattedValue)
+    setFormData({ ...formData, card_number: digits }); // Store the raw digits without spaces
+  };
+
   const handleChange = (name, value) => {
     setFormData({ ...formData, [name]: value });
   };
@@ -496,11 +514,11 @@ useEffect(() => {
                   name="card_number"
                   placeholder='Card Number'
                   size="large" 
-                  value={formData?.card_number}
-                  style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
-                        onChange={(e) => handleChange('card_number', e.target.value)}
-                  />
-        </Form.Item>
+        // value={inputValue}
+        style={{ height: "3em", backgroundColor: "#fff", fontFamily: 'var(--font-family)' }}
+        onChange={handleChangeNumber}
+      />
+    </Form.Item>
         <Form.Item
         name="year"
         rules={[
