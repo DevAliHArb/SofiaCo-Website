@@ -689,7 +689,7 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
             </div>
             <p className={classes.quantity}> {selectedOrder?.currency === 'usd' ? '$' : '€' } {Number(props.price).toFixed(2) }{props?.article_discount > 0 && <span style={{textDecoration:'line-through',}}>{selectedOrder?.currency === 'usd' ? ' $' : ' €' }{Number(props.price_without_discount).toFixed(2)}{selectedOrder?.currency === 'usd' ? '$' : '€' }</span>} </p>
             <p className={classes.quantity}> x{props.quantity} </p>
-            <p className={classes.quantity}>{selectedOrder?.currency === 'usd' ? '$' : '€' }{(props.price * props.quantity).toFixed(2)} </p>
+            <p className={classes.quantity}>{selectedOrder?.currency === 'usd' ? '$' : '€' }{Number(props.total_price).toFixed(2)} </p>
           </div>
              )
           })} 
