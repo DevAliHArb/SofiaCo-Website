@@ -277,7 +277,6 @@ useEffect(() => {
   };
 
   
-  const [inputValue, setInputValue] = useState('');
 
   const handleChangeNumber = (e) => {
     const { value } = e.target;
@@ -289,7 +288,6 @@ useEffect(() => {
     const formattedValue = digits.replace(/(.{4})/g, '$1 ').trim();
 
     // Update the input state and form data
-    setInputValue(formattedValue);
     form.setFieldValue('card_number',formattedValue)
     setFormData({ ...formData, card_number: digits }); // Store the raw digits without spaces
   };
@@ -504,9 +502,9 @@ useEffect(() => {
         <Form.Item
           name="card_number"
           rules={[{ required: true, message: 'Please input your Card Number!' },
-          {
-            pattern: /^\d+$/,
-            message: 'The Code postal must be digits only!',
+          { 
+            pattern: /^[\d\s]+$/, // Allows only digits and spaces
+            message: 'Card Number can only contain digits !' 
           }]}
           style={{border:'none',borderRadius:'.5em'}}
         >
