@@ -656,29 +656,34 @@ const CheckOut = () => {
 
       // Calculate the price considering the discount
       const discountedPrice = item.discount > 0
-        ? item.price - (item.price * (item.discount / 100))
-        : item.price;
+        ? item.price_ttc - (item.price_ttc * (item.discount / 100))
+        : item.price_ttc;
         const price = discountedPrice ;
         const priceTTC = item.price_ttc;
         const priceNet = item.price * 1;
 
       // Calculate the cost and TVA
       const cost = priceTTC - (priceTTC - priceNet);
+      const discountedCost = item.discount > 0
+        ? cost - (cost * (item.discount / 100))
+        : cost;
       const tva = item.discount > 0
         ? (priceTTC - priceNet) - ((priceTTC - priceNet) * (item.discount / 100))
         : priceTTC - priceNet;
-
       updatedOrderInvoiceItems.push({
         article_id: item._id,
         name: item.title,
         quantity: item.quantity,
-        cost: parseFloat(cost.toFixed(2)),
+        cost: parseFloat(discountedCost.toFixed(2)),
         tva: parseFloat(tva.toFixed(2)),
         total_tva: parseFloat((tva * item.quantity).toFixed(2)),
-        total_cost: parseFloat((cost * item.quantity).toFixed(2)),
-        total_price: parseFloat((priceTTC * item.quantity).toFixed(2)),
+        total_cost: parseFloat((discountedCost * item.quantity).toFixed(2)),
+        total_price: parseFloat((discountedPrice * item.quantity).toFixed(2)),
         review: item.note || "-",
-        price: priceTTC,
+        price: discountedPrice,
+        article_discount: item.discount,
+        price_without_discount: item.price_ttc,
+        cost_without_discount: item.price,
       });
 
       totalPrice +=  (price * 1).toFixed(2) * item.quantity;

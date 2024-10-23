@@ -287,7 +287,7 @@ const reviewHandler =()=>setisReviewMood(true);
      if (!item) {
      try {
       setIsLoading(true);
-      const response = await axios.post("https://api.leonardo-service.com/api/bookshop/cart?ecom_type=bookshop", {
+      const response = await axios.post("https://api.leonardo-service.com/api/bookshop/cart?ecom_type=albouraq", {
         user_id: user.id,
         article_id: props.id,
         quantity: props.quantity,
@@ -354,45 +354,44 @@ const reviewHandler =()=>setisReviewMood(true);
       
     }
   }
-  const AddAllToCart = () => {
-    selectedOrder?.order_invoice_items?.forEach(element => {
-      console.log(element.article._qte_a_terme_calcule);
-      if (element.article._qte_a_terme_calcule > 0) {
-        const quantityToAdd =
-    element.quantity > element.article._qte_a_terme_calcule
-      ? element.article._qte_a_terme_calcule
-      : element.quantity;
-      addToCartWithQtyhandler(
-        ({ 
-            id: element.article.id,
-            designation: element.article.designation,
-            dc_auteur: element.article.dc_auteur,
-            image: element.article.articleimage[0]?.link ? element.article.articleimage[0].link : bookPlaceHolder,
-            prixpublic: element.article.prixpublic,
-            _qte_a_terme_calcule: element.article._qte_a_terme_calcule,
-            _code_barre: element.article._code_barre,
-            quantity: Number(quantityToAdd).toFixed(0),
-            discount:element.article.discount,
-            descriptif: element.article.descriptif,
-            _poids_net: element.article._poids_net,
-            _prix_public_ttc: element.article._prix_public_ttc,
-          })
-        );
-          
-        }
-    });
-    
-    toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès de l'ordre de rachat"}`, {
-      position: "top-right",
-      autoClose: 1500,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: 0,
-      theme: "colored",
-    });
-  }
+const AddAllToCart = () => {
+selectedOrder?.order_invoice_items?.forEach(element => {
+  if (element.article._qte_a_terme_calcule > 0) {
+    const quantityToAdd =
+element.quantity > element.article._qte_a_terme_calcule
+  ? element.article._qte_a_terme_calcule
+  : element.quantity;
+  addToCartWithQtyhandler(
+    ({ 
+        id: element.article.id,
+        designation: element.article.designation,
+        dc_auteur: element.article.dc_auteur,
+        image: element.article.articleimage[0]?.link ? element.article.articleimage[0].link : bookPlaceHolder,
+        prixpublic: element.article.prixpublic,
+        _qte_a_terme_calcule: element.article._qte_a_terme_calcule,
+        _code_barre: element.article._code_barre,
+        quantity: Number(quantityToAdd).toFixed(0),
+        discount:element.discount,
+        descriptif: element.article.descriptif,
+        _poids_net: element.article._poids_net,
+        _prix_public_ttc: element.article._prix_public_ttc,
+      })
+    );
+      
+    }
+});
+
+toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès de l'ordre de rachat"}`, {
+  position: "top-right",
+  autoClose: 1500,
+  hideProgressBar: true,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: 0,
+  theme: "colored",
+});
+}
   const CancleOrderHandler = () => {
     axios.put(`https://api.leonardo-service.com/api/bookshop/order_invoices/${selectedOrder?.id}?status_id=13`)
     .then(() => {
@@ -683,8 +682,8 @@ const reviewHandler =()=>setisReviewMood(true);
               {props.article.dc_auteur && <p style={{fontWeight:'600',fontSize:'calc(.6rem + 0.2vw)'}}>{props.article.dc_auteur}</p>}
               {props.article.descriptif && <p className={classes.dicription} dangerouslySetInnerHTML={{ __html: props.article.descriptif }}/>}
             <div className={classes.quantityMob}>
-              <p> {selectedOrder?.currency === 'usd' ? '$' : '€' }{props.price} </p>
-              <p style={{textAlign:'end'}}>{selectedOrder?.currency === 'usd' ? '$' : '€' }{(props.price * props.quantity).toFixed(2)} </p>
+              <p> {selectedOrder?.currency === 'usd' ? '$' : '€' } {Number(props.price).toFixed(2)}{selectedOrder?.currency === 'usd' ? '$' : '€' } <span style={{textDecoration:'line-through',}}>{Number(props.price_without_discount).toFixed(2)}{selectedOrder?.currency === 'usd' ? '$' : '€' }</span> </p>
+              <p style={{textAlign:'end'}}>{selectedOrder?.currency === 'usd' ? '$' : '€' } {Number(props.total_price).toFixed(2)}</p>
             </div>
               </div>
             </div>
