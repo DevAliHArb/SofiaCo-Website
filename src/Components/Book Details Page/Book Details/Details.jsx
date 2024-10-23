@@ -152,7 +152,7 @@ const Details = () => {
         // Send the subscription request with the found collaborator's id
         const response = await axios.post(`https://api.leonardo-service.com/api/bookshop/users/${user.id}/subscriptions`, {
             collaborator_id: collaborator.id,
-            ecom_type: 'bookshop'
+            ecom_type: 'sofiaco'
         }, {
             headers: {
                 Authorization: `Bearer ${token}` // Include token in the headers
@@ -195,7 +195,7 @@ const handleSuivreEditor = async () => {
       // Send the subscription request with the found collaborator's id
       const response = await axios.post(`https://api.leonardo-service.com/api/bookshop/users/${user.id}/subscriptions`, {
           collaborator_id: collaborator.id,
-          ecom_type: 'bookshop'
+          ecom_type: 'sofiaco',
       }, {
           headers: {
               Authorization: `Bearer ${token}` // Include token in the headers
@@ -238,7 +238,7 @@ const handleSuivreTranslator = async () => {
       // Send the subscription request with the found collaborator's id
       const response = await axios.post(`https://api.leonardo-service.com/api/bookshop/users/${user.id}/subscriptions`, {
           collaborator_id: collaborator.id,
-          ecom_type: 'bookshop'
+          ecom_type: 'sofiaco',
       }, {
           headers: {
               Authorization: `Bearer ${token}` // Include token in the headers

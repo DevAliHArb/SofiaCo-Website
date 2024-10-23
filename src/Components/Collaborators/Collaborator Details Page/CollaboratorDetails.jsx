@@ -50,6 +50,7 @@ const CollaboratorDetails = () => {
     try {
       const response = await axios.post(`https://api.leonardo-service.com/api/bookshop/users/${user.id}/subscriptions`, {
         collaborator_id: id,
+        ecom_type: 'sofiaco',
       }, {
         headers: {
             Authorization: `Bearer ${token}` // Include token in the headers
