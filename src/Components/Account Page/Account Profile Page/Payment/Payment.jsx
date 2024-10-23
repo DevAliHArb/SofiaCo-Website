@@ -504,7 +504,7 @@ useEffect(() => {
           rules={[{ required: true, message: 'Please input your Card Number!' },
           { 
             pattern: /^[\d\s]+$/, // Allows only digits and spaces
-            message: 'Card Number can only contain digits !' 
+            message: `${language === 'fr' ? "Le numéro de la carte ne doit comporter que des chiffres !" :'The card number must be digits only!'}`
           }]}
           style={{border:'none',borderRadius:'.5em'}}
         >
