@@ -376,6 +376,11 @@ const handleSuivreCategory = async () => {
                                     bookData._prix_public_ttc * authCtx.currencyRate
                                     ).toFixed(2)
                               }`}{" "}
+                              {bookData.discount > 0 && <span style={{opacity: "0.8",textDecoration:'line-through',fontSize: "calc(.9rem + 0.3vw)",margin:'0 1em'}} >
+                               {currency === "eur" ? `${Number(bookData._prix_public_ttc).toFixed(2)} € `: `${(bookData._prix_public_ttc * authCtx.currencyRate ).toFixed(2)} $ `}</span>}  
+                    
+                     {bookData.discount > 0 && <span style={{background:'var(--primary-color)', color:'#fff', padding:'0.2em 0.8em',fontSize: "calc(.9rem + 0.3vw)",borderRadius:'5px'}} >
+                      {bookData.discount}%</span>} 
           </p>
         </div>
         <div className={classes.bottonsContainer}>
