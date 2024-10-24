@@ -137,7 +137,7 @@ const onFinish = async () => {
   return (
     <div className={classes.auth_con}>
         <div className={classes.header}>
-            <div className={classes.back} onClick={()=>navigate(`/`)}><MdArrowBackIosNew style={{width:'1em', height:'1em', margin:'auto 0.5em auto 0', color:'var(--secondary-color)'}}/><p>Back</p></div>
+            <div className={classes.back} onClick={()=>navigate(`/`)}><MdArrowBackIosNew style={{width:'1em', height:'1em', margin:'auto 0.5em auto 0', color:'var(--secondary-color)'}}/><p>{language === 'eng' ? "Back" : "Retour"}</p></div>
             <div className={classes.logo_con}>
                 <img src={logo} alt='logo' />
             </div>
@@ -154,25 +154,35 @@ const onFinish = async () => {
       >
         <Form.Item
           name="email"
-          rules={[{ required: true, message: 'Please input your Email!' }]}
+          rules={[
+            { 
+              required: true, 
+              message: language === 'eng' ? 'Please input your Email!' : 'Veuillez entrer votre adresse e-mail!' 
+            },
+          ]}
         >
           <Input
           size="large"  
           name="email"
-        placeholder={language === 'eng' ? "User Name" : 'User Name'} 
+        placeholder={language === 'eng' ? "User Name" : "Nom d'utilisateur"}
                  style={{border:'none',backgroundColor:"rgba(255, 255, 255, 0.1)" ,color:'var(--accent-color)'}}
                  onChange={handleChange}
           />
         </Form.Item>
         <Form.Item
           name="password"
-          rules={[{ required: true, message: 'Please input your Password!' }]}
+          rules={[
+            { 
+              required: true, 
+              message: language === 'eng' ? 'Please input your Password!' : 'Veuillez entrer votre mot de passe!' 
+            },
+          ]}
         >
           <Input.Password
             type="password"
             name="password"
             size="large" 
-            placeholder={language === 'eng' ? "Password" : 'Password'} 
+            placeholder={language === 'eng' ? "Password" : "Mot de passe"} 
             style={{border:'none',backgroundColor:"rgba(255, 255, 255, 0.1)" ,height:'3em',color:'var(--accent-color)'}}
             onChange={handleChange}
           />
@@ -188,7 +198,7 @@ const onFinish = async () => {
           </Button>
         </Form.Item> 
       </Form>
-      {language === 'eng' ? <h4>{language === 'eng' ? "Don't have an account?" : "Vous n’avez pas de compte?" } <span style={{fontWeight:700, textDecoration:'underline', cursor:'pointer'}} onClick={()=>navigate(`/register`)}>Register!</span></h4> : <h4>{language === 'eng' ? "Don't have an account?" : "Vous n’avez pas de compte?" } <span style={{fontWeight:700, textDecoration:'underline', cursor:'pointer'}} onClick={()=>navigate(`/register`)}>{language === 'eng' ? "Create one!" : "Créez en un!" }</span></h4>}
+      {language === 'eng' ? <h4>{language === 'eng' ? "Don't have an account?" : "Vous n’avez pas de compte?" } <span style={{fontWeight:700, textDecoration:'underline', cursor:'pointer'}} onClick={()=>navigate(`/register`)}>{language === 'eng' ? "Register!" : "S'inscrire!"}</span></h4> : <h4>{language === 'eng' ? "Don't have an account?" : "Vous n’avez pas de compte?" } <span style={{fontWeight:700, textDecoration:'underline', cursor:'pointer'}} onClick={()=>navigate(`/register`)}>{language === 'eng' ? "Create one!" : "Créez en un!" }</span></h4>}
       <p>{authCtx.companySettings?.copyrights_en}</p>
         </div>
     </div>

@@ -66,7 +66,7 @@ const Register = () => {const navigate = useNavigate();
           form.resetFields();
           navigate(`/verify-email`);
         } catch (error) {
-          // console.error("Error registering:", error);
+          console.error("Error registering:", error);
           toast.error(
             error.response.data.error,
             {
@@ -93,14 +93,14 @@ const Register = () => {const navigate = useNavigate();
   return (
     <div className={classes.auth_con}>
         <div className={classes.header}>
-            <div onClick={()=>navigate(`/login`)} className={classes.back}><MdArrowBackIosNew style={{width:'1em', height:'1em', margin:'auto 0.5em auto 0', color:'var(--secondary-color)'}}/><p>Back</p></div>
+            <div onClick={()=>navigate(`/login`)} className={classes.back}><MdArrowBackIosNew style={{width:'1em', height:'1em', margin:'auto 0.5em auto 0', color:'var(--secondary-color)'}}/><p>{language === 'eng' ? "Back" : "Retour"}            </p></div>
             <div className={classes.logo_con}>
                 <img src={logo} alt='logo' />
             </div>
         </div>
         <div className={classes.auth_card}>
           <div className={classes.auth_bg} />
-         <h1>{language === 'eng' ? 'Remplissez le formulaire ci-dessus pour avoir vos identifiants!' : 'Remplissez le formulaire ci-dessus pour avoir vos identifiants!'}</h1>
+         <h1>{language === 'eng' ? 'Fill out the form above to get your credentials!' : 'Remplissez le formulaire ci-dessus pour avoir vos identifiants!'}</h1>
           <Form 
                 layout="vertical"
                 name="nest-messages"
@@ -110,8 +110,10 @@ const Register = () => {const navigate = useNavigate();
       >
       <Form.Item
         name="company_name"
-        rules={[{ required: true, message: 'Please input your Company Name!' },
-          { max: 30, message: 'Company name must be less than 31 characters!' }]}
+        rules={[
+          { required: true, message: language === 'eng' ? 'Please input your Company Name!' : 'Veuillez entrer le nom de votre entreprise!' },
+          { max: 30, message: language === 'eng' ? 'Company name must be less than 31 characters!' : 'Le nom de l\'entreprise doit comporter moins de 31 caractères!' }
+        ]}
       >
         <Input
         size="large"  
@@ -123,38 +125,44 @@ const Register = () => {const navigate = useNavigate();
       </Form.Item>
       <Form.Item
         name="first_name"
-        rules={[{ required: true, message: 'Please input your First Name!' },
-          { max: 16, message: 'First name must be less than 17 characters!' }]}
+        rules={[
+          { required: true, message: language === 'eng' ? 'Please input your First Name!' : 'Veuillez entrer votre prénom!' },
+          { max: 16, message: language === 'eng' ? 'First name must be less than 17 characters!' : 'Le prénom doit comporter moins de 17 caractères!' }
+        ]}
       >
         <Input
         size="large"  
         name="first_name" 
-        placeholder={language === 'eng' ? "Owner first name" : ''}
+        placeholder={language === 'eng' ? "Owner First Name" : "Prénom du Propriétaire"}
                style={{border:'none',backgroundColor:"rgba(255, 255, 255, 0.1)" ,color:'var(--accent-color)'}}
                onChange={handleChange}
         />
       </Form.Item>
       <Form.Item
         name="last_name"
-        rules={[{ required: true, message: 'Please input your Last Name!' },
-          { max: 16, message: 'First name must be less than 17 characters!' }]}
+        rules={[
+          { required: true, message: language === 'eng' ? 'Please input your Last Name!' : 'Veuillez entrer votre nom de famille!' },
+          { max: 16, message: language === 'eng' ? 'Last name must be less than 17 characters!' : 'Le nom de famille doit comporter moins de 17 caractères!' }
+        ]}
       >
         <Input
         size="large"  
         name="last_name"
-        placeholder={language === 'eng' ? "Owner last name" : ''}
+        placeholder={language === 'eng' ? "Owner last name" : 'Nom du Propriétaire'}
                style={{border:'none',backgroundColor:"rgba(255, 255, 255, 0.1)" ,color:'var(--accent-color)'}}
                onChange={handleChange}
         />
       </Form.Item>
         <Form.Item
           name="company_address"
-          rules={[{ required: true, message: 'Please input your company address!' },
-            {
-              max: 64,
-              min: 12,
-              message: "Le titre doit comporter entre 12 et 64 caractères.",
-            },]}
+          rules={[
+            { required: true, message: language === 'eng' ? 'Please input your company address!' : 'Veuillez entrer l\'adresse de votre entreprise!' },
+            { 
+              max: 64, 
+              message: language === 'eng' ? 'The address must not exceed 64 characters.' : 'L\'adresse ne doit pas dépasser 64 caractères.' 
+            },
+          ]}
+          
         >
           <Input
           size="large"  
@@ -166,11 +174,13 @@ const Register = () => {const navigate = useNavigate();
         </Form.Item>
         <Form.Item
           name="company_city"
-          rules={[{ required: true, message: 'Please input your company city!' },
-            {
-              max: 16,
-              message: "Le titre ne doit pas dépasser 16 caractères.",
-            },]}
+          rules={[
+            { required: true, message: language === 'eng' ? 'Please input your company city!' : 'Veuillez entrer la ville de votre entreprise!' },
+            { 
+              max: 16, 
+              message: language === 'eng' ? 'The city must not exceed 16 characters.' : 'La ville ne doit pas dépasser 16 caractères.' 
+            },
+          ]}
         >
           <Input
           size="large"  
@@ -182,12 +192,14 @@ const Register = () => {const navigate = useNavigate();
         </Form.Item>
         <Form.Item
           name="phone"
-          rules={[{ required: true, message: 'Please input your phone!' },
-            { pattern: /^[0-9]+$/, message: 'Phone number must contain only numbers!' },
-            {
-              max: 16,
-              message: "Le titre ne doit pas dépasser 16 caractères.",
-            },]}
+          rules={[
+            { required: true, message: language === 'eng' ? 'Please input your phone!' : 'Veuillez entrer votre numéro de téléphone!' },
+            { pattern: /^[0-9]+$/, message: language === 'eng' ? 'Phone number must contain only numbers!' : 'Le numéro de téléphone ne doit contenir que des chiffres!' },
+            { 
+              max: 16, 
+              message: language === 'eng' ? 'The phone number must not exceed 16 characters.' : 'Le numéro de téléphone ne doit pas dépasser 16 caractères.' 
+            },
+          ]}
         >
           <Input
           size="large"  
@@ -202,15 +214,15 @@ const Register = () => {const navigate = useNavigate();
           rules={[
             { 
               required: true, 
-              message: 'Please input your Email!' 
+              message: language === 'eng' ? 'Please input your Email!' : 'Veuillez entrer votre adresse e-mail!' 
             },
             { 
               pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 
-              message: 'The input is not valid E-mail!' 
+              message: language === 'eng' ? 'The input is not a valid E-mail!' : 'L\'entrée n\'est pas une adresse e-mail valide!' 
             },
-            {
-              max: 40,
-              message: "Le titre ne doit pas dépasser 40 caractères.",
+            { 
+              max: 40, 
+              message: language === 'eng' ? 'The input must not exceed 40 characters.' : 'L\'entrée ne doit pas dépasser 40 caractères.' 
             },
           ]}
         >
@@ -224,11 +236,16 @@ const Register = () => {const navigate = useNavigate();
         </Form.Item>
         <Form.Item
           name="tva"
-          rules={[{ required: true, message: 'Please input your TVA!' },
-            {
-              max: 16,
-              message: "Le titre ne doit pas dépasser 16 caractères.",
-            },]}
+          rules={[
+            { 
+              required: true, 
+              message: language === 'eng' ? 'Please input your TVA!' : 'Veuillez entrer votre TVA!' 
+            },
+            { 
+              max: 20, 
+              message: language === 'eng' ? 'The input must not exceed 20 characters.' : 'L\'entrée ne doit pas dépasser 20 caractères.' 
+            },
+          ]}
         >
           <Input
           size="large"  
@@ -240,11 +257,16 @@ const Register = () => {const navigate = useNavigate();
         </Form.Item>
         <Form.Item
           name="siret"
-          rules={[{ required: true, message: 'Please input your siret!' },
-            {
-              max: 16,
-              message: "Le titre ne doit pas dépasser 16 caractères.",
-            },]}
+          rules={[
+            { 
+              required: true, 
+              message: language === 'eng' ? 'Please input your SIRET!' : 'Veuillez entrer votre SIRET!' 
+            },
+            { 
+              max: 16, 
+              message: language === 'eng' ? 'The input must not exceed 16 characters.' : 'L\'entrée ne doit pas dépasser 16 caractères.' 
+            },
+          ]}
         >
           <Input
           size="large"  
@@ -265,7 +287,7 @@ const Register = () => {const navigate = useNavigate();
           </Button>
         </Form.Item> 
       </Form>
-      {language === 'eng' ? <h4>Vous avez un compte? <span style={{fontWeight:700, textDecoration:'underline', cursor:'pointer'}} onClick={()=>navigate(`/login`)}>Log in!</span></h4> : <h4>Vous avez un compte? <span style={{fontWeight:700, textDecoration:'underline', cursor:'pointer'}} onClick={()=>navigate(`/login`)}>Log in!</span></h4>}
+      {language === 'eng' ? <h4>{language === 'eng' ? "Do you have an account?" : "Vous avez un compte?"} <span style={{fontWeight:700, textDecoration:'underline', cursor:'pointer'}} onClick={()=>navigate(`/login`)}>{language === 'eng' ? "Log in!" : "Se connecter!"}</span></h4> : <h4>{language === 'eng' ? "Do you have an account?" : "Vous avez un compte?"} <span style={{fontWeight:700, textDecoration:'underline', cursor:'pointer'}} onClick={()=>navigate(`/login`)}>{language === 'eng' ? "Log in!" : "Se connecter!"}</span></h4>}
       <p>{authCtx.companySettings?.copyrights_en}</p>
         </div>
     </div>
