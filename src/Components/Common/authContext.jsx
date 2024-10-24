@@ -81,6 +81,7 @@ export const AuthContextProvider = (props) => {
   const dispatch = useDispatch();
   const productData = useSelector((state)=>state.products.productData);
   const favorites = useSelector((state)=>state.products.favorites);
+  const language = useSelector((state) => state.products.selectedLanguage[0].Language);
   const user = useSelector((state)=>state.products.userInfo);
   const token = localStorage.getItem('token');
   const [isLoading, setIsLoading] = useState(false);
