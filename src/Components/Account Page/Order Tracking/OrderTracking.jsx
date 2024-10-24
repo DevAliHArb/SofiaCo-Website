@@ -596,7 +596,7 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
         <h4 onClick={()=>setisSelected(false) & setselectedOrder({}) & navigate('/account/order-tracking')} className={classes.back}><IoIosArrowBack style={{marginBottom:'-.15em'}}/> {language === 'eng' ? "Back" : "Dos" }</h4>
         <div className={classes.header1}>
       <div className={classes.headtitle} style={{margin:"0 0 0 1em",textAlign:'start',fontWeight:'500',lineHeight:'130%'}} onClick={()=>console.log(steps)}>{language === 'eng' ? "Order" : "Commande " } # {selectedOrder?.id}<br/> {language === 'eng' ? "Placed on" : "Placé sur" } {new Date(selectedOrder?.date).getDate()}/{new Date(selectedOrder?.date).getMonth()}/{new Date(selectedOrder?.date).getFullYear()}</div>
-      <div className={classes.headtitle} style={{margin:"auto 1em auto auto",fontWeight:'500'}} onClick={()=>console.log(steps)}>{selectedOrder?.currency === 'eur' ? '€' : '$'}{selectedOrder?.total_price}</div>
+      <div className={classes.headtitle} style={{margin:"auto 1em auto auto",fontWeight:'500'}} onClick={()=>console.log(steps)}>{selectedOrder?.currency === 'eur' ? '€' : '$'}{Number(selectedOrder?.total_price).toFixed(2)}</div>
       <div style={{display:'flex',flexDirection:'row'}}></div>
       </div>
       {selectedOrder?.tracking_number && <div style={{display:'flex',flexDirection:'row',border:'none',marginTop:'1em'}}className={classes.adressCard}>
@@ -746,7 +746,7 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
         <h4 onClick={()=>setisSelected(false) & setisReviewMood(false) & setselectedOrder({}) & window.scrollTo({ top: 0 })} className={classes.back}><IoIosArrowBack style={{marginBottom:'-.15em'}}/> {language === 'eng' ? "Back" : "Dos" }</h4>
         <div className={classes.header1}>
       <div className={classes.headtitle} style={{margin:"0 0 0 1em",textAlign:'start',fontWeight:'500',lineHeight:'130%'}} onClick={()=>console.log(steps)}>{language === 'eng' ? "Order" : "Commande " } # {selectedOrder?.id}<br/> {language === 'eng' ? "Placed on" : "Placé sur" } {new Date(selectedOrder?.date).getDate()}/{new Date(selectedOrder?.date).getMonth()}/{new Date(selectedOrder?.date).getFullYear()}</div>
-      <div className={classes.headtitle} style={{margin:"auto 1em auto auto",fontWeight:'500'}} onClick={()=>console.log(steps)}>{selectedOrder?.currency === 'eur' ? '€' : '$'}{selectedOrder?.total_price}</div>
+      <div className={classes.headtitle} style={{margin:"auto 1em auto auto",fontWeight:'500'}} onClick={()=>console.log(steps)}>{selectedOrder?.currency === 'eur' ? '€' : '$'}{Number(selectedOrder?.total_price).toFixed(2)}</div>
       <div style={{display:'flex',flexDirection:'row'}}></div>
       </div> 
       {/* <button className={classes.reviewbtn} style={{backgroundColor:'var(--primary-color)',marginRight:"0"}}>Return</button>  */}
