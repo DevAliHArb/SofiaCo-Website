@@ -697,7 +697,7 @@ const CheckOut = () => {
     settotalWeight(totalWeight);
 
     if (currency === "usd") {
-      const sum = (totalPricedollar + totalTVAdollar).toFixed(2);
+      const sum = Number(totalPricedollar).toFixed(2);
       const fixedtva = totalTVAdollar.toFixed(2)
       
       setsubTotalAmt(sum);
@@ -706,7 +706,7 @@ const CheckOut = () => {
     } else {
       // For EUR, keep the original values
       
-      setsubTotalAmt(parseFloat((totalPrice + totalTVA)));
+      setsubTotalAmt(parseFloat((totalPrice)));
       setTVA(parseFloat((totalTVA * 1)));
       setEURTVA(totalTVA);
     }
