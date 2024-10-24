@@ -298,6 +298,7 @@ const fetchArticles = async () => {
     };
      } else {
       const newQuantity = item.quantity + 1;
+      if (newQuantity <= item._qte_a_terme_calcule){
         axios.put(`https://api.leonardo-service.com/api/bookshop/cart/${item.cart_id}`, {
           quantity: newQuantity,
           })
@@ -333,6 +334,19 @@ const fetchArticles = async () => {
                 theme: "colored",
               });
           });
+        } else {
+          toast.info(
+            language === "eng"
+              ? "No more items in stock"
+              : "Plus d'articles en stock",
+            {
+              position: "top-right",
+              autoClose: 1500,
+              hideProgressBar: true,
+              theme: "colored",
+            }
+          );
+      }
       
     }
     }
