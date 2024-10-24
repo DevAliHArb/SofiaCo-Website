@@ -682,14 +682,14 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
               {props.article.dc_auteur && <p style={{fontWeight:'600',fontSize:'calc(.6rem + 0.2vw)'}}>{props.article.dc_auteur}</p>}
               {props.article.descriptif && <p className={classes.dicription} dangerouslySetInnerHTML={{ __html: props.article.descriptif }}/>}
             <div className={classes.quantityMob}>
-              <p> {selectedOrder?.currency === 'usd' ? '$' : '€' } {Number(props.price).toFixed(2)}{selectedOrder?.currency === 'usd' ? '$' : '€' } <span style={{textDecoration:'line-through',}}>{Number(props.price_without_discount).toFixed(2)}{selectedOrder?.currency === 'usd' ? '$' : '€' }</span> </p>
+              <p> {selectedOrder?.currency === 'usd' ? '$' : '€' } {Number(props.price).toFixed(2)}{props?.article_discount > 0 && <span style={{textDecoration:'line-through',}}>{selectedOrder?.currency === 'usd' ? ' $' : ' €' }{Number(props.price_without_discount).toFixed(2)}{selectedOrder?.currency === 'usd' ? '$' : '€' }</span>} </p>
               <p style={{textAlign:'end'}}>{selectedOrder?.currency === 'usd' ? '$' : '€' } {Number(props.total_price).toFixed(2)}</p>
             </div>
               </div>
             </div>
-            <p className={classes.quantity}> {selectedOrder?.currency === 'usd' ? '$' : '€' }{props.price} </p>
+            <p className={classes.quantity}> {selectedOrder?.currency === 'usd' ? '$' : '€' } {Number(props.price).toFixed(2) }{props?.article_discount > 0 && <span style={{textDecoration:'line-through',}}>{selectedOrder?.currency === 'usd' ? ' $' : ' €' }{Number(props.price_without_discount).toFixed(2)}{selectedOrder?.currency === 'usd' ? '$' : '€' }</span>} </p>
             <p className={classes.quantity}> x{props.quantity} </p>
-            <p className={classes.quantity}>{selectedOrder?.currency === 'usd' ? '$' : '€' }{(props.price * props.quantity).toFixed(2)} </p>
+            <p className={classes.quantity}>{selectedOrder?.currency === 'usd' ? '$' : '€' }{Number(props.total_price).toFixed(2)} </p>
           </div>
              )
           })} 

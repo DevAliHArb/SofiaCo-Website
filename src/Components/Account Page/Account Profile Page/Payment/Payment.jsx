@@ -276,6 +276,22 @@ useEffect(() => {
     }
   };
 
+  
+
+  const handleChangeNumber = (e) => {
+    const { value } = e.target;
+
+    // Remove all non-digit characters from the input value
+    const digits = value.replace(/\D/g, '');
+
+    // Format the digits to add spaces every 4 digits
+    const formattedValue = digits.replace(/(.{4})/g, '$1 ').trim();
+
+    // Update the input state and form data
+    form.setFieldValue('card_number',formattedValue)
+    setFormData({ ...formData, card_number: digits }); // Store the raw digits without spaces
+  };
+
   const handleChange = (name, value) => {
     setFormData({ ...formData, [name]: value });
   };
@@ -486,9 +502,9 @@ useEffect(() => {
         <Form.Item
           name="card_number"
           rules={[{ required: true, message: 'Please input your Card Number!' },
-          {
-            pattern: /^\d+$/,
-            message: 'The Code postal must be digits only!',
+          { 
+            pattern: /^[\d\s]+$/, // Allows only digits and spaces
+            message: `${language === 'fr' ? "Le numéro de la carte ne doit comporter que des chiffres !" :'The card number must be digits only!'}`
           }]}
           style={{border:'none',borderRadius:'.5em'}}
         >
@@ -496,11 +512,11 @@ useEffect(() => {
                   name="card_number"
                   placeholder='Card Number'
                   size="large" 
-                  value={formData?.card_number}
-                  style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
-                        onChange={(e) => handleChange('card_number', e.target.value)}
-                  />
-        </Form.Item>
+        // value={inputValue}
+        style={{ height: "3em", backgroundColor: "#fff", fontFamily: 'var(--font-family)' }}
+        onChange={handleChangeNumber}
+      />
+    </Form.Item>
         <Form.Item
         name="year"
         rules={[
