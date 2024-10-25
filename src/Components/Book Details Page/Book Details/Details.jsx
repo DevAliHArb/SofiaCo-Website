@@ -54,7 +54,18 @@ const Details = () => {
   const [count, setCount] = React.useState(1);
 
   const handleCountChange = (event) => {
-    setCount(event.target.value);
+    const value = parseInt(event.target.value, 10);
+
+  // Only set the count if the value is greater than zero
+  if  (value > Number(bookData._qte_a_terme_calcule)) {
+    // Reset to minimum if the user tries to input a negative or zero value
+    setCount(Number(bookData._qte_a_terme_calcule).toFixed(0));
+  } else if (value > 0) {
+    setCount(value);
+  }else {
+    // Reset to minimum if the user tries to input a negative or zero value
+    setCount(1);
+  }
   };
 
   useEffect(() => {
@@ -346,6 +357,7 @@ const handleSuivreCategory = async () => {
         <div className={classes.contentss}>
         </div>
         <div className={classes.priceContainer}>
+        <p style={{ margin: ".5em auto .5em 0",color:bookData._qte_a_terme_calcule > 0 ? "var(--forth-color)" : "#EE5858",fontWeight:"600" }}>{bookData._qte_a_terme_calcule > 0 ? `${(bookData._qte_a_terme_calcule * 1).toFixed(0)} in stock` : `${language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}`} </p>
           <p
             style={{
               color: "var(--primary-color)",
@@ -403,10 +415,10 @@ const handleSuivreCategory = async () => {
           <button
           disabled={bookData._qte_a_terme_calcule < 1} style={{cursor:bookData._qte_a_terme_calcule < 1 &&'not-allowed'}}
             className={classes.addToCartBtn}
-            onClick={(event) =>
-              authCtx.addToCart({ props: bookData }) &
-              event.stopPropagation()
-            }
+            onClick={(event) => {
+              event.stopPropagation();
+              authCtx.addToCartWithQty( {...bookData, quantity: count} );
+            }}
           >
             {" "}
             {language === 'eng' ? 'Add to cart' : 'Ajouter Au Panier'}
