@@ -386,7 +386,6 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
                 { required: true, message: "Veuillez saisir votre adresse!" },
                 {
                   max: 64,
-                  min: 12,
                   message: "Le titre doit comporter entre 12 et 64 caractères.",
                 },
               ]}
