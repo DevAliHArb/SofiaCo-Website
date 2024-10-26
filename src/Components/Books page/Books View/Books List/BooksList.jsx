@@ -95,10 +95,17 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
   const changepage = (id) => {
     setCurrentPage(id);
     setpagenbroute(id);
-    if (currentpage === pagenb - 2 || currentpage === pagenb - 1) {
-      setarraypage(arraypage +1)
-      fetchArticles(selectedRate, null, null, arraypage);
-    }
+  
+    setCurrentPage((prevCurrentPage) => {
+      if (prevCurrentPage === pagenb - 2 || prevCurrentPage === pagenb - 1 || prevCurrentPage === pagenb) {
+        setarraypage((prevArrayPage) => {
+          const newArrayPage = prevArrayPage + 1;
+          fetchArticles(selectedRate, null, null, newArrayPage);
+          return newArrayPage;
+        });
+      }
+      return id;
+    });
   };
 
 
