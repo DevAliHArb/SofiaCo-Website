@@ -287,7 +287,7 @@ const reviewHandler =()=>setisReviewMood(true);
      if (!item) {
      try {
       setIsLoading(true);
-      const response = await axios.post("https://api.leonardo-service.com/api/bookshop/cart?ecom_type=albouraq", {
+      const response = await axios.post("https://api.leonardo-service.com/api/bookshop/cart?ecom_type=sofiaco", {
         user_id: user.id,
         article_id: props.id,
         quantity: props.quantity,
