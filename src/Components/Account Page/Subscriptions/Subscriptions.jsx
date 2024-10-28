@@ -399,7 +399,7 @@ const Subscriptions = () => {
         </div>
         <div className={classes.grid_con}>
           
-        {(data?.length === 0 && collectionData?.length === 0) ? (
+        {(data?.length === 0 && collectionData?.length === 0 && CategoryData?.length === 0 ) ? (
             <div
               style={{
                 display: "flex",
