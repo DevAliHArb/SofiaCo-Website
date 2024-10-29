@@ -71,7 +71,7 @@ function App() {
       path === '/login' ||
       path === '/register' ||
       path === '/forget-password' ||
-      path === '/reset-password' ||
+      path.startsWith('/reset-password') ||
       path === '/verification' ||
       path === '/verify-email'
     ) {
