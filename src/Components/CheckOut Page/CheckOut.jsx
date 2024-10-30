@@ -883,7 +883,7 @@ const CheckOut = () => {
     return result;
   };
   const calculateReductionAmt = (total, percentage) => {
-    const reduction = total * (percentage / 100); // 20% reduction
+    const reduction = (total * (percentage / 100)).toFixed(2); // 20% reduction
     return reduction;
   };
 
