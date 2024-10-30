@@ -1016,6 +1016,7 @@ const CheckOut = () => {
       setColissimoPopupOpen(true);
     } else {
       setColissimoPopupOpen(false);
+      setColissimoPointData(null)
     }
   };
 
