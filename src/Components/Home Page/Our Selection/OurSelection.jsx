@@ -17,6 +17,7 @@ import { IoMdArrowBack } from "react-icons/io";
 import { addSelectedBook } from '../../Common/redux/productSlice';
 import { IoCartOutline } from "react-icons/io5";
 import { stripHtmlTags, truncateText } from '../../Common/TextUtils';
+import { Rating } from '@mui/material';
 
 const OurSelection = () => {
   const authCtx = useContext(AuthContext);
@@ -165,6 +166,19 @@ const OurSelection = () => {
                     </div>
                     
                     <div className={classes.bookTitle} >
+                    <p style={{maxWidth:'100%',width:'fit-content',margin:'0em auto 0 auto',display:"flex",flexDirection:"row"}}>
+                        <Rating
+                          style={{
+                              color: "#EEBA7F",
+                              margin:'0 .5em 0 0',
+                          }}
+                          size='small'
+                          name="read-only"
+                          value={props.average_rate}
+                          precision={0.5}
+                          readOnly
+                      /><p style={{margin:'0 0 0 0 ',color:"#EEBA7F"}}>{props.average_rate}/5</p>
+                      </p>
                       <p >{props.designation.length > 15 ? props.designation.slice(0,15) + '...' : props.designation}</p>
                       <p style={{ margin:'0em', fontSize:'small', fontWeight: 400 }}>{truncateText(stripHtmlTags(props.dc_auteur), 15)}</p>
                       <p style={{ margin:'.3em 0em', fontSize:'small', fontWeight: 400 }}>{truncateText(stripHtmlTags(props.descriptif), 40)}</p>

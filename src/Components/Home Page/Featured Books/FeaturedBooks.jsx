@@ -17,6 +17,7 @@ import { addSelectedBook } from '../../Common/redux/productSlice';
 import { stripHtmlTags, truncateText } from '../../Common/TextUtils';
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Rating } from '@mui/material';
 
 const FeaturedBooks = () => {
   const authCtx = useContext(AuthContext);
@@ -151,6 +152,19 @@ const FeaturedBooks = () => {
                       </div>
                     </div>
                       <div className={classes.bookTitle} style={{opacity: index === activeIndex ? 1 : 0}}>
+                    <p style={{maxWidth:'100%',width:'fit-content',margin:'0em auto 0 auto',display:"flex",flexDirection:"row"}}>
+                        <Rating
+                          style={{
+                              color: "#EEBA7F",
+                              margin:'0 .5em 0 0',
+                          }}
+                          size='small'
+                          name="read-only"
+                          value={props.average_rate}
+                          precision={0.5}
+                          readOnly
+                      /><p style={{margin:'0 0 0 0 ',color:"#EEBA7F"}}>{props.average_rate}/5</p>
+                      </p>
                       <p style={{ margin:'0em' }}>{truncateText(stripHtmlTags(props.designation), 15)}</p>
                       <p style={{ margin:'.3em 0em', fontSize:'small', fontWeight: 400 }}>{truncateText(stripHtmlTags(props.descriptif), 40)}</p>
                         <span style={{ display: "flex", flexDirection: "row", margin:'0 auto', columnGap:'0.5em' }}>
