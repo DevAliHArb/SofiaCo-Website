@@ -551,7 +551,7 @@ const CheckOut = () => {
       });
 
       setAddressesList(sortedAddresses);
-      setdisplayedAddress(1);
+      // setdisplayedAddress(1);
 
       sortedAddresses.forEach((element) => {
         if (element.default === "true") {
@@ -584,7 +584,7 @@ const CheckOut = () => {
       });
       setPaymentsList(sortedPayments);
       setdisplayedPayment(1);
-      setopenPay(false);
+      // setopenPay(false);
       if (userInfo.default_pay === 'card')
        {response?.data.data.forEach((element) => {
         setdirectPay(false);

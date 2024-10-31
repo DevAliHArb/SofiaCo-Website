@@ -39,6 +39,7 @@
   margin: 0.5em auto;
 }
 
+
 .nodata{
   width: fit-content;
   height: fit-content;
@@ -51,6 +52,7 @@
 .nodata_img{
   width: 15em;
   height: 15em;
+  margin: auto;
 }
 
 .nodata_img img{
@@ -61,7 +63,7 @@
 
 .nodata h1{
   font-family: var(--font-family);
-  color: var(--accent-color);
+  color: var(--primary-color);
   text-align: center;
 }
 

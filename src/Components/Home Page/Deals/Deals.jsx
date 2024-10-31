@@ -15,6 +15,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IoMdArrowBack } from "react-icons/io";
 import { addSelectedBook } from "../../Common/redux/productSlice";
+import { stripHtmlTags, truncateText } from "../../Common/TextUtils";
 
 const Deals = () => {
   const authCtx = useContext(AuthContext);
@@ -227,14 +228,10 @@ const Deals = () => {
                           )}
                         </div>
                         <p className={classes.desc} style={{ fontSize: "medium", fontWeight: 400 }}>
-                          {props.descriptif.length > 100
-                            ? props.descriptif.slice(0, 100) + "..."
-                            : props.descriptif}
+                        {truncateText(stripHtmlTags(props.descriptif), 100)}
                         </p>
                         <p className={classes.descmob} style={{ fontSize: "medium", fontWeight: 400 }}>
-                          {props.descriptif.length > 60
-                            ? props.descriptif.slice(0, 60) + "..."
-                            : props.descriptif}
+                        {truncateText(stripHtmlTags(props.descriptif), 100)}
                         </p>
                         <span
                           style={{

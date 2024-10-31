@@ -302,6 +302,7 @@ const reviewHandler =()=>setisReviewMood(true);
         discount: props.discount,
         quantity: props.quantity,
         description: props.descriptif,
+        average_rate: props.average_rate,
         weight: props._poids_net,
         cart_id: response.data.data.id,
         price_ttc: props._prix_public_ttc,

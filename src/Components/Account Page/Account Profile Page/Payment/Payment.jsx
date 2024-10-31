@@ -315,7 +315,7 @@ useEffect(() => {
               <div className={classes.contantContainer}>
                       <div className={classes.contant}>
                         <div style={{display:'flex',flexDirection:"row"}} >
-                        <img alt='' src={getImageSrc(item.card_type)} style={{height:'4em',width:'auto',margin:'0 0 0 -.55em',padding:'0'}}/>
+                        <img alt='' src={getImageSrc(item.card_type)} style={{height:'3em',width:'auto',margin:'0 .5em 1em 0',padding:'0'}}/>
                         <div style={{display:'flex',flexDirection:'column'}}>
                           <p style={{margin:'.2em'}}>{item.card_type}</p>
                           <p style={{margin:'.2em'}}>{maskConstant(item.card_number)}</p>
@@ -367,7 +367,7 @@ useEffect(() => {
                   <div className={classes.contantContainer}>
                           <div className={classes.contant}>
                             <div style={{display:'flex',flexDirection:"row"}} >
-                            <img alt='' src={directPay} style={{height:'3em',width:'auto',margin:'0 0 1em 0',padding:'0'}}/>
+                            <img alt='' src={directPay} style={{height:'3em',width:'auto',margin:'0 .5em 1em 0',padding:'0'}}/>
                             <div style={{display:'flex',flexDirection:'column'}}>
                               <p style={{margin:'auto .2em',fontWeight:"500"}}> Direct Payment</p>
                               {/* <p style={{margin:'.2em'}}>vtvf</p> */}
@@ -405,7 +405,7 @@ useEffect(() => {
                   <div className={classes.contantContainer}>
                           <div className={classes.contant}>
                             <div style={{display:'flex',flexDirection:"row"}} >
-                            <img alt='' src={PayPal} style={{height:'3em',width:'auto',margin:'0 0 1em 0',padding:'0'}}/>
+                            <img alt='' src={PayPal} style={{height:'3em',width:'auto',margin:'0 .5em 1em 0',padding:'0'}}/>
                             <div style={{display:'flex',flexDirection:'column',margin:"auto 0"}}>
                               <p style={{margin:'auto .2em',fontWeight:"500"}}> PayPal</p>
                               {/* <p style={{margin:'.2em'}}>vtvf</p> */}

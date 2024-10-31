@@ -516,6 +516,33 @@ const handleSuivreCategory = async () => {
                </span>} */}
           </div>
           <div className={classes.char}>
+            <p > {language === 'eng' ? 'Editor' : 'Editeur'}</p>
+            <p
+              onClick={() => {
+                localStorage.removeItem("category");
+                dispatch(editSearchData({ editor: bookData.editor?._nom }));
+                navigate(`/books`);
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              : {bookData.editor?._nom}
+            </p>
+            {bookData.editor && bookData.editor !== "" && <span  style={{
+                background: "var(--primary-color)",
+                color:'#fff',
+                height:'fit-content',
+                fontWeight: "500",
+                cursor: "pointer",
+                borderRadius:'0.2em',
+                padding:'0.2em 0.5em',
+                margin:'auto',
+                display:'flex'
+              }}
+               onClick={handleSuivreEditor}> 
+                <MdAddBox style={{fontSize:'1.5em', margin:'auto'}}/> 
+               </span>}
+          </div>
+          <div className={classes.char}>
             <p >{language === 'eng' ? 'Collection' : 'Collection'}</p>
             <p
               onClick={() => {
@@ -576,31 +603,8 @@ const handleSuivreCategory = async () => {
                </span>}
           </div>
           <div className={classes.char}>
-            <p > {language === 'eng' ? 'Editor' : 'Editeur'}</p>
-            <p
-              onClick={() => {
-                localStorage.removeItem("category");
-                dispatch(editSearchData({ editor: bookData.editor?._nom }));
-                navigate(`/books`);
-              }}
-              style={{ cursor: "pointer" }}
-            >
-              : {bookData.editor?._nom}
-            </p>
-            {bookData.editor && bookData.editor !== "" && <span  style={{
-                background: "var(--primary-color)",
-                color:'#fff',
-                height:'fit-content',
-                fontWeight: "500",
-                cursor: "pointer",
-                borderRadius:'0.2em',
-                padding:'0.2em 0.5em',
-                margin:'auto',
-                display:'flex'
-              }}
-               onClick={handleSuivreEditor}> 
-                <MdAddBox style={{fontSize:'1.5em', margin:'auto'}}/> 
-               </span>}
+            <p >EAN</p>
+            <p >: {bookData._code_barre}</p>
           </div>
           <div className={classes.char}>
             <p >{language === 'eng' ? 'Number pf pages' : 'Nombre de pages'}</p>
