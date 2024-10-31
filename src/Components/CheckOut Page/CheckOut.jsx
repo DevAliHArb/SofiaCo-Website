@@ -528,8 +528,10 @@ const CheckOut = () => {
   }, [colissimoPointData]);
 
   useEffect(() => {
-    FetchShippinCost();
-  }, [addresseslist, subtotalAmt, totalWeight]);
+    if (!colissimoPointData) {
+      FetchShippinCost();     
+    }
+  }, [addresseslist, subtotalAmt,totalWeight]);
 
   const fetchAddresses = async () => {
     try {
