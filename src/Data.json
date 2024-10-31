@@ -126,8 +126,8 @@
    "data1": { "eng": "Do you want to delete your account? If your account exists, an email has been sent to you.",
                "fr": "Vous souhaitez supprimer votre compte? Si votre compte existe, un email vous a été envoyé."
                 },
-   "button1": { "eng": "Email sent",
-                "fr": "Email envoyé"
+   "button1": { "eng": "Delete account",
+                "fr": "Supprimer le compte"
                },
    "data2": { "eng": "Check your email address to delete your account.",
                "fr": "Vérifiez votre adresse de messagerie pour supprimer votre compte."

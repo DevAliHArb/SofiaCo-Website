@@ -370,6 +370,7 @@ const Adresses = () => {
         sx={{ overflow: "hidden", border: "none" }}
       >
         <Box sx={style}>
+        {editMode ?
           <h4
             style={{
               color: "#fff",
@@ -381,8 +382,21 @@ const Adresses = () => {
               fontSize: "calc(.9rem + .3vw)",
             }}
           >
-            {language === 'eng' ? "Add a new address" : "Ajouter une nouvelle Addresse"}
-          </h4>
+          {language === "eng" ? "Edit address" : "Modifier l'adresse"}
+          </h4> : 
+          <h4
+            style={{
+              color: "#fff",
+              fontWeight: "600",
+              fontFamily: "var(--font-family)",
+              width: "100%",
+              padding: "0 2em",
+              textAlign: "start",
+              fontSize: "calc(.9rem + .3vw)",
+            }}
+          >
+          {language === "eng" ? "Add a new address" : "Ajouter une nouvelle addresse"}
+          </h4>}
           <Form
             layout="vertical"
             name="nest-messages"

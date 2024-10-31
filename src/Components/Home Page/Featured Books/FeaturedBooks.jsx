@@ -155,7 +155,7 @@ const FeaturedBooks = () => {
                       <p style={{ margin:'.3em 0em', fontSize:'small', fontWeight: 400 }}>{truncateText(stripHtmlTags(props.descriptif), 40)}</p>
                         <span style={{ display: "flex", flexDirection: "row", margin:'0 auto', columnGap:'0.5em' }}>
                           <p
-                            style={{ textAlign: "center", padding: "0 ",color: "var(--primary-color)",fontWeight:700 }}
+                            style={{ textAlign: "center", padding: "0 ",color: "var(--secondary-color)",fontWeight:700 }}
                           >
                             {currency === "eur"
                               ? `€${
@@ -182,7 +182,7 @@ const FeaturedBooks = () => {
                           {props.discount > 0 && (
                             <p
                               style={{
-                                color: "var(--primary-color)",
+                                color: "var(--secondary-color)",
                                 textDecoration: "line-through",
                                 fontSize: "small",
                                 margin:"auto 0"

@@ -64,6 +64,7 @@ const FavoriteItem = ({ carttoggle }) => {
                       _favid: props._favid,
                       favtitle: props.favtitle,
                       favauthor: props.favauthor,
+                      favrate: props.average_rate,
                       favimage: props.favimage,
                       favprice: props.favprice,
                       favquantity: e.target.value,

@@ -273,6 +273,7 @@ const reviewHandler =()=>setisReviewMood(true);
         author: props.dc_auteur,
         image: props.image,
         price: props.prixpublic,
+        average_rate: props.average_rate,
         _qte_a_terme_calcule: props._qte_a_terme_calcule,
         discount: props.discount,
         quantity: props.quantity,

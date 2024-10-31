@@ -119,9 +119,9 @@ const CollectionsPage = () => {
               <img src={nodata} alt="" />
             </div>
             {language === 'eng' ? (
-  <>No Collections <br /> were found!</>
+  <h1>No Collections <br /> were found!</h1>
 ) : (
-  <>Aucune collection <br /> n'a été trouvée !</>
+  <h1>Aucune collection <br /> n'a été trouvée !</h1>
 )}
 
           </div>

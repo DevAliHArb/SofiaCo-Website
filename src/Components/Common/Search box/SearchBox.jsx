@@ -132,6 +132,7 @@ function SearchBox() {
                     <div className={classes.dropdown_card_content}>
                     <h3 style={{margin:'0'}}>{article.designation}</h3>
                       <p style={{ margin: "1em 0", fontSize: "calc(0.6rem + 0.3vw)" }}>{truncateText(stripHtmlTags(article.descriptif), 70)}</p>
+                      {article._qte_a_terme_calcule < 1 && <p style={{ color: "red", fontSize: "calc(0.8rem + 0.2vw)",fontWeight: 600 }}>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>}
                       <p
                         style={{
                           color: "var(--primary-color)",

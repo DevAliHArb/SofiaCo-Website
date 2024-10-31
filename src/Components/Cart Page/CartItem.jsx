@@ -99,6 +99,7 @@ const CartItem = () => {
               _id: item._id,
               title: item.name,
               author: item.author,
+              average_rate: item.average_rate,
               image: item.image,
               price: item.price,
               quantity: newQuantity - item.quantity, // The difference in quantities

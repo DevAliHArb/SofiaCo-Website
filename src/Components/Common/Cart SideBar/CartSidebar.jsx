@@ -64,6 +64,7 @@ export default function CartSidebar({ toggle, isOpen }) {
             addTocart({
               _id: item._id,
               title: item.name,
+              average_rate: item.average_rate,
               author: item.author,
               image: item.image,
               price: item.price,
