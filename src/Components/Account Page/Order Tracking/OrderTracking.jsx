@@ -39,6 +39,8 @@ import { PiCheckCircle } from "react-icons/pi";
 import { PiNotepad } from "react-icons/pi";
 import AuthContext from '../../Common/authContext';
 import { addTocart } from '../../Common/redux/productSlice';
+import { TiCancelOutline } from "react-icons/ti";
+
 
 
 
@@ -213,67 +215,132 @@ const OrderTracking = () => {
     setselectedCategory(e.target.value) 
     // console.log(data)
   }
-let stepss = [
-  {
-      id: 2,
-      label: 'Confirming',
-      label_fr: 'Confirmation',
-      description:'Your order has been confirmed.',
-      description_fr:'Votre commande a été confirmée.',
-      icon: <PiNotebook/>,
-  },
-  {
-      id: 3,
-      label: 'Processing',
-      label_fr: 'En Cours',
-      description:'Your order is  in progress.',
-      description_fr:'Votre commande est en cours.',
-      icon: <PiPackageDuotone/>
-  },
-  {
-      id: 4,
-      label: 'Shipping',
-      label_fr: 'Expédiée',
-      description:'Your order has been Shipped.',
-      description_fr:'Votre commande a été expédiée.',
-      icon: <PiTruck/>
-  },
-  {
-      id: 5,
-      label: 'Confirming Recieved',
-      label_fr: 'Confirmation Reçu',
-      description:'Your order has been delivered. Thank you for shopping at Sofiaco!',
-      description_fr:"Votre commande a été livrée. Merci d'avoir fait vos achats chez Sofiaco !",
-      icon: <PiHandshake/>
-  }
-  
-];
-const stepsHandler =(props)=>{
-  let testt = []
-  stepss.forEach(order => {
-    let index = props.order_status_history?.find(step => step.status_id === order.id);
-    // console.log("helllooo",index)
-    if (index) {
-      testt.push({
-        id: order.id,
-        label: order.label, 
-        label_fr: order.label_fr, 
-        description: order.description,
-        description_fr: order.description_fr,
-        estimatedDate: index.time, 
-      });
-    } else {
-      testt.push({
-        id: order.id,
-        label: order.label, 
-        label_fr: order.label_fr, 
-        estimatedDate: "",
-        description: order.description, 
-        description_fr: order.description_fr,
-      });
+  let stepss = [
+    {
+        id: 2,
+        label: 'Confirming',
+        label_fr: 'Confirmation',
+        description:'Your order has been confirmed.',
+        description_fr:'Votre commande a été confirmée.',
+        icon: <PiNotebook/>,
+    },
+    {
+        id: 3,
+        label: 'Processing',
+        label_fr: 'En Cours',
+        description:'Your order is  in progress.',
+        description_fr:'Votre commande est en cours.',
+        icon: <PiPackageDuotone/>
+    },
+    {
+        id: 4,
+        label: 'Shipping',
+        label_fr: 'Expédiée',
+        description:'Your order has been Shipped.',
+        description_fr:'Votre commande a été expédiée.',
+        icon: <PiTruck/>
+    },
+    {
+        id: 5,
+        label: 'Confirming Recieved',
+        label_fr: 'Confirmation Reçu',
+        description:'Your order has been delivered. Thank you for shopping at Sofiaco!',
+        description_fr:"Votre commande a été livrée. Merci d'avoir fait vos achats chez Sofiaco !",
+        icon: <PiHandshake/>
     }
-  });
-  setsteps(testt)
+    
+  ];
+  let stepss1 = [
+    {
+        id: 2,
+        label: 'Ordered',
+        label_fr: 'Ordonné',
+        description:'Your order has been placed.',
+        description_fr:'votre commande a été passée.',
+        icon: <PiNotebook/>,
+    },
+    {
+        id: 3,
+        label: 'Processing',
+        label_fr: 'En Cours',
+        description:'Your order is  in progress.',
+        description_fr:'Votre commande est en cours.',
+        icon: <PiPackageDuotone/>
+    },
+    {
+        id: 13,
+        label: 'Cancelling ',
+        label_fr: 'Annulation',
+        description:'You request cancellation of the order.',
+        description_fr:"Vous demandez l'annulation de la commande.",
+        icon: <PiNotebook/>,
+    },
+    {
+        id: 42,
+        label: 'Cancelled',
+        label_fr: 'Annulé',
+        description:'Your order has been cancelled.',
+        description_fr:'Votre commande a été annulée.',
+        icon: <PiTruck/>
+    }
+    
+  ];
+const stepsHandler =(props)=>{
+  if (selectedOrder?.status_id === 13 || selectedOrder?.status_id === 42) {
+    let testt = []
+    stepss1.forEach(order => {
+      let index = props.order_status_history?.find(step => step.status_id === order.id);
+      // console.log("helllooo",index)
+      if (index) {
+        testt.push({
+          id: order.id,
+          label: order.label, 
+          label_fr: order.label_fr, 
+          description: order.description,
+          description_fr: order.description_fr,
+          estimatedDate: index.time, 
+        });
+      } else {
+        testt.push({
+          id: order.id,
+          label: order.label, 
+          label_fr: order.label_fr, 
+          estimatedDate: "",
+          description: order.description, 
+          description_fr: order.description_fr,
+        });
+      }
+    });
+    setsteps(testt)
+    
+  } else {
+    let testt = []
+    stepss.forEach(order => {
+      let index = props.order_status_history?.find(step => step.status_id === order.id);
+      // console.log("helllooo",index)
+      if (index) {
+        testt.push({
+          id: order.id,
+          label: order.label, 
+          label_fr: order.label_fr, 
+          description: order.description,
+          description_fr: order.description_fr,
+          estimatedDate: index.time, 
+        });
+      } else {
+        testt.push({
+          id: order.id,
+          label: order.label, 
+          label_fr: order.label_fr, 
+          estimatedDate: "",
+          description: order.description, 
+          description_fr: order.description_fr,
+        });
+      }
+    });
+    setsteps(testt)
+
+  }
 };
 const reviewHandler =()=>setisReviewMood(true);
   const formattedDate = new Date(selectedOrder?.date);
@@ -539,6 +606,12 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
                 <div className={classes.hexagon} onClick={()=>setselectedCategory(13) & localStorage.setItem('selectedOrderCategory', 13)} style={{backgroundColor:cat === 13 && 'var(--primary-color)'}}>
                   <div style={{width:'120%',height:'60%',position:"absolute",top:'20%',left:'-10%',zIndex:'1',rotate:'270deg'}}>
                     <img src={Canceled} alt=""  style={{width:'50%',}}/>
+                    <p style={{marginTop:'0.5em'}}>{language === 'eng' ? "Cancelling" : "Annulation" }</p>
+                  </div>
+                </div>
+                <div className={classes.hexagon} onClick={()=>setselectedCategory(42) & localStorage.setItem('selectedOrderCategory', 42)} style={{backgroundColor:cat === 42 && 'var(--primary-color)'}}>
+                  <div style={{width:'120%',height:'60%',position:"absolute",top:'20%',left:'-10%',zIndex:'1',rotate:'270deg'}}>
+                    <img src={Canceled} alt=""  style={{width:'50%',}}/>
                     <p style={{marginTop:'0.5em'}}>{language === 'eng' ? "Canceled" : "Annulé" }</p>
                   </div>
                 </div>
@@ -596,7 +669,7 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
       <div className={classes.detailsCard}>
         <h4 onClick={()=>setisSelected(false) & setselectedOrder({}) & navigate('/account/order-tracking')} className={classes.back}><IoIosArrowBack style={{marginBottom:'-.15em'}}/> {language === 'eng' ? "Back" : "Dos" }</h4>
         <div className={classes.header1}>
-      <div className={classes.headtitle} style={{margin:"0 0 0 1em",textAlign:'start',fontWeight:'500',lineHeight:'130%'}} onClick={()=>console.log(steps)}>{language === 'eng' ? "Order" : "Commande " } # {selectedOrder?.id}<br/> {language === 'eng' ? "Placed on" : "Placé sur" } {new Date(selectedOrder?.date).getDate()}/{new Date(selectedOrder?.date).getMonth()}/{new Date(selectedOrder?.date).getFullYear()}</div>
+      <div className={classes.headtitle} style={{margin:"0 0 0 1em",textAlign:'start',fontWeight:'500',lineHeight:'130%'}} onClick={()=>console.log(selectedOrder)}>{language === 'eng' ? "Order" : "Commande " } # {selectedOrder?.id}<br/> {language === 'eng' ? "Placed on" : "Placé sur" } {new Date(selectedOrder?.date).getDate()}/{new Date(selectedOrder?.date).getMonth()}/{new Date(selectedOrder?.date).getFullYear()}</div>
       <div className={classes.headtitle} style={{margin:"auto 1em auto auto",fontWeight:'500'}} onClick={()=>console.log(steps)}>{selectedOrder?.currency === 'eur' ? '€' : '$'}{Number(selectedOrder?.total_price).toFixed(2)}</div>
       <div style={{display:'flex',flexDirection:'row'}}></div>
       </div>
@@ -613,10 +686,10 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
         <div style={{width:'100%',display:'grid',gridTemplateColumns:"25% 25% 25% 25%",margin:'3em 0 1em 12.5%'}} className={classes.displayNoneMob}>
         {steps?.sort((a, b) => a.id - b.id).map((step) => {
             return (
-              <div key={step.id} className={classes.orderStep}  style={step.id == 5 ? {borderTop:'.2em solid transparent'} : {borderTop:step.id < categoryId ? '.2em solid var(--primary-color)':'.2em solid rgba(255,255,255,0.5)'}}>
+              <div key={step.id} className={classes.orderStep}  style={(step.id === 5 || step.id ===42) ? {borderTop:'.2em solid transparent'} : {borderTop:step.id < categoryId ? '.2em solid var(--primary-color)':'.2em solid rgba(255,255,255,0.5)'}}>
                 <div className={classes.stepdot} style={step.id == categoryId ? {backgroundColor:'var(--primary-color)',boxShadow:'0px 0px 0px .6em rgba(233, 119, 4, 50%)'} : step.id < categoryId ? {backgroundColor:'var(--primary-color)'} : {backgroundColor:'rgba(255,255,255,0.5)'}}/>
                 <h1 style={{color: step.id > categoryId ? 'rgba(255,255,255,0.5)':'#fff',fontSize:'calc(1rem + 0.3vw)',lineHeight:'100%',fontWeight:'600',marginLeft:'-50%',textAlign:'center',width:'100%'}}>
-                 {step.id === 2 ? <PiNotebook style={{fontSize:"2em"}}/> : step.id === 3 ? <PiPackageDuotone style={{fontSize:"2em"}}/> : step.id === 4 ? <PiTruck style={{fontSize:"2em"}}/> : <PiHandshake style={{fontSize:"2em"}}/>} <br/> {language === 'eng' ? step.label : step.label_fr} 
+                 {step.id === 2 ? <PiNotebook style={{fontSize:"2em"}}/> : step.id === 3 ? <PiPackageDuotone style={{fontSize:"2em"}}/> : step.id === 4 ? <PiTruck style={{fontSize:"2em"}}/> : step.id === 13 ? <TiCancelOutline style={{fontSize:"2em"}}/> : <PiHandshake style={{fontSize:"2em"}}/>} <br/> {language === 'eng' ? step.label : step.label_fr} 
                   {/* {(step.id <= categoryId || step.id === 5)&& <span style={{fontSize:'smaller',color:'var(--primary-color)',fontWeight:'500',paddingLeft:'.5em'}}>{(step.id === 5 && step.estimatedDate === "") ?  EstimatedDeliveryDate : (step.id !== 5 ? new Date(step.estimatedDate).toDateString() : new Date(step.estimatedDate).toDateString())} </span>}  */}
                 </h1>
                   <p style={{textAlign:'start', color:'#999999'}}>{step.description1}</p>
@@ -626,10 +699,10 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
         <div className={classes.MobLineTime}>
         {steps?.sort((a, b) => a.id - b.id).map((step) => {
             return (
-              <div key={step.id} className={classes.orderStep}  style={step.id == 5 ? {borderLeft:'.2em solid transparent'} : {borderLeft:step.id < categoryId ? '.2em solid var(--primary-color)':'.2em solid rgba(255,255,255,0.5)'}}>
+              <div key={step.id} className={classes.orderStep}  style={(step.id === 5 || step.id ===42) ? {borderLeft:'.2em solid transparent'} : {borderLeft:step.id < categoryId ? '.2em solid var(--primary-color)':'.2em solid rgba(255,255,255,0.5)'}}>
                 <div className={classes.stepdot} style={step.id == categoryId ? {backgroundColor:'var(--primary-color)',boxShadow:'0px 0px 0px .6em rgba(233, 119, 4, 50%)'} : step.id < categoryId ? {backgroundColor:'var(--primary-color)'} : {backgroundColor:'rgba(255,255,255,0.5)'}}/>
                 <h1 style={{color: step.id > categoryId ? 'rgba(255,255,255,0.5)':'#fff',fontSize:'calc(1rem + 0.3vw)',lineHeight:'100%',fontWeight:'600',textAlign:'start',margin:'-1em 0 3em 1em',width:'100%'}}>
-                 {step.id === 2 ? <PiNotebook style={{fontSize:"2em",marginBottom:'-.3em'}}/> : step.id === 3 ? <PiPackageDuotone style={{fontSize:"2em",marginBottom:'-.3em'}}/> : step.id === 4 ? <PiTruck style={{fontSize:"2em",marginBottom:'-.3em'}}/> : <PiHandshake style={{fontSize:"2em",marginBottom:'-.3em'}}/>}  {language === 'eng' ? step.label : step.label_fr} 
+                 {step.id === 2 ? <PiNotebook style={{fontSize:"2em",marginBottom:'-.3em'}}/> : step.id === 3 ? <PiPackageDuotone style={{fontSize:"2em",marginBottom:'-.3em'}}/> : step.id === 4 ? <PiTruck style={{fontSize:"2em",marginBottom:'-.3em'}}/> : step.id === 13 ? <TiCancelOutline style={{fontSize:"2em",marginBottom:'-.3em'}}/>  : <PiHandshake style={{fontSize:"2em",marginBottom:'-.3em'}}/>}  {language === 'eng' ? step.label : step.label_fr} 
                   {/* {(step.id <= categoryId || step.id === 5)&& <span style={{fontSize:'smaller',color:'var(--primary-color)',fontWeight:'500',paddingLeft:'.5em'}}>{(step.id === 5 && step.estimatedDate === "") ?  EstimatedDeliveryDate : (step.id !== 5 ? new Date(step.estimatedDate).toDateString() : new Date(step.estimatedDate).toDateString())} </span>}  */}
                 </h1>
               </div>

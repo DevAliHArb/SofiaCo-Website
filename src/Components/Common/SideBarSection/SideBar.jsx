@@ -124,32 +124,11 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
         </ListItem>
         </Link>
 
-         <Link  to='/' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
-         <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemText className={classes.text}>
-            {language === 'eng' ? 'vetements' : 'vetements'}
-            </ListItemText>
-          </ListItemButton>
-        </ListItem>
-        </Link>
-
-
         <Link  to='/collaborators' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemText className={classes.text}>
             {language === 'eng' ? "COLLABORATORS" : "COLLABORATEURS" }
-            </ListItemText>
-          </ListItemButton>
-        </ListItem>
-        </Link>
-
-        <Link  to='/' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemText className={classes.text}>
-            {language === 'eng' ? 'Our publishers' : 'Nos éditeurs'}
             </ListItemText>
           </ListItemButton>
         </ListItem>

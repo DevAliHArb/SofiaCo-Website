@@ -402,6 +402,19 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                     
                     <div className={classes.bookTitle} >
                       <p >{props.designation.length > 15 ? props.designation.slice(0,15) + '...' : props.designation}</p>
+                    <p style={{maxWidth:'100%',width:'fit-content',margin:'0em auto 0 auto',display:"flex",flexDirection:"row"}}>
+                        <Rating
+                          style={{
+                              color: "#EEBA7F",
+                              margin:'0 .5em 0 0',
+                          }}
+                          size='small'
+                          name="read-only"
+                          value={props.average_rate}
+                          precision={0.5}
+                          readOnly
+                      /><p style={{margin:'0 0 0 0 ',color:"#EEBA7F"}}>{props.average_rate}/5</p>
+                      </p>
                       <p style={{ height:'1em', fontSize:'small', fontWeight: 400 }}>{props.dc_auteur.length > 15 ? props.dc_auteur.slice(0,15) + '...' : props.dc_auteur}</p>
                       
                       <p className={classes.dicription} >

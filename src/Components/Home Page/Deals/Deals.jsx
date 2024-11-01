@@ -16,6 +16,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IoMdArrowBack } from "react-icons/io";
 import { addSelectedBook } from "../../Common/redux/productSlice";
 import { stripHtmlTags, truncateText } from "../../Common/TextUtils";
+import { Rating } from "@mui/material";
 
 const Deals = () => {
   const authCtx = useContext(AuthContext);
@@ -132,6 +133,19 @@ const Deals = () => {
 
                       <div className={classes.bookTitle}>
                         <p>{props.designation}</p>
+                    <p style={{maxWidth:'100%',width:'fit-content',margin:'0',display:"flex",flexDirection:"row"}}>
+                        <Rating
+                          style={{
+                              color: "#EEBA7F",
+                              margin:'0 .5em 0 0',
+                          }}
+                          size='small'
+                          name="read-only"
+                          value={props.average_rate}
+                          precision={0.5}
+                          readOnly
+                      /><p style={{margin:'0 0 0 0 ',color:"#EEBA7F"}}>{props.average_rate}/5</p>
+                      </p>
                         <p
                           style={{
                             height: "1em",
