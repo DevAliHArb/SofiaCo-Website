@@ -256,6 +256,18 @@
 .break{
     display: none;
 }
+
+.modalpopup1{
+    position: absolute;
+    margin: auto !important;
+    /* transform: translate(-50%, -50%); */
+    width: fit-content;
+    background-color: white;
+    border: none;
+    border-radius: 0em;
+    box-shadow: 24;
+    /* padding: 4; */
+}
 @media screen and (max-width: 950px) {
     .bigContainer{
         width: 100%;

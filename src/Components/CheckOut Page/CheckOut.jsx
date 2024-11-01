@@ -1103,7 +1103,10 @@ const CheckOut = () => {
     setAddressesList(sortedAddresses);
     dispatch(editDefaultAdd(id));
     setdisplayedAddress(1);
-    FetchShippinCost(id);
+    
+    if (!colissimoPointData) {
+      FetchShippinCost(id);     
+    }
 
   };
 
@@ -1655,7 +1658,10 @@ const CheckOut = () => {
                             ? "Retriat Point"
                             : "Point de Retriat"}
                         </p>
-                      }
+                      } 
+                      onClick={()=>{if (!colissimoPointData?.identifiant) {
+                        setColissimoPopupOpen(true)
+                      }}}
                       control={
                         <Radio
                           value="Colissimo"
@@ -1669,6 +1675,20 @@ const CheckOut = () => {
                         />
                       }
                     />
+                     {delivery === "Colissimo" && (
+                    <p
+                      style={{
+                        paddingLeft: "3.2em",
+                        display: "flex",
+                        flexDirection: "row",
+                        margin:'0em 0',
+                        width: "100%",
+                        fontSize: "calc(0.5rem + 0.5vw)",
+                      }}
+                    >
+                      {colissimoPointData?.identifiant}
+                    </p>
+                  )}
                   </RadioGroup>
                 </div>
           <div className={classes.noteContainer}>
@@ -1971,9 +1991,10 @@ const CheckOut = () => {
         onClose={() => setColissimoPopupOpen(false)}
         aria-labelledby="colissimo-widget-title"
         aria-describedby="colissimo-widget-description"
-        className={classes.modalpopup}
+        style={{width:'100%', height:'100%', display:'flex', justifyContent:'center', alignItems:'center'}}
+        // className={classes.modalpopup}
       >
-        <Box sx={style1} className={classes.modalpopup}>
+        <Box className={classes.modalpopup1}>
           <div ref={widgetRef} id="monIdDeWidgetColissimo" className=""></div>
 
           {/* <div id="monIdDeWidgetColissimo" className=""></div> */}
