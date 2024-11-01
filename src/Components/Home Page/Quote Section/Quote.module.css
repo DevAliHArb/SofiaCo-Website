@@ -144,6 +144,9 @@
   .nav_next{
     top: 21.5vh;
   }
+  .quote_con{
+    margin: -2em auto;
+}
 }
 
 @media screen and (max-width:650px) {

@@ -118,7 +118,7 @@ const Hero = ({ carttoggle }) => {
               modules={[Pagination]}
               breakpoints={{
                 0: {
-                  slidesPerView: 1.5,
+                  slidesPerView: 2.5,
                 },
                 651: {
                   slidesPerView: 2,

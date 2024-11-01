@@ -60,8 +60,9 @@
   }
 }
   
-  /* @media screen and (max-width:950px) {
-    
- 
-    
-  } */
+  @media screen and (max-width:650px) {
+    .bigContainer{
+      display: flex;
+      flex-direction: column-reverse;
+    }
+  }
