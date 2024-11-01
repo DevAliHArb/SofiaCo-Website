@@ -9,6 +9,34 @@
   max-width: 1900px;
   margin: 0 auto;
   background-color: #fff;
+}      
+.out_of_stock{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  background-color: rgba(194, 194, 194, 0.5);
+  z-index: 9;
+  cursor: auto;
+  cursor: pointer;
+}
+
+.out_of_stock p {
+  width: fit-content;
+  height: fit-content;
+  margin: auto;
+  font-family: var(--font-family);
+  font-size: calc(0.7rem + 0.3vw);
+  text-align: center;
+  justify-self: center;
+  align-self: center;
+  color: #fff;
+  padding: 0.2em 0.8em;
+  border-radius: 5px;
+  background-color: var(--primary-color);
 }
 
 .detailsContainer{
@@ -68,30 +96,34 @@
   object-fit: fill;
 }
 .nodata{
-  width: fit-content;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  row-gap: 2em;
-  margin: 1em auto;
-}
-
-.nodata_img{
-  width: 15em;
-  height: 15em;
-}
-
-.nodata_img img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.nodata h1{
-  font-family: var(--font-family);
-  color: var(--accent-color);
-  text-align: center;
-}
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    column-gap: 2em;
+    margin: auto;
+    margin-top: 4em;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .nodata_img{
+    width: 10em;
+    height: 10em;
+  }
+  
+  .nodata_img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .nodata h1{
+    font-family: var(--font-family);
+    font-size: calc(1.5rem + 0.8vw);
+    color: #EEBA7F;
+    text-align: start;
+  }
 
 .data {
   position: relative;
@@ -199,8 +231,7 @@
   width: 90%;
   margin: 0 auto;
   border-radius: 1em;
-  /* overflow: hidden; */
-  padding: 10% 0 0% 0;
+  overflow: hidden;
   height: 22vw;
   max-height: 22em;
 }
@@ -292,11 +323,12 @@ background-color: #A8ACAD;
   position: absolute;
   height: 1em;
   width: 1em;
-  top: 2.2em;
+  top: .7em;
   right: 0.7em;
   background-color: var(--primary-color);
   padding: 0.5em;
   border-radius: 50%;
+  z-index: 50;
 }
 
 .fav{
@@ -432,6 +464,12 @@ background-color: #A8ACAD;
 }
 
 @media screen and (max-width: 950px) {
+  .nodata{
+    flex-direction: column;
+  }
+  .nodata h1{
+    text-align: center;
+  }
   .page_control{
     margin: 2em auto 0 auto;
   }

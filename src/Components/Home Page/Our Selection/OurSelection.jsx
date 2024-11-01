@@ -66,8 +66,11 @@ const OurSelection = () => {
               <img src={nodata} alt="" />
             </div>
             <h1>
-              No Books <br />
-              were found!
+            {language === 'eng' ? (
+            <>No products <br /> were found!</>
+          ) : (
+            <>Aucun produits <br /> n'a été trouvé !</>
+          )}
             </h1>
           </div>
         ) : (

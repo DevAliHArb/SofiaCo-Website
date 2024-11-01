@@ -597,19 +597,19 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                           <PiShoppingCartSimpleLight className={classes.icon} />
                         </div>}
                       </div>
-             <span style={{ display: "flex", flexDirection: "row", margin:'0', columnGap:'0.5em' }}>
+             <span style={{ display: "flex", flexDirection: "row", margin:'0 0 0 auto', columnGap:'0.5em' }}>
                         {props.discount > 0 && (
                           <p
                             style={{
                               color: "var(--primary-color)",
                               textDecoration: "line-through",
                               fontSize: "small",
-                              margin:"auto 0"
+                              margin:"auto 0 auto 0"
                             }}
                           >
                             {currency === "eur"
-                              ? `€ ${Number(props._prix_public_ttc).toFixed(2)} `
-                              : `$ ${(
+                              ? `€${Number(props._prix_public_ttc).toFixed(2)} `
+                              : `$${(
                                   props._prix_public_ttc * authCtx.currencyRate
                                 ).toFixed(2)} `}
                           </p>

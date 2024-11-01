@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import classes from "./EventsDetails.module.css";
 // import collab_image from "../../../assets/collab-head.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +16,7 @@ import { addSelectedEvent } from "../../Common/redux/productSlice";
 import { useNavigate } from "react-router-dom";
 import Services from "../../Home Page/Services Section/Services";
 import EventImg from "../../../assets/EventImg.png";
+import AuthContext from "../../Common/authContext";
 
 const formatTime = (dateTimeString) => {
   const date = new Date(dateTimeString);
@@ -58,6 +59,8 @@ useEffect(() => {
   fetchAbout();
 }, []);
   const eventitem = useSelector((state) => state.products.selectedEvent);
+  const currency = useSelector((state) => state.products.selectedCurrency[0].currency);
+  const authCtx = useContext(AuthContext);
   const user = useSelector((state) => state.products.userInfo);
   const [eventData, seteventData] = useState({});
   const [eventReview, seteventReview] = useState([]);
@@ -195,7 +198,7 @@ useEffect(() => {
           </div>
         </div>
           <div className={classes.priceBtn}>
-            <p>$ {eventData.price}</p>
+            <p>{currency === "eur" ? `€ ${Number(eventData?.price).toFixed(0)} ` : `$ ${(eventData?.price * authCtx.currencyRate).toFixed(0)} `}</p>
           </div>
         </div>
         <img

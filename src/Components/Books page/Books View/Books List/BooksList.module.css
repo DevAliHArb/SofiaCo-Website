@@ -289,6 +289,7 @@
     background-color: var(--primary-color);
     padding: 0.5em;
     border-radius: 50%;
+    z-index: 50;
   }
 
   .cartIcon{
@@ -435,7 +436,7 @@
     text-align: end;
     width: 98%;
     justify-self: flex-end;
-    margin: auto 0 auto auto !important;
+    margin: auto 0  !important;
     align-self: flex-end;
 }
 .listCard:hover .price{
@@ -607,10 +608,10 @@ transform: scale(1.1);
 @media screen and (max-width:950px) {
   
   .page_control{
-    margin: 2em auto 0 auto;
+    margin: 0 auto 1em auto;
   }
   .page_control1{
-    margin: 2em auto 0 auto;
+    margin: 0 auto 1em auto;
   }
   .btn{
     display: inline;
@@ -733,6 +734,7 @@ margin: 0.25em;
 .leftContainer{ 
   width: 100%;
   max-width: 100%;
+  grid-template-columns: 21% 75%;
 }
 .imgCont{
   height: 45vh;

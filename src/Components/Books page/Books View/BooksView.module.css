@@ -75,6 +75,24 @@
   border: 1px solid #B6D8ED;
   background-color: #fff;
 }
+.resetAll{
+  width: fit-content;
+  height: fit-content;
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: .5em 1em;
+  font-family: var(--font-family);
+  border: 2px solid var(--primary-color);
+  border-radius: .5em;
+  transition: all 0.7s ease-in-out;
+  margin: 0 7.5% 1em auto;
+  font-weight: 600;
+  cursor: pointer;
+}
+.resetAll:hover{
+  background-color:#fff ;
+  color: var(--primary-color);
+}
 
 .categoriesmob h2{
   display: flex;
