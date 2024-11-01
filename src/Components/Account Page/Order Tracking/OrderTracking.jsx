@@ -606,6 +606,12 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
                 <div className={classes.hexagon} onClick={()=>setselectedCategory(13) & localStorage.setItem('selectedOrderCategory', 13)} style={{backgroundColor:cat === 13 && 'var(--primary-color)'}}>
                   <div style={{width:'120%',height:'60%',position:"absolute",top:'20%',left:'-10%',zIndex:'1',rotate:'270deg'}}>
                     <img src={Canceled} alt=""  style={{width:'50%',}}/>
+                    <p style={{marginTop:'0.5em'}}>{language === 'eng' ? "Cancelling" : "Annulation" }</p>
+                  </div>
+                </div>
+                <div className={classes.hexagon} onClick={()=>setselectedCategory(42) & localStorage.setItem('selectedOrderCategory', 42)} style={{backgroundColor:cat === 42 && 'var(--primary-color)'}}>
+                  <div style={{width:'120%',height:'60%',position:"absolute",top:'20%',left:'-10%',zIndex:'1',rotate:'270deg'}}>
+                    <img src={Canceled} alt=""  style={{width:'50%',}}/>
                     <p style={{marginTop:'0.5em'}}>{language === 'eng' ? "Canceled" : "Annulé" }</p>
                   </div>
                 </div>
