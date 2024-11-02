@@ -232,8 +232,10 @@ const PopupPaymentModal = ({ open, handleClose, isselectedPayment }) => {
              placeholder="Select card type" 
              dropdownStyle={{ zIndex: 2000 }} 
              onChange={(e)=>setPaymentMethod(e) & handleChange('card_type', e)}>
-       <Option value="Visa">Visa Card</Option>
-       <Option value="Master">Master Card</Option>
+             <Option value="American Express">American Express</Option>
+             <Option value="Discover">Discover</Option>
+             <Option value="Master">Master Card</Option>
+             <Option value="Visa">Visa Card</Option>
      </Select>
    </Form.Item>
      {paymentMethod != 'PayPal' && <>
