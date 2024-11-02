@@ -157,10 +157,10 @@ swiper.slideTo(index)};
                         
                   
                       </div>
-        <div className={classes.auth_con}>
+        {/* <div className={classes.auth_con}>
           <p>{language === 'eng' ? '100%  guarantee of authentication' : ''}</p>
           <p>{language === 'eng' ? '100%  guarantee of identification' : ''}</p>
-          </div>              
+          </div>               */}
         <div className={classes.socialsCont}> 
             <p style={{color:'var(--secondary-color)',fontSize:'calc(.9rem + .3vw)',fontWeight:"600",paddingLeft:'1em', margin:'auto 0'}}><FiShare2 style={{margin:'0 .3em -.3em 0'}}/>{language === 'eng' ? 'Share:' : 'Recommander ce livre:'}</p>
             <div style={{display:'flex',flexDirection:'row'}}>

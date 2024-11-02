@@ -56,7 +56,10 @@
     margin: 1em auto;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0 .3em;
     justify-content: space-around;
+    padding: .7em .3em;
 }
 
 .detail_item{
@@ -71,6 +74,7 @@
     text-align: center;
     color: #fff;
     font-weight: 500;
+    margin: 0.3em 0;
 }
 .iconss{
     margin: auto .3em -.1em auto;
@@ -217,7 +221,7 @@
     width: 100%;
 }
 .map_con{
-    padding: 2em 0;
+    padding: 0 0;
     width: 88%;
     height: 80vw;
     max-height: 33em;

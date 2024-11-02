@@ -30,6 +30,9 @@ const BooksView = ({carttoggle}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [rate, setrate] = useState(0);
   const searchData = useSelector((state) => state.products.searchData);
+  const language = useSelector(
+    (state) => state.products.selectedLanguage[0].Language
+  );
   const [selectedPrice, setSelectedPrice] = useState([
     searchData[0]?.min_price ? searchData[0]?.min_price : 0,
     searchData[0]?.max_price ? searchData[0]?.max_price : 9999,
@@ -375,28 +378,40 @@ const BooksView = ({carttoggle}) => {
 
   const RefineHandle = () => {
     setArticles([]);
-    const newData = {}; // Copy the existing searchData item at index 0
-
-    localStorage.setItem("min_price", selectedPrice[0]);
-    localStorage.setItem("max_price", selectedPrice[1]);
-    setchangePricetoggle(!changepricetoggle)
-    // Update or add properties based on conditions
-    if (newData.min_price) {
-      newData.min_price = selectedPrice[0];
-    } else {
-      newData.min_price = selectedPrice[0];
+    const newData = {}; // Initialize newData for dispatch
+  
+    // Reverse values if min is greater than max
+    let minPrice = selectedPrice[0];
+    let maxPrice = selectedPrice[1];
+  
+    if (minPrice > maxPrice) {
+      // Swap min and max if necessary
+      [minPrice, maxPrice] = [maxPrice, minPrice];
     }
-
-    if (newData.max_price) {
-      newData.max_price = selectedPrice[1];
-    } else {
-      newData.max_price = selectedPrice[1];
-    }
-
+  
+    // Save the corrected prices to localStorage
+    localStorage.setItem("min_price", minPrice);
+    localStorage.setItem("max_price", maxPrice);
+    
+    // Update selectedPrice state with the corrected order
+    setSelectedPrice([minPrice, maxPrice]);
+  
+    setchangePricetoggle(!changepricetoggle);
+  
+    // Update newData with the corrected prices
+    newData.min_price = minPrice;
+    newData.max_price = maxPrice;
+  
+    // Dispatch the updated data
     dispatch(editSearchData(newData));
+    
+    // Fetch updated articles based on the new price range
     fetchArticles();
+    
+    // Close the modal or dialog
     setIsOpen(false);
   };
+  
 
   
   const handleChangeCollection = (event) => {
@@ -594,7 +609,7 @@ const BooksView = ({carttoggle}) => {
 
 
           <div className={classes.categories}>
-            <h2>Prix</h2>
+            <h2>{language === 'eng' ? "Price" : "Prix" }</h2>
               <div className={classes.dropdown}>
                 <div style={{display:'flex',width:'95%', flexDirection:'row',justifyContent:'space-between', marginTop:'1em'}}>
                   <TextField
@@ -636,9 +651,14 @@ const BooksView = ({carttoggle}) => {
           <p style={{width:'fit-content',margin:'2em 0 1em 0',color:'var(--primary-color)',cursor:'pointer',fontWeight:'500'}} onClick={RefineHandle}><u>Refine</u></p>
           </div>
               </div>
+          <Divider  
+          color="var(--secondary-color)"
+          width="100%"
+          style={{margin:'0.5em auto'}}
+        />
           </div>
           <div>
-          <p style={{width:'fit-content',margin:'0 0 1em 7.5%',color:'var(--primary-color)',cursor:'pointer',fontWeight:'500'}} onClick={ResetfilterHandle}><u>Reset All</u></p>
+          <p className={classes.resetAll} onClick={ResetfilterHandle}>{language === 'eng' ? "Reset All" : "Réinitialiser " }</p>
           </div>
         </div>
         </div>

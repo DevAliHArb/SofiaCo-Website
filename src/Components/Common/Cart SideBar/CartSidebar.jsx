@@ -213,7 +213,9 @@ export default function CartSidebar({ toggle, isOpen }) {
                     <ClearIcon style={{width:'1.5em',height:'1.2em',color:'#FFF',marginBottom:'.4em'}} />
                   </span>
                 </h1>
-                <p style={{color:'var(--secondary-color)' ,fontWeight:'500',marginTop:'0'}}>Plus que 27,10 €ew pour profiter de la livraison à domicile à 0,01€</p>
+                <p style={{color:'var(--secondary-color)' ,fontWeight:'500',marginTop:'0'}}>
+                  {/* Plus que 27,10 €ew pour profiter de la livraison à domicile à 0,01€ */}
+                  </p>
               </div>
             </ListItemText>
           </ListItem>
@@ -240,7 +242,7 @@ export default function CartSidebar({ toggle, isOpen }) {
               <p style={{ margin: ".5em auto .5em 0",color:props._qte_a_terme_calcule > 0 ? "var(--forth-color)" : "#EE5858",fontWeight:"600" }}>{props._qte_a_terme_calcule > 0 ? `${(props._qte_a_terme_calcule * 1).toFixed(0)} in stock` : `${language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}`} </p>
               <div style={{display:'flex',flexDirection:'row',gap:'1em'}}>
                   <p className={classes.price}>
-                              {language === "eng" ? "price" : "prix"}:{" "}
+                              {/* {language === "eng" ? "price" : "prix"}:{" "} */}
                               {currency === "eur"
                             ? `${
                                 props.discount > 0

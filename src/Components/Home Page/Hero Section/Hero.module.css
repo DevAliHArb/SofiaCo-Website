@@ -289,7 +289,7 @@ color: var(--secondary-color);
 
 @media screen and (max-width:950px) {
   .header{
-    width: 100% !important;
+    width: 90% !important;
     margin: auto;
   }
   .nodata{
@@ -340,7 +340,7 @@ color: var(--secondary-color);
 
 @media screen and (max-width:650px) {
   .card_img{
-    height: 40vw;
+    height: 47vw;
   }
   .header h1{
     position: relative;

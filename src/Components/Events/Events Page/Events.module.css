@@ -4,8 +4,8 @@
     margin: 0 auto;
     height: fit-content;
     border-radius: 2em;
-    padding-bottom: 13em;
-    z-index: 30;
+    padding-bottom: 2em;
+    z-index: 50;
 }
 .header{
   position: relative;

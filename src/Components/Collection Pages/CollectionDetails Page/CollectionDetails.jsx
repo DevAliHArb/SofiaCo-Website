@@ -58,6 +58,15 @@ const CollectionDetailsPage = () => {
   const [articles, setArticles] = useState([]);
   
   const [heroData, setHeroData] = useState({});
+  const [visibleItems, setVisibleItems] = useState(4);
+ 
+  const [searchText, setSearchText] = useState('');
+
+
+  
+  const handleSearch = (e) => {
+    setSearchText(e.target.value);
+  };
 
   const getToken = () => {
     return localStorage.getItem('token');
@@ -116,10 +125,13 @@ const CollectionDetailsPage = () => {
     }
   };
   
+  const filteredData = searchText
+    ? articles.filter(item => item.designation.toLowerCase().includes(searchText.toLowerCase()))
+    : articles;
   const lastIndex = currentpage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  const records = articles?.slice(firstIndex, lastIndex);
-  const pagenb = Math.ceil(authCtx.articles?.length / recordsPerPage);
+  const records = filteredData?.slice(firstIndex, lastIndex);
+  const pagenb = Math.ceil(filteredData?.length / recordsPerPage);
   const numbers = [...Array(pagenb + 1).keys()].slice(1);
 
   
@@ -149,33 +161,22 @@ const CollectionDetailsPage = () => {
     setpagenbroute(1);
   };
   
+  
 
   useEffect(() => {
     if (currentpage == pagenb) {
-      setto(articles?.length);
-    } else if (authCtx.articles?.length === 0 ) {
+      setto(filteredData?.length);
+    } else if (authCtx.filteredData?.length === 0 ) {
       setto(0);
     } else{
       setto(currentpage * recordsPerPage);
     }
-    if (articles?.length === 0 ) {
+    if (filteredData?.length === 0 ) {
       setfrom(0);
     }else {
       setfrom(currentpage * 12 - recordsPerPage - 1);
     }
-  }, [currentpage, articles, recordsPerPage]);
-
-  const [visibleItems, setVisibleItems] = useState(4);
- 
-  const [searchText, setSearchText] = useState('');
-  
-  const handleSearch = (e) => {
-    setSearchText(e.target.value);
-  };
-
-  const filteredData = searchText
-    ? records.filter(item => item.designation.toLowerCase().includes(searchText.toLowerCase()))
-    : records;
+  }, [currentpage, filteredData, recordsPerPage]);
   return (
     <>
       <div className={classes.bigContainer}>
@@ -211,8 +212,10 @@ const CollectionDetailsPage = () => {
 
        
       <div className={classes.header}>
-          <h1>{data.Collections.CollectionsDetails.title[language]}</h1>
-          <p>{data.Collections.CollectionsDetails.description[language]}</p>
+          <h1 onClick={()=>console.log(records)}>{data.Collections.CollectionsDetails.title[language]}</h1>
+          <p>
+            {/* {data.Collections.CollectionsDetails.description[language]} */}
+            </p>
         </div>
           {/* <div style={{
                     width: "100%",
@@ -245,7 +248,12 @@ const CollectionDetailsPage = () => {
             <div className={classes.nodata_img}>
               <img src={nodata} alt="" />
             </div>
-            <h1>No Books <br/>were found!</h1>
+            <h1>
+            {language === 'eng' ? (
+            <>No products <br /> were found!</>
+          ) : (
+            <>Aucun produits <br /> n'a été trouvé !</>
+          )}</h1>
           </div>
           :
         <div className={classes.booksgridview} >
@@ -259,7 +267,10 @@ const CollectionDetailsPage = () => {
                       navigate(`/bookdetails/${props.id}`);
                     }}
                   >
-                    <div className={classes.card_img}>
+                    <div className={classes.card_img} style={{position:"relative"}}>
+                     {props._qte_a_terme_calcule < 1 && <div className={classes.out_of_stock}>
+                        <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
+                      </div>}
                       {props.articleimage[0] ? (
                         <img
                           src={`${props.articleimage[0]?.link}`}
@@ -303,6 +314,19 @@ const CollectionDetailsPage = () => {
                     </div>
                     
                     <div className={classes.bookTitle} >
+                    <p style={{maxWidth:'100%',width:'fit-content',margin:'0em auto 0 auto',display:"flex",flexDirection:"row"}}>
+                        <Rating
+                          style={{
+                              color: "#EEBA7F",
+                              margin:'0 .5em 0 0',
+                          }}
+                          size='small'
+                          name="read-only"
+                          value={props.average_rate}
+                          precision={0.5}
+                          readOnly
+                      /><p style={{margin:'0 0 0 0 ',color:"#EEBA7F"}}>{props.average_rate}/5</p>
+                      </p>
                       <p >{props.designation.length > 15 ? props.designation.slice(0,15) + '...' : props.designation}</p>
                       <p style={{ height:'1em', fontSize:'small', fontWeight: 400 }}>{props.dc_auteur.length > 15 ? props.dc_auteur.slice(0,15) + '...' : props.dc_auteur}</p>
                       <p

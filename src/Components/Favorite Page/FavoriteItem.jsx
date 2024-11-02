@@ -235,13 +235,13 @@ const FavoriteItem = ({ carttoggle }) => {
             <p className={classes.totalPrice} >
             {currency === "eur"
                 ? `${(props.favquantity * (props.discount > 0
-                  ? (props.price_ttc - props.price_ttc * (props.discount / 100))
-                  : (Number(props.price_ttc)))).toFixed(2)} €`
+                  ? (props.favprice - props.favprice * (props.discount / 100))
+                  : (Number(props.favprice)))).toFixed(2)} €`
                 : `${(
                     props.favquantity *
                     (props.discount > 0
-                      ? (props.price_ttc - props.price_ttc * (props.discount / 100))
-                      : (Number(props.price_ttc))) *
+                      ? (props.favprice - props.favprice * (props.discount / 100))
+                      : (Number(props.favprice))) *
                     authCtx.currencyRate
                   ).toFixed(2)} $`}
             </p>

@@ -15,6 +15,8 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IoMdArrowBack } from "react-icons/io";
 import AuthContext from '../../../Common/authContext';
 import { IoCartOutline } from "react-icons/io5";
+import { Rating } from '@mui/material';
+import { stripHtmlTags, truncateText } from '../../../Common Components/TextUtils';
 
 const MoreAbout = () => {
   const authCtx = useContext(AuthContext);
@@ -55,7 +57,9 @@ const MoreAbout = () => {
       <div className={classes.content}>
         <div className={classes.header}>
           <h1>{data.MoreForCollab?.title[language]}</h1>
-          <p>{data.MoreForCollab?.description[language]}</p>
+          <p>
+            {/* {data.MoreForCollab?.description[language]} */}
+            </p>
         </div>
 
         {articles?.length === 0 ? (
@@ -103,10 +107,14 @@ const MoreAbout = () => {
                     onClick={(event) => {
                       authCtx.setbookDetails(props);
                       event.stopPropagation();
+                      dispatch(addSelectedBook(props))
                       navigate(`/bookdetails/${props.id}`);
                     }}
                   >
-                    <div className={classes.card_img}>
+                    <div className={classes.card_img} style={{position:"relative"}}>
+                     {props._qte_a_terme_calcule < 1 && <div className={classes.out_of_stock}>
+                        <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
+                      </div>}
                       {props.articleimage[0] ? (
                         <img
                           src={`${props.articleimage[0]?.link}`}
@@ -147,8 +155,7 @@ const MoreAbout = () => {
                           />
                         )}
                       </div>
-                      
-                      <div className={classes.cartIcon}>
+                      {props._qte_a_terme_calcule > 0 &&<div className={classes.cartIcon}>
                           <IoCartOutline
                             className={classes.fav}
                             onClick={(event) => {
@@ -157,13 +164,26 @@ const MoreAbout = () => {
                             }}
                             fontSize="inherit"
                           />
-                      </div>
+                      </div>}
                     </div>
                     
                     <div className={classes.bookTitle} >
+                    <p style={{maxWidth:'100%',width:'fit-content',margin:'0em auto 0 auto',display:"flex",flexDirection:"row"}}>
+                        <Rating
+                          style={{
+                              color: "#EEBA7F",
+                              margin:'0 .5em 0 0',
+                          }}
+                          size='small'
+                          name="read-only"
+                          value={props.average_rate}
+                          precision={0.5}
+                          readOnly
+                      /><p style={{margin:'0 0 0 0 ',color:"#EEBA7F"}}>{props.average_rate}/5</p>
+                      </p>
                       <p >{props.designation.length > 15 ? props.designation.slice(0,15) + '...' : props.designation}</p>
-                      <p style={{ height:'1em', fontSize:'small', fontWeight: 400 }}>{props.dc_auteur.length > 15 ? props.dc_auteur.slice(0,15) + '...' : props.dc_auteur}</p>
-                      <p style={{ height:'2em', fontSize:'small', fontWeight: 400 }}>{props.descriptif.length > 40 ? props.descriptif.slice(0,40) + '...' : props.descriptif}</p>
+                      <p style={{ margin:'0em', fontSize:'small', fontWeight: 400 }}>{truncateText(stripHtmlTags(props.dc_auteur), 15)}</p>
+                      <p style={{ margin:'.3em 0em', fontSize:'small', fontWeight: 400 }}>{truncateText(stripHtmlTags(props.descriptif), 40)}</p>
                       <span style={{ display: "flex", flexDirection: "row", margin:'0 auto', columnGap:'0.5em' }}>
                         <p
                           style={{ textAlign: "center", padding: "0 ",color: "var(--primary-color)",fontWeight:700 }}
