@@ -145,6 +145,7 @@ const OrderTracking = () => {
   const [steps, setsteps] = useState([]) 
   const [data, setData] = useState(orders)
   const [showPopup, setShowPopup] = useState(false);
+  const [showPopupR, setShowPopupR] = useState(false);
   const dispatch = useDispatch();
   const productData = useSelector((state)=>state.products.productData);
   const [isLoading, setIsLoading] = useState(false);
@@ -244,8 +245,8 @@ const OrderTracking = () => {
         id: 5,
         label: 'Confirming Recieved',
         label_fr: 'Confirmation Reçu',
-        description:'Your order has been delivered. Thank you for shopping at Sofiaco!',
-        description_fr:"Votre commande a été livrée. Merci d'avoir fait vos achats chez Sofiaco !",
+        description:'Your order has been delivered.',
+        description_fr:"Votre commande a été livrée.",
         icon: <PiHandshake/>
     }
     
@@ -491,6 +492,36 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
         });
     });
   }
+  const RecieveOrderHandler = () => {
+    axios.put(`https://api.leonardo-service.com/api/bookshop/order_invoices/${selectedOrder.id}?status_id=5`)
+    .then(() => {
+          toast.success(`Recieve request send successful`, {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: 0,
+            theme: "colored",
+          });
+          setShowPopupR(false);
+          window.location.reload();
+    })
+    .catch((error) => {
+        console.error("Error in Recieve request:", error);
+        toast.error("Failed to Recieve item .", {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: 0,
+          theme: "colored",
+        });
+    });
+  }
 
   useEffect(()=>{
     if (cat === 0){
@@ -681,7 +712,6 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
                     window.open(selectedOrder.tracking_link, '_blank')
                   } }}>{language === 'eng' ? "See the details" : "Voir les détails"}</p>
           </div>}
-          
       <div className={classes.detailsContainer}>
         <div style={{width:'100%',display:'grid',gridTemplateColumns:"25% 25% 25% 25%",margin:'3em 0 1em 12.5%'}} className={classes.displayNoneMob}>
         {steps?.sort((a, b) => a.id - b.id).map((step) => {
@@ -708,6 +738,7 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
               </div>
             )})}
         </div>
+          <div className={classes.contentContainer}>
          <div className={classes.orderActivityCont}>
           <h2>{language === 'eng' ? "Order Activity" : "Activité de commande" }</h2>
           {steps?.sort((a, b) => b.id - a.id).map((step) => {
@@ -717,7 +748,7 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
                   <div style={{color:'#fff',width:'3em', height:'3em',borderRadius:'.3em',backgroundColor:"var(--primary-color)",display:'flex',marginRight:'.5em'}}>
                     {step.id === 2 ? <PiNotepad style={{fontSize:"1.7em",margin:'auto'}}/> : step.id === 3 ? <PiCheckCircle style={{fontSize:"1.7em",margin:'auto'}}/> : step.id === 4 ? <PiMapPinLine style={{fontSize:"1.7em",margin:'auto'}}/> : <PiChecks style={{fontSize:"1.7em",margin:'auto'}}/>}
                   </div>
-                  <div>
+                  <div style={{width:"fit-content"}}>
                     <p style={{marginTop:'0'}}>{language === 'eng' ? step.description : step.description_fr} </p>
                     <p style={{marginBottom:'0',fontWeight:'500',color:'var(--secondary-color)'}}>{ new Date(step.estimatedDate).toDateString()} at: { new Date(step.estimatedDate).toLocaleTimeString()}</p>
                   </div>
@@ -735,6 +766,30 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
                 </div>
               </div>
         </div>
+         <div className={classes.orderActivityCont} style={{height:'fit-content'}}>
+    <h2>{language === 'eng' ? "Order Summary" : "Résumé de la commande" }</h2>
+    <div style={{margin:'.4em 0',color:'var(--secondary-color)',display:'grid',gridTemplateColumns:"50% 50%"}}>
+      <p style={{margin:'.4em 0',color:'var(--secondary-color)',fontWeight:'700'}}>{language === 'eng' ? "Weight" : "Poids" }</p>
+      <p style={{margin:'.4em 0',color:'var(--secondary-color)',textAlign:'end'}}>{selectedOrder?.weight}g</p>
+      <p style={{margin:'.4em 0',color:'var(--secondary-color)',fontWeight:'700'}}>SUBTOTAL</p>
+      <p style={{margin:'.4em 0',color:'var(--secondary-color)',textAlign:'end'}}>{selectedOrder?.base_price}{selectedOrder?.currency === 'usd' ? '$' : '€' }</p>
+      <p style={{margin:'.4em 0',color:'var(--secondary-color)',fontWeight:'700'}}>{language === 'eng' ? "TVA" : "TVA" }</p>
+      <p style={{margin:'.4em 0',color:'var(--secondary-color)',textAlign:'end'}}>{Number(selectedOrder?.tva).toFixed(2)}{selectedOrder?.currency === 'usd' ? '$' : '€' }</p>
+      <p style={{margin:'.4em 0',color:'var(--secondary-color)',fontWeight:'700'}}>Subtotal TTC</p>
+      <p style={{margin:'.4em 0',color:'var(--secondary-color)',textAlign:'end'}}>{selectedOrder?.ttc_price}{selectedOrder?.currency === 'usd' ? '$' : '€' }</p>
+      <p style={{margin:'.4em 0',color:'var(--secondary-color)',fontWeight:'700'}}>{language === 'eng' ? "DELIVERY" : "LIVRAISON" }</p>
+      <p style={{margin:'.4em 0',color:'var(--secondary-color)',textAlign:'end'}}>{Number(selectedOrder?.shipping_fees ).toFixed(2)}{selectedOrder?.currency === 'usd' ? '$' : '€' }</p>
+      <p style={{margin:'.4em 0',color:'var(--secondary-color)',fontWeight:'700'}}>{language === "eng" ? "Discount" : "Remise"}</p>
+      <p style={{margin:'.4em 0',color:'var(--secondary-color)',textAlign:'end'}}>{Number(selectedOrder?.coupon_amount ).toFixed(2)}{selectedOrder?.currency === 'usd' ? '$' : '€' }</p>
+      </div>
+    <div style={{width:'100%',height:".1em",border:'2em',background:'var(--primary-color)',margin:'1em auto'}}/>
+    <div style={{display:'grid',gridTemplateColumns:"50% 50%"}}>
+      <p style={{marginTop:'.4em',color:'var(--secondary-color)',fontWeight:'700'}}>TOTAL</p>
+      <p style={{marginTop:'.4em',color:'var(--secondary-color)',textAlign:'end'}}>{selectedOrder?.total_price}{selectedOrder?.currency === 'usd' ? '$' : '€' }</p>
+    </div>
+        </div>
+
+          </div>
         <div className={classes.total_con }>
         <div className={classes.total}>
         <div className={classes.totalrows}>
@@ -812,6 +867,7 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
       </div>
         </div>
         <div style={{margin:'2em auto 4em auto',width:'fit-content',gap:"2em",display:'flex',flexWrap:"wrap"}}>
+      {categoryId === 4 && <button className={classes.reviewbtn} onClick={()=>setShowPopupR(true)}>{language === 'eng' ? "Confirm receipt" : "Confirmer la réception"}</button>}
       {categoryId == 2 ? <button className={classes.btn}  onClick={(event) => setShowPopup(true) & event.stopPropagation()}>{language === 'eng' ? "Cancel Order" : "Annuler la commande" }</button> : <button onClick={AddAllToCart} className={`${categoryId == 4 ? classes.deliveredBtn : classes.btn}`} >Repurchase</button>}
       {categoryId == 5 && <button className={classes.reviewbtn} onClick={()=>navigate(`/account/order-tracking/review/${selectedOrder.id}`) & setisReviewMood(true) & setisSelected(false)}>{language === 'eng' ? "Review" : "Révision " }</button> }
       </div>
@@ -835,6 +891,14 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
           showPopup={showPopup}
         />
       )}
+      {showPopupR && (
+      <ConfirmationPopup
+        message={language === 'eng' ? "Did you receive this Order?" : "Avez-vous reçu cette commande ?"}
+        onConfirm={RecieveOrderHandler}
+        onCancel={() => setShowPopupR(false)}
+        showPopup={showPopupR}
+      />
+    )}
     </div>
   )
 }

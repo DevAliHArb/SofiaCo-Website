@@ -177,7 +177,6 @@
   flex-direction: column;
 }
 
-
 .total_con{
   position: relative;
   width: 100%;
@@ -209,10 +208,17 @@
 .totalrows p{
   margin: 0;
 }
+.contentContainer{
+  width: 100%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 49% 49%;
+  justify-content: space-between;
+}
 .orderActivityCont{
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 90%;
   background-color: #fff;
   color: var(--primary-color);
   margin: 1em auto;
@@ -432,6 +438,13 @@ color: var(--primary-color);
   .orderActivityCont{
     width: 90%;
     margin-bottom: 2em;
+  }
+  .contentContainer{
+    width: 100%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: space-between;
   }
   .adressCard{
     margin-top: 1em;

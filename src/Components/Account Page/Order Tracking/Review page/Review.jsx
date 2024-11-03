@@ -70,6 +70,9 @@ const Review = ({props}) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [openView, setOpenView] = React.useState(false);
+  const handleOpenView = () => setOpenView(true);
+  const handleCloseView = () => setOpenView(false);
   const imagefileInputRefs = React.createRef();
 
   useEffect(() => {
@@ -188,11 +191,13 @@ const Review = ({props}) => {
                 <h3 className={classes.imgContainerh3}>{item.article.designation}</h3>
                 {!hasReviews ? <button onClick={()=>setselectedReview(item) & setIndexSelected(index) & handleOpen()}>Review</button> : 
                 <div style={{display:'flex',flexDirection:'column',fontFamily:'var(--font-family)'}}>
-               <p style={{width:'100%',textAlign:'start',fontSize:'calc(.6rem + .2vw)',display:'flex',flexDirection:'row',margin:'0.3em 0'}}><Rating
+               <p style={{width:'100%',textAlign:'start',fontSize:'calc(.6rem + .2vw)',display:'flex',flexDirection:'row',margin:'0.3em 0'}}>
+                <Rating
                 style={{color:'var(--primary-color)',fontSize:'calc(.6rem + .3vw)',marginBottom:'-2em'}}
                     name="hover-feedback"
                     value={item.book_reviews[0]?.rate}
                     precision={0.5}
+                    readOnly
                     getLabelText={getLabelText}
                     emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
                 /> <p style={{margin:'-.1em 0 0 .3em'}}>{item.book_reviews[0]?.rate}/5 </p></p> 
@@ -224,7 +229,7 @@ const Review = ({props}) => {
                         ? image.attached_file // Base64 for full-screen as well
                         : `https://api.leonardo-service.com/img/${image.attached_file}` // URL for full-screen
                     );
-                    handleOpen();
+                    handleOpenView();
                   }}
                 />
               </div>
@@ -314,7 +319,7 @@ const Review = ({props}) => {
                         objectFit:'cover',
                         cursor: "pointer",
                       }}
-                      onDoubleClick={()=>{setFullScreenImage(URL.createObjectURL(image.attached_file));handleOpen()}}
+                      onDoubleClick={()=>{setFullScreenImage(URL.createObjectURL(image.attached_file));handleOpenView()}}
                     />
                     <button
                       style={{
@@ -388,6 +393,19 @@ const Review = ({props}) => {
             </Form>
        </Box>
      </Modal>
+     
+     <Modal
+        open={openView}
+        onClose={handleCloseView}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <div style={{width:'96%',display:'flex', margin:'.7em auto'}}>
+          <img src={fullScreenImage} alt="" style={{objectFit:'contain', width:'auto', height:'auto',margin:"auto"}}/>
+          </div>
+        </Box>
+      </Modal>
     </div>
   );
 };
