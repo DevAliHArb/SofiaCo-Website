@@ -779,7 +779,7 @@ const CheckOut = () => {
           currency: currency,
           coupon_amount: coupon.reduction
             ? coupon.type === "Percentage"
-              ? calculateReductionAmt(subtotalAmt, coupon.reduction).toFixed(2)
+              ? calculateReductionAmt(subtotalAmt, coupon.reduction)
               : currency === "usd"
               ? (coupon.reduction * authCtx.currencyRate).toFixed(2)
               : coupon.reduction
@@ -815,7 +815,7 @@ const CheckOut = () => {
           coupon_type: coupon.type,
           coupon_amount: coupon.reduction
             ? coupon.type === "Percentage"
-              ? calculateReductionAmt(subtotalAmt, coupon.reduction).toFixed(2)
+              ? calculateReductionAmt(subtotalAmt, coupon.reduction)
               : currency === "usd"
               ? (coupon.reduction * authCtx.currencyRate).toFixed(2)
               : coupon.reduction
@@ -973,7 +973,7 @@ const CheckOut = () => {
           delivery === "standard" ? null : colissimoPointData?.identifiant,
           coupon_amount: coupon.reduction
             ? coupon.type === "Percentage"
-              ? calculateReductionAmt(subtotalAmt, coupon.reduction).toFixed(2)
+              ? calculateReductionAmt(subtotalAmt, coupon.reduction)
               : currency === "usd"
               ? (coupon.reduction * authCtx.currencyRate).toFixed(2)
               : coupon.reduction
@@ -1836,7 +1836,7 @@ const CheckOut = () => {
                       ? `- ${calculateReductionAmt(
                           subtotalAmt,
                           coupon.reduction
-                        ).toFixed(2)} ${currency === "usd" ? "$" : "€"}`
+                        )} ${currency === "usd" ? "$" : "€"}`
                       : `- ${
                           currency === "usd"
                             ? `${(
