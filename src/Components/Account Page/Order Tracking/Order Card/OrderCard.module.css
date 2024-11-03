@@ -93,8 +93,16 @@ max-height: 12em;
     gap:  1em;
 }
 
-
+.mobileTitle{
+    display: none;
+}
   @media screen and (max-width:750px) {
+    
+.mobileTitle{
+    display: inline;
+    text-wrap: nowrap;
+    color: var(--primary-color);
+}
     .orderCard{
         width: 80%;
         height: fit-content;
@@ -110,7 +118,7 @@ max-height: 12em;
     .orderCard h3{
         width: 100%;
         font-family: var(--font-family);
-        color: var(--primary-color);
+        color: var(--secondary-color);
         font-size: calc(.8rem + .3vw);
         font-weight: 600;
         margin: 1em auto;

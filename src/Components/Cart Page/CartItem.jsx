@@ -193,7 +193,7 @@ const CartItem = () => {
             >
               <p style={{width:'100%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"600",margin:'0'}} onClick={()=>console.log(props)}>{props.title.slice(0,20)}</p>
               <p style={{width:'100%',textAlign:"start",fontSize:"calc(.6rem + .3vw)",fontWeight:"500",margin:'0'}}>{props.author.slice(0,20)}</p>
-              <p style={{width:'100%',textAlign:"start",fontSize:"calc(.6rem + .3vw)",fontWeight:"500",margin:'0'}}>{new Date(props.date).toDateString()}</p>
+              {/* <p style={{width:'100%',textAlign:"start",fontSize:"calc(.6rem + .3vw)",fontWeight:"500",margin:'0'}}>{new Date(props.date).toDateString()}</p> */}
               <p style={{color:'var(--secondary-color)',fontSize:'smaller',textAlign:'start'}}><Rate value={props.average_rate} disabled  style={{color:'var(--primary-color)',fontSize:'small'}}/>{props?.average_rate ? Number(props.average_rate)?.toFixed(1) : 0.0}/5</p>
               <p style={{ margin: ".5em auto .5em 0",color:props._qte_a_terme_calcule > 0 ? "var(--forth-color)" : "#EE5858",fontWeight:"600" }}>{props._qte_a_terme_calcule > 0 ? `${(props._qte_a_terme_calcule * 1).toFixed(0)} in stock` : `${language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}`} </p>
               </div>
@@ -283,7 +283,7 @@ const CartItem = () => {
               <div className={classes.delete_btn} style={{zIndex:'50'}}><img src={DeleteIcon} style={{width:'1.5em'}}  onClick={() => setShowPopup(props._id)} /></div>
             </div>
               <p style={{margin:'0.2em 0', width:'100%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"500"}}>{props.author.slice(0,20)}</p>
-              <p style={{margin:'0.2em 0', width:'100%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"500"}}>{new Date(props.date).toDateString()}</p>
+              {/* <p style={{margin:'0.2em 0', width:'100%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"500"}}>{new Date(props.date).toDateString()}</p> */}
               <p style={{color:'var(--secondary-color)',fontSize:'smaller',textAlign:'start'}}><Rate value={props.average_rate} disabled  style={{color:'var(--primary-color)',fontSize:'small'}}/>{props.average_rate}/5</p>
               <p style={{ margin: ".5em auto .5em 0",color:props._qte_a_terme_calcule > 0 ? "var(--forth-color)" : "#EE5858",fontWeight:"600", fontSize:"calc(.7rem + .3vw)", }}>{props._qte_a_terme_calcule > 0 ? `${(props._qte_a_terme_calcule * 1).toFixed(0)} in stock` : `${language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}`} </p>
           </div>
@@ -299,15 +299,33 @@ const CartItem = () => {
                 fontFamily:'var(--font-family)',
                 color:'var(--secondary-color)'
               }}
-            > <p
-            style={{textAlign:'start'}}
-          >
+            > <p style={{textAlign:'start',color:'var(--primary-color)'}}>
             {currency === "eur"
-              ? `€ ${Number(props.price_ttc).toFixed(2)} `
-              : `$ ${(
-                  props.price_ttc * authCtx.currencyRate
-                ).toFixed(2)} `}
-          </p>
+  ? `${
+      props.discount > 0
+        ? (props.price_ttc - props.price_ttc * (props.discount / 100)).toFixed(2)
+        : (Number(props.price_ttc)).toFixed(2)
+    }€`
+  : `${props.discount > 0
+        ? (
+            (props.price_ttc - props.price_ttc * (props.discount / 100)).toFixed(2) * authCtx.currencyRate
+          ).toFixed(2)
+        : (props.price_ttc * authCtx.currencyRate).toFixed(2)
+    }$`}
+            {props.discount > 0 && <span
+                style={{
+                  color: "var(--primary-color)",
+                  textDecoration: "line-through",
+                  fontSize: "small",
+                  margin:'0'
+                }}
+              >
+                {currency === "eur"
+                  ? ` ${Number(props.price_ttc).toFixed(2)}€`
+                  : ` ${(
+                      props.price_ttc * authCtx.currencyRate
+                    ).toFixed(2)}$`}
+              </span>}</p>
               {props?._qte_a_terme_calcule > 0 && 
                 <Input 
                   type="number" 

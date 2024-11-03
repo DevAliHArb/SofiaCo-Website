@@ -218,8 +218,8 @@ const Review = ({props}) => {
                     : `https://api.leonardo-service.com/img/${image.attached_file}`} // Use the URL if it's not base64
                   alt={`Image ${image.id}`}
                   style={{
-                    width: '6em',
-                    height: '6em',
+                    width: '4em',
+                    height: '4em',
                     objectFit: 'cover',
                     cursor: 'pointer',
                   }}
@@ -302,7 +302,7 @@ const Review = ({props}) => {
               >
                 {!(images && images?.length >= 5) && (
                   <img
-                    style={{width:'6em'}}
+                    style={{width:'4em'}}
                     src={addimage}
                     alt="addimage"
                     onClick={() => handleAddImageClick()}
@@ -314,8 +314,8 @@ const Review = ({props}) => {
                       src={URL.createObjectURL(image.attached_file)}
                       alt={`Image ${image.id}`}
                       style={{
-                        width: "6em",
-                        height: "6em",
+                        width: "4em",
+                        height: "4em",
                         objectFit:'cover',
                         cursor: "pointer",
                       }}

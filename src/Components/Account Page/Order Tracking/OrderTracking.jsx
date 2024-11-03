@@ -698,16 +698,16 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
       </>}
       { isSelected && 
       <div className={classes.detailsCard}>
-        <h4 onClick={()=>setisSelected(false) & setselectedOrder({}) & navigate('/account/order-tracking')} className={classes.back}><IoIosArrowBack style={{marginBottom:'-.15em'}}/> {language === 'eng' ? "Back" : "Dos" }</h4>
+        <h4 onClick={()=>navigate('/account/order-tracking') & setisSelected(false) & setselectedOrder({}) & navigate('/account/order-tracking')} className={classes.back}><IoIosArrowBack style={{marginBottom:'-.15em'}}/> {language === 'eng' ? "Back" : "Dos" }</h4>
         <div className={classes.header1}>
       <div className={classes.headtitle} style={{margin:"0 0 0 1em",textAlign:'start',fontWeight:'500',lineHeight:'130%'}} onClick={()=>console.log(selectedOrder)}>{language === 'eng' ? "Order" : "Commande " } # {selectedOrder?.id}<br/> {language === 'eng' ? "Placed on" : "Placé sur" } {new Date(selectedOrder?.date).getDate()}/{new Date(selectedOrder?.date).getMonth()}/{new Date(selectedOrder?.date).getFullYear()}</div>
       <div className={classes.headtitle} style={{margin:"auto 1em auto auto",fontWeight:'500'}} onClick={()=>console.log(steps)}>{selectedOrder?.currency === 'eur' ? '€' : '$'}{Number(selectedOrder?.total_price).toFixed(2)}</div>
       <div style={{display:'flex',flexDirection:'row'}}></div>
       </div>
-      {selectedOrder?.tracking_number && <div style={{display:'flex',flexDirection:'row',border:'none',marginTop:'1em'}}className={classes.adressCard}>
-            <p style={{color:'var(--accent-color)'}}> {language === 'eng' ? "Tracking number" : "Numéro de suivi"}:{' '}</p>
-            <p style={{paddingLeft:'.3em',paddingRight:'1em',color:'var(--accent-color)'}}>{selectedOrder?.tracking_number}</p>
-            <p style={{textDecoration:'underline', cursor:'pointer',color:'var(--accent-color)'}}
+      {selectedOrder?.tracking_number && <div style={{display:'flex',flexDirection:'row',flexWrap:"wrap",border:'none',marginTop:'1em'}}className={classes.adressCard}>
+            <p style={{color:'#EEBA7F',fontSize:"calc(.9rem + .3vw)",fontWeight:"600"}}> {language === 'eng' ? "Tracking number" : "Numéro de suivi"}:{' '}</p>
+            <p style={{fontSize:"calc(.9rem + .3vw)",paddingLeft:'.3em',paddingRight:'1em',color:'var(--accent-color)'}}>{selectedOrder?.tracking_number}</p>
+            <p style={{color:'#EEBA7F',fontSize:"calc(.9rem + .3vw)",textDecoration:'underline', cursor:'pointer',color:'var(--accent-color)'}}
                   onClick={() => {if (selectedOrder.tracking_link) {
                     window.open(selectedOrder.tracking_link, '_blank')
                   } }}>{language === 'eng' ? "See the details" : "Voir les détails"}</p>
@@ -866,14 +866,14 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
           </div>
       </div>
         </div>
-        <div style={{margin:'2em auto 4em auto',width:'fit-content',gap:"2em",display:'flex',flexWrap:"wrap"}}>
+        <div style={{margin:'2em auto',width:'fit-content',gap:"2em",display:'flex',flexWrap:"wrap"}}>
       {categoryId === 4 && <button className={classes.reviewbtn} onClick={()=>setShowPopupR(true)}>{language === 'eng' ? "Confirm receipt" : "Confirmer la réception"}</button>}
       {categoryId == 2 ? <button className={classes.btn}  onClick={(event) => setShowPopup(true) & event.stopPropagation()}>{language === 'eng' ? "Cancel Order" : "Annuler la commande" }</button> : <button onClick={AddAllToCart} className={`${categoryId == 4 ? classes.deliveredBtn : classes.btn}`} >Repurchase</button>}
       {categoryId == 5 && <button className={classes.reviewbtn} onClick={()=>navigate(`/account/order-tracking/review/${selectedOrder.id}`) & setisReviewMood(true) & setisSelected(false)}>{language === 'eng' ? "Review" : "Révision " }</button> }
       </div>
       </div>}
       { isReviewMood && <div className={classes.detailsCard}> 
-        <h4 onClick={()=>setisSelected(false) & setisReviewMood(false) & setselectedOrder({}) & window.scrollTo({ top: 0 })} className={classes.back}><IoIosArrowBack style={{marginBottom:'-.15em'}}/> {language === 'eng' ? "Back" : "Dos" }</h4>
+        <h4 onClick={()=>navigate('/account/order-tracking') & setisSelected(false) & setisReviewMood(false) & setselectedOrder({}) & window.scrollTo({ top: 0 })} className={classes.back}><IoIosArrowBack style={{marginBottom:'-.15em'}}/> {language === 'eng' ? "Back" : "Dos" }</h4>
         <div className={classes.header1}>
       <div className={classes.headtitle} style={{margin:"0 0 0 1em",textAlign:'start',fontWeight:'500',lineHeight:'130%'}} onClick={()=>console.log(steps)}>{language === 'eng' ? "Order" : "Commande " } # {selectedOrder?.id}<br/> {language === 'eng' ? "Placed on" : "Placé sur" } {new Date(selectedOrder?.date).getDate()}/{new Date(selectedOrder?.date).getMonth()}/{new Date(selectedOrder?.date).getFullYear()}</div>
       <div className={classes.headtitle} style={{margin:"auto 1em auto auto",fontWeight:'500'}} onClick={()=>console.log(steps)}>{selectedOrder?.currency === 'eur' ? '€' : '$'}{Number(selectedOrder?.total_price).toFixed(2)}</div>

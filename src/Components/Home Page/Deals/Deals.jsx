@@ -350,7 +350,7 @@ const Deals = () => {
           </div>
         )}
       </div>
-      <p className={classes.viewall} onClick={()=>navigate(`/books`)}>{language === 'eng' ? 'View all' : 'View all(fr)'}</p>
+      {/* <p className={classes.viewall} onClick={()=>navigate(`/books`)}>{language === 'eng' ? 'View all' : 'View all(fr)'}</p> */}
       <div className={`${classes.nav_prev}`}>
         <IoMdArrowBack className={classes.nav_icon} />
       </div>

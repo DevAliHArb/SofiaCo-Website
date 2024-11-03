@@ -379,15 +379,18 @@
       right: 0;
       width: 1.5em;
       height: 1.5em;
+      display: none;
     }
     .nav_prev{
       right: 3em;
       width: 1.5em;
       height: 1.5em;
+      display: none;
     }
     .nav_nb{
       right: 1em;
       top: 0.1em;
+      display: none;
     }
 
     .card_img{

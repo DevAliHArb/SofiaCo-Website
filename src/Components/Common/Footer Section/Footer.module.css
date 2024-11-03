@@ -188,6 +188,10 @@ margin-left: -1.5em;
     width: 40%;
     margin: auto;
   }
+  .bottom {
+    flex-direction: column;
+  }
+  
 }
 
 @media screen and (max-width: 350px) {
