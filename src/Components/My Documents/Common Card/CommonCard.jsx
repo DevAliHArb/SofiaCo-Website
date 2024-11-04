@@ -70,7 +70,6 @@ const CommonCard = ({data ,reviewHandler}) => {
 
 
   const handleDownload = (pdfLink) => {
-    console.log(data)
     if (pdfLink && pdfLink !== null) {
       // Create an anchor element programmatically
       const link = document.createElement('a');
