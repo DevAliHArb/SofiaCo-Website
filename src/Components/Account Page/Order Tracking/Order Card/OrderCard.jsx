@@ -152,12 +152,12 @@ const AddAllToCart = () => {
 }
   return (
   <div className={classes.orderCard}>
-        <h3 style={{textAlign:'start'}}>{data.id}</h3>
-        <h3 style={{textAlign:'end'}}>{new Date(data.date).toDateString()}</h3>
-        {data.return_status === null ? <h3  style={{textAlign:'start'}}>{language == 'eng' ? data.look_up.name : data.look_up.name_fr}</h3> : 
-                <h3 style={{textAlign:'start'}}>{language == 'eng' ? data.return_look_up.name : data.return_look_up.name_fr} {language === 'eng' ? "Return" : "Retour" }</h3>}
+        <h3 style={{textAlign:'start'}}>#{data.id}</h3>
+        <h3 style={{textAlign:'end'}}><span className={classes.mobileTitle}>{language === 'eng' ? "Date: " : "Date: " }</span>{new Date(data.date).toDateString()}</h3>
+        {data.return_status === null ? <h3  style={{textAlign:'start'}}><span className={classes.mobileTitle}>{language === 'eng' ? "Status: " : "Statut: " }</span>{language == 'eng' ? data.look_up.name : data.look_up.name_fr}</h3> : 
+                <h3 style={{textAlign:'start'}}><span className={classes.mobileTitle}>{language === 'eng' ? "Status: " : "Statut: " }</span>{language == 'eng' ? data.return_look_up.name : data.return_look_up.name_fr} {language === 'eng' ? "Return" : "Retour" }</h3>}
 
-      <h3 style={{textAlign:'end'}}>{data.currency === 'usd' ? '$' : '€' }{data.total_price}</h3>
+      <h3 style={{textAlign:'end'}}><span className={classes.mobileTitle}>Total: </span>{data.currency === 'usd' ? ' $' : ' €' }{data.total_price}</h3>
       <button className={classes.btn}>{language === 'eng' ? "View Order" : "Voir la commande" }</button>
        {/* <div className={classes.swiper}>
           <Swiper

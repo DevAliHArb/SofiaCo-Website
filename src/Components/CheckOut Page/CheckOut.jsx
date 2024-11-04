@@ -672,21 +672,37 @@ const CheckOut = () => {
       const tva = item.discount > 0
         ? (priceTTC - priceNet) - ((priceTTC - priceNet) * (item.discount / 100))
         : priceTTC - priceNet;
+      // updatedOrderInvoiceItems.push({
+      //   article_id: item._id,
+      //   name: item.title,
+      //   quantity: item.quantity,
+      //   cost: parseFloat(discountedCost.toFixed(2)),
+      //   tva: parseFloat(tva.toFixed(2)),
+      //   total_tva: parseFloat((tva * item.quantity).toFixed(2)),
+      //   total_cost: parseFloat((discountedCost * item.quantity).toFixed(2)),
+      //   total_price: parseFloat((discountedPrice * item.quantity).toFixed(2)),
+      //   review: item.note || "-",
+      //   price: discountedPrice,
+      //   article_discount: item.discount,
+      //   price_without_discount: item.price_ttc,
+      //   cost_without_discount: item.price,
+      // });
       updatedOrderInvoiceItems.push({
         article_id: item._id,
         name: item.title,
         quantity: item.quantity,
-        cost: parseFloat(discountedCost.toFixed(2)),
-        tva: parseFloat(tva.toFixed(2)),
-        total_tva: parseFloat((tva * item.quantity).toFixed(2)),
-        total_cost: parseFloat((discountedCost * item.quantity).toFixed(2)),
-        total_price: parseFloat((discountedPrice * item.quantity).toFixed(2)),
+        cost: currency === "eur" ? parseFloat(Number(discountedCost).toFixed(2)) : parseFloat((discountedCost * authCtx.currencyRate).toFixed(2)),
+        tva: currency === "eur" ? parseFloat(Number(tva).toFixed(2)) : parseFloat((tva * authCtx.currencyRate).toFixed(2)),
+        total_tva: currency === "eur" ? parseFloat((tva * item.quantity).toFixed(2)) : parseFloat(((tva * item.quantity) * authCtx.currencyRate).toFixed(2)),
+        total_cost: currency === "eur" ? parseFloat((discountedCost * item.quantity).toFixed(2)): parseFloat(((discountedCost * item.quantity) * authCtx.currencyRate).toFixed(2)),
+        total_price: currency === "eur" ? parseFloat((discountedPrice * item.quantity).toFixed(2)) : parseFloat(((discountedPrice * item.quantity) * authCtx.currencyRate).toFixed(2)),
         review: item.note || "-",
-        price: discountedPrice,
+        price: currency === "eur" ? parseFloat(Number(discountedPrice).toFixed(2)) : parseFloat((discountedPrice * authCtx.currencyRate).toFixed(2)),
         article_discount: item.discount,
-        price_without_discount: item.price_ttc,
-        cost_without_discount: item.price,
+        price_without_discount: currency === "eur" ? parseFloat(Number(item.price_ttc).toFixed(2)): parseFloat((item.price_ttc * authCtx.currencyRate).toFixed(2)),
+        cost_without_discount: currency === "eur" ? parseFloat(Number(item.price).toFixed(2)): parseFloat((item.price * authCtx.currencyRate).toFixed(2)),
       });
+      
 
       totalPrice +=  (price * 1).toFixed(2) * item.quantity;
       totalWeight += item.quantity * item.weight;
@@ -1416,7 +1432,7 @@ const CheckOut = () => {
                     display: "flex",
                     flexWrap: "wrap",
                     justifyContent: "space-between",
-                    margin: "4em 0 2em 0",
+                    margin: "2em 0 .5em 0",
                   }}
                 >
                   <h2
@@ -1592,7 +1608,7 @@ const CheckOut = () => {
                     display: "flex",
                     flexWrap: "wrap",
                     justifyContent: "space-between",
-                    margin: "4em 0 0em 0",
+                    margin: "2em 0 0em 0",
                   }}
                 >
                   <h2

@@ -110,7 +110,7 @@ const CollaboratorDetails = () => {
           <p style={{fontWeight:"500"}}>{CollaboratorData.biographie}</p>
         </div> */}
     </div>
-        <Video />
+        {/* <Video /> */}
         <MoreAbout />
       {/* <ToastContainer
         position="top-right"

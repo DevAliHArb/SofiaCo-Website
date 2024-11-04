@@ -152,7 +152,7 @@
 @media screen and (max-width:750PX) {
 
   .cardsContainer{
-    padding: 2em 5% 3em 5%;
+    padding: 2em 5% 1em 5%;
     flex-direction: column-reverse;
     margin: auto;
   }
@@ -170,7 +170,7 @@
     text-align: center;
     gap: 1em;
     margin-bottom: 9em;
-    z-index: 99;
+    z-index: 50;
   }
   
   .socials {
@@ -227,6 +227,9 @@
     height: fit-content;
     border-radius: 2em;
     z-index: 30;
+  }
+  .form{
+    margin-bottom: 0em;
   }
 }
 

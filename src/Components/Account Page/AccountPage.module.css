@@ -182,6 +182,7 @@
   .accountContainer{
     width: 88%;
     grid-template-columns: 100%;
+    padding-bottom: 1em;
   }
   
   .contentContainer{

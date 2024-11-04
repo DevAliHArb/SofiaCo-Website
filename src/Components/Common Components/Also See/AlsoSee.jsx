@@ -57,7 +57,7 @@ const AlsoSee = () => {
       <div className={classes.content}>
         <div className={classes.header}>
           <h1>{data.AlsoSee?.title[language]}</h1>
-          <p>{data.AlsoSee?.description[language]}</p>
+          {/* <p>{data.AlsoSee?.description[language]}</p> */}
         </div>
 
         {articles?.length === 0 ? (
