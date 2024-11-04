@@ -70,7 +70,8 @@ const CommonCard = ({data ,reviewHandler}) => {
 
 
   const handleDownload = (pdfLink) => {
-    if (pdfLink !== null) {
+    console.log(data)
+    if (pdfLink && pdfLink !== null) {
       // Create an anchor element programmatically
       const link = document.createElement('a');
       link.href = pdfLink;
@@ -89,23 +90,13 @@ const CommonCard = ({data ,reviewHandler}) => {
         <h3>{data.numero}</h3>
         <h3>{new Date(data.datecreation).toDateString()}</h3>
         <h3>{data.montantttc}
-          {/* {data.order_invoice.currency === 'usd' ? '$' :  */}
           €
-          {/* // } */}
 
         </h3>
-      <div className={classes.download} onClick={()=>handleDownload(data.pdf_link)}>
+      <div className={classes.download} onClick={()=>handleDownload(data.pdf_url)}>
         <p>PDF</p>
         <FiDownload className={classes.download_icon}/>
       </div>
-        {/* {showPopup && (
-        <ConfirmationPopup
-          message={"Are you sure you want to delete this Order?"}
-          onConfirm={CancleOrderHandler}
-          onCancel={() => setShowPopup(false)}
-          showPopup={showPopup}
-        />
-      )} */}
     </div>
   )
 }

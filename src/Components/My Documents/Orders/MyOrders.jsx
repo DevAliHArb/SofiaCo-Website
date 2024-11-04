@@ -231,19 +231,16 @@ const MyOrders = () => {
                     return (
                       <>
                         <div
-                          onClick={() =>
-                            setisSelected(true) &
-                            setselectedOrder(props) &
-                            setcategoryId(props.status_id) &
-                            window.scrollTo({ top: 0 })
-                          }
+                          // onClick={() =>
+                          //   setisSelected(true) &
+                          //   setselectedOrder(props) &
+                          //   setcategoryId(props.status_id) &
+                          //   window.scrollTo({ top: 0 })
+                          // }
                         >
                           <CommonCard
                             data={props}
-                            reviewHandler={() => {
-                              setisReviewMood(true);
-                              setselectedOrder(props);
-                            }}
+                            
                           />
                         </div>
                       </>
