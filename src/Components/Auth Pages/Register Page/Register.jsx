@@ -3,7 +3,7 @@ import classes from './Register.module.css'
 import logo from '../../../assets/navbar/logo.svg'
 import { MdArrowBackIosNew } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Select } from 'antd';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import AuthContext from '../../Common/authContext'
@@ -90,6 +90,11 @@ const Register = () => {const navigate = useNavigate();
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+  const handleChangecountry = (name, value) => {
+    setFormData({ ...formData, [name]: value });
+  };
+  console.log(formData);
+  
   return (
     <div className={classes.auth_con}>
         <div className={classes.header}>
@@ -114,6 +119,7 @@ const Register = () => {const navigate = useNavigate();
           { required: true, message: language === 'eng' ? 'Please input your Company Name!' : 'Veuillez entrer le nom de votre entreprise!' },
           { max: 30, message: language === 'eng' ? 'Company name must be less than 31 characters!' : 'Le nom de l\'entreprise doit comporter moins de 31 caractères!' }
         ]}
+        style={{width:'100%'}}
       >
         <Input
         size="large"  
@@ -129,6 +135,7 @@ const Register = () => {const navigate = useNavigate();
           { required: true, message: language === 'eng' ? 'Please input your First Name!' : 'Veuillez entrer votre prénom!' },
           { max: 16, message: language === 'eng' ? 'First name must be less than 17 characters!' : 'Le prénom doit comporter moins de 17 caractères!' }
         ]}
+        style={{width:'100%'}}
       >
         <Input
         size="large"  
@@ -144,6 +151,7 @@ const Register = () => {const navigate = useNavigate();
           { required: true, message: language === 'eng' ? 'Please input your Last Name!' : 'Veuillez entrer votre nom de famille!' },
           { max: 16, message: language === 'eng' ? 'Last name must be less than 17 characters!' : 'Le nom de famille doit comporter moins de 17 caractères!' }
         ]}
+        style={{width:'100%'}}
       >
         <Input
         size="large"  
@@ -162,7 +170,7 @@ const Register = () => {const navigate = useNavigate();
               message: language === 'eng' ? 'The address must not exceed 64 characters.' : 'L\'adresse ne doit pas dépasser 64 caractères.' 
             },
           ]}
-          
+          style={{width:'100%'}}
         >
           <Input
           size="large"  
@@ -181,6 +189,7 @@ const Register = () => {const navigate = useNavigate();
               message: language === 'eng' ? 'The city must not exceed 16 characters.' : 'La ville ne doit pas dépasser 16 caractères.' 
             },
           ]}
+          style={{width:'100%'}}
         >
           <Input
           size="large"  
@@ -190,6 +199,38 @@ const Register = () => {const navigate = useNavigate();
                  onChange={handleChange}
           />
         </Form.Item>
+              <Form.Item
+                name="country"
+                rules={[
+                  { required: true, message: "Veuillez saisir votre pays!" },
+                ]}
+                style={{width:'100%', border: "none", borderRadius: ".5em" }}
+              >
+                  <Select
+                    name="country"
+                    placeholder={language === 'eng' ? "Company country" : 'Pays de la société'}
+                    size="large"
+                    style={{
+                      width: "100%",
+                      height: "2.5em",
+                      textAlign: "start",
+                    }}
+                    dropdownStyle={{ zIndex: 2000 }}
+                    showSearch // Enables searching
+                    getPopupContainer={(trigger) => trigger.parentNode}
+                    filterOption={(input, option) =>
+                      option.children.toLowerCase().includes(input.toLowerCase())
+                    }
+                    onChange={(e) => handleChangecountry("company_country", e)}
+                  >
+                    {/* Add options for all countries */}
+                    {authCtx.countries?.map((country, index) => (
+                      <Option key={index} value={country.name}>
+                        {country.name}
+                      </Option>
+                    ))}
+                  </Select>
+              </Form.Item>
         <Form.Item
           name="phone"
           rules={[
@@ -200,6 +241,7 @@ const Register = () => {const navigate = useNavigate();
               message: language === 'eng' ? 'The phone number must not exceed 16 characters.' : 'Le numéro de téléphone ne doit pas dépasser 16 caractères.' 
             },
           ]}
+          style={{width:'100%'}}
         >
           <Input
           size="large"  
@@ -225,6 +267,7 @@ const Register = () => {const navigate = useNavigate();
               message: language === 'eng' ? 'The input must not exceed 40 characters.' : 'L\'entrée ne doit pas dépasser 40 caractères.' 
             },
           ]}
+          style={{width:'100%'}}
         >
           <Input
           size="large"  
@@ -246,6 +289,7 @@ const Register = () => {const navigate = useNavigate();
               message: language === 'eng' ? 'The input must not exceed 20 characters.' : 'L\'entrée ne doit pas dépasser 20 caractères.' 
             },
           ]}
+          style={{width:'100%'}}
         >
           <Input
           size="large"  
@@ -267,6 +311,7 @@ const Register = () => {const navigate = useNavigate();
               message: language === 'eng' ? 'The input must not exceed 16 characters.' : 'L\'entrée ne doit pas dépasser 16 caractères.' 
             },
           ]}
+          style={{width:'100%'}}
         >
           <Input
           size="large"  
@@ -276,7 +321,8 @@ const Register = () => {const navigate = useNavigate();
                  onChange={handleChange}
           />
         </Form.Item>
-           <Form.Item>
+           <Form.Item
+        style={{width:'100%'}}>
           <Button
            size="large"
            disabled={loading}

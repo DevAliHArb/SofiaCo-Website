@@ -221,12 +221,12 @@ const Proforma = () => {
                   return (
                     <>
                       <div
-                        onClick={() =>
-                          setisSelected(true) &
-                          setselectedOrder(props) &
-                          setcategoryId(props.status_id) &
-                          window.scrollTo({ top: 0 })
-                        }
+                        // onClick={() =>
+                        //   setisSelected(true) &
+                        //   setselectedOrder(props) &
+                        //   setcategoryId(props.status_id) &
+                        //   window.scrollTo({ top: 0 })
+                        // }
                       >
                         <CommonCard
                           data={props}
@@ -254,8 +254,8 @@ const Proforma = () => {
                         n === pagenb ||
                         n === currentpage - 1 ||
                         n === currentpage ||
-                        n === currentpage + 1 ||
-                        (n === currentpage + 2 && currentpage === 1)
+                        n === currentpage + 1 
+                        // (n === currentpage + 2 && currentpage === 1)
                       ) {
                         return (
                           <button
