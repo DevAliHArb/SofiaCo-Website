@@ -104,6 +104,10 @@ const Reviews = () => {
     useEffect(() => {
         fetchReviews();
     }, []);
+    
+    useEffect(() => {
+        fetchReviews();
+    }, [selectedBook]);
 
     const handleReviewButtonClick = () => {
         if (user) {
