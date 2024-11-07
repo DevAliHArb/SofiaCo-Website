@@ -218,7 +218,7 @@ const fetchArticles = async () => {
 
   const fetchCountries = async () => {
     try {
-      const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/countries?ecom_type=bookshop`);
+      const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/countries?ecom_type=sofiaco`);
       setCountries(response.data);
     } catch (error) {
       // console.error('Error fetching countries:', error);
