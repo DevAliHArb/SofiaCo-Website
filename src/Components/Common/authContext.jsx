@@ -364,7 +364,7 @@ const fetchArticles = async () => {
      if (!item) {
      try {
       setIsLoading(true);
-      const response = await axios.post("https://api.leonardo-service.com/api/bookshop/cart?ecom_type=bookshop", {
+      const response = await axios.post("https://api.leonardo-service.com/api/bookshop/cart?ecom_type=sofiaco", {
         user_id: user.id,
         article_id: props.id,
         quantity: props.quantity,
@@ -375,7 +375,6 @@ const fetchArticles = async () => {
         author: props.dc_auteur,
         image: props.image,
         price: props.prixpublic,
-        average_rate: props.average_rate,
         _qte_a_terme_calcule: props._qte_a_terme_calcule,
         discount: props.discount,
         quantity: props.quantity,
@@ -385,29 +384,8 @@ const fetchArticles = async () => {
         price_ttc: props._prix_public_ttc,
         article_stock: props.article_stock
       }));
-
-      toast.success(`${language === 'eng' ? "Book is added to Cart" : "Le livre est ajouté au panier"}`, {
-        position: "top-right",
-        autoClose: 1500,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: 0,
-        theme: "colored",
-      });
     } catch (error) {
       // console.error("Error adding to cart:", error);
-      toast.error(`${language === 'eng' ? "Failed to add item to cart." : "Échec de l'ajout d'un article au panier."}`, {
-        position: "top-right",
-        autoClose: 1500,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: 0,
-        theme: "colored",
-      });
       console.log(error)
     } finally{
       setIsLoading(false);
@@ -415,9 +393,6 @@ const fetchArticles = async () => {
      } else {
       const newQuantity = Number(item.quantity * 1) + Number(props.quantity * 1);
       const newQuantityMax = Number(maxQuantity) - Number(item.quantity * 1);
-      // console.log("item.quantity", item.quantity)
-      // console.log("props.quantity", props.quantity)
-      // console.log("newQuantity", newQuantity)
       setIsLoading(true);
       if (Number(newQuantity) > Number(maxQuantity)) {
         
@@ -431,30 +406,10 @@ const fetchArticles = async () => {
                   quantity: Number(newQuantityMax).toFixed(0),
                 }))
                 setIsLoading(false);
-                toast.success(`${language === 'eng' ? "Book is added to Cart" : "Le livre est ajouté au panier"}`, {
-                  position: "top-right",
-                  autoClose: 1500,
-                  hideProgressBar: true,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: 0,
-                  theme: "colored",
-                });
           })
           .catch((error) => {
-              console.error("Error in PUT request:", error);
+              // console.error("Error in PUT request:", error);
               setIsLoading(false);
-              toast.error(`${language === 'eng' ? "Failed to add item to cart." : "Échec de l'ajout d'un article au panier."}`, {
-                position: "top-right",
-                autoClose: 1500,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: 0,
-                theme: "colored",
-              });
           });
       } else {
         
@@ -467,31 +422,10 @@ const fetchArticles = async () => {
                   _id: props.id,
                   quantity: props.quantity,
                 }))
-                setIsLoading(false);
-                toast.success(`${language === 'eng' ? "Book is added to Cart" : "Le livre est ajouté au panier"}`, {
-                  position: "top-right",
-                  autoClose: 1500,
-                  hideProgressBar: true,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: 0,
-                  theme: "colored",
-                });
           })
           .catch((error) => {
               // console.error("Error in PUT request:", error);
               setIsLoading(false);
-              toast.error(`${language === 'eng' ? "Failed to add item to cart." : "Échec de l'ajout d'un article au panier."}`, {
-                position: "top-right",
-                autoClose: 1500,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: 0,
-                theme: "colored",
-              });
           });
       }
       
