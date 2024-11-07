@@ -19,8 +19,17 @@
   .form .ant-form-item-explain-error {
     color: var(--primary-color) !important;
   }
-  
- 
+  .form .ant-select-selector{
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border: none !important;
+    color: #fff !important;
+  }
+  .form .ant-select-selection-placeholder{
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+ .form .ant-select-arrow{
+    color: #fff !important;
+ }
 @media screen and (max-width: 1400px) {
     .form{
         width: 50% !important;

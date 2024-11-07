@@ -254,8 +254,8 @@ const Proforma = () => {
                         n === pagenb ||
                         n === currentpage - 1 ||
                         n === currentpage ||
-                        n === currentpage + 1 ||
-                        (n === currentpage + 2 && currentpage === 1)
+                        n === currentpage + 1 
+                        // (n === currentpage + 2 && currentpage === 1)
                       ) {
                         return (
                           <button
