@@ -333,7 +333,7 @@ const CheckOut = () => {
     try {
       // Fetch user's coupons
       const response = await axios.get(
-        `https://api.leonardo-service.com/api/bookshop/users/${user.id}/coupons`,
+        `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/coupons`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers
@@ -346,7 +346,7 @@ const CheckOut = () => {
       const couponsPromises = userCoupons.map(async (coupon) => {
         const couponId = coupon.coupon_id;
         const couponResponse = await axios.get(
-          `https://api.leonardo-service.com/api/bookshop/coupons/${couponId}`,
+          `${import.meta.env.VITE_TESTING_API}/api/bookshop/coupons/${couponId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`, // Include token in the headers
@@ -393,7 +393,7 @@ const CheckOut = () => {
     try {
       // Step 1: Check if the coupon code exists in the coupons table
       const couponResponse = await axios.get(
-        `https://api.leonardo-service.com/api/bookshop/coupons`,
+        `${import.meta.env.VITE_TESTING_API}/api/bookshop/coupons`,
         {
           params: {
             code: selectedCoupon,
@@ -412,7 +412,7 @@ const CheckOut = () => {
 
         // Step 2: Check if the coupon is associated with the user in the user_coupons table
         const userCouponResponse = await axios.get(
-          `https://api.leonardo-service.com/api/bookshop/users/${user.id}/coupons`,
+          `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/coupons`,
           {
             params: {
               coupon_id: couponId,
@@ -499,7 +499,7 @@ const CheckOut = () => {
         const orderWeight = totalWeight;
         setLoading(true);
         const response = await axios.get(
-          `https://api.leonardo-service.com/api/bookshop/shipping-costs?ecom_type=sofiaco&country_name=${activeAddress.country}`
+          `${import.meta.env.VITE_TESTING_API}/api/bookshop/shipping-costs?ecom_type=sofiaco&country_name=${activeAddress.country}`
         );
         setshippingCosts(response.data.data);
         const shippingCost = getShippingCost(
@@ -536,7 +536,7 @@ const CheckOut = () => {
   const fetchAddresses = async () => {
     try {
       const response = await axios.get(
-        `https://api.leonardo-service.com/api/bookshop/users/${user.id}/addresses`,
+        `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/addresses`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers
@@ -572,7 +572,7 @@ const CheckOut = () => {
   const fetchPayments = async () => {
     try {
       const response = await axios.get(
-        `https://api.leonardo-service.com/api/bookshop/users/${user.id}/payments`,
+        `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/payments`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers
@@ -848,7 +848,7 @@ const CheckOut = () => {
             
             // Request to create a Checkout Session from your server
             const response = await axios.post(
-              "https://api.leonardo-service.com/api/bookshop/create-checkout-session",
+              `${import.meta.env.VITE_TESTING_API}/api/bookshop/create-checkout-session`,
               requestData1
             );
             const sessionId = response.data.sessionId;
@@ -865,7 +865,7 @@ const CheckOut = () => {
           } else {
             // Normal order processing
             await axios.post(
-              "https://api.leonardo-service.com/api/bookshop/order_invoices",
+              `${import.meta.env.VITE_TESTING_API}/api/bookshop/order_invoices`,
               requestData
             );
 
@@ -987,7 +987,7 @@ const CheckOut = () => {
       }
       setLoading(true);
       await axios.post(
-        "https://api.leonardo-service.com/api/bookshop/order_invoices",
+        `${import.meta.env.VITE_TESTING_API}/api/bookshop/order_invoices`,
         requestData
       );
 
@@ -1061,7 +1061,7 @@ const CheckOut = () => {
       // try {
       //   // Update the database to set the selected address as default
       //   await axios.put(
-      //     `https://api.leonardo-service.com/api/bookshop/users/${user.id}/payments/${id}`,
+      //     `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/payments/${id}`,
       //     {
       //       default: "true",
       //     },
@@ -1086,7 +1086,7 @@ const CheckOut = () => {
     // try {
     //   // Update the database to set the selected address as default
     //   await axios.put(
-    //     `https://api.leonardo-service.com/api/bookshop/users/${user.id}/addresses/${id}`,
+    //     `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/addresses/${id}`,
     //     {
     //       default: "true",
     //     },
@@ -1129,7 +1129,7 @@ const CheckOut = () => {
   const handleDeletePayment = async (id) => {
     try {
       await axios.delete(
-        `https://api.leonardo-service.com/api/bookshop/users/${user.id}/payments/${id}`,
+        `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/payments/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers
@@ -1151,7 +1151,7 @@ const CheckOut = () => {
   const handleDeleteAddress = async (id) => {
     try {
       await axios.delete(
-        `https://api.leonardo-service.com/api/bookshop/users/${user.id}/addresses/${id}`,
+        `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/addresses/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers
@@ -1181,7 +1181,7 @@ const CheckOut = () => {
   const fetchHero = async () => {
     try {
       const response = await axios.get(
-        "https://api.leonardo-service.com/api/bookshop/website-sections?ecom_type=sofiaco&section_id=checkout-hero"
+        `${import.meta.env.VITE_TESTING_API}/api/bookshop/website-sections?ecom_type=sofiaco&section_id=checkout-hero`
       );
       setHeroData(response.data.data[0]);
     } catch (error) {

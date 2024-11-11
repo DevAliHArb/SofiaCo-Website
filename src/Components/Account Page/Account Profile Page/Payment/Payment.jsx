@@ -119,7 +119,7 @@ useEffect(() => {
   const fetchPayments = async () => {
     try {
       const response = await axios.get(
-        `https://api.leonardo-service.com/api/bookshop/users/${user.id}/payments`,
+        `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/payments`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers
@@ -140,7 +140,7 @@ useEffect(() => {
     try {
       // Update the database to set the selected address as default
       await axios.put(
-        `https://api.leonardo-service.com/api/bookshop/users/${user.id}/payments/${id}`,
+        `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/payments/${id}`,
         {
           default: "true",
           default_pay: 'card'
@@ -166,7 +166,7 @@ useEffect(() => {
     try {
       // console.log(passData)
         // Make API call to change password
-        const response = await axios.put(`https://api.leonardo-service.com/api/bookshop/users/${user.id}`, {default_pay: props}, {
+        const response = await axios.put(`${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}`, {default_pay: props}, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -211,7 +211,7 @@ useEffect(() => {
       if (editMode) {
         // console.log(formData);
         await axios.put(
-          `https://api.leonardo-service.com/api/bookshop/users/${user.id}/payments/${editpaymentId}`,
+          `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/payments/${editpaymentId}`,
           formData,
           {
             headers: {
@@ -225,7 +225,7 @@ useEffect(() => {
         });
       } else {
         await axios.post(
-          `https://api.leonardo-service.com/api/bookshop/users/${user.id}/payments`,
+          `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/payments`,
           {
             ...formData,
             default: "true",
@@ -257,7 +257,7 @@ useEffect(() => {
   const handleDeletePayment = async (id) => {
     try {
       await axios.delete(
-        `https://api.leonardo-service.com/api/bookshop/users/${user.id}/payments/${id}`,
+        `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/payments/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers

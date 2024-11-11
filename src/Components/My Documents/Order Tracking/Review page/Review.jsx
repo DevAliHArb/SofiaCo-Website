@@ -123,7 +123,7 @@ const Review = ({props}) => {
           };
         });
       }));
-      const response = await axios.post(`https://api.leonardo-service.com/api/bookshop/articles/${selectedReview.article.id}/reviews`, {
+      const response = await axios.post(`${import.meta.env.VITE_TESTING_API}/api/bookshop/articles/${selectedReview.article.id}/reviews`, {
         description: description || '',
         rate: value || 0,
         user_id: user.id,

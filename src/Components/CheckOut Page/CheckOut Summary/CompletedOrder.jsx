@@ -15,7 +15,7 @@ const CompletedOrder = () => {
 
   const fetchOrder = async () => {
     try {
-      const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/order_invoices/${id}`);
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/api/bookshop/order_invoices/${id}`);
       // console.log('Response data:', response.data);
       setData(response.data.data || {})
     } catch (error) {

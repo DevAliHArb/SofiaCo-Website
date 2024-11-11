@@ -43,7 +43,7 @@ const Reviews = () => {
 
     const fetchBook = async () => {
         try {
-          const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/articles?id=${selectedBook[0].id}&ecom_type=sofiaco`);
+          const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/api/bookshop/articles?id=${selectedBook[0].id}&ecom_type=sofiaco`);
           const book = response.data;
           dispatch(addSelectedBook(book))
           
@@ -54,7 +54,7 @@ const Reviews = () => {
 
     const fetchReviews = async () => {
         try {
-            const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/articles/${selectedBook[0].id}/reviews?ecom_type=sofiaco`);
+            const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/api/bookshop/articles/${selectedBook[0].id}/reviews?ecom_type=sofiaco`);
             const reviews = response.data.data;
             setBookreview(reviews);
         } catch (error) {
@@ -78,7 +78,7 @@ const Reviews = () => {
         }
 
         try {
-            const response = await axios.post(`https://api.leonardo-service.com/api/bookshop/articles/${selectedBook[0].id}/reviews`, {
+            const response = await axios.post(`${import.meta.env.VITE_TESTING_API}/api/bookshop/articles/${selectedBook[0].id}/reviews`, {
                 ...formData,
                 user_id: user.id,
                 ecom_type: 'sofiaco'
@@ -183,7 +183,7 @@ const Reviews = () => {
                     {bookreview?.slice(0, displayedObjects).map((item, index) => (
                         <div className={classes.reviews_con} key={item.id}>
                             <div className={classes.image_con}>
-                                <Avatar src={`https://api.leonardo-service.com/img/${item.user.image}`} alt={item.user.first_name} />
+                                <Avatar src={`${import.meta.env.VITE_TESTING_API}/img/${item.user.image}`} alt={item.user.first_name} />
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column', width: '90%', margin: '0 auto' }}>
                                 <p style={{ fontWeight: '700', fontSize: 'calc(0.9rem + .3vw)', margin: '0.3em 0' }}>{item.user.first_name} {item.user.last_name} <span style={{ fontWeight: 400 }}> {item.created_at.substring(0, 10)}</span></p>

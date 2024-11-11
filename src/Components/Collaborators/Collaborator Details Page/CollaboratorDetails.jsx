@@ -48,7 +48,7 @@ const CollaboratorDetails = () => {
       return;
   }
     try {
-      const response = await axios.post(`https://api.leonardo-service.com/api/bookshop/users/${user.id}/subscriptions`, {
+      const response = await axios.post(`${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/subscriptions`, {
         collaborator_id: id,
         ecom_type: 'sofiaco',
       }, {
@@ -69,7 +69,7 @@ const CollaboratorDetails = () => {
   
     const fetchHero = async () => {
       try {
-        const response = await axios.get('https://api.leonardo-service.com/api/bookshop/website-sections?ecom_type=sofiaco&section_id=Collaborator-details-hero');
+        const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/api/bookshop/website-sections?ecom_type=sofiaco&section_id=Collaborator-details-hero`);
         setHeroData(response.data.data[0])
       } catch (error) {
         // console.error('Error fetching services:', error);

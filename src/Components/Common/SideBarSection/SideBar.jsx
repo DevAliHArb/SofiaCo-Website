@@ -43,7 +43,7 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
     dispatch(changeCurrency({ currency: cur }));
     try {
       await axios.put(
-        `https://api.leonardo-service.com/api/bookshop/users/${userInfo.id}`,
+        `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${userInfo.id}`,
         { currency: cur },
         {
           headers: {
@@ -60,7 +60,7 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
     dispatch(changeLanguage({ Language: lan }));
     try {
       await axios.put(
-        `https://api.leonardo-service.com/api/bookshop/users/${userInfo.id}`,
+        `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${userInfo.id}`,
         { language: lan },
         {
           headers: {

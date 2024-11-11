@@ -49,7 +49,7 @@ const NewReleases = () => {
   const fetchArticles = async () => {
     setLoading(true);
     try {
-        let url = 'https://api.leonardo-service.com/api/bookshop/articles?ecom_type=sofiaco&page=1';
+        let url = `${import.meta.env.VITE_TESTING_API}/api/bookshop/articles?ecom_type=sofiaco&page=1`;
 
         if (selectedCategory === 'categories') {
           url += `&category=${selectedCatFilter}`;

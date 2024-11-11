@@ -36,7 +36,7 @@ function SearchBox() {
   const handleSearch = async () => {
     setLoading(true);
     try {
-      let url = "https://api.leonardo-service.com/api/bookshop/articles?";
+      let url = `${import.meta.env.VITE_TESTING_API}/api/bookshop/articles?`;
       // Adjust search query parameters based on the selected option
       if (selectedOption === "Book") {
         url += `title=${searchQuery}`;

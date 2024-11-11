@@ -57,7 +57,7 @@ const BooksView = ({carttoggle}) => {
       if (storedCategory) {
         // Fetch category path data from the backend API
       const response = await axios.get(
-        `https://api.leonardo-service.com/api/bookshop/categories/${storedCategory}`
+        `${import.meta.env.VITE_TESTING_API}/api/bookshop/categories/${storedCategory}`
       ); // Adjust the URL as per your backend API
       const categoryPath = response.data.data.chemin; // Assuming the response contains the category path
 
@@ -228,7 +228,7 @@ const BooksView = ({carttoggle}) => {
     setLoading(true);
     try {
       // Create a base URL with selectedPrice
-      const url = `https://api.leonardo-service.com/api/bookshop/articles`;
+      const url = `${import.meta.env.VITE_TESTING_API}/api/bookshop/articles`;
 
       const selectedtitleParam = searchData[0]?.title
         ? `&title=${searchData[0].title}`
@@ -366,7 +366,7 @@ const BooksView = ({carttoggle}) => {
     setIsOpen(false);
     try {
       const response = await axios.get(
-        `https://api.leonardo-service.com/api/bookshop/articles?ecom_type=sofiaco`
+        `${import.meta.env.VITE_TESTING_API}/api/bookshop/articles?ecom_type=sofiaco`
       );
       setArticles(response.data.data);
       setTotalArticlesNumber(response.data?.total)

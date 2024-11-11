@@ -41,7 +41,7 @@ const MoreAbout = () => {
   const fetchArticles = async () => {
     try {
       const response = await axios.get(
-        `https://api.leonardo-service.com/api/bookshop/articles?ecom_type=sofiaco&author=${CollaboratorData?.nom}`
+        `${import.meta.env.VITE_TESTING_API}/api/bookshop/articles?ecom_type=sofiaco&author=${CollaboratorData?.nom}`
       );
       // console.log(response.data.data);
       setArticles(response.data.data);

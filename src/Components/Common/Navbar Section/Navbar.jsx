@@ -88,7 +88,7 @@ const Navbar = (props) => {
   
     try {
       await axios.put(
-        `https://api.leonardo-service.com/api/bookshop/users/${user.id}`,
+        `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}`,
         { currency: cur },
         {
           headers: {
@@ -106,7 +106,7 @@ const Navbar = (props) => {
     dispatch(changeLanguage({ Language: lan }));
     try {
       await axios.put(
-        `https://api.leonardo-service.com/api/bookshop/users/${userInfo.id}`,
+        `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${userInfo.id}`,
         { language: lan },
         {
           headers: {
@@ -136,7 +136,7 @@ const Navbar = (props) => {
       };
   
       // Send a POST request to the logout endpoint
-      await axios.get('https://api.leonardo-service.com/api/bookshop/logout', { headers });
+      await axios.get(`${import.meta.env.VITE_TESTING_API}/api/bookshop/logout`, { headers });
   
       // Remove the token from local storage after successful logout
       localStorage.removeItem('token');
@@ -336,7 +336,7 @@ const Navbar = (props) => {
                   <Tooltip title={language === 'eng' ? "Profile" : "Profil"}>
                     <div onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                       {userInfo?.id ? 
-                      <Avatar alt={userInfo.first_name} src={`https://api.leonardo-service.com/img/${userInfo.image}`} style={{borderRadius:'50%',width:'1.6em', height:'1.6em', marginTop:'-0.15em'}} className={classes.icon}/>
+                      <Avatar alt={userInfo.first_name} src={`${import.meta.env.VITE_TESTING_API}/img/${userInfo.image}`} style={{borderRadius:'50%',width:'1.6em', height:'1.6em', marginTop:'-0.15em'}} className={classes.icon}/>
                       : 
                       <LuUser className={classes.icon} />
                     }
@@ -541,7 +541,7 @@ const Navbar = (props) => {
                   <Tooltip title={language === 'eng' ? "Profile" : "Profil"}>
                     <div onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                       {userInfo?.id ? 
-                      <Avatar alt={userInfo.first_name} src={`https://api.leonardo-service.com/img/${userInfo.image}`} style={{borderRadius:'50%',width:'1.6em', height:'1.6em', marginTop:'-0.15em'}} className={classes.icon}/>
+                      <Avatar alt={userInfo.first_name} src={`${import.meta.env.VITE_TESTING_API}/img/${userInfo.image}`} style={{borderRadius:'50%',width:'1.6em', height:'1.6em', marginTop:'-0.15em'}} className={classes.icon}/>
                       : 
                       <LuUser className={classes.icon} />
                     }
@@ -577,7 +577,7 @@ const Navbar = (props) => {
                   <Tooltip title={language === 'eng' ? "Profile" : "Profil"}>
                     <div onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                       {userInfo?.id ? 
-                      <Avatar alt={userInfo.first_name} src={`https://api.leonardo-service.com/img/${userInfo.image}`} style={{borderRadius:'50%',width:'1.6em', height:'1.6em', marginTop:'-0.15em'}} className={classes.icon}/>
+                      <Avatar alt={userInfo.first_name} src={`${import.meta.env.VITE_TESTING_API}/img/${userInfo.image}`} style={{borderRadius:'50%',width:'1.6em', height:'1.6em', marginTop:'-0.15em'}} className={classes.icon}/>
                       : 
                       <LuUser className={classes.icon} />
                     }
@@ -614,7 +614,7 @@ const Navbar = (props) => {
                   <Tooltip title={language === 'eng' ? "Profile" : "Profil"}>
                     <div onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                       {userInfo?.id ? 
-                      <Avatar alt={userInfo.first_name} src={`https://api.leonardo-service.com/img/${userInfo.image}`} style={{borderRadius:'50%',width:'1.6em', height:'1.6em', marginTop:'-0.15em'}} className={classes.icon}/>
+                      <Avatar alt={userInfo.first_name} src={`${import.meta.env.VITE_TESTING_API}/img/${userInfo.image}`} style={{borderRadius:'50%',width:'1.6em', height:'1.6em', marginTop:'-0.15em'}} className={classes.icon}/>
                       : 
                       <LuUser className={classes.icon} />
                     }

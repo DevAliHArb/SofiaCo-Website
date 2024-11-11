@@ -16,7 +16,7 @@ const About = () => {
   const [aboutData, setaboutData] = useState({});
   const fetchAbout = async () => {
     try {
-      const response = await axios.get('https://api.leonardo-service.com/api/bookshop/about?ecom_type=sofiaco');
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/api/bookshop/about?ecom_type=sofiaco`);
       // console.log('Response data:', response.data);
       setaboutData(response.data.data[0])
     } catch (error) {

@@ -127,7 +127,7 @@ const Review = ({props}) => {
         };
       });
     }));
-    const response = await axios.post(`https://api.leonardo-service.com/api/bookshop/articles/${selectedReview.article.id}/reviews`, {
+    const response = await axios.post(`${import.meta.env.VITE_TESTING_API}/api/bookshop/articles/${selectedReview.article.id}/reviews`, {
       description: description || '',
       rate: value || 0,
       user_id: user.id,
@@ -215,7 +215,7 @@ const Review = ({props}) => {
                 <img
                   src={image.attached_file.startsWith('data:image/')
                     ? image.attached_file // Use base64 directly if it's a base64 string
-                    : `https://api.leonardo-service.com/img/${image.attached_file}`} // Use the URL if it's not base64
+                    : `${import.meta.env.VITE_TESTING_API}/img/${image.attached_file}`} // Use the URL if it's not base64
                   alt={`Image ${image.id}`}
                   style={{
                     width: '4em',
@@ -227,7 +227,7 @@ const Review = ({props}) => {
                     setFullScreenImage(
                       image.attached_file.startsWith('data:image/')
                         ? image.attached_file // Base64 for full-screen as well
-                        : `https://api.leonardo-service.com/img/${image.attached_file}` // URL for full-screen
+                        : `${import.meta.env.VITE_TESTING_API}/img/${image.attached_file}` // URL for full-screen
                     );
                     handleOpenView();
                   }}

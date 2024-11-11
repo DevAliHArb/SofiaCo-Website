@@ -56,7 +56,7 @@ export default function CartSidebar({ toggle, isOpen }) {
     if (newQuantity !== item.quantity) {
     setIsLoading(true)
       axios
-        .put(`https://api.leonardo-service.com/api/bookshop/cart/${item.cart_id}`, {
+        .put(`${import.meta.env.VITE_TESTING_API}/api/bookshop/cart/${item.cart_id}`, {
           quantity: newQuantity,
         })
         .then(() => {

@@ -89,7 +89,7 @@ export const AuthContextProvider = (props) => {
   const fetchfavandcartSettings = async () => {
     if (user) {
   try {
-    const cartResponse = await axios.get(`https://api.leonardo-service.com/api/bookshop/users/${user.id}/cart`, {
+    const cartResponse = await axios.get(`${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/cart`, {
         headers: {
             Authorization: `Bearer ${token}` // Include token in the headers
         }
@@ -120,7 +120,7 @@ export const AuthContextProvider = (props) => {
             }));
     });
 
-    const favoriteResponse = await axios.get(`https://api.leonardo-service.com/api/bookshop/users/${user.id}/favorite`, {
+    const favoriteResponse = await axios.get(`${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/favorite`, {
         headers: {
             Authorization: `Bearer ${token}` // Include token in the headers
         }
@@ -156,7 +156,7 @@ export const AuthContextProvider = (props) => {
 const fetchArticles = async () => {
   try {
     const response = await axios.get(
-      'https://api.leonardo-service.com/api/bookshop/articles?ecom_type=sofiaco'
+      `${import.meta.env.VITE_TESTING_API}/api/bookshop/articles?ecom_type=sofiaco`
     );
     const articlesData = response.data.data;
     setArticles(articlesData);
@@ -181,7 +181,7 @@ const fetchArticles = async () => {
   
   const fetchCategories = async () => {
     try {
-      const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/categories?ecom_type=sofiaco`);
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/api/bookshop/categories?ecom_type=sofiaco`);
       setCategories(response.data);
     } catch (error) {
       // console.error('Error fetching categories:', error);
@@ -191,7 +191,7 @@ const fetchArticles = async () => {
   
   const fetchCollaborators = async () => {
     try {
-      const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/collaborators?ecom_type=sofiaco`);
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/api/bookshop/collaborators?ecom_type=sofiaco`);
       setCollaborators(response.data);
     } catch (error) {
       // console.error('Error fetching collaborators:', error);
@@ -200,7 +200,7 @@ const fetchArticles = async () => {
   };
   const fetchCollections = async () => {
     try {
-      const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/collections?ecom_type=sofiaco`);
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/api/bookshop/collections?ecom_type=sofiaco`);
       setCollections(response.data);
     } catch (error) {
       // console.error('Error fetching collections:', error);
@@ -209,7 +209,7 @@ const fetchArticles = async () => {
 
   const fetchMyDocuments = async () => {
     try {
-      const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/my-documents?client_id=${user.client_id}`);
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/api/bookshop/my-documents?client_id=${user.client_id}`);
       setMydocuments(response.data);
     } catch (error) {
       // console.error('Error fetching my documents:', error);
@@ -218,7 +218,7 @@ const fetchArticles = async () => {
 
   const fetchCountries = async () => {
     try {
-      const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/countries?ecom_type=sofiaco`);
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/api/bookshop/countries?ecom_type=sofiaco`);
       setCountries(response.data);
     } catch (error) {
       // console.error('Error fetching countries:', error);
@@ -227,7 +227,7 @@ const fetchArticles = async () => {
   
   const fetchThemes = async () => {
     // try {
-    //   const response = await axios.get(`https://api.leonardo-service.com/api/bookshop/themes`);
+    //   const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/api/bookshop/themes`);
     //   setThemes(response.data);
     // } catch (error) {
     //   console.error('Error fetching themes:', error);
@@ -252,7 +252,7 @@ const fetchArticles = async () => {
       const item = productData.find(item => item._id === props.id);
      if (!item) {
      try {
-      const response = await axios.post("https://api.leonardo-service.com/api/bookshop/cart", {
+      const response = await axios.post(`${import.meta.env.VITE_TESTING_API}/api/bookshop/cart`, {
         user_id: user.id,
         article_id: props.id,
         quantity: 1,
@@ -303,7 +303,7 @@ const fetchArticles = async () => {
      } else {
       const newQuantity = item.quantity + 1;
       if (newQuantity <= item._qte_a_terme_calcule){
-        axios.put(`https://api.leonardo-service.com/api/bookshop/cart/${item.cart_id}`, {
+        axios.put(`${import.meta.env.VITE_TESTING_API}/api/bookshop/cart/${item.cart_id}`, {
           quantity: newQuantity,
           })
           .then((response) => {
@@ -364,7 +364,7 @@ const fetchArticles = async () => {
      if (!item) {
      try {
       setIsLoading(true);
-      const response = await axios.post("https://api.leonardo-service.com/api/bookshop/cart?ecom_type=sofiaco", {
+      const response = await axios.post(`${import.meta.env.VITE_TESTING_API}/api/bookshop/cart?ecom_type=sofiaco`, {
         user_id: user.id,
         article_id: props.id,
         quantity: props.quantity,
@@ -396,7 +396,7 @@ const fetchArticles = async () => {
       setIsLoading(true);
       if (Number(newQuantity) > Number(maxQuantity)) {
         
-        axios.put(`https://api.leonardo-service.com/api/bookshop/cart/${item.cart_id}`, {
+        axios.put(`${import.meta.env.VITE_TESTING_API}/api/bookshop/cart/${item.cart_id}`, {
           quantity: Number(maxQuantity).toFixed(0),
           })
           .then((response) => {
@@ -413,7 +413,7 @@ const fetchArticles = async () => {
           });
       } else {
         
-        axios.put(`https://api.leonardo-service.com/api/bookshop/cart/${item.cart_id}`, {
+        axios.put(`${import.meta.env.VITE_TESTING_API}/api/bookshop/cart/${item.cart_id}`, {
           quantity: newQuantity,
           })
           .then((response) => {
@@ -434,7 +434,7 @@ const fetchArticles = async () => {
   const changeCartQtyhandler = async (props) => {
      if (props.quantity > 0)  {
       // console.log("helooo",props.id, props.quantity);
-      axios.put(`https://api.leonardo-service.com/api/bookshop/cart/${props.id}`, {
+      axios.put(`${import.meta.env.VITE_TESTING_API}/api/bookshop/cart/${props.id}`, {
           quantity: props.quantity,
           })
           .then((response) => {
@@ -474,7 +474,7 @@ const fetchArticles = async () => {
   }
   const deleteFromcarthandler = async (props) => {
     const item = productData.find(item => item._id === props);
-    axios.delete(`https://api.leonardo-service.com/api/bookshop/cart/${item.cart_id}`)
+    axios.delete(`${import.meta.env.VITE_TESTING_API}/api/bookshop/cart/${item.cart_id}`)
       .then(() => {
           // console.log("delete request successful:");
           dispatch(deleteItem(props))
@@ -507,7 +507,7 @@ const fetchArticles = async () => {
 
   const fetchCompanySettings = async () => {
     try {
-      const response = await axios.get('https://api.leonardo-service.com/api/bookshop/company-settings/3');
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/api/bookshop/company-settings/3`);
       setCompanySettings(response.data.data);
       if (response.data.data?.usd_rate) {
         setcurrencyRate(response.data.data?.usd_rate)
@@ -532,7 +532,7 @@ const fetchArticles = async () => {
     } else {
     const item = favorites.find(item => item._favid === props.id);
      try {
-      const response = await axios.post("https://api.leonardo-service.com/api/bookshop/favorites", {
+      const response = await axios.post(`${import.meta.env.VITE_TESTING_API}/api/bookshop/favorites`, {
         user_id: user.id,
         article_id: props.id,
         ecom_type: 'sofiaco'
@@ -584,7 +584,7 @@ const fetchArticles = async () => {
     const item = favorites.find(item => item._favid === props);
     // console.log(props)
      try {
-      const response = await axios.delete(`https://api.leonardo-service.com/api/bookshop/favorites/${item.id}`);
+      const response = await axios.delete(`${import.meta.env.VITE_TESTING_API}/api/bookshop/favorites/${item.id}`);
       dispatch(deletefavorite(item.id));
 
       toast.success(language === "eng" ? `${props.name ? props.name : "Book"} is removed from Favorites` : `${props.name ? props.name : "Livre"} a été retiré des Favoris`, {
