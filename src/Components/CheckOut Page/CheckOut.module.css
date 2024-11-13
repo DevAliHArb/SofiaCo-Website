@@ -380,6 +380,20 @@
         grid-column: 1 / span 2;
         grid-row: 2;
     }
+    .modalpopup1{
+        position: absolute;
+        margin: auto !important;
+        /* transform: translate(-50%, -50%); */
+        width: 99vw !important;
+        height: 80vh !important;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        background-color: white;
+        border: none;
+        border-radius: 0em;
+        box-shadow: 24;
+        /* padding: 4; */
+    }
 }
 
 @media screen and (max-width: 750px) {

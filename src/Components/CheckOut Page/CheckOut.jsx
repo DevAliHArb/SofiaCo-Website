@@ -168,57 +168,44 @@ const CheckOut = () => {
       script.src = src;
       script.async = true;
       script.onload = onLoad;
-      // script.onerror = () => console.error(`Failed to load script: ${src}`);
       document.body.appendChild(script);
     };
-
+  
     // Function to fetch authentication token
     const fetchAuthToken = async () => {
       const data = {
         login: import.meta.env.VITE_COLISSIMO_LOGIN,
         password: import.meta.env.VITE_COLISSIMO_PASSWORD,
       };
-
-      // console.log(data);
-
+  
       try {
         const response = await axios.post(
           "https://ws.colissimo.fr/widget-colissimo/rest/authenticate.rest",
           data
         );
         return response.data.token;
-        // console.log(response.data);
-        
       } catch (error) {
-        // console.error('Error fetching auth token:', error);
         return null;
       }
     };
-
+  
     // Initialize the Colissimo widget
     const initializeColissimoWidget = async () => {
-      // URL du serveur Colissimo
       const url_serveur = "https://ws.colissimo.fr";
-
       const token = await fetchAuthToken();
       if (!token) return;
-
+  
       const user_address = addresseslist.find((add) => add.default === "true");
-
+  
       // Load jQuery first
       loadScript(
         "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js",
         () => {
-          // Ensure jQuery is available
           if (window.$) {
-            // Load Colissimo widget script
             loadScript(
               "https://ws.colissimo.fr/widget-colissimo/js/jquery.plugin.colissimo.min.js",
               () => {
-                if (
-                  window.$ &&
-                  typeof window.$.fn.frameColissimoOpen === "function"
-                ) {
+                if (window.$ && typeof window.$.fn.frameColissimoOpen === "function") {
                   // Ensure widgetRef is set and the element exists
                   if (widgetRef.current) {
                     window.$(widgetRef.current).frameColissimoOpen({
@@ -230,52 +217,50 @@ const CheckOut = () => {
                       ceTown: user_address.city,
                       token: token,
                     });
-                  } else {
-                    // console.error('Widget reference is null.');
+  
+                    // Override colissimo_widget_internalClose to close the widget and set state
+                    const originalCloseFunction = window.colissimo_widget_internalClose;
+                    window.colissimo_widget_internalClose = () => {
+                      setColissimoPopupOpen(false);
+                      if (originalCloseFunction) {
+                        originalCloseFunction(); // Call the original function after setting the state
+                      }
+                    };
                   }
-                } else {
-                  // console.error('Colissimo widget function is not available.');
                 }
               }
             );
-          } else {
-            // console.error('jQuery is not available.');
           }
         }
       );
     };
-
+  
     // Load and initialize widget
     if (colissimoPopupOpen) {
       initializeColissimoWidget();
     }
-
+  
     // Cleanup function
     return () => {
       if (window.$ && widgetRef.current) {
         window.$(widgetRef.current).frameColissimoClose();
+        setColissimoPopupOpen(false);
       }
     };
   }, [colissimoPopupOpen]);
-
+  
   // Callback method
   useEffect(() => {
     window.maMethodeDeCallBack = (point) => {
       setColissimoPointData(point);
-
-      if (point && typeof point === "object") {
-        // Example: Check if necessary properties are available
-      } else {
-        // console.error('Invalid point data received:', point);
-      }
-
+  
       // Ensure to close widget and update state
       if (window.$ && widgetRef.current) {
         window.$(widgetRef.current).frameColissimoClose();
       }
       setColissimoPopupOpen(false);
     };
-
+  
     // Cleanup callback when component unmounts
     return () => {
       setColissimoPopupOpen(false);
