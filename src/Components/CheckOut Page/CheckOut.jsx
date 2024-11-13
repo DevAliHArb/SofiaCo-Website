@@ -506,7 +506,7 @@ const CheckOut = () => {
 
   useEffect(() => {
     if (colissimoPointData) {
-      setdeliveryFees(0);
+      FetchShippinCost();
     } else {
       FetchShippinCost();
     }
