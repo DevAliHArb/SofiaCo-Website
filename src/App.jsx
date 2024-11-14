@@ -116,11 +116,11 @@ function App() {
       // Handle any errors that occur during logout
     }
   };
-  useEffect(()=>{
-    if (user?.id && !user?.accepted) {
-      logout()
-    }
-  },[])
+  // useEffect(()=>{
+  //   if (user && !user?.accepted) {
+  //     logout()
+  //   }
+  // },[user])
 
   return (
     <div className={withBG ? 'App1' : 'App'}>
