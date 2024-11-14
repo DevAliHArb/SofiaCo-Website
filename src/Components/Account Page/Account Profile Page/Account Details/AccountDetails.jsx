@@ -308,7 +308,7 @@ const AccountDetails = () => {
                   message: "Le titre ne doit pas dépasser 30 caractères.",
                 },
               ]}
-              style={{ border: "none", borderRadius: ".5em" }}
+              style={{ border: "none", width:'100%',borderRadius: ".5em" }}
             >
               <Input
                 size="large"
@@ -337,7 +337,7 @@ const AccountDetails = () => {
                 { required: true, message: 'Please input your first name!' },
                 { max: 16, message: 'First name must be less than 17 characters!' }
               ]}
-              style={{ border: "none", borderRadius: ".5em" }}
+              style={{ border: "none",width:'100%', borderRadius: ".5em" }}
             >
               <Input
                 size="large"
@@ -370,7 +370,7 @@ const AccountDetails = () => {
                 name="last_name"
                 size="large"
                 placeholder= {language === "eng" ? "Last name" : "Nom"}
-                style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
+                style={{ height: "3em", width:'100%',backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
                 onChange={handleChange}
               />
             </Form.Item>
@@ -397,7 +397,7 @@ const AccountDetails = () => {
                   message: "Le titre doit comporter entre 12 et 64 caractères.",
                 },
               ]}
-              style={{ border: "none", borderRadius: ".5em" }}
+              style={{ border: "none",width:'100%', borderRadius: ".5em" }}
             >
               <Input
                 size="large"
@@ -429,7 +429,7 @@ const AccountDetails = () => {
                   message: "Le titre ne doit pas dépasser 16 caractères.",
                 },
               ]}
-              style={{ border: "none", borderRadius: ".5em" }}
+              style={{ border: "none",width:'100%',borderRadius: ".5em" }}
             >
               <Input
                 size="large"
@@ -472,7 +472,7 @@ const AccountDetails = () => {
                     },
                 }),
             ]}
-              style={{ border: "none", borderRadius: ".5em" }}
+              style={{ border: "none",width:'100%', borderRadius: ".5em" }}
             >
               <Input
                 name="phone"
@@ -501,7 +501,7 @@ const AccountDetails = () => {
                 { required: true, message: 'Please input your email!' },
                 { type: 'email', message: 'The input is not a valid email!' }
               ]}
-              style={{ border: "none", borderRadius: ".5em" }}
+              style={{ border: "none",width:'100%', borderRadius: ".5em" }}
             >
               <Input
                 size="large"
@@ -534,7 +534,7 @@ const AccountDetails = () => {
                   message: "Le titre ne doit pas dépasser 16 caractères.",
                 },
               ]}
-              style={{ border: "none", borderRadius: ".5em" }}
+              style={{ border: "none",width:'100%', borderRadius: ".5em" }}
             >
               <Input
                 size="large"
@@ -566,7 +566,7 @@ const AccountDetails = () => {
                   message: "Le titre ne doit pas dépasser 16 caractères.",
                 },
               ]}
-              style={{ border: "none", borderRadius: ".5em" }}
+              style={{ border: "none",width:'100%', borderRadius: ".5em" }}
             >
               <Input
                 size="large"
@@ -623,7 +623,7 @@ const AccountDetails = () => {
             <div className={classes.inputsContainer}>
             <Form.Item
               name="currentPassword"
-              style={{ border: "none", borderRadius: ".5em" }}
+              style={{ border: "none",width:'100%', borderRadius: ".5em" }}
             >
               <Input.Password
                 name="currentPassword"
@@ -636,7 +636,7 @@ const AccountDetails = () => {
 
             <Form.Item
               name="newpassword"
-              style={{ border: "none", borderRadius: ".5em" }}
+              style={{ border: "none",width:'100%', borderRadius: ".5em" }}
               rules={[
                 { required: true, message: 'Please confirm your new password!' },
                 {
@@ -656,7 +656,7 @@ const AccountDetails = () => {
 
             <Form.Item
               name="confirmpassword"
-              style={{ border: "none", borderRadius: ".5em" }}
+              style={{ border: "none",width:'100%', borderRadius: ".5em" }}
               rules={[
                 { required: true, message: 'Please confirm your new password!' },
                 {

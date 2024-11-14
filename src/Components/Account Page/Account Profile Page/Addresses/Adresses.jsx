@@ -447,7 +447,7 @@ const Adresses = () => {
                     message: "Le titre ne doit pas dépasser 24 caractères.",
                   },
                 ]}
-                style={{ border: "none", borderRadius: ".5em" }}
+                style={{ border: "none",width:'100%', borderRadius: ".5em" }}
               >
                 <Input
                   size="large"
@@ -488,7 +488,7 @@ const Adresses = () => {
                     message: "Le titre ne doit pas dépasser 24 caractères.",
                   },
                 ]}
-                style={{ border: "none", borderRadius: ".5em" }}
+                style={{ border: "none",width:'100%', borderRadius: ".5em" }}
               >
                 <Input
                   name="name"
@@ -522,7 +522,7 @@ const Adresses = () => {
                     }
                   </p>
                 }
-                style={{ border: "none", borderRadius: ".5em" }}
+                style={{ border: "none",width:'100%', borderRadius: ".5em" }}
                 rules={[
                   { required: true, message: "Veuillez saisir votre companie!" },
                   {
@@ -567,7 +567,7 @@ const Adresses = () => {
                   { required: true, message: "Veuillez saisir votre pays!" },
                 ]}
                 initialValue={formData?.country}
-                style={{ border: "none", borderRadius: ".5em" }}
+                style={{ border: "none",width:'100%',borderRadius: ".5em" }}
               >
                   <Select
                     name="country"
@@ -642,7 +642,7 @@ const Adresses = () => {
                   message: "Le titre ne doit pas dépasser 16 caractères.",
                 },
               ]}
-              style={{ border: "none", borderRadius: ".5em" }}
+              style={{ border: "none",width:'100%', borderRadius: ".5em" }}
             >
               <Input
                 size="large"
@@ -666,7 +666,7 @@ const Adresses = () => {
                 },
               ]}
               style={{
-                border: "none",
+                border: "none",width:'100%',
                 borderRadius: ".5em",
                 backgroundColor: "#DED8CC",
               }}

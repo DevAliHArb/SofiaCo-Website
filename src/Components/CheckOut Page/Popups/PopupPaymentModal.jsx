@@ -223,7 +223,7 @@ const PopupPaymentModal = ({ open, handleClose, isselectedPayment }) => {
              fontFamily: "var(--font-family)",
              }}
    >
-     <Form.Item name="card_type" rules={[{ required: true, message: 'Please select an option!' }]} >
+     <Form.Item name="card_type" rules={[{ required: true, message: 'Please select an option!' }]} style={{width:'100%',}} >
        <Select 
              name="cardType"
              size="large" 
@@ -247,7 +247,7 @@ const PopupPaymentModal = ({ open, handleClose, isselectedPayment }) => {
             pattern: /^[\d\s]+$/, // Allows only digits and spaces
             message: `${language === 'fr' ? "Le numéro de la carte ne doit comporter que des chiffres !" :'The card number must be digits only!'}`
           }]}
-       style={{border:'none',borderRadius:'.5em'}}
+       style={{border:'none',width:'100%',borderRadius:'.5em'}}
      >
                <Input
                name="card_number"
@@ -259,7 +259,7 @@ const PopupPaymentModal = ({ open, handleClose, isselectedPayment }) => {
                />
      </Form.Item>
      <Form.Item
-     name="year"
+     name="year" style={{width:'100%',}}
      rules={[
        { required: true, message: 'Please select the year (YY)' },
      ]}
@@ -285,7 +285,7 @@ const PopupPaymentModal = ({ open, handleClose, isselectedPayment }) => {
    </Form.Item>
 
    <Form.Item
-     name="month"
+     name="month" style={{width:'100%',}}
      rules={[
        { required: true, message: 'Please select the month' },
      ]}
@@ -309,7 +309,7 @@ const PopupPaymentModal = ({ open, handleClose, isselectedPayment }) => {
            validator: validateLessThanFourNumbers,
          },
        ]}
-       style={{border:'none',borderRadius:'.5em'}}
+       style={{border:'none',width:'100%',borderRadius:'.5em'}}
      >
                <Input
                name="cvv"

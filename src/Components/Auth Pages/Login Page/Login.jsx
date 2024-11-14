@@ -154,7 +154,7 @@ const onFinish = async () => {
                 onFinish={onFinish}
                 form={form}
       >
-        <Form.Item
+        <Form.Item style={{width:'100%'}}
           name="email"
           rules={[
             { 
@@ -171,7 +171,7 @@ const onFinish = async () => {
                  onChange={handleChange}
           />
         </Form.Item>
-        <Form.Item
+        <Form.Item style={{width:'100%'}}
           name="password"
           rules={[
             { 
@@ -189,7 +189,7 @@ const onFinish = async () => {
             onChange={handleChange}
           />
         </Form.Item>
-           <Form.Item>
+           <Form.Item  style={{width:'100%'}}>
           <Button
            size="large"
            htmlType="submit"

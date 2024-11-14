@@ -90,7 +90,7 @@ const ContactUs = () => {
                 className={classes.form}
       >
         <div className={classes.inputCont}>
-        <Form.Item
+        <Form.Item style={{width:'100%'}}
           name="first_name"
           rules={[{ required: true, message: `${language === 'eng' ? "Please enter your name!" : "S'il vous plaît entrez votre Prénom!"}` }]}
         >
@@ -105,7 +105,7 @@ const ContactUs = () => {
           onChange={(e) => setFormData({ ...formData, first_name: e.target.value })} 
         />
         </Form.Item>
-        <Form.Item
+        <Form.Item style={{width:'100%'}}
           name="email"
           // label={<p style={{color:'var(--accent-color)',fontWeight:'500',fontFamily:'var(--font-family)',margin:'0 '}}>Company</p>}
           rules={[
@@ -132,7 +132,7 @@ const ContactUs = () => {
         </Form.Item>
         </div>
         <div className={classes.inputCont}>
-        <Form.Item
+        <Form.Item style={{width:'100%'}}
           name="telephone"
           rules={[
             {
@@ -156,7 +156,7 @@ const ContactUs = () => {
           onChange={(e) => setFormData({ ...formData, telephone: e.target.value })} 
         />
         </Form.Item>
-        <Form.Item
+        <Form.Item style={{width:'100%'}}
           name="company"
           // label={<p style={{color:'var(--accent-color)',fontWeight:'500',fontFamily:'var(--font-family)',margin:'0 '}}>Téléphone</p>}
           rules={[
@@ -178,7 +178,7 @@ const ContactUs = () => {
         />
         </Form.Item>
         </div>
-        <Form.Item
+        <Form.Item  style={{width:'100%'}}
           name="message"
           // label={<p style={{color:'var(--accent-color)',fontWeight:'500',fontFamily:'var(--font-family)',margin:'0'}}>Message</p>}
           rules={[{ required: true, message: `${language === 'eng' ? "Please enter your message!" : "S'il vous plaît entrez votre Votre Message!"}` }]}

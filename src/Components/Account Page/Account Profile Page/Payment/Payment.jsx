@@ -484,7 +484,7 @@ useEffect(() => {
                 fontFamily: "var(--font-family)",
                 }}
       >
-        <Form.Item name="card_type" rules={[{ required: true, message: 'Please select an option!' }]} >
+        <Form.Item name="card_type" rules={[{ required: true, message: 'Please select an option!' }]} style={{width:'100%'}} >
           <Select 
                 name="cardType"
                 size="large" 
@@ -509,7 +509,7 @@ useEffect(() => {
             pattern: /^[\d\s]+$/, // Allows only digits and spaces
             message: `${language === 'fr' ? "Le numéro de la carte ne doit comporter que des chiffres !" :'The card number must be digits only!'}`
           }]}
-          style={{border:'none',borderRadius:'.5em'}}
+          style={{border:'none',width:'100%',borderRadius:'.5em'}}
         >
                   <Input
                   name="card_number"
@@ -524,7 +524,7 @@ useEffect(() => {
         name="year"
         rules={[
           { required: true, message: 'Please select the year (YY)' },
-        ]}
+        ]} style={{width:'100%',}}
       >
         <Select placeholder="Select year" dropdownStyle={{ zIndex: 2000 }}
                   size="large" 
@@ -550,7 +550,7 @@ useEffect(() => {
         name="month"
         rules={[
           { required: true, message: 'Please select the month' },
-        ]}
+        ]} style={{width:'100%',}}
       >
         <Select placeholder="Select month" dropdownStyle={{ zIndex: 2000 }}
                   size="large"
@@ -571,7 +571,7 @@ useEffect(() => {
               validator: validateLessThanFourNumbers,
             },
           ]}
-          style={{border:'none',borderRadius:'.5em'}}
+          style={{border:'none',width:'100%',borderRadius:'.5em'}}
         >
                   <Input
                   name="cvv"

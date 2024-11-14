@@ -1900,7 +1900,7 @@ const CheckOut = () => {
                     // onChange={handleChange}
               /> */}
                 </Form.Item>
-                <Form.Item>
+                <Form.Item style={{width:'100%',}}>
                   <Button
                     size="large"
                     htmlType="submit"
