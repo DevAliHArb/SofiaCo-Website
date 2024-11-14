@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import Navbar from './Components/Common/Navbar Section/Navbar';
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import { ToastContainer } from 'react-toastify';
 import Footer from './Components/Common/Footer Section/Footer';
 import HomePage from './Components/Home Page/HomePage';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ScrollToTop from './Components/Common/ScrollToTop';
 import SideBar from './Components/Common/SideBarSection/SideBar';
 import About from './Components/About Page/About';
@@ -32,12 +32,16 @@ import MyDocumentsPage from './Components/My Documents/MyDocumentsPage';
 import ContactUs from './Components/ContactUs/ContactUs';
 import SuccessPage from './Components/CheckOut Page/SuccessPage';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
+import { removeUser } from './Components/Common/redux/productSlice';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [cartisOpen, setCartIsOpen] = useState(false);
   const user = useSelector((state) => state.products.userInfo);
   const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
   const path = location.pathname;
   const [isAuthPages, setIsAuthPages] = useState(false);
   const [withBG, setWithBG] = useState(false);
@@ -80,6 +84,43 @@ function App() {
       setIsAuthPages(false);
     }
   }, [path]);
+
+  const logout = async () => {
+    // console.log('ok')
+    try {
+      // Get the token from local storage
+      const token = localStorage.getItem('token');
+  
+      // If token is not available, there's no need to logout
+      if (!token) {
+        return;
+      }
+  
+      // Set up headers with the token
+      const headers = {
+        Accept: `application/json`,
+        Authorization: `Bearer ${token}`,
+      };
+  
+      // Send a POST request to the logout endpoint
+      await axios.get(`${import.meta.env.VITE_TESTING_API}/api/bookshop/logout`, { headers });
+  
+      // Remove the token from local storage after successful logout
+      localStorage.removeItem('token');
+  
+      dispatch(removeUser()) ;
+      navigate(`/login`);
+      // Add any additional logic you may need, such as redirecting the user to the login page or updating the application state
+    } catch (error) {
+      // console.error('Error logging out:', error);
+      // Handle any errors that occur during logout
+    }
+  };
+  useEffect(()=>{
+    if (user?.id && !user?.accepted) {
+      logout()
+    }
+  },[])
 
   return (
     <div className={withBG ? 'App1' : 'App'}>
