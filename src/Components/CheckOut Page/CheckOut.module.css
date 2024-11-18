@@ -85,7 +85,7 @@
     width: 100%;
     height: fit-content;
     position: sticky;
-    top: 12%;
+    top: 6%;
     left: 0% !important;
     display: flex;
     overflow: hidden;
@@ -185,6 +185,22 @@
 }
 
 .checkout_btn:hover{
+    background-color: var(--secondary-color) !important;
+
+}
+.checkout_btn1{
+    width: 100%;
+    padding: 0 .2em;
+    border: none;
+    background-color: var(--primary-color);
+    color: #fff !important;
+    transition: background-color 0.5s ease, color 1s ease;
+    font-size: calc(.6rem + 0.2vw);
+    height: 3em;
+    border-radius: .4em;
+}
+
+.checkout_btn1:hover{
     background-color: var(--secondary-color) !important;
 
 }

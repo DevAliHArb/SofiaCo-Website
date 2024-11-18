@@ -70,7 +70,7 @@ const CollaboratorDetails = () => {
     const fetchHero = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/api/bookshop/website-sections?ecom_type=sofiaco&section_id=Collaborator-details-hero`);
-        setHeroData(response.data.data[0])
+        setHeroData(response.data.data[0]?.hero_sections[0])
       } catch (error) {
         // console.error('Error fetching services:', error);
       }
