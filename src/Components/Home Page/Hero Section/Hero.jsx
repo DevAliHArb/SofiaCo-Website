@@ -93,7 +93,7 @@ const Hero = ({ carttoggle }) => {
               __html: data.HomePage.Hero.title[language],
             }}
           />
-          <div style={{marginTop:'1em'}}>
+          <div style={{marginTop:'1em'}} className={classes.desk}>
           <SearchBox />
           </div>
         </div>
@@ -109,6 +109,9 @@ const Hero = ({ carttoggle }) => {
           </div>
         ) : (
           <div className={classes.swiper}>
+          <div style={{marginTop:'1em'}} className={classes.mob}>
+          <SearchBox />
+          </div>
             <Swiper
               onSlideChange={handleSlideChange}
               spaceBetween={0}

@@ -18,6 +18,12 @@
 .custom_select{
   height: 2.5em !important;
   padding: 0 !important;
+  width: 35vw;
+  max-width: 35em;
+  display: flex;
+  flex-direction: row;
+  border-radius: 0.5em;
+  border:2px solid var(--secondary-color) !important;
 }
 
 .customIcon {
@@ -25,11 +31,10 @@
   margin: 0 0.2em;/* Adjust the size as needed */
 }
 .input{
-  width: 100%;
-  border-radius: 0.5em;
+  width: 70%;
   height: 2.8em !important;
   padding: 0 !important;
-  border:2px solid var(--secondary-color) !important;
+  border: none !important;
   color: var(--primary-color);
 }
 .input::placeholder{
@@ -76,11 +81,12 @@
 .dropdown1 {
   position: absolute; /* Adjust the distance between the input and the dropdown */
   left:  auto;
+  top: 3em;
   z-index: 1000;
   background-color: #fff;
   border: none;
   border-radius: 0 0 1em 1em;
-  width: inherit;
+  width: 100%;
   max-width: 49em; /* Set the dropdown width to inherit from its parent */
   max-height: 400px;
   overflow-y: auto;
@@ -116,7 +122,17 @@
   text-align: start;
   justify-content: center;
 }
-
+.dropdown_card_content p{
+  width: 98%;
+  margin: .3em 0;
+  font-size: small;
+  white-space: normal; /* Allow text to wrap */
+  overflow: hidden;    /* Hide any overflow text */
+  display: -webkit-box; /* Use the webkit box model for multi-line ellipsis */
+  -webkit-box-orient: vertical; /* Set the box orientation to vertical */
+  -webkit-line-clamp: 2; /* Limit the text to 3 lines */
+  line-clamp: 2; 
+}
 
 @media screen and (max-width: 950px) {
   .dropdown_card_content h3{
@@ -126,7 +142,13 @@
 .dropdown_card{
   grid-template-columns: 25% 73%;
 }
-  
+  .custom_select{
+    width: 88vw !important;
+    margin: 0;
+  }
+  .input{
+    width: 100%;
+  }
 .dropdown_card_img img{
   height: 80%;
   object-fit: fill;
