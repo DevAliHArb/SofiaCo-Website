@@ -34,6 +34,7 @@ import SuccessPage from './Components/CheckOut Page/SuccessPage';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { removeUser } from './Components/Common/redux/productSlice';
+import ErrorPage from './Components/Common/ErrorPage';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -140,7 +141,6 @@ function App() {
           <Route path="/about" element={<ScrollToTop><About /></ScrollToTop>} />
           <Route path="/events" element={<ScrollToTop><Events /></ScrollToTop>} />
           <Route path="/events/:id/event-details" element={<ScrollToTop><EventsDetails /></ScrollToTop>} />
-          <Route path="*" element={<Navigate to="/" replace />} />
           <Route path="/register" element={<ScrollToTop><Register /></ScrollToTop>} />
           <Route path="/login" element={<ScrollToTop><Login /></ScrollToTop>} />
           <Route path="/verify-email" element={<ScrollToTop><Verify /></ScrollToTop>} />
@@ -158,7 +158,8 @@ function App() {
           <Route path="/account/:pageId/*" element={user ? <ScrollToTop><AccountPage /></ScrollToTop> : <Navigate to="/login" replace />} />
           <Route path="/my-documents/:pageId" element={user ? <ScrollToTop><MyDocumentsPage /></ScrollToTop> : <Navigate to="/login" replace />} />
           <Route path="/policies" element={<ScrollToTop><Mentions /></ScrollToTop>} />
-          <Route path='/order-success' element={<ScrollToTop><SuccessPage/></ScrollToTop>} />        
+          <Route path='/order-success' element={<ScrollToTop><SuccessPage/></ScrollToTop>} /> 
+          <Route path="*" element={<ErrorPage />} />       
           </Routes>
       </div>
       {!isAuthPages && <Footer />}
