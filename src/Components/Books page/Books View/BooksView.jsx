@@ -49,6 +49,7 @@ const BooksView = ({carttoggle}) => {
   const [selectedRate, setSelectedRate] = useState(0);
   const [changepricetoggle, setchangePricetoggle] = useState(false);
   const [totalArticlesNumber, setTotalArticlesNumber] = useState(null);
+  const [inStock, setinStock] = useState(null);
 
   const changechemin = async () => {
     try {
@@ -272,6 +273,11 @@ const BooksView = ({carttoggle}) => {
       const selectedCatParam = storedCategory
         ? `&category=${storedCategory}`
         : ``;
+        
+        const storedInStock= localStorage.getItem("stock");
+        const selectedStockParam = storedInStock
+          ? `&in_stock=${storedInStock}`
+          : ``;
 
         const selectedCollectionParam = collectionId && collectionId !== 'all'
         ? `&collection=${collectionId}`
@@ -283,7 +289,7 @@ const BooksView = ({carttoggle}) => {
         : ``;
 
       // Finalize the URL by combining all parameters
-      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedCollectionParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedcollectionParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}&ecom_type=sofiaco`;
+      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedCollectionParam}${selectedStockParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedcollectionParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}&ecom_type=sofiaco`;
 
       // Fetch articles using the finalized URL
       const response = await axios.get(finalUrl);
@@ -322,6 +328,19 @@ const BooksView = ({carttoggle}) => {
     const updatedValue = [...selectedPrice];
     updatedValue[0] = newValue;
     setSelectedPrice(updatedValue);
+  };
+
+  const handleChangeStock = (event) => {
+    const newStockValue = event.target.value;
+    console.log(newStockValue);
+    if (newStockValue) {
+      setinStock(newStockValue);
+      localStorage.setItem("stock", newStockValue);
+    } else {
+    setinStock(null);
+    localStorage.setItem("stock", null);
+    }
+    fetchArticles(null, null, null, 1);
   };
 
   const handleMaxChange = (event) => {
@@ -497,7 +516,7 @@ const BooksView = ({carttoggle}) => {
               </div>
           </div> */}
 
-          <Divider  
+<Divider  
           color="#fff"
           width="88%"
           style={{margin:'0.5em auto'}}
@@ -546,6 +565,45 @@ const BooksView = ({carttoggle}) => {
           <div style={{position:'relative',justifyContent:'flex-end'}}>
           <p style={{width:'fit-content',margin:'2em 0 1em 0',color:'#fff',cursor:'pointer',fontWeight:'500', fontFamily:'var(--font-family)'}} onClick={RefineHandle}><u>Refine</u></p>
           </div>
+              </div>
+          </div>
+          <Divider  
+          color="#fff"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
+
+
+          <div className={classes.categories}>
+            <h2>Prix</h2>
+              <div className={classes.dropdown}>
+              <FormControl>
+                  <RadioGroup
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    defaultValue='all'
+                    value={inStock}
+                    name="radio-buttons-group"
+                    onChange={handleChangeStock}
+                  >
+                    <FormControlLabel
+                      value={null}
+                      control={
+                        <Radio style={{color:'#fff'}} />
+                      }
+                      label='All'
+                    />
+                    <FormControlLabel
+                      value={true}
+                      control={<Radio style={{color:'#fff'}}/>}
+                      label={language === 'eng' ? "In Stock" : "En stock" } // Make sure item.nom is a string
+                    />
+                    <FormControlLabel
+                      value={false}
+                      control={<Radio style={{color:'#fff'}}/>}
+                      label={language === 'eng' ? "Out Of Stock" : "En rupture de stock" } // Make sure item.nom is a string
+                    />
+                  </RadioGroup>
+                </FormControl>
               </div>
           </div>
           <div>
@@ -648,8 +706,47 @@ const BooksView = ({carttoggle}) => {
                   />
                   </div>
           <div style={{position:'relative',justifyContent:'flex-end'}}>
-          <p style={{width:'fit-content',margin:'2em 0 1em 0',color:'var(--primary-color)',cursor:'pointer',fontWeight:'500'}} onClick={RefineHandle}><u>Refine</u></p>
+          <p style={{width:'fit-content',margin:'2em 0 0em 0',color:'var(--primary-color)',cursor:'pointer',fontWeight:'500'}} onClick={RefineHandle}><u>Refine</u></p>
           </div>
+              </div>
+          </div>
+
+          <Divider  
+          color="var(--secondary-color)"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
+
+          <div className={classes.categories}>
+            <h2>{language === 'eng' ? "Stock" : "Stock" }</h2>
+              <div className={classes.dropdown}>
+              <FormControl>
+                  <RadioGroup
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    defaultValue='all'
+                    value={inStock}
+                    name="radio-buttons-group"
+                    onChange={handleChangeStock}
+                  >
+                    <FormControlLabel
+                      value={null}
+                      control={
+                        <Radio style={{color:'var(--primary-color)'}} />
+                      }
+                      label='All'
+                    />
+                    <FormControlLabel
+                      value={true}
+                      control={<Radio style={{color:'var(--primary-color)'}}/>}
+                      label={language === 'eng' ? "In Stock" : "En stock" } // Make sure item.nom is a string
+                    />
+                    <FormControlLabel
+                      value={false}
+                      control={<Radio style={{color:'var(--primary-color)'}}/>}
+                      label={language === 'eng' ? "Out Of Stock" : "En rupture de stock" } // Make sure item.nom is a string
+                    />
+                  </RadioGroup>
+                </FormControl>
               </div>
           <Divider  
           color="var(--secondary-color)"
