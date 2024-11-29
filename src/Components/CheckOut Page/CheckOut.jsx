@@ -1859,6 +1859,7 @@ const CheckOut = () => {
                     value={selectedCoupon}
                     onChange={handleCouponChange}
                     displayEmpty
+                    disabled={coupon.reduction ? true : false}
                     style={{
                       border: "none",
                       height: "2.5em",
