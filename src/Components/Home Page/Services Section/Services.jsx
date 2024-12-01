@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../Common/authContext";
+import placeholder from '../../../assets/servicesplaceholder.svg'
 
 const Services = () => {
   const authCtx = useContext(AuthContext);
@@ -36,6 +37,7 @@ const Services = () => {
       // toast.error("Failed to fetch articles.");
     }
   };
+  console.log(services)
 
   return (
     <div className={classes.big_container}>
@@ -51,7 +53,7 @@ const Services = () => {
               <div className={classes.hex_item}>
                 <div className={classes.hex_content}>
                   <div className={classes.img_con}>
-                  <img src={item.icon} alt="Icon 1" />
+                  <img src={item.image ? item.image : placeholder} alt="Icon 1" />
                   </div>
                   <h2 style={{color: index % 2 === 0 ? "var(--primary-color)" : "var(--secondary-color)"}}>
                     {language === "eng"
