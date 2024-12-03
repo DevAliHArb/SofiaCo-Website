@@ -524,6 +524,43 @@ const BooksView = ({carttoggle}) => {
 
 
           <div className={classes.categories}>
+            <h2>Stock</h2>
+              <div className={classes.dropdown}>
+              <FormControl>
+                  <RadioGroup
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    defaultValue='all'
+                    value={inStock}
+                    name="radio-buttons-group"
+                    onChange={handleChangeStock}
+                  >
+                    <FormControlLabel
+                      value={null}
+                      control={
+                        <Radio style={{color:'#fff'}} />
+                      }
+                      label='All'
+                    />
+                    <FormControlLabel
+                      value={true}
+                      control={<Radio style={{color:'#fff'}}/>}
+                      label={language === 'eng' ? "In Stock" : "En stock" } // Make sure item.nom is a string
+                    />
+                    <FormControlLabel
+                      value={false}
+                      control={<Radio style={{color:'#fff'}}/>}
+                      label={language === 'eng' ? "Out Of Stock" : "En rupture de stock" } // Make sure item.nom is a string
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </div>
+          </div>
+          <Divider  
+          color="#fff"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
+          <div className={classes.categories}>
             <h2>Prix</h2>
               <div className={classes.dropdown}>
                 <div style={{display:'flex',width:'95%', flexDirection:'row',justifyContent:'space-between', marginTop:'1em'}}>
@@ -567,45 +604,8 @@ const BooksView = ({carttoggle}) => {
           </div>
               </div>
           </div>
-          <Divider  
-          color="#fff"
-          width="88%"
-          style={{margin:'0.5em auto'}}
-        />
 
 
-          <div className={classes.categories}>
-            <h2>Prix</h2>
-              <div className={classes.dropdown}>
-              <FormControl>
-                  <RadioGroup
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue='all'
-                    value={inStock}
-                    name="radio-buttons-group"
-                    onChange={handleChangeStock}
-                  >
-                    <FormControlLabel
-                      value={null}
-                      control={
-                        <Radio style={{color:'#fff'}} />
-                      }
-                      label='All'
-                    />
-                    <FormControlLabel
-                      value={true}
-                      control={<Radio style={{color:'#fff'}}/>}
-                      label={language === 'eng' ? "In Stock" : "En stock" } // Make sure item.nom is a string
-                    />
-                    <FormControlLabel
-                      value={false}
-                      control={<Radio style={{color:'#fff'}}/>}
-                      label={language === 'eng' ? "Out Of Stock" : "En rupture de stock" } // Make sure item.nom is a string
-                    />
-                  </RadioGroup>
-                </FormControl>
-              </div>
-          </div>
           <div>
           <p style={{width:'fit-content',margin:'0 0 1em 7.5%',color:'#fff',cursor:'pointer',fontWeight:'500', fontFamily:'var(--font-family)'}} onClick={ResetfilterHandle}><u>Reset All</u></p>
           </div>
@@ -667,9 +667,46 @@ const BooksView = ({carttoggle}) => {
 
 
           <div className={classes.categories}>
+            <h2>{language === 'eng' ? "Stock" : "Stock" }</h2>
+              <div className={classes.dropdown}>
+              <FormControl>
+                  <RadioGroup
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    defaultValue='all'
+                    value={inStock}
+                    name="radio-buttons-group"
+                    onChange={handleChangeStock}
+                  >
+                    <FormControlLabel
+                      value={null}
+                      control={
+                        <Radio style={{color:'var(--primary-color)'}} />
+                      }
+                      label='All'
+                    />
+                    <FormControlLabel
+                      value={true}
+                      control={<Radio style={{color:'var(--primary-color)'}}/>}
+                      label={language === 'eng' ? "In Stock" : "En stock" } // Make sure item.nom is a string
+                    />
+                    <FormControlLabel
+                      value={false}
+                      control={<Radio style={{color:'var(--primary-color)'}}/>}
+                      label={language === 'eng' ? "Out Of Stock" : "En rupture de stock" } // Make sure item.nom is a string
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </div>
+          <Divider  
+          color="var(--secondary-color)"
+          width="100%"
+          style={{margin:'0.5em auto'}}
+        />
+          </div>
+          <div className={classes.categories}>
             <h2>{language === 'eng' ? "Price" : "Prix" }</h2>
               <div className={classes.dropdown}>
-                <div style={{display:'flex',width:'95%', flexDirection:'row',justifyContent:'space-between', marginTop:'1em'}}>
+                <div style={{display:'flex',width:'95%', flexDirection:'row',justifyContent:'space-between'}}>
                   <TextField
                   style={{width:'48%',textAlign:'center',padding:'0'}}
                   type="number"
@@ -711,49 +748,8 @@ const BooksView = ({carttoggle}) => {
               </div>
           </div>
 
-          <Divider  
-          color="var(--secondary-color)"
-          width="88%"
-          style={{margin:'0.5em auto'}}
-        />
+        
 
-          <div className={classes.categories}>
-            <h2>{language === 'eng' ? "Stock" : "Stock" }</h2>
-              <div className={classes.dropdown}>
-              <FormControl>
-                  <RadioGroup
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue='all'
-                    value={inStock}
-                    name="radio-buttons-group"
-                    onChange={handleChangeStock}
-                  >
-                    <FormControlLabel
-                      value={null}
-                      control={
-                        <Radio style={{color:'var(--primary-color)'}} />
-                      }
-                      label='All'
-                    />
-                    <FormControlLabel
-                      value={true}
-                      control={<Radio style={{color:'var(--primary-color)'}}/>}
-                      label={language === 'eng' ? "In Stock" : "En stock" } // Make sure item.nom is a string
-                    />
-                    <FormControlLabel
-                      value={false}
-                      control={<Radio style={{color:'var(--primary-color)'}}/>}
-                      label={language === 'eng' ? "Out Of Stock" : "En rupture de stock" } // Make sure item.nom is a string
-                    />
-                  </RadioGroup>
-                </FormControl>
-              </div>
-          <Divider  
-          color="var(--secondary-color)"
-          width="100%"
-          style={{margin:'0.5em auto'}}
-        />
-          </div>
           <div>
           <p className={classes.resetAll} onClick={ResetfilterHandle}>{language === 'eng' ? "Reset All" : "Réinitialiser " }</p>
           </div>
