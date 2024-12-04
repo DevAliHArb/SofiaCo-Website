@@ -375,6 +375,7 @@ const BooksView = ({carttoggle}) => {
     setCatChemin("");
     setSelectedCollection("all");
     setSelectedRate(0)
+    setinStock(null);
     localStorage.removeItem("stock");
     localStorage.removeItem("category");
     localStorage.removeItem("rate");
