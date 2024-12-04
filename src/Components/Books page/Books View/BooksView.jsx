@@ -49,7 +49,7 @@ const BooksView = ({carttoggle}) => {
   const [selectedRate, setSelectedRate] = useState(0);
   const [changepricetoggle, setchangePricetoggle] = useState(false);
   const [totalArticlesNumber, setTotalArticlesNumber] = useState(null);
-  const [inStock, setinStock] = useState(null);
+  const [inStock, setinStock] = useState(localStorage.getItem("stock") || null);
 
   const changechemin = async () => {
     try {
@@ -375,6 +375,7 @@ const BooksView = ({carttoggle}) => {
     setCatChemin("");
     setSelectedCollection("all");
     setSelectedRate(0)
+    localStorage.removeItem("stock");
     localStorage.removeItem("category");
     localStorage.removeItem("rate");
     localStorage.removeItem("min_price");
