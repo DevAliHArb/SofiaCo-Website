@@ -32,7 +32,7 @@ const ContactUs = () => {
       
       try {
         const response = await axios.post(
-          `${import.meta.env.VITE_TESTING_API}/api/bookshop/contact-us`,
+          `${import.meta.env.VITE_TESTING_API_IMAGE}/contact-us`,
           { ...formData, ecom_type: 'sofiaco' }
         );
         setFormData({});

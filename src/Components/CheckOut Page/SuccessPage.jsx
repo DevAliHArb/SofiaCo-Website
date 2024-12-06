@@ -33,7 +33,7 @@ const SuccessPage = () => {
 
           // Call your API to create the order invoice
         //   const requestData = { sessionId, orderId }; // Add more data if necessary
-          await axios.post(`${import.meta.env.VITE_TESTING_API}/api/bookshop/order_invoices`, orderData);
+          await axios.post(`${import.meta.env.VITE_TESTING_API_IMAGE}/order_invoices`, orderData);
 
           // Optionally clear cart or other actions
           dispatch(resetCart());

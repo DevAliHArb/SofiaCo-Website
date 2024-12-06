@@ -104,7 +104,7 @@ function App() {
       };
   
       // Send a POST request to the logout endpoint
-      await axios.get(`${import.meta.env.VITE_TESTING_API}/api/bookshop/logout`, { headers });
+      await axios.get(`${import.meta.env.VITE_TESTING_API_IMAGE}/logout`, { headers });
   
       // Remove the token from local storage after successful logout
       localStorage.removeItem('token');

@@ -81,7 +81,7 @@ const CollectionDetailsPage = () => {
       return;
   }
     try {
-      const response = await axios.post(`${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/subscriptions`, {
+      const response = await axios.post(`${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/subscriptions`, {
         collection_id: id,
         ecom_type: 'sofiaco',
       }, {
@@ -99,7 +99,7 @@ const CollectionDetailsPage = () => {
   
     const fetchHero = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/api/bookshop/website-sections?ecom_type=sofiaco&section_id=collection-details-hero`);
+        const response = await axios.get(`${import.meta.env.VITE_TESTING_API_IMAGE}/website-sections?ecom_type=sofiaco&section_id=collection-details-hero`);
         setHeroData(response.data.data[0]?.hero_sections[0])
       } catch (error) {
         // console.error('Error fetching services:', error);
@@ -116,7 +116,7 @@ const CollectionDetailsPage = () => {
   const fetchArticles = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/api/bookshop/articles?ecom_type=sofiaco&collection=${collectionData?.nom}`
+        `${import.meta.env.VITE_TESTING_API_IMAGE}/articles?ecom_type=sofiaco&collection=${collectionData?.nom}`
       );
       setArticles(response.data.data);
     } catch (error) {

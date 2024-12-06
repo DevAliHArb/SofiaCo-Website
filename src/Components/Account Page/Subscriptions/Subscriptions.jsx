@@ -58,7 +58,7 @@ const Subscriptions = () => {
     try {
       // Fetch collaborator_id from subscriptions
       const response1 = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/subscriptions`,
+        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/subscriptions`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers
@@ -79,7 +79,7 @@ const Subscriptions = () => {
 
       // Assuming collaboratorIds is an array of IDs
       const queryParams = collaboratorIds.map((id) => `ids[]=${id}`).join("&");
-      const url = `${import.meta.env.VITE_TESTING_API}/api/bookshop/collaborators?${queryParams}`;
+      const url = `${import.meta.env.VITE_TESTING_API_IMAGE}/collaborators?${queryParams}`;
 
       const response2 = await axios.get(url, {
         headers: {
@@ -100,7 +100,7 @@ const Subscriptions = () => {
     try {
       // Fetch collaborator_id from subscriptions
       const response1 = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/subscriptions`,
+        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/subscriptions`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers
@@ -119,7 +119,7 @@ const Subscriptions = () => {
 
       // Assuming collaboratorIds is an array of IDs
       const queryParams = collectionIds.map((id) => `ids[]=${id}`).join("&");
-      const url = `${import.meta.env.VITE_TESTING_API}/api/bookshop/collections?${queryParams}`;
+      const url = `${import.meta.env.VITE_TESTING_API_IMAGE}/collections?${queryParams}`;
 
       const response2 = await axios.get(url, {
         headers: {
@@ -141,7 +141,7 @@ const Subscriptions = () => {
     try {
       // Fetch collaborator_id from subscriptions
       const response1 = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/subscriptions?ecom_type=sofiaco`,
+        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/subscriptions?ecom_type=sofiaco`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers
@@ -161,7 +161,7 @@ const Subscriptions = () => {
 
       // Assuming collaboratorIds is an array of IDs
       const queryParams = categoryIds.map((id) => `ids[]=${id}`).join("&");
-      const url = `${import.meta.env.VITE_TESTING_API}/api/bookshop/categories?${queryParams}`;
+      const url = `${import.meta.env.VITE_TESTING_API_IMAGE}/categories?${queryParams}`;
 
       const response2 = await axios.get(url, {
         headers: {
@@ -197,7 +197,7 @@ const Subscriptions = () => {
   const handleDeleteCollaborator = async (collaboratorId) => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/subscriptions`,
+        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/subscriptions`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers
@@ -221,7 +221,7 @@ const Subscriptions = () => {
       // console.log(subscriptionId);
       // Send a DELETE request to the API endpoint with the subscriptionId
       await axios.delete(
-        `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/subscriptions/${subscriptionId}`,
+        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/subscriptions/${subscriptionId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -250,7 +250,7 @@ const Subscriptions = () => {
   const handleDeleteCollection = async (collectionId) => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/subscriptions`,
+        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/subscriptions`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers
@@ -274,7 +274,7 @@ const Subscriptions = () => {
   
       // Send a DELETE request to the API endpoint with the subscriptionId
       await axios.delete(
-        `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/subscriptions/${subscriptionId}`,
+        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/subscriptions/${subscriptionId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -304,7 +304,7 @@ const Subscriptions = () => {
   const handleDeleteCategory = async (catId) => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/subscriptions`,
+        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/subscriptions`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers
@@ -328,7 +328,7 @@ const Subscriptions = () => {
   
       // Send a DELETE request to the API endpoint with the subscriptionId
       await axios.delete(
-        `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/subscriptions/${subscriptionId}`,
+        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/subscriptions/${subscriptionId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

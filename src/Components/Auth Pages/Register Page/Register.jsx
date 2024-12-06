@@ -44,7 +44,7 @@ const Register = () => {const navigate = useNavigate();
         try {
           const updatedFormData = { ...formData, active: 'false', google: "false", type:'sofiaco' };
   
-          await axios.post(`${import.meta.env.VITE_TESTING_API}/api/bookshop/register`, updatedFormData);
+          await axios.post(`${import.meta.env.VITE_TESTING_API_IMAGE}/register`, updatedFormData);
           toast.success(language === "eng" ? "Registration successful!" : "Inscription réussie !", {
             position: "top-right",
             autoClose: 1500,

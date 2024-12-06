@@ -35,7 +35,7 @@ const handleChange = (e) => {
 const onFinish = async () => {
   setLoading(true);
   try {
-    const response = await axios.post( `${import.meta.env.VITE_TESTING_API}/api/bookshop/login`,formData);
+    const response = await axios.post( `${import.meta.env.VITE_TESTING_API_IMAGE}/login`,formData);
     const token = response.data.token;
     localStorage.setItem("token", token);
     const user = response.data;
@@ -45,7 +45,7 @@ const onFinish = async () => {
     // Dispatch action to add user to Redux store
     dispatch(addUser(userInfo));
 
-    const cartResponse = await axios.get(`${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${userId}/cart`, {
+    const cartResponse = await axios.get(`${import.meta.env.VITE_TESTING_API_IMAGE}/users/${userId}/cart`, {
       headers: {
           Authorization: `Bearer ${token}` // Include token in the headers
       }
@@ -75,7 +75,7 @@ const onFinish = async () => {
       }
   });
 
-  const favoriteResponse = await axios.get(`${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${userId}/favorite`, {
+  const favoriteResponse = await axios.get(`${import.meta.env.VITE_TESTING_API_IMAGE}/users/${userId}/favorite`, {
       headers: {
           Authorization: `Bearer ${token}` // Include token in the headers
       }

@@ -114,7 +114,7 @@ const OrderCard = ({data ,reviewHandler}) => {
       navigate(`/account/orders/order-returns`)
 }
 const CancleOrderHandler = () => {
-  axios.put(`${import.meta.env.VITE_TESTING_API}/api/bookshop/order_invoices/${data.id}?status_id=13`)
+  axios.put(`${import.meta.env.VITE_TESTING_API_IMAGE}/order_invoices/${data.id}?status_id=13`)
   .then(() => {
       // console.log("delete request successful:");
         toast.success(language === "eng" ? "Delete request successful." : "Demande de suppression réussie.", {

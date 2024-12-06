@@ -100,13 +100,13 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
     try {
       if (editModee) {
         // console.log(formData)
-        await axios.put(`${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/addresses/${editaddressId}`, formData, {
+        await axios.put(`${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/addresses/${editaddressId}`, formData, {
           headers: {
               Authorization: `Bearer ${token}` // Include token in the headers
           }
       });
       } else {
-        await axios.post(`${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${user.id}/addresses`, {
+        await axios.post(`${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/addresses`, {
           ...formData,
           default: true
         }, {

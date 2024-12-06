@@ -57,7 +57,7 @@ const AccountDetails = () => {
   const fetchUser = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${userInfo.id}`,
+        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${userInfo.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers
@@ -90,7 +90,7 @@ const AccountDetails = () => {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${userInfo.id}`,
+        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${userInfo.id}`,
         { ...formData, image: changedimage, _method: "put" },
         {
           headers: {
@@ -154,7 +154,7 @@ const AccountDetails = () => {
         // console.log(passData);
         // Make API call to change password
         const response = await axios.put(
-          `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${userInfo.id}`,
+          `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${userInfo.id}`,
           passData,
           {
             headers: {
@@ -232,7 +232,7 @@ const AccountDetails = () => {
     }
     try {
       const response = await axios.put(
-        `${import.meta.env.VITE_TESTING_API}/api/bookshop/users/${userInfo.id}`,
+        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${userInfo.id}`,
         formData,
         {
           headers: {
