@@ -128,7 +128,7 @@ const PopupPaymentModal = ({ open, handleClose, isselectedPayment }) => {
       if (editMode) {
         // console.log(formData);
         await axios.put(
-          `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/payments/${editpaymentId}`,
+          `${import.meta.env.VITE_TESTING_API}/users/${user.id}/payments/${editpaymentId}`,
           formData, {
             headers: {
                 Authorization: `Bearer ${token}` // Include token in the headers
@@ -136,7 +136,7 @@ const PopupPaymentModal = ({ open, handleClose, isselectedPayment }) => {
         }
         );
       } else {
-        await axios.post(`${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/payments`, {
+        await axios.post(`${import.meta.env.VITE_TESTING_API}/users/${user.id}/payments`, {
           ...formData,
           default: "true",
         }, {

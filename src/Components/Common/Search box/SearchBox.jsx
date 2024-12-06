@@ -41,7 +41,7 @@ function SearchBox() {
         setLoading(true);
         const fetchArticles = async () => {
           try {
-            let url = `${import.meta.env.VITE_TESTING_API_IMAGE}/articles?ecom_type=sofiaco&`;
+            let url = `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&`;
             if (selectedOption === "Book") {
               url += `title=${searchQuery}`;
             } else if (selectedOption === "Author") {

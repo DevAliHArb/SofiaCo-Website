@@ -14,7 +14,7 @@ const Mentions = () => {
   
     const fetchHero = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_TESTING_API_IMAGE}/website-sections?ecom_type=sofiaco&section_id=policies-hero`);
+        const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/website-sections?ecom_type=sofiaco&section_id=policies-hero`);
         setHeroData(response.data.data[0]?.hero_sections[0])
       } catch (error) {
         // console.error('Error fetching services:', error);
@@ -25,7 +25,7 @@ const Mentions = () => {
   }, []);
   const fetchPolicy = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_TESTING_API_IMAGE}/policy_conditions?ecom_type=sofiaco`);
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/policy_conditions?ecom_type=sofiaco`);
       // console.log('Response data:', response.data);
       setpolicyData(response.data.data[0])
     } catch (error) {

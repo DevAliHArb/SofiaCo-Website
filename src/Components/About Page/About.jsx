@@ -16,7 +16,7 @@ const About = () => {
   const [aboutData, setaboutData] = useState({});
   const fetchAbout = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_TESTING_API_IMAGE}/about?ecom_type=sofiaco`);
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/about?ecom_type=sofiaco`);
       // console.log('Response data:', response.data);
       setaboutData(response.data.data[0])
     } catch (error) {

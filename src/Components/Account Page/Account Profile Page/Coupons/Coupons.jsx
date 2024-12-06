@@ -70,7 +70,7 @@ const Coupons = () => {
     try {
       // Fetch user's coupons
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/coupons`,
+        `${import.meta.env.VITE_TESTING_API}/users/${user.id}/coupons`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers
@@ -83,7 +83,7 @@ const Coupons = () => {
       const couponsPromises = userCoupons.map(async (coupon) => {
         const couponId = coupon.coupon_id;
         const couponResponse = await axios.get(
-          `${import.meta.env.VITE_TESTING_API_IMAGE}/coupons/${couponId}`,
+          `${import.meta.env.VITE_TESTING_API}/coupons/${couponId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`, // Include token in the headers
@@ -113,7 +113,7 @@ const Coupons = () => {
     try {
       // First, fetch the coupon by code
       const couponResponse = await axios.get(
-        `${import.meta.env.VITE_TESTING_API_IMAGE}/coupons?ecom_type=sofiaco&code=${thecoupon}`,
+        `${import.meta.env.VITE_TESTING_API}/coupons?ecom_type=sofiaco&code=${thecoupon}`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers
@@ -136,7 +136,7 @@ const Coupons = () => {
       // Assuming you have a user ID stored in a variable named 'user.id'
       const userId = user.id;
       await axios.post(
-        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${userId}/coupons`,
+        `${import.meta.env.VITE_TESTING_API}/users/${userId}/coupons`,
         {
           coupon_id: `${coupon.id}`,
         },
@@ -178,7 +178,7 @@ const Coupons = () => {
     try {
       // Find the user_coupons entry where coupon_id matches the row.id
       const userCouponResponse = await axios.get(
-        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/coupons`,
+        `${import.meta.env.VITE_TESTING_API}/users/${user.id}/coupons`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers
@@ -202,7 +202,7 @@ const Coupons = () => {
 
       // Delete the user_coupon entry using its ID
       await axios.delete(
-        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/coupons/${userCouponId}`,
+        `${import.meta.env.VITE_TESTING_API}/users/${user.id}/coupons/${userCouponId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers

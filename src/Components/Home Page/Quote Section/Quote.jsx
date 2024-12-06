@@ -25,7 +25,7 @@ const Quote = () => {
   
   const fetchQuote = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_TESTING_API_IMAGE}/quotes?ecom_type=sofiaco`);
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/quotes?ecom_type=sofiaco`);
       setTheQuote(response.data.data);
       setconstantValue(response.data.data[0]?.id)
     } catch (error) {

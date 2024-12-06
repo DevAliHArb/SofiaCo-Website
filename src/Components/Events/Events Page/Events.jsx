@@ -36,7 +36,7 @@ const Events = () => {
   const [eventData, seteventData] = useState([]);
   const fetchAbout = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_TESTING_API_IMAGE}/events?ecom_type=sofiaco`);
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/events?ecom_type=sofiaco`);
       // console.log('Response data:', response.data);
       seteventData(response.data.data || {})
     } catch (error) {

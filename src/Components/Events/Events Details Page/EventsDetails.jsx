@@ -48,7 +48,7 @@ const EventsDetails = () => {
   const navigate = useNavigate();
   const fetchAbout = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_TESTING_API_IMAGE}/events?ecom_type=sofiaco`);
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/events?ecom_type=sofiaco`);
       // console.log('Response data:', response.data);
       setlatestEvents(response.data.data || {})
     } catch (error) {
@@ -109,7 +109,7 @@ useEffect(() => {
     if (user) {
       try {
         const response = await axios.post(
-          `${import.meta.env.VITE_TESTING_API_IMAGE}/events/${eventData.id}/replies`,
+          `${import.meta.env.VITE_TESTING_API}/events/${eventData.id}/replies`,
           { ...formData, user_id: user.id }
         );
         // console.log("Event replied successfully:", response.data);

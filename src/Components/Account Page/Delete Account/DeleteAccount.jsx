@@ -41,7 +41,7 @@ const logout = async () => {
     };
 
     // Send a POST request to the logout endpoint
-    await axios.get(`${import.meta.env.VITE_TESTING_API_IMAGE}/logout`, { headers });
+    await axios.get(`${import.meta.env.VITE_TESTING_API}/logout`, { headers });
 
     // Remove the token from local storage after successful logout
     localStorage.removeItem('token');
@@ -55,7 +55,7 @@ const logout = async () => {
   }
 };
   const handleDeleteAccount = () => {
-    axios.delete(`${import.meta.env.VITE_TESTING_API_IMAGE}/users/${userInfo?.id}`, {
+    axios.delete(`${import.meta.env.VITE_TESTING_API}/users/${userInfo?.id}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }

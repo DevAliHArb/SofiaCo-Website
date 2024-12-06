@@ -88,7 +88,7 @@ const Navbar = (props) => {
   
     try {
       await axios.put(
-        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}`,
+        `${import.meta.env.VITE_TESTING_API}/users/${user.id}`,
         { currency: cur },
         {
           headers: {
@@ -106,7 +106,7 @@ const Navbar = (props) => {
     dispatch(changeLanguage({ Language: lan }));
     try {
       await axios.put(
-        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${userInfo.id}`,
+        `${import.meta.env.VITE_TESTING_API}/users/${userInfo.id}`,
         { language: lan },
         {
           headers: {
@@ -136,7 +136,7 @@ const Navbar = (props) => {
       };
   
       // Send a POST request to the logout endpoint
-      await axios.get(`${import.meta.env.VITE_TESTING_API_IMAGE}/logout`, { headers });
+      await axios.get(`${import.meta.env.VITE_TESTING_API}/logout`, { headers });
   
       // Remove the token from local storage after successful logout
       localStorage.removeItem('token');

@@ -88,7 +88,7 @@ const Adresses = () => {
   const fetchAddresses = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/addresses`,
+        `${import.meta.env.VITE_TESTING_API}/users/${user.id}/addresses`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers
@@ -112,7 +112,7 @@ const Adresses = () => {
     try {
       // Update the database to set the selected address as default
       await axios.put(
-        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/addresses/${id}`,
+        `${import.meta.env.VITE_TESTING_API}/users/${user.id}/addresses/${id}`,
         {
           default: "true",
         },
@@ -149,7 +149,7 @@ const Adresses = () => {
       if (editMode) {
         // console.log(formData);
         await axios.put(
-          `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/addresses/${editaddressId}`,
+          `${import.meta.env.VITE_TESTING_API}/users/${user.id}/addresses/${editaddressId}`,
           formData,
           {
             headers: {
@@ -169,7 +169,7 @@ const Adresses = () => {
         });
       } else {
         await axios.post(
-          `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/addresses`,
+          `${import.meta.env.VITE_TESTING_API}/users/${user.id}/addresses`,
           {
             ...formData,
             default: true,
@@ -204,7 +204,7 @@ const Adresses = () => {
   const handleDeleteAddress = async (id) => {
     try {
       await axios.delete(
-        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/addresses/${id}`,
+        `${import.meta.env.VITE_TESTING_API}/users/${user.id}/addresses/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers

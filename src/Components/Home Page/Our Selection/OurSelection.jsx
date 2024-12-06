@@ -41,7 +41,7 @@ const OurSelection = () => {
   const fetchArticles = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API_IMAGE}/articles?ecom_type=sofiaco&is_selected`
+        `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&is_selected`
       );
       // console.log(response.data.data);
       setArticles(response.data.data);

@@ -41,7 +41,7 @@ const FeaturedBooks = () => {
   const fetchArticles = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API_IMAGE}/articles?ecom_type=sofiaco&favorites`
+        `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&favorites`
       );
       // console.log(response.data.data);
       setArticles(response.data.data);

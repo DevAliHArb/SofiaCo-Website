@@ -28,7 +28,7 @@ const Services = () => {
   const fetchServices = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API_IMAGE}/services?ecom_type=sofiaco`
+        `${import.meta.env.VITE_TESTING_API}/services?ecom_type=sofiaco`
       );
       // console.log(response.data?.data);
       setServices(response.data?.data);

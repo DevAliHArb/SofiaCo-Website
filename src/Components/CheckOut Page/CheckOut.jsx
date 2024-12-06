@@ -318,7 +318,7 @@ const CheckOut = () => {
     try {
       // Fetch user's coupons
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/coupons`,
+        `${import.meta.env.VITE_TESTING_API}/users/${user.id}/coupons`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers
@@ -331,7 +331,7 @@ const CheckOut = () => {
       const couponsPromises = userCoupons.map(async (coupon) => {
         const couponId = coupon.coupon_id;
         const couponResponse = await axios.get(
-          `${import.meta.env.VITE_TESTING_API_IMAGE}/coupons/${couponId}`,
+          `${import.meta.env.VITE_TESTING_API}/coupons/${couponId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`, // Include token in the headers
@@ -378,7 +378,7 @@ const CheckOut = () => {
     try {
       // Step 1: Check if the coupon code exists in the coupons table
       const couponResponse = await axios.get(
-        `${import.meta.env.VITE_TESTING_API_IMAGE}/coupons`,
+        `${import.meta.env.VITE_TESTING_API}/coupons`,
         {
           params: {
             code: selectedCoupon,
@@ -397,7 +397,7 @@ const CheckOut = () => {
 
         // Step 2: Check if the coupon is associated with the user in the user_coupons table
         const userCouponResponse = await axios.get(
-          `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/coupons`,
+          `${import.meta.env.VITE_TESTING_API}/users/${user.id}/coupons`,
           {
             params: {
               coupon_id: couponId,
@@ -484,7 +484,7 @@ const CheckOut = () => {
         const orderWeight = totalWeight;
         setLoading(true);
         const response = await axios.get(
-          `${import.meta.env.VITE_TESTING_API_IMAGE}/shipping-costs?ecom_type=sofiaco&country_name=${activeAddress.country}`
+          `${import.meta.env.VITE_TESTING_API}/shipping-costs?ecom_type=sofiaco&country_name=${activeAddress.country}`
         );
         setshippingCosts(response.data.data);
         const shippingCost = getShippingCost(
@@ -521,7 +521,7 @@ const CheckOut = () => {
   const fetchAddresses = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/addresses`,
+        `${import.meta.env.VITE_TESTING_API}/users/${user.id}/addresses`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers
@@ -557,7 +557,7 @@ const CheckOut = () => {
   const fetchPayments = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/payments`,
+        `${import.meta.env.VITE_TESTING_API}/users/${user.id}/payments`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers
@@ -833,7 +833,7 @@ const CheckOut = () => {
             
             // Request to create a Checkout Session from your server
             const response = await axios.post(
-              `${import.meta.env.VITE_TESTING_API_IMAGE}/create-checkout-session`,
+              `${import.meta.env.VITE_TESTING_API}/create-checkout-session`,
               requestData1
             );
             const sessionId = response.data.sessionId;
@@ -850,7 +850,7 @@ const CheckOut = () => {
           } else {
             // Normal order processing
             await axios.post(
-              `${import.meta.env.VITE_TESTING_API_IMAGE}/order_invoices`,
+              `${import.meta.env.VITE_TESTING_API}/order_invoices`,
               requestData
             );
 
@@ -972,7 +972,7 @@ const CheckOut = () => {
       }
       setLoading(true);
       await axios.post(
-        `${import.meta.env.VITE_TESTING_API_IMAGE}/order_invoices`,
+        `${import.meta.env.VITE_TESTING_API}/order_invoices`,
         requestData
       );
 
@@ -1046,7 +1046,7 @@ const CheckOut = () => {
       // try {
       //   // Update the database to set the selected address as default
       //   await axios.put(
-      //     `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/payments/${id}`,
+      //     `${import.meta.env.VITE_TESTING_API}/users/${user.id}/payments/${id}`,
       //     {
       //       default: "true",
       //     },
@@ -1071,7 +1071,7 @@ const CheckOut = () => {
     // try {
     //   // Update the database to set the selected address as default
     //   await axios.put(
-    //     `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/addresses/${id}`,
+    //     `${import.meta.env.VITE_TESTING_API}/users/${user.id}/addresses/${id}`,
     //     {
     //       default: "true",
     //     },
@@ -1114,7 +1114,7 @@ const CheckOut = () => {
   const handleDeletePayment = async (id) => {
     try {
       await axios.delete(
-        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/payments/${id}`,
+        `${import.meta.env.VITE_TESTING_API}/users/${user.id}/payments/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers
@@ -1136,7 +1136,7 @@ const CheckOut = () => {
   const handleDeleteAddress = async (id) => {
     try {
       await axios.delete(
-        `${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/addresses/${id}`,
+        `${import.meta.env.VITE_TESTING_API}/users/${user.id}/addresses/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers
@@ -1166,7 +1166,7 @@ const CheckOut = () => {
   const fetchHero = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API_IMAGE}/website-sections?ecom_type=sofiaco&section_id=checkout-hero`
+        `${import.meta.env.VITE_TESTING_API}/website-sections?ecom_type=sofiaco&section_id=checkout-hero`
       );
       setHeroData(response.data.data[0]?.hero_sections[0]);
     } catch (error) {

@@ -43,7 +43,7 @@ const Reviews = () => {
 
     const fetchBook = async () => {
         try {
-          const response = await axios.get(`${import.meta.env.VITE_TESTING_API_IMAGE}/articles?id=${selectedBook[0].id}&ecom_type=sofiaco`);
+          const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/articles?id=${selectedBook[0].id}&ecom_type=sofiaco`);
           const book = response.data;
           dispatch(addSelectedBook(book))
           
@@ -54,7 +54,7 @@ const Reviews = () => {
 
     const fetchReviews = async () => {
         try {
-            const response = await axios.get(`${import.meta.env.VITE_TESTING_API_IMAGE}/articles/${selectedBook[0].id}/reviews?ecom_type=sofiaco`);
+            const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/articles/${selectedBook[0].id}/reviews?ecom_type=sofiaco`);
             const reviews = response.data.data;
             setBookreview(reviews);
         } catch (error) {
@@ -78,7 +78,7 @@ const Reviews = () => {
         }
 
         try {
-            const response = await axios.post(`${import.meta.env.VITE_TESTING_API_IMAGE}/articles/${selectedBook[0].id}/reviews`, {
+            const response = await axios.post(`${import.meta.env.VITE_TESTING_API}/articles/${selectedBook[0].id}/reviews`, {
                 ...formData,
                 user_id: user.id,
                 ecom_type: 'sofiaco'

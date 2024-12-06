@@ -159,7 +159,7 @@ const OrderTracking = () => {
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${import.meta.env.VITE_TESTING_API_IMAGE}/users/${user.id}/order_invoice`, {
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/users/${user.id}/order_invoice`, {
         headers: {
             Authorization: `Bearer ${token}` // Include token in the headers
         }
@@ -177,7 +177,7 @@ const OrderTracking = () => {
   const fetchStatus = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${import.meta.env.VITE_TESTING_API_IMAGE}/lookups?parent_id=1`);
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/lookups?parent_id=1`);
       // console.log('Response data:', response.data.data);
       const allCategories = { id: 0, name: 'All Orders', name_fr:"Toutes les commandes" };
       const filteredData = response.data.data.filter(item => item.id !== 6 && item.id !== 7 && item.id !== 8);
@@ -355,7 +355,7 @@ const reviewHandler =()=>setisReviewMood(true);
      if (!item) {
      try {
       setIsLoading(true);
-      const response = await axios.post(`${import.meta.env.VITE_TESTING_API_IMAGE}/cart?ecom_type=sofiaco`, {
+      const response = await axios.post(`${import.meta.env.VITE_TESTING_API}/cart?ecom_type=sofiaco`, {
         user_id: user.id,
         article_id: props.id,
         quantity: props.quantity,
@@ -388,7 +388,7 @@ const reviewHandler =()=>setisReviewMood(true);
       setIsLoading(true);
       if (Number(newQuantity) > Number(maxQuantity)) {
         
-        axios.put(`${import.meta.env.VITE_TESTING_API_IMAGE}/cart/${item.cart_id}`, {
+        axios.put(`${import.meta.env.VITE_TESTING_API}/cart/${item.cart_id}`, {
           quantity: Number(maxQuantity).toFixed(0),
           })
           .then((response) => {
@@ -405,7 +405,7 @@ const reviewHandler =()=>setisReviewMood(true);
           });
       } else {
         
-        axios.put(`${import.meta.env.VITE_TESTING_API_IMAGE}/cart/${item.cart_id}`, {
+        axios.put(`${import.meta.env.VITE_TESTING_API}/cart/${item.cart_id}`, {
           quantity: newQuantity,
           })
           .then((response) => {
@@ -462,7 +462,7 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
 });
 }
   const CancleOrderHandler = () => {
-    axios.put(`${import.meta.env.VITE_TESTING_API_IMAGE}/order_invoices/${selectedOrder?.id}?status_id=13`)
+    axios.put(`${import.meta.env.VITE_TESTING_API}/order_invoices/${selectedOrder?.id}?status_id=13`)
     .then(() => {
         // console.log("delete request successful:");
           toast.success(language === "eng" ? "Delete request successful." : "Demande de suppression réussie.", {
@@ -493,7 +493,7 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
     });
   }
   const RecieveOrderHandler = () => {
-    axios.put(`${import.meta.env.VITE_TESTING_API_IMAGE}/order_invoices/${selectedOrder.id}?status_id=5`)
+    axios.put(`${import.meta.env.VITE_TESTING_API}/order_invoices/${selectedOrder.id}?status_id=5`)
     .then(() => {
           toast.success(`Recieve request send successful`, {
             position: "top-right",

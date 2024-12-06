@@ -20,7 +20,7 @@ const BookDetailsPage = () => {
 
   const fetchBook = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_TESTING_API_IMAGE}/articles?id=${id}&ecom_type=sofiaco`);
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/articles?id=${id}&ecom_type=sofiaco`);
       const book = response.data;
       dispatch(addSelectedBook(book))
       
@@ -31,7 +31,7 @@ const BookDetailsPage = () => {
   
     const fetchHero = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_TESTING_API_IMAGE}/website-sections?ecom_type=sofiaco&section_id=product-details-hero`);
+        const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/website-sections?ecom_type=sofiaco&section_id=product-details-hero`);
         setHeroData(response.data.data[0]?.hero_sections[0])
       } catch (error) {
         // console.error('Error fetching services:', error);
