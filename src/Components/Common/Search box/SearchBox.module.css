@@ -15,6 +15,33 @@
   color:#fff;
 }
 
+.out_of_stock{
+  position: absolute;
+  width: 85%;
+  height: 90%;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  background-color: rgba(194, 194, 194, 0.5);
+  z-index: 9;
+  cursor: auto;
+}
+
+.out_of_stock p {
+  width: fit-content;
+  height: fit-content;
+  margin: auto;
+  font-family: var(--font-family);
+  font-size: calc(0.5rem + 0.2vw);
+  text-align: center;
+  justify-self: center;
+  align-self: center;
+  color: #fff;
+  padding: 0.2em 0.4em;
+  border-radius: .3em;
+  background-color: var(--primary-color);
+}
 .custom_select{
   height: 2.5em !important;
   padding: 0 !important;
@@ -150,8 +177,21 @@
     width: 100%;
   }
 .dropdown_card_img img{
-  height: 80%;
+  height: 100%;
   object-fit: fill;
+}
+
+.out_of_stock{
+  position: absolute;
+  width: 83%;
+  height: 88%;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  background-color: rgba(194, 194, 194, 0.5);
+  z-index: 9;
+  cursor: auto;
 }
 }
 

@@ -192,7 +192,10 @@ function SearchBox() {
                       navigate(`/bookdetails/${article.id}`);
                     }}
                   >
-                    <div className={classes.dropdown_card_img}>
+                    <div className={classes.dropdown_card_img} style={{position:"relative"}}>
+            {article?._qte_a_terme_calcule < 1 && <div onClick={(e)=>e.stopPropagation()} className={classes.out_of_stock}>
+                        <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
+                      </div>}
                       {article.articleimage[0] ? (
                         <img
                           src={`${article.articleimage[0]?.link}`}

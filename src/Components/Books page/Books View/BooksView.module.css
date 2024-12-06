@@ -17,6 +17,7 @@
   background-color: var(--authbg-color);
   margin: 0 0 auto 0;
   border-radius: 0em 1em 1em 0em;
+  height: fit-content !important;
 }
 
 .content{

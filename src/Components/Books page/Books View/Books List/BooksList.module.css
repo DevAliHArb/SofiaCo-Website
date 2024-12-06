@@ -583,6 +583,13 @@ transform: scale(1.1);
   font-family: var(--font-family) !important;
   background-color: transparent !important;
   height: 1.5em !important;
+  white-space: normal;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+
 }
 
 .bookRowDescription {
