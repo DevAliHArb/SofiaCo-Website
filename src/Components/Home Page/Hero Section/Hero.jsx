@@ -102,7 +102,7 @@ const Hero = ({ carttoggle }) => {
             <div className={classes.nodata_img}>
               <img src={nodata} alt="" />
             </div>
-            <h1>
+            <h1 style={{color:'#EEBA7F'}}>
               No Books <br />
               were found!
             </h1>
