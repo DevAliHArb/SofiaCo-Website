@@ -264,6 +264,48 @@ const handleSuivreTranslator = async () => {
   }
 };
 
+const handleSuivreIllustrateur = async () => {
+  if (!user) {
+      // If user is not defined, throw an error
+      toast.error(`${language === 'eng' ? "Please log in first" : "Veuillez d'abord vous connecter"}`);
+      return;
+  }
+
+  try {
+      // Fetch the list of collaborators
+      const collaboratorsResponse = await axios.get(`${import.meta.env.VITE_TESTING_API}/collaborators?ecom_type=sofiaco`);
+      const collaborators = collaboratorsResponse.data;
+
+      const cleanedAuteur = bookData.dc_illustrateur.trim();
+      // Find the collaborator whose nom + prenom matches bookData.dc_auteur
+      const collaborator = collaborators.find(collaborator => {
+          const fullName = `${collaborator.nom}`;
+          // console.log(fullName.toLowerCase())
+          // console.log(cleanedAuteur.toLowerCase())
+          return fullName.toLowerCase() === cleanedAuteur.toLowerCase();
+      });
+
+      if (!collaborator) {
+          throw new Error('Collaborator not found');
+      }
+
+      // Send the subscription request with the found collaborator's id
+      const response = await axios.post(`${import.meta.env.VITE_TESTING_API}/users/${user.id}/subscriptions`, {
+          collaborator_id: collaborator.id,
+          ecom_type: 'sofiaco',
+      }, {
+          headers: {
+              Authorization: `Bearer ${token}` // Include token in the headers
+          }
+      });
+
+      // console.log(response.data);
+      toast.success(`${language === 'eng' ? `${collaborator.nom} subscribed successfully!` : `${collaborator.nom} abonné avec succès !!`}`, {hideProgressBar: true}); // You can handle the response here
+  } catch (error) {
+      // console.error('Error:', error);
+      toast.error(error.response?.data?.error || error.message);
+  }
+};
 
 const handleSuivreCollection = async () => {
   if (!user) {
@@ -500,7 +542,7 @@ const handleSuivreCategory = async () => {
           <div className={classes.char}>
             <p > {language === 'eng' ? 'Illustrator' : 'Illustrateur'}</p>
             <p >: {bookData.dc_illustrateur}</p>
-            {/* {bookData.dc_illustrateur && bookData.dc_illustrateur !== "" && <span  style={{
+            {bookData.dc_illustrateur && bookData.dc_illustrateur !== "" && <span  style={{
                 background: "var(--primary-color)",
                 color:'#fff',
                 height:'fit-content',
@@ -511,9 +553,9 @@ const handleSuivreCategory = async () => {
                 margin:'auto',
                 display:'flex'
               }}
-               onClick={handleSuivreTranslator}> 
+               onClick={handleSuivreIllustrateur}> 
                 <MdAddBox style={{fontSize:'1.5em', margin:'auto'}}/> 
-               </span>} */}
+               </span>}
           </div>
           <div className={classes.char}>
             <p > {language === 'eng' ? 'Editor' : 'Editeur'}</p>

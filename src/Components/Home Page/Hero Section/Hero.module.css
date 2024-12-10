@@ -307,6 +307,7 @@ color: var(--secondary-color);
   }
   .nodata h1{
     text-align: center;
+    color: #EEBA7F;
   }
   .out_of_stock p {
     font-size: calc(0.5rem + 0.2vw);
