@@ -42,7 +42,7 @@ const Register = () => {const navigate = useNavigate();
     const onFinish = async (values) => {
         setLoading(true)
         try {
-          const updatedFormData = { ...formData, active: 'false', google: "false", type:'sofiaco' };
+          const updatedFormData = { ...formData, active: 'false', google: "false", type:'sofiaco', database_sous_domaine: import.meta.env.VITE_DATABASE_NAME };
   
           await axios.post(`${import.meta.env.VITE_TESTING_API}/register`, updatedFormData);
           toast.success(language === "eng" ? "Registration successful!" : "Inscription réussie !", {
