@@ -215,7 +215,7 @@ const BooksView = ({carttoggle}) => {
   }, [authCtx.categories]);
 
   useEffect(() => {
-    fetchArticles();
+    fetchArticles(null, null, null, 1);
   }, [searchData[0]?.category]);
   
   useEffect(() => {
@@ -427,7 +427,7 @@ const BooksView = ({carttoggle}) => {
     dispatch(editSearchData(newData));
     
     // Fetch updated articles based on the new price range
-    fetchArticles();
+    fetchArticles(null, null, null, 1);
     
     // Close the modal or dialog
     setIsOpen(false);
