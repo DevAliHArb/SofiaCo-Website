@@ -165,17 +165,65 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
   };
 
   const chain = () => {
+    let finalResult = '';
+  
+    // Check and concatenate each condition result
     if (catChemin !== '') {
-      return language === 'eng' ? `Category: ${catChemin}` : `Category: ${catChemin}`;
-    } else if (searchData[0]?.author) {
-      return language === 'eng' ? `Author: ${searchData[0]?.author}` : `Auteur: ${searchData[0]?.author}`;
-    } else if (searchData[0]?.collection) {
-      return  language === 'eng' ? `Collection: ${searchData[0]?.collection}` : `Collection: ${searchData[0]?.collection}`;
-    } else if (searchData[0]?.editor) {
-      return language === 'eng' ? `Editor: ${searchData[0]?.editor}` : `Editeur: ${searchData[0]?.editor}`;
-    } else {
-      return 'All books';
+      finalResult += language === 'eng' ? `Category: ${catChemin}` : `Catégorie: ${catChemin}`;
     }
+  
+    if (searchData[0]?.title) {
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Title: ${searchData[0]?.title}` : `Titre: ${searchData[0]?.title}`);
+    }
+    if (searchData[0]?.author) {
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Author: ${searchData[0]?.author}` : `Auteur: ${searchData[0]?.author}`);
+    }
+    
+  
+    if (searchData[0]?.collection) {
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Collection: ${searchData[0]?.collection}` : `Collection: ${searchData[0]?.collection}`);
+    }
+  
+    if (searchData[0]?.editor) {
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Editor: ${searchData[0]?.editor}` : `Editeur: ${searchData[0]?.editor}`);
+    }
+  
+    if (searchData[0]?.upcoming) {
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Up Coming` : `A Paraître`);
+    }
+  
+    if (searchData[0]?.newarrival) {
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `New Products` : `Nouveautés`);
+    }
+  
+    if (searchData[0]?.bestsellers) {
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Best Sales` : `Meilleures Ventes`);
+    }
+  
+    if (searchData[0]?.favorites) {
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Favorites` : `Favoris`);
+    }
+  
+    if (searchData[0]?.max_price) {
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Price: ${searchData[0]?.min_price}${currency === "usd" ? "$" : '€'} - ${searchData[0]?.max_price}${currency === "usd" ? "$" : '€'}` : `Prix: ${searchData[0]?.min_price}${currency === "usd" ? "$" : '€'} - ${searchData[0]?.max_price}${currency === "usd" ? "$" : '€'}`);
+    }
+    
+    const rateStatus = localStorage.getItem('rate');
+    if (rateStatus > 0) {
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Rating: ${rateStatus}` : `Evaluation: ${rateStatus}`);
+    } 
+    const stockStatus = localStorage.getItem('stock');
+    if (stockStatus === 'true') {
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `In Stock` : `En Stock`);
+    } else if (stockStatus === 'false') {
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Out of Stock` : `En rupture de stock`);
+    }
+    // Default fallback if no conditions are met
+    if (!finalResult) {
+      finalResult = language === "eng" ? `All Books` : `Tous les livres`;
+    }
+  
+    return finalResult;
   };
 
   return (
