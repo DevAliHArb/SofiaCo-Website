@@ -170,6 +170,11 @@ function SearchBox() {
           className={classes.input}
           onChange={(e) => setSearchQuery(e.target.value)}
           onFocus={() => setIsDropdownOpen(true)}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') {
+              handleSearchSubmit();
+            }
+          }}
           prefix={<SearchOutlined  className={classes.customIcon}/>}
         />
         {articles.length > 0 && searchQuery.length > 1 && (
