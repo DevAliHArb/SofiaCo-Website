@@ -323,13 +323,6 @@ const BooksView = ({carttoggle}) => {
     setSelectedPrice(newValue);
   };
 
-  const handleMinChange = (event) => {
-    const newValue = event.target.value;
-    const updatedValue = [...selectedPrice];
-    updatedValue[0] = newValue;
-    setSelectedPrice(updatedValue);
-  };
-
   const handleChangeStock = (event) => {
     const newStockValue = event.target.value;
     console.log(newStockValue);
@@ -343,10 +336,31 @@ const BooksView = ({carttoggle}) => {
     fetchArticles(null, null, null, 1);
   };
 
-  const handleMaxChange = (event) => {
-    const newValue = parseInt(event.target.value, 10);
+  const handleMinChange = (event) => {
+    const newValue = event.target.value;
     const updatedValue = [...selectedPrice];
-    updatedValue[1] = newValue;
+  
+    // Ensure the value is a valid number and not empty
+    if (!isNaN(newValue) && newValue !== "") {
+      updatedValue[0] = parseInt(newValue, 10); // Convert to an integer
+    } else {
+      updatedValue[0] = 0; // Or set a default value
+    }
+    
+    setSelectedPrice(updatedValue);
+  };
+  
+  const handleMaxChange = (event) => {
+    const newValue = event.target.value;
+    const updatedValue = [...selectedPrice];
+  
+    // Ensure the value is a valid number and not empty
+    if (!isNaN(newValue) && newValue !== "") {
+      updatedValue[1] = parseInt(newValue, 10); // Convert to an integer
+    } else {
+      updatedValue[1] = 0; // Or set a default value
+    }
+  
     setSelectedPrice(updatedValue);
   };
 
