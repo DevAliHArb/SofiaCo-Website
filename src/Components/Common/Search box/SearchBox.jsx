@@ -6,7 +6,7 @@ import { SearchOutlined } from "@ant-design/icons";
 import AuthContext from "../authContext";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { addSearchData, addSelectedBook, deleteSelectedBook, editSearchData } from "../redux/productSlice";
+import { addSearchData, addSelectedBook, deleteSelectedBook, editSearchData, resetSearchData } from "../redux/productSlice";
 import { useNavigate } from "react-router-dom";
 import img from "../../../assets/bookPlaceholder.png";
 import { stripHtmlTags, truncateText } from "../TextUtils";
@@ -74,11 +74,35 @@ function SearchBox() {
 
   const handleSearchSubmit = () => {
     localStorage.removeItem("category");
-    dispatch(editSearchData({ ...searchData[0], title: searchQuery }));
-    navigate("/books");
-    if (window.location.pathname === "/books") {
-      window.location.reload();
+    dispatch(resetSearchData());
+  
+    // Initialize the search object
+    let search = {};
+  
+    // Dynamically set the search key based on the selected option
+    if (selectedOption === "Book") {
+      search = { title: searchQuery };
+    } else if (selectedOption === "Author") {
+      search = { author: searchQuery };
+    } else if (selectedOption === "Illustrator" || selectedOption === "Translator") {
+      search = { traducteur: searchQuery };
+    } else if (selectedOption === "Editor") {
+      search = { editor: searchQuery };
+    } else if (selectedOption === "Collection") {
+      search = { collection: searchQuery };
     }
+  
+    // Dispatch the search data, combining with existing search data if necessary
+    dispatch(editSearchData({ ...searchData[0], ...search }));
+  
+    // If the current path is /products, reload the page, otherwise navigate
+    if (window.location.pathname === "/books") {
+      window.location.reload(); // Reload if already on /products
+    } else {
+      navigate("/books"); // Navigate to /products if not already there
+    }
+  
+    // Clear the search query
     setSearchQuery("");
   };
 

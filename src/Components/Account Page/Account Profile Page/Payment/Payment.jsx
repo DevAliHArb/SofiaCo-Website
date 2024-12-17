@@ -206,10 +206,27 @@ useEffect(() => {
 
 
   const handleSubmit = async () => {
-    setaddLoading(true)
+    setaddLoading(true);
+    const cardNumber = paymentslist.some(item => item.card_number === formData.card_number)
+    
+    if (cardNumber) {
+      setaddLoading(false);
+      return toast.info(
+        `${
+          language === "eng"
+            ? "Payment card already exist. Delete it and try again"
+            : "La carte de paiement existe déjà. Supprimez-la et réessayez"
+        }`,
+        {
+          // Toast configuration
+          hideProgressBar: true,
+        }
+      );
+    }
+    
     try {
       if (editMode) {
-        // console.log(formData);
+        console.log(formData);
         await axios.put(
           `${import.meta.env.VITE_TESTING_API}/users/${user.id}/payments/${editpaymentId}`,
           formData,
@@ -219,10 +236,17 @@ useEffect(() => {
             },
           }
         );
-        toast.success(language === "eng" ? "Payment card edited successfully" : "Carte de paiement modifiée avec succès", {
-          // Toast configuration
-          hideProgressBar: true,
-        });
+        toast.success(
+          `${
+            language === "eng"
+              ? "Payment card edited successfully"
+              : "Carte de paiement éditée avec succès"
+          }`,
+          {
+            // Toast configuration
+            hideProgressBar: true,
+          }
+        );
       } else {
         await axios.post(
           `${import.meta.env.VITE_TESTING_API}/users/${user.id}/payments`,
@@ -236,28 +260,42 @@ useEffect(() => {
             },
           }
         );
-        toast.success(language === "eng" ? "Payment card added successfully" : "Carte de paiement ajoutée avec succès", {
-          // Toast configuration
-          hideProgressBar: true,
-        });
+        toast.success(
+          `${
+            language === "eng"
+              ? "Payment card added successfully"
+              : "Carte de paiement ajoutée avec succès"
+          }`,
+          {
+            // Toast configuration
+            hideProgressBar: true,
+          }
+        );
       }
       handleClose();
       fetchPayments();
-    } catch (error) { 
+    } catch (error) {
       toast.error(error.response.data.error, {
-      // Toast configuration
-      hideProgressBar: true,
-    });
-      // console.error("Error submitting payment:", error);
+        // Toast configuration
+        hideProgressBar: true,
+      });
+      console.error(
+        `${
+          language === "eng"
+            ? "Error submitting card:"
+            : "Erreur de soumission de la carte :"
+        }`,
+        error.response.data.error
+      );
     } finally {
-      setaddLoading(false)
+      setaddLoading(false);
     }
   };
 
-  const handleDeletePayment = async (id) => {
+  const handleDeletePayment = async (item) => {
     try {
       await axios.delete(
-        `${import.meta.env.VITE_TESTING_API}/users/${user.id}/payments/${id}`,
+        `${import.meta.env.VITE_TESTING_API}/users/${user.id}/payments/${item.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the headers
@@ -265,14 +303,17 @@ useEffect(() => {
         }
       );
       setPaymentsList((prevPayments) =>
-        prevPayments.filter((payment) => payment.id !== id)
+        prevPayments.filter((payment) => payment.id !== item.id)
       );
-      toast.success(language === "eng" ? "Payment card deleted successfully" : "Carte de paiement supprimée avec succès", {
+      if (item.default === 'true' && user?.default_pay === 'card') {
+        handleChange2('direct')
+      }
+      toast.success("Payment card deleted successfully", {
         // Toast configuration
         hideProgressBar: true,
       });
     } catch (error) {
-      // console.error("Error deleting payment:", error);
+      console.error("Error deleting payment:", error);
     }
   };
 
@@ -354,7 +395,7 @@ useEffect(() => {
                                                 Edit</button> */}
                         <button className={classes.deleteBtn}
                         style={{background: (item.default === 'true' && user.default_pay === 'card') ? 'var(--secondary-color)' : 'var(--primary-color)'}}
-                          onClick={()=>{dispatch(deletePayment(item.id)),handleDeletePayment(item.id)}}
+                          onClick={()=>{dispatch(deletePayment(item.id)),handleDeletePayment(item)}}
                         >
                           <img src={DeleteIcon}
                         style={{ width: "1.5em", marginTop: ".05em 0.1em" }}/>
