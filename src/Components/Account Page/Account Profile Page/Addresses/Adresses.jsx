@@ -214,6 +214,7 @@ const Adresses = () => {
       setAddressesList((prevAddresses) =>
         prevAddresses.filter((address) => address.id !== id)
       );
+      fetchAddresses();
       toast.success(language === "eng" ? "Address Deleted" : "Adresse supprimée", {
         position: "top-right",
         autoClose: 1500,
