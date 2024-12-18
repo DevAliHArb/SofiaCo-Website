@@ -52,6 +52,7 @@ const AuthContext = React.createContext({
   companySettings: [],
   setCompanySettings: () => {},
   fetchCompanySettings: () => {},
+  fetchfavandcartSettings:() => {},
 
   
   countries: [],
@@ -706,6 +707,7 @@ const fetchArticles = async () => {
     addToFavorite: addToFavoritehandler,
     deleteFavorite: deleteFavoritehandler,
     setCompanySettings: setCompanySettingshandler,
+    fetchfavandcartSettings: fetchfavandcartSettings,
 
     countries,
     

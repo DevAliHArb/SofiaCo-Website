@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './App.css';
 import Navbar from './Components/Common/Navbar Section/Navbar';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
@@ -35,8 +35,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { removeUser } from './Components/Common/redux/productSlice';
 import ErrorPage from './Components/Common/ErrorPage';
+import AuthContext from './Components/Common/authContext';
 
 function App() {
+  const authCtx = useContext(AuthContext)
   const [isOpen, setIsOpen] = useState(false);
   const [cartisOpen, setCartIsOpen] = useState(false);
   const user = useSelector((state) => state.products.userInfo);
@@ -65,6 +67,9 @@ function App() {
   };
 
   const cartToggle = () => {
+    if (!cartisOpen) {
+      authCtx.fetchfavandcartSettings();
+    }
     if (user) {
       setCartIsOpen(!cartisOpen);
     }
