@@ -74,6 +74,8 @@ function SearchBox() {
 
   const handleSearchSubmit = () => {
     localStorage.removeItem("category");
+    localStorage.removeItem("collection");
+    localStorage.removeItem("date");
     dispatch(resetSearchData());
   
     // Initialize the search object
@@ -90,10 +92,14 @@ function SearchBox() {
       search = { editor: searchQuery };
     } else if (selectedOption === "Collection") {
       search = { collection: searchQuery };
+    } else if (selectedOption === "EAN") {
+      search = { ean: searchQuery };
+    } else if (selectedOption === "Resume") {
+      search = { resume: searchQuery };
     }
   
     // Dispatch the search data, combining with existing search data if necessary
-    dispatch(editSearchData({ ...searchData[0], ...search }));
+    dispatch(editSearchData({ ...search }));
   
     // If the current path is /products, reload the page, otherwise navigate
     if (window.location.pathname === "/books") {

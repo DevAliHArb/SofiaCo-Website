@@ -180,8 +180,21 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
     }
     
   
+    const storedCollection = localStorage.getItem("collection");
+    if (storedCollection && storedCollection !== 'all') {
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Collection: ${storedCollection}` : `Collection: ${storedCollection}`);
+    }
+
     if (searchData[0]?.collection) {
       finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Collection: ${searchData[0]?.collection}` : `Collection: ${searchData[0]?.collection}`);
+    }
+    
+    if (searchData[0]?.ean) {
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `EAN: ${searchData[0]?.ean}` : `EAN: ${searchData[0]?.ean}`);
+    }
+
+    if (searchData[0]?.resume) {
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Resume: ${searchData[0]?.resume}` : `Resume: ${searchData[0]?.resume}`);
     }
   
     if (searchData[0]?.editor) {
@@ -208,10 +221,6 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
       finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Price: ${searchData[0]?.min_price}${currency === "usd" ? "$" : '€'} - ${searchData[0]?.max_price}${currency === "usd" ? "$" : '€'}` : `Prix: ${searchData[0]?.min_price}${currency === "usd" ? "$" : '€'} - ${searchData[0]?.max_price}${currency === "usd" ? "$" : '€'}`);
     }
     
-    const rateStatus = localStorage.getItem('rate');
-    if (rateStatus > 0) {
-      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Rating: ${rateStatus}` : `Evaluation: ${rateStatus}`);
-    } 
     const stockStatus = localStorage.getItem('stock');
     if (stockStatus === 'true') {
       finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `In Stock` : `En Stock`);

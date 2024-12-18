@@ -278,6 +278,14 @@ const BooksView = ({carttoggle}) => {
         const selectedStockParam = storedInStock
           ? `&in_stock=${storedInStock}`
           : ``;
+          
+      const selectedResumeParam = searchData[0]?.resume
+      ? `&descriptif=${searchData[0].resume}`
+      : "";
+
+    const selectedEANParam = searchData[0]?.ean
+      ? `&_code_barre=${searchData[0].ean}`
+      : "";
 
         const selectedCollectionParam = collectionId && collectionId !== 'all'
         ? `&collection=${collectionId}`
@@ -289,7 +297,7 @@ const BooksView = ({carttoggle}) => {
         : ``;
 
       // Finalize the URL by combining all parameters
-      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedCollectionParam}${selectedStockParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedcollectionParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}&ecom_type=sofiaco`;
+      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedCollectionParam}${selectedStockParam}${selectedEANParam}${selectedResumeParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedcollectionParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}&ecom_type=sofiaco`;
 
       // Fetch articles using the finalized URL
       const response = await axios.get(finalUrl);
