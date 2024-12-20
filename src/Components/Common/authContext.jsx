@@ -215,7 +215,11 @@ const fetchArticles = async () => {
   const fetchMyDocuments = async () => {
     try {
       // const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/my-documents?client_id=${user.client_id}`);
-      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/my-documents?client_id=234526`);
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/my-documents?client_id=234526`, {
+        headers: {
+            Authorization: `Bearer ${token}` // Include token in the headers
+        }
+    });
       setMydocuments(response.data);
       console.log(response.data)
     } catch (error) {
