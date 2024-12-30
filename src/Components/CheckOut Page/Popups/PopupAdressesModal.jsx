@@ -364,6 +364,11 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
                       textAlign: "start",
                     }}
                     dropdownStyle={{ zIndex: 2000 }}
+                    showSearch // Enables searching
+                    getPopupContainer={(trigger) => trigger.parentNode}
+                    filterOption={(input, option) =>
+                      option.children.toLowerCase().includes(input.toLowerCase())
+                    }
                     onChange={(e) => handleChange("country", e)}
                   >
                     {/* Add options for all countries */}

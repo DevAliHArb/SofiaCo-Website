@@ -215,15 +215,14 @@ const fetchArticles = async () => {
   const fetchMyDocuments = async () => {
     try {
       // const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/my-documents?client_id=${user.client_id}`);
-      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/my-documents?client_id=234526`, {
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/my-documents?client_id=${user.client_id}`, {
         headers: {
             Authorization: `Bearer ${token}` // Include token in the headers
         }
     });
       setMydocuments(response.data);
-      console.log(response.data)
     } catch (error) {
-      console.error('Error fetching my documents:', error);
+      // console.error('Error fetching my documents:', error);
     }
   };
 
@@ -259,7 +258,7 @@ const fetchArticles = async () => {
 
   const addToCarthandler = async ({props , carttoggle}) => {
     if (!user) {
-      toast.error(language === "eng" ? "Please login to add to cart." : "Veuillez vous connecter pour ajouter au panier.", {
+      toast.error(language === "eng" ? "Log in to make your basket." : "Se connecter pour faire son panier.", {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
