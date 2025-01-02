@@ -148,7 +148,7 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
 <ListItem disablePadding>
   <ListItemButton>
     <ListItemText className={classes.text}>
-    {language === 'eng' ? "CONTACT" : "CONTACTEZ" }
+    {language === 'eng' ? "CONTACT US" : "CONTACTEZ-NOUS" }
     </ListItemText>
   </ListItemButton>
 </ListItem>

@@ -316,7 +316,7 @@ const Navbar = (props) => {
                 {language === 'eng' ? 'collections' : 'collections'}
               </p>
               <p onClick={() => navigate(`/contact`)}>
-              {language === 'eng' ? "CONTACT" : "CONTACTEZ" }
+              {language === 'eng' ? "CONTACT US" : "CONTACTEZ-NOUS" }
               </p>
               {/* <p onClick={() => navigate(`/`)}>
                 {language === 'eng' ? 'our services' : 'nos services'}
@@ -525,7 +525,7 @@ const Navbar = (props) => {
                 {language === 'eng' ? 'collections' : 'collections'}
               </p>
               <p onClick={() => navigate(`/contact`)}>
-              {language === 'eng' ? "CONTACT" : "CONTACTEZ" }
+              {language === 'eng' ? "CONTACT US" : "CONTACTEZ-NOUS" }
               </p>
               <div className={classes.icons}>
                 <div style={{position:'relative', cursor:'pointer'}} onClick={()=>navigate(`/wishlist`)}>

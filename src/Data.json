@@ -53,7 +53,7 @@
     "GENERAL": {
       "title": { "eng": "GENERAL", "fr": "GÉNÉRALITÉS" },
       "point1": { "eng": "About Us", "fr": "À Propos" },
-      "point2": { "eng": "Contact Us", "fr": "Contactez " },
+      "point2": { "eng": "Contact Us", "fr": "Contactez-Nous" },
       "point3": { "eng": "Collaborators", "fr": "Collaborateurs" }
     }
   },

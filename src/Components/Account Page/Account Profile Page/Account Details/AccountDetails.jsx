@@ -593,7 +593,7 @@ const AccountDetails = () => {
                 disabled={loading }
                 style={{ cursor: loading ? "wait" : "pointer" }}
               >
-               {language === "eng" ? "Save" : "Économiser"}
+               {language === "eng" ? "Save" : "Enregistrer"}
               </Button>
             </Form.Item>
               <Button
@@ -691,7 +691,7 @@ const AccountDetails = () => {
                     cursor: loading ? "wait" : "pointer",
                   }}
                 >
-                {language === "eng" ? "Save" : "Économiser"}
+                {language === "eng" ? "Save" : "Enregistrer"}
                 </Button>
               <Button
                 size="large"
