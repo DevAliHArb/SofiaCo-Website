@@ -286,7 +286,7 @@ const Adresses = () => {
                     <p style={{ margin: ".1em 0" }}>{item.name}</p>
                     <p style={{ margin: ".1em 0" }}>{item.company}</p>
                     <p style={{ margin: ".1em 0" }}>
-                      {item.country}, {item.city}, {item.address.length > 45 ? item.address.substring(0, 45) : item.address}
+                      {item.country}, {item.city}, {item.address.length > 45 ? item.address.substring(0, 45) : item.address}{item?.address2 && ' , '}{item?.address2?.length > 45 ? item?.address2.substring(0, 45) : item.address}
                     </p>
                     <p style={{ margin: ".1em 0" }}>{item.postalcode} </p>
                     {/* {item.default === 'true' && ( */}
@@ -628,10 +628,30 @@ const Adresses = () => {
               <Input
                 name="address"
                 size="large"
-                placeholder={language === 'eng' ? "Street name, apartment, etc." : "Nom de la rue, appartement, etc."}
+                placeholder={language === 'eng' ? "1. Street name, apartment, etc." : "1. Nom de la rue, appartement, etc."}
                 className={classes.inputt}
                 value={formData?.address || ''}
                 onChange={(e) => handleChange("address", e.target.value)}
+              />
+            </Form.Item>
+            <Form.Item
+              name="address2"
+              rules={[
+                {
+                  max: 64,
+                  min: 0,
+                  message: "Le titre doit comporter entre 12 et 64 caractères.",
+                },
+              ]}
+              style={{ border: "none", borderRadius: ".5em", width: "100%" }}
+            >
+              <Input
+                name="address2"
+                size="large"
+                placeholder={language === 'eng' ? "2. Street name, apartment, etc." : "2. Nom de la rue, appartement, etc."}
+                className={classes.inputt}
+                value={formData?.address || ''}
+                onChange={(e) => handleChange("address2", e.target.value)}
               />
             </Form.Item>
             <Form.Item
@@ -669,7 +689,6 @@ const Adresses = () => {
               style={{
                 border: "none",width:'100%',
                 borderRadius: ".5em",
-                backgroundColor: "#DED8CC",
               }}
             >
               <Input
@@ -708,7 +727,7 @@ const Adresses = () => {
                   className={classes.addAddBtn}
                 >
                   {!editMode ? language === 'eng' ? "Add" : "Ajouter":
-                  language === "eng" ? "Save" : "Économiser"}
+                  language === "eng" ? "Save" : "Enregistrer"}
                 </Button>
               {/* </Form.Item> */}
               <Button

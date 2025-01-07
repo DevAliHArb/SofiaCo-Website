@@ -1344,11 +1344,10 @@ const CheckOut = () => {
                             {address.title}
                           </button>
                         </p>
+                        <p>{address.country}, {address.city},{" "} {address.postalcode}</p>
                         <p>
-                          {address.address}, {address.city},{" "}
-                          {address.postalcode}{" "}
+                          {address.address} {address?.address2 && ' , '}{address?.address2?.length > 45 ? address?.address2.substring(0, 45) : address.address}
                         </p>
-                        <p>{address.country}</p>
                       </div>
                       <div className={classes.removeCont} style={{zIndex:'9'}}>
                         <p

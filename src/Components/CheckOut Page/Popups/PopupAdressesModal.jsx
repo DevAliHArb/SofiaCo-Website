@@ -417,10 +417,35 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
                       textAlign: "start",
                       backgroundColor: "#fff",
                     }}
-                placeholder={language === 'eng' ? "Street name, apartment, ..." : "Nom de la rue, appartement, ..."}
+                placeholder={language === 'eng' ? "1. Street name, apartment, ..." : "1. Nom de la rue, appartement, ..."}
                 className={classes.inputt}
                 value={formData?.address || ''}
                 onChange={(e) => handleChange("address", e.target.value)}
+              />
+            </Form.Item>
+            <Form.Item
+              name="address2"
+              rules={[
+                {
+                  max: 64,
+                  message: "Le titre doit comporter entre 12 et 64 caractères.",
+                },
+              ]}
+              style={{ border: "none", borderRadius: ".5em", width: "100%" }}
+            >
+              <Input
+                name="address2"
+                size="large"
+                    style={{
+                      width: "100%",
+                      height: "3em",
+                      textAlign: "start",
+                      backgroundColor: "#fff",
+                    }}
+                placeholder={language === 'eng' ? "2. Street name, apartment, ..." : "2. Nom de la rue, appartement, ..."}
+                className={classes.inputt}
+                value={formData?.address || ''}
+                onChange={(e) => handleChange("address2", e.target.value)}
               />
             </Form.Item>
             <Form.Item
