@@ -138,6 +138,7 @@ const CheckOut = () => {
   const handleOpenpaypal = () => setOpenpaypal(true);
   const handleClosepaypal = () => setOpenpaypal(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [couponCode, setCouponCode] = useState("");
   const handleErrorOpen = (message) => {
     setErrorMessage(message);
     setErrorModalOpen(true);
@@ -374,14 +375,14 @@ const CheckOut = () => {
   const token = getToken();
 
   
-  const handleApplyCoupon = async () => {
+  const handleApplyCoupon = async (id) => {
     try {
       // Step 1: Check if the coupon code exists in the coupons table
       const couponResponse = await axios.get(
         `${import.meta.env.VITE_TESTING_API}/coupons`,
         {
           params: {
-            code: selectedCoupon,
+            code: id,
             ecom_type: 'sofiaco',
           },
         },
@@ -469,6 +470,101 @@ const CheckOut = () => {
         }
       );
     }
+  };
+  const AddAndApplyCoupon = async (couponCode) => {
+    setLoading(true);
+    try {
+      // Step 1: Fetch the coupon by code
+      const couponResponse = await axios.get(
+        `${import.meta.env.VITE_TESTING_API}/coupons?ecom_type=sofiaco&code=${couponCode}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include token in the headers
+          },
+        }
+      );
+  
+      // Handle the response containing the coupon data
+      const coupon = couponResponse?.data.data;
+  
+      // Check if a coupon was found
+      if (!coupon || coupon.length === 0) {
+        toast.error(`${language === 'eng' ? "Coupon not found" : "Coupon non trouvé"}`, {
+          hideProgressBar: true,
+        });
+        return;
+      }
+      fetchCoupons();
+      const couponId = coupon.id;
+  
+      // Step 2: Add the coupon to the user_coupons table
+      const userId = user.id;
+      await axios.post(
+        `${import.meta.env.VITE_TESTING_API}/users/${userId}/coupons`,
+        {
+          coupon_id: `${couponId}`,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include token in the headers
+          },
+        }
+      );
+  
+      // Step 3: Check if the coupon is associated with the user
+      const userCouponResponse = await axios.get(
+        `${import.meta.env.VITE_TESTING_API}/users/${userId}/coupons`,
+        {
+          params: {
+            coupon_id: couponId,
+          },
+          headers: {
+            Authorization: `Bearer ${token}`, // Include token in the headers
+          },
+        }
+      );
+      // Apply the coupon immediately by setting the state with the coupon details
+      setcoupon(couponResponse.data.data);
+      setuserCoupon(userCouponResponse.data.data);
+      
+      // Notify user about successful coupon addition and application
+      toast.success(`${language === 'eng' ? "Coupon added and applied successfully" : "Coupon ajouté et appliqué avec succès"}`, {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+      });
+  
+    } catch (error) {
+      const errorMessage = error.response?.data?.error;
+      if (errorMessage?.coupon_id) {
+        toast.error(errorMessage.coupon_id[0], {
+          hideProgressBar: true,
+        });
+      } else {
+        console.error(`${language === 'eng' ? "Error adding or applying coupon:" : "Erreur lors de l'ajout ou de l'application du coupon :"}`, error);
+        toast.error(errorMessage || `${language === 'eng' ? "Error processing the coupon" : "Erreur lors du traitement du coupon"}`, {
+          hideProgressBar: true,
+        });
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCouponSubmit = async () => {
+    const cpupon = couponList?.find((props) => props?.code === couponCode );
+    if (cpupon?.id) {
+      handleApplyCoupon(cpupon?.code)
+      console.log('applyyy');
+    } else {
+      AddAndApplyCoupon(couponCode)
+      console.log('adddddd');
+    }
+    
   };
 
   const FetchShippinCost = async (id) => {
@@ -1852,7 +1948,7 @@ const CheckOut = () => {
                 layout="vertical"
                 name="nest-messages"
                 form={form}
-                onFinish={coupon.type ? handleRemoveCoupon : handleApplyCoupon}
+                onFinish={coupon.code ? handleRemoveCoupon : handleCouponSubmit}
                 className={classes.totalrows}
                 style={{ marginTop: "2em",gridTemplateColumns:'65% 35%' }}
               >
@@ -1863,7 +1959,37 @@ const CheckOut = () => {
                       fontSize: "calc(.7rem + 0.3vw)",
                       width: "100%",
                     }}>
-                  <Select
+                <Input
+                  value={couponCode}
+                  onChange={(e) => setCouponCode(e.target.value)}
+                  placeholder={
+                    language === "eng"
+                      ? "Enter or select a coupon"
+                      : "Entrer ou sélectionner un coupon"
+                  }
+                  list="coupon-options" // Enables the list of existing coupons
+                  disabled={coupon.reduction ? true : false}
+                  style={{
+                    border: "none",
+                    height: "2.5em",
+                    borderRadius: ".7em",
+                    fontSize: "calc(.7rem + 0.3vw)",
+                    width: "100%",
+                  }}
+                />
+                <datalist id="coupon-options">
+                  {couponList
+                    .filter(
+                      (coupon) =>
+                        coupon.user_id === null && !isCouponExpired(coupon.expiry)
+                    )
+                    .map((coupon) => (
+                      <option key={coupon.id} value={coupon.code}>
+                        {coupon.code}
+                      </option>
+                    ))}
+                </datalist>
+                  {/* <Select
                     value={selectedCoupon}
                     onChange={handleCouponChange}
                     displayEmpty
@@ -1876,9 +2002,6 @@ const CheckOut = () => {
                       width: "100%",
                     }}
                   >
-                    {/* <MenuItem value="" disabled>
-                  {language === 'eng' ? 'Select a coupon' : 'Sélectionner un coupon'}
-                </MenuItem> */}
                     <MenuItem
                       style={{ border: "none", height: "2.5em" }}
                       value=""
@@ -1900,7 +2023,7 @@ const CheckOut = () => {
                           {coupon.code}
                         </MenuItem>
                       ))}
-                  </Select>
+                  </Select> */}
                   {/* <Input
               suffix={<GoTag style={{ color: 'var(--accent-color)' }} />}
               name="name"
