@@ -258,9 +258,9 @@ const fetchArticles = async () => {
 
   const addToCarthandler = async ({props , carttoggle}) => {
     if (!user) {
-      toast.error(language === "eng" ? "Log in to make your basket." : "Se connecter pour faire son panier.", {
+      toast.info(language === "eng" ? "Log in to make your basket." : "Se connecter pour faire son panier.", {
         position: "top-right",
-        autoClose: 1500,
+        autoClose: 5000,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
@@ -379,6 +379,18 @@ const fetchArticles = async () => {
 
   const addToCartWithQtyhandler = async (props) => {
     console.log(props)
+    if (!user) {
+      toast.info(language === "eng" ? "Log in to make your basket." : "Se connecter pour faire son panier.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: 0,
+        theme: "colored",
+      });
+    } else {
     const maxQuantity = props._qte_a_terme_calcule;
     const item = productData.find(item => item._id === props.id);
      if (!item) {
@@ -450,6 +462,7 @@ const fetchArticles = async () => {
       }
       
     }
+  }
   }
   const changeCartQtyhandler = async (props) => {
      if (props.quantity > 0)  {
