@@ -173,10 +173,10 @@ const Navbar = (props) => {
 
   useEffect(() => {
     const collaboratorDetailsRegex = /^\/collaborators\/[^/]+\/details$/;
-    const collectionDetailsRegex = /^\/collections\/[^/]+\/details$/;
+    const collectionDetailsRegex = /^\/publishers\/[^/]+\/details$/;
     const bookDetailsRegex = /^\/bookdetails\/[^/]+$/;
   
-    if (path === "/collections" || path === "/collaborators" || path === "/books" || path ==="/policies" || collaboratorDetailsRegex.test(path) || collectionDetailsRegex.test(path) || bookDetailsRegex.test(path)) {
+    if (path === "/publishers" || path === "/collaborators" || path === "/books" || path ==="/policies" || collaboratorDetailsRegex.test(path) || collectionDetailsRegex.test(path) || bookDetailsRegex.test(path)) {
       setwithBG(true)
     } else { setwithBG(false) }
   }, [path])
@@ -312,8 +312,8 @@ const Navbar = (props) => {
               <p onClick={() => navigate(`/collaborators`)}>
               {language === 'eng' ? "COLLABORATORS" : "COLLABORATEURS" }
               </p>
-              <p onClick={() => navigate(`/collections`)}>
-                {language === 'eng' ? 'collections' : 'collections'}
+              <p onClick={() => navigate(`/publishers`)}>
+                {language === 'eng' ? 'publishers' : 'publishers'}
               </p>
               <p onClick={() => navigate(`/contact`)}>
               {language === 'eng' ? "CONTACT US" : "CONTACTEZ-NOUS" }
@@ -521,8 +521,8 @@ const Navbar = (props) => {
               <p onClick={() => navigate(`/collaborators`)}>
               {language === 'eng' ? "COLLABORATORS" : "COLLABORATEURS" }
               </p>
-              <p onClick={() => navigate(`/collections`)}>
-                {language === 'eng' ? 'collections' : 'collections'}
+              <p onClick={() => navigate(`/publishers`)}>
+                {language === 'eng' ? 'publishers' : 'publishers'}
               </p>
               <p onClick={() => navigate(`/contact`)}>
               {language === 'eng' ? "CONTACT US" : "CONTACTEZ-NOUS" }

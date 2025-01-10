@@ -90,7 +90,7 @@ const CollectionDetailsPage = () => {
         }
     });
       // console.log(response.data);
-      toast.success(`${collectionData.nom} ${language === 'eng' ? "subscribed successfully!" : "Abonné avec succès !"}`) // You can handle the response here
+      toast.success(`${collectionData.name_fr} ${language === 'eng' ? "subscribed successfully!" : "Abonné avec succès !"}`) // You can handle the response here
     } catch (error) {
       // console.error('Error:', error);
       toast.error(error.response.data.error)
@@ -116,7 +116,7 @@ const CollectionDetailsPage = () => {
   const fetchArticles = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&collection=${collectionData?.nom}`
+        `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&collection=${collectionData?.name_fr}`
       );
       setArticles(response.data.data);
     } catch (error) {
@@ -204,20 +204,17 @@ const CollectionDetailsPage = () => {
                 </div>       
            </div>
         <div className={classes.card} >
-          <h1 style={{fontWeight:'600', textTransform:'capitalize'}}>{collectionData.nom}</h1>
-          <p style={{color:'var(--secondary-color)',fontWeight:"500", margin:'.5em 0'}}>{collectionData.description}</p>
-          <button onClick={()=>handleSuivreClick(collectionData.id)}>{language === 'eng' ? "Follow" : "Suivre" }</button>
+          <h1 style={{fontWeight:'600', textTransform:'capitalize'}}>{collectionData.name_fr}</h1>
+          <p style={{color:'var(--secondary-color)',fontWeight:"500", margin:'.5em 0'}}>{collectionData.description_fr}</p>
+          {/* <button onClick={()=>handleSuivreClick(collectionData.id)}>{language === 'eng' ? "Follow" : "Suivre" }</button> */}
           </div>
       </div> 
 
        
-      <div className={classes.header}>
+    {/*  <div className={classes.header}>
           <h1 onClick={()=>console.log(records)}>{data.Collections.CollectionsDetails.title[language]}</h1>
-          <p>
-            {/* {data.Collections.CollectionsDetails.description[language]} */}
-            </p>
         </div>
-          {/* <div style={{
+           <div style={{
                     width: "100%",
                     display:'flex',
                     maxWidth:'25em',
@@ -243,7 +240,7 @@ const CollectionDetailsPage = () => {
                   />
                   <button className={classes.btn} style={{margin:"0 0 0 auto"}}><IoSearchOutline style={{width:'1.7em', height:'1.7em',margin:'-0.5em'}}/></button>
                 </div> */}
-        {records.length === 0 ? 
+        {/* {records.length === 0 ? 
           <div className={classes.nodata}>
             <div className={classes.nodata_img}>
               <img src={nodata} alt="" />
@@ -389,9 +386,7 @@ const CollectionDetailsPage = () => {
             </p>
           </div>
           <div className={classes.control}>
-            {/* <button onClick={prev2page}>
-              <MdKeyboardDoubleArrowLeft className={classes.icon1} />
-            </button> */}
+          
             <button onClick={prevpage}>
               <FaArrowLeftLong className={classes.icon1} />
             </button>
@@ -431,11 +426,9 @@ const CollectionDetailsPage = () => {
             <button onClick={nextpage}>
               <FaArrowRightLong className={classes.icon1} />
             </button>
-            {/* <button onClick={next2page}>
-              <MdKeyboardDoubleArrowRight className={classes.icon1} />
-            </button> */}
+            
           </div>
-        </div>
+        </div> */}
        </div>
       </div>
     </>

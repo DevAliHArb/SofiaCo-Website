@@ -39,13 +39,13 @@ const CollectionsPage = () => {
   };
 
   const filteredData = searchText
-    ? authCtx.collections?.filter(item => item.nom.toLowerCase().includes(searchText.toLowerCase()))
+    ? authCtx.collections?.filter(item => item.name_fr.toLowerCase().includes(searchText.toLowerCase()))
     : authCtx.collections;
 
   const lastIndex = currentpage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  const records = filteredData.slice(firstIndex, lastIndex);
-  const pagenb = Math.ceil(filteredData.length / recordsPerPage);
+  const records = filteredData?.slice(firstIndex, lastIndex);
+  const pagenb = Math.ceil(filteredData?.length / recordsPerPage);
   const numbers = [...Array(pagenb + 1).keys()].slice(1);
 
   const nextpage = () => {
@@ -109,7 +109,7 @@ const CollectionsPage = () => {
       <div className={classes.bigContainer}>
         <OurSelectionBanner props={heroData} />
         <div className={classes.header}>
-          <h1>{data.Collections.CollectionsPage.title[language]}</h1>
+          <h1 onClick={()=>console.log(records)}>{data.Collections.CollectionsPage.title[language]}</h1>
           <p>{data.Collections.CollectionsPage.description[language]}</p>
         </div>
 
@@ -119,9 +119,9 @@ const CollectionsPage = () => {
               <img src={nodata} alt="" />
             </div>
             {language === 'eng' ? (
-  <h1>No Collections <br /> were found!</h1>
+  <h1>No publishers <br /> were found!</h1>
 ) : (
-  <h1>Aucune collection <br /> n'a été trouvée !</h1>
+  <h1>Aucune publisher <br /> n'a été trouvée !</h1>
 )}
 
           </div>
@@ -132,7 +132,7 @@ const CollectionsPage = () => {
                 <div key={props.id} className={classes.logo_con} onClick={() => {
                   // console.log(props)
                   dispatch(addCollection(props));
-                  navigate(`/collections/${props.id}/details`);
+                  navigate(`/publishers/${props.id}/details`);
                 }}>
                   <div className={classes.content}>
                     {props?.image !== null ? (
@@ -152,7 +152,7 @@ const CollectionsPage = () => {
                         height="100%"
                       />
                     )}
-                    <p>{props.nom.length > 10 ? props.nom.substring(0, 10) + "..." : props.nom}</p>
+                    <p style={{color:"var(--primary-color)",fontWeight:'600'}}>{props.name_fr.length > 10 ? props.name_fr.substring(0, 10) + "..." : props.name_fr}</p>
                   </div>
                 </div>
               );
@@ -163,7 +163,7 @@ const CollectionsPage = () => {
         <div className={classes.page_control}>
           <div className={classes.show}>
             <p>
-              Showing {from}–{to} of {filteredData.length} results
+              Showing {from}–{to} of {filteredData?.length} results
             </p>
           </div>
           <div className={classes.control}>

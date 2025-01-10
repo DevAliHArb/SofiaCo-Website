@@ -205,8 +205,8 @@ const fetchArticles = async () => {
   };
   const fetchCollections = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/collections?ecom_type=sofiaco`);
-      setCollections(response.data);
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/publishers?ecom_type=sofiaco`);
+      setCollections(response.data.data);
     } catch (error) {
       // console.error('Error fetching collections:', error);
     }

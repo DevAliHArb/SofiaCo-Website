@@ -134,11 +134,11 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
         </ListItem>
         </Link>
 
-<Link  to='/collections' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+<Link  to='/publishers' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
 <ListItem disablePadding>
   <ListItemButton>
     <ListItemText className={classes.text}>
-    {language === 'eng' ? 'collections' : 'collections'}
+    {language === 'eng' ? 'publishers' : 'publishers'}
     </ListItemText>
   </ListItemButton>
 </ListItem>
