@@ -89,7 +89,7 @@ const FavoriteItem = ({ carttoggle }) => {
                       dc_auteur: props.favauthor,
                       image: props.favimage,
                       prixpublic: props.favprice,
-                      discount:props.discount,
+                      remise_catalogue:props.remise_catalogue,
                       quantity: props.favquantity,
                       _qte_a_terme_calcule: props._qte_a_terme_calcule,
                       _poids_net: props.weight,

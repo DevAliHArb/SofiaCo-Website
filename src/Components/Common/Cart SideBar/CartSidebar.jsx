@@ -154,8 +154,8 @@ export default function CartSidebar({ toggle, isOpen }) {
       }
   
       // Calculate the price considering the discount
-      const discountedPrice = item.discount > 0
-        ? (item.price - (item.price * (item.discount / 100))).toFixed(2)
+      const discountedPrice = item.remise_catalogue > 0
+        ? (item.price - (item.price * (item.remise_catalogue / 100))).toFixed(2)
         : Number(item.price).toFixed(2);
       const price = discountedPrice ;
       const priceTTC = item.price_ttc;
@@ -163,8 +163,8 @@ export default function CartSidebar({ toggle, isOpen }) {
 
       // Calculate the cost and TVA
       const cost = price - (priceTTC - priceNet);
-      const tva = item.discount > 0
-        ? (priceTTC - priceNet) - ((priceTTC - priceNet) * (item.discount / 100))
+      const tva = item.remise_catalogue > 0
+        ? (priceTTC - priceNet) - ((priceTTC - priceNet) * (item.remise_catalogue / 100))
         : priceTTC - priceNet;
   
       totalPrice +=  (price * 1).toFixed(2) * item.quantity;
@@ -245,25 +245,25 @@ export default function CartSidebar({ toggle, isOpen }) {
                               {/* {language === "eng" ? "price" : "prix"}:{" "} */}
                               {currency === "eur"
                             ? `${
-                                props.discount > 0
+                                props.remise_catalogue > 0
                                   ? (
                                       props.price_ttc -
-                                      props.price_ttc * (props.discount / 100)
+                                      props.price_ttc * (props.remise_catalogue / 100)
                                     ).toFixed(2)
                                   : Number(props.price_ttc).toFixed(2)
                               }€`
                             : `${
-                                props.discount > 0
+                                props.remise_catalogue > 0
                                   ? (
                                       (props.price_ttc -
                                         props.price_ttc *
-                                          (props.discount / 100)) *
+                                          (props.remise_catalogue / 100)) *
                                       authCtx.currencyRate
                                     ).toFixed(2)
                                   : (
                                       props.price_ttc * authCtx.currencyRate
                                     ).toFixed(2)
-                              }$`}{" "}     {props.discount > 0 && <span
+                              }$`}{" "}     {props.remise_catalogue > 0 && <span
                                 style={{
                                   color: "var(--primary-color)",
                                   textDecoration: "line-through",
@@ -342,11 +342,11 @@ export default function CartSidebar({ toggle, isOpen }) {
             
             <p style={{margin:'0 0 .5em auto',color:'var(--forth-color)',fontSize:'calc(.7rem + 0.3vw)',fontWeight:'600'}}>
             {currency === "eur"
-  ? ` ${(props.quantity * (props.discount > 0
-      ? parseFloat((props.price_ttc - props.price_ttc * (props.discount / 100)).toFixed(2))
+  ? ` ${(props.quantity * (props.remise_catalogue > 0
+      ? parseFloat((props.price_ttc - props.price_ttc * (props.remise_catalogue / 100)).toFixed(2))
       : (Number(props.price_ttc))).toFixed(2)).toFixed(2)}€`
-  : `${(props.discount > 0
-      ? ((props.price_ttc - props.price_ttc * (props.discount / 100)) * authCtx.currencyRate).toFixed(2) * props.quantity
+  : `${(props.remise_catalogue > 0
+      ? ((props.price_ttc - props.price_ttc * (props.remise_catalogue / 100)) * authCtx.currencyRate).toFixed(2) * props.quantity
       : (props.price_ttc * authCtx.currencyRate) * props.quantity).toFixed(2)}$`}
                                       </p>
             </div>

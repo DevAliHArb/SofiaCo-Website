@@ -411,30 +411,30 @@ const handleSuivreCategory = async () => {
           >
             {currency === "eur"
                             ? `€${
-                              bookData.discount > 0
+                              bookData.remise_catalogue > 0
                                   ? (
                                     bookData._prix_public_ttc -
-                                    bookData._prix_public_ttc * (bookData.discount / 100)
+                                    bookData._prix_public_ttc * (bookData.remise_catalogue / 100)
                                     ).toFixed(2)
                                   : Number(bookData._prix_public_ttc).toFixed(2)
                               }`
                             : `$${
-                              bookData.discount > 0
+                              bookData.remise_catalogue > 0
                                   ? (
                                       (bookData._prix_public_ttc -
                                         bookData._prix_public_ttc *
-                                          (bookData.discount / 100)) *
+                                          (bookData.remise_catalogue / 100)) *
                                       authCtx.currencyRate
                                     ).toFixed(2)
                                   : (
                                     bookData._prix_public_ttc * authCtx.currencyRate
                                     ).toFixed(2)
                               }`}{" "}
-                              {bookData.discount > 0 && <span style={{opacity: "0.8",textDecoration:'line-through',fontSize: "calc(.9rem + 0.3vw)",margin:'0 1em'}} >
+                              {bookData.remise_catalogue > 0 && <span style={{opacity: "0.8",textDecoration:'line-through',fontSize: "calc(.9rem + 0.3vw)",margin:'0 1em'}} >
                                {currency === "eur" ? `€${Number(bookData._prix_public_ttc).toFixed(2)} `: `$${(bookData._prix_public_ttc * authCtx.currencyRate ).toFixed(2)} `}</span>}  
                     
-                     {bookData.discount > 0 && <span style={{background:'var(--primary-color)', color:'#fff', padding:'0.2em 0.8em',fontSize: "calc(.9rem + 0.3vw)",borderRadius:'5px'}} >
-                      {bookData.discount}%</span>} 
+                     {bookData.remise_catalogue > 0 && <span style={{background:'var(--primary-color)', color:'#fff', padding:'0.2em 0.8em',fontSize: "calc(.9rem + 0.3vw)",borderRadius:'5px'}} >
+                      {bookData.remise_catalogue}%</span>} 
           </p>
         </div>
         <div className={classes.bottonsContainer}>

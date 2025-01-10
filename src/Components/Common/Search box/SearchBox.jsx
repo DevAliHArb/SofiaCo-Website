@@ -256,26 +256,26 @@ function SearchBox() {
                       >
                         {currency === "eur"
                             ? `${
-                              article.discount > 0
+                              article.remise_catalogue > 0
                                   ? (
                                     article._prix_public_ttc -
-                                    article._prix_public_ttc * (article.discount / 100)
+                                    article._prix_public_ttc * (article.remise_catalogue / 100)
                                     ).toFixed(2)
                                   : Number(article._prix_public_ttc).toFixed(2)
                               } €`
                             : `${
-                              article.discount > 0
+                              article.remise_catalogue > 0
                                   ? (
                                       (article._prix_public_ttc -
                                         article._prix_public_ttc *
-                                          (article.discount / 100)) *
+                                          (article.remise_catalogue / 100)) *
                                       authCtx.currencyRate
                                     ).toFixed(2)
                                   : (
                                     article._prix_public_ttc * authCtx.currencyRate
                                     ).toFixed(2)
                               } $`}  {" "}                   
-                     {article.discount > 0 && <span style={{opacity: "0.8",textDecoration:'line-through'}} >
+                     {article.remise_catalogue > 0 && <span style={{opacity: "0.8",textDecoration:'line-through'}} >
                       {currency === "eur" ? `${Number(article._prix_public_ttc).toFixed(2)} € `: `${(article._prix_public_ttc * authCtx.currencyRate ).toFixed(2)} $ `}</span>} 
                       </p>
                        {selectedOption === "Editor" && (

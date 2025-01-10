@@ -265,20 +265,20 @@ const Deals = () => {
                           >
                             {currency === "eur"
                               ? `€${
-                                  props.discount > 0
+                                  props.remise_catalogue > 0
                                     ? (
                                         props._prix_public_ttc -
                                         props._prix_public_ttc *
-                                          (props.discount / 100)
+                                          (props.remise_catalogue / 100)
                                       ).toFixed(2)
                                     : Number(props._prix_public_ttc).toFixed(2)
                                 }`
                               : `$${
-                                  props.discount > 0
+                                  props.remise_catalogue > 0
                                     ? (
                                         (props._prix_public_ttc -
                                           props._prix_public_ttc *
-                                            (props.discount / 100)) *
+                                            (props.remise_catalogue / 100)) *
                                         authCtx.currencyRate
                                       ).toFixed(2)
                                     : (
@@ -286,7 +286,7 @@ const Deals = () => {
                                       ).toFixed(2)
                                 }`}{" "}
                           </p>
-                          {props.discount > 0 && (
+                          {props.remise_catalogue > 0 && (
                             <p
                               style={{
                                 color: "var(--primary-color)",

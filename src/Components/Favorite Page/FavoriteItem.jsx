@@ -58,50 +58,50 @@ const FavoriteItem = ({ carttoggle }) => {
               /><p style={{margin:'0.2em 0 0 0 '}}>{props.favrate}/5</p></p>
               <p className={classes.priceMob}>{currency === "eur"
                             ? `${
-                              props.discount > 0
+                              props.remise_catalogue > 0
                                   ? (
                                     props.favprice -
-                                    props.favprice * (props.discount / 100)
+                                    props.favprice * (props.remise_catalogue / 100)
                                     ).toFixed(2)
                                   : Number(props.favprice).toFixed(2)
                               } €`
                             : `${
-                              props.discount > 0
+                              props.remise_catalogue > 0
                                   ? (
                                       (props.favprice -
                                         props.favprice *
-                                          (props.discount / 100)) *
+                                          (props.remise_catalogue / 100)) *
                                       authCtx.currencyRate
                                     ).toFixed(2)
                                   : (
                                     props.favprice * authCtx.currencyRate
                                     ).toFixed(2)
                               } $`}  {" "}                   
-                     {props.discount > 0 && <span style={{opacity: "0.8",textDecoration:'line-through'}} >
+                     {props.remise_catalogue > 0 && <span style={{opacity: "0.8",textDecoration:'line-through'}} >
                       {currency === "eur" ? `${Number(props.favprice).toFixed(2)} € `: `${(props.favprice * authCtx.currencyRate ).toFixed(2)} $ `}</span>}  </p> 
             </div>
             <p className={classes.price}>{currency === "eur"
                             ? `${
-                              props.discount > 0
+                              props.remise_catalogue > 0
                                   ? (
                                     props.favprice -
-                                    props.favprice * (props.discount / 100)
+                                    props.favprice * (props.remise_catalogue / 100)
                                     ).toFixed(2)
                                   : Number(props.favprice).toFixed(2)
                               } €`
                             : `${
-                              props.discount > 0
+                              props.remise_catalogue > 0
                                   ? (
                                       (props.favprice -
                                         props.favprice *
-                                          (props.discount / 100)) *
+                                          (props.remise_catalogue / 100)) *
                                       authCtx.currencyRate
                                     ).toFixed(2)
                                   : (
                                     props.favprice * authCtx.currencyRate
                                     ).toFixed(2)
                               } $`}  {" "}                   
-                     {props.discount > 0 && <span style={{opacity: "0.8",textDecoration:'line-through'}} >
+                     {props.remise_catalogue > 0 && <span style={{opacity: "0.8",textDecoration:'line-through'}} >
                       {currency === "eur" ? `${Number(props.favprice).toFixed(2)} € `: `${(props.favprice * authCtx.currencyRate ).toFixed(2)} $ `}</span>} </p>
             
            {props._qte_a_terme_calcule > 0 ? 
@@ -235,13 +235,13 @@ const FavoriteItem = ({ carttoggle }) => {
             </div> : <div/>}
             <p className={classes.totalPrice} >
             {currency === "eur"
-                ? `${(props.favquantity * (props.discount > 0
-                  ? (props.favprice - props.favprice * (props.discount / 100))
+                ? `${(props.favquantity * (props.remise_catalogue > 0
+                  ? (props.favprice - props.favprice * (props.remise_catalogue / 100))
                   : (Number(props.favprice)))).toFixed(2)} €`
                 : `${(
                     props.favquantity *
-                    (props.discount > 0
-                      ? (props.favprice - props.favprice * (props.discount / 100))
+                    (props.remise_catalogue > 0
+                      ? (props.favprice - props.favprice * (props.remise_catalogue / 100))
                       : (Number(props.favprice))) *
                     authCtx.currencyRate
                   ).toFixed(2)} $`}
@@ -259,7 +259,7 @@ const FavoriteItem = ({ carttoggle }) => {
                   _qte_a_terme_calcule: props._qte_a_terme_calcule,
                   _code_barre: props._code_barre,
                   quantity: props.favquantity,
-                  discount:props.discount,
+                  remise_catalogue:props.remise_catalogue,
                   descriptif: props.favdescription,
                   _poids_net: props.weight,
                   _prix_public_ttc: props.price_ttc,
@@ -274,7 +274,7 @@ const FavoriteItem = ({ carttoggle }) => {
                     _qte_a_terme_calcule: props._qte_a_terme_calcule,
                     _code_barre: props._code_barre,
                     quantity: props.favquantity,
-                    discount:props.discount,
+                    discremise_catalogueount:props.remise_catalogue,
                     descriptif: props.favdescription,
                     _poids_net: props.weight,
                     _prix_public_ttc: props.price_ttc,

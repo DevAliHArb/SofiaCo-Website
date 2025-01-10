@@ -85,8 +85,8 @@ const Cart = () => {
       }
   
       // Calculate the price considering the discount
-      const discountedPrice = item.discount > 0
-        ? (item.price - (item.price * (item.discount / 100))).toFixed(2)
+      const discountedPrice = item.remise_catalogue > 0
+        ? (item.price - (item.price * (item.remise_catalogue / 100))).toFixed(2)
         : Number(item.price).toFixed(2);
       const price = discountedPrice ;
       const priceTTC = item.price_ttc;
@@ -94,8 +94,8 @@ const Cart = () => {
 
       // Calculate the cost and TVA
       const cost = price - (priceTTC - priceNet);
-      const tva = item.discount > 0
-        ? (priceTTC - priceNet) - ((priceTTC - priceNet) * (item.discount / 100))
+      const tva = item.remise_catalogue > 0
+        ? (priceTTC - priceNet) - ((priceTTC - priceNet) * (item.remise_catalogue / 100))
         : priceTTC - priceNet;
   
       updatedOrderInvoiceItems.push({
@@ -173,7 +173,7 @@ const Cart = () => {
       <div className={classes.header}>
           <p>Items</p>
           <p></p>
-          <p>{language === 'eng' ? "Quantity" : "Quantité"}</p>
+          <p onClick={()=>console.log(9782490681228)}>{language === 'eng' ? "Quantity" : "Quantité"}</p>
           <p>{language === 'eng' ? "Price" : "Prix"}</p>
           <p>Total</p>
           <p></p>
