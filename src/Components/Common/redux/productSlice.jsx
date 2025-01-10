@@ -395,8 +395,8 @@ export const productSlice = createSlice({
           
     },
     addSearchData: (state, action) => {
-        state.searchData.push(action.payload);
-    },
+      state.searchData[0] = { ...state.searchData[0], ...action.payload }; // Merge the new data into the existing object at index 0
+  },
 
     // Edit function for editing an existing search data item
     editSearchData: (state, action) => {
@@ -406,6 +406,29 @@ export const productSlice = createSlice({
     resetSearchData: (state) => {
         state.searchData = [];
     },
+    deleteSearchDataKey: (state, action) => {
+      const { key, index } = action.payload;
+  
+      if (index !== undefined) {
+          // Delete the key from the specific object at the given index
+          if (state.searchData[index]) {
+              delete state.searchData[index][key];
+  
+              // Check if the object is now empty and remove it
+              if (Object.keys(state.searchData[index]).length === 0) {
+                  state.searchData.splice(index, 1);
+              }
+          }
+      } else {
+          // Delete the key from all objects in the array
+          state.searchData = state.searchData.filter(item => {
+              delete item[key];
+  
+              // Return false to remove the object if it's empty
+              return Object.keys(item).length > 0;
+          });
+      }
+  },
     addOrderData: (state, action) => {
       state.orderData = []
       const data = action.payload;

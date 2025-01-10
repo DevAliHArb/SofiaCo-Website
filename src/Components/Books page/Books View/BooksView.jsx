@@ -19,7 +19,7 @@ import Rating from "@mui/material/Rating";import { IoMdClose } from "react-icons
 
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { editSearchData, resetSearchData } from "../../Common/redux/productSlice";
+import { addSearchData, editSearchData, resetSearchData } from "../../Common/redux/productSlice";
 import AuthContext from "../../Common/authContext";
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 
@@ -50,6 +50,11 @@ const BooksView = ({carttoggle}) => {
   const [changepricetoggle, setchangePricetoggle] = useState(false);
   const [totalArticlesNumber, setTotalArticlesNumber] = useState(null);
   const [inStock, setinStock] = useState(localStorage.getItem("stock") || null);
+  const authors = authCtx.collaborators?.filter((collaborator) => collaborator.type.name_fr === 'auteur');
+  const translators = authCtx.collaborators?.filter((collaborator) => collaborator.type.name_fr === 'traducteur');
+  const illustrators = authCtx.collaborators?.filter((collaborator) => collaborator.type.name_fr === 'illustrateur');
+  const editors = authCtx.collaborators?.filter((collaborator) => collaborator.type.name_fr === 'editeur');
+
 
   const changechemin = async () => {
     try {
@@ -110,7 +115,7 @@ const BooksView = ({carttoggle}) => {
 
         localStorage.setItem("category", id);
         // Dispatch the action to edit the search data
-        dispatch(editSearchData(newCategoryData));
+        dispatch(addSearchData(newCategoryData));
         setIsExpanded(!isExpanded);
         // Fetch articles with the new category ID
         // fetchArticles(null, id);
@@ -184,6 +189,52 @@ const BooksView = ({carttoggle}) => {
       </div>
     );
   }
+  function CollaboratorTreeNode({ title, collaborators , searchQuery}) {
+    const [isExpanded, setIsExpanded] = useState(false);
+  
+    useEffect(() => {
+      const savedState = localStorage.getItem(`${title}_isExpanded`);
+      if (savedState !== null) {
+        setIsExpanded(JSON.parse(savedState));
+      }
+    }, [title]);
+  
+    const toggleNode = () => {
+      const newState = !isExpanded;
+      setIsExpanded(newState);
+      // Save the expanded state to localStorage
+      localStorage.setItem(`${title}_isExpanded`, JSON.stringify(newState));
+    };
+  
+    const handleCollaboratorClick = (collaborator, e) => {
+      e.stopPropagation(); // Prevent bubbling to the node toggler
+      searchQuery(collaborator); // Trigger the search query
+    };
+  
+  
+    return (
+      <div >
+        <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={toggleNode}>
+          <KeyboardArrowRightOutlinedIcon  style={{ transform: isExpanded ? 'rotate(90deg)' : 'none' }} />
+          <h3  style={{ marginLeft: '0.5em',marginTop:'0.3em',marginBottom:'0.3em',color:"var(--secondary-color)" }}>{title}</h3>
+        </div>
+  
+        {isExpanded && (
+          <div style={{maxHeight: "200px",height:'fit-content', overflowY: "scroll", paddingLeft: '2em' }}>
+            {collaborators.map((collaborator) => (
+              <p  style={{ 
+                margin: "0 0 .5em 0", 
+                width:'100%',
+                display: "flex", 
+                cursor: "pointer",
+                background: ((searchData[0]?.author && searchData[0]?.author === collaborator.nom) || (searchData[0]?.editor && searchData[0]?.editor === collaborator.nom) || (searchData[0]?.traducteur && searchData[0]?.traducteur === collaborator.nom) ) ? 'var(--authbg-color)' : 'transparent'
+              }} key={collaborator.id} onClick={(e) => handleCollaboratorClick(collaborator, e)}>{collaborator.nom}</p>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
   
   useEffect(() => {
     changechemin()
@@ -216,7 +267,7 @@ const BooksView = ({carttoggle}) => {
 
   useEffect(() => {
     fetchArticles(null, null, null, 1);
-  }, [searchData[0]?.category]);
+  }, [searchData[0]]);
   
   useEffect(() => {
     const collection = localStorage.getItem('collection');
@@ -446,7 +497,7 @@ const BooksView = ({carttoggle}) => {
     newData.max_price = maxPrice;
   
     // Dispatch the updated data
-    dispatch(editSearchData(newData));
+    dispatch(addSearchData(newData));
     
     // Fetch updated articles based on the new price range
     fetchArticles(null, null, null, 1);
@@ -521,7 +572,7 @@ const BooksView = ({carttoggle}) => {
           </div>
 
 
-          {/* <Divider  
+          <Divider  
           color="var(--secondary-color)"
           width="88%"
           style={{margin:'0.5em auto'}}
@@ -538,7 +589,7 @@ const BooksView = ({carttoggle}) => {
                   );
                 })}
               </div>
-          </div> */}
+          </div>
 
 <Divider  
           color="#fff"
@@ -664,7 +715,7 @@ const BooksView = ({carttoggle}) => {
           </div>
 
 
-          {/* <Divider  
+          <Divider  
           color="var(--secondary-color)"
           width="88%"
           style={{margin:'0.5em auto'}}
@@ -672,16 +723,15 @@ const BooksView = ({carttoggle}) => {
 
         
           <div className={classes.categories}>
-            <h2>Editeur</h2>
+            <h2>COLLABORATEURS</h2>
               <div className={classes.dropdown}
-                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
-                {mappedParents.map((data) => {
-                  return (
-                      <TreeNode data={data} level={0}/>
-                  );
-                })}
+                  style={{  margin:'1em auto ' }}>
+                <CollaboratorTreeNode title="Authors" collaborators={authors}  searchQuery={(props)=>dispatch(addSearchData({author: props.nom}))}/>
+                <CollaboratorTreeNode title="Translators" collaborators={translators} searchQuery={(props)=>dispatch(addSearchData({traducteur: props.nom}))} />
+                <CollaboratorTreeNode title="Illustrators" collaborators={illustrators} searchQuery={(props)=>dispatch(addSearchData({author: props.nom}))} />
+                <CollaboratorTreeNode title="Editors" collaborators={editors} searchQuery={(props)=>dispatch(addSearchData({editor: props.nom}))} />
               </div>
-          </div> */}
+          </div>
 
           <Divider  
           color="var(--secondary-color)"
