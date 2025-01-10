@@ -634,21 +634,21 @@ const CheckOut = () => {
     let totalTVA = 0;
     let totalPricedollar = 0;
     let totalTVAdollar = 0;
-
+  
     productData.forEach((item) => {
       // Skip the item if _qte_a_terme_calcule is less than 1
       if (item._qte_a_terme_calcule < 1) {
         return;
       }
-
+  
       // Calculate the price considering the discount
       const discountedPrice = item.discount > 0
         ? item.price_ttc - (item.price_ttc * (item.discount / 100))
         : item.price_ttc;
-        const price = discountedPrice ;
-        const priceTTC = item.price_ttc;
-        const priceNet = item.price * 1;
-
+      const price = discountedPrice;
+      const priceTTC = item.price_ttc;
+      const priceNet = item.price * 1;
+  
       // Calculate the cost and TVA
       const cost = priceTTC - (priceTTC - priceNet);
       const discountedCost = item.discount > 0
@@ -657,63 +657,72 @@ const CheckOut = () => {
       const tva = item.discount > 0
         ? (priceTTC - priceNet) - ((priceTTC - priceNet) * (item.discount / 100))
         : priceTTC - priceNet;
-      // updatedOrderInvoiceItems.push({
-      //   article_id: item._id,
-      //   name: item.title,
-      //   quantity: item.quantity,
-      //   cost: parseFloat(discountedCost.toFixed(2)),
-      //   tva: parseFloat(tva.toFixed(2)),
-      //   total_tva: parseFloat((tva * item.quantity).toFixed(2)),
-      //   total_cost: parseFloat((discountedCost * item.quantity).toFixed(2)),
-      //   total_price: parseFloat((discountedPrice * item.quantity).toFixed(2)),
-      //   review: item.note || "-",
-      //   price: discountedPrice,
-      //   article_discount: item.discount,
-      //   price_without_discount: item.price_ttc,
-      //   cost_without_discount: item.price,
-      // });
+  
+      const isFrance = user.business_area === 'France';
+  
       updatedOrderInvoiceItems.push({
         article_id: item._id,
         name: item.title,
         quantity: item.quantity,
-        cost: currency === "eur" ? parseFloat(Number(discountedCost).toFixed(2)) : parseFloat((discountedCost * authCtx.currencyRate).toFixed(2)),
-        tva: currency === "eur" ? parseFloat(Number(tva).toFixed(2)) : parseFloat((tva * authCtx.currencyRate).toFixed(2)),
-        total_tva: currency === "eur" ? parseFloat((tva * item.quantity).toFixed(2)) : parseFloat(((tva * item.quantity) * authCtx.currencyRate).toFixed(2)),
-        total_cost: currency === "eur" ? parseFloat((discountedCost * item.quantity).toFixed(2)): parseFloat(((discountedCost * item.quantity) * authCtx.currencyRate).toFixed(2)),
-        total_price: currency === "eur" ? parseFloat((discountedPrice * item.quantity).toFixed(2)) : parseFloat(((discountedPrice * item.quantity) * authCtx.currencyRate).toFixed(2)),
+        cost: currency === "eur" 
+          ? parseFloat(Number(discountedCost).toFixed(2)) 
+          : parseFloat((discountedCost * authCtx.currencyRate).toFixed(2)),
+        tva: isFrance 
+          ? (currency === "eur" ? parseFloat(Number(tva).toFixed(2)) : parseFloat((tva * authCtx.currencyRate).toFixed(2))) 
+          : 0,
+        total_tva: isFrance 
+          ? (currency === "eur" ? parseFloat((tva * item.quantity).toFixed(2)) : parseFloat(((tva * item.quantity) * authCtx.currencyRate).toFixed(2)))
+          : 0,
+        total_cost: isFrance
+          ? (currency === "eur" ? parseFloat((discountedCost * item.quantity).toFixed(2)) : parseFloat(((discountedCost * item.quantity) * authCtx.currencyRate).toFixed(2)))
+          : (currency === "eur" ? parseFloat((discountedCost * item.quantity).toFixed(2)) : parseFloat(((discountedCost * item.quantity) * authCtx.currencyRate).toFixed(2))),
+        total_price: isFrance
+          ? (currency === "eur" ? parseFloat((discountedPrice * item.quantity).toFixed(2)) : parseFloat(((discountedPrice * item.quantity) * authCtx.currencyRate).toFixed(2)))
+          : (currency === "eur" ? parseFloat(((discountedPrice - tva) * item.quantity).toFixed(2)) : parseFloat((((discountedPrice - tva) * item.quantity) * authCtx.currencyRate).toFixed(2))),
         review: item.note || "-",
-        price: currency === "eur" ? parseFloat(Number(discountedPrice).toFixed(2)) : parseFloat((discountedPrice * authCtx.currencyRate).toFixed(2)),
+        price: isFrance
+          ? (currency === "eur" ? parseFloat(Number(discountedPrice).toFixed(2)) : parseFloat((discountedPrice * authCtx.currencyRate).toFixed(2)))
+          : (currency === "eur" ? parseFloat(((discountedPrice - tva) * 1).toFixed(2)) : parseFloat((((discountedPrice - tva) * 1) * authCtx.currencyRate).toFixed(2))),
         article_discount: item.discount,
-        price_without_discount: currency === "eur" ? parseFloat(Number(item.price_ttc).toFixed(2)): parseFloat((item.price_ttc * authCtx.currencyRate).toFixed(2)),
-        cost_without_discount: currency === "eur" ? parseFloat(Number(item.price).toFixed(2)): parseFloat((item.price * authCtx.currencyRate).toFixed(2)),
+        price_without_discount: currency === "eur" 
+          ? parseFloat(Number(item.price_ttc).toFixed(2)) 
+          : parseFloat((item.price_ttc * authCtx.currencyRate).toFixed(2)),
+        cost_without_discount: currency === "eur" 
+          ? parseFloat(Number(item.price).toFixed(2)) 
+          : parseFloat((item.price * authCtx.currencyRate).toFixed(2)),
       });
-      
-
-      totalPrice +=  (price * 1).toFixed(2) * item.quantity;
+  
+      totalPrice += (price * 1).toFixed(2) * item.quantity;
       totalWeight += item.quantity * item.weight;
       totalTVA += (tva * 1).toFixed(2) * item.quantity;
-      totalPricedollar +=  (price * authCtx.currencyRate).toFixed(2) * item.quantity;
+      totalPricedollar += (price * authCtx.currencyRate).toFixed(2) * item.quantity;
       totalTVAdollar += (Number(tva).toFixed(2) * authCtx.currencyRate).toFixed(2) * item.quantity;
     });
-
+  
     setorder_invoice_items(updatedOrderInvoiceItems);
     settotalWeight(totalWeight);
-
+  
     if (currency === "usd") {
       const sum = Number(totalPricedollar).toFixed(2);
-      const fixedtva = totalTVAdollar.toFixed(2)
-      
+      const fixedtva = totalTVAdollar.toFixed(2);
+  
       setsubTotalAmt(sum);
       setTVA(fixedtva);
       setEURTVA(totalTVAdollar);
     } else {
-      // For EUR, keep the original values
-      
-      setsubTotalAmt(parseFloat((totalPrice)));
-      setTVA(parseFloat((totalTVA * 1)));
-      setEURTVA(totalTVA);
+      // For EUR, handle France and non-France differently
+      if (user.business_area === 'France') {
+        setsubTotalAmt(parseFloat((totalPrice)));
+        setTVA(parseFloat((totalTVA * 1)));
+        setEURTVA(totalTVA);
+      } else {
+        setsubTotalAmt(parseFloat((totalPrice - totalTVA)));
+        setTVA(0);
+        setEURTVA(0);
+      }
     }
-  }, [productData, currency]);
+  }, [productData, currency, user.business_area]);
+  
 
   useEffect(() => {
     if (totalAmt < 0) {
@@ -1737,7 +1746,7 @@ const CheckOut = () => {
                   borderRadius: ".7em",
                 }}
               >
-                <p style={{ fontWeight: "600", paddingLeft: "1em" }}>TOTAL </p>
+                <p style={{ fontWeight: "600", paddingLeft: "1em" }}>TOTAL  </p>
                 <p
                   style={{
                     fontWeight: "600",
