@@ -779,7 +779,7 @@ const CheckOut = () => {
         price: isFrance
           ? (currency === "eur" ? parseFloat(Number(discountedPrice).toFixed(2)) : parseFloat((discountedPrice * authCtx.currencyRate).toFixed(2)))
           : (currency === "eur" ? parseFloat(((discountedPrice - tva) * 1).toFixed(2)) : parseFloat((((discountedPrice - tva) * 1) * authCtx.currencyRate).toFixed(2))),
-        article_discount: item.remise_catalogue,
+        article_discount: item.remise_catalogue !== null ? item.remise_catalogue : 0,
         price_without_discount: currency === "eur" 
           ? parseFloat(Number(item.price_ttc).toFixed(2)) 
           : parseFloat((item.price_ttc * authCtx.currencyRate).toFixed(2)),
@@ -913,6 +913,8 @@ const CheckOut = () => {
             payment_method_id: 41,
             rate: authCtx.currencyRate,
         };
+        console.log(requestData);
+        console.log(requestData1);
         if (userCoupon.length > 0) {
           requestData.user_coupon_id = userCoupon[0].id;
           requestData1.user_coupon_id = userCoupon[0].id;

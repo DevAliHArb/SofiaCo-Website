@@ -106,6 +106,7 @@ export const AuthContextProvider = (props) => {
     userCart.forEach(cartItem => {
         const article_id = cartItem.article_id;
         const foundBook = articles.find(book => book.id === article_id);
+        console.log('testt',cartItem);
             dispatch(addInitialcart({
               cart_id: cartItem.id,
               _id: cartItem.article.id,
@@ -114,7 +115,7 @@ export const AuthContextProvider = (props) => {
               image: cartItem.article.articleimage[0]?.link ? cartItem.article.articleimage[0].link : bookPlaceHolder,
               price: cartItem.article.prixpublic,
               _qte_a_terme_calcule: cartItem.article?._qte_a_terme_calcule,
-              remise_catalogue: cartItem.remise_catalogue,
+              remise_catalogue: cartItem.article?.remise_catalogue,
               average_rate: cartItem.average_rate,
               quantity: cartItem.quantity,
               description: cartItem.article.descriptif,
@@ -145,7 +146,7 @@ export const AuthContextProvider = (props) => {
               _qte_a_terme_calcule: favtItem.article?._qte_a_terme_calcule,
               favdescription: favtItem.article.descriptif,
               favquantity: 1,
-              remise_catalogue: favtItem.remise_catalogue,
+              remise_catalogue: favtItem.article?.remise_catalogue,
               weight: favtItem.article._poids_net,
               price_ttc: favtItem.article._prix_public_ttc,
               removed: favtItem.removed,

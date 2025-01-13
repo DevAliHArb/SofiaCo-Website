@@ -69,6 +69,7 @@ const onFinish = async () => {
           description: cartItem.article.descriptif,
           weight: cartItem.article._poids_net,
           price_ttc: cartItem.article._prix_public_ttc,
+          remise_catalogue: cartItem.article?.remise_catalogue,
           removed: cartItem.removed,
           article_stock: cartItem.article.article_stock
           }));
@@ -99,6 +100,7 @@ const onFinish = async () => {
             weight: favtItem.article._poids_net,
             price_ttc: favtItem.article._prix_public_ttc,
             removed: favtItem.removed,
+            remise_catalogue: favtItem.article?.remise_catalogue,
             article_stock: favtItem.article.article_stock
           }));
       }
