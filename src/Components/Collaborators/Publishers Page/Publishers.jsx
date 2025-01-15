@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import classes from "./Collaborators.module.css";
+import classes from "./Publishers.module.css";
 import { IoIosArrowDown, IoIosClose } from "react-icons/io";
 import {
   MdKeyboardArrowLeft,
@@ -20,12 +20,13 @@ import OurSelectionBanner from "../../Common Components/Our Selection Banner/Our
 import Deals from '../../Home Page/Deals/Deals'
 import abs from '../../../assets/collab-abs.png'
 import axios from "axios";
+import data from '../../../Data.json'
 
-const Collaborators = () => {
+const Publishers = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
-  const [type, setType] = useState("All");
+  const [type, setType] = useState("editeur");
   const [major, SetMajor] = useState("All");
   const [typeopen, setTypeopen] = useState(false);
   const [majoropen, SetMajoropen] = useState(false);
@@ -53,8 +54,8 @@ const Collaborators = () => {
       (selectedLetter === "ALL" || author.firstLetter === selectedLetter.toLowerCase()) &&
       (searchQuery === "" ||
         author.nom.toLowerCase().includes(searchQuery.toLowerCase())) &&
-        (type === 'All' || author?.type?.name_fr.toLowerCase() === type.toLowerCase())&&
-        (author?.type?.name_fr.toLowerCase() !== "editeur")  // Add "which" filter
+      (type === 'All' || author?.type?.name_fr.toLowerCase() === type.toLowerCase())  // Add "which" filter
+      // (major === 'All' || author.major === major.toLowerCase()) // Add "which" filter
     );
 
   const recordsPerPage = 15;
@@ -175,6 +176,10 @@ const Collaborators = () => {
       <OurSelectionBanner props={heroData} />
       <div className={classes.content} id='top'>
         <div className={classes.filters}>
+            
+        <div className={classes.header}>
+          <h1 onClick={()=>console.log(records)}>{data.Collections.CollectionsPage.title[language]}</h1>
+        </div>
           <div
             style={{
               width: "100%",
@@ -261,47 +266,6 @@ const Collaborators = () => {
                 ))}
               </div>
             </div>
-            <div className={classes.dropdownContainer}>
-              <button
-                className={classes.btn}
-                onClick={() => setTypeopen(!typeopen)}
-              >
-                {gettype(type)} {typeopen ? <IoIosClose /> : <IoIosArrowDown />}
-              </button>
-              <div
-                className={`${classes.drop_down} ${
-                  typeopen ? classes.show : ""
-                }`}
-              >
-                <button onClick={() => setType("All") & setTypeopen(false)}>
-                {language === 'eng' ? "All" : "Tout" } 
-                </button>
-                <div className={classes.border}/>
-                <button onClick={() => setType("auteur") & setTypeopen(false)}>
-                {language === 'eng' ? "Authors" : "Auteurs" }
-                </button>
-                <div className={classes.border}/>
-                <button
-                  onClick={() => setType("traducteur") & setTypeopen(false)}
-                >
-                {language === 'eng' ? "Translators" : "Traducteurs" }
-                </button>
-                <div className={classes.border}/>
-                <button
-                  style={{ borderBottom: "none" }}
-                  onClick={() => setType("illustrateur") & setTypeopen(false)}
-                >
-                  {language === 'eng' ? "Illustrators" : "Illustrateurs" }
-                </button>
-                <div className={classes.border}/>
-                {/* <button
-                  style={{ borderBottom: "none" }}
-                  onClick={() => setType("editeur") & setTypeopen(false)}
-                >
-                  {language === 'eng' ? "Editor" : "Editeur" }
-                </button> */}
-              </div>
-            </div>
           </div>
         </div>
         <div className={classes.letters_con}>
@@ -359,9 +323,9 @@ const Collaborators = () => {
               <img src={nodata} alt="" />
             </div>
             {language === 'eng' ? (
-  <h1>No collaborators <br /> were found!</h1>
+  <h1>No publishers <br /> were found!</h1>
 ) : (
-  <h1>Aucun collaborateur <br /> n'a été trouvé !</h1>
+  <h1>Aucun publisher <br /> n'a été trouvé !</h1>
 )}
           </div>
           :
@@ -372,7 +336,7 @@ const Collaborators = () => {
               event.stopPropagation();
               dispatch(deleteSelectedCollab());
               dispatch(addSelectedCollab(props));
-              navigate(`/collaborators/${props.id}/details`);
+              navigate(`/publishers/${props.id}/details`);
             }}
            className={classes.card_container}>
               <div className={classes.card_img}>
@@ -459,4 +423,4 @@ const Collaborators = () => {
   );
 };
 
-export default Collaborators;
+export default Publishers;

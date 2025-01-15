@@ -40,9 +40,29 @@ const MoreAbout = () => {
 
   const fetchArticles = async () => {
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&author=${CollaboratorData?.nom}`
-      );
+      const baseURL = `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco`;
+
+    let queryParam = '';
+    switch (CollaboratorData?.type?.name_fr) {
+      case 'auteur':
+        queryParam = `&author=${CollaboratorData?.nom}`;
+        break;
+      case 'traducteur':
+        queryParam = `&traducteur=${CollaboratorData?.nom}`;
+        break;
+      case 'illustrateur':
+        queryParam = `&illustrateur=${CollaboratorData?.nom}`;
+        break;
+      case 'editeur':
+        queryParam = `&editor=${CollaboratorData?.nom}`;
+        break;
+      default:
+        queryParam = '';
+    }
+    const finalURL = `${baseURL}${queryParam}`;
+
+    // Make the API request
+    const response = await axios.get(finalURL);
       // console.log(response.data.data);
       setArticles(response.data.data);
       setActiveIndex(0);

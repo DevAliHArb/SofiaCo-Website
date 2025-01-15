@@ -36,6 +36,7 @@ import axios from 'axios';
 import { removeUser } from './Components/Common/redux/productSlice';
 import ErrorPage from './Components/Common/ErrorPage';
 import AuthContext from './Components/Common/authContext';
+import Publishers from './Components/Collaborators/Publishers Page/Publishers';
 
 function App() {
   const authCtx = useContext(AuthContext)
@@ -149,8 +150,8 @@ function App() {
           <Route path="/register" element={<ScrollToTop><Register /></ScrollToTop>} />
           <Route path="/login" element={<ScrollToTop><Login /></ScrollToTop>} />
           <Route path="/verify-email" element={<ScrollToTop><Verify /></ScrollToTop>} />
-          <Route path="/publishers" element={<ScrollToTop><CollectionsPage /></ScrollToTop>} />
-          <Route path="/publishers/:id/details" element={<ScrollToTop><CollectionDetailsPage /></ScrollToTop>} />
+          <Route path="/publishers" element={<ScrollToTop><Publishers /></ScrollToTop>} />
+          <Route path="/publishers/:id/details" element={<ScrollToTop><CollaboratorDetails /></ScrollToTop>} />
           <Route path="/collaborators" element={<ScrollToTop><Collaborators /></ScrollToTop>} />
           <Route path="/collaborators/:id/details" element={<ScrollToTop><CollaboratorDetails /></ScrollToTop>} />
           <Route path="/wishlist" element={<ScrollToTop><Favorite /></ScrollToTop>} />
