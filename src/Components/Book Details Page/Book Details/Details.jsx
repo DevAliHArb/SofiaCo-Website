@@ -19,14 +19,17 @@ import {
   addTocompare,
   addTofavorite,
   deletefavorite,
+  editSearchData,
 } from "../../Common/redux/productSlice";
 import { TbTruckDelivery } from "react-icons/tb";
 import { stripHtmlTags, truncateText } from "../../Common Components/TextUtils";
 import axios from "axios";
 import { MdAddBox } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const Details = () => {
   const authCtx = useContext(AuthContext);
+  const navigate = useNavigate();
   const user = useSelector((state) => state.products.userInfo);
   const dispatch = useDispatch();
   const options = ["Option 1", "Option 2", "Option 3", "Option 4"];
@@ -486,7 +489,7 @@ const handleSuivreCategory = async () => {
         <div className={classes.char_con}>
           <div className={classes.char}>
             <p>{language === 'eng' ? 'Author' : 'Auteur'}</p>
-            <p
+            <p style={{cursor:'pointer'}}
               onClick={() => {
                 localStorage.removeItem("category");
                 dispatch(editSearchData({ author: bookData.dc_auteur }));
