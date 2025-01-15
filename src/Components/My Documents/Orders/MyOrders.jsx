@@ -8,81 +8,18 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import EmptyCart from "../../../assets/EmptyOrder.png";
 
-import { Button } from "antd";
+import { Button, DatePicker } from "antd";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import CommonCard from "../Common Card/CommonCard";
 import AuthContext from "../../Common/authContext";
 import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
 import OrderCard from "./Order Card/OrderCard";
+import AllCard from "../All Card/AllCard";
+import SearchIcon from "@mui/icons-material/Search";
 
-const ConfirmationPopup = ({ message, onConfirm, onCancel, showPopup }) => {
-  const language = useSelector(
-    (state) => state.products.selectedLanguage[0].Language
-  );
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "fit-content",
-    bgcolor: "background.paper",
-    border: "2px solid #ACACAC",
-    borderRadius: "1em",
-    boxShadow: 24,
-    p: 4,
-  };
-  return (
-    <div className="confirmation-popup">
-      <Modal
-        open={showPopup}
-        onClose={onCancel}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        style={{ overflow: "hidden" }}
-      >
-        <Box sx={style}>
-          <p>{message}</p>
-          <div
-            style={{
-              width: "fit-content",
-              margin: "auto",
-              display: "flex",
-              flexWrap: "wrap",
-            }}
-          >
-            <Button
-              onClick={onConfirm}
-              style={{
-                backgroundColor: "var(--primary-color)",
-                color: "white",
-                height: "3em",
-                width: "10em",
-                borderRadius: "0.5em",
-                margin: "1em ",
-              }}
-            >
-              {language === "eng" ? "Yes" : "Oui"}
-            </Button>
-            <Button
-              onClick={onCancel}
-              style={{
-                backgroundColor: "var(--secondary-color)",
-                color: "white",
-                height: "3em",
-                width: "10em",
-                borderRadius: ".5em",
-                margin: "1em ",
-              }}
-            >
-              {language === "eng" ? "No" : "Non"}
-            </Button>
-          </div>
-        </Box>
-      </Modal>
-    </div>
-  );
-};
+
+const { RangePicker } = DatePicker;
 
 const MyOrders = () => {
   const getcat = () => {
@@ -97,39 +34,40 @@ const MyOrders = () => {
   const dispatch = useDispatch();
   const authCtx = useContext(AuthContext);
   const navigate = useNavigate();
-  const user = useSelector((state) => state.products.userInfo);
   const language = useSelector(
     (state) => state.products.selectedLanguage[0].Language
   );
-  // const [loading, setLoading] = useState(false);
-  const [selectedtitle, setselectedtitle] = useState("");
-  const [ordertrackcategories, setordertrackcategories] = useState([]);
-  const [selectedCategory, setselectedCategory] = useState(0);
-  const [selectedOrder, setselectedOrder] = useState({});
-  const [isSelected, setisSelected] = useState(false);
-  const [isReviewMood, setisReviewMood] = useState(false);
-  const [categoryId, setcategoryId] = useState(0);
-  const [orders, setorders] = useState([]);
-  const [steps, setsteps] = useState([]);
-  const [showPopup, setShowPopup] = useState(false);
 
-  const getToken = () => {
-    return localStorage.getItem("token");
-  };
-
-  const token = getToken();
-
-  const [pagenbroute, setpagenbroute] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [currentpage, setCurrentPage] = useState(1);
-  const [from, setfrom] = useState(1);
-  const [to, setto] = useState(1);
   const [recordsPerPage, setrecordsPerPage] = useState(5);
   const [data, setData] = useState([]);
+  const [pagenbroute, setpagenbroute] = useState(1);
+
+  useEffect(() => {
+    const nonHistoryOrders = authCtx.mydocuments;
+    setData(nonHistoryOrders);
+  }, [authCtx.mydocuments]);
+
+  const filtereddata = data.filter((item) => {
+    const itemDate = new Date(item.datecreation);
+    const matchesSearch =
+      searchQuery === "" ||
+      item.numero.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesDateRange =
+      (!startDate || itemDate >= startDate) &&
+      (!endDate || itemDate <= endDate);
+
+    return matchesSearch && matchesDateRange;
+  });
+
 
   const lastIndex = currentpage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  const records = data?.slice(firstIndex, lastIndex);
-  const pagenb = Math.ceil(data?.length / recordsPerPage);
+  const records = filtereddata?.slice(firstIndex, lastIndex);
+  const pagenb = Math.ceil(filtereddata?.length / recordsPerPage);
   const numbers = [...Array(pagenb + 1).keys()].slice(1);
 
   const nextpage = () => {
@@ -148,18 +86,50 @@ const MyOrders = () => {
       setpagenbroute(pagenbroute - 1);
     }
   };
-  
-
-  useEffect(() => {
-    const nonHistoryOrders = authCtx.mydocuments?.filter(
-      (item) => item.b_usr_documenttype_id === 2
-    );
-    setData(nonHistoryOrders);
-  }, [authCtx.mydocuments]);
 
   return (
     <div className={classes.ordertrack_con}>
-      {!isSelected && !isReviewMood && (
+      <div className={classes.filters}>
+        
+      <div
+            style={{
+              width: "100%",
+              borderRadius: "20px",
+              background: "#fff",
+              border: "1px solid #f3f3f3",
+              // padding: "1% 0",
+            }}
+            className={classes.custom_select_mob}
+          >
+            <input
+              type="text"
+              placeholder={language === 'eng' ? "Search" : "Recherche" }
+              value={searchQuery}
+              className={classes.input}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              style={{
+                borderRadius: "20px",
+                padding: "0em 0em 0 1em",
+                background: "var(--accent-color)",
+                margin: "auto 0",
+              }}
+            />
+            <button
+              className={classes.btn1}
+            >
+              <SearchIcon />
+            </button>
+          </div>
+          
+        <RangePicker
+          onChange={(dates) => {
+            setStartDate(dates ? new Date(dates[0]) : null);
+            setEndDate(dates ? new Date(dates[1]) : null);
+          }}
+          style={{ minHeight: "3em" }}
+        />
+      </div>
+      { (
         <>
           <div style={{ margin: "0 0 3em 0" }}>
             {/* {loading && (
@@ -224,6 +194,7 @@ const MyOrders = () => {
                   </h3>
                   <h3>{language === "eng" ? "Date" : "Date"}</h3>
                   <h3>{language === "eng" ? "Total" : "Total"}</h3>
+                  <h3>{language === "eng" ? "Type" : "Type"}</h3>
                   <h3>{language === "eng" ? "Download" : "Télécharger"}</h3>
                 </div>
                 {
@@ -238,7 +209,7 @@ const MyOrders = () => {
                           //   window.scrollTo({ top: 0 })
                           // }
                         >
-                          <CommonCard
+                          <AllCard
                             data={props}
                             
                           />

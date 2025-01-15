@@ -411,7 +411,7 @@
   "MyDocuments":{
     "title":{"eng":"My Documents", "fr": "Mes documents"},
     "button1":{
-      "title":{"eng":"Proforma Quote", "fr": "Devis Proforma"}
+      "title":{"eng":"Order / Proforma", "fr": "Commande / Proforma"}
     },
     "button2":{
       "title":{"eng":"Invoices", "fr": "Factures"}
@@ -423,7 +423,7 @@
       "title":{"eng":"Assets", "fr": "Avoirs"}
     },
     "button5":{
-      "title":{"eng":"My Orders", "fr": "Mes Commandes"}
+      "title":{"eng":"All Documents", "fr": "Tous les Documents"}
     }
   },
   "Librairie": {

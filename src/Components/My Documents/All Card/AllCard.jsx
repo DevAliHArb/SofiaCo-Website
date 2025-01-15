@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import classes from './CommonCard.module.css'
+import classes from './AllCard.module.css'
 import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Box from "@mui/material/Box";
@@ -60,7 +60,7 @@ const ConfirmationPopup = ({ message, onConfirm, onCancel, showPopup }) => {
   );
 };
 
-const CommonCard = ({data ,reviewHandler}) => {
+const AllCard = ({data ,reviewHandler}) => {
   const language = useSelector((state) => state.products.selectedLanguage[0].Language);
   const [filtereddata, setFiltereddata] = useState([])
   const [title, setTitle] = useState('')
@@ -111,6 +111,7 @@ const CommonCard = ({data ,reviewHandler}) => {
           €
 
         </h3>
+        <h3>{data?.mydocumenttype?.nom}</h3>
       <div className={classes.download} onClick={()=>handleDownload(data.id)}>
         <p>PDF</p>
         <FiDownload className={classes.download_icon}/>
@@ -119,4 +120,4 @@ const CommonCard = ({data ,reviewHandler}) => {
   )
 }
 
-export default CommonCard
+export default AllCard
