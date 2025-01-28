@@ -29,9 +29,14 @@ import PayPal from '../../../../assets/PayPal.png'
 
 const { Option } = Select;
 
-const monthNames = [
+const monthNamesEng = [
   'January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December'
+];
+
+const monthNamesFr = [
+  'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+  'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
 ];
 
 
@@ -383,7 +388,7 @@ useEffect(() => {
                         >
                           <span style={{position:'absolute', width:'.5em', height:'0.5em', background: (item.default === 'true' && user.default_pay === 'card') ? 'var(--secondary-color)' : '#fff', margin:'0.1em', borderRadius:'50%'}}></span>
                         </p>
-                        <p style={{ margin: ".2em 0",alignSelf:'center' }}>Default</p>
+                        <p style={{ margin: ".2em 0",alignSelf:'center' }}> {language === 'eng' ? "Default" : "Défaut" } </p>
                       </div>
                         </div>
                     <div className={classes.addtocart}>
@@ -435,7 +440,7 @@ useEffect(() => {
                         >
                           <span style={{position:'absolute', width:'.5em', height:'0.5em', background: user.default_pay === 'direct' ? 'var(--secondary-color)' : '#fff', margin:'0.1em', borderRadius:'50%'}}></span>
                         </p>
-                        <p style={{ margin: ".2em 0",alignSelf:'center' }}>Default</p>
+                        <p style={{ margin: ".2em 0",alignSelf:'center' }}>{language === 'eng' ? "Default" : "Défaut" }</p>
                       </div>
                             </div>
                         <div className={classes.addtocart}>
@@ -473,7 +478,7 @@ useEffect(() => {
                         >
                           <span style={{position:'absolute', width:'.5em', height:'0.5em', background: user.default_pay === 'paypal' ? 'var(--secondary-color)' : '#fff', margin:'0.1em', borderRadius:'50%'}}></span>
                         </p>
-                        <p style={{ margin: ".2em 0",alignSelf:'center' }}>Default</p>
+                        <p style={{ margin: ".2em 0",alignSelf:'center' }}>{language === 'eng' ? "Default" : "Défaut" }</p>
                       </div>
                             </div>
                         <div className={classes.addtocart}>
@@ -525,13 +530,13 @@ useEffect(() => {
                 fontFamily: "var(--font-family)",
                 }}
       >
-        <Form.Item name="card_type" rules={[{ required: true, message: 'Please select an option!' }]} style={{width:'100%'}} >
+        <Form.Item name="card_type" rules={[{ required: true, message: `${language === 'eng' ? 'Please select an option!' : "Veuillez sélectionner une option !" }` }]} style={{width:'100%'}} >
           <Select 
                 name="cardType"
                 size="large" 
                 disabled={editMode}
                 value={formData.card_type}
-                placeholder="Select card type" 
+                placeholder= {language === 'eng' ? "Select card type" : "Sélectionner le type de carte" }
                 dropdownStyle={{ zIndex: 2000 }} 
                 onChange={(e)=>setPaymentMethod(e) & handleChange('card_type', e)}>
           
@@ -545,7 +550,7 @@ useEffect(() => {
         <div className={classes.inputsContainer}>
         <Form.Item
           name="card_number"
-          rules={[{ required: true, message: 'Please input your Card Number!' },
+          rules={[{ required: true, message: `${language === 'eng' ? "Please input your Card Number!" : "Veuillez saisir votre numéro de carte !" } `},
           { 
             pattern: /^[\d\s]+$/, // Allows only digits and spaces
             message: `${language === 'fr' ? "Le numéro de la carte ne doit comporter que des chiffres !" :'The card number must be digits only!'}`
@@ -554,7 +559,7 @@ useEffect(() => {
         >
                   <Input
                   name="card_number"
-                  placeholder='Card Number'
+                  placeholder={language === 'eng' ? "Card Number" : "Numéro de la carte" }
                   size="large" 
         // value={inputValue}
         style={{ height: "3em", backgroundColor: "#fff", fontFamily: 'var(--font-family)' }}
@@ -564,10 +569,10 @@ useEffect(() => {
         <Form.Item
         name="year"
         rules={[
-          { required: true, message: 'Please select the year (YY)' },
+          { required: true, message: `${language === 'eng' ? "Please select the year (YY)" : "Veuillez sélectionner l'année (YY)" }` },
         ]} style={{width:'100%',}}
       >
-        <Select placeholder="Select year" dropdownStyle={{ zIndex: 2000 }}
+        <Select placeholder={language === 'eng' ? "Select year" : "Sélectionnez l'année" } dropdownStyle={{ zIndex: 2000 }}
                   size="large" 
                   name='year'
                   onChange={(value) => handleChange('year', value)}>
@@ -590,19 +595,34 @@ useEffect(() => {
       <Form.Item
         name="month"
         rules={[
-          { required: true, message: 'Please select the month' },
-        ]} style={{width:'100%',}}
+          {
+            required: true,
+            message: `${
+              language === 'eng'
+                ? 'Please select the month'
+                : 'Veuillez sélectionner le mois'
+            }`,
+          },
+        ]}
+        style={{ width: '100%' }}
       >
-        <Select placeholder="Select month" dropdownStyle={{ zIndex: 2000 }}
-                  size="large"
-                  name='month'
-                  onChange={(value) => handleChange('month', value)} >
-          {/* Add options for the months using monthNames array */}
-          {monthNames.map((month, index) => (
-            <Option key={index + 1} value={String(index + 1).padStart(2, '0')}>
-              {month} ({String(index + 1).padStart(2, '0')})
-            </Option>
-          ))}
+        <Select
+          placeholder={
+            language === 'eng' ? 'Select month' : 'Sélectionner le mois'
+          }
+          dropdownStyle={{ zIndex: 2000 }}
+          size="large"
+          name="month"
+          onChange={(value) => handleChange('month', value)}
+        >
+          {/* Dynamically choose the array of months based on the selected language */}
+          {(language === 'eng' ? monthNamesEng : monthNamesFr).map(
+            (month, index) => (
+              <Option key={index + 1} value={String(index + 1).padStart(2, '0')}>
+                {month} ({String(index + 1).padStart(2, '0')})
+              </Option>
+            )
+          )}
         </Select>
       </Form.Item>
         <Form.Item

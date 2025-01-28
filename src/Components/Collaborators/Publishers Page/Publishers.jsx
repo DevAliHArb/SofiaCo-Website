@@ -325,7 +325,7 @@ const Publishers = () => {
             {language === 'eng' ? (
   <h1>No publishers <br /> were found!</h1>
 ) : (
-  <h1>Aucun publisher <br /> n'a été trouvé !</h1>
+  <h1>Aucun editeur <br /> n'a été trouvé !</h1>
 )}
           </div>
           :

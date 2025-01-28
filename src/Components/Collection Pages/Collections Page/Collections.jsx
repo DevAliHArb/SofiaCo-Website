@@ -121,7 +121,7 @@ const CollectionsPage = () => {
             {language === 'eng' ? (
   <h1>No publishers <br /> were found!</h1>
 ) : (
-  <h1>Aucune publisher <br /> n'a été trouvée !</h1>
+  <h1>Aucune éditeur <br /> n'a été trouvée !</h1>
 )}
 
           </div>

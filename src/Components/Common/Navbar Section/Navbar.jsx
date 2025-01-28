@@ -313,7 +313,7 @@ const Navbar = (props) => {
               {language === 'eng' ? "COLLABORATORS" : "COLLABORATEURS" }
               </p>
               <p onClick={() => navigate(`/publishers`)}>
-                {language === 'eng' ? 'publishers' : 'publishers'}
+                {language === 'eng' ? 'publishers' : 'Éditeurs'}
               </p>
               <p onClick={() => navigate(`/contact`)}>
               {language === 'eng' ? "CONTACT US" : "CONTACTEZ-NOUS" }
@@ -380,7 +380,7 @@ const Navbar = (props) => {
                         <Typography textAlign="center">{language === 'eng' ? "Login" : "Se Connecter"}</Typography>
                       </MenuItem>
                       <MenuItem key={2} onClick={()=>handleCloseUserMenu() & navigate(`/register`)} >
-                        <Typography textAlign="center">{language === 'eng' ? "Register" : "Registre"}</Typography>
+                        <Typography textAlign="center">{language === 'eng' ? "Register" : "Créer un compte"}</Typography>
                       </MenuItem>
                       </>
                       }
@@ -522,7 +522,7 @@ const Navbar = (props) => {
               {language === 'eng' ? "COLLABORATORS" : "COLLABORATEURS" }
               </p>
               <p onClick={() => navigate(`/publishers`)}>
-                {language === 'eng' ? 'publishers' : 'publishers'}
+                {language === 'eng' ? 'publishers' : 'Éditeurs'}
               </p>
               <p onClick={() => navigate(`/contact`)}>
               {language === 'eng' ? "CONTACT US" : "CONTACTEZ-NOUS" }

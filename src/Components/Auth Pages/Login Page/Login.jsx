@@ -148,7 +148,7 @@ const onFinish = async () => {
         </div>
         <div className={classes.auth_card}>
           <div className={classes.auth_bg} />
-         <h1>{language === 'eng' ? 'Welcome!' : 'Welcome!'}</h1>
+         <h1>{language === 'eng' ? 'Welcome!' : 'Bienvenue!'}</h1>
           <Form 
                 layout="vertical"
                 name="nest-messages"

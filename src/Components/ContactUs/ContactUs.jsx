@@ -204,7 +204,7 @@ const ContactUs = () => {
            htmlType="submit"  
            className="login-form-button"
           style={{backgroundColor:'var(--primary-color)',color: 'white',padding:'0 5em',zIndex:"9"}}>
-            Submit 
+            {language === 'eng' ? "Send" : "Envoyer" }  
           </Button>
         </Form.Item> 
           </div>

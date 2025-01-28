@@ -20,6 +20,7 @@ import { FiShoppingCart } from "react-icons/fi";
 import contactUsImage from '../../../../assets/contactUsImage.png'
 import AuthContext from '../../../Common/authContext';
 import Data from '../../../../Data.json'
+import { toast } from 'react-toastify';
 
 const categories = [
   {id:0 , title:'All'},
@@ -71,23 +72,60 @@ const Favorite = ({carttoggle}) => {
       document.body.removeChild(a);
     };
   
+    
     const AddAllHandler = () => {
+      console.log('resee');
       favoriteData.forEach( props => 
+       { if (props._qte_a_terme_calcule > 0 && !props?.removed) {
         authCtx.addToCartWithQty(
-          props={
+          props = {
             id: props._favid,
             designation: props.favtitle,
             dc_auteur: props.favauthor,
             image: props.favimage,
             prixpublic: props.favprice,
+            remise_catalogue: props.remise_catalogue,
             quantity: props.favquantity,
-            remise_catalogue:props.remise_catalogue,
-            descriptif: props.favdescription,
+            _qte_a_terme_calcule: props._qte_a_terme_calcule,
             _poids_net: props.weight,
             _prix_public_ttc: props.price_ttc,
-            _qte_a_terme_calcule: props._qte_a_terme_calcule,
-        })
-    );
+            descriptif: props.favdescription,
+          }
+        );
+      
+        // Display success message in selected language
+        toast.success(
+          `${language === 'eng' ? props.favtitle + " is added successfully" : props.favtitle + " a été ajouté avec succès"}`, 
+          {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: 0,
+            theme: "colored",
+          }
+        );
+      
+      } else {
+        // Display error message in selected language
+        toast.error(
+          `${language === 'eng' ? props.favtitle + " is out of stock" : props.favtitle + " est en rupture de stock"}`, 
+          {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: 0,
+            theme: "colored",
+          }
+        );
+      }
+      
+    });
     };
     
   return (

@@ -11,6 +11,7 @@ import AuthContext from '../Common/authContext';
 import AlsoSee from '../Common Components/Also See/AlsoSee';
 import { useNavigate } from 'react-router-dom';
 import Data from '../../Data.json'
+import { toast } from 'react-toastify';
 
 
 const Favorite = ({carttoggle}) => {
@@ -53,24 +54,57 @@ const Favorite = ({carttoggle}) => {
     };
   
     const AddAllHandler = () => {
+      console.log('resee');
       favoriteData.forEach( props => 
        { if (props._qte_a_terme_calcule > 0 && !props?.removed) {
         authCtx.addToCartWithQty(
-          props={
+          props = {
             id: props._favid,
             designation: props.favtitle,
             dc_auteur: props.favauthor,
             image: props.favimage,
             prixpublic: props.favprice,
-            remise_catalogue:props.remise_catalogue,
+            remise_catalogue: props.remise_catalogue,
             quantity: props.favquantity,
             _qte_a_terme_calcule: props._qte_a_terme_calcule,
             _poids_net: props.weight,
             _prix_public_ttc: props.price_ttc,
             descriptif: props.favdescription,
-        })
-          
-        }
+          }
+        );
+      
+        // Display success message in selected language
+        toast.success(
+          `${language === 'eng' ? props.favtitle + " is added successfully" : props.favtitle + " a été ajouté avec succès"}`, 
+          {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: 0,
+            theme: "colored",
+          }
+        );
+      
+      } else {
+        // Display error message in selected language
+        toast.error(
+          `${language === 'eng' ? props.favtitle + " is out of stock" : props.favtitle + " est en rupture de stock"}`, 
+          {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: 0,
+            theme: "colored",
+          }
+        );
+      }
+      
     });
     };
     

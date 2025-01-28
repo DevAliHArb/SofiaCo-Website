@@ -44,21 +44,16 @@ const style = {
 
 const { Option } = Select;
 
-const monthNames = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
+
+const monthNamesEng = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'
 ];
 
+const monthNamesFr = [
+  'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+  'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+];
 const maskConstant = (constant) => {
   if (typeof constant === "string") {
     // If it's a string, replace characters from the second position to the next 5 with "*"
@@ -206,153 +201,169 @@ const PopupPaymentModal = ({ open, handleClose, isselectedPayment }) => {
        >
          {language === 'eng' ? "Add a new card" : "Ajouter une nouvelle card"}
        </h4>
-     <Form
-             layout="vertical"
-             name="nest-messages"
-             form={form}
-             // initialValues={formData}
-             onFinish={handleSubmit}
-             style={{
-             width: '100%',
-             margin:'0 auto',
-             alignItems: "center",
-             textAlign: "center",
-             justifyItems: "center",
-             maxHeight:'80vh',
-             padding:'2em',
-             fontFamily: "var(--font-family)",
-             }}
-   >
-     <Form.Item name="card_type" rules={[{ required: true, message: 'Please select an option!' }]} style={{width:'100%',}} >
-       <Select 
-             name="cardType"
-             size="large" 
-             disabled={editMode}
-             value={formData.card_type}
-             placeholder="Select card type" 
-             dropdownStyle={{ zIndex: 2000 }} 
-             onChange={(e)=>setPaymentMethod(e) & handleChange('card_type', e)}>
-             <Option value="American Express">American Express</Option>
-             <Option value="Discover">Discover</Option>
-             <Option value="Master">Master Card</Option>
-             <Option value="Visa">Visa Card</Option>
-     </Select>
-   </Form.Item>
-     {paymentMethod != 'PayPal' && <>
-     <div className={classes.inputsContainer}>
-     <Form.Item
-       name="card_number"
-       rules={[{ required: true, message: 'Please input your Card Number!' },
+        <Form
+                layout="vertical"
+                name="nest-messages"
+                form={form}
+                // initialValues={formData}
+                onFinish={handleSubmit}
+                style={{
+                width: '100%',
+                margin:'0 auto',
+                alignItems: "center",
+                textAlign: "center",
+                justifyItems: "center",
+                maxHeight:'80vh',
+                padding:'2em',
+                fontFamily: "var(--font-family)",
+                }}
+      >
+        <Form.Item name="card_type" rules={[{ required: true, message: `${language === 'eng' ? 'Please select an option!' : "Veuillez sélectionner une option !" }` }]} style={{width:'100%'}} >
+          <Select 
+                name="cardType"
+                size="large" 
+                disabled={editMode}
+                value={formData.card_type}
+                placeholder= {language === 'eng' ? "Select card type" : "Sélectionner le type de carte" }
+                dropdownStyle={{ zIndex: 2000 }} 
+                onChange={(e)=>setPaymentMethod(e) & handleChange('card_type', e)}>
+          
+          <Option value="American Express">American Express</Option>
+                <Option value="Discover">Discover</Option>
+                <Option value="Master">Master Card</Option>
+                <Option value="Visa">Visa Card</Option>
+        </Select>
+      </Form.Item>
+        {paymentMethod != 'PayPal' && <>
+        <div className={classes.inputsContainer}>
+        <Form.Item
+          name="card_number"
+          rules={[{ required: true, message: `${language === 'eng' ? "Please input your Card Number!" : "Veuillez saisir votre numéro de carte !" } `},
           { 
             pattern: /^[\d\s]+$/, // Allows only digits and spaces
             message: `${language === 'fr' ? "Le numéro de la carte ne doit comporter que des chiffres !" :'The card number must be digits only!'}`
           }]}
-       style={{border:'none',width:'100%',borderRadius:'.5em'}}
-     >
-               <Input
-               name="card_number"
-               placeholder='Card Number'
-               size="large" 
-              //  value={formData?.card_number}
-               style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
-               onChange={handleChangeNumber}
-               />
-     </Form.Item>
-     <Form.Item
-     name="year" style={{width:'100%',}}
-     rules={[
-       { required: true, message: 'Please select the year (YY)' },
-     ]}
-   >
-     <Select placeholder="Select year" dropdownStyle={{ zIndex: 2000 }}
-               size="large" 
-               name='year'
-               onChange={(value) => handleChange('year', value)}>
-       {/* Add options for the years, adjust the range as needed */}
-       {Array.from({ length: 30 }, (_, index) => {
-         const currentYear = new Date().getFullYear();
-         const fullYear = currentYear + index;
-         const lastTwoDigits = String(fullYear).slice(-2);
+          style={{border:'none',width:'100%',borderRadius:'.5em'}}
+        >
+                  <Input
+                  name="card_number"
+                  placeholder={language === 'eng' ? "Card Number" : "Numéro de la carte" }
+                  size="large" 
+        // value={inputValue}
+        style={{ height: "3em", backgroundColor: "#fff", fontFamily: 'var(--font-family)' }}
+        onChange={handleChangeNumber}
+      />
+    </Form.Item>
+        <Form.Item
+        name="year"
+        rules={[
+          { required: true, message: `${language === 'eng' ? "Please select the year (YY)" : "Veuillez sélectionner l'année (YY)" }` },
+        ]} style={{width:'100%',}}
+      >
+        <Select placeholder={language === 'eng' ? "Select year" : "Sélectionnez l'année" } dropdownStyle={{ zIndex: 2000 }}
+                  size="large" 
+                  name='year'
+                  onChange={(value) => handleChange('year', value)}>
+          {/* Add options for the years, adjust the range as needed */}
+          {Array.from({ length: 30 }, (_, index) => {
+            const currentYear = new Date().getFullYear();
+            const fullYear = currentYear + index;
+            const lastTwoDigits = String(fullYear).slice(-2);
 
-         return (
-           <Option key={lastTwoDigits} value={lastTwoDigits}>
-             {fullYear}
-           </Option>
-         );
-       })}
+            return (
+              <Option key={lastTwoDigits} value={lastTwoDigits}>
+                {fullYear}
+              </Option>
+            );
+          })}
 
-     </Select>
-   </Form.Item>
+        </Select>
+      </Form.Item>
 
-   <Form.Item
-     name="month" style={{width:'100%',}}
-     rules={[
-       { required: true, message: 'Please select the month' },
-     ]}
-   >
-     <Select placeholder="Select month" dropdownStyle={{ zIndex: 2000 }}
-               size="large"
-               name='month'
-               onChange={(value) => handleChange('month', value)} >
-       {/* Add options for the months using monthNames array */}
-       {monthNames.map((month, index) => (
-         <Option key={index + 1} value={String(index + 1).padStart(2, '0')}>
-           {month} ({String(index + 1).padStart(2, '0')})
-         </Option>
-       ))}
-     </Select>
-   </Form.Item>
-     <Form.Item
-       name="cvv"
-       rules={[
-         {
-           validator: validateLessThanFourNumbers,
-         },
-       ]}
-       style={{border:'none',width:'100%',borderRadius:'.5em'}}
-     >
-               <Input
-               name="cvv"
-               placeholder='CVV'
-               size="large"
-               // value={formData?.CVV}
-             style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
-                     onChange={(e) => handleChange('cvv', e.target.value)}
-               />
-     </Form.Item>
-     
-     </div><div style={{display:'flex',flexWrap:'wrap' ,width:'fit-content',margin:'auto',gap:'1em'}}>
-     <Button
-             size="large"
-             className={classes.cancel}
-             onClick={handleClose}
-           >
-             {language === 'eng' ? "Cancel" : "Supprimer"}
-           </Button>
-           {/* <Form.Item className={classes.formItem}> */}
-             <Button
-               size="large"
-               htmlType="submit"
-               disabled={addloading ? true : false}
-             style={{
-                 cursor: addloading ? "wait" : "pointer",
-                 fontFamily: "var(--font-family)",
-             }}
-               className={classes.addAddBtn}
-             >
-               {language === 'eng' ? "Add" : "Ajouter"}
-             </Button>
-           {/* </Form.Item> */}
-           <Button
-             size="large"
-             className={classes.cancelmob}
-             onClick={handleClose}
-           >
-             {language === 'eng' ? "Cancel" : "Supprimer"}
-           </Button>
-     </div>
-     </>}
-   </Form>
+      <Form.Item
+        name="month"
+        rules={[
+          {
+            required: true,
+            message: `${
+              language === 'eng'
+                ? 'Please select the month'
+                : 'Veuillez sélectionner le mois'
+            }`,
+          },
+        ]}
+        style={{ width: '100%' }}
+      >
+        <Select
+          placeholder={
+            language === 'eng' ? 'Select month' : 'Sélectionner le mois'
+          }
+          dropdownStyle={{ zIndex: 2000 }}
+          size="large"
+          name="month"
+          onChange={(value) => handleChange('month', value)}
+        >
+          {/* Dynamically choose the array of months based on the selected language */}
+          {(language === 'eng' ? monthNamesEng : monthNamesFr).map(
+            (month, index) => (
+              <Option key={index + 1} value={String(index + 1).padStart(2, '0')}>
+                {month} ({String(index + 1).padStart(2, '0')})
+              </Option>
+            )
+          )}
+        </Select>
+      </Form.Item>
+        <Form.Item
+          name="cvv"
+          rules={[
+            {
+              validator: validateLessThanFourNumbers,
+            },
+          ]}
+          style={{border:'none',width:'100%',borderRadius:'.5em'}}
+        >
+                  <Input
+                  name="cvv"
+                  placeholder='CVV'
+                  size="large"
+                  // value={formData?.CVV}
+                style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
+                        onChange={(e) => handleChange('cvv', e.target.value)}
+                  />
+        </Form.Item>
+        
+        </div><div style={{display:'flex',flexWrap:'wrap' ,width:'fit-content',margin:'auto',gap:'1em'}}>
+        <Button
+                size="large"
+                className={classes.cancel}
+                onClick={handleClose}
+              >
+                {language === 'eng' ? "Cancel" : "Supprimer"}
+              </Button>
+              {/* <Form.Item className={classes.formItem}> */}
+                <Button
+                  size="large"
+                  htmlType="submit"
+                  disabled={addloading ? true : false}
+                style={{
+                    cursor: addloading ? "wait" : "pointer",
+                    fontFamily: "var(--font-family)",
+                }}
+                  className={classes.addAddBtn}
+                >
+                  {language === 'eng' ? "Add" : "Ajouter"}
+                </Button>
+              {/* </Form.Item> */}
+              <Button
+                size="large"
+                className={classes.cancelmob}
+                onClick={handleClose}
+              >
+                {language === 'eng' ? "Cancel" : "Supprimer"}
+              </Button>
+        </div>
+        </>}
+      </Form>
    {/* {paymentMethod == 'PayPal' && <div style={{width:'100%',display:'flex'}}><button 
                                      style={{margin:'0 auto',backgroundColor:'#FAAF00',padding:'1em 6em',borderRadius:'1em'}}
                                      onClick={()=>toast.error(`en cours de construction`, {

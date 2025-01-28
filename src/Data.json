@@ -42,7 +42,7 @@
       "point1": { "eng": "Shop All", "fr": "Livres" },
       "point2": { "eng": "Events", "fr": "Evénements" },
       "point3": { "eng": "Collaborators", "fr": "Collaborateurs" },
-      "point4": { "eng": "publishers", "fr": "publishers" }
+      "point4": { "eng": "publishers", "fr": "Éditeurs" }
     },
     "CUSTOMERSERVICE": {
       "title": { "eng": "CUSTOMER SERVICE", "fr": "SERVICE CLIENTÈLE" },
@@ -147,7 +147,7 @@
                 "fr": "Auteures"
                 },
    "button3": { "eng": "publishers",
-                "fr": "publishers"
+                "fr": "Éditeurs"
                 },
    "button4": { "eng": "Categories",
                 "fr": "Catégories"
@@ -387,11 +387,11 @@
   },
   "Collections":{
     "CollectionsPage":{
-      "title":{"eng":"Our Publishers", "fr": "Nos Publishers"},
+      "title":{"eng":"Our Publishers", "fr": "Nos Éditeurs"},
       "description":{"eng":"We’d love to hear from you!", "fr": ""}
     },
     "CollectionsDetails":{
-      "title":{"eng":"More of this publisher", "fr": "Plus de cette publisher"},
+      "title":{"eng":"More of this publisher", "fr": "Plus de cette editeur"},
       "description":{"eng":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "fr": ""}
     }
   },
