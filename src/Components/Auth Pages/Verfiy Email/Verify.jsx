@@ -4,7 +4,7 @@ import logo from '../../../assets/navbar/logo.svg'
 import { MdArrowBackIosNew } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, Input } from 'antd';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import AuthContext from '../../Common/authContext'
 
@@ -13,7 +13,7 @@ const Verify = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const [language, setLanguage] = React.useState('eng');
+  const language = useSelector((state) => state.products.selectedLanguage[0].Language);
   const [loading, setLoading] = useState(false);
 
 

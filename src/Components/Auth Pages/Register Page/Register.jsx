@@ -4,7 +4,7 @@ import logo from '../../../assets/navbar/logo.svg'
 import { MdArrowBackIosNew } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, Input, Select } from 'antd';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import AuthContext from '../../Common/authContext'
 import './styles.css'
@@ -15,7 +15,7 @@ const Register = () => {const navigate = useNavigate();
   const authCtx = useContext(AuthContext)
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const [language, setLanguage] = React.useState('eng');
+  const language = useSelector((state) => state.products.selectedLanguage[0].Language);
   const [showModal, setShowModal] = useState(false);
   const [password, setPassword] = useState("");
   const [userData, setUserData] = useState({
@@ -329,7 +329,7 @@ const Register = () => {const navigate = useNavigate();
            style={{cursor: loading ? 'wait' : 'pointer'}}
            htmlType="submit"
            className={classes.logInButton}>
-            Let’s Get Started
+           {language === 'eng' ? "Let’s Get Started" : 'Connexion'} 
           </Button>
         </Form.Item> 
       </Form>
