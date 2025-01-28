@@ -101,7 +101,7 @@
   .swiper{
       position: relative;
       width: 100%;
-      margin: 1em auto;
+      margin: 3em auto 1em auto;
       /* margin-top: 5vh; */
       justify-content: center;
       text-align: center;
@@ -284,6 +284,7 @@
     height: 2em;
     border-radius: 50%;
     background-color: var(--primary-color);
+    z-index: 10;
   }
   .nav_nb{
     position: absolute;
