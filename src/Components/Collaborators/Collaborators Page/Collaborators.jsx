@@ -43,7 +43,7 @@ const Collaborators = () => {
   );
 
   const withFirstLetters = authCtx.collaborators?.map((person) => {
-    const firstLetter = person.nom[0].toLowerCase();
+    const firstLetter = person.nom.trim()[0].toLowerCase(); // Trim the name before getting the first letter
     return { ...person, firstLetter };
   });
 
