@@ -334,7 +334,7 @@ const Register = () => {const navigate = useNavigate();
         </Form.Item> 
       </Form>
       {language === 'eng' ? <h4>{language === 'eng' ? "Do you have an account?" : "Vous avez un compte?"} <span style={{fontWeight:700, textDecoration:'underline', cursor:'pointer'}} onClick={()=>navigate(`/login`)}>{language === 'eng' ? "Log in!" : "Se connecter!"}</span></h4> : <h4>{language === 'eng' ? "Do you have an account?" : "Vous avez un compte?"} <span style={{fontWeight:700, textDecoration:'underline', cursor:'pointer'}} onClick={()=>navigate(`/login`)}>{language === 'eng' ? "Log in!" : "Se connecter!"}</span></h4>}
-      <p>{authCtx.companySettings?.copyrights_en}</p>
+      <p>{language == 'eng' ? authCtx.companySettings.copyrights_en : authCtx.companySettings.copyrights_fr }</p>
         </div>
     </div>
   )

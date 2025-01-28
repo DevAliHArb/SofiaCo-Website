@@ -31,7 +31,7 @@ const Verify = () => {
       {language === 'eng' ? <h4>{language === 'eng' ? "Kindly check your email to get verified!" : "Veuillez vérifier votre e-mail pour vous faire vérifier!"}</h4> : <h4>{language === 'eng' ? "Please check your email to get verified!" : "Veuillez vérifier votre email pour être vérifié !"}</h4>}
       <div className={classes.btn_ok}><button onClick={()=>navigate(`/login`)} className={classes.logInButton}>Ok</button></div>
       
-      <p>{authCtx.companySettings?.copyrights_en}</p>
+      <p>{language == 'eng' ? authCtx.companySettings.copyrights_en : authCtx.companySettings.copyrights_fr }</p>
         </div>
     </div>
   )
