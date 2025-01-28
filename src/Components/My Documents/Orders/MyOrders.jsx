@@ -51,15 +51,20 @@ const MyOrders = () => {
     setData(nonHistoryOrders);
   }, [authCtx.mydocuments]);
 
+  
   const filtereddata = data.filter((item) => {
     const itemDate = new Date(item.datecreation);
+    const normalizedItemDate = new Date(itemDate.getFullYear(), itemDate.getMonth(), itemDate.getDate());
+  
     const matchesSearch =
       searchQuery === "" ||
       item.numero.toLowerCase().includes(searchQuery.toLowerCase());
+  
     const matchesDateRange =
-      (!startDate || itemDate >= startDate) &&
-      (!endDate || itemDate <= endDate);
-
+      (!startDate || normalizedItemDate >= new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())) &&
+      (!endDate || normalizedItemDate <= new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate()));
+  
+  
     return matchesSearch && matchesDateRange;
   });
 
