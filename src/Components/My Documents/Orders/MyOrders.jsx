@@ -47,7 +47,9 @@ const MyOrders = () => {
   const [pagenbroute, setpagenbroute] = useState(1);
 
   useEffect(() => {
-    const nonHistoryOrders = authCtx.mydocuments;
+    const nonHistoryOrders = authCtx.mydocuments?.filter(
+      (item) => item.b_usr_documenttype_id === 1 || item.b_usr_documenttype_id === 2 || item.b_usr_documenttype_id === 4 || item.b_usr_documenttype_id === 21 || item.b_usr_documenttype_id === 22
+    );
     setData(nonHistoryOrders);
   }, [authCtx.mydocuments]);
 
