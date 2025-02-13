@@ -15,6 +15,7 @@ import CommonCard from "../Common Card/CommonCard";
 import AuthContext from "../../Common/authContext";
 import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
 import SearchIcon from "@mui/icons-material/Search";
+import AllCard from "../All Card/AllCard";
 
 
 const { RangePicker } = DatePicker;
@@ -46,7 +47,7 @@ const Proforma = () => {
 
   useEffect(() => {
     const nonHistoryOrders = authCtx.mydocuments?.filter(
-      (item) => item.b_usr_documenttype_id === 1 || item.b_usr_documenttype_id === 2
+      (item) => item.b_usr_documenttype_id === 1 || item.b_usr_documenttype_id === 2 || item.b_usr_documenttype_id === 72 || item.b_usr_documenttype_id === 19 || item.b_usr_documenttype_id === 9
     );
     setData(nonHistoryOrders);
   }, [authCtx.mydocuments]);
@@ -196,6 +197,7 @@ const Proforma = () => {
                   </h3>
                   <h3>{language === "eng" ? "Date" : "Date"}</h3>
                   <h3>{language === "eng" ? "Total" : "Total"}</h3>
+                  <h3>{language === "eng" ? "Status" : "Status"}</h3>
                   <h3>{language === "eng" ? "Download" : "Télécharger"}</h3>
                 </div>
                 {records?.map((props) => {
@@ -209,8 +211,9 @@ const Proforma = () => {
                         //   window.scrollTo({ top: 0 })
                         // }
                       >
-                        <CommonCard
+                        <AllCard
                           data={props}
+                          isProforma={true}
                           reviewHandler={() => {
                             setisReviewMood(true);
                             setselectedOrder(props);

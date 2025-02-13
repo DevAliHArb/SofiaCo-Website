@@ -59,7 +59,7 @@ function openNewWindow(url) {
                 <div className={classes.info}>
                 <h3>{data.Footer.CUSTOMERSERVICE.title[language]}</h3>
                 {userInfo?.id ? <p onClick={()=>navigate(`/account/profile`)}>{data.Footer.CUSTOMERSERVICE.point1[language]}</p> : <p onClick={()=>navigate(`login`)}>{language === 'eng' ? "Login" : "Se Connecter"}</p>}
-                {userInfo?.id ? <p onClick={()=>navigate(`/my-documents/proforma`)}>{data.Footer.CUSTOMERSERVICE.point2[language]}</p> : <p onClick={()=>navigate(`register`)}>{language === 'eng' ? "Register" : "Créer un compte"}</p>}
+                {userInfo?.id ? <p onClick={()=>navigate(`/my-documents/orders`)}>{data.Footer.CUSTOMERSERVICE.point2[language]}</p> : <p onClick={()=>navigate(`register`)}>{language === 'eng' ? "Register" : "Créer un compte"}</p>}
                     <p onClick={()=>navigate(`/policies`)}>{data.Footer.CUSTOMERSERVICE.point3[language]}</p>
                 </div>
                 <div className={classes.info}>

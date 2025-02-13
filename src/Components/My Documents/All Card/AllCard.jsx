@@ -60,7 +60,7 @@ const ConfirmationPopup = ({ message, onConfirm, onCancel, showPopup }) => {
   );
 };
 
-const AllCard = ({data ,reviewHandler}) => {
+const AllCard = ({data ,reviewHandler, isProforma}) => {
   const language = useSelector((state) => state.products.selectedLanguage[0].Language);
   const [filtereddata, setFiltereddata] = useState([])
   const [title, setTitle] = useState('')
@@ -112,7 +112,7 @@ const AllCard = ({data ,reviewHandler}) => {
 
         </h3>
         <h3>{data?.mydocumenttype?.nom}</h3>
-      <div className={classes.download} onClick={()=>handleDownload(data.id)}>
+      <div className={classes.download} onClick={() => handleDownload(data.b_usr_documenttype_id === 72 || data.b_usr_documenttype_id === 9 || data.b_usr_documenttype_id === 19 ? data.cde_doc_id : data.id)}>
         <p>PDF</p>
         <FiDownload className={classes.download_icon}/>
       </div>

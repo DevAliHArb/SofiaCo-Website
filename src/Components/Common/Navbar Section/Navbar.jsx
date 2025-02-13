@@ -367,7 +367,7 @@ const Navbar = (props) => {
                    <MenuItem key={2} onClick={()=>{ navigate(`/account/order-tracking`); handleCloseUserMenu()}} >
                      <Typography textAlign="center">{language === 'eng' ? "Orders Tracking" : "Suivi des Commandes"}</Typography>
                    </MenuItem>
-                   <MenuItem key={3} onClick={()=>{ navigate(`/my-documents/proforma`); handleCloseUserMenu()}} >
+                   <MenuItem key={3} onClick={()=>{ navigate(`/my-documents/orders`); handleCloseUserMenu()}} >
                      <Typography textAlign="center">{language === 'eng' ? "My Documents" : "Mes Documents"}</Typography>
                    </MenuItem>
                    <MenuItem key={4} onClick={()=>{handleCloseUserMenu() ; logout()}} >

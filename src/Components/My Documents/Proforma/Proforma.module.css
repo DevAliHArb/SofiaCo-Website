@@ -8,17 +8,17 @@
 
 
 .headerss{
-width: 90%;
-height: fit-content;
-padding: 1.5em 2%;
-border-radius: 1em;
-margin: 0em auto 1.5em auto;
-font-family: var(--font-family);
-cursor: pointer;
-background-color: var(--secondary-color);
-display: grid;
-grid-template-columns: 25% 25% 25% 25%;
-}
+  width: 90%;
+  height: fit-content;
+  padding: 1.5em 2%;
+  border-radius: 1em;
+  margin: 0em auto 1.5em auto;
+  font-family: var(--font-family);
+  cursor: pointer;
+  background-color: var(--secondary-color);
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+  }
 .headerss h3{
 font-family: var(--font-family);
 color: #fff;
@@ -312,6 +312,9 @@ margin: 0 auto;
 .header{
   gap: 2em;
   flex-direction: column;
+}
+.headerss h3{
+font-size: calc(.6rem + .5vw);
 }
 .deliveredBtn{
   display: none;
