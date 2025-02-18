@@ -7,6 +7,7 @@ import NewReleases from './New Releases/NewReleases'
 import Deals from './Deals/Deals'
 import Quote from './Quote Section/Quote'
 import Services from './Services Section/Services'
+import NewsLetterSection from './NewsLetter/NewsLetterSection'
 
 const HomePage = () => {
   return (
@@ -17,6 +18,7 @@ const HomePage = () => {
         <Deals />
         <NewReleases />
         <Quote />
+        <NewsLetterSection/>
         <Services />
     </div>
   )
