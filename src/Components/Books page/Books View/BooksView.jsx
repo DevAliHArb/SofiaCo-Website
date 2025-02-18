@@ -189,15 +189,37 @@ const BooksView = ({carttoggle}) => {
       </div>
     );
   }
-  function CollaboratorTreeNode({ title, collaborators , searchQuery}) {
-    const [isExpanded, setIsExpanded] = useState(false);
+
   
-    useEffect(() => {
-      const savedState = localStorage.getItem(`${title}_isExpanded`);
-      if (savedState !== null) {
-        setIsExpanded(JSON.parse(savedState));
-      }
-    }, [title]);
+const initialState = {
+  authors: false,
+  translators: false,
+  illustrators: false,
+  editors: false,
+};
+
+const getStoredExpansionState = () => {
+  const storedState = localStorage.getItem("expandedNodes");
+  return storedState ? JSON.parse(storedState) : initialState;
+};
+
+const [expandedNodes, setExpandedNodes] = useState(getStoredExpansionState());
+
+useEffect(() => {
+  localStorage.setItem("expandedNodes", JSON.stringify(expandedNodes));
+}, [expandedNodes]);
+
+const handleExpand = (fieldName) => {
+  setExpandedNodes((prev) => {
+    const newState = {
+      ...prev,
+      [fieldName]: !prev[fieldName], // Toggle only the selected node
+    };
+    localStorage.setItem("expandedNodes", JSON.stringify(newState)); // Save immediately
+    return newState;
+  });
+};
+  function CollaboratorTreeNode({ title, collaborators , searchQuery,isExpanded,  setIsExpanded}) {
   
     const toggleNode = () => {
       const newState = !isExpanded;
@@ -216,7 +238,7 @@ const BooksView = ({carttoggle}) => {
       <div >
         <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={toggleNode}>
           <KeyboardArrowRightOutlinedIcon  style={{ transform: isExpanded ? 'rotate(90deg)' : 'none' }} />
-          <h3  style={{ marginLeft: '0.5em',marginTop:'0.3em',marginBottom:'0.3em',color:"var(--secondary-color)" }}>{title}</h3>
+          <h3  style={{ marginLeft: '0.5em',marginTop:'0.3em',marginBottom:'0.3em',color:"var(--secondary-color)" }} className={classes.collab_title}>{title}</h3>
         </div>
   
         {isExpanded && (
@@ -554,8 +576,7 @@ const BooksView = ({carttoggle}) => {
     >
       <IoMdClose style={{position:'absolute', top:'1em', right:'20%', width:'2em', height:'2em', color:'#fff', zIndex:'10'}} onClick={toggle}/>
       <List>
-      <ListItem disablePadding>
-          <ListItemButton> 
+      <ListItem >
           <div style={{display:'flex',position:'relative', flexDirection:'column',fontFamily:'var(--font-family)' ,width:'96%', color:'#fff'}}>
         <h1>Filter</h1>
         <div className={classes.filter}>
@@ -579,16 +600,16 @@ const BooksView = ({carttoggle}) => {
         />
 
         
-          <div className={classes.categories}>
-            <h2>Editeur</h2>
+          
+<div className={classes.categories}>
+            <h2>{language === 'eng' ? "Collaborators" : "Collaborateurs"}</h2>
               <div className={classes.dropdown}
-                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
-                {mappedParents.map((data) => {
-                  return (
-                      <TreeNode data={data} level={0}/>
-                  );
-                })}
-              </div>
+                  style={{  margin:'1em auto ' }}>
+               <CollaboratorTreeNode title="Authors" isExpanded={expandedNodes.authors} setIsExpanded={() => handleExpand('authors')}  collaborators={authors} fieldName="author"  searchQuery={(props)=>dispatch(addSearchData({author: props.nom}))}/>
+                          <CollaboratorTreeNode title="Translators" isExpanded={expandedNodes.translators} setIsExpanded={() => handleExpand('translators')} collaborators={translators} fieldName="translator" searchQuery={(props)=>dispatch(addSearchData({traducteur: props.nom}))} />
+                          <CollaboratorTreeNode title="Illustrators" isExpanded={expandedNodes.illustrators} setIsExpanded={() => handleExpand('illustrators')} collaborators={illustrators} fieldName="illustrator" searchQuery={(props)=>dispatch(addSearchData({author: props.nom}))} />
+                          <CollaboratorTreeNode title="Editors" isExpanded={expandedNodes.editors} setIsExpanded={() => handleExpand('editors')} collaborators={editors} fieldName="editor" searchQuery={(props)=>dispatch(addSearchData({editor: props.nom}))} />
+                     </div>
           </div>
 
 <Divider  
@@ -686,7 +707,6 @@ const BooksView = ({carttoggle}) => {
           </div>
         </div>
         </div>
-          </ListItemButton>
         </ListItem>
       </List>
     </Box>
@@ -723,14 +743,14 @@ const BooksView = ({carttoggle}) => {
 
         
           <div className={classes.categories}>
-            <h2>COLLABORATEURS</h2>
+          <h2>{language === 'eng' ? "Collaborators" : "Collaborateurs"}</h2>
               <div className={classes.dropdown}
                   style={{  margin:'1em auto ' }}>
-                <CollaboratorTreeNode title="Authors" collaborators={authors}  searchQuery={(props)=>dispatch(addSearchData({author: props.nom}))}/>
-                <CollaboratorTreeNode title="Translators" collaborators={translators} searchQuery={(props)=>dispatch(addSearchData({traducteur: props.nom}))} />
-                <CollaboratorTreeNode title="Illustrators" collaborators={illustrators} searchQuery={(props)=>dispatch(addSearchData({author: props.nom}))} />
-                <CollaboratorTreeNode title="Editors" collaborators={editors} searchQuery={(props)=>dispatch(addSearchData({editor: props.nom}))} />
-              </div>
+               <CollaboratorTreeNode title="Authors" isExpanded={expandedNodes.authors} setIsExpanded={() => handleExpand('authors')}  collaborators={authors} fieldName="author"  searchQuery={(props)=>dispatch(addSearchData({author: props.nom}))}/>
+                          <CollaboratorTreeNode title="Translators" isExpanded={expandedNodes.translators} setIsExpanded={() => handleExpand('translators')} collaborators={translators} fieldName="translator" searchQuery={(props)=>dispatch(addSearchData({traducteur: props.nom}))} />
+                          <CollaboratorTreeNode title="Illustrators" isExpanded={expandedNodes.illustrators} setIsExpanded={() => handleExpand('illustrators')} collaborators={illustrators} fieldName="illustrator" searchQuery={(props)=>dispatch(addSearchData({author: props.nom}))} />
+                          <CollaboratorTreeNode title="Editors" isExpanded={expandedNodes.editors} setIsExpanded={() => handleExpand('editors')} collaborators={editors} fieldName="editor" searchQuery={(props)=>dispatch(addSearchData({editor: props.nom}))} />
+                     </div>
           </div>
 
           <Divider  
