@@ -48,7 +48,11 @@ const Hero = ({ carttoggle }) => {
         `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&hero_slider`
       );
       
-      setArticles(response.data.data);
+    //   const filteredArticles = response?.data?.data?.filter(article => article._qte_a_terme_calcule > 0);
+
+    // setArticles(filteredArticles);
+    
+    setArticles(response.data.data);
     } catch (error) {
       // console.error("Error fetching articles:", error);
       // toast.error("Failed to fetch articles.");

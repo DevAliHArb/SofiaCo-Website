@@ -59,7 +59,11 @@ const NewReleases = () => {
     
         const response = await axios.get(url);
       // console.log(response.data.data)
-      setArticles(response.data.data);
+    //   const filteredArticles = response?.data?.data?.filter(article => article._qte_a_terme_calcule > 0);
+
+    // setArticles(filteredArticles);
+    
+    setArticles(response.data.data);
     } catch (error) {
       // console.error("Error fetching articles:", error);
       // toast.error("Failed to fetch articles.");
