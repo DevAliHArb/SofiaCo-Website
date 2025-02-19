@@ -50,6 +50,7 @@ const BooksView = ({carttoggle}) => {
   const [changepricetoggle, setchangePricetoggle] = useState(false);
   const [totalArticlesNumber, setTotalArticlesNumber] = useState(null);
   const [inStock, setinStock] = useState(localStorage.getItem("stock") || null);
+  const [isdiscount, setisdiscount] = useState(localStorage.getItem("discount") || null);
   const authors = authCtx.collaborators?.filter((collaborator) => collaborator.type.name_fr === 'auteur');
   const translators = authCtx.collaborators?.filter((collaborator) => collaborator.type.name_fr === 'traducteur');
   const illustrators = authCtx.collaborators?.filter((collaborator) => collaborator.type.name_fr === 'illustrateur');
@@ -351,6 +352,12 @@ const handleExpand = (fieldName) => {
         const selectedStockParam = storedInStock
           ? `&in_stock=${storedInStock}`
           : ``;
+        
+          const storedInDiscount = localStorage.getItem("discount");
+          const selectedDiscount = storedInDiscount !== null && storedInDiscount !== "null"
+            ? `&editor_discount=${storedInDiscount}`
+            : ``;
+
           
       const selectedResumeParam = searchData[0]?.resume
       ? `&descriptif=${searchData[0].resume}`
@@ -370,8 +377,8 @@ const handleExpand = (fieldName) => {
         : ``;
 
       // Finalize the URL by combining all parameters
-      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedCollectionParam}${selectedStockParam}${selectedEANParam}${selectedResumeParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedcollectionParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}&ecom_type=sofiaco`;
-
+      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedCollectionParam}${selectedStockParam}${selectedDiscount}${selectedEANParam}${selectedResumeParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedcollectionParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}&ecom_type=sofiaco`;
+      console.log('test',finalUrl);
       // Fetch articles using the finalized URL
       const response = await axios.get(finalUrl);
 
@@ -413,6 +420,19 @@ const handleExpand = (fieldName) => {
     } else {
     setinStock(null);
     localStorage.setItem("stock", null);
+    }
+    fetchArticles(null, null, null, 1);
+  };
+
+  const handleDiscountChange = (event) => {
+    const newDiscountValue = event.target.value;
+    console.log(newDiscountValue);
+    if (newDiscountValue) {
+      setisdiscount(newDiscountValue);
+      localStorage.setItem("discount", newDiscountValue);
+    } else {
+      setisdiscount(null);
+    localStorage.setItem("discount", null);
     }
     fetchArticles(null, null, null, 1);
   };
@@ -471,6 +491,8 @@ const handleExpand = (fieldName) => {
     setSelectedCollection("all");
     setSelectedRate(0)
     setinStock(null);
+    setisdiscount(null);
+    localStorage.removeItem("discount");
     localStorage.removeItem("stock");
     localStorage.removeItem("category");
     localStorage.removeItem("rate");
@@ -612,7 +634,7 @@ const handleExpand = (fieldName) => {
                      </div>
           </div>
 
-<Divider  
+        <Divider  
           color="#fff"
           width="88%"
           style={{margin:'0.5em auto'}}
@@ -646,6 +668,43 @@ const handleExpand = (fieldName) => {
                       value={false}
                       control={<Radio style={{color:'#fff'}}/>}
                       label={language === 'eng' ? "Out Of Stock" : "En rupture de stock" } // Make sure item.nom is a string
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </div>
+          </div>
+          <Divider  
+          color="#fff"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
+          <div className={classes.categories}>
+            <h2>Discount</h2>
+              <div className={classes.dropdown}>
+              <FormControl>
+                  <RadioGroup
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    defaultValue='all'
+                    value={isdiscount}
+                    name="radio-buttons-group"
+                    onChange={handleDiscountChange}
+                  >
+                    <FormControlLabel
+                      value={null}
+                      control={
+                        <Radio style={{color:'#fff'}} />
+                      }
+                      label='All'
+                    />
+                    <FormControlLabel
+                      value={true}
+                      control={<Radio style={{color:'#fff'}}/>}
+                      label={language === 'eng' ? "Discounted Items" : "Articles Soldés" } // Make sure item.nom is a string
+                    />
+                    <FormControlLabel
+                      value={false}
+                      control={<Radio style={{color:'#fff'}}/>}
+                      label={language === 'eng' ? "Non-Discounted Items" : "Articles Non Actualisés" } // Make sure item.nom is a string
                     />
                   </RadioGroup>
                 </FormControl>
@@ -797,6 +856,45 @@ const handleExpand = (fieldName) => {
           style={{margin:'0.5em auto'}}
         />
           </div>
+          
+          <div className={classes.categories}>
+            <h2>Discount</h2>
+              <div className={classes.dropdown}>
+              <FormControl>
+                  <RadioGroup
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    defaultValue='all'
+                    value={isdiscount}
+                    name="radio-buttons-group"
+                    onChange={handleDiscountChange}
+                  >
+                    <FormControlLabel
+                      value={null}
+                      control={
+                        <Radio style={{color:'var(--primary-color)'}} />
+                      }
+                      label='All'
+                    />
+                    <FormControlLabel
+                      value={true}
+                      control={<Radio style={{color:'var(--primary-color)'}}/>}
+                      label={language === 'eng' ? "Discounted Items" : "Articles Soldés" } // Make sure item.nom is a string
+                    />
+                    <FormControlLabel
+                      value={false}
+                      control={<Radio style={{color:'var(--primary-color)'}}/>}
+                      label={language === 'eng' ? "Non-Discounted Items" : "Articles Non Actualisés" } // Make sure item.nom is a string
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </div>
+          </div>
+
+          <Divider  
+          color="var(--secondary-color)"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
           <div className={classes.categories}>
             <h2>{language === 'eng' ? "Price" : "Prix" }</h2>
               <div className={classes.dropdown}>

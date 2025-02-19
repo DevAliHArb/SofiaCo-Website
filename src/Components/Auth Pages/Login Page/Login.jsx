@@ -169,7 +169,7 @@ const onFinish = async () => {
           size="large"  
           name="email"
         placeholder={language === 'eng' ? "User Name" : "Nom d'utilisateur"}
-                 style={{border:'none',backgroundColor:"rgba(255, 255, 255, 0.1)" ,color:'var(--accent-color)'}}
+                 style={{border:'none',backgroundColor:"rgba(255, 255, 255, 0.1)" ,color:'var(--accent-color)',height:'2.8em'}}
                  onChange={handleChange}
           />
         </Form.Item>
@@ -187,10 +187,14 @@ const onFinish = async () => {
             name="password"
             size="large" 
             placeholder={language === 'eng' ? "Password" : "Mot de passe"} 
-            style={{border:'none',backgroundColor:"rgba(255, 255, 255, 0.1)" ,height:'3em',color:'var(--accent-color)'}}
+            style={{border:'none',backgroundColor:"rgba(255, 255, 255, 0.1)" ,height:'3em',color:'var(--accent-color)',height:'2.7em'}}
             onChange={handleChange}
           />
         </Form.Item>
+        <div style={{width:'100%', textAlign: 'end',color:'var(--forth-color)',cursor:'pointer'}} onClick={()=>navigate('/forget-password')}>
+          <p style={{marginTop:'-1.3em',marginBottom:'2em',fontFamily:'var(--font-family-primary)',fontStyle:'normal',fontSize:'small'}}>
+              {language === 'eng' ? "Forgot password ?" : "Mot De Passe Oublié ?"}</p>
+        </div>
            <Form.Item  style={{width:'100%'}}>
           <Button
            size="large"

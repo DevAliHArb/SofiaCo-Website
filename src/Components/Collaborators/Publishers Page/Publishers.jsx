@@ -44,17 +44,17 @@ const Publishers = () => {
   );
 
   const withFirstLetters = authCtx.collaborators?.map((person) => {
-    const firstLetter = person.nom[0].toLowerCase();
+    const firstLetter = person?.nom[0]?.toLowerCase();
     return { ...person, firstLetter };
   });
 
   // console.log(withFirstLetters)
   const filteredAuthors = withFirstLetters.filter(
     (author) =>
-      (selectedLetter === "ALL" || author.firstLetter === selectedLetter.toLowerCase()) &&
+      (selectedLetter === "ALL" || author.firstLetter === selectedLetter?.toLowerCase()) &&
       (searchQuery === "" ||
-        author.nom.toLowerCase().includes(searchQuery.toLowerCase())) &&
-      (type === 'All' || author?.type?.name_fr.toLowerCase() === type.toLowerCase())  // Add "which" filter
+        author.nom?.toLowerCase().includes(searchQuery?.toLowerCase())) &&
+      (type === 'All' || author?.type?.name_fr?.toLowerCase() === type?.toLowerCase())  // Add "which" filter
       // (major === 'All' || author.major === major.toLowerCase()) // Add "which" filter
     );
 

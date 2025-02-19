@@ -43,18 +43,18 @@ const Collaborators = () => {
   );
 
   const withFirstLetters = authCtx.collaborators?.map((person) => {
-    const firstLetter = person.nom.trim()[0].toLowerCase(); // Trim the name before getting the first letter
+    const firstLetter = person.nom.trim()[0]?.toLowerCase(); // Trim the name before getting the first letter
     return { ...person, firstLetter };
   });
 
   // console.log(withFirstLetters)
   const filteredAuthors = withFirstLetters.filter(
     (author) =>
-      (selectedLetter === "ALL" || author.firstLetter === selectedLetter.toLowerCase()) &&
+      (selectedLetter === "ALL" || author.firstLetter === selectedLetter?.toLowerCase()) &&
       (searchQuery === "" ||
-        author.nom.toLowerCase().includes(searchQuery.toLowerCase())) &&
-        (type === 'All' || author?.type?.name_fr.toLowerCase() === type.toLowerCase())&&
-        (author?.type?.name_fr.toLowerCase() !== "editeur")  // Add "which" filter
+        author.nom?.toLowerCase().includes(searchQuery?.toLowerCase())) &&
+        (type === 'All' || author?.type?.name_fr?.toLowerCase() === type?.toLowerCase())&&
+        (author?.type?.name_fr?.toLowerCase() !== "editeur")  // Add "which" filter
     );
 
   const recordsPerPage = 15;
@@ -128,7 +128,7 @@ const Collaborators = () => {
       return text; // Handle empty input gracefully
     }
   
-    return text[0].toUpperCase() + text.slice(1).toLowerCase();
+    return text[0].toUpperCase() + text.slice(1)?.toLowerCase();
   }
 
   
