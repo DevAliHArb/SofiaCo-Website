@@ -11,6 +11,7 @@ import { useForm } from "antd/es/form/Form";
 import AuthContext from "../../Common/authContext";
 import NewsletterBg from "../../../assets/NewsletterBg.png";
 import NewsletterBgMob from "../../../assets/NewsletterBgMob.png";
+import { toast } from "react-toastify";
 
 
 
