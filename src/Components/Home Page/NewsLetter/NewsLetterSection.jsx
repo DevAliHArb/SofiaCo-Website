@@ -86,7 +86,7 @@ const validateEmail = (email) => {
         <img src={NewsletterBg} style={{position:'absolute',top:"0",left:'0',width:"100%",height:'100%'}} alt="" className={classes.newsletterBg}/>
         <img src={NewsletterBgMob} style={{position:'absolute',top:"0",left:'0',width:"100%",height:'100%'}} alt="" className={classes.newsletterBgMob}/>
         <div className={classes.data}>
-                  <h2>{language === 'eng' ? "Subscribe to our Newsletter!" : "Abonnez-vous à notre lettre d'information !"}</h2>
+                  <h2>{language === 'eng' ? "Subscribe to our Newsletter!" : "Abonnez-vous à notre Newsletter !"}</h2>
                   <p>{language === 'eng' ? "Get the latest updates, special offers, and insider tips delivered straight to your inbox. Subscribe now and stay connected with all the good stuff!" : "Recevez les dernières mises à jour, les offres spéciales et les conseils d'initiés directement dans votre boîte de réception. Abonnez-vous dès maintenant et restez au courant de tout ce qui se passe !"}</p>
                 <Form
                 form={form}
@@ -119,7 +119,7 @@ const validateEmail = (email) => {
                     className={classes.button_btn}
                     onClick={handleSubmit}
                     >
-                    {language === 'eng' ? "Register" : "Je m’inscris" }
+                    {language === 'eng' ? "Register" : "Je M’inscris" }
                     </button>
                 </Form>
         </div>
