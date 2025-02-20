@@ -230,7 +230,7 @@ const fetchArticles = async () => {
   
   const fetchSocieteConfig = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_TESTING_API}/societe-config`);
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/societe-config`);
       setSocieteConfig(response.data);
     } catch (error) {
       // console.error('Error fetching collections:', error);
@@ -245,6 +245,7 @@ const fetchArticles = async () => {
       // console.error('Error fetching countries:', error);
     }
   };
+  
   
   const fetchThemes = async () => {
     // try {
