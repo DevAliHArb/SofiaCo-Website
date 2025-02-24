@@ -42,6 +42,9 @@ const Deals = () => {
       const response = await axios.get(
         `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&is_selected`
       );
+      //   const filteredArticles = response?.data?.data?.filter(article => article._qte_a_terme_calcule > 0);
+  
+      // setArticles(filteredArticles);
       setArticles(response.data.data);
       setActiveIndex(0);
     } catch (error) {

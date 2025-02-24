@@ -1,0 +1,125 @@
+.content{
+  position: relative;
+  display: flex;
+  width: 95%;
+  max-width: 1900px;
+  margin: 0 auto;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: auto auto 1em auto;
+}
+
+.data{
+  position: relative;
+    width: 60%;
+    margin: 7em 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* background-color: #ECF0F7; */
+    max-width: 35em;
+}
+.data h2{
+    text-align: start;
+    color: #111;
+    font-weight: 600;
+    margin: 0 0 1em 0;
+    font-family: var(--font-family);
+    font-size: calc(2rem + 0.6vw);
+}
+.data p{
+    text-align: start;
+    color: #908F8F;
+    font-weight: 500;
+    margin: 1em 0 2em 0;
+    font-family: var(--font-family);
+    font-size: calc(.7rem + 0.3vw);
+}
+
+.newsletterinfoMob {
+    display: none;
+    width: 100%;
+    align-items: self-start;
+    text-align: start;
+    margin: 0 0 0 0;
+    flex-direction: column;
+  }
+  
+.input{
+    font-size: calc(0.6rem + 0.3vw);
+    background-color: #FFFFFF;
+    /* padding: 0  2%; */
+    border-radius: .6em;
+    border: 1px solid #B3B3B3;
+    width: 100%;
+    height: 3em;
+    font-family: var(--font-family-primary);
+    font-style: normal;
+    z-index: 0;
+  }
+  
+  .button_btn{
+    font-size: calc(0.6rem + 0.3vw);
+    background-color: var(--primary-color);
+    margin: auto 0;
+    text-align: center;
+    width: fit-content;
+    height: 3em;
+    text-wrap: nowrap;
+    cursor: pointer;
+    color: #fff;
+    border-radius: .7em;
+    font-weight: 500;
+    border: none;
+    margin-top: 0;
+    z-index: 2;
+    padding: 0 3em;
+    text-transform: capitalize;
+    transition: all 0.5s ease;
+  }
+  
+  .button_btn:hover{
+    background-color: var(--secondary-color);
+    color: var(--accent-color);
+  }
+  
+.bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.1em 5%;
+    border-top: 1px solid #fff;
+  }
+  
+  .bottom p {
+    font-size: calc(0.6rem + 0.3vw);
+    font-family: var(--font-family-primary);
+    font-style: normal;
+    color: #fff;
+  }
+  .newsletterBgMob{
+    display: none;
+  }
+
+@media screen and (max-width:950px) {
+  .content{
+    width: 100%;
+    margin: 0 auto;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 4em auto 1em auto;
+  }
+  .newsletterBg{
+    display: none;
+  }
+  .newsletterBgMob{
+    display: inline;
+  }
+  .data{
+      width: 70%;
+      margin: 6em 5%;
+  }
+  .data h2{
+    font-size: calc(1.5rem + 0.3vw);
+  }
+}

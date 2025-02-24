@@ -50,6 +50,7 @@ const BooksView = ({carttoggle}) => {
   const [changepricetoggle, setchangePricetoggle] = useState(false);
   const [totalArticlesNumber, setTotalArticlesNumber] = useState(null);
   const [inStock, setinStock] = useState(localStorage.getItem("stock") || null);
+  const [isdiscount, setisdiscount] = useState(localStorage.getItem("discount") || null);
   const authors = authCtx.collaborators?.filter((collaborator) => collaborator.type.name_fr === 'auteur');
   const translators = authCtx.collaborators?.filter((collaborator) => collaborator.type.name_fr === 'traducteur');
   const illustrators = authCtx.collaborators?.filter((collaborator) => collaborator.type.name_fr === 'illustrateur');
@@ -189,15 +190,37 @@ const BooksView = ({carttoggle}) => {
       </div>
     );
   }
-  function CollaboratorTreeNode({ title, collaborators , searchQuery}) {
-    const [isExpanded, setIsExpanded] = useState(false);
+
   
-    useEffect(() => {
-      const savedState = localStorage.getItem(`${title}_isExpanded`);
-      if (savedState !== null) {
-        setIsExpanded(JSON.parse(savedState));
-      }
-    }, [title]);
+const initialState = {
+  authors: false,
+  translators: false,
+  illustrators: false,
+  editors: false,
+};
+
+const getStoredExpansionState = () => {
+  const storedState = localStorage.getItem("expandedNodes");
+  return storedState ? JSON.parse(storedState) : initialState;
+};
+
+const [expandedNodes, setExpandedNodes] = useState(getStoredExpansionState());
+
+useEffect(() => {
+  localStorage.setItem("expandedNodes", JSON.stringify(expandedNodes));
+}, [expandedNodes]);
+
+const handleExpand = (fieldName) => {
+  setExpandedNodes((prev) => {
+    const newState = {
+      ...prev,
+      [fieldName]: !prev[fieldName], // Toggle only the selected node
+    };
+    localStorage.setItem("expandedNodes", JSON.stringify(newState)); // Save immediately
+    return newState;
+  });
+};
+  function CollaboratorTreeNode({ title, collaborators , searchQuery,isExpanded,  setIsExpanded}) {
   
     const toggleNode = () => {
       const newState = !isExpanded;
@@ -216,7 +239,7 @@ const BooksView = ({carttoggle}) => {
       <div >
         <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={toggleNode}>
           <KeyboardArrowRightOutlinedIcon  style={{ transform: isExpanded ? 'rotate(90deg)' : 'none' }} />
-          <h3  style={{ marginLeft: '0.5em',marginTop:'0.3em',marginBottom:'0.3em',color:"var(--secondary-color)" }}>{title}</h3>
+          <h3  style={{ marginLeft: '0.5em',marginTop:'0.3em',marginBottom:'0.3em',color:"var(--secondary-color)" }} className={classes.collab_title}>{title}</h3>
         </div>
   
         {isExpanded && (
@@ -329,6 +352,12 @@ const BooksView = ({carttoggle}) => {
         const selectedStockParam = storedInStock
           ? `&in_stock=${storedInStock}`
           : ``;
+        
+          const storedInDiscount = localStorage.getItem("discount");
+          const selectedDiscount = storedInDiscount !== null && storedInDiscount !== "null"
+            ? `&editor_discount=${storedInDiscount}`
+            : ``;
+
           
       const selectedResumeParam = searchData[0]?.resume
       ? `&descriptif=${searchData[0].resume}`
@@ -348,8 +377,8 @@ const BooksView = ({carttoggle}) => {
         : ``;
 
       // Finalize the URL by combining all parameters
-      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedCollectionParam}${selectedStockParam}${selectedEANParam}${selectedResumeParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedcollectionParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}&ecom_type=sofiaco`;
-
+      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedCollectionParam}${selectedStockParam}${selectedDiscount}${selectedEANParam}${selectedResumeParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedcollectionParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}&ecom_type=sofiaco`;
+      console.log('test',finalUrl);
       // Fetch articles using the finalized URL
       const response = await axios.get(finalUrl);
 
@@ -391,6 +420,19 @@ const BooksView = ({carttoggle}) => {
     } else {
     setinStock(null);
     localStorage.setItem("stock", null);
+    }
+    fetchArticles(null, null, null, 1);
+  };
+
+  const handleDiscountChange = (event) => {
+    const newDiscountValue = event.target.value;
+    console.log(newDiscountValue);
+    if (newDiscountValue) {
+      setisdiscount(newDiscountValue);
+      localStorage.setItem("discount", newDiscountValue);
+    } else {
+      setisdiscount(null);
+    localStorage.setItem("discount", null);
     }
     fetchArticles(null, null, null, 1);
   };
@@ -449,6 +491,8 @@ const BooksView = ({carttoggle}) => {
     setSelectedCollection("all");
     setSelectedRate(0)
     setinStock(null);
+    setisdiscount(null);
+    localStorage.removeItem("discount");
     localStorage.removeItem("stock");
     localStorage.removeItem("category");
     localStorage.removeItem("rate");
@@ -554,8 +598,7 @@ const BooksView = ({carttoggle}) => {
     >
       <IoMdClose style={{position:'absolute', top:'1em', right:'20%', width:'2em', height:'2em', color:'#fff', zIndex:'10'}} onClick={toggle}/>
       <List>
-      <ListItem disablePadding>
-          <ListItemButton> 
+      <ListItem >
           <div style={{display:'flex',position:'relative', flexDirection:'column',fontFamily:'var(--font-family)' ,width:'96%', color:'#fff'}}>
         <h1>Filter</h1>
         <div className={classes.filter}>
@@ -579,19 +622,19 @@ const BooksView = ({carttoggle}) => {
         />
 
         
-          <div className={classes.categories}>
-            <h2>Editeur</h2>
+          
+<div className={classes.categories}>
+            <h2>{language === 'eng' ? "Collaborators" : "Collaborateurs"}</h2>
               <div className={classes.dropdown}
-                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
-                {mappedParents.map((data) => {
-                  return (
-                      <TreeNode data={data} level={0}/>
-                  );
-                })}
-              </div>
+                  style={{  margin:'1em auto ' }}>
+               <CollaboratorTreeNode title="Authors" isExpanded={expandedNodes.authors} setIsExpanded={() => handleExpand('authors')}  collaborators={authors} fieldName="author"  searchQuery={(props)=>dispatch(addSearchData({author: props.nom}))}/>
+                          <CollaboratorTreeNode title="Translators" isExpanded={expandedNodes.translators} setIsExpanded={() => handleExpand('translators')} collaborators={translators} fieldName="translator" searchQuery={(props)=>dispatch(addSearchData({traducteur: props.nom}))} />
+                          <CollaboratorTreeNode title="Illustrators" isExpanded={expandedNodes.illustrators} setIsExpanded={() => handleExpand('illustrators')} collaborators={illustrators} fieldName="illustrator" searchQuery={(props)=>dispatch(addSearchData({author: props.nom}))} />
+                          <CollaboratorTreeNode title="Editors" isExpanded={expandedNodes.editors} setIsExpanded={() => handleExpand('editors')} collaborators={editors} fieldName="editor" searchQuery={(props)=>dispatch(addSearchData({editor: props.nom}))} />
+                     </div>
           </div>
 
-<Divider  
+        <Divider  
           color="#fff"
           width="88%"
           style={{margin:'0.5em auto'}}
@@ -625,6 +668,43 @@ const BooksView = ({carttoggle}) => {
                       value={false}
                       control={<Radio style={{color:'#fff'}}/>}
                       label={language === 'eng' ? "Out Of Stock" : "En rupture de stock" } // Make sure item.nom is a string
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </div>
+          </div>
+          <Divider  
+          color="#fff"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
+          <div className={classes.categories}>
+            <h2>Discount</h2>
+              <div className={classes.dropdown}>
+              <FormControl>
+                  <RadioGroup
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    defaultValue='all'
+                    value={isdiscount}
+                    name="radio-buttons-group"
+                    onChange={handleDiscountChange}
+                  >
+                    <FormControlLabel
+                      value={null}
+                      control={
+                        <Radio style={{color:'#fff'}} />
+                      }
+                      label='All'
+                    />
+                    <FormControlLabel
+                      value={true}
+                      control={<Radio style={{color:'#fff'}}/>}
+                      label={language === 'eng' ? "Discounted Items" : "Articles Soldés" } // Make sure item.nom is a string
+                    />
+                    <FormControlLabel
+                      value={false}
+                      control={<Radio style={{color:'#fff'}}/>}
+                      label={language === 'eng' ? "Non-Discounted Items" : "Articles Non Actualisés" } // Make sure item.nom is a string
                     />
                   </RadioGroup>
                 </FormControl>
@@ -686,7 +766,6 @@ const BooksView = ({carttoggle}) => {
           </div>
         </div>
         </div>
-          </ListItemButton>
         </ListItem>
       </List>
     </Box>
@@ -723,14 +802,14 @@ const BooksView = ({carttoggle}) => {
 
         
           <div className={classes.categories}>
-            <h2>COLLABORATEURS</h2>
+          <h2>{language === 'eng' ? "Collaborators" : "Collaborateurs"}</h2>
               <div className={classes.dropdown}
                   style={{  margin:'1em auto ' }}>
-                <CollaboratorTreeNode title="Authors" collaborators={authors}  searchQuery={(props)=>dispatch(addSearchData({author: props.nom}))}/>
-                <CollaboratorTreeNode title="Translators" collaborators={translators} searchQuery={(props)=>dispatch(addSearchData({traducteur: props.nom}))} />
-                <CollaboratorTreeNode title="Illustrators" collaborators={illustrators} searchQuery={(props)=>dispatch(addSearchData({author: props.nom}))} />
-                <CollaboratorTreeNode title="Editors" collaborators={editors} searchQuery={(props)=>dispatch(addSearchData({editor: props.nom}))} />
-              </div>
+               <CollaboratorTreeNode title="Authors" isExpanded={expandedNodes.authors} setIsExpanded={() => handleExpand('authors')}  collaborators={authors} fieldName="author"  searchQuery={(props)=>dispatch(addSearchData({author: props.nom}))}/>
+                          <CollaboratorTreeNode title="Translators" isExpanded={expandedNodes.translators} setIsExpanded={() => handleExpand('translators')} collaborators={translators} fieldName="translator" searchQuery={(props)=>dispatch(addSearchData({traducteur: props.nom}))} />
+                          <CollaboratorTreeNode title="Illustrators" isExpanded={expandedNodes.illustrators} setIsExpanded={() => handleExpand('illustrators')} collaborators={illustrators} fieldName="illustrator" searchQuery={(props)=>dispatch(addSearchData({author: props.nom}))} />
+                          <CollaboratorTreeNode title="Editors" isExpanded={expandedNodes.editors} setIsExpanded={() => handleExpand('editors')} collaborators={editors} fieldName="editor" searchQuery={(props)=>dispatch(addSearchData({editor: props.nom}))} />
+                     </div>
           </div>
 
           <Divider  
@@ -777,6 +856,45 @@ const BooksView = ({carttoggle}) => {
           style={{margin:'0.5em auto'}}
         />
           </div>
+          
+          <div className={classes.categories}>
+            <h2>Discount</h2>
+              <div className={classes.dropdown}>
+              <FormControl>
+                  <RadioGroup
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    defaultValue='all'
+                    value={isdiscount}
+                    name="radio-buttons-group"
+                    onChange={handleDiscountChange}
+                  >
+                    <FormControlLabel
+                      value={null}
+                      control={
+                        <Radio style={{color:'var(--primary-color)'}} />
+                      }
+                      label='All'
+                    />
+                    <FormControlLabel
+                      value={true}
+                      control={<Radio style={{color:'var(--primary-color)'}}/>}
+                      label={language === 'eng' ? "Discounted Items" : "Articles Soldés" } // Make sure item.nom is a string
+                    />
+                    <FormControlLabel
+                      value={false}
+                      control={<Radio style={{color:'var(--primary-color)'}}/>}
+                      label={language === 'eng' ? "Non-Discounted Items" : "Articles Non Actualisés" } // Make sure item.nom is a string
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </div>
+          </div>
+
+          <Divider  
+          color="var(--secondary-color)"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
           <div className={classes.categories}>
             <h2>{language === 'eng' ? "Price" : "Prix" }</h2>
               <div className={classes.dropdown}>

@@ -44,7 +44,9 @@ const AlsoSee = () => {
         // `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco`
       );
       // console.log(response.data.data);
-      setArticles(response.data.data);
+      const filteredArticles = response?.data?.data?.filter(article => article._qte_a_terme_calcule > 0);
+
+      setArticles(filteredArticles);
       setActiveIndex(0);
     } catch (error) {
       // console.error("Error fetching articles:", error);

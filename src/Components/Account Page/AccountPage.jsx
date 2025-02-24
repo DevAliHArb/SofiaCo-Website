@@ -47,14 +47,14 @@ const AccountPage = () => {
       <div className={classes.accountContainer}>
         <h1>{data.AccountProfilePage.title[language]}</h1>
         <div className={classes.titlesCard} id='fomponent'>
-        <button onClick={()=>navigate(`/account/profile`)} style={{background: pageId === 'profile' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.AccountDetails.title[language]}</button>
+        <button onClick={()=>navigate(`/account/profile`)} style={{background: pageId === 'profile' || pageId === 'delete-account' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.AccountDetails.title[language]}</button>
         <button onClick={()=>navigate(`/account/addresses`)} style={{background: pageId === 'addresses' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.Adresses.title[language]}</button>
         <button onClick={()=>navigate(`/account/payments`)} style={{background: pageId === 'payments' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.Payment.title[language]}</button>
 
             <button onClick={()=>navigate(`/account/order-tracking`)} style={{background: pageId === 'order-tracking' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.orders.title[language]}</button>
             <button onClick={()=>navigate(`/account/coupons`)} style={{background: pageId === 'coupons' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.Coupons.title[language]}</button>
             <button onClick={()=>navigate(`/account/subscription`)} style={{background: pageId === 'subscription' ? 'var(--primary-color)' : ''}}>{language === 'eng' ? "Subscription" : "Abonnement" }</button>
-            <button onClick={()=>navigate(`/account/delete-account`)} style={{background: pageId === 'delete-account' ? 'var(--primary-color)' : ''}}>{language === 'eng' ? "Delete Account" : "Supprimer le compte" }</button>
+            <button onClick={()=>navigate(`/my-documents/orders`)} style={{background: pageId === 'orders' ? 'var(--primary-color)' : ''}}>{language === 'eng' ? "My Documents" : "Mes Documents"}</button>
         </div>
         <div className={classes.titlesCard_mob} id='fomponent'>
         <Select

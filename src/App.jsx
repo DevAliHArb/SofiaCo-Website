@@ -37,6 +37,8 @@ import { removeUser } from './Components/Common/redux/productSlice';
 import ErrorPage from './Components/Common/ErrorPage';
 import AuthContext from './Components/Common/authContext';
 import Publishers from './Components/Collaborators/Publishers Page/Publishers';
+import NewPassword from './Components/Auth Pages/New Password/NewPassword';
+import ForgotPassword from './Components/Auth Pages/Forgot Password/ForgotPassword';
 
 function App() {
   const authCtx = useContext(AuthContext)
@@ -150,6 +152,8 @@ function App() {
           <Route path="/register" element={<ScrollToTop><Register /></ScrollToTop>} />
           <Route path="/login" element={<ScrollToTop><Login /></ScrollToTop>} />
           <Route path="/verify-email" element={<ScrollToTop><Verify /></ScrollToTop>} />
+          <Route path='/forget-password' element={<ScrollToTop><ForgotPassword/></ScrollToTop>} />
+          <Route path='/reset-password' element={<ScrollToTop><NewPassword/></ScrollToTop>} />
           <Route path="/publishers" element={<ScrollToTop><Publishers /></ScrollToTop>} />
           <Route path="/publishers/:id/details" element={<ScrollToTop><CollaboratorDetails /></ScrollToTop>} />
           <Route path="/collaborators" element={<ScrollToTop><Collaborators /></ScrollToTop>} />

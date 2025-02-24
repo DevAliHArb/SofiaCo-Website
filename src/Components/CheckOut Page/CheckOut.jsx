@@ -42,6 +42,7 @@ import { toast } from "react-toastify";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { useStripe } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import { decryptAES128CTR } from "../Common/Decrypt";
 
 const { TextArea } = Input;
 
@@ -147,7 +148,28 @@ const CheckOut = () => {
   const [colissimoPopupOpen, setColissimoPopupOpen] = useState(false);
   const [colissimoPointData, setColissimoPointData] = useState(null);
   const widgetRef = useRef(null);
+  const [colisssimopass, setColisssimoPass] = useState(null);
+  const [stripePublishableKey, setStripePublishableKey] = useState(null);
   
+  useEffect(() => {
+    const fetchDecryptedValues = async () => {
+       // Get the encrypted values from the authCtx
+      const encryptedcolisssimopass = authCtx.societeConfig?.find(item => item.config_module_nomtech === "colissimo_password")?.valeur;
+      const encryptedStripePublishableKey = authCtx.societeConfig?.find(item => item.config_module_nomtech === "stripe_pay_api_key")?.valeur; // Ensure this is the publishable key
+
+      // Decrypt the values
+      if (encryptedcolisssimopass && encryptedStripePublishableKey) {
+        const decryptedcolisssimopass = await decryptAES128CTR(encryptedcolisssimopass);
+        const decryptedStripePublishableKey = await decryptAES128CTR(encryptedStripePublishableKey);
+        // console.log(decryptedStripePublishableKey)
+        // Set the decrypted values to state
+        setColisssimoPass(decryptedcolisssimopass);
+        setStripePublishableKey(decryptedStripePublishableKey);
+      }
+    };
+
+    fetchDecryptedValues();
+  }, [authCtx]);
   useEffect(() => {
     const outOfStockItems = productData.filter(item => item._qte_a_terme_calcule < 1);
     const removedItems = productData.filter(item => item?.removed);
@@ -175,8 +197,8 @@ const CheckOut = () => {
     // Function to fetch authentication token
     const fetchAuthToken = async () => {
       const data = {
-        login: import.meta.env.VITE_COLISSIMO_LOGIN,
-        password: import.meta.env.VITE_COLISSIMO_PASSWORD,
+        login: authCtx.societeConfig?.find(item => item.config_module_nomtech === "colissimo_username")?.valeur,
+        password: colisssimopass,
       };
   
       try {
@@ -826,11 +848,8 @@ const CheckOut = () => {
     }
   }, [totalAmt]);
 
-  const stripePromise = loadStripe(
-    `pk_test_51Nu98ME6k93Bb6mWMQsVFcHPpzFuXN92URPblTVJXAmLC0yPWLoS6omx9CPEASH4oQRJafTkgZC9gkZvGLNaUzap00bQZl4Qr5`
-  );
+  const stripePromise = loadStripe(stripePublishableKey);
   
-
   const CheckOutHandler = async () => {
     if (!user.defaultAdd) {
       toast.error(`${language === 'eng' ? "Please add a default Address." : "Veuillez ajouter une adresse par défaut."}`, {
@@ -913,8 +932,6 @@ const CheckOut = () => {
             payment_method_id: 41,
             rate: authCtx.currencyRate,
         };
-        console.log(requestData);
-        console.log(requestData1);
         if (userCoupon.length > 0) {
           requestData.user_coupon_id = userCoupon[0].id;
           requestData1.user_coupon_id = userCoupon[0].id;

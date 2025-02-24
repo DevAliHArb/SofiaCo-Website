@@ -31,6 +31,7 @@ const style = {
 
 const AccountDetails = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const userInfo = useSelector((state) => state.products.userInfo);
   const [modelOpen, setmodelOpen] = React.useState(false);
   const handlemodelOpen = () => setmodelOpen(true);
@@ -604,6 +605,7 @@ const AccountDetails = () => {
               {language === "eng" ? "Change Password" : "Modifier le mot de passe"}
               </Button>
           </div>
+          <p className={classes.deleteLink} onClick={()=>navigate(`/account/delete-account`)}>{data.AccountProfilePage.DeleteAccount.title[language]}</p>
         </Form>
           { modelOpen &&
             <Form

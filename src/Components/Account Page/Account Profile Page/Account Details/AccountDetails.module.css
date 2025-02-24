@@ -192,6 +192,19 @@
   margin-top: 1em;
 }
 
+.deleteLink{
+  width: fit-content;
+  color: #fff ;
+  transition: all 0.5s ease;
+  font-size: calc(.7rem + 0.3vw);
+  font-family: var(--font-family);
+  cursor: pointer;
+  text-decoration: underline;
+}
+.deleteLink:hover{
+  color: var(--secondary-color) ;
+}
+
 @media screen and (max-width: 950px) {
   .AccountDetailsContainer {
     margin-bottom: 0;

@@ -707,7 +707,7 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
       {selectedOrder?.tracking_number && <div style={{display:'flex',flexDirection:'row',flexWrap:"wrap",border:'none',marginTop:'1em'}}className={classes.adressCard}>
             <p style={{color:'#EEBA7F',fontSize:"calc(.9rem + .3vw)",fontWeight:"600"}}> {language === 'eng' ? "Tracking number" : "Numéro de suivi"}:{' '}</p>
             <p style={{fontSize:"calc(.9rem + .3vw)",paddingLeft:'.3em',paddingRight:'1em',color:'var(--accent-color)'}}>{selectedOrder?.tracking_number}</p>
-            <p style={{color:'#EEBA7F',fontSize:"calc(.9rem + .3vw)",textDecoration:'underline', cursor:'pointer',color:'var(--accent-color)'}}
+            <p style={{fontSize:"calc(.9rem + .3vw)",textDecoration:'underline', cursor:'pointer',color:'var(--accent-color)'}}
                   onClick={() => {if (selectedOrder.tracking_link) {
                     window.open(selectedOrder.tracking_link, '_blank')
                   } }}>{language === 'eng' ? "See the details" : "Voir les détails"}</p>

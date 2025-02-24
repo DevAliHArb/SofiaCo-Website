@@ -234,6 +234,9 @@
       display: none;
     }
 
+    .collab_title{
+      color: #fff !important;
+    }
     .content{
       grid-template-columns: 100%;
     }
