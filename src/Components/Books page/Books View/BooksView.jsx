@@ -807,8 +807,8 @@ const BooksView = ({carttoggle}) => {
               <div className={classes.dropdown}
                   style={{  margin:'1em auto ' }}>
                <CollaboratorTreeNode title="Authors" isExpanded={expandedNodes.authors} setIsExpanded={() => handleExpand('authors')}  collaborators={authors} fieldName="author"  searchQuery={(props)=>dispatch(addSearchData({author: props.nom}))}/>
-                          <CollaboratorTreeNode title="Translators" isExpanded={expandedNodes.translators} setIsExpanded={() => handleExpand('translators')} collaborators={translators} fieldName="translator" searchQuery={(props)=>dispatch(addSearchData({traducteur: props.nom}))} />
-                          <CollaboratorTreeNode title="Illustrators" isExpanded={expandedNodes.illustrators} setIsExpanded={() => handleExpand('illustrators')} collaborators={illustrators} fieldName="illustrator" searchQuery={(props)=>dispatch(addSearchData({author: props.nom}))} />
+                          <CollaboratorTreeNode title="Translators" isExpanded={expandedNodes.translators} setIsExpanded={() => handleExpand('translators')} collaborators={translators} fieldName="traducteur" searchQuery={(props)=>dispatch(addSearchData({traducteur: props.nom}))} />
+                          <CollaboratorTreeNode title="Illustrators" isExpanded={expandedNodes.illustrators} setIsExpanded={() => handleExpand('illustrators')} collaborators={illustrators} fieldName="illustrateur" searchQuery={(props)=>dispatch(addSearchData({illustrateur: props.nom}))} />
                           <CollaboratorTreeNode title="Editors" isExpanded={expandedNodes.editors} setIsExpanded={() => handleExpand('editors')} collaborators={editors} fieldName="editor" searchQuery={(props)=>dispatch(addSearchData({editor: props.nom}))} />
                      </div>
           </div>
@@ -1034,11 +1034,11 @@ const BooksView = ({carttoggle}) => {
           <h2>{language === 'eng' ? "Collaborators" : "Collaborateurs"}</h2>
               <div className={classes.dropdown}
                   style={{  margin:'1em auto ' }}>
-               <CollaboratorTreeNode title="Authors" isExpanded={expandedNodes.authors} setIsExpanded={() => handleExpand('authors')}  collaborators={authors} fieldName="author"  searchQuery={(props)=>dispatch(addSearchData({author: props.nom}))}/>
-                          <CollaboratorTreeNode title="Translators" isExpanded={expandedNodes.translators} setIsExpanded={() => handleExpand('translators')} collaborators={translators} fieldName="translator" searchQuery={(props)=>dispatch(addSearchData({traducteur: props.nom}))} />
-                          <CollaboratorTreeNode title="Illustrators" isExpanded={expandedNodes.illustrators} setIsExpanded={() => handleExpand('illustrators')} collaborators={illustrators} fieldName="illustrator" searchQuery={(props)=>dispatch(addSearchData({author: props.nom}))} />
+                <CollaboratorTreeNode title="Authors" isExpanded={expandedNodes.authors} setIsExpanded={() => handleExpand('authors')}  collaborators={authors} fieldName="author"  searchQuery={(props)=>dispatch(addSearchData({author: props.nom}))}/>
+                          <CollaboratorTreeNode title="Translators" isExpanded={expandedNodes.translators} setIsExpanded={() => handleExpand('translators')} collaborators={translators} fieldName="traducteur" searchQuery={(props)=>dispatch(addSearchData({traducteur: props.nom}))} />
+                          <CollaboratorTreeNode title="Illustrators" isExpanded={expandedNodes.illustrators} setIsExpanded={() => handleExpand('illustrators')} collaborators={illustrators} fieldName="illustrateur" searchQuery={(props)=>dispatch(addSearchData({illustrateur: props.nom}))} />
                           <CollaboratorTreeNode title="Editors" isExpanded={expandedNodes.editors} setIsExpanded={() => handleExpand('editors')} collaborators={editors} fieldName="editor" searchQuery={(props)=>dispatch(addSearchData({editor: props.nom}))} />
-                     </div>
+                      </div>
           </div>
 
           <Divider  
