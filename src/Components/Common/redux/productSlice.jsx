@@ -395,7 +395,33 @@ export const productSlice = createSlice({
           
     },
     addSearchData: (state, action) => {
-      state.searchData[0] = { ...state.searchData[0], ...action.payload }; // Merge the new data into the existing object at index 0
+      if (state.searchData.length > 0) {
+          const key = Object.keys(action.payload)[0]; // Get the first key dynamically
+          const value = action.payload[key];
+          
+          let existingValues = 
+          typeof state.searchData[0][key] === "string" 
+              ? state.searchData[0][key].split("; ") 
+              : [];
+
+          if (existingValues.includes(value)) {
+              // Remove the value if it exists
+              existingValues = existingValues.filter(item => item !== value);
+          } else {
+              // Add the value if it doesn't exist
+              existingValues.push(value);
+          }
+  
+          // Update state: Add back if values exist, remove the key if empty
+          if (existingValues.length > 0) {
+              state.searchData[0] = { ...state.searchData[0], [key]: existingValues.join("; ") };
+          } else {
+              delete state.searchData[0][key];
+          }
+      } else {
+          // If the array is empty, add a new object
+          state.searchData.push(action.payload);
+      }
   },
 
     // Edit function for editing an existing search data item

@@ -227,6 +227,20 @@
   line-height: normal;
 }
 
+.checkbox {
+  appearance: none;
+  border: 1px solid var(--accent-color);
+  cursor: pointer;
+  border-radius: 0px;
+  position: relative;
+  background-color: white;
+  width: 1.4em !important;
+  height: 1.3em !important;
+}
+
+.checkbox:checked {
+  background-color: var(--secondary-color); /* Prevents tick from appearing */
+}
 
 
   @media screen and (max-width:950px) {

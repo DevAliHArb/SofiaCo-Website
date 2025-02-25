@@ -179,9 +179,15 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
       finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Author: ${searchData[0]?.author}` : `Auteur: ${searchData[0]?.author}`);
     }
     
-  
-    const storedCollection = localStorage.getItem("collection");
-    if (storedCollection && storedCollection !== 'all') {
+    if (searchData[0]?.traducteur) {
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Translator: ${searchData[0]?.traducteur}` : `Traducteur: ${searchData[0]?.traducteur}`);
+    }
+    if (searchData[0]?.illustrateur) {
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Illustrator: ${searchData[0]?.illustrateur}` : `Illustrateur: ${searchData[0]?.illustrateur}`);
+    }
+    
+    const storedCollection = JSON.parse(localStorage.getItem("collections")) || [];
+    if (storedCollection && storedCollection?.length > 0) {
       finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Collection: ${storedCollection}` : `Collection: ${storedCollection}`);
     }
 

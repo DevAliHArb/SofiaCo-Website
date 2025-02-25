@@ -58,26 +58,35 @@ const BooksView = ({carttoggle}) => {
 
 
   const changechemin = async () => {
-    try {
-      const storedCategory = localStorage.getItem("category");
-      
-      if (storedCategory) {
-        // Fetch category path data from the backend API
-      const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/categories/${storedCategory}`
-      ); // Adjust the URL as per your backend API
-      const categoryPath = response.data.data.chemin; // Assuming the response contains the category path
+    const storedCategories =
+      JSON.parse(localStorage.getItem("categories")) || [];
 
-      // Update the state with the category path
-      setCatChemin(categoryPath);
-      } else{
-        setCatChemin('')
+    if (storedCategories.length > 0) {
+      try {
+        // Fetch category paths for all selected categories
+        const responses = await Promise.all(
+          storedCategories.map((categoryId) =>
+            axios.get(
+              `${import.meta.env.VITE_TESTING_API}/categories/${categoryId}`
+            )
+          )
+        );
+
+        // Extract paths from the responses
+        const categoryPaths = responses.map(
+          (response) => response.data.data.chemin
+        );
+
+        // Update the state with the category paths
+        setCatChemin(categoryPaths.join("; ")); // Adjust how you display multiple paths
+      } catch (error) {
+        console.error("Error fetching category paths:", error);
+        // Handle error appropriately
       }
-    } catch (error) {
-      // console.error("Error fetching category path:", error);
-      // Handle error appropriately
+    } else {
+      setCatChemin(""); // Reset if no category is selected
     }
-  }
+  };
 
   function TreeNode({ data, level, fetchArticles, color }) {
     const [isExpanded, setIsExpanded] = useState(
@@ -94,36 +103,28 @@ const BooksView = ({carttoggle}) => {
       event.stopPropagation();
       setIsOpen(false);
 
-     if (localStorage.getItem("category") === id.toString()) {
-    // If the clicked category is already selected, deselect it
-    localStorage.removeItem("category"); // Clear the selected category from local storage
-    // Dispatch the action to clear the search data
-    dispatch(editSearchData({ category: null }));
-    setArticles([]); // Clear the articles list
-    fetchArticles(selectedRate,null, null, 1);
-    setCatChemin("");// Fetch articles with no category
-    changechemin();
-    return; // Exit early as the category was deselected
-  }
+      // Retrieve the existing categories from localStorage (or initialize an empty array)
+      let storedCategories =
+        JSON.parse(localStorage.getItem("categories")) || [];
 
-      const clickedCategory = authCtx.categories.find(
-        (category) => category.id === id
-      );
-
-      if (clickedCategory) {
-        // Create the new search data array
-        const newCategoryData = { category: id };
-
-        localStorage.setItem("category", id);
-        // Dispatch the action to edit the search data
-        dispatch(addSearchData(newCategoryData));
-        setIsExpanded(!isExpanded);
-        // Fetch articles with the new category ID
-        // fetchArticles(null, id);
-        setArticles([])
-        fetchArticles(selectedRate,null, null, 1);
-        changechemin()
+      if (storedCategories.includes(id)) {
+        // If the clicked category is already selected, remove it
+        storedCategories = storedCategories.filter((catId) => catId !== id);
+      } else {
+        // Otherwise, add the new category
+        storedCategories.push(id);
       }
+
+      // Update localStorage
+      localStorage.setItem("categories", JSON.stringify(storedCategories));
+
+      // Dispatch action to update search data with the updated category list
+      dispatch(addSearchData({ category: storedCategories }));
+
+      setIsExpanded(!isExpanded);
+      setArticles([]); // Clear previous articles
+      // fetchArticles(selectedDate, 1);
+      changechemin();
     };
 
     const toggleNode = () => {
@@ -145,11 +146,11 @@ const BooksView = ({carttoggle}) => {
       fontSize = "calc(0.5rem + 0.3vw)";
     }
     
-    const storedCategory = localStorage.getItem("category");
+    const storedCategories = JSON.parse(localStorage.getItem("categories")) || [];
     return (
       <div
         style={{
-          paddingLeft: level === 0 ? "0" : `${level == 1 ? "3em" : "1.5em"}`,
+          paddingLeft: level === 0 ? "0" : level === 1 ? "1.5em" : "2em",
           margin: "0.5em 0",
         }}
       >
@@ -158,17 +159,28 @@ const BooksView = ({carttoggle}) => {
             color: isExpanded ? "var(--primary-color)" : color,
             fontSize:
               level === 0 ? "calc(0.8rem + 0.3vw)" : "calc(0.7rem + 0.3vw)",
-              display:'flex'
+              display:'flex',
+              flexDirection: "row",
           }}
         >
-          {level !== 2 && <KeyboardArrowRightOutlinedIcon  style={{ transform: isExpanded ? 'rotate(90deg)' : 'none' }} onClick={toggleNode} className={classes.listBox} />}
-          <p
+{level !== 2 && <KeyboardArrowRightOutlinedIcon  style={{ transform: isExpanded ? 'rotate(90deg)' : 'none', margin: "auto 0", }} onClick={toggleNode} className={classes.listBox} />}
+          <input
+            type="checkbox"
+            checked={storedCategories.includes(data.id)}
+            className={classes.checkbox}
+            style={{
+              marginRight: "5px",
+              width: "1.3em",
+              height: "1.3em",
+              marginLeft: "3px",
+            }}
+          />          <p
             style={{ 
               margin: "0", 
               width:'100%',
               display: "flex", 
               cursor: "pointer",
-              background: storedCategory && storedCategory === data.id.toString() ? 'var(--authbg-color)' : 'transparent'
+              background: "transparent",
             }}
             onClick={(event) => handleChildClick(data.id, event)}
           >
@@ -190,78 +202,165 @@ const BooksView = ({carttoggle}) => {
       </div>
     );
   }
+ 
+  
+  const initialState = {
+    authors: false,
+    translators: false,
+    illustrators: false,
+    editors: false,
+  };
 
-  
-const initialState = {
-  authors: false,
-  translators: false,
-  illustrators: false,
-  editors: false,
-};
+  const getStoredExpansionState = () => {
+    const storedState = localStorage.getItem("expandedNodes");
+    return storedState ? JSON.parse(storedState) : initialState;
+  };
 
-const getStoredExpansionState = () => {
-  const storedState = localStorage.getItem("expandedNodes");
-  return storedState ? JSON.parse(storedState) : initialState;
-};
+  const [expandedNodes, setExpandedNodes] = useState(getStoredExpansionState());
 
-const [expandedNodes, setExpandedNodes] = useState(getStoredExpansionState());
-
-useEffect(() => {
-  localStorage.setItem("expandedNodes", JSON.stringify(expandedNodes));
-}, [expandedNodes]);
-
-const handleExpand = (fieldName) => {
-  setExpandedNodes((prev) => {
-    const newState = {
-      ...prev,
-      [fieldName]: !prev[fieldName], // Toggle only the selected node
-    };
-    localStorage.setItem("expandedNodes", JSON.stringify(newState)); // Save immediately
-    return newState;
-  });
-};
-  function CollaboratorTreeNode({ title, collaborators , searchQuery,isExpanded,  setIsExpanded}) {
-  
-    const toggleNode = () => {
-      const newState = !isExpanded;
-      setIsExpanded(newState);
-      // Save the expanded state to localStorage
-      localStorage.setItem(`${title}_isExpanded`, JSON.stringify(newState));
-    };
-  
-    const handleCollaboratorClick = (collaborator, e) => {
-      e.stopPropagation(); // Prevent bubbling to the node toggler
-      searchQuery(collaborator); // Trigger the search query
-    };
-  
-  
-    return (
-      <div >
-        <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={toggleNode}>
-          <KeyboardArrowRightOutlinedIcon  style={{ transform: isExpanded ? 'rotate(90deg)' : 'none' }} />
-          <h3  style={{ marginLeft: '0.5em',marginTop:'0.3em',marginBottom:'0.3em',color:"var(--secondary-color)" }} className={classes.collab_title}>{title}</h3>
-        </div>
-  
-        {isExpanded && (
-          <div style={{maxHeight: "200px",height:'fit-content', overflowY: "scroll", paddingLeft: '2em' }}>
-            {collaborators.map((collaborator) => (
-              <p  style={{ 
-                margin: "0 0 .5em 0", 
-                width:'100%',
-                display: "flex", 
-                cursor: "pointer",
-                background: ((searchData[0]?.author && searchData[0]?.author === collaborator.nom) || (searchData[0]?.editor && searchData[0]?.editor === collaborator.nom) || (searchData[0]?.traducteur && searchData[0]?.traducteur === collaborator.nom) ) ? 'var(--authbg-color)' : 'transparent'
-              }} key={collaborator.id} onClick={(e) => handleCollaboratorClick(collaborator, e)}>{collaborator.nom}</p>
-            ))}
-          </div>
-        )}
-      </div>
-    );
-  }
-  
   useEffect(() => {
-    changechemin()
-  },[searchData[0]?.category])
+    localStorage.setItem("expandedNodes", JSON.stringify(expandedNodes));
+  }, [expandedNodes]);
+
+  const handleExpand = (fieldName) => {
+    setExpandedNodes((prev) => {
+      const newState = {
+        ...prev,
+        [fieldName]: !prev[fieldName], // Toggle only the selected node
+      };
+      localStorage.setItem("expandedNodes", JSON.stringify(newState)); // Save immediately
+      return newState;
+    });
+  };
+
+  const CollaboratorTreeNode = React.memo(
+    ({
+      title,
+      collaborators,
+      searchQuery,
+      fieldName,
+      isExpanded,
+      setIsExpanded,
+    }) => {
+      const dispatch = useDispatch();
+      const selectedCollaborators = searchData[0]?.[fieldName] || "";
+
+      const toggleNode = () => {
+        const newState = !isExpanded;
+        setIsExpanded(newState);
+        // Save the expanded state to localStorage
+        localStorage.setItem(`${title}_isExpanded`, JSON.stringify(newState));
+      };
+
+      const handleCollaboratorClick = (collaborator, e) => {
+        e.stopPropagation(); // Stop the event from bubbling up to the parent div (which triggers toggleNode)
+        searchQuery(collaborator); // Trigger the search query
+      };
+
+      const isCollaboratorSelected = (collaboratorNom) => {
+        // Trim spaces from both the stored string and the collaborator name before checking inclusion
+        const trimmedSelectedCollaborators = selectedCollaborators
+          .split(";")
+          .map((nom) => nom.trim());
+        const trimmedCollaboratorNom = collaboratorNom.trim();
+
+        return trimmedSelectedCollaborators.includes(trimmedCollaboratorNom);
+      };
+
+      // Sort collaborators alphabetically and remove leading spaces
+      const sortedCollaborators = collaborators
+        .map((collaborator) => ({
+          ...collaborator, // Ensure we're not mutating the original array
+          nom: collaborator.nom.trim(), // Remove leading/trailing spaces
+        }))
+        .sort((a, b) => a.nom.localeCompare(b.nom));
+
+      return (
+        <div>
+          <div
+            style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+            onClick={toggleNode}
+          >
+            <KeyboardArrowRightOutlinedIcon
+              style={{
+                transform: isExpanded ? "rotate(90deg)" : "none",
+                color: "var(--primary-color)",
+              }}
+            />
+            <h3
+              style={{
+                marginTop: "0.3em",
+                marginBottom: "0.3em",
+                color: "var(--primary-color)",
+                fontSize: "calc(0.8rem + 0.3vw)",
+                fontWeight: "700",
+              }}
+            >
+              {title}
+            </h3>
+          </div>
+
+          {isExpanded && (
+            <div
+              style={{
+                maxHeight: "200px",
+                height: "fit-content",
+                overflowY: "scroll",
+                paddingLeft: "2em",
+              }}
+            >
+              {sortedCollaborators.map((collaborator) => {
+                const isChecked = isCollaboratorSelected(collaborator.nom);
+
+                return (
+                  <div
+                    key={collaborator.id}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginBottom: "0.5em",
+                    }}
+                    onClick={(e) => handleCollaboratorClick(collaborator, e)}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={isChecked}
+                      className={classes.checkbox}
+                      style={{
+                        marginRight: "3px",
+                        width: "1.3em",
+                        height: "1.3em",
+                      }}
+                    />
+                    <p
+                      style={{
+                        margin: "auto 0 auto 5%",
+                        width: "92%",
+                        display: "flex",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {collaborator.nom}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      );
+    }
+  );
+
+  const storedCategory = localStorage.getItem("categories");
+  const storedCollec = localStorage.getItem("collections");
+  useEffect(() => {
+    changechemin();
+  }, [searchData[0]?.category, storedCategory, storedCollec]);
+
+  useEffect(() => {
+    fetchArticles(null, null, null, 1);
+  }, [searchData[0], storedCategory, storedCollec]);
 
   useEffect(() => {
     if (Array.isArray(authCtx.categories)) {
@@ -287,10 +386,6 @@ const handleExpand = (fieldName) => {
       // );
     }
   }, [authCtx.categories]);
-
-  useEffect(() => {
-    fetchArticles(null, null, null, 1);
-  }, [searchData[0]]);
   
   useEffect(() => {
     const collection = localStorage.getItem('collection');
@@ -309,20 +404,20 @@ const handleExpand = (fieldName) => {
         ? `&title=${searchData[0].title}`
         : "";
 
-      const selectedauthorParam = searchData[0]?.author
-        ? `&author=${searchData[0].author}`
-        : "";
-
-      const selectedcollectionParam = searchData[0]?.collection
-        ? `&collection=${searchData[0].collection}`
-        : "";
-
-      const selectededitorParam = searchData[0]?.editor
-        ? `&editor=${searchData[0].editor}`
+        const selectedauthorParam = searchData[0]?.author
+        ? "&" + searchData[0].author.split("; ").map(value => `author[]=${encodeURIComponent(value)}`).join("&")
+        : "";   
+  
+        const selectededitorParam = searchData[0]?.editor
+        ? "&" + searchData[0].editor.split("; ").map(value => `editor[]=${encodeURIComponent(value)}`).join("&")
         : "";
 
       const selectedtraducteurParam = searchData[0]?.traducteur
-        ? `&traducteur=${searchData[0].traducteur}`
+      ? "&" + searchData[0].traducteur.split("; ").map(value => `traducteur[]=${encodeURIComponent(value)}`).join("&")
+        : "";
+
+        const selectedillustrateurParam = searchData[0]?.illustrateur
+        ? "&" + searchData[0].illustrateur.split("; ").map(value => `illustrateur[]=${encodeURIComponent(value)}`).join("&")
         : "";
 
         
@@ -343,10 +438,25 @@ const handleExpand = (fieldName) => {
 
         const Pagenum = page ? `page=${page}`: 'page=1'
 
-      const storedCategory = localStorage.getItem("category");
-      const selectedCatParam = storedCategory
-        ? `&category=${storedCategory}`
-        : ``;
+      // Get the category from localStorage if available
+      const storedCollection =
+      JSON.parse(localStorage.getItem("collections")) || [];
+    const selectedCollecParam =
+      storedCollection.length > 0
+        ? `&` +
+          storedCollection
+            .map((collecId) => `collection[]=${collecId}`)
+            .join("&")
+        : "";
+
+    const storedCategories =
+      JSON.parse(localStorage.getItem("categories")) || [];
+    const selectedCatParam =
+      storedCategories.length > 0
+        ? `&` +
+          storedCategories.map((catId) => `category[]=${catId}`).join("&")
+        : "";
+
         
         const storedInStock= localStorage.getItem("stock");
         const selectedStockParam = storedInStock
@@ -367,9 +477,6 @@ const handleExpand = (fieldName) => {
       ? `&_code_barre=${searchData[0].ean}`
       : "";
 
-        const selectedCollectionParam = collectionId && collectionId !== 'all'
-        ? `&collection=${collectionId}`
-        : ``;
 
         const storedRate = localStorage.getItem("rate");
         const selectedRateParam = storedRate && storedRate !== 0
@@ -377,8 +484,7 @@ const handleExpand = (fieldName) => {
         : ``;
 
       // Finalize the URL by combining all parameters
-      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedCollectionParam}${selectedStockParam}${selectedDiscount}${selectedEANParam}${selectedResumeParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedcollectionParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}&ecom_type=sofiaco`;
-      console.log('test',finalUrl);
+      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedillustrateurParam}${selectedCollecParam}${selectedStockParam}${selectedDiscount}${selectedEANParam}${selectedResumeParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}&ecom_type=sofiaco`;
       // Fetch articles using the finalized URL
       const response = await axios.get(finalUrl);
 
@@ -494,7 +600,8 @@ const handleExpand = (fieldName) => {
     setisdiscount(null);
     localStorage.removeItem("discount");
     localStorage.removeItem("stock");
-    localStorage.removeItem("category");
+    localStorage.removeItem("categories");
+    localStorage.removeItem("collections");
     localStorage.removeItem("rate");
     localStorage.removeItem("min_price");
     localStorage.removeItem("max_price");
@@ -549,17 +656,6 @@ const handleExpand = (fieldName) => {
     // Close the modal or dialog
     setIsOpen(false);
   };
-  
-
-  
-  const handleChangeCollection = (event) => {
-    const newSelectedCollection = event.target.value;
-    localStorage.removeItem("category");
-    setCatChemin("");
-    setSelectedCollection(newSelectedCollection);
-    // Call fetchArticles function with the new selectedDate
-    fetchArticles(0, newSelectedCollection, null, 1);
-  };
 
   
   const handleChangeRate = (event) => {
@@ -568,6 +664,39 @@ const handleExpand = (fieldName) => {
     localStorage.setItem("rate", newSelectedRate);
     // Call fetchArticles function with the new selectedDate
     fetchArticles(newSelectedRate, null, null, 1);
+  };
+
+  const handleChangeCollection = (event) => {
+    const newSelectedCollection = event;
+
+    // Retrieve and parse stored collections (ensure it's an array)
+    let storedCollec = JSON.parse(localStorage.getItem("collections")) || [];
+
+    if (storedCollec.includes(newSelectedCollection)) {
+      // If already selected, remove it
+      storedCollec = storedCollec.filter(
+        (col) => col !== newSelectedCollection
+      );
+    } else {
+      // Otherwise, add the new collection
+      storedCollec.push(newSelectedCollection);
+    }
+
+    // Update localStorage with the new collections array
+    localStorage.setItem("collections", JSON.stringify(storedCollec));
+
+    // Dispatch action to update search data
+
+    setArticles([]); // Reset articles
+  };
+
+  // Retrieve stored collections as an array
+  const selectedCollections =
+    JSON.parse(localStorage.getItem("collections")) || [];
+
+  // Function to check if a collection is selected
+  const isCollectionSelected = (collectionNom) => {
+    return selectedCollections.includes(collectionNom?.trim());
   };
 
   const mapSubparentsToParents = () => {
@@ -622,6 +751,56 @@ const handleExpand = (fieldName) => {
         />
 
         
+<div className={classes.categories}>
+            <h2 onClick={()=>console.log(authCtx.collections)}>{language === "eng" ? "Collections" : "Collections"}</h2>
+              <div className={classes.dropdown}
+                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+                
+                {authCtx?.collections?.map((collection) => {
+                    const isChecked = isCollectionSelected(collection.nom);
+
+                    return (
+                      <div
+                        key={collection.id}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          marginBottom: "0.5em",
+                        }}
+                        onClick={(e) => handleChangeCollection(collection.nom)}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          className={classes.checkbox}
+                          style={{
+                            marginRight: "0px",
+                            width: "1.3em",
+                            height: "1.3em",
+                          }}
+                        />
+                        <p
+                          style={{
+                            margin: "auto 0 auto 2%",
+                            width: "92%",
+                            display: "flex",
+                            cursor: "pointer", 
+                            color: "var(--secondary-color)" 
+                          }}
+                        >
+                          {collection.nom}
+                        </p>
+                      </div>
+                    );
+                  })}
+              </div>
+          </div>
+
+          <Divider  
+          color="var(--secondary-color)"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
           
 <div className={classes.categories}>
             <h2>{language === 'eng' ? "Collaborators" : "Collaborateurs"}</h2>
@@ -793,6 +972,56 @@ const handleExpand = (fieldName) => {
               </div>
           </div>
 
+          <Divider  
+          color="var(--secondary-color)"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
+
+          <div className={classes.categories}>
+            <h2 onClick={()=>console.log(authCtx.collections)}>{language === "eng" ? "Collections" : "Collections"}</h2>
+              <div className={classes.dropdown}
+                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+                
+                {authCtx?.collections?.map((collection) => {
+                    const isChecked = isCollectionSelected(collection.nom);
+
+                    return (
+                      <div
+                        key={collection.id}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          marginBottom: "0.5em",
+                        }}
+                        onClick={(e) => handleChangeCollection(collection.nom)}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          className={classes.checkbox}
+                          style={{
+                            marginRight: "0px",
+                            width: "1.3em",
+                            height: "1.3em",
+                          }}
+                        />
+                        <p
+                          style={{
+                            margin: "auto 0 auto 2%",
+                            width: "92%",
+                            display: "flex",
+                            cursor: "pointer", 
+                            color: "var(--secondary-color)" 
+                          }}
+                        >
+                          {collection.nom}
+                        </p>
+                      </div>
+                    );
+                  })}
+              </div>
+          </div>
 
           <Divider  
           color="var(--secondary-color)"
