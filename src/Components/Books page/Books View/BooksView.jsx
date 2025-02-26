@@ -50,7 +50,7 @@ const BooksView = ({carttoggle}) => {
   const [changepricetoggle, setchangePricetoggle] = useState(false);
   const [totalArticlesNumber, setTotalArticlesNumber] = useState(null);
   const [inStock, setinStock] = useState(localStorage.getItem("stock") || null);
-  const [isdiscount, setisdiscount] = useState(localStorage.getItem("discount") || null);
+  const [isdiscount, setisdiscount] = useState(localStorage.getItem("discount") || []);
   const authors = authCtx.collaborators?.filter((collaborator) => collaborator.type.name_fr === 'auteur');
   const translators = authCtx.collaborators?.filter((collaborator) => collaborator.type.name_fr === 'traducteur');
   const illustrators = authCtx.collaborators?.filter((collaborator) => collaborator.type.name_fr === 'illustrateur');
@@ -281,17 +281,15 @@ const BooksView = ({carttoggle}) => {
             style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
             onClick={toggleNode}
           >
-            <KeyboardArrowRightOutlinedIcon
+            <KeyboardArrowRightOutlinedIcon className={classes.collabTreeColor}
               style={{
                 transform: isExpanded ? "rotate(90deg)" : "none",
-                color: "var(--primary-color)",
               }}
             />
-            <h3
+            <h3 className={classes.collabTreeColor}
               style={{
                 marginTop: "0.3em",
                 marginBottom: "0.3em",
-                color: "var(--primary-color)",
                 fontSize: "calc(0.8rem + 0.3vw)",
                 fontWeight: "700",
               }}
@@ -463,10 +461,20 @@ const BooksView = ({carttoggle}) => {
           ? `&in_stock=${storedInStock}`
           : ``;
         
-          const storedInDiscount = localStorage.getItem("discount");
-          const selectedDiscount = storedInDiscount !== null && storedInDiscount !== "null"
-            ? `&editor_discount=${storedInDiscount}`
-            : ``;
+          // const storedInDiscount = localStorage.getItem("discount");
+          // const selectedDiscount = storedInDiscount !== null && storedInDiscount !== "null"
+          //   ? `&editor_discount=${storedInDiscount}`
+          //   : ``;
+            
+      const storedInDiscount =
+      JSON.parse(localStorage.getItem("discount")) || [];
+    const selectedDiscount =
+    storedInDiscount.length > 0
+        ? `&` +
+        storedInDiscount
+            .map((collecId) => `editor_discount[]=${collecId}`)
+            .join("&")
+        : "";
 
           
       const selectedResumeParam = searchData[0]?.resume
@@ -531,15 +539,22 @@ const BooksView = ({carttoggle}) => {
   };
 
   const handleDiscountChange = (event) => {
-    const newDiscountValue = event.target.value;
-    console.log(newDiscountValue);
-    if (newDiscountValue) {
-      setisdiscount(newDiscountValue);
-      localStorage.setItem("discount", newDiscountValue);
+    const newDiscountValue = event;
+
+    // Retrieve and parse stored collections (ensure it's an array)
+    let storedCollec = JSON.parse(localStorage.getItem("discount")) || [];
+
+    if (storedCollec.includes(newDiscountValue)) {
+      // If already selected, remove it
+      storedCollec = storedCollec.filter(
+        (col) => col !== newDiscountValue
+      );
     } else {
-      setisdiscount(null);
-    localStorage.setItem("discount", null);
+      // Otherwise, add the new collection
+      storedCollec.push(newDiscountValue);
     }
+    setisdiscount(storedCollec)
+    localStorage.setItem("discount", JSON.stringify(storedCollec));
     fetchArticles(null, null, null, 1);
   };
 
@@ -597,7 +612,7 @@ const BooksView = ({carttoggle}) => {
     setSelectedCollection("all");
     setSelectedRate(0)
     setinStock(null);
-    setisdiscount(null);
+    setisdiscount([]);
     localStorage.removeItem("discount");
     localStorage.removeItem("stock");
     localStorage.removeItem("categories");
@@ -698,6 +713,9 @@ const BooksView = ({carttoggle}) => {
   const isCollectionSelected = (collectionNom) => {
     return selectedCollections.includes(collectionNom?.trim());
   };
+  const isDiscountSelected = (discount) => {
+    return isdiscount?.includes(discount);
+  };
 
   const mapSubparentsToParents = () => {
     return parents.map((parent) => {
@@ -745,7 +763,7 @@ const BooksView = ({carttoggle}) => {
 
 
           <Divider  
-          color="var(--secondary-color)"
+          color="#fff"
           width="88%"
           style={{margin:'0.5em auto'}}
         />
@@ -785,7 +803,7 @@ const BooksView = ({carttoggle}) => {
                             width: "92%",
                             display: "flex",
                             cursor: "pointer", 
-                            color: "var(--secondary-color)" 
+                            color: "#fff" 
                           }}
                         >
                           {collection.nom}
@@ -797,7 +815,7 @@ const BooksView = ({carttoggle}) => {
           </div>
 
           <Divider  
-          color="var(--secondary-color)"
+          color="#fff"
           width="88%"
           style={{margin:'0.5em auto'}}
         />
@@ -857,38 +875,50 @@ const BooksView = ({carttoggle}) => {
           width="88%"
           style={{margin:'0.5em auto'}}
         />
-          <div className={classes.categories}>
+        {authCtx?.remiseCatalogues?.length > 0 && <div className={classes.categories}>
             <h2>Discount</h2>
               <div className={classes.dropdown}>
-              <FormControl>
-                  <RadioGroup
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue='all'
-                    value={isdiscount}
-                    name="radio-buttons-group"
-                    onChange={handleDiscountChange}
-                  >
-                    <FormControlLabel
-                      value={null}
-                      control={
-                        <Radio style={{color:'#fff'}} />
-                      }
-                      label='All'
-                    />
-                    <FormControlLabel
-                      value={true}
-                      control={<Radio style={{color:'#fff'}}/>}
-                      label={language === 'eng' ? "Discounted Items" : "Articles Soldés" } // Make sure item.nom is a string
-                    />
-                    <FormControlLabel
-                      value={false}
-                      control={<Radio style={{color:'#fff'}}/>}
-                      label={language === 'eng' ? "Non-Discounted Items" : "Articles Non Actualisés" } // Make sure item.nom is a string
-                    />
-                  </RadioGroup>
-                </FormControl>
+                
+              {authCtx.remiseCatalogues?.map((discount) => {
+                    const isChecked = isDiscountSelected(discount);
+
+                    return (
+                      <div
+                        key={discount}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          marginBottom: "0.5em",
+                        }}
+                        onClick={(e) => handleDiscountChange(discount)}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          className={classes.checkbox}
+                          style={{
+                            marginRight: "0px",
+                            width: "1.3em",
+                            height: "1.3em",
+                          }}
+                        />
+                        <p
+                          style={{
+                            margin: "auto 0 auto 2%",
+                            width: "92%",
+                            display: "flex",
+                            cursor: "pointer", 
+                            color: "#fff" 
+                          }}
+                        >
+                          {discount} % 
+                        </p>
+                      </div>
+                    );
+                  })}
               </div>
-          </div>
+          </div>} 
+
           <Divider  
           color="#fff"
           width="88%"
@@ -1022,7 +1052,7 @@ const BooksView = ({carttoggle}) => {
                   })}
               </div>
           </div>
-
+          
           <Divider  
           color="var(--secondary-color)"
           width="88%"
@@ -1079,17 +1109,55 @@ const BooksView = ({carttoggle}) => {
                   </RadioGroup>
                 </FormControl>
               </div>
+          </div>
           <Divider  
           color="var(--secondary-color)"
-          width="100%"
+          width="88%"
           style={{margin:'0.5em auto'}}
         />
-          </div>
           
-          <div className={classes.categories}>
+          {authCtx?.remiseCatalogues?.length > 0 && <div className={classes.categories}>
             <h2>Discount</h2>
               <div className={classes.dropdown}>
-              <FormControl>
+                
+              {authCtx.remiseCatalogues?.map((discount) => {
+                    const isChecked = isDiscountSelected(discount);
+
+                    return (
+                      <div
+                        key={discount}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          marginBottom: "0.5em",
+                        }}
+                        onClick={(e) => handleDiscountChange(discount)}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          className={classes.checkbox}
+                          style={{
+                            marginRight: "0px",
+                            width: "1.3em",
+                            height: "1.3em",
+                          }}
+                        />
+                        <p
+                          style={{
+                            margin: "auto 0 auto 2%",
+                            width: "92%",
+                            display: "flex",
+                            cursor: "pointer", 
+                            color: "var(--secondary-color)" 
+                          }}
+                        >
+                          {discount} % 
+                        </p>
+                      </div>
+                    );
+                  })}
+              {/* <FormControl>
                   <RadioGroup
                     aria-labelledby="demo-radio-buttons-group-label"
                     defaultValue='all'
@@ -1105,19 +1173,19 @@ const BooksView = ({carttoggle}) => {
                       label='All'
                     />
                     <FormControlLabel
-                      value={true}
+                      value={50}
                       control={<Radio style={{color:'var(--primary-color)'}}/>}
-                      label={language === 'eng' ? "Discounted Items" : "Articles Soldés" } // Make sure item.nom is a string
+                      label="50%" // Make sure item.nom is a string
                     />
                     <FormControlLabel
-                      value={false}
+                      value={10}
                       control={<Radio style={{color:'var(--primary-color)'}}/>}
-                      label={language === 'eng' ? "Non-Discounted Items" : "Articles Non Actualisés" } // Make sure item.nom is a string
+                      label="10%" // Make sure item.nom is a string
                     />
                   </RadioGroup>
-                </FormControl>
+                </FormControl> */}
               </div>
-          </div>
+          </div>}
 
           <Divider  
           color="var(--secondary-color)"
