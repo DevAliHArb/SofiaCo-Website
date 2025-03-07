@@ -31,6 +31,7 @@ const AuthContext = React.createContext({
   setMydocuments: () => {},
   fetchCategories: () => {},
   collections: [],
+  remiseCatalogues:[],
   setCollections: () => {},
   fetchCollections: () => {},
   themes: [],
@@ -76,6 +77,7 @@ export const AuthContextProvider = (props) => {
   const [mydocuments, setMydocuments] = useState([]);
   const [collaborators, setCollaborators] = useState([]);
   const [collections, setCollections] = useState([]);
+  const [remiseCatalogues, setremiseCatalogues] = useState([]);
   const [societeConfig, setSocieteConfig] = useState([]);
   const [themes, setThemes] = useState([]);
   const [currencyRate, setcurrencyRate] = useState(null);
@@ -206,8 +208,17 @@ const fetchArticles = async () => {
   };
   const fetchCollections = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/publishers?ecom_type=sofiaco`);
-      setCollections(response.data.data);
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/collections?ecom_type=sofiaco`);
+      setCollections(response.data);
+    } catch (error) {
+      // console.error('Error fetching collections:', error);
+    }
+  };
+
+  const fetchRemiseCatalogues = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/distinct-remise-catalogue?ecom_type=sofiaco`);
+      setremiseCatalogues(response.data);
     } catch (error) {
       // console.error('Error fetching collections:', error);
     }
@@ -677,6 +688,7 @@ const fetchArticles = async () => {
     fetchCategories();
     fetchCollaborators();
     fetchCollections();
+    fetchRemiseCatalogues();
     fetchThemes();
     fetchCompanySettings();
     fetchMyDocuments();
@@ -698,10 +710,11 @@ const fetchArticles = async () => {
     fetchCategories: fetchCategories,
     collaborators: collaborators,
     fetchCollaborators: fetchCollaborators,
-    collections: collections,
-    fetchCollections: fetchCollections,
+    collections,
+    fetchCollections,
     themes: themes,
     mydocuments,
+    remiseCatalogues: remiseCatalogues,
     fetchMyDocuments,
     setMydocuments,
     fetchThemes: fetchThemes,

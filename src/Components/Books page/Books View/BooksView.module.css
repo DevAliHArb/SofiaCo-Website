@@ -51,9 +51,9 @@
 
 .categories{
   width: 88%;
-  margin: 0 auto 15% auto;
+  margin: 0 auto;
   text-align: start;
-  padding: 1.5em 0% 0 0;
+  padding: 1em 0;
 }
 
 .categories h2{
@@ -133,7 +133,7 @@
 .dropdown{
   width: 85%;
   margin: 0 auto;
-  padding: 4% 0;
+  padding: 4% 0 0 0;
 }
 
 .refine{
@@ -227,13 +227,32 @@
   line-height: normal;
 }
 
+.checkbox {
+  appearance: none;
+  border: 1px solid var(--accent-color);
+  cursor: pointer;
+  border-radius: 0px;
+  position: relative;
+  background-color: white;
+  width: 1.4em !important;
+  height: 1.3em !important;
+}
 
+.checkbox:checked {
+  background-color: var(--secondary-color); /* Prevents tick from appearing */
+}
+.collabTreeColor{
+  color: var(--primary-color);
+}
 
   @media screen and (max-width:950px) {
     .filter_con{
       display: none;
     }
 
+    .collabTreeColor{
+      color: #fff;
+    }
     .collab_title{
       color: #fff !important;
     }
