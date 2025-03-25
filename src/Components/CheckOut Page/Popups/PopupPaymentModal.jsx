@@ -23,6 +23,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import axios from "axios";
+import { CardCvcElement, CardElement, CardExpiryElement, CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';
 
 
 
@@ -99,6 +100,7 @@ const PopupPaymentModal = ({ open, handleClose, isselectedPayment }) => {
   const [paymentMethod, setPaymentMethod] = useState("");
   const [editMode, seteditMode] = useState(false);
   const [addloading, setaddLoading] = useState(false);
+  const [paymentslist, setPaymentsList] = useState([]);
   const [formData, setFormData] = useState({});
   const [form] = Form.useForm();
   
@@ -108,8 +110,22 @@ const PopupPaymentModal = ({ open, handleClose, isselectedPayment }) => {
 
   const token = getToken()
 
-  const fetchPayments =  () => {
-    
+  
+  const fetchPayments = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_TESTING_API}/users/${user.id}/payments`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include token in the headers
+          },
+        }
+      );
+      const sortedPayments = response.data.data.sort((a, b) => a.id - b.id);
+      setPaymentsList(sortedPayments);
+    } catch (error) {
+      // console.error("Error fetching addresses:", error);
+    }
   };
 
   useEffect(() => {
@@ -117,63 +133,120 @@ const PopupPaymentModal = ({ open, handleClose, isselectedPayment }) => {
   }, []);
 
   
-  const handleSubmit = async () => {
-    setaddLoading(true)
-    try {
-      if (editMode) {
-        // console.log(formData);
-        await axios.put(
-          `${import.meta.env.VITE_TESTING_API}/users/${user.id}/payments/${editpaymentId}`,
-          formData, {
-            headers: {
-                Authorization: `Bearer ${token}` // Include token in the headers
-            }
-        }
-        );
-      } else {
-        await axios.post(`${import.meta.env.VITE_TESTING_API}/users/${user.id}/payments`, {
-          ...formData,
-          default: "true",
-        }, {
-          headers: {
-              Authorization: `Bearer ${token}` // Include token in the headers
-          }
-      });
-      }
-      handleClose();
-      fetchPayments();
-      toast.success(language === "eng" ? "Payment card added successfully." : "Carte de paiement ajoutée avec succès.", {
-        // Toast configuration
-        hideProgressBar: true,
-      });
-    } catch (error) {
-      toast.error(error.response.data.error, {
-      // Toast configuration
-      hideProgressBar: true,
-    });
-      // console.error("Error submitting address:", error);
-    } finally {
-      setaddLoading(false)
+  const [cardBrand, setCardBrand] = useState(null);
+  // Function to handle changes in the CardNumberElement
+  const handleCardChange = (event) => {
+    console.log(event)
+    if (event.brand) {
+      setCardBrand(event.brand); // Update state with detected card brand
     }
   };
+
+    // Mapping of card brands to their image URLs (Use your own images)
+    const cardBrandImages = {
+      visa: "https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png",
+      mastercard: "https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg",
+      amex: "https://upload.wikimedia.org/wikipedia/commons/3/30/American_Express_logo.svg",
+      discover: "https://upload.wikimedia.org/wikipedia/commons/5/59/Discover_Card_logo.png",
+      diners: "https://upload.wikimedia.org/wikipedia/commons/1/1b/Diners_Club_Logo3.svg",
+      jcb: "https://upload.wikimedia.org/wikipedia/commons/0/0c/JCB_logo.svg",
+      unionpay: "https://upload.wikimedia.org/wikipedia/commons/5/5a/UnionPay_logo.svg",
+    };
+
+
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const handleSubmit = async () => {
+    if (!stripe || !elements) {
+      console.error("Stripe.js has not loaded yet.");
+      return;
+    }
+  
+    setaddLoading(true); // Start loading state
+  
+  
+    const cardNumberElement = elements.getElement(CardNumberElement);
+    const { paymentMethod, error } = await stripe.createPaymentMethod({
+      type: "card",
+      card: cardNumberElement,
+    });
+  
+    if (error) {
+      console.error("Error creating Stripe token:", error);
+      alert(error.message);
+      setaddLoading(false);
+      return;
+    }
+  // Check if the card already exists (match by card brand and last 4 digits)
+  const cardExists = paymentslist.some(
+    (item) =>
+      item.card_type === paymentMethod?.card?.brand &&
+      item.card_number === paymentMethod?.card?.last4 // Compare last 4 digits
+  );
+
+  if (cardExists) {
+    setaddLoading(false);
+    return toast.info(
+      language === "eng"
+        ? "Payment card already exists. Delete it and try again"
+        : "La carte de paiement existe déjà. Supprimez-la et réessayez",
+      { hideProgressBar: true }
+    );
+  }
+    // console.log("PaymentMethod created:", paymentMethod?.card);
+  
+    const data = {
+      holder_name: formData?.holder_name,
+      payment_method: paymentMethod.id,
+      card_type: paymentMethod?.card?.brand,
+      card_number: paymentMethod?.card?.last4, // Store last 4 digits
+      month: paymentMethod?.card?.exp_month,
+      year: paymentMethod?.card?.exp_year,
+      default: formData?.default ? formData?.default : 'false',
+    };
+  
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_TESTING_API}/users/${user.id}/payments`,
+        data,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+  
+      toast.success(
+        language === "eng"
+          ? "Payment card added successfully"
+          : "Carte de paiement ajoutée avec succès",
+        { hideProgressBar: true }
+      );
+  
+      // Fetch updated payment methods (if needed)
+      fetchPayments();
+      handleClose();
+    } catch (error) {
+      console.error(
+        language === "eng"
+          ? "Error submitting card:"
+          : "Erreur de soumission de la carte :",
+        error.response?.data?.error || error.message
+      );
+  
+      toast.error(
+        error.response?.data?.error ||
+          (language === "eng"
+            ? "Failed to add payment card"
+            : "Échec de l'ajout de la carte"),
+        { hideProgressBar: true }
+      );
+    } finally {
+      setaddLoading(false); // Ensure loading is stopped
+    }
+  };  
 
   const handleChange = (name, value) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleChangeNumber = (e) => {
-    const { value } = e.target;
-
-    // Remove all non-digit characters from the input value
-    const digits = value.replace(/\D/g, '');
-
-    // Format the digits to add spaces every 4 digits
-    const formattedValue = digits.replace(/(.{4})/g, '$1 ').trim();
-
-    // Update the input state and form data
-    form.setFieldValue('card_number',formattedValue)
-    setFormData({ ...formData, card_number: digits }); // Store the raw digits without spaces
-  };
   useEffect(() => {
     form.resetFields();
     setFormData({});
@@ -218,121 +291,157 @@ const PopupPaymentModal = ({ open, handleClose, isselectedPayment }) => {
                 fontFamily: "var(--font-family)",
                 }}
       >
-        <Form.Item name="card_type" rules={[{ required: true, message: `${language === 'eng' ? 'Please select an option!' : "Veuillez sélectionner une option !" }` }]} style={{width:'100%'}} >
-          <Select 
-                name="cardType"
-                size="large" 
-                disabled={editMode}
-                value={formData.card_type}
-                placeholder= {language === 'eng' ? "Select card type" : "Sélectionner le type de carte" }
-                dropdownStyle={{ zIndex: 2000 }} 
-                onChange={(e)=>setPaymentMethod(e) & handleChange('card_type', e)}>
-          
-          <Option value="American Express">American Express</Option>
-                <Option value="Discover">Discover</Option>
-                <Option value="Master">Master Card</Option>
-                <Option value="Visa">Visa Card</Option>
-        </Select>
-      </Form.Item>
-        {paymentMethod != 'PayPal' && <>
         <div className={classes.inputsContainer}>
         <Form.Item
-          name="card_number"
-          rules={[{ required: true, message: `${language === 'eng' ? "Please input your Card Number!" : "Veuillez saisir votre numéro de carte !" } `},
-          { 
-            pattern: /^[\d\s]+$/, // Allows only digits and spaces
-            message: `${language === 'fr' ? "Le numéro de la carte ne doit comporter que des chiffres !" :'The card number must be digits only!'}`
-          }]}
-          style={{border:'none',width:'100%',borderRadius:'.5em'}}
-        >
-                  <Input
-                  name="card_number"
-                  placeholder={language === 'eng' ? "Card Number" : "Numéro de la carte" }
-                  size="large" 
-        // value={inputValue}
-        style={{ height: "3em", backgroundColor: "#fff", fontFamily: 'var(--font-family)' }}
-        onChange={handleChangeNumber}
-      />
-    </Form.Item>
-        <Form.Item
-        name="year"
-        rules={[
-          { required: true, message: `${language === 'eng' ? "Please select the year (YY)" : "Veuillez sélectionner l'année (YY)" }` },
-        ]} style={{width:'100%',}}
-      >
-        <Select placeholder={language === 'eng' ? "Select year" : "Sélectionnez l'année" } dropdownStyle={{ zIndex: 2000 }}
-                  size="large" 
-                  name='year'
-                  onChange={(value) => handleChange('year', value)}>
-          {/* Add options for the years, adjust the range as needed */}
-          {Array.from({ length: 30 }, (_, index) => {
-            const currentYear = new Date().getFullYear();
-            const fullYear = currentYear + index;
-            const lastTwoDigits = String(fullYear).slice(-2);
-
-            return (
-              <Option key={lastTwoDigits} value={lastTwoDigits}>
-                {fullYear}
-              </Option>
-            );
-          })}
-
-        </Select>
-      </Form.Item>
-
-      <Form.Item
-        name="month"
-        rules={[
-          {
-            required: true,
-            message: `${
-              language === 'eng'
-                ? 'Please select the month'
-                : 'Veuillez sélectionner le mois'
-            }`,
-          },
-        ]}
-        style={{ width: '100%' }}
-      >
-        <Select
-          placeholder={
-            language === 'eng' ? 'Select month' : 'Sélectionner le mois'
+          name="holder_name"
+          label={
+            <p
+              style={{
+                color: "var(--accent-color)",
+                margin: "0",
+                fontWeight: "500",
+                fontFamily: "var(--font-family-primary)",
+                fontSize: "calc(.8rem + .2vw)",width:'100%'
+              }}
+            >
+              {language === 'eng' ? "Card holder" : "Titulaire de la carte"}
+            </p>
           }
-          dropdownStyle={{ zIndex: 2000 }}
-          size="large"
-          name="month"
-          onChange={(value) => handleChange('month', value)}
-        >
-          {/* Dynamically choose the array of months based on the selected language */}
-          {(language === 'eng' ? monthNamesEng : monthNamesFr).map(
-            (month, index) => (
-              <Option key={index + 1} value={String(index + 1).padStart(2, '0')}>
-                {month} ({String(index + 1).padStart(2, '0')})
-              </Option>
-            )
-          )}
-        </Select>
-      </Form.Item>
-        <Form.Item
-          name="cvv"
           rules={[
             {
-              validator: validateLessThanFourNumbers,
+              required: true, message: 'veuillez saisir le nom du titulaire de la carte',
             },
           ]}
-          style={{border:'none',width:'100%',borderRadius:'.5em'}}
+          style={{border:'none',borderRadius:'.5em',width:'100%'}}
         >
                   <Input
-                  name="cvv"
-                  placeholder='CVV'
-                  size="large"
-                  // value={formData?.CVV}
-                style={{ height: "3em", backgroundColor: "#fff", fontFamily:'var(--font-family)' }}
-                        onChange={(e) => handleChange('cvv', e.target.value)}
-                  />
+                  name="holder_name"
+                  placeholder={language === "eng" ? "Holder name" : " Nom du titulaire de la carte"}
+                  size="large" 
+                  // value={formData?.card_number}
+        style={{ height: "2.6em", backgroundColor: "#fff", fontFamily: 'var(--font-family)', fontSize:'16px' }}
+                        onChange={(e) => handleChange('holder_name', e.target.value)}
+                        />
         </Form.Item>
+        <Form.Item
+          name="card_number"
+          label={
+            <p
+              style={{
+                color: "var(--accent-color)",
+                margin: "0",
+                fontWeight: "500",
+                fontFamily: "var(--font-family-primary)",
+                fontSize: "calc(.8rem + .2vw)",width:'100%'
+              }}
+            >
+                    {language === 'eng' ? "Card Number" : "Numéro de carte"}
+            </p>
+          }
+          style={{border:'none',borderRadius:'.5em',width:'100%'}}
+        >
+          <div className="card-input-wrapper">
+        {/* Show Card Brand Image if available */}
+        {cardBrand && cardBrandImages[cardBrand] && (
+          <img src={cardBrandImages[cardBrand]} alt={cardBrand} className="card-logo" />
+        )}
         
-        </div><div style={{display:'flex',flexWrap:'wrap' ,width:'fit-content',margin:'auto',gap:'1em'}}>
+        {/* Card Number Input */}
+        <CardNumberElement
+          className="card-input"
+          options={{
+            style: {
+              base: {
+                fontSize: "16px",
+                paddingLeft: cardBrand ? "3rem" : "1rem",
+                fontFamily: 'var(--font-family)',
+                '::placeholder': {
+                  color: 'rgba(33, 42, 83, 0.8)', // Placeholder text color
+                  fontFamily: 'var(--font-family)', // Placeholder font family
+                },
+              },
+              placeholder: { 
+                color: 'red' 
+              } 
+            },
+          }}
+          onChange={handleCardChange} // Detect card type dynamically
+        />
+      </div>
+        </Form.Item>
+        <Form.Item
+          name="date"
+          label={
+            <p
+              style={{
+                color: "var(--accent-color)",
+                margin: "0",
+                fontWeight: "500",
+                fontFamily: "var(--font-family-primary)",
+                fontSize: "calc(.8rem + .2vw)",width:'100%'
+              }}
+            >
+              {language === 'eng' ? "Expiry date" : "Date d’expiration"}
+            </p>
+          }
+          style={{ width: '100%' }}
+        >
+        <CardExpiryElement 
+          className='cardInput' 
+          options={{ 
+            style: { 
+              base: { 
+                fontSize: "16px",
+                color: 'var(--secondary-color)',
+                fontFamily: 'var(--font-family)', 
+                backgroundColor: '#fff',
+                '::placeholder': {
+                  color: 'rgba(33, 42, 83, 0.8)', // Placeholder text color
+                  fontFamily: 'var(--font-family)', // Placeholder font family
+                },
+              } 
+            } 
+          }} 
+        />
+        </Form.Item>
+        <Form.Item
+          name="cvv"
+          label={
+            <p
+              style={{
+                color: "var(--accent-color)",
+                margin: "0",
+                fontWeight: "500",
+                fontFamily: "var(--font-family-primary)",
+                fontSize: "calc(.8rem + .2vw)",width:'100%'
+              }}
+            >
+              {language === 'eng' ? "Safety code (CVC/CVV)" : "Code de sécurité (CVC/CVV)"}
+            </p>
+          }
+          style={{width:'100%',border:'none',borderRadius:'.5em'}}
+        >
+                  
+        <CardCvcElement
+          className='cardInput' 
+          options={{ 
+            style: { 
+              base: { 
+                fontSize: "16px",
+                color: 'var(--secondary-color)',
+                fontFamily: 'var(--font-family)', 
+                backgroundColor: '#fff',
+                '::placeholder': {
+                  color: 'rgba(33, 42, 83, 0.8)', // Placeholder text color
+                  fontFamily: 'var(--font-family)', // Placeholder font family
+                },
+              } 
+            } 
+          }} 
+        />
+        </Form.Item>
+        </div>
+        <div style={{display:'flex',flexWrap:'wrap' ,width:'fit-content',margin:'auto',gap:'1em'}}>
         <Button
                 size="large"
                 className={classes.cancel}
@@ -362,20 +471,7 @@ const PopupPaymentModal = ({ open, handleClose, isselectedPayment }) => {
                 {language === 'eng' ? "Cancel" : "Supprimer"}
               </Button>
         </div>
-        </>}
       </Form>
-   {/* {paymentMethod == 'PayPal' && <div style={{width:'100%',display:'flex'}}><button 
-                                     style={{margin:'0 auto',backgroundColor:'#FAAF00',padding:'1em 6em',borderRadius:'1em'}}
-                                     onClick={()=>toast.error(`en cours de construction`, {
-                                       position: "top-right",
-                                       autoClose: 1500,
-                                       hideProgressBar: true,
-                                       closeOnClick: true,
-                                       pauseOnHover: true,
-                                       draggable: true,
-                                       progress: 0,
-                                       theme: "colored",
-                                       })} > </button></div>} */}
 
      </Box>
    </Modal>

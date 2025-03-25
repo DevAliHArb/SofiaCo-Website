@@ -234,8 +234,8 @@ const NewReleases = () => {
       
                       <div className={classes.bookTitle}>
                         <p style={{ fontSize: "large" }}>
-                          {props.designation.length > 15
-                            ? props.designation.slice(0, 15) + "..."
+                          {props.designation.length > 50
+                            ? props.designation.slice(0, 50) + "..."
                             : props.designation}
                         </p>
                     <p style={{maxWidth:'100%',width:'fit-content',margin:'0 auto 0 auto',display:"flex",flexDirection:"row"}}>
@@ -364,8 +364,8 @@ const NewReleases = () => {
       
                       <div className={classes.bookTitle}>
                         <p style={{ fontSize: "small" }}>
-                          {props.designation.length > 15
-                            ? props.designation.slice(0, 15) + "..."
+                          {props.designation.length > 50
+                            ? props.designation.slice(0, 50) + "..."
                             : props.designation}
                         </p>
                         <span

@@ -9,6 +9,7 @@ import { CiUser } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
 import { addSelectedEvent } from "../../Common/redux/productSlice";
 import { useNavigate } from "react-router-dom";
+import nodata from '../../../assets/noevents.png'
 import axios from "axios";
 import data from "../../../Data.json";
 import AuthContext from "../../Common/authContext";
@@ -38,14 +39,14 @@ const Events = () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/events?ecom_type=sofiaco`);
       // console.log('Response data:', response.data);
-      seteventData(response.data.data || {})
+      seteventData(response.data.data || [])
     } catch (error) {
       // console.error('Error fetching addresses:', error);
     }
   };
-useEffect(() => {
-  fetchAbout();
-}, []);
+// useEffect(() => {
+//   fetchAbout();
+// }, []);
 
   return (
     <div className={classes.events}>
@@ -53,6 +54,18 @@ useEffect(() => {
         <h1 className={classes.headerh1}>{data.Event.title[language]}</h1>
         {/* <h2 className={classes.headerh2}>{data.Event.Subtitle[language]}</h2> */}
       </div>
+      
+                {eventData.length === 0 ?  
+                <div className={classes.nodata}>
+                  <div className={classes.nodata_img}>
+                    <img src={nodata} alt="" />
+                  </div>
+                  {language === 'eng' ? (
+        <h1>No Events <br /> were found!</h1>
+      ) : (
+        <h1>Aucun Evénements <br /> n'a été trouvé !</h1>
+      )}
+                </div> :
       <div className={classes.content}>
        {eventData?.map((props) => {
         const eventImg = props.event_images?.filter( (event) => event?.is_main_image === 'true')
@@ -88,6 +101,7 @@ useEffect(() => {
           );
         })}
       </div>
+}
     </div>
   );
 };

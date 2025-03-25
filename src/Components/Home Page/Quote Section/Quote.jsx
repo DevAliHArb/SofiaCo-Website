@@ -103,7 +103,7 @@ const Quote = () => {
             <SwiperSlide className={classes.swiperslide} key={item.id}>
             <div className={classes.box_con} key={index}>
           <div className={classes.img_con}>
-            <img src={`https://sofiadis.recette-lisa.leonardo-service.com/modules/sofiadis/files/${item.image}`} alt=""/>
+            <img src={`${item.image}`} alt=""/>
             
       
           </div>

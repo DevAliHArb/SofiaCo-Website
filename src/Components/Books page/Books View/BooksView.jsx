@@ -174,6 +174,7 @@ const BooksView = ({carttoggle}) => {
               height: "1.3em",
               marginLeft: "3px",
             }}
+            onClick={(event) => handleChildClick(data.id, event)}
           />          <p
             style={{ 
               margin: "0", 
@@ -824,10 +825,10 @@ const BooksView = ({carttoggle}) => {
             <h2>{language === 'eng' ? "Collaborators" : "Collaborateurs"}</h2>
               <div className={classes.dropdown}
                   style={{  margin:'1em auto ' }}>
-               <CollaboratorTreeNode title="Authors" isExpanded={expandedNodes.authors} setIsExpanded={() => handleExpand('authors')}  collaborators={authors} fieldName="author"  searchQuery={(props)=>dispatch(addSearchData({author: props.nom}))}/>
-                          <CollaboratorTreeNode title="Translators" isExpanded={expandedNodes.translators} setIsExpanded={() => handleExpand('translators')} collaborators={translators} fieldName="traducteur" searchQuery={(props)=>dispatch(addSearchData({traducteur: props.nom}))} />
-                          <CollaboratorTreeNode title="Illustrators" isExpanded={expandedNodes.illustrators} setIsExpanded={() => handleExpand('illustrators')} collaborators={illustrators} fieldName="illustrateur" searchQuery={(props)=>dispatch(addSearchData({illustrateur: props.nom}))} />
-                          <CollaboratorTreeNode title="Editors" isExpanded={expandedNodes.editors} setIsExpanded={() => handleExpand('editors')} collaborators={editors} fieldName="editor" searchQuery={(props)=>dispatch(addSearchData({editor: props.nom}))} />
+               <CollaboratorTreeNode title={language === "eng" ? "Authors" : "Auteurs"} isExpanded={expandedNodes.authors} setIsExpanded={() => handleExpand('authors')}  collaborators={authors} fieldName="author"  searchQuery={(props)=>dispatch(addSearchData({author: props.nom}))}/>
+                          <CollaboratorTreeNode title={language === "eng" ? "Translators" : "Tradecteurs"} isExpanded={expandedNodes.translators} setIsExpanded={() => handleExpand('translators')} collaborators={translators} fieldName="traducteur" searchQuery={(props)=>dispatch(addSearchData({traducteur: props.nom}))} />
+                          <CollaboratorTreeNode title={language === "eng" ? "Illustrators" : "Illustrateurs"} isExpanded={expandedNodes.illustrators} setIsExpanded={() => handleExpand('illustrators')} collaborators={illustrators} fieldName="illustrateur" searchQuery={(props)=>dispatch(addSearchData({illustrateur: props.nom}))} />
+                          <CollaboratorTreeNode title={language === "eng" ? "Editors" : "Editeurs"} isExpanded={expandedNodes.editors} setIsExpanded={() => handleExpand('editors')} collaborators={editors} fieldName="editor" searchQuery={(props)=>dispatch(addSearchData({editor: props.nom}))} />
                      </div>
           </div>
 
@@ -854,7 +855,7 @@ const BooksView = ({carttoggle}) => {
                       control={
                         <Radio style={{color:'#fff'}} />
                       }
-                      label='All'
+                      label={language === "eng" ? 'All' : "Tout"}
                     />
                     <FormControlLabel
                       value={true}
@@ -964,14 +965,14 @@ const BooksView = ({carttoggle}) => {
                   />
                   </div>
           <div style={{position:'relative',justifyContent:'flex-end'}}>
-          <p style={{width:'fit-content',margin:'2em 0 1em 0',color:'#fff',cursor:'pointer',fontWeight:'500', fontFamily:'var(--font-family)'}} onClick={RefineHandle}><u>Refine</u></p>
+          <p style={{width:'fit-content',margin:'2em 0 1em 0',color:'#fff',cursor:'pointer',fontWeight:'500', fontFamily:'var(--font-family)'}} onClick={RefineHandle}><u>{language === "eng" ? "Refine" : "Affiner"}</u></p>
           </div>
               </div>
           </div>
 
 
           <div>
-          <p style={{width:'fit-content',margin:'0 0 1em 7.5%',color:'#fff',cursor:'pointer',fontWeight:'500', fontFamily:'var(--font-family)'}} onClick={ResetfilterHandle}><u>Reset All</u></p>
+          <p style={{width:'fit-content',margin:'0 0 1em 7.5%',color:'#fff',cursor:'pointer',fontWeight:'500', fontFamily:'var(--font-family)'}} onClick={ResetfilterHandle}><u>{language === "eng" ? "Reset All" : "Réinitialiser"}</u></p>
           </div>
         </div>
         </div>
@@ -990,6 +991,9 @@ const BooksView = ({carttoggle}) => {
         <div className={classes.filter_con}>
         <h1>Filter</h1>
         <div className={classes.filter}>
+          <div>
+          <p style={{width:'fit-content',margin:'0 0 1em 7.5%',color:'#fff',cursor:'pointer',fontWeight:'500', fontFamily:'var(--font-family)', background:'var(--primary-color)', padding:'0.5em 1em', borderRadius:'0.5em', textDecoration:'none', margin:'0.5em 0.5em -1em auto' }} onClick={ResetfilterHandle}><u>{language === "eng" ? "Reset All" : "Réinitialiser"}</u></p>
+          </div>
           <div className={classes.categories}>
             <h2>Categories</h2>
               <div className={classes.dropdown}
@@ -1064,10 +1068,10 @@ const BooksView = ({carttoggle}) => {
           <h2>{language === 'eng' ? "Collaborators" : "Collaborateurs"}</h2>
               <div className={classes.dropdown}
                   style={{  margin:'1em auto ' }}>
-                <CollaboratorTreeNode title="Authors" isExpanded={expandedNodes.authors} setIsExpanded={() => handleExpand('authors')}  collaborators={authors} fieldName="author"  searchQuery={(props)=>dispatch(addSearchData({author: props.nom}))}/>
-                          <CollaboratorTreeNode title="Translators" isExpanded={expandedNodes.translators} setIsExpanded={() => handleExpand('translators')} collaborators={translators} fieldName="traducteur" searchQuery={(props)=>dispatch(addSearchData({traducteur: props.nom}))} />
-                          <CollaboratorTreeNode title="Illustrators" isExpanded={expandedNodes.illustrators} setIsExpanded={() => handleExpand('illustrators')} collaborators={illustrators} fieldName="illustrateur" searchQuery={(props)=>dispatch(addSearchData({illustrateur: props.nom}))} />
-                          <CollaboratorTreeNode title="Editors" isExpanded={expandedNodes.editors} setIsExpanded={() => handleExpand('editors')} collaborators={editors} fieldName="editor" searchQuery={(props)=>dispatch(addSearchData({editor: props.nom}))} />
+                          <CollaboratorTreeNode title={language === "eng" ? "Authors" : "Auteurs"} isExpanded={expandedNodes.authors} setIsExpanded={() => handleExpand('authors')}  collaborators={authors} fieldName="author"  searchQuery={(props)=>dispatch(addSearchData({author: props.nom}))}/>
+                          <CollaboratorTreeNode title={language === "eng" ? "Translators" : "Tradecteurs"} isExpanded={expandedNodes.translators} setIsExpanded={() => handleExpand('translators')} collaborators={translators} fieldName="traducteur" searchQuery={(props)=>dispatch(addSearchData({traducteur: props.nom}))} />
+                          <CollaboratorTreeNode title={language === "eng" ? "Illustrators" : "Illustrateurs"} isExpanded={expandedNodes.illustrators} setIsExpanded={() => handleExpand('illustrators')} collaborators={illustrators} fieldName="illustrateur" searchQuery={(props)=>dispatch(addSearchData({illustrateur: props.nom}))} />
+                          <CollaboratorTreeNode title={language === "eng" ? "Editors" : "Editeurs"} isExpanded={expandedNodes.editors} setIsExpanded={() => handleExpand('editors')} collaborators={editors} fieldName="editor" searchQuery={(props)=>dispatch(addSearchData({editor: props.nom}))} />
                       </div>
           </div>
 
@@ -1094,7 +1098,7 @@ const BooksView = ({carttoggle}) => {
                       control={
                         <Radio style={{color:'var(--primary-color)'}} />
                       }
-                      label='All'
+                      label={language === "eng" ? 'All' : "Tout"}
                     />
                     <FormControlLabel
                       value={true}
@@ -1232,7 +1236,7 @@ const BooksView = ({carttoggle}) => {
                   />
                   </div>
           <div style={{position:'relative',justifyContent:'flex-end'}}>
-          <p style={{width:'fit-content',margin:'2em 0 0em 0',color:'var(--primary-color)',cursor:'pointer',fontWeight:'500'}} onClick={RefineHandle}><u>Refine</u></p>
+          <p style={{width:'fit-content',margin:'2em 0 0em 0',color:'var(--primary-color)',cursor:'pointer',fontWeight:'500'}} onClick={RefineHandle}><u>{language === "eng" ? "Refine" : "Affiner"}</u></p>
           </div>
               </div>
           </div>

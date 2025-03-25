@@ -37,7 +37,7 @@ const Services = () => {
       // toast.error("Failed to fetch articles.");
     }
   };
-  console.log(services)
+  // console.log(services)
 
   return (
     <div className={classes.big_container}>
@@ -57,11 +57,11 @@ const Services = () => {
                   </div>
                   <h2 style={{color: index % 2 === 0 ? "var(--primary-color)" : "var(--secondary-color)"}}>
                     {language === "eng"
-                      ? item.title_en?.length > 14
-                        ? item.title_en.slice(0, 14) + "..."
+                      ? item.title_en?.length > 50
+                        ? item.title_en.slice(0, 50) + "..."
                         : item.title_en
-                      : item.title_fr?.length > 14
-                      ? item.title_fr.slice(0, 14) + "..."
+                      : item.title_fr?.length > 50
+                      ? item.title_fr.slice(0, 50) + "..."
                       : item.title_fr}
                   </h2>
                   <p style={{color: index % 2 === 0 ? "var(--primary-color)" : "var(--secondary-color)"}}>

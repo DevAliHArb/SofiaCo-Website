@@ -186,7 +186,7 @@ const OurSelection = () => {
                           readOnly
                       /><p style={{margin:'0 0 0 0 ',color:"#EEBA7F"}}>{props.average_rate}/5</p>
                       </p>
-                      <p >{props.designation.length > 15 ? props.designation.slice(0,15) + '...' : props.designation}</p>
+                      <p >{props.designation.length > 50 ? props.designation.slice(0,50) + '...' : props.designation}</p>
                       <p style={{ margin:'0em', fontSize:'small', fontWeight: 400 }}>{truncateText(stripHtmlTags(props.dc_auteur), 15)}</p>
                       <p style={{ margin:'.3em 0em', fontSize:'small', fontWeight: 400 }}>{truncateText(stripHtmlTags(props.descriptif), 40)}</p>
                       <span style={{ display: "flex", flexDirection: "row", margin:'0 auto', columnGap:'0.5em' }}>

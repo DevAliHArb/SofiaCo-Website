@@ -194,7 +194,7 @@
 
 .card_container{
     width: 100%;
-    height: fit-content;
+    height: 100%;
     background: transparent;
     font-family: var(--font-family);
     font-size: calc(0.9rem + 0.2vw);

@@ -49,7 +49,7 @@ const { TextArea } = Input;
 const maskConstant = (constant) => {
   if (typeof constant === "string") {
     const visibleChars = constant.slice(-4); // Extract last four characters
-    const hiddenChars = "*".repeat(Math.max(0, constant.length - 4)); // Replace rest with asterisks
+    const hiddenChars = "*".repeat(Math.max(0, 16 - 4)); // Replace rest with asterisks
     return hiddenChars + visibleChars;
   } else {
     // Handle other types as needed
@@ -1598,7 +1598,7 @@ const CheckOut = () => {
                         <p style={{ fontSize: "calc(.8rem + .3vw)" }}>
                           <img
                             alt="visa"
-                            src={payment.card_type === "Master" ? master : visa}
+                            src={payment.card_type === "mastercard" ? master : visa}
                             style={{
                               width: "auto",
                               height: "1.5em",

@@ -86,7 +86,9 @@
   object-fit: contain;
 }
 .hex_content h2{
-  margin: 0;
+  width: 88%;
+  text-align: center;
+  margin: 0 auto;
   font-size: calc(0.8rem + 0.4vw);
   color: var(--secondary-color);
   font-family: var(--font-family);
