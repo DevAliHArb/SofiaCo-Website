@@ -605,7 +605,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
       value={props.average_rate}
       readOnly
     />
-    <span style={{margin: '0.2em 0 0 0 '}}>{props.average_rate.toFixed(2)}/5</span>
+    <span style={{margin: '0.2em 0 0 0 '}}>{Number(props.average_rate).toFixed(2)}/5</span>
   </span>
 </p>
 
@@ -620,7 +620,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                           name="read-only"
                           value={props.average_rate}
                           readOnly
-                          /><p style={{margin:'0.2em 0 0 0 '}}>{props.average_rate.toFixed(2)}/5</p>
+                          /><p style={{margin:'0.2em 0 0 0 '}}>{Number(props.average_rate).toFixed(2)}/5</p>
                       </p>
                       <p className={classes.bookRowDescription} >
                       {truncateText(stripHtmlTags(props.descriptif), 80)}
