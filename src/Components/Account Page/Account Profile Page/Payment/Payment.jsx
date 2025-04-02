@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import classes from './Payment.module.css'
 import CloseIcon from '@mui/icons-material/Close';
 import Radio from '@mui/material/Radio';
@@ -27,6 +27,7 @@ import directPay from '../../../../assets/directPay.png'
 import PayPal from '../../../../assets/PayPal.png'
 import { loadStripe } from '@stripe/stripe-js';
 import { CardCvcElement, CardElement, CardExpiryElement, CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import AuthContext from '../../../Common/authContext';
 
 
 const { Option } = Select;
@@ -90,7 +91,7 @@ function generateNewId(arrayOfObjects) {
   return newId;
 }
 const Payment = () => {
-
+  const authCtx = useContext(AuthContext)
   const dispatch = useDispatch()
   const user = useSelector((state) => state.products.userInfo);
     const [selectedPayment, setselectedPayment] = useState(1);
@@ -365,7 +366,7 @@ useEffect(() => {
               </h3></div>
             </div>
           <div className={classes.cardContainer}> 
-            {paymentslist?.map((item, index) => (
+            {authCtx.companySettings?.is_payment_cards && paymentslist?.map((item, index) => (
             <div key={item.id} onClick={()=>{ handleChange1(item.id)}} className={`${(item.default === 'true' && user.default_pay === 'card') ? classes.paymentCardSelected : classes.paymentCard}`} >
               <div className={classes.contantContainer}>
                       <div className={classes.contant}>
@@ -418,7 +419,7 @@ useEffect(() => {
                     </div>
                 </div>
                 ))}
-                <div onClick={()=>{ handleChange2('direct')}} className={`${user.default_pay === 'direct' ? classes.paymentCardSelected : classes.paymentCard}`} >
+                {authCtx.companySettings?.is_direct_pay && <div onClick={()=>{ handleChange2('direct')}} className={`${user.default_pay === 'direct' ? classes.paymentCardSelected : classes.paymentCard}`} >
                   <div className={classes.contantContainer}>
                           <div className={classes.contant}>
                             <div style={{display:'flex',flexDirection:"row"}} >
@@ -455,8 +456,8 @@ useEffect(() => {
                         <div className={classes.addtocart}>
                           </div>
                         </div>
-                    </div>
-                <div onClick={()=>{ handleChange2('paypal')}} className={`${user.default_pay === 'paypal' ? classes.paymentCardSelected : classes.paymentCard}`} >
+                    </div>}
+               {authCtx.companySettings?.is_paypal && <div onClick={()=>{ handleChange2('paypal')}} className={`${user.default_pay === 'paypal' ? classes.paymentCardSelected : classes.paymentCard}`} >
                   <div className={classes.contantContainer}>
                           <div className={classes.contant}>
                             <div style={{display:'flex',flexDirection:"row"}} >
@@ -493,13 +494,13 @@ useEffect(() => {
                         <div className={classes.addtocart}>
                           </div>
                         </div>
-                    </div>
+                    </div>}
                 
             </div>
-            <button className={classes.addBtn} onClick={()=>{handleOpen();
+            {authCtx.companySettings?.is_payment_cards && <button className={classes.addBtn} onClick={()=>{handleOpen();
                                                                seteditMode(false)
                                                                setFormData({})}}>
-            {language === 'eng' ? "+ Add a new card" : "+ Ajouter une nouvelle card"}</button>
+            {language === 'eng' ? "+ Add a new card" : "+ Ajouter une nouvelle card"}</button>}
        </div>  
        <Modal
         open={open}
