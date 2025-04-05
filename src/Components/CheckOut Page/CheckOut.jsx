@@ -1573,7 +1573,7 @@ const CheckOut = () => {
                           setopenPay(false)
                         }
                       >
-                {paymentslist?.map((payment) => {
+                {authCtx.companySettings?.is_payment_cards && paymentslist?.map((payment) => {
                   return (
                     <>
                     {((!openPay && Number(payment.id) === Number(paymentId)) || openPay) && <div className={classes.adressCard}>
@@ -1637,7 +1637,7 @@ const CheckOut = () => {
                   );
                 })}
                
-        {((!openPay && 'paypal'=== paymentId) || openPay) && <div style={{display:'flex', flexDirection:'row'}} className={classes.adressCard}>
+        {authCtx.companySettings?.is_paypal && ((!openPay && 'paypal'=== paymentId) || openPay) && <div style={{display:'flex', flexDirection:'row'}} className={classes.adressCard}>
         <FormControlLabel
           value='paypal'
           control={
@@ -1658,7 +1658,7 @@ const CheckOut = () => {
         </p>}
         />
         </div>}
-        {((!openPay && 'direct'=== paymentId) || openPay) && <div className={classes.adressCard} style={{display:'flex', flexDirection:'row'}}>
+        {authCtx.companySettings?.is_direct_pay && ((!openPay && 'direct'=== paymentId) || openPay) && <div className={classes.adressCard} style={{display:'flex', flexDirection:'row'}}>
         <FormControlLabel
           value='direct'
           control={
@@ -1683,7 +1683,7 @@ const CheckOut = () => {
         </div>}
         
                       </RadioGroup>
-                <p
+                {authCtx.companySettings?.is_payment_cards && <p
                   onClick={() => {
                     handlePaymentOpen();
                   }}
@@ -1710,7 +1710,7 @@ const CheckOut = () => {
                   {language === "eng"
                     ? "Add New Payment Method"
                     : "Ajouter un Nouveau Mode de Paiement"}
-                </p>
+                </p>}
                 <div
                   style={{
                     display: "flex",
