@@ -18,7 +18,7 @@ import { addSelectedBook } from '../../Common/redux/productSlice';
 import { IoCartOutline } from "react-icons/io5";
 import { stripHtmlTags, truncateText } from '../TextUtils';
 
-const AlsoSee = () => {
+const AlsoSee = (props) => {
   const authCtx = useContext(AuthContext);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -35,12 +35,12 @@ const AlsoSee = () => {
 
   useEffect(() => {
     fetchArticles();
-  }, []);
+  }, [props]);
 
   const fetchArticles = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&alsosee`
+        `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&${props.collection ? `collection[]=${props.collection}` : 'alsosee'}`
         // `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco`
       );
       // console.log(response.data.data);

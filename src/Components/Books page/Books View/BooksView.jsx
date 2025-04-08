@@ -748,7 +748,7 @@ const BooksView = ({carttoggle}) => {
       <List>
       <ListItem >
           <div style={{display:'flex',position:'relative', flexDirection:'column',fontFamily:'var(--font-family)' ,width:'96%', color:'#fff'}}>
-        <h1>Filter</h1>
+        <h1>{language === 'eng' ? "Filter" : "Filtre " }</h1>
         <div className={classes.filter}>
           <div className={classes.categories}>
             <h2>Categories</h2>
@@ -989,7 +989,7 @@ const BooksView = ({carttoggle}) => {
     <div className={classes.bigContainer}>
       <div className={classes.content}>
         <div className={classes.filter_con}>
-        <h1>Filter</h1>
+        <h1>{language === 'eng' ? "Filter" : "Filtre " }</h1>
         <div className={classes.filter}>
           <div>
           <p style={{width:'fit-content',margin:'0 0 1em 7.5%',color:'#fff',cursor:'pointer',fontWeight:'500', fontFamily:'var(--font-family)', background:'var(--primary-color)', padding:'0.5em 1em', borderRadius:'0.5em', textDecoration:'none', margin:'0.5em 0.5em -1em auto' }} onClick={ResetfilterHandle}><u>{language === "eng" ? "Reset All" : "Réinitialiser"}</u></p>

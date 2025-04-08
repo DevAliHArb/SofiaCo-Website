@@ -8,7 +8,7 @@ import Reviews from './View Tab and review/Reviews'
 import ViewTab from './View Tab and review/ViewTab'
 import abs from '../../assets/collab-abs.png'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addSelectedBook } from '../Common/redux/productSlice'
 import { useParams } from 'react-router-dom'
 
@@ -17,6 +17,7 @@ const BookDetailsPage = () => {
   const { id } = useParams();
   
   const [heroData, setHeroData] = useState({});
+    const bookData = useSelector((state) => state.products.selectedBook[0]);
 
   const fetchBook = async () => {
     try {
@@ -47,7 +48,7 @@ const BookDetailsPage = () => {
       <OurSelectionBanner  props={heroData}/>
       <BookDetails/>
         <ViewTab />
-        <AlsoSee />
+        <AlsoSee collection={bookData?.dc_collection}/>
       <div className={classes.deals_con}>
       <Deals />
       </div>
