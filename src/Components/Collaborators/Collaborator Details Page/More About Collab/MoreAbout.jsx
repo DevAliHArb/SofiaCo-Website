@@ -17,6 +17,7 @@ import AuthContext from '../../../Common/authContext';
 import { IoCartOutline } from "react-icons/io5";
 import { Rating } from '@mui/material';
 import { stripHtmlTags, truncateText } from '../../../Common Components/TextUtils';
+import { addSelectedBook } from '../../../Common/redux/productSlice';
 
 const MoreAbout = () => {
   const authCtx = useContext(AuthContext);

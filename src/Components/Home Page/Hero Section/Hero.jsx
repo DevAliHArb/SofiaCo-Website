@@ -136,7 +136,6 @@ const Hero = ({ carttoggle }) => {
               }}
             >
               {articles
-                ?.slice(0, 5)
                 .filter((props) => props.designation.trim() !== "")
                 .map((props) => (
                   <SwiperSlide

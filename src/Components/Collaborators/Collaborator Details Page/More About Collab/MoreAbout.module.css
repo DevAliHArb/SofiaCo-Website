@@ -278,7 +278,7 @@ background-color: #A8ACAD;
 
 .nav_next{
   position: absolute;
-  top: 5em;
+  top: 0em;
   right: 6em;
   left: auto;
   width: 2em;
@@ -289,7 +289,7 @@ background-color: #A8ACAD;
 
 .nav_nb0{
   position: absolute;
-  top: 4.9em;
+  top: 0.4em;
   right: 7.6em;
   left: auto;
   margin: auto;
@@ -303,7 +303,7 @@ background-color: #A8ACAD;
 }
 .nav_nb651{
   position: absolute;
-  top: 4.9em;
+  top: 0.4em;
   right: 7.6em;
   left: auto;
   margin: auto;
@@ -317,7 +317,7 @@ background-color: #A8ACAD;
 }
 .nav_nb951{
   position: absolute;
-  top: 4.9em;
+  top: 0.4em;
   right: 7.6em;
   left: auto;
   margin: auto;
@@ -330,7 +330,7 @@ background-color: #A8ACAD;
 }
 .nav_prev{
   position: absolute;
-  top: 5em;
+  top: 0em;
   right: 11em;
   left: auto;
   width: 2em;
