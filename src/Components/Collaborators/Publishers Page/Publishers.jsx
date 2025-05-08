@@ -26,10 +26,7 @@ const Publishers = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
-  const [type, setType] = useState("editeur");
-  const [major, SetMajor] = useState("All");
-  const [typeopen, setTypeopen] = useState(false);
-  const [majoropen, SetMajoropen] = useState(false);
+  const [type, setType] = useState("All");
   const [letteropen, setletteropen] = useState(false);
   const [selectedLetter, setSelectedLetter] = useState("ALL");
   const [pagenbroute, setpagenbroute] = useState(1);
@@ -43,18 +40,18 @@ const Publishers = () => {
     (state) => state.products.selectedLanguage[0].Language
   );
 
-  const withFirstLetters = authCtx.collaborators?.map((person) => {
-    const firstLetter = person?.nom[0]?.toLowerCase();
+  const withFirstLetters = authCtx.publishers?.map((person) => {
+    const firstLetter = person?.title[0]?.toLowerCase();
     return { ...person, firstLetter };
   });
 
-  // console.log(withFirstLetters)
+
   const filteredAuthors = withFirstLetters.filter(
     (author) =>
       (selectedLetter === "ALL" || author.firstLetter === selectedLetter?.toLowerCase()) &&
       (searchQuery === "" ||
-        author.nom?.toLowerCase().includes(searchQuery?.toLowerCase())) &&
-      (type === 'All' || author?.type?.name_fr?.toLowerCase() === type?.toLowerCase())  // Add "which" filter
+        author.title.toLowerCase().includes(searchQuery.toLowerCase())) &&
+      (type === 'All' || author?.type?.name.toLowerCase() === type.toLowerCase())  // Add "which" filter
       // (major === 'All' || author.major === major.toLowerCase()) // Add "which" filter
     );
 
@@ -341,7 +338,7 @@ const Publishers = () => {
            className={classes.card_container}>
               <div className={classes.card_img}>
                 <div className={classes.card_imgimg}>
-                {props.image === '' ? 
+                {!props.image || props.image === '' ? 
                   <img src={collabPlaceholder} alt="" width="100%" height="100%" /> 
                   : 
                   <img src={`${props.image}`} alt="" width="100%" height="100%" />  
@@ -349,7 +346,7 @@ const Publishers = () => {
                 </div>
                 <div className={classes.card_text}>
                     <div className={classes.hovered_title}>
-                      <h2>{props.nom}</h2>
+                      <h2>{props.title}</h2>
                     </div>
                       <p className={classes.p}>{language === 'eng' ? props.type?.name : props.type?.name_fr}</p>
                 </div>

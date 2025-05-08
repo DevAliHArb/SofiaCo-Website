@@ -55,6 +55,8 @@ const AuthContext = React.createContext({
   fetchCompanySettings: () => {},
   fetchfavandcartSettings:() => {},
 
+  publishers: [],
+  setPublishers: () => {},
   
   countries: [],
   setCountries: () => {},
@@ -77,6 +79,7 @@ export const AuthContextProvider = (props) => {
   const [mydocuments, setMydocuments] = useState([]);
   const [collaborators, setCollaborators] = useState([]);
   const [collections, setCollections] = useState([]);
+  const [publishers, setPublishers] = useState([]);
   const [remiseCatalogues, setremiseCatalogues] = useState([]);
   const [societeConfig, setSocieteConfig] = useState([]);
   const [themes, setThemes] = useState([]);
@@ -254,6 +257,15 @@ const fetchArticles = async () => {
       setCountries(response.data);
     } catch (error) {
       // console.error('Error fetching countries:', error);
+    }
+  };
+
+  const fetchPublishers = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/publishers?ecom_type=sofiaco`);
+      setPublishers(response.data);
+    } catch (error) {
+      // Handle error silently
     }
   };
   
@@ -684,6 +696,7 @@ const fetchArticles = async () => {
 
   
   useEffect(() => {
+    fetchSocieteConfig();
     fetchArticles();
     fetchCategories();
     fetchCollaborators();
@@ -693,7 +706,7 @@ const fetchArticles = async () => {
     fetchCompanySettings();
     fetchMyDocuments();
     fetchCountries();
-    fetchSocieteConfig();
+    fetchPublishers();
   }, []);
 
   const contextValue = {
@@ -745,6 +758,8 @@ const fetchArticles = async () => {
     countries,
     
     societeConfig,
+
+    publishers,
   }
 
   

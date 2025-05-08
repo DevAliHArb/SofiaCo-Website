@@ -39,6 +39,7 @@ import AuthContext from './Components/Common/authContext';
 import Publishers from './Components/Collaborators/Publishers Page/Publishers';
 import NewPassword from './Components/Auth Pages/New Password/NewPassword';
 import ForgotPassword from './Components/Auth Pages/Forgot Password/ForgotPassword';
+import PublisherDetails from './Components/Collaborators/Publisher DetailsPage/PublisherDetails';
 
 function App() {
   const authCtx = useContext(AuthContext)
@@ -155,7 +156,7 @@ function App() {
           <Route path='/forget-password' element={<ScrollToTop><ForgotPassword/></ScrollToTop>} />
           <Route path='/reset-password' element={<ScrollToTop><NewPassword/></ScrollToTop>} />
           <Route path="/publishers" element={<ScrollToTop><Publishers /></ScrollToTop>} />
-          <Route path="/publishers/:id/details" element={<ScrollToTop><CollaboratorDetails /></ScrollToTop>} />
+          <Route path="/publishers/:id/details" element={<ScrollToTop><PublisherDetails /></ScrollToTop>} />
           <Route path="/collaborators" element={<ScrollToTop><Collaborators /></ScrollToTop>} />
           <Route path="/collaborators/:id/details" element={<ScrollToTop><CollaboratorDetails /></ScrollToTop>} />
           <Route path="/wishlist" element={<ScrollToTop><Favorite /></ScrollToTop>} />
