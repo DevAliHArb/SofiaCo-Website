@@ -20,7 +20,6 @@ import AuthContext from '../../Common/authContext';
 const PublisherDetails = () => {
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
-  const dispatch = useDispatch();
   const { id } = useParams();
   const [CollaboratorData, setCollaboratorData] = useState({});
   const user = useSelector((state) => state.products.userInfo);
@@ -28,23 +27,25 @@ const PublisherDetails = () => {
   const language = useSelector(
     (state) => state.products.selectedLanguage[0].Language
   );
-  
+
   const getToken = () => {
     return localStorage.getItem('token');
   };
 
   const token = getToken();
 
-  // useEffect(() => {
-  //   Collaborators.forEach(element => {
-  //     setCollaboratorData(element)
-  //   });
-  // }, [Collaborators]);
-  
   useEffect(() => {
-    const editorData = authCtx.publishers?.find(editor => editor.id === Number(id))
-    setCollaboratorData(editorData)
-  }, []);
+    const fetchCollaboratorData = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/publishers?ecom_type=sofiaco&ids[]=${id}`);
+        setCollaboratorData(response.data[0]);
+      } catch (error) {
+        console.error('Error fetching collaborator data:', error);
+      }
+    };
+    fetchCollaboratorData();
+  }, [authCtx.publishers, id]);
+
   // const handleSuivreClick = async (id) => {
   //   if (!user) {
   //     // If user is not defined, throw an error
