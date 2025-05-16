@@ -565,12 +565,12 @@ const handleSuivreCategory = async () => {
             <p
               onClick={() => {
                 localStorage.removeItem("category");
-                dispatch(editSearchData({ editor: bookData.editor?._nom }));
+                dispatch(editSearchData({ editor: bookData.dc_editor }));
                 navigate(`/books`);
               }}
               style={{ cursor: "pointer" }}
             >
-              : {bookData.editor?._nom}
+              : {bookData.dc_editor}
             </p>
             {bookData.editor && bookData.editor !== "" && <span  style={{
                 background: "var(--primary-color)",
