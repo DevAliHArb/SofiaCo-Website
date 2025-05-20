@@ -175,8 +175,8 @@ const fetchArticles = async () => {
     // Extract unique editors
     const editorsMap = new Map();
     articlesData.forEach(article => {
-      if (article.editor && article.editor._nom) {
-        editorsMap.set(article.editor.id, { id: article.editor.id, nom: article.editor._nom });
+      if (article.editor && article?.dc_editor) {
+        editorsMap.set(article.editor.id, { id: article.editor.id, nom: article?.dc_editor });
       }
     });
 

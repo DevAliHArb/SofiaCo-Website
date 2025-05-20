@@ -279,7 +279,7 @@ function SearchBox() {
                       {currency === "eur" ? `${Number(article._prix_public_ttc).toFixed(2)} € `: `${(article._prix_public_ttc * authCtx.currencyRate ).toFixed(2)} $ `}</span>} 
                       </p>
                        {selectedOption === "Editor" && (
-                        <p style={{ color: "red", marginTop:'0.2em' }}>{article.editor?._nom}</p>
+                        <p style={{ color: "red", marginTop:'0.2em' }}>{article?.dc_editor}</p>
                       )}
                       {selectedOption === "Collection" && (
                         <p style={{ color: "red", marginTop:'0.2em' }}>{article.dc_collection}</p>

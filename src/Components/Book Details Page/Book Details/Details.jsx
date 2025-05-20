@@ -193,7 +193,7 @@ const handleSuivreEditor = async () => {
       const collaboratorsResponse = await axios.get(`${import.meta.env.VITE_TESTING_API}/collaborators?ecom_type=sofiaco`);
       const collaborators = collaboratorsResponse.data;
 
-      const cleanedAuteur = bookData.editor._nom.trim();
+      const cleanedAuteur = bookData?.dc_editor.trim();
       // Find the collaborator whose nom + prenom matches bookData.dc_auteur
       const collaborator = collaborators.find(collaborator => {
           const fullName = `${collaborator.nom}`;
