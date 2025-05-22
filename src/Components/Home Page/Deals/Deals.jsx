@@ -211,7 +211,7 @@ const Deals = () => {
                                     margin:'auto'
                                   }}
                                 >
-                                  {props?.dc_editor.length > 8
+                                  {props?.dc_editor?.length > 8
                                     ? props?.dc_editor.slice(0, 8) + "..."
                                     : props?.dc_editor}
                                 </p>
