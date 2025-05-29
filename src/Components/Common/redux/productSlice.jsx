@@ -56,6 +56,12 @@ export const productSlice = createSlice({
             state.productData.push(action.payload);
         }
     },
+    editCart: (state, action) => {
+      const item = state.productData.find(item => item._id === action.payload._id);
+      if (item) {
+          item.remise_catalogue = Number(action.payload.remise_catalogue) || item.remise_catalogue;
+      }
+  },
     deleteItem: (state,action) => {
         state.productData = state.productData.filter(
             (item) => item._id !== action.payload
@@ -469,6 +475,7 @@ export const productSlice = createSlice({
 
 export const {
   addTocart,
+  editCart,
   deleteItem,
   addOrderData,
   resetOrderData,

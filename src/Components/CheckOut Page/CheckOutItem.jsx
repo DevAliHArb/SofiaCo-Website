@@ -241,7 +241,9 @@ const CheckOutItem = () => {
                     : ` ${(
                         props.price_ttc * authCtx.currencyRate
                       ).toFixed(2)}$`}
-                </span>}</p>
+                </span>}
+                <br/>
+                {props.remise_catalogue}%</p>
               </span>
               <p style={{ margin: "auto", fontWeight: "600" }}>
                 {" "}
