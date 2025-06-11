@@ -192,7 +192,7 @@ const Deals = () => {
                             </div>
                           )}
                           {props.editor &&
-                            Object.keys(props.editor).length > 0 && (
+                            Object.keys(props.editor)?.length > 0 && (
                               <div
                                 style={{
                                   width: "fit-content",
@@ -211,7 +211,7 @@ const Deals = () => {
                                     margin:'auto'
                                   }}
                                 >
-                                  {props?.dc_editor.length > 8
+                                  {props?.dc_editor?.length > 8
                                     ? props?.dc_editor.slice(0, 8) + "..."
                                     : props?.dc_editor}
                                 </p>
@@ -237,7 +237,7 @@ const Deals = () => {
                                   margin:'auto'
                                 }}
                               >
-                                {props.dc_collection.length > 10
+                                {props.dc_collection?.length > 10
                                   ? props.dc_collection.slice(0, 10) + "..."
                                   : props.dc_collection}
                               </p>
