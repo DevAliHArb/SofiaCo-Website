@@ -100,7 +100,7 @@ useEffect(() => {
     } else if (language === 'fr') {
       return (
         searchQuery === "" ||
-        event.name_fr.toLowerCase().includes(searchQuery.toLowerCase())
+        event?.name_fr.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
   });
@@ -180,7 +180,7 @@ useEffect(() => {
     <div className={classes.events_detail}>
       <div className={classes.events_detail_image_con} style={{flexDirection:"column-reverse"}}>
         <div className={classes.contentContainer} onClick={()=>console.log(eventData)}>
-          <h1>{language == 'eng' ? eventData.name_eng : eventData.name_fr}</h1>
+          <h1>{language == 'eng' ? eventData.name_eng : eventData?.name_fr}</h1>
           <h3>{eventData.event_host?.map((data ,index)=>{
                     return(
                            <>{data.name} {(index + 1) === eventData.event_host?.length ? '' : "/"}</>
@@ -230,7 +230,7 @@ useEffect(() => {
         />
         </div>
         <div className={classes.contentss}>
-          <h2>{language == 'eng' ? eventData.name_eng : eventData.name_fr}</h2>
+          <h2>{language == 'eng' ? eventData.name_eng : eventData?.name_fr}</h2>
           <p>{language == 'eng' ? eventData.description_eng : eventData.description_fr}</p>
           <div className={classes.contactBtn} onClick={()=>navigate(`/contact`)}>
           {language === 'eng' ? "CONTACT US" : "CONTACTEZ-NOUS" }
@@ -258,7 +258,7 @@ useEffect(() => {
       {/* <div className={classes.content}>
         <div className={classes.details_section}>
           <div className={classes.title_con}>
-            <h1>{language == 'eng' ? eventData.name_eng : eventData.name_fr}</h1>
+            <h1>{language == 'eng' ? eventData.name_eng : eventData?.name_fr}</h1>
             {eventEnded && <div className={classes.ended}>
               <p>ENDED</p>
             </div>}
@@ -386,7 +386,7 @@ useEffect(() => {
                     }}>
                       <img src={eventData.event_images && `https://sofiadis.recette-lisa.leonardo-service.com/modules/sofiadis/files/${eventData.event_images[0].image}`} style={{height:'100%',width:'90%',objectFit:'cover',margin:'auto',borderRadius:'.5em'}} alt="" />
                       <div style={{width:'100%',display:'flex',flexDirection:'column'}}>
-                        <h3>{language == 'eng' ? props.name_eng : props.name_fr}</h3>
+                        <h3>{language == 'eng' ? props.name_eng : props?.name_fr}</h3>
                         <h5>{language == 'eng' ? props.description_eng.slice(0,25) : props.description_fr.slice(0,25)}...</h5>
                         <div style={{display:'flex',flex:"row",justifyContent:"space-between",width:'95%',margin:'auto'}}>
                         <p style={{textAlign:'start',fontWeight:'500'}}>{formatDate(props.date)}</p>

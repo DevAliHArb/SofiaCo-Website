@@ -51,10 +51,10 @@ const BooksView = ({carttoggle}) => {
   const [totalArticlesNumber, setTotalArticlesNumber] = useState(null);
   const [inStock, setinStock] = useState(localStorage.getItem("stock") || null);
   const [isdiscount, setisdiscount] = useState(localStorage.getItem("discount") || []);
-  const authors = authCtx.collaborators?.filter((collaborator) => collaborator.type?.name_fr === 'auteur');
-  const translators = authCtx.collaborators?.filter((collaborator) => collaborator.type?.name_fr === 'traducteur');
-  const illustrators = authCtx.collaborators?.filter((collaborator) => collaborator.type?.name_fr === 'illustrateur');
-  const editors = authCtx.collaborators?.filter((collaborator) => collaborator.type?.name_fr === 'editeur');
+  const authors = authCtx.collaborators?.filter((collaborator) => collaborator?.type?.name_fr === 'auteur');
+  const translators = authCtx.collaborators?.filter((collaborator) => collaborator?.type?.name_fr === 'traducteur');
+  const illustrators = authCtx.collaborators?.filter((collaborator) => collaborator?.type?.name_fr === 'illustrateur');
+  const editors = authCtx.collaborators?.filter((collaborator) => collaborator?.type?.name_fr === 'editeur');
 
 
   const changechemin = async () => {

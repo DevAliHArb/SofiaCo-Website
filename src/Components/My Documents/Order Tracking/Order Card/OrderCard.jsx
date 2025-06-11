@@ -154,8 +154,8 @@ const AddAllToCart = () => {
   <div className={classes.orderCard}>
         <h3>{data.id}</h3>
         <h3>{new Date(data.date).toDateString()}</h3>
-        {data.return_status === null ? <h3 >{language == 'eng' ? data.look_up.name : data.look_up.name_fr}</h3> : 
-                <h3>{language == 'eng' ? data.return_look_up.name : data.return_look_up.name_fr} Return</h3>}
+        {data.return_status === null ? <h3 >{language == 'eng' ? data.look_up.name : data.look_up?.name_fr}</h3> : 
+                <h3>{language == 'eng' ? data.return_look_up.name : data.return_look_up?.name_fr} Return</h3>}
 
       <h3>{data.total_price}{data.currency === 'usd' ? '$' : '€' }</h3>
       <button className={classes.btn}>View Order</button>

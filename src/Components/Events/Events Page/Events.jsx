@@ -85,7 +85,7 @@ const Events = () => {
                 </div>
                 <div className={classes.card_text}>
                     <div className={classes.hovered_title}>
-                      <h2>{language == 'eng' ? props.name_eng : props.name_fr}</h2>
+                      <h2>{language == 'eng' ? props.name_eng : props?.name_fr}</h2>
                     {/* <p className={classes.user}><CiUser /> {props.event_host?.map((props, index)=>{return(<>{index != 0 && ' / '}{props.name}</>)})}</p> */}
                     </div>
                       <p className={classes.p}>{props.description_eng?.substring(0, 60)}{props.description_eng?.length > 60 && "..."}</p>
