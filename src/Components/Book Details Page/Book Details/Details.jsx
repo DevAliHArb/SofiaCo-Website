@@ -588,7 +588,7 @@ const handleSuivreCategory = async () => {
                </span>}
           </div>
           <div className={classes.char}>
-            <p >{language === 'eng' ? "Recommend this book" : "Publishing house" }</p>
+            <p >{language === 'eng' ? "Publishing house" : "Maison d'édition" }</p>
             <p >: {bookData?.editor?._nom}</p>
           </div>
           <div className={classes.char}>
