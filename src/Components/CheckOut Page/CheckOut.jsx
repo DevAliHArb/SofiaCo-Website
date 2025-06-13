@@ -33,6 +33,7 @@ import {
 import axios from "axios";
 import {
   addOrderData,
+  editCart,
   editDefaultAdd,
   editDefaultPAY,
   resetCart,
@@ -888,7 +889,7 @@ const CheckOut = () => {
           currency: currency,
           coupon_amount: coupon.reduction
             ? coupon.type === "Percentage"
-              ? calculateReductionAmt(subtotalAmt, coupon.reduction)
+              ? null
               : currency === "usd"
               ? (coupon.reduction * authCtx.currencyRate).toFixed(2)
               : coupon.reduction
@@ -924,7 +925,7 @@ const CheckOut = () => {
           coupon_type: coupon.type,
           coupon_amount: coupon.reduction
             ? coupon.type === "Percentage"
-              ? calculateReductionAmt(subtotalAmt, coupon.reduction)
+              ? null
               : currency === "usd"
               ? (coupon.reduction * authCtx.currencyRate).toFixed(2)
               : coupon.reduction
@@ -1030,7 +1031,15 @@ const CheckOut = () => {
         setTotalAmt(total);
       }
       if (coupon.type === "Percentage") {
-        const subTotal = calculateReduction(subtotalAmt, coupon.reduction);
+        // const subTotal = calculateReduction(subtotalAmt, coupon.reduction);
+        const subTotal = subtotalAmt;
+        productData?.forEach(element => {
+          console.log(Math.max(coupon.reduction, Number(element.remise_catalogue)));
+            dispatch(editCart({
+                _id: element._id,
+                remise_catalogue: Math.max(coupon.reduction, Number(element.remise_catalogue)), // Get the greatest value
+            }));
+        });
         const total =
           currency === "eur"
             ? parseFloat(deliveryFees) + parseFloat(subTotal)
@@ -1082,7 +1091,7 @@ const CheckOut = () => {
           delivery === "standard" ? null : colissimoPointData?.identifiant,
           coupon_amount: coupon.reduction
             ? coupon.type === "Percentage"
-              ? calculateReductionAmt(subtotalAmt, coupon.reduction)
+              ? null
               : currency === "usd"
               ? (coupon.reduction * authCtx.currencyRate).toFixed(2)
               : coupon.reduction
@@ -1328,6 +1337,7 @@ const CheckOut = () => {
     setSelectedCoupon("");
     setcoupon({});
     setuserCoupon([]);
+    authCtx.fetchfavandcartSettings();
 };
   return (
     <div className={classes.cart_container}>
@@ -1934,17 +1944,12 @@ const CheckOut = () => {
               <div className={classes.totalrows}>
                 <p>
                   {language === "eng" ? "Discount" : "Remise"}{" "}
-                  {coupon.reduction &&
-                    coupon.type === "Percentage" &&
-                    `(${coupon.reduction} % OFF)`}
+                 
                 </p>
                 <p style={{ textAlign: "end" }}>
                   {coupon.reduction
                     ? coupon.type === "Percentage"
-                      ? `- ${calculateReductionAmt(
-                          subtotalAmt,
-                          coupon.reduction
-                        )} ${currency === "usd" ? "$" : "€"}`
+                      ? `(${coupon.reduction} % OFF)`
                       : `- ${
                           currency === "usd"
                             ? `${(
