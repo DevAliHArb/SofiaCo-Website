@@ -980,7 +980,7 @@ const CheckOut = () => {
             );
 
             dispatch(resetCart());
-            navigate("/");
+            navigate("/order-success");
             toast.success(`${language === 'eng' ? `Order success` : "Succès de la commande"}`, {
               position: "top-right",
               autoClose: 1500,
@@ -1110,7 +1110,7 @@ const CheckOut = () => {
       );
 
       dispatch(resetCart());
-      navigate("/");
+      navigate("/order-success");
       setLoading(false);
       toast.success(`${language === 'eng' ? `Order success` : "Succès de la commande"}`, {
         position: "top-right",
