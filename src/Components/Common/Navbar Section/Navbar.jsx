@@ -313,7 +313,7 @@ const Navbar = (props) => {
               {language === 'eng' ? "COLLABORATORS" : "COLLABORATEURS" }
               </p>
               <p onClick={() => navigate(`/publishers`)}>
-                {language === 'eng' ? 'publishers' : 'Éditeurs'}
+                {language === 'eng' ? 'publishing house' : 'maison d\'édition'}
               </p>
               <p onClick={() => navigate(`/contact`)}>
               {language === 'eng' ? "CONTACT US" : "CONTACTEZ-NOUS" }
@@ -522,7 +522,7 @@ const Navbar = (props) => {
               {language === 'eng' ? "COLLABORATORS" : "COLLABORATEURS" }
               </p>
               <p onClick={() => navigate(`/publishers`)}>
-                {language === 'eng' ? 'publishers' : 'Éditeurs'}
+                {language === 'eng' ? 'publishing house' : 'maison d\'édition'}
               </p>
               <p onClick={() => navigate(`/contact`)}>
               {language === 'eng' ? "CONTACT US" : "CONTACTEZ-NOUS" }

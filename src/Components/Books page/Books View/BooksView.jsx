@@ -353,13 +353,14 @@ const BooksView = ({carttoggle}) => {
 
   const storedCategory = localStorage.getItem("categories");
   const storedCollec = localStorage.getItem("collections");
+  const storedPublisher = localStorage.getItem("publishers");
   useEffect(() => {
     changechemin();
-  }, [searchData[0]?.category, storedCategory, storedCollec]);
+  }, [searchData[0]?.category, storedCategory, storedCollec, storedPublisher]);
 
   useEffect(() => {
     fetchArticles(null, null, null, 1);
-  }, [searchData[0], storedCategory, storedCollec]);
+  }, [searchData[0], storedCategory, storedCollec, storedPublisher]);
 
   useEffect(() => {
     if (Array.isArray(authCtx.categories)) {
@@ -448,6 +449,17 @@ const BooksView = ({carttoggle}) => {
             .join("&")
         : "";
 
+        // Get the category from localStorage if available
+      const storedPublisher =
+      JSON.parse(localStorage.getItem("publishers")) || [];
+    const selectedPubliParam =
+      storedPublisher.length > 0
+        ? `&` +
+          storedPublisher
+            .map((publiId) => `publisher[]=${publiId}`)
+            .join("&")
+        : "";
+
     const storedCategories =
       JSON.parse(localStorage.getItem("categories")) || [];
     const selectedCatParam =
@@ -493,7 +505,7 @@ const BooksView = ({carttoggle}) => {
         : ``;
 
       // Finalize the URL by combining all parameters
-      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedillustrateurParam}${selectedCollecParam}${selectedStockParam}${selectedDiscount}${selectedEANParam}${selectedResumeParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}&ecom_type=sofiaco`;
+      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedillustrateurParam}${selectedCollecParam}${selectedStockParam}${selectedDiscount}${selectedPubliParam}${selectedEANParam}${selectedResumeParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}&ecom_type=sofiaco`;
       // Fetch articles using the finalized URL
       const response = await axios.get(finalUrl);
 
@@ -618,6 +630,7 @@ const BooksView = ({carttoggle}) => {
     localStorage.removeItem("stock");
     localStorage.removeItem("categories");
     localStorage.removeItem("collections");
+    localStorage.removeItem("publishers");
     localStorage.removeItem("rate");
     localStorage.removeItem("min_price");
     localStorage.removeItem("max_price");
@@ -705,7 +718,29 @@ const BooksView = ({carttoggle}) => {
 
     setArticles([]); // Reset articles
   };
+const handleChangePublisher = (event) => {
+    const newSelectedPublisher = event;
 
+    // Retrieve and parse stored publishers (ensure it's an array)
+    let storedPublishers = JSON.parse(localStorage.getItem("publishers")) || [];
+
+    if (storedPublishers.includes(newSelectedPublisher)) {
+      // If already selected, remove it
+      storedPublishers = storedPublishers.filter(
+        (pub) => pub !== newSelectedPublisher
+      );
+    } else {
+      // Otherwise, add the new publisher
+      storedPublishers.push(newSelectedPublisher);
+    }
+
+    // Update localStorage with the new publishers array
+    localStorage.setItem("publishers", JSON.stringify(storedPublishers));
+
+    // Dispatch action to update search data
+
+    setArticles([]); // Reset articles
+  };
   // Retrieve stored collections as an array
   const selectedCollections =
     JSON.parse(localStorage.getItem("collections")) || [];
@@ -713,6 +748,14 @@ const BooksView = ({carttoggle}) => {
   // Function to check if a collection is selected
   const isCollectionSelected = (collectionNom) => {
     return selectedCollections.includes(collectionNom?.trim());
+  };
+  // Retrieve stored publishers as an array
+  const selectedPublishers =
+    JSON.parse(localStorage.getItem("publishers")) || [];
+
+  // Function to check if a publisher is selected
+  const isPublisherSelected = (publisherNom) => {
+    return selectedPublishers.includes(publisherNom?.trim());
   };
   const isDiscountSelected = (discount) => {
     return isdiscount?.includes(discount);
@@ -759,6 +802,57 @@ const BooksView = ({carttoggle}) => {
                       <TreeNode data={data} level={0} color='#fff'/>
                   );
                 })}
+              </div>
+          </div>
+
+          <Divider  
+          color="var(--secondary-color)"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
+
+          <div className={classes.categories}>
+            <h2 onClick={()=>console.log(authCtx.publishers)}>{language === "eng" ? "Publishing House" : "Maisons d'édition"}</h2>
+              <div className={classes.dropdown}
+                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+
+                {authCtx?.publishers?.map((publisher) => {
+                    const isChecked = isPublisherSelected(publisher.title);
+
+                    return (
+                      <div
+                        key={publisher.id}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          marginBottom: "0.5em",
+                        }}
+                        onClick={(e) => handleChangePublisher(publisher.title)}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          className={classes.checkbox}
+                          style={{
+                            marginRight: "0px",
+                            width: "1.3em",
+                            height: "1.3em",
+                          }}
+                        />
+                        <p
+                          style={{
+                            margin: "auto 0 auto 2%",
+                            width: "92%",
+                            display: "flex",
+                            cursor: "pointer", 
+                            color: "var(--secondary-color)" 
+                          }}
+                        >
+                          {publisher.title}
+                        </p>
+                      </div>
+                    );
+                  })}
               </div>
           </div>
 
@@ -1003,6 +1097,57 @@ const BooksView = ({carttoggle}) => {
                       <TreeNode data={data} level={0} color='var(--secondary-color)'/>
                   );
                 })}
+              </div>
+          </div>
+
+          <Divider  
+          color="var(--secondary-color)"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
+
+          <div className={classes.categories}>
+            <h2 onClick={()=>console.log(authCtx.publishers)}>{language === "eng" ? "Publishing House" : "Maisons d'édition"}</h2>
+              <div className={classes.dropdown}
+                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+
+                {authCtx?.publishers?.map((publisher) => {
+                    const isChecked = isPublisherSelected(publisher.title);
+
+                    return (
+                      <div
+                        key={publisher.id}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          marginBottom: "0.5em",
+                        }}
+                        onClick={(e) => handleChangePublisher(publisher.title)}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          className={classes.checkbox}
+                          style={{
+                            marginRight: "0px",
+                            width: "1.3em",
+                            height: "1.3em",
+                          }}
+                        />
+                        <p
+                          style={{
+                            margin: "auto 0 auto 2%",
+                            width: "92%",
+                            display: "flex",
+                            cursor: "pointer", 
+                            color: "var(--secondary-color)" 
+                          }}
+                        >
+                          {publisher.title}
+                        </p>
+                      </div>
+                    );
+                  })}
               </div>
           </div>
 

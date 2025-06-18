@@ -145,28 +145,6 @@ const Publishers = () => {
     fetchHero();
   }, []);
 
-
-  const gettype = (type) => {
-    switch (type) {
-      case "All":
-        const name = language === "eng" ? "All" : "Tout";
-        return name;
-      case "auteur":
-        const name1 = language === "eng" ? "Authors" : "Auteurs";
-        return name1;
-      case "traducteur":
-        const  name2 = language === "eng" ? "Translators" : "Traducteurs";
-       return name2;
-       case "illustrateur":
-         const  name3 = language === "eng" ? "Illustators" : "Illustrateurs";
-        return name3;
-        case "editeur":
-          const  name4 = language === "eng" ? "Editor" : "Editeur";
-         return name4;
-      default:
-        return "";
-    }
-  };
   return (
     <div className={classes.collab}>
       <img src={abs} alt="" className={classes.img_abs}/>
@@ -175,7 +153,8 @@ const Publishers = () => {
         <div className={classes.filters}>
             
         <div className={classes.header}>
-          <h1 onClick={()=>console.log(records)}>{data.Collections.CollectionsPage.title[language]}</h1>
+          <h1 onClick={()=>console.log(records)}>
+                {language === 'eng' ? 'Publishing House' : 'Maison D\'édition'}</h1>
         </div>
           <div
             style={{
