@@ -60,7 +60,7 @@ const MoreAbout = ({publisher_name}) => {
     <div className={classes.big_container}>
       <div className={classes.content}>
         <div className={classes.header}>
-          <h1>{language === "eng" ? "More for the same Publisher":"Plus pour le même éditeur"}</h1>
+          <h1>{language === "eng" ? "More for the same Publishing house":"Plus pour le même maison d'édition"}</h1>
           <p>
             {/* {data.MoreForCollab?.description[language]} */}
             </p>
