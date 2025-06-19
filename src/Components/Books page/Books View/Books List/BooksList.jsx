@@ -191,6 +191,11 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
       finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Collection: ${storedCollection}` : `Collection: ${storedCollection}`);
     }
 
+    const storedPublishers = JSON.parse(localStorage.getItem("publishers")) || [];
+    if (storedPublishers && storedPublishers?.length > 0) {
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Publisher: ${storedPublishers}` : `Publisher: ${storedPublishers}`);
+    }
+
     if (searchData[0]?.collection) {
       finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Collection: ${searchData[0]?.collection}` : `Collection: ${searchData[0]?.collection}`);
     }
