@@ -53,8 +53,7 @@ const Collaborators = () => {
       (selectedLetter === "ALL" || author.firstLetter === selectedLetter?.toLowerCase()) &&
       (searchQuery === "" ||
         author.nom?.toLowerCase().includes(searchQuery?.toLowerCase())) &&
-        (type === 'All' || author?.type?.name_fr?.toLowerCase() === type?.toLowerCase())&&
-        (author?.type?.name_fr?.toLowerCase() !== "editeur")  // Add "which" filter
+        (type === 'All' || author?.type?.name_fr?.toLowerCase() === type?.toLowerCase())
     );
 
   const recordsPerPage = 15;
@@ -169,6 +168,8 @@ const Collaborators = () => {
         return "";
     }
   };
+
+  console.log("Filtered Authors:", filteredAuthors);
   return (
     <div className={classes.collab}>
       <img src={abs} alt="" className={classes.img_abs}/>
@@ -294,12 +295,12 @@ const Collaborators = () => {
                   {language === 'eng' ? "Illustrators" : "Illustrateurs" }
                 </button>
                 <div className={classes.border}/>
-                {/* <button
+                <button
                   style={{ borderBottom: "none" }}
                   onClick={() => setType("editeur") & setTypeopen(false)}
                 >
                   {language === 'eng' ? "Editor" : "Editeur" }
-                </button> */}
+                </button>
               </div>
             </div>
           </div>
@@ -377,7 +378,7 @@ const Collaborators = () => {
            className={classes.card_container}>
               <div className={classes.card_img}>
                 <div className={classes.card_imgimg}>
-                {props.image === '' ? 
+                {props.image === null || props.image === '' ? 
                   <img src={collabPlaceholder} alt="" width="100%" height="100%" /> 
                   : 
                   <img src={`${props.image}`} alt="" width="100%" height="100%" />  
