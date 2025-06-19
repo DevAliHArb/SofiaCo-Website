@@ -193,7 +193,10 @@ const fetchArticles = async () => {
   const fetchCategories = async () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/categories?ecom_type=sofiaco`);
-      setCategories(response.data);
+      const sorteddata = [...response.data].sort((a, b) =>
+        a._nom.localeCompare(b._nom)
+      );
+      setCategories(sorteddata);
     } catch (error) {
       // console.error('Error fetching categories:', error);
     }
@@ -203,7 +206,10 @@ const fetchArticles = async () => {
   const fetchCollaborators = async () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/collaborators?ecom_type=sofiaco`);
-      setCollaborators(response.data);
+      const sorteddata = [...response.data].sort((a, b) =>
+        a._nom.localeCompare(b._nom)
+      );
+      setCollaborators(sorteddata);
     } catch (error) {
       // console.error('Error fetching collaborators:', error);
       // toast.error('Failed to fetch categories.');
@@ -212,12 +218,27 @@ const fetchArticles = async () => {
   const fetchCollections = async () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/collections?ecom_type=sofiaco`);
-      setCollections(response.data);
+      const sorteddata = [...response.data].sort((a, b) =>
+        a.nom.localeCompare(b.nom)
+      );
+      setCollections(sorteddata);
     } catch (error) {
       // console.error('Error fetching collections:', error);
     }
   };
 
+  const fetchPublishers = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/publishers?ecom_type=sofiaco`);
+      const sorteddata = [...response.data].sort((a, b) =>
+        a.title.localeCompare(b.title)
+      );
+      setPublishers(sorteddata);
+    } catch (error) {
+      // Handle error silently
+    }
+  };
+  
   const fetchRemiseCatalogues = async () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/distinct-remise-catalogue?ecom_type=sofiaco`);
@@ -260,14 +281,6 @@ const fetchArticles = async () => {
     }
   };
 
-  const fetchPublishers = async () => {
-    try {
-      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/publishers?ecom_type=sofiaco`);
-      setPublishers(response.data);
-    } catch (error) {
-      // Handle error silently
-    }
-  };
   
   
   const fetchThemes = async () => {
