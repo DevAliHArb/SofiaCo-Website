@@ -34,6 +34,7 @@ const MoreAbout = () => {
   const favoriteData = useSelector((state) => state.products.favorites);
   const [articles, setArticles] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0); // State to track active slide index
+  const user = useSelector((state) => state.products.userInfo);
 
   useEffect(() => {
     fetchArticles();
@@ -41,7 +42,7 @@ const MoreAbout = () => {
 
   const fetchArticles = async () => {
     try {
-      const baseURL = `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco`;
+      const baseURL = `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&user_id=${user?.id ? user.id : null}`;
 
     let queryParam = '';
     switch (CollaboratorData?.type?.name_fr) {
@@ -211,19 +212,19 @@ const MoreAbout = () => {
                         >
                           {currency === "eur"
                             ? `€${
-                                props.remise_catalogue > 0
+                                props.discount > 0
                                   ? (
                                       props._prix_public_ttc -
-                                      props._prix_public_ttc * (props.remise_catalogue / 100)
+                                      props._prix_public_ttc * (props.discount / 100)
                                     ).toFixed(2)
                                   : Number(props._prix_public_ttc).toFixed(2)
                               }`
                             : `$${
-                                props.remise_catalogue > 0
+                                props.discount > 0
                                   ? (
                                       (props._prix_public_ttc -
                                         props._prix_public_ttc *
-                                          (props.remise_catalogue / 100)) *
+                                          (props.discount / 100)) *
                                       authCtx.currencyRate
                                     ).toFixed(2)
                                   : (
@@ -231,7 +232,7 @@ const MoreAbout = () => {
                                     ).toFixed(2)
                               }`}{" "}
                         </p>
-                        {props.remise_catalogue > 0 && (
+                        {props.discount > 0 && (
                           <p
                             style={{
                               color: "var(--primary-color)",

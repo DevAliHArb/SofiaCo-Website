@@ -30,6 +30,7 @@ const BooksView = ({carttoggle}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [rate, setrate] = useState(0);
   const searchData = useSelector((state) => state.products.searchData);
+  const user = useSelector((state) => state.products.userInfo);
   const language = useSelector(
     (state) => state.products.selectedLanguage[0].Language
   );
@@ -504,8 +505,9 @@ const BooksView = ({carttoggle}) => {
         ? `&rate=${storedRate}`
         : ``;
 
+      const UserIdParam = `&user_id=${user?.id ? user.id : null}`
       // Finalize the URL by combining all parameters
-      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedillustrateurParam}${selectedCollecParam}${selectedStockParam}${selectedDiscount}${selectedPubliParam}${selectedEANParam}${selectedResumeParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}&ecom_type=sofiaco`;
+      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedillustrateurParam}${UserIdParam}${selectedCollecParam}${selectedStockParam}${selectedDiscount}${selectedPubliParam}${selectedEANParam}${selectedResumeParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}&ecom_type=sofiaco`;
       // Fetch articles using the finalized URL
       const response = await axios.get(finalUrl);
 
@@ -640,7 +642,7 @@ const BooksView = ({carttoggle}) => {
     setIsOpen(false);
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco`
+        `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&user_id=${user?.id ? user.id : null}`
       );
       setArticles(response.data.data);
       setTotalArticlesNumber(response.data?.total)
@@ -965,7 +967,7 @@ const handleChangePublisher = (event) => {
                 </FormControl>
               </div>
           </div>
-          <Divider  
+          {/* <Divider  
           color="#fff"
           width="88%"
           style={{margin:'0.5em auto'}}
@@ -1012,7 +1014,7 @@ const handleChangePublisher = (event) => {
                     );
                   })}
               </div>
-          </div>} 
+          </div>}  */}
 
           <Divider  
           color="#fff"
@@ -1259,7 +1261,7 @@ const handleChangePublisher = (event) => {
                 </FormControl>
               </div>
           </div>
-          <Divider  
+          {/* <Divider  
           color="var(--secondary-color)"
           width="88%"
           style={{margin:'0.5em auto'}}
@@ -1306,35 +1308,8 @@ const handleChangePublisher = (event) => {
                       </div>
                     );
                   })}
-              {/* <FormControl>
-                  <RadioGroup
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue='all'
-                    value={isdiscount}
-                    name="radio-buttons-group"
-                    onChange={handleDiscountChange}
-                  >
-                    <FormControlLabel
-                      value={null}
-                      control={
-                        <Radio style={{color:'var(--primary-color)'}} />
-                      }
-                      label='All'
-                    />
-                    <FormControlLabel
-                      value={50}
-                      control={<Radio style={{color:'var(--primary-color)'}}/>}
-                      label="50%" // Make sure item.nom is a string
-                    />
-                    <FormControlLabel
-                      value={10}
-                      control={<Radio style={{color:'var(--primary-color)'}}/>}
-                      label="10%" // Make sure item.nom is a string
-                    />
-                  </RadioGroup>
-                </FormControl> */}
               </div>
-          </div>}
+          </div>} */}
 
           <Divider  
           color="var(--secondary-color)"

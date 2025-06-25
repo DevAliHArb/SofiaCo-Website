@@ -37,6 +37,7 @@ const Hero = ({ carttoggle }) => {
   const [articles, setArticles] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.products.userInfo);
 
   useEffect(() => {
     fetchArticles();
@@ -45,7 +46,7 @@ const Hero = ({ carttoggle }) => {
   const fetchArticles = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&hero_slider`
+        `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&hero_slider&user_id=${user?.id ? user.id : null}`
       );
       
     //   const filteredArticles = response?.data?.data?.filter(article => article._qte_a_terme_calcule > 0);

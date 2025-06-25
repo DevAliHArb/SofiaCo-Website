@@ -494,19 +494,19 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                         >
                           {currency === "eur"
                             ? `€${
-                                props.remise_catalogue > 0
+                                props.discount > 0
                                   ? (
                                       props._prix_public_ttc -
-                                      props._prix_public_ttc * (props.remise_catalogue / 100)
+                                      props._prix_public_ttc * (props.discount / 100)
                                     ).toFixed(2)
                                   : Number(props._prix_public_ttc).toFixed(2)
                               }`
                             : `$${
-                                props.remise_catalogue > 0
+                                props.discount > 0
                                   ? (
                                       (props._prix_public_ttc -
                                         props._prix_public_ttc *
-                                          (props.remise_catalogue / 100)) *
+                                          (props.discount / 100)) *
                                       authCtx.currencyRate
                                     ).toFixed(2)
                                   : (
@@ -514,7 +514,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                                     ).toFixed(2)
                               }`}{" "}
                         </p>
-                        {props.remise_catalogue > 0 && (
+                        {props.discount > 0 && (
                           <p
                             style={{
                               color: "var(--primary-color)",
@@ -666,7 +666,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                         </div>}
                       </div>
              <span style={{ display: "flex", flexDirection: "row", margin:'0 0 0 auto', columnGap:'0.5em' }}>
-                        {props.remise_catalogue > 0 && (
+                        {props.discount > 0 && (
                           <p
                             style={{
                               color: "var(--primary-color)",
@@ -687,19 +687,19 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                         >
                           {currency === "eur"
                             ? `€${
-                                props.remise_catalogue > 0
+                                props.discount > 0
                                   ? (
                                       props._prix_public_ttc -
-                                      props._prix_public_ttc * (props.remise_catalogue / 100)
+                                      props._prix_public_ttc * (props.discount / 100)
                                     ).toFixed(2)
                                   : Number(props._prix_public_ttc).toFixed(2)
                               }`
                             : `$${
-                                props.remise_catalogue > 0
+                                props.discount > 0
                                   ? (
                                       (props._prix_public_ttc -
                                         props._prix_public_ttc *
-                                          (props.remise_catalogue / 100)) *
+                                          (props.discount / 100)) *
                                       authCtx.currencyRate
                                     ).toFixed(2)
                                   : (

@@ -43,7 +43,7 @@ const Reviews = () => {
 
     const fetchBook = async () => {
         try {
-          const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/articles?id=${selectedBook[0].id}&ecom_type=sofiaco`);
+          const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/articles?id=${selectedBook[0].id}&ecom_type=sofiaco&user_id=${user?.id ? user.id : null}`);
           const book = response.data;
           dispatch(addSelectedBook(book))
           

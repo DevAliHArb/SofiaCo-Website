@@ -761,8 +761,8 @@ const CheckOut = () => {
       }
   
       // Calculate the price considering the discount
-      const discountedPrice = item.remise_catalogue > 0
-        ? item.price_ttc - (item.price_ttc * (item.remise_catalogue / 100))
+      const discountedPrice = item.discount > 0
+        ? item.price_ttc - (item.price_ttc * (item.discount / 100))
         : item.price_ttc;
       const price = discountedPrice;
       const priceTTC = item.price_ttc;
@@ -770,11 +770,11 @@ const CheckOut = () => {
   
       // Calculate the cost and TVA
       const cost = priceTTC - (priceTTC - priceNet);
-      const discountedCost = item.remise_catalogue > 0
-        ? cost - (cost * (item.remise_catalogue / 100))
+      const discountedCost = item.discount > 0
+        ? cost - (cost * (item.discount / 100))
         : cost;
-      const tva = item.remise_catalogue > 0
-        ? (priceTTC - priceNet) - ((priceTTC - priceNet) * (item.remise_catalogue / 100))
+      const tva = item.discount > 0
+        ? (priceTTC - priceNet) - ((priceTTC - priceNet) * (item.discount / 100))
         : priceTTC - priceNet;
   
       const isFrance = user.business_area === 'France';
@@ -802,7 +802,7 @@ const CheckOut = () => {
         price: isFrance
           ? (currency === "eur" ? parseFloat(Number(discountedPrice).toFixed(2)) : parseFloat((discountedPrice * authCtx.currencyRate).toFixed(2)))
           : (currency === "eur" ? parseFloat(((discountedPrice - tva) * 1).toFixed(2)) : parseFloat((((discountedPrice - tva) * 1) * authCtx.currencyRate).toFixed(2))),
-        article_discount: item.remise_catalogue !== null ? item.remise_catalogue : 0,
+        article_discount: item.discount !== null ? item.discount : 0,
         price_without_discount: currency === "eur" 
           ? parseFloat(Number(item.price_ttc).toFixed(2)) 
           : parseFloat((item.price_ttc * authCtx.currencyRate).toFixed(2)),
@@ -1034,10 +1034,10 @@ const CheckOut = () => {
         // const subTotal = calculateReduction(subtotalAmt, coupon.reduction);
         const subTotal = subtotalAmt;
         productData?.forEach(element => {
-          console.log(Math.max(coupon.reduction, Number(element.remise_catalogue)));
+          console.log(Math.max(coupon.reduction, Number(element.discount)));
             dispatch(editCart({
                 _id: element._id,
-                remise_catalogue: Math.max(coupon.reduction, Number(element.remise_catalogue)), // Get the greatest value
+                discount: Math.max(coupon.reduction, Number(element.discount)), // Get the greatest value
             }));
         });
         const total =

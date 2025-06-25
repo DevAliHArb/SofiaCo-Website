@@ -99,7 +99,7 @@ export const AuthContextProvider = (props) => {
   const fetchfavandcartSettings = async () => {
     if (user) {
   try {
-    const cartResponse = await axios.get(`${import.meta.env.VITE_TESTING_API}/users/${user.id}/cart`, {
+    const cartResponse = await axios.get(`${import.meta.env.VITE_TESTING_API}/users/${user.id}/cart?user_id=${user?.id ? user.id : null}`, {
         headers: {
             Authorization: `Bearer ${token}` // Include token in the headers
         }
@@ -120,7 +120,7 @@ export const AuthContextProvider = (props) => {
               image: cartItem.article.articleimage[0]?.link ? cartItem.article.articleimage[0].link : bookPlaceHolder,
               price: cartItem.article.prixpublic,
               _qte_a_terme_calcule: cartItem.article?._qte_a_terme_calcule,
-              remise_catalogue: cartItem.article?.remise_catalogue,
+              discount: cartItem.article?.discount,
               average_rate: cartItem.average_rate,
               quantity: cartItem.quantity,
               description: cartItem.article.descriptif,
@@ -131,7 +131,7 @@ export const AuthContextProvider = (props) => {
             }));
     });
 
-    const favoriteResponse = await axios.get(`${import.meta.env.VITE_TESTING_API}/users/${user.id}/favorite`, {
+    const favoriteResponse = await axios.get(`${import.meta.env.VITE_TESTING_API}/users/${user.id}/favorite?user_id=${user?.id ? user.id : null}`, {
         headers: {
             Authorization: `Bearer ${token}` // Include token in the headers
         }
@@ -151,7 +151,7 @@ export const AuthContextProvider = (props) => {
               _qte_a_terme_calcule: favtItem.article?._qte_a_terme_calcule,
               favdescription: favtItem.article.descriptif,
               favquantity: 1,
-              remise_catalogue: favtItem.article?.remise_catalogue,
+              discount: favtItem.article?.discount,
               weight: favtItem.article._poids_net,
               price_ttc: favtItem.article._prix_public_ttc,
               removed: favtItem.removed,
@@ -167,7 +167,7 @@ export const AuthContextProvider = (props) => {
 const fetchArticles = async () => {
   try {
     const response = await axios.get(
-      `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco`
+      `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&user_id=${user?.id ? user.id : null}`
     );
     const articlesData = response.data.data;
     setArticles(articlesData);
@@ -192,7 +192,7 @@ const fetchArticles = async () => {
   
   const fetchCategories = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/categories?ecom_type=sofiaco`);
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/categories?ecom_type=sofiaco&user_id=${user?.id ? user.id : null}`);
       const sorteddata = [...response.data].sort((a, b) =>
         a._nom.localeCompare(b._nom)
       );
@@ -205,7 +205,7 @@ const fetchArticles = async () => {
   
   const fetchCollaborators = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/collaborators?ecom_type=sofiaco`);
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/collaborators?ecom_type=sofiaco&user_id=${user?.id ? user.id : null}`);
       const sorteddata = [...response.data].sort((a, b) =>
         a._nom.localeCompare(b._nom)
       );
@@ -217,7 +217,7 @@ const fetchArticles = async () => {
   };
   const fetchCollections = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/collections?ecom_type=sofiaco`);
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/collections?ecom_type=sofiaco&user_id=${user?.id ? user.id : null}`);
       const sorteddata = [...response.data].sort((a, b) =>
         a.nom.localeCompare(b.nom)
       );
@@ -229,7 +229,7 @@ const fetchArticles = async () => {
 
   const fetchPublishers = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/publishers?ecom_type=sofiaco`);
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/publishers?ecom_type=sofiaco&user_id=${user?.id ? user.id : null}`);
       const sorteddata = [...response.data].sort((a, b) =>
         a.title.localeCompare(b.title)
       );
@@ -324,7 +324,7 @@ const fetchArticles = async () => {
         price: props.prixpublic,
         _qte_a_terme_calcule: props._qte_a_terme_calcule,
         quantity: 1,
-        remise_catalogue: props.remise_catalogue,
+        discount: props.discount,
         average_rate: props.average_rate,
         description: props.descriptif,
         cart_id: response.data.data.id,
@@ -446,7 +446,7 @@ const fetchArticles = async () => {
         image: props.image,
         price: props.prixpublic,
         _qte_a_terme_calcule: props._qte_a_terme_calcule,
-        remise_catalogue: props.remise_catalogue,
+        discount: props.discount,
         quantity: props.quantity,
         description: props.descriptif,
         weight: props._poids_net,
@@ -617,7 +617,7 @@ const fetchArticles = async () => {
         favimage: props.articleimage[0]?.link ? props.articleimage[0].link : bookPlaceHolder,
         favprice: props.prixpublic,
         _qte_a_terme_calcule: props._qte_a_terme_calcule,
-        remise_catalogue: props.remise_catalogue,
+        discount: props.discount,
         favquantity: 1,
         favdescription: props.descriptif,
         weight: props._poids_net,

@@ -218,17 +218,17 @@ const CheckOutItem = () => {
               <p style={{color:'var(--forth-color)',fontFamily:"var(--font-family-primary)",fontWeight:'500'}}>
               {currency === "eur"
     ? `${
-        props.remise_catalogue > 0
-          ? (props.price_ttc - props.price_ttc * (props.remise_catalogue / 100)).toFixed(2)
+        props.discount > 0
+          ? (props.price_ttc - props.price_ttc * (props.discount / 100)).toFixed(2)
           : (Number(props.price_ttc)).toFixed(2)
       }€`
-    : `${props.remise_catalogue > 0
+    : `${props.discount > 0
           ? (
-              (props.price_ttc - props.price_ttc * (props.remise_catalogue / 100)).toFixed(2) * authCtx.currencyRate
+              (props.price_ttc - props.price_ttc * (props.discount / 100)).toFixed(2) * authCtx.currencyRate
             ).toFixed(2)
           : (props.price_ttc * authCtx.currencyRate).toFixed(2)
       }$`}
-              {props.remise_catalogue > 0 && <span
+              {props.discount > 0 && <span
                   style={{
                     color: "var(--primary-color)",
                     textDecoration: "line-through",
@@ -246,11 +246,11 @@ const CheckOutItem = () => {
               <p style={{ margin: "auto", fontWeight: "600" }}>
                 {" "}
                 {currency === "eur"
-    ? ` ${(props.quantity * (props.remise_catalogue > 0
-        ? parseFloat((props.price_ttc - props.price_ttc * (props.remise_catalogue / 100)).toFixed(2))
+    ? ` ${(props.quantity * (props.discount > 0
+        ? parseFloat((props.price_ttc - props.price_ttc * (props.discount / 100)).toFixed(2))
         : (Number(props.price_ttc))).toFixed(2)).toFixed(2)}€`
-    : `${(props.remise_catalogue > 0
-        ? ((props.price_ttc - props.price_ttc * (props.remise_catalogue / 100)) * authCtx.currencyRate).toFixed(2) * props.quantity
+    : `${(props.discount > 0
+        ? ((props.price_ttc - props.price_ttc * (props.discount / 100)) * authCtx.currencyRate).toFixed(2) * props.quantity
         : (props.price_ttc * authCtx.currencyRate) * props.quantity).toFixed(2)}$`}
               </p>
               <div className={classes.delete_btn} style={{zIndex:'50'}}><img src={DeleteIcon} style={{width:'1em'}}  onClick={() => setShowPopup(props._id)} /></div>
@@ -328,11 +328,11 @@ const CheckOutItem = () => {
                 {" "}
                
                 {currency === "eur"
-    ? ` ${(props.quantity * (props.remise_catalogue > 0
-        ? parseFloat((props.price_ttc - props.price_ttc * (props.remise_catalogue / 100)).toFixed(2))
+    ? ` ${(props.quantity * (props.discount > 0
+        ? parseFloat((props.price_ttc - props.price_ttc * (props.discount / 100)).toFixed(2))
         : (Number(props.price_ttc))).toFixed(2)).toFixed(2)}€`
-    : `${(props.remise_catalogue > 0
-        ? ((props.price_ttc - props.price_ttc * (props.remise_catalogue / 100)) * authCtx.currencyRate).toFixed(2) * props.quantity
+    : `${(props.discount > 0
+        ? ((props.price_ttc - props.price_ttc * (props.discount / 100)) * authCtx.currencyRate).toFixed(2) * props.quantity
         : (props.price_ttc * authCtx.currencyRate) * props.quantity).toFixed(2)}$`}
               </p></div>
             </div>

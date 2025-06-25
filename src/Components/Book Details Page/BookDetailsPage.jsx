@@ -18,10 +18,11 @@ const BookDetailsPage = () => {
   
   const [heroData, setHeroData] = useState({});
     const bookData = useSelector((state) => state.products.selectedBook[0]);
+  const user = useSelector((state) => state.products.userInfo);
 
   const fetchBook = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/articles?id=${id}&ecom_type=sofiaco`);
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/articles?id=${id}&ecom_type=sofiaco&user_id=${user?.id ? user.id : null}`);
       const book = response.data;
       dispatch(addSelectedBook(book))
       

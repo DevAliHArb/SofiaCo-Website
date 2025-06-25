@@ -59,7 +59,7 @@ export const productSlice = createSlice({
     editCart: (state, action) => {
       const item = state.productData.find(item => item._id === action.payload._id);
       if (item) {
-          item.remise_catalogue = Number(action.payload.remise_catalogue) || item.remise_catalogue;
+          item.discount = Number(action.payload.discount) || item.discount;
       }
   },
     deleteItem: (state,action) => {

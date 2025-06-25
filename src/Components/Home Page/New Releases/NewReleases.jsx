@@ -29,6 +29,7 @@ const NewReleases = () => {
   const authCtx = useContext(AuthContext);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.products.userInfo);
   const language = useSelector(
     (state) => state.products.selectedLanguage[0].Language
   );
@@ -49,7 +50,7 @@ const NewReleases = () => {
   const fetchArticles = async () => {
     setLoading(true);
     try {
-        let url = `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&page=1`;
+        let url = `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&page=1&user_id=${user?.id ? user.id : null}`;
 
         if (selectedCategory === 'categories') {
           url += `&category=${selectedCatFilter}`;
@@ -262,18 +263,18 @@ const NewReleases = () => {
                           <p className={classes.price}>
                             {currency === "eur"
                               ? `€${
-                                  props.remise_catalogue > 0
+                                  props.discount > 0
                                     ? (
                                         props._prix_public_ttc -
-                                        props._prix_public_ttc * (props.remise_catalogue / 100)
+                                        props._prix_public_ttc * (props.discount / 100)
                                       ).toFixed(2)
                                     : Number(props._prix_public_ttc).toFixed(2)
                                 }`
                               : `$${
-                                  props.remise_catalogue > 0
+                                  props.discount > 0
                                     ? (
                                         (props._prix_public_ttc -
-                                          props._prix_public_ttc * (props.remise_catalogue / 100)) *
+                                          props._prix_public_ttc * (props.discount / 100)) *
                                         authCtx.currencyRate
                                       ).toFixed(2)
                                     : (
@@ -281,7 +282,7 @@ const NewReleases = () => {
                                       ).toFixed(2)
                                 }`}{" "}
                           </p>
-                          {props.remise_catalogue > 0 && (
+                          {props.discount > 0 && (
                             <p
                               className={classes.price}
                               style={{
@@ -379,18 +380,18 @@ const NewReleases = () => {
                           <p className={classes.price}>
                             {currency === "eur"
                               ? `€${
-                                  props.remise_catalogue > 0
+                                  props.discount > 0
                                     ? (
                                         props._prix_public_ttc -
-                                        props._prix_public_ttc * (props.remise_catalogue / 100)
+                                        props._prix_public_ttc * (props.discount / 100)
                                       ).toFixed(2)
                                     : Number(props._prix_public_ttc).toFixed(2)
                                 }`
                               : `$${
-                                  props.remise_catalogue > 0
+                                  props.discount > 0
                                     ? (
                                         (props._prix_public_ttc -
-                                          props._prix_public_ttc * (props.remise_catalogue / 100)) *
+                                          props._prix_public_ttc * (props.discount / 100)) *
                                         authCtx.currencyRate
                                       ).toFixed(2)
                                     : (
@@ -398,7 +399,7 @@ const NewReleases = () => {
                                       ).toFixed(2)
                                 }`}{" "}
                           </p>
-                          {props.remise_catalogue > 0 && (
+                          {props.discount > 0 && (
                             <p
                               className={classes.price}
                               style={{

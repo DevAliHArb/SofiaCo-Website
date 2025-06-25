@@ -29,6 +29,7 @@ function SearchBox() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const searchData = useSelector((state) => state.products.searchData);
+  const user = useSelector((state) => state.products.userInfo);
 
   const handleSearchInputChange = (e) => {
     setCatSearchQuery(e.target.value);
@@ -41,7 +42,7 @@ function SearchBox() {
         setLoading(true);
         const fetchArticles = async () => {
           try {
-            let url = `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&`;
+            let url = `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&user_id=${user?.id ? user.id : null}&`;
             if (selectedOption === "Book") {
               url += `title=${searchQuery}`;
             } else if (selectedOption === "Author") {
@@ -256,26 +257,26 @@ function SearchBox() {
                       >
                         {currency === "eur"
                             ? `${
-                              article.remise_catalogue > 0
+                              article.discount > 0
                                   ? (
                                     article._prix_public_ttc -
-                                    article._prix_public_ttc * (article.remise_catalogue / 100)
+                                    article._prix_public_ttc * (article.discount / 100)
                                     ).toFixed(2)
                                   : Number(article._prix_public_ttc).toFixed(2)
                               } €`
                             : `${
-                              article.remise_catalogue > 0
+                              article.discount > 0
                                   ? (
                                       (article._prix_public_ttc -
                                         article._prix_public_ttc *
-                                          (article.remise_catalogue / 100)) *
+                                          (article.discount / 100)) *
                                       authCtx.currencyRate
                                     ).toFixed(2)
                                   : (
                                     article._prix_public_ttc * authCtx.currencyRate
                                     ).toFixed(2)
                               } $`}  {" "}                   
-                     {article.remise_catalogue > 0 && <span style={{opacity: "0.8",textDecoration:'line-through'}} >
+                     {article.discount > 0 && <span style={{opacity: "0.8",textDecoration:'line-through'}} >
                       {currency === "eur" ? `${Number(article._prix_public_ttc).toFixed(2)} € `: `${(article._prix_public_ttc * authCtx.currencyRate ).toFixed(2)} $ `}</span>} 
                       </p>
                        {selectedOption === "Editor" && (

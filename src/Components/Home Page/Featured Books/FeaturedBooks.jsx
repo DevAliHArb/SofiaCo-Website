@@ -33,6 +33,7 @@ const FeaturedBooks = () => {
   const favoriteData = useSelector((state) => state.products.favorites);
   const [articles, setArticles] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0); // State to track active slide index
+  const user = useSelector((state) => state.products.userInfo);
 
   useEffect(() => {
     fetchArticles();
@@ -41,7 +42,7 @@ const FeaturedBooks = () => {
   const fetchArticles = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&favorites`
+        `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&favorites&user_id=${user?.id ? user.id : null}`
       );
       // console.log(response.data.data);
       // const filteredArticles = response?.data?.data?.filter(article => article._qte_a_terme_calcule > 0);
@@ -176,19 +177,19 @@ const FeaturedBooks = () => {
                           >
                             {currency === "eur"
                               ? `€${
-                                  props.remise_catalogue > 0
+                                  props.discount > 0
                                     ? (
                                         props._prix_public_ttc -
-                                        props._prix_public_ttc * (props.remise_catalogue / 100)
+                                        props._prix_public_ttc * (props.discount / 100)
                                       ).toFixed(2)
                                     : Number(props._prix_public_ttc).toFixed(2)
                                 }`
                               : `$${
-                                  props.remise_catalogue > 0
+                                  props.discount > 0
                                     ? (
                                         (props._prix_public_ttc -
                                           props._prix_public_ttc *
-                                            (props.remise_catalogue / 100)) *
+                                            (props.discount / 100)) *
                                         authCtx.currencyRate
                                       ).toFixed(2)
                                     : (
@@ -196,7 +197,7 @@ const FeaturedBooks = () => {
                                       ).toFixed(2)
                                 }`}{" "}
                           </p>
-                          {props.remise_catalogue > 0 && (
+                          {props.discount > 0 && (
                             <p
                               style={{
                                 color: "#EEBA7F",fontSize:'calc(.8rem + .3vw)',

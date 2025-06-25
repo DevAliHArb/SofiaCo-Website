@@ -84,7 +84,7 @@ const Favorite = ({carttoggle}) => {
             dc_auteur: props.favauthor,
             image: props.favimage,
             prixpublic: props.favprice,
-            remise_catalogue: props.remise_catalogue,
+            discount: props.discount,
             quantity: props.favquantity,
             _qte_a_terme_calcule: props._qte_a_terme_calcule,
             _poids_net: props.weight,
