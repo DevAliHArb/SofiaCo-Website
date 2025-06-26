@@ -405,10 +405,20 @@ export const productSlice = createSlice({
           const key = Object.keys(action.payload)[0]; // Get the first key dynamically
           const value = action.payload[key];
           
-          let existingValues = 
-          typeof state.searchData[0][key] === "string" 
-              ? state.searchData[0][key].split("; ") 
-              : [];
+          let existingValues = [];
+          
+          // Handle different data types
+          if (typeof state.searchData[0][key] === "string") {
+              existingValues = state.searchData[0][key].split("; ");
+          } else if (typeof state.searchData[0][key] === "number") {
+              if (key === "collaborators") {
+                  existingValues = [state.searchData[0][key].toString()];
+              } else {
+                  existingValues = state.searchData[0][key].split("; ");
+              }
+          } else if (Array.isArray(state.searchData[0][key])) {
+              existingValues = [...state.searchData[0][key]];
+          }
 
           if (existingValues.includes(value)) {
               // Remove the value if it exists
@@ -417,16 +427,18 @@ export const productSlice = createSlice({
               // Add the value if it doesn't exist
               existingValues.push(value);
           }
-  
-          // Update state: Add back if values exist, remove the key if empty
+
+          // Update state: Store as array instead of string
           if (existingValues.length > 0) {
-              state.searchData[0] = { ...state.searchData[0], [key]: existingValues.join("; ") };
+              state.searchData[0] = { ...state.searchData[0], [key]: existingValues };
           } else {
               delete state.searchData[0][key];
           }
       } else {
-          // If the array is empty, add a new object
-          state.searchData.push(action.payload);
+          // If the array is empty, add a new object with array value
+          const key = Object.keys(action.payload)[0];
+          const value = action.payload[key];
+          state.searchData.push({ [key]: [value] });
       }
   },
 

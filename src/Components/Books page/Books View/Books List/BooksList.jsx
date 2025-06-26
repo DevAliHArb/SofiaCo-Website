@@ -188,12 +188,36 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
     
     const storedCollection = JSON.parse(localStorage.getItem("collections")) || [];
     if (storedCollection && storedCollection?.length > 0) {
-      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Collection: ${storedCollection}` : `Collection: ${storedCollection}`);
-    }
 
+      const collectionNames = storedCollection
+        .map(id => {
+          const collection = authCtx.collections?.find(col => col.id === id);
+          return collection ? collection.nom : null;
+        })
+        .filter(name => name !== null);
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Collection: ${collectionNames.join(", ")}` : `Collection: ${collectionNames.join(", ")}`);
+    }
+    
     const storedPublishers = JSON.parse(localStorage.getItem("publishers")) || [];
     if (storedPublishers && storedPublishers?.length > 0) {
-      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Publisher: ${storedPublishers}` : `Publisher: ${storedPublishers}`);
+      const publisherNames = storedPublishers
+        .map(id => {
+          const publisher = authCtx.publishers?.find(col => col.id === id);
+          return publisher ? publisher.title : null;
+        })
+        .filter(name => name !== null);
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Publisher: ${publisherNames.join(", ")}` : `Publisher: ${publisherNames.join(", ")}`);
+    }
+    
+    const storedCollabs = searchData[0]?.collaborators || [];
+    if (storedCollabs && storedCollabs?.length > 0) {
+      const collaboratorNames = storedCollabs
+        .map(id => {
+          const collaborator = authCtx.collaborators?.find(col => col.id === id);
+          return collaborator ? collaborator.nom : null;
+        })
+        .filter(name => name !== null);
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Collaborator: ${collaboratorNames.join(", ")}` : `Collaborateur: ${collaboratorNames.join(", ")}`);
     }
 
     if (searchData[0]?.collection) {

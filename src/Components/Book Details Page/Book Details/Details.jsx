@@ -20,6 +20,7 @@ import {
   addTofavorite,
   deletefavorite,
   editSearchData,
+  resetSearchData,
 } from "../../Common/redux/productSlice";
 import { TbTruckDelivery } from "react-icons/tb";
 import { stripHtmlTags, truncateText } from "../../Common Components/TextUtils";
@@ -565,6 +566,7 @@ const handleSuivreCategory = async () => {
             <p
               onClick={() => {
                 localStorage.removeItem("category");
+                dispatch(resetSearchData()); 
                 dispatch(editSearchData({ editor: bookData.dc_editor }));
                 navigate(`/books`);
               }}
@@ -595,12 +597,22 @@ const handleSuivreCategory = async () => {
             <p >{language === 'eng' ? 'Collection' : 'Collection'}</p>
             <p
               onClick={() => {
-                localStorage.removeItem("category");
-                dispatch(
-                  editSearchData({ collection: bookData.dc_collection })
-                );
-                navigate(`/books`);
-              }}
+                                    localStorage.removeItem('category'); 
+                                    dispatch(resetSearchData()); 
+                                    
+                                    // Get existing collections from localStorage or initialize empty array
+                                    const existingCollections = JSON.parse(localStorage.getItem('collections')) || [];
+                                    
+                                    // Add the new collection ID if it doesn't already exist
+                                    if (!existingCollections.includes(bookData.b_usr_article_collection_id)) {
+                                        existingCollections.push(bookData.b_usr_article_collection_id);
+                                    }
+                                    
+                                    // Store the updated array back to localStorage
+                                    localStorage.setItem('collections', JSON.stringify(existingCollections)); 
+                                    
+                                    navigate(`/books`);
+                                }}
               style={{ cursor: "pointer" }}
             >
               : {bookData.dc_collection}

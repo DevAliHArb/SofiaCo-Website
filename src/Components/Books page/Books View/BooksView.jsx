@@ -244,8 +244,7 @@ const BooksView = ({carttoggle}) => {
       isExpanded,
       setIsExpanded,
     }) => {
-      const dispatch = useDispatch();
-      const selectedCollaborators = searchData[0]?.[fieldName] || "";
+      const selectedCollaborators = searchData[0]?.collaborators || [];
 
       const toggleNode = () => {
         const newState = !isExpanded;
@@ -260,13 +259,7 @@ const BooksView = ({carttoggle}) => {
       };
 
       const isCollaboratorSelected = (collaboratorNom) => {
-        // Trim spaces from both the stored string and the collaborator name before checking inclusion
-        const trimmedSelectedCollaborators = selectedCollaborators
-          .split(";")
-          .map((nom) => nom.trim());
-        const trimmedCollaboratorNom = collaboratorNom.trim();
-
-        return trimmedSelectedCollaborators.includes(trimmedCollaboratorNom);
+        return selectedCollaborators.includes(collaboratorNom);
       };
 
       // Sort collaborators alphabetically and remove leading spaces
@@ -310,7 +303,7 @@ const BooksView = ({carttoggle}) => {
               }}
             >
               {sortedCollaborators.map((collaborator) => {
-                const isChecked = isCollaboratorSelected(collaborator.nom);
+                const isChecked = isCollaboratorSelected(collaborator.id);
 
                 return (
                   <div
@@ -505,9 +498,14 @@ const BooksView = ({carttoggle}) => {
         ? `&rate=${storedRate}`
         : ``;
 
-      const UserIdParam = `&user_id=${user?.id ? user.id : null}`
+      const UserIdParam = `&user_id=${user?.id ? user.id : null}`;
+      
+
+        const selectedCollabParam = searchData[0]?.collaborators
+        ? "&" + searchData[0].collaborators.map(value => `collaborator[]=${value}`).join("&")
+        : "";
       // Finalize the URL by combining all parameters
-      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedillustrateurParam}${UserIdParam}${selectedCollecParam}${selectedStockParam}${selectedDiscount}${selectedPubliParam}${selectedEANParam}${selectedResumeParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}&ecom_type=sofiaco`;
+      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedillustrateurParam}${selectedCollabParam}${UserIdParam}${selectedCollecParam}${selectedStockParam}${selectedDiscount}${selectedPubliParam}${selectedEANParam}${selectedResumeParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}&ecom_type=sofiaco`;
       // Fetch articles using the finalized URL
       const response = await axios.get(finalUrl);
 
@@ -749,7 +747,7 @@ const handleChangePublisher = (event) => {
 
   // Function to check if a collection is selected
   const isCollectionSelected = (collectionNom) => {
-    return selectedCollections.includes(collectionNom?.trim());
+    return selectedCollections.includes(collectionNom);
   };
   // Retrieve stored publishers as an array
   const selectedPublishers =
@@ -757,7 +755,7 @@ const handleChangePublisher = (event) => {
 
   // Function to check if a publisher is selected
   const isPublisherSelected = (publisherNom) => {
-    return selectedPublishers.includes(publisherNom?.trim());
+    return selectedPublishers.includes(publisherNom);
   };
   const isDiscountSelected = (discount) => {
     return isdiscount?.includes(discount);
@@ -819,7 +817,7 @@ const handleChangePublisher = (event) => {
                   style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
 
                 {authCtx?.publishers?.map((publisher) => {
-                    const isChecked = isPublisherSelected(publisher.title);
+                    const isChecked = isPublisherSelected(publisher.id);
 
                     return (
                       <div
@@ -829,7 +827,7 @@ const handleChangePublisher = (event) => {
                           alignItems: "center",
                           marginBottom: "0.5em",
                         }}
-                        onClick={(e) => handleChangePublisher(publisher.title)}
+                        onClick={(e) => handleChangePublisher(publisher.id)}
                       >
                         <input
                           type="checkbox"
@@ -872,7 +870,7 @@ const handleChangePublisher = (event) => {
                   style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
                 
                 {authCtx?.collections?.map((collection) => {
-                    const isChecked = isCollectionSelected(collection.nom);
+                    const isChecked = isCollectionSelected(collection.id);
 
                     return (
                       <div
@@ -882,7 +880,7 @@ const handleChangePublisher = (event) => {
                           alignItems: "center",
                           marginBottom: "0.5em",
                         }}
-                        onClick={(e) => handleChangeCollection(collection.nom)}
+                        onClick={(e) => handleChangeCollection(collection.id)}
                       >
                         <input
                           type="checkbox"
@@ -921,10 +919,10 @@ const handleChangePublisher = (event) => {
             <h2>{language === 'eng' ? "Collaborators" : "Collaborateurs"}</h2>
               <div className={classes.dropdown}
                   style={{  margin:'1em auto ' }}>
-               <CollaboratorTreeNode title={language === "eng" ? "Authors" : "Auteurs"} isExpanded={expandedNodes.authors} setIsExpanded={() => handleExpand('authors')}  collaborators={authors} fieldName="author"  searchQuery={(props)=>dispatch(addSearchData({author: props.nom}))}/>
-                          <CollaboratorTreeNode title={language === "eng" ? "Translators" : "Traducteurs"} isExpanded={expandedNodes.translators} setIsExpanded={() => handleExpand('translators')} collaborators={translators} fieldName="traducteur" searchQuery={(props)=>dispatch(addSearchData({traducteur: props.nom}))} />
-                          <CollaboratorTreeNode title={language === "eng" ? "Illustrators" : "Illustrateurs"} isExpanded={expandedNodes.illustrators} setIsExpanded={() => handleExpand('illustrators')} collaborators={illustrators} fieldName="illustrateur" searchQuery={(props)=>dispatch(addSearchData({illustrateur: props.nom}))} />
-                          <CollaboratorTreeNode title={language === "eng" ? "Editors" : "Editeurs"} isExpanded={expandedNodes.editors} setIsExpanded={() => handleExpand('editors')} collaborators={editors} fieldName="editor" searchQuery={(props)=>dispatch(addSearchData({editor: props.nom}))} />
+                  <CollaboratorTreeNode title="Authors" isExpanded={expandedNodes.authors} setIsExpanded={() => handleExpand('authors')}  collaborators={authors} fieldName="author"  searchQuery={(props)=>dispatch(addSearchData({collaborators: props.id}))}/>
+                  <CollaboratorTreeNode title="Translators" isExpanded={expandedNodes.translators} setIsExpanded={() => handleExpand('translators')} collaborators={translators} fieldName="traducteur" searchQuery={(props)=>dispatch(addSearchData({collaborators: props.id}))} />
+                  <CollaboratorTreeNode title="Illustrators" isExpanded={expandedNodes.illustrators} setIsExpanded={() => handleExpand('illustrators')} collaborators={illustrators} fieldName="illustrateur" searchQuery={(props)=>dispatch(addSearchData({collaborators: props.id}))} />
+                  <CollaboratorTreeNode title="Editors" isExpanded={expandedNodes.editors} setIsExpanded={() => handleExpand('editors')} collaborators={editors} fieldName="editor" searchQuery={(props)=>dispatch(addSearchData({collaborators: props.id}))} />
                      </div>
           </div>
 
@@ -1114,7 +1112,7 @@ const handleChangePublisher = (event) => {
                   style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
 
                 {authCtx?.publishers?.map((publisher) => {
-                    const isChecked = isPublisherSelected(publisher.title);
+                    const isChecked = isPublisherSelected(publisher.id);
 
                     return (
                       <div
@@ -1124,7 +1122,7 @@ const handleChangePublisher = (event) => {
                           alignItems: "center",
                           marginBottom: "0.5em",
                         }}
-                        onClick={(e) => handleChangePublisher(publisher.title)}
+                        onClick={(e) => handleChangePublisher(publisher.id)}
                       >
                         <input
                           type="checkbox"
@@ -1165,7 +1163,7 @@ const handleChangePublisher = (event) => {
                   style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
                 
                 {authCtx?.collections?.map((collection) => {
-                    const isChecked = isCollectionSelected(collection.nom);
+                    const isChecked = isCollectionSelected(collection.id);
 
                     return (
                       <div
@@ -1175,7 +1173,7 @@ const handleChangePublisher = (event) => {
                           alignItems: "center",
                           marginBottom: "0.5em",
                         }}
-                        onClick={(e) => handleChangeCollection(collection.nom)}
+                        onClick={(e) => handleChangeCollection(collection.id)}
                       >
                         <input
                           type="checkbox"
@@ -1215,10 +1213,10 @@ const handleChangePublisher = (event) => {
           <h2>{language === 'eng' ? "Collaborators" : "Collaborateurs"}</h2>
               <div className={classes.dropdown}
                   style={{  margin:'1em auto ' }}>
-                          <CollaboratorTreeNode title={language === "eng" ? "Authors" : "Auteurs"} isExpanded={expandedNodes.authors} setIsExpanded={() => handleExpand('authors')}  collaborators={authors} fieldName="author"  searchQuery={(props)=>dispatch(addSearchData({author: props.nom}))}/>
-                          <CollaboratorTreeNode title={language === "eng" ? "Translators" : "Traducteurs"} isExpanded={expandedNodes.translators} setIsExpanded={() => handleExpand('translators')} collaborators={translators} fieldName="traducteur" searchQuery={(props)=>dispatch(addSearchData({traducteur: props.nom}))} />
-                          <CollaboratorTreeNode title={language === "eng" ? "Illustrators" : "Illustrateurs"} isExpanded={expandedNodes.illustrators} setIsExpanded={() => handleExpand('illustrators')} collaborators={illustrators} fieldName="illustrateur" searchQuery={(props)=>dispatch(addSearchData({illustrateur: props.nom}))} />
-                          <CollaboratorTreeNode title={language === "eng" ? "Editors" : "Editeurs"} isExpanded={expandedNodes.editors} setIsExpanded={() => handleExpand('editors')} collaborators={editors} fieldName="editor" searchQuery={(props)=>dispatch(addSearchData({editor: props.nom}))} />
+                  <CollaboratorTreeNode title="Authors" isExpanded={expandedNodes.authors} setIsExpanded={() => handleExpand('authors')}  collaborators={authors} fieldName="author"  searchQuery={(props)=>dispatch(addSearchData({collaborators: props.id}))}/>
+                  <CollaboratorTreeNode title="Translators" isExpanded={expandedNodes.translators} setIsExpanded={() => handleExpand('translators')} collaborators={translators} fieldName="traducteur" searchQuery={(props)=>dispatch(addSearchData({collaborators: props.id}))} />
+                  <CollaboratorTreeNode title="Illustrators" isExpanded={expandedNodes.illustrators} setIsExpanded={() => handleExpand('illustrators')} collaborators={illustrators} fieldName="illustrateur" searchQuery={(props)=>dispatch(addSearchData({collaborators: props.id}))} />
+                  <CollaboratorTreeNode title="Editors" isExpanded={expandedNodes.editors} setIsExpanded={() => handleExpand('editors')} collaborators={editors} fieldName="editor" searchQuery={(props)=>dispatch(addSearchData({collaborators: props.id}))} />
                       </div>
           </div>
 
