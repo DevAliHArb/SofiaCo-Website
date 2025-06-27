@@ -207,7 +207,7 @@ const fetchArticles = async () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/collaborators?ecom_type=sofiaco&user_id=${user?.id ? user.id : null}`);
       const sorteddata = [...response.data].sort((a, b) =>
-        a._nom.localeCompare(b._nom)
+        a.nom.localeCompare(b.nom)
       );
       setCollaborators(sorteddata);
     } catch (error) {
