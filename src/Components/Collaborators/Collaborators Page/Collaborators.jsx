@@ -169,7 +169,6 @@ const Collaborators = () => {
     }
   };
 
-  console.log("Filtered Authors:", filteredAuthors);
   return (
     <div className={classes.collab}>
       <img src={abs} alt="" className={classes.img_abs}/>
@@ -202,7 +201,7 @@ const Collaborators = () => {
             />
             <button
               className={classes.btn1}
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              onClick={() => {console.log("main", authCtx.collaborators, "filtered",filteredAuthors); setIsDropdownOpen(!isDropdownOpen)}}
             >
               <SearchIcon />
             </button>
