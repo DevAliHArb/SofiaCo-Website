@@ -116,7 +116,7 @@ const CollectionDetailsPage = () => {
   const fetchArticles = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&collection=${collectionData?.name_fr}&user_id=${user?.id ? user.id : null}`
+        `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&collection=${collectionData?.id}&user_id=${user?.id ? user.id : null}`
       );
       setArticles(response.data.data);
     } catch (error) {

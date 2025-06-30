@@ -116,7 +116,7 @@ const PublisherDetails = () => {
         </div> */}
     </div>
         {/* <Video /> */}
-        <MoreAbout publisher_name={CollaboratorData.title}/>
+        <MoreAbout publisher_name={CollaboratorData.ID}/>
       {/* <ToastContainer
         position="top-right"
         autoClose={5000}
