@@ -11,7 +11,7 @@
       "button": { "eng": "Add to cart", "fr": "Ajouter au panier" }
     },
     "Hero": {
-      "title": { "eng": "Bookshops, associations, mosques: access our selection of books designed for your target audience.", "fr": "Librairies, associations, mosquées : accédez à notre sélection d’ouvrages pensés pour vos publics." }
+      "title": { "eng": "Bookshops, associations, mosques: access our selection of products designed just for you.", "fr": "Librairies, associations, mosquées : accédez à notre sélection de produits pensés pour vous." }
     },
     "OurSelection": {
       "title": { "eng": "Our Selection", "fr": "Notre Selection " },
