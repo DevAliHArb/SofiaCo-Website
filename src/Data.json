@@ -11,7 +11,7 @@
       "button": { "eng": "Add to cart", "fr": "Ajouter au panier" }
     },
     "Hero": {
-      "title": { "eng": "Find your next great read <br/>at our online book store", "fr": "Trouvez votre prochaine grande lecture<br/> dans notre librairie en ligne" }
+      "title": { "eng": "Bookshops, associations, mosques: access our selection of books designed for your target audience.", "fr": "Librairies, associations, mosquées : accédez à notre sélection d’ouvrages pensés pour vos publics." }
     },
     "OurSelection": {
       "title": { "eng": "Our Selection", "fr": "Notre Selection " },
