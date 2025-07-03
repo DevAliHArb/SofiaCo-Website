@@ -81,6 +81,8 @@ const Reviews = () => {
             const response = await axios.post(`${import.meta.env.VITE_TESTING_API}/articles/${selectedBook[0].id}/reviews`, {
                 ...formData,
                 user_id: user.id,
+                rate: 0,
+                is_counted: false,
                 ecom_type: 'sofiaco'
             }, {
                 headers: {
@@ -132,8 +134,8 @@ const Reviews = () => {
                 >
                     <div className={classes.input_box_content}>
                         <div className={classes.rev_input_head}>
-                            <h1>{language === 'eng' ? "Write a Review" : "Écrire un commentaire"}</h1>
-                            <p>{language === 'eng' ? 'How would you rate it?' : "Comment l'évaluez-vous ?"}</p>
+                            <h1>{language === 'eng' ? "Write a Comment" : "Écrire Un Commentaire" }</h1>
+                            {/* <p>{language === 'eng' ? 'How would you rate it?' : "Comment l'évaluez-vous ?"}</p>
                             <Rating
                                 style={{ color: 'var(--primary-color)', fontSize: 'calc(1.3rem + .5vw)' }}
                                 name="rate"
@@ -143,7 +145,7 @@ const Reviews = () => {
                                     setHover(newHover);
                                 }}
                                 emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-                            />
+                            /> */}
                         </div>
                         <Form.Item
                             name="description"
@@ -186,15 +188,15 @@ const Reviews = () => {
                                 <Avatar src={`${import.meta.env.VITE_TESTING_API_IMAGE}/img/${item.user.image}`} alt={item.user.first_name} />
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column', width: '90%', margin: '0 auto' }}>
-                                <p style={{ fontWeight: '700', fontSize: 'calc(0.9rem + .3vw)', margin: '0.3em 0' }}>{item.user.first_name} {item.user.last_name} <span style={{ fontWeight: 400 }}> {item.created_at.substring(0, 10)}</span></p>
-                                <Rating
+                                <p style={{ fontWeight: '700', fontSize: 'calc(0.9rem + .3vw)', margin: '0.3em 0' }}>{item.user.first_name} {item.user.last_name} <span style={{ fontWeight: 400 }}> {item.created_at.substring(0, 10)}</span><span style={{background:item.is_counted ? "var(--primary-color)" : "var(--secondary-color)"}} className={classes.countedtag}>{item.is_counted ? language === 'eng' ? 'Rate & Review' :'Noter et évaluer' : language === 'eng' ? 'Comment' :'Commentaire'}</span></p>
+                                {item?.is_counted && <Rating
                                     style={{ color: "var(--primary-color)" }}
                                     size='small'
                                     precision={0.5}
                                     name="read-only"
                                     value={item.rate}
                                     readOnly
-                                />
+                                />}
                                 <p style={{ color: 'var(--secondary-color)' }}>{item.description}</p>
                             </div>
                         </div>

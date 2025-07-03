@@ -127,6 +127,7 @@ const Review = ({props}) => {
         description: description || '',
         rate: value || 0,
         user_id: user.id,
+        is_counted: true,
         review_attachments: base64Images || [] ,
         ecom_type: 'sofiaco'
     });
