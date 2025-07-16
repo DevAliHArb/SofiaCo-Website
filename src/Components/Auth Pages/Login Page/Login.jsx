@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import classes from './Login.module.css'
 import logo from '../../../assets/navbar/logo.svg'
 import { MdArrowBackIosNew } from "react-icons/md";
@@ -12,6 +12,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { addInitialcart, addTofavorite, addUser } from '../../Common/redux/productSlice';
 import bookPlaceHolder from '../../../assets/bookPlaceholder.png'
+import DragPuzzleCaptcha from "drag-puzzle-captcha";
+import "drag-puzzle-captcha/DragPuzzleCaptcha.css";
 
 const Login = () => {
   const authCtx = useContext(AuthContext)
@@ -20,6 +22,48 @@ const Login = () => {
   const [form] = Form.useForm(); 
   const language = useSelector((state) => state.products.selectedLanguage[0].Language);
   const [loading, setLoading] = useState(false);
+  const [captchaVerified, setCaptchaVerified] = useState(false);
+  const [showCaptcha, setShowCaptcha] = useState(false);
+  const [showCaptchaModal, setShowCaptchaModal] = useState(false);
+  const captchaRef = useRef(null);
+
+  
+  const handleCaptchaVerify = (verified) => {
+    setCaptchaVerified(verified);
+  };
+
+  // Function to reset CAPTCHA
+  const resetCaptcha = () => {
+    if (captchaRef.current) {
+      captchaRef.current.reset();
+      setCaptchaVerified(false);
+    }
+  };
+
+  // Function to open CAPTCHA modal
+  const openCaptchaModal = () => {
+    setShowCaptchaModal(true);
+    resetCaptcha();
+  };
+
+  // Function to close CAPTCHA modal
+  const closeCaptchaModal = () => {
+    setShowCaptchaModal(false);
+  };
+
+  // Check if both email and password are filled to show CAPTCHA
+  const checkFieldsAndShowCaptcha = () => {
+    const emailValue = form.getFieldValue('email');
+    const passwordValue = form.getFieldValue('password');
+    
+    if (emailValue && passwordValue && emailValue.trim() !== '' && passwordValue.trim() !== '') {
+      setShowCaptcha(true);
+    } else {
+      setShowCaptcha(false);
+      setCaptchaVerified(false);
+      setShowCaptchaModal(false);
+    }
+  };
 
 
 
@@ -30,9 +74,17 @@ const handleChange = (e) => {
   const lowercasedValue = name === 'email' ? value.toLowerCase() : value;
   setFormData({ ...formData, [name]: lowercasedValue });
   // console.log(formData);
+    // Check after a short delay to allow form to update
+    setTimeout(checkFieldsAndShowCaptcha, 100);
 };
 
 const onFinish = async () => {
+     // Check if CAPTCHA is needed and not verified
+    if (showCaptcha && !captchaVerified) {
+      // Open the CAPTCHA modal instead of showing error
+      openCaptchaModal();
+      return;
+    }
   setLoading(true);
   try {
     const response = await axios.post( `${import.meta.env.VITE_TESTING_API}/login`,formData);
@@ -117,6 +169,9 @@ const onFinish = async () => {
     });
     setFormData({ email: "", password: "" });
     form.resetFields();
+    setCaptchaVerified(false);
+    setShowCaptcha(false);
+    setShowCaptchaModal(false);
     navigate(`/`);
   } catch (error) {
     const errormsg = error.response.data?.error;
@@ -195,6 +250,46 @@ const onFinish = async () => {
           <p style={{marginTop:'-1.3em',marginBottom:'2em',fontFamily:'var(--font-family-primary)',fontStyle:'normal',fontSize:'small'}}>
               {language === 'eng' ? "Forgot password ?" : "Mot De Passe Oublié ?"}</p>
         </div>
+        
+            {/* Show CAPTCHA verification button when both fields are filled */}
+            {showCaptcha && !captchaVerified && (
+              <div style={{ 
+                display: 'flex', 
+                justifyContent: 'center', 
+                marginBottom: '1em'
+              }}>
+                <Button
+                  type="default"
+                  onClick={openCaptchaModal}
+                  style={{
+                    borderColor: 'var(--primary-color)',
+                    color: 'var(--primary-color)',
+                    fontWeight: '500'
+                  }}
+                >
+                  🛡️ {language === "eng" 
+                    ? "Complete Security Verification" 
+                    : "Compléter la vérification de sécurité"}
+                </Button>
+              </div>
+            )}
+
+            {/* Show verification success */}
+            {captchaVerified && (
+              <div style={{ 
+                display: 'flex', 
+                justifyContent: 'center', 
+                marginBottom: '1em',
+                fontSize: '14px',
+                color: '#52c41a',
+                textAlign: 'center',
+                fontWeight: '500'
+              }}>
+                ✓ {language === "eng" 
+                  ? "Security verification completed" 
+                  : "Vérification de sécurité terminée"}
+              </div>
+            )}
            <Form.Item  style={{width:'100%'}}>
           <Button
            size="large"
@@ -209,6 +304,15 @@ const onFinish = async () => {
       {language === 'eng' ? <h4>{language === 'eng' ? "Don't have an account?" : "Vous n’avez pas de compte?" } <span style={{fontWeight:700, textDecoration:'underline', cursor:'pointer'}} onClick={()=>navigate(`/register`)}>{language === 'eng' ? "Register!" : "S'inscrire!"}</span></h4> : <h4>{language === 'eng' ? "Don't have an account?" : "Vous n’avez pas de compte?" } <span style={{fontWeight:700, textDecoration:'underline', cursor:'pointer'}} onClick={()=>navigate(`/register`)}>{language === 'eng' ? "Create one!" : "Créez en un!" }</span></h4>}
       <p>{language == 'eng' ? authCtx.companySettings.copyrights_en : authCtx.companySettings.copyrights_fr }</p>
         </div>
+        
+      {/* CAPTCHA Modal */}
+      <DragPuzzleCaptcha
+        ref={captchaRef}
+        onVerify={handleCaptchaVerify}
+        language={language}
+        showModal={showCaptchaModal}
+        onCloseModal={closeCaptchaModal}
+      />
     </div>
   )
 }
