@@ -849,9 +849,23 @@ export const AuthContextProvider = (props) => {
 
   const checkUserLoggedIn = async () => {
     // Only check if user exists and has an ID
+    const sessionEndedMsg = language === "eng"
+      ? "Session ended, please login again."
+      : "Session terminée, veuillez vous reconnecter.";
+
     if (!user?.id) {
       dispatch(removeUser());
       localStorage.removeItem("token");
+      toast.info(sessionEndedMsg, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: 0,
+        theme: "colored",
+      });
       return { is_logged_in: false };
     }
 
@@ -865,6 +879,16 @@ export const AuthContextProvider = (props) => {
       if (!response.data.is_logged_in) {
         dispatch(removeUser());
         localStorage.removeItem("token");
+      toast.info(sessionEndedMsg, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: 0,
+        theme: "colored",
+      });
       } else {
         FetchUserData();
       }
@@ -874,6 +898,16 @@ export const AuthContextProvider = (props) => {
       // If request fails (e.g., unauthorized), assume user is not logged in
       dispatch(removeUser());
       localStorage.removeItem("token");
+      toast.info(sessionEndedMsg, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: 0,
+        theme: "colored",
+      });
       return { is_logged_in: false };
     }
   };

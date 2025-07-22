@@ -1761,7 +1761,7 @@ const CheckOut = () => {
                     value={delivery}
                     onChange={(e) => handleDeliveryChange(e) & handleClose()}
                   >
-                    <FormControlLabel
+                    {authCtx.companySettings?.standard_shipping && <FormControlLabel
                       value="standard"
                       label={
                         <p style={{ margin: '0 0 0 1.2em' }}>
@@ -1783,8 +1783,8 @@ const CheckOut = () => {
                           }}
                         />
                       }
-                    />
-                    <FormControlLabel
+                    />}
+                    {authCtx.companySettings?.colissimo_shipping && <FormControlLabel
                       value="Colissimo"
                       label={
                         <p style={{ margin: "auto 0 auto 1.2em", whiteSpace: "normal" }}>
@@ -1808,7 +1808,7 @@ const CheckOut = () => {
                           }}
                         />
                       }
-                    />
+                    />}
                      {delivery === "Colissimo" && (
                     <p
                       style={{
