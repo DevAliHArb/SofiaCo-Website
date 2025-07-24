@@ -856,16 +856,6 @@ export const AuthContextProvider = (props) => {
     if (!user?.id) {
       dispatch(removeUser());
       localStorage.removeItem("token");
-      toast.info(sessionEndedMsg, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: 0,
-        theme: "colored",
-      });
       return { is_logged_in: false };
     }
 
