@@ -15,6 +15,7 @@ import { FaTwitter, FaFacebookF, FaPinterestP } from "react-icons/fa";
 import AuthContext from "../../Common/authContext";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  addSearchData,
   addTocart,
   addTocompare,
   addTofavorite,
@@ -381,6 +382,81 @@ const handleSuivreCategory = async () => {
   }
 };
 
+const handleCatClick = async () => {
+      dispatch(resetSearchData());
+      localStorage.removeItem("categories");
+      localStorage.removeItem("publishers");
+      localStorage.removeItem("collections");
+      // Retrieve the existing categories from localStorage (or initialize an empty array)
+      let storedCategories =
+        JSON.parse(localStorage.getItem("categories")) || [];
+
+      if (storedCategories.includes(categoryItem?.id)) {
+        // If the clicked category is already selected, remove it
+        return navigate(`/books`)
+      } else {
+        // Otherwise, add the new category
+        storedCategories.push(categoryItem?.id);
+      }
+
+      // Update localStorage
+      localStorage.setItem("categories", JSON.stringify(storedCategories));
+
+      // Dispatch action to update search data with the updated category list
+      dispatch(addSearchData({ category: storedCategories }));
+
+      navigate(`/books`)
+    };
+
+    
+    const handleFilterCollaborator = (collaboratorName) => {
+      const cleanString = (str) => str?.toLowerCase().replace(/[^a-z0-9]/gi, '');
+      const collaboratorId = authCtx.collaborators.find(
+        collab => cleanString(collab.nom) === cleanString(collaboratorName)
+      )?.id;
+      localStorage.removeItem("categories");
+      localStorage.removeItem("publishers");
+      localStorage.removeItem("collections");
+      dispatch(resetSearchData());
+      dispatch(addSearchData({ collaborators: collaboratorId }));
+      navigate(`/books`);
+    }
+
+    const handleFilterPublisher = (publisherId) => {
+      localStorage.removeItem("categories");
+      localStorage.removeItem("publishers");
+      localStorage.removeItem("collections");
+      dispatch(resetSearchData());
+      // Get existing publishers from localStorage or initialize empty array
+      const existingPublishers = JSON.parse(localStorage.getItem('publishers')) || [];
+      // Add the new publisher ID if it doesn't already exist
+      if (!existingPublishers.includes(publisherId)) {
+        existingPublishers.push(publisherId);
+      }
+      // Store the updated array back to localStorage
+      localStorage.setItem("publishers", JSON.stringify(existingPublishers));
+      navigate(`/books`);
+    }
+    
+    const handleFilterCollection = (collectionId) => {
+      localStorage.removeItem('categories'); 
+      localStorage.removeItem('publishers'); 
+      localStorage.removeItem('collections');
+      dispatch(resetSearchData()); 
+      
+      // Get existing collections from localStorage or initialize empty array
+      const existingCollections = JSON.parse(localStorage.getItem('collections')) || [];
+      
+      // Add the new collection ID if it doesn't already exist
+      if (!existingCollections.includes(collectionId)) {
+          existingCollections.push(collectionId);
+      }
+      
+      // Store the updated array back to localStorage
+      localStorage.setItem('collections', JSON.stringify(existingCollections)); 
+      
+      navigate(`/books`);
+    }
   return (
     <>
       <div className={classes.contantContainer}>
@@ -491,11 +567,7 @@ const handleSuivreCategory = async () => {
           <div className={classes.char}>
             <p>{language === 'eng' ? 'Author' : 'Auteur'}</p>
             <p style={{cursor:'pointer'}}
-              onClick={() => {
-                localStorage.removeItem("category");
-                dispatch(editSearchData({ author: bookData.dc_auteur }));
-                navigate(`/books`);
-              }}
+              onClick={() => handleFilterCollaborator(bookData.dc_auteur)}
             >
               : {bookData.dc_auteur}
             </p>
@@ -517,13 +589,7 @@ const handleSuivreCategory = async () => {
           <div className={classes.char}>
             <p >{language === 'eng' ? 'Translator' : 'Traducteur'}</p>
             <p
-              onClick={() => {
-                localStorage.removeItem("category");
-                dispatch(
-                  editSearchData({ traducteur: bookData.dc_traducteur })
-                );
-                navigate(`/books`);
-              }}
+              onClick={() => handleFilterCollaborator(bookData.dc_traducteur)}
               style={{  cursor: "pointer" }}
             >
               : {bookData.dc_traducteur}
@@ -545,7 +611,11 @@ const handleSuivreCategory = async () => {
           </div>
           <div className={classes.char}>
             <p > {language === 'eng' ? 'Illustrator' : 'Illustrateur'}</p>
-            <p >: {bookData.dc_illustrateur}</p>
+            <p style={{cursor:'pointer'}}
+              onClick={() => handleFilterCollaborator(bookData.dc_illustrateur)}
+            >
+              : {bookData.dc_illustrateur}
+            </p>
             {bookData.dc_illustrateur && bookData.dc_illustrateur !== "" && <span  style={{
                 background: "var(--primary-color)",
                 color:'#fff',
@@ -564,12 +634,7 @@ const handleSuivreCategory = async () => {
           <div className={classes.char}>
             <p > {language === 'eng' ? 'Editor' : 'Editeur'}</p>
             <p
-              onClick={() => {
-                localStorage.removeItem("category");
-                dispatch(resetSearchData()); 
-                dispatch(editSearchData({ editor: bookData.dc_editor }));
-                navigate(`/books`);
-              }}
+              onClick={() => handleFilterCollaborator(bookData.dc_editor)}
               style={{ cursor: "pointer" }}
             >
               : {bookData.dc_editor}
@@ -591,28 +656,16 @@ const handleSuivreCategory = async () => {
           </div>
           <div className={classes.char}>
             <p >{language === 'eng' ? "Publishing house" : "Maison d'édition" }</p>
-            <p >: {bookData?.editor?._nom}</p>
+            <p style={{cursor:'pointer'}}
+              onClick={() => handleFilterPublisher(bookData?.editor?.id)}
+            >
+              : {bookData?.editor?._nom}
+            </p>
           </div>
           <div className={classes.char}>
             <p >{language === 'eng' ? 'Collection' : 'Collection'}</p>
             <p
-              onClick={() => {
-                                    localStorage.removeItem('category'); 
-                                    dispatch(resetSearchData()); 
-                                    
-                                    // Get existing collections from localStorage or initialize empty array
-                                    const existingCollections = JSON.parse(localStorage.getItem('collections')) || [];
-                                    
-                                    // Add the new collection ID if it doesn't already exist
-                                    if (!existingCollections.includes(bookData.b_usr_article_collection_id)) {
-                                        existingCollections.push(bookData.b_usr_article_collection_id);
-                                    }
-                                    
-                                    // Store the updated array back to localStorage
-                                    localStorage.setItem('collections', JSON.stringify(existingCollections)); 
-                                    
-                                    navigate(`/books`);
-                                }}
+              onClick={() => handleFilterCollection(bookData?.b_usr_article_collection_id)}
               style={{ cursor: "pointer" }}
             >
               : {bookData.dc_collection}
@@ -635,15 +688,7 @@ const handleSuivreCategory = async () => {
           <div className={classes.char}>
             <p >{language === 'eng' ? 'Category' : 'Catégorie'}</p>
             <p
-              onClick={() => {
-                localStorage.removeItem("category");
-                dispatch(
-                  editSearchData({
-                    category: bookData.b_usr_articletheme_id,
-                  })
-                );
-                navigate(`/books`);
-              }}
+              onClick={() => handleCatClick()}
               style={{ cursor: "pointer" }}
             >
               : {categoryItem?._nom}
