@@ -39,7 +39,7 @@
     border-bottom: 1px solid var(--authbg-color);
     height: fit-content;
     max-height: 300px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .resume_content p{
