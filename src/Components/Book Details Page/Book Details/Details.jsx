@@ -490,178 +490,204 @@ const handleSuivreCategory = async () => {
         <div className={classes.char_con}>
           <div className={classes.char}>
             <p>{language === 'eng' ? 'Author' : 'Auteur'}</p>
-            <p style={{cursor:'pointer'}}
-              onClick={() => {
-                localStorage.removeItem("category");
-                dispatch(editSearchData({ author: bookData.dc_auteur }));
-                navigate(`/books`);
-              }}
-            >
-              : {bookData.dc_auteur}
-            </p>
-            {bookData.dc_auteur && bookData.dc_auteur !== "" && <span  style={{
-                background: "var(--primary-color)",
-                color:'#fff',
-                height:'fit-content',
-                fontWeight: "500",
-                cursor: "pointer",
-                borderRadius:'0.2em',
-                padding:'0.2em 0.5em',
-                margin:'auto',
-                display:'flex'
-              }}
-               onClick={handleSuivreCollab}> 
-                <MdAddBox style={{fontSize:'1.5em', margin:'auto'}}/> 
-               </span>}
+            {bookData.dc_auteur && bookData.dc_auteur !== "" && (
+              <>
+                <p style={{cursor:'pointer'}}
+                  onClick={() => {
+                    localStorage.removeItem("category");
+                    dispatch(editSearchData({ author: bookData.dc_auteur }));
+                    navigate(`/books`);
+                  }}
+                >
+                  : {bookData.dc_auteur}
+                </p>
+                <span  style={{
+                    background: "var(--primary-color)",
+                    color:'#fff',
+                    height:'fit-content',
+                    fontWeight: "500",
+                    cursor: "pointer",
+                    borderRadius:'0.2em',
+                    padding:'0.2em 0.5em',
+                    margin:'auto',
+                    display:'flex'
+                  }}
+                   onClick={handleSuivreCollab}> 
+                    <MdAddBox style={{fontSize:'1.5em', margin:'auto'}}/> 
+                   </span>
+              </>
+            )}
           </div>
           <div className={classes.char}>
             <p >{language === 'eng' ? 'Translator' : 'Traducteur'}</p>
-            <p
-              onClick={() => {
-                localStorage.removeItem("category");
-                dispatch(
-                  editSearchData({ traducteur: bookData.dc_traducteur })
-                );
-                navigate(`/books`);
-              }}
-              style={{  cursor: "pointer" }}
-            >
-              : {bookData.dc_traducteur}
-            </p>
-            {bookData.dc_traducteur && bookData.dc_traducteur !== "" && <span  style={{
-                background: "var(--primary-color)",
-                color:'#fff',
-                height:'fit-content',
-                fontWeight: "500",
-                cursor: "pointer",
-                borderRadius:'0.2em',
-                padding:'0.2em 0.5em',
-                margin:'auto',
-                display:'flex'
-              }}
-               onClick={handleSuivreTranslator}> 
-                <MdAddBox style={{fontSize:'1.5em', margin:'auto'}}/> 
-               </span>}
+            {bookData.dc_traducteur && bookData.dc_traducteur !== "" && (
+              <>
+                <p
+                  onClick={() => {
+                    localStorage.removeItem("category");
+                    dispatch(
+                      editSearchData({ traducteur: bookData.dc_traducteur })
+                    );
+                    navigate(`/books`);
+                  }}
+                  style={{  cursor: "pointer" }}
+                >
+                  : {bookData.dc_traducteur}
+                </p>
+                <span  style={{
+                    background: "var(--primary-color)",
+                    color:'#fff',
+                    height:'fit-content',
+                    fontWeight: "500",
+                    cursor: "pointer",
+                    borderRadius:'0.2em',
+                    padding:'0.2em 0.5em',
+                    margin:'auto',
+                    display:'flex'
+                  }}
+                   onClick={handleSuivreTranslator}> 
+                    <MdAddBox style={{fontSize:'1.5em', margin:'auto'}}/> 
+                   </span>
+              </>
+            )}
           </div>
           <div className={classes.char}>
             <p > {language === 'eng' ? 'Illustrator' : 'Illustrateur'}</p>
-            <p >: {bookData.dc_illustrateur}</p>
-            {bookData.dc_illustrateur && bookData.dc_illustrateur !== "" && <span  style={{
-                background: "var(--primary-color)",
-                color:'#fff',
-                height:'fit-content',
-                fontWeight: "500",
-                cursor: "pointer",
-                borderRadius:'0.2em',
-                padding:'0.2em 0.5em',
-                margin:'auto',
-                display:'flex'
-              }}
-               onClick={handleSuivreIllustrateur}> 
-                <MdAddBox style={{fontSize:'1.5em', margin:'auto'}}/> 
-               </span>}
+            {bookData.dc_illustrateur && bookData.dc_illustrateur !== "" && (
+              <>
+                <p >: {bookData.dc_illustrateur}</p>
+                <span  style={{
+                    background: "var(--primary-color)",
+                    color:'#fff',
+                    height:'fit-content',
+                    fontWeight: "500",
+                    cursor: "pointer",
+                    borderRadius:'0.2em',
+                    padding:'0.2em 0.5em',
+                    margin:'auto',
+                    display:'flex'
+                  }}
+                   onClick={handleSuivreIllustrateur}> 
+                    <MdAddBox style={{fontSize:'1.5em', margin:'auto'}}/> 
+                   </span>
+              </>
+            )}
           </div>
           <div className={classes.char}>
             <p > {language === 'eng' ? 'Editor' : 'Editeur'}</p>
-            <p
-              onClick={() => {
-                localStorage.removeItem("category");
-                dispatch(resetSearchData()); 
-                dispatch(editSearchData({ editor: bookData.dc_editor }));
-                navigate(`/books`);
-              }}
-              style={{ cursor: "pointer" }}
-            >
-              : {bookData.dc_editor}
-            </p>
-            {bookData.editor && bookData.editor !== "" && <span  style={{
-                background: "var(--primary-color)",
-                color:'#fff',
-                height:'fit-content',
-                fontWeight: "500",
-                cursor: "pointer",
-                borderRadius:'0.2em',
-                padding:'0.2em 0.5em',
-                margin:'auto',
-                display:'flex'
-              }}
-               onClick={handleSuivreEditor}> 
-                <MdAddBox style={{fontSize:'1.5em', margin:'auto'}}/> 
-               </span>}
+            {bookData.dc_editor && bookData.dc_editor !== "" && (
+              <>
+                <p
+                  onClick={() => {
+                    localStorage.removeItem("category");
+                    dispatch(resetSearchData()); 
+                    dispatch(editSearchData({ editor: bookData.dc_editor }));
+                    navigate(`/books`);
+                  }}
+                  style={{ cursor: "pointer" }}
+                >
+                  : {bookData.dc_editor}
+                </p>
+                <span  style={{
+                    background: "var(--primary-color)",
+                    color:'#fff',
+                    height:'fit-content',
+                    fontWeight: "500",
+                    cursor: "pointer",
+                    borderRadius:'0.2em',
+                    padding:'0.2em 0.5em',
+                    margin:'auto',
+                    display:'flex'
+                  }}
+                   onClick={handleSuivreEditor}> 
+                    <MdAddBox style={{fontSize:'1.5em', margin:'auto'}}/> 
+                   </span>
+              </>
+            )}
           </div>
           <div className={classes.char}>
             <p >{language === 'eng' ? "Publishing house" : "Maison d'édition" }</p>
-            <p >: {bookData?.editor?._nom}</p>
+            {bookData?.editor?._nom && bookData?.editor?._nom !== "" && (
+              <p >: {bookData?.editor?._nom}</p>
+            )}
           </div>
           <div className={classes.char}>
             <p >{language === 'eng' ? 'Collection' : 'Collection'}</p>
-            <p
-              onClick={() => {
-                                    localStorage.removeItem('category'); 
-                                    dispatch(resetSearchData()); 
-                                    
-                                    // Get existing collections from localStorage or initialize empty array
-                                    const existingCollections = JSON.parse(localStorage.getItem('collections')) || [];
-                                    
-                                    // Add the new collection ID if it doesn't already exist
-                                    if (!existingCollections.includes(bookData.b_usr_article_collection_id)) {
-                                        existingCollections.push(bookData.b_usr_article_collection_id);
-                                    }
-                                    
-                                    // Store the updated array back to localStorage
-                                    localStorage.setItem('collections', JSON.stringify(existingCollections)); 
-                                    
-                                    navigate(`/books`);
-                                }}
-              style={{ cursor: "pointer" }}
-            >
-              : {bookData.dc_collection}
-            </p>
-            {bookData.dc_collection && bookData.dc_collection !== "" && <span  style={{
-                background: "var(--primary-color)",
-                color:'#fff',
-                height:'fit-content',
-                fontWeight: "500",
-                cursor: "pointer",
-                borderRadius:'0.2em',
-                padding:'0.2em 0.5em',
-                margin:'auto',
-                display:'flex'
-              }}
-               onClick={handleSuivreCollection}> 
-                <MdAddBox style={{fontSize:'1.5em', margin:'auto'}}/> 
-               </span>}
+            {bookData.dc_collection && bookData.dc_collection !== "" && (
+              <>
+                <p
+                  onClick={() => {
+                                        localStorage.removeItem('category'); 
+                                        dispatch(resetSearchData()); 
+                                        
+                                        // Get existing collections from localStorage or initialize empty array
+                                        const existingCollections = JSON.parse(localStorage.getItem('collections')) || [];
+                                        
+                                        // Add the new collection ID if it doesn't already exist
+                                        if (!existingCollections.includes(bookData.b_usr_article_collection_id)) {
+                                            existingCollections.push(bookData.b_usr_article_collection_id);
+                                        }
+                                        
+                                        // Store the updated array back to localStorage
+                                        localStorage.setItem('collections', JSON.stringify(existingCollections)); 
+                                        
+                                        navigate(`/books`);
+                                    }}
+                  style={{ cursor: "pointer" }}
+                >
+                  : {bookData.dc_collection}
+                </p>
+                <span  style={{
+                    background: "var(--primary-color)",
+                    color:'#fff',
+                    height:'fit-content',
+                    fontWeight: "500",
+                    cursor: "pointer",
+                    borderRadius:'0.2em',
+                    padding:'0.2em 0.5em',
+                    margin:'auto',
+                    display:'flex'
+                  }}
+                   onClick={handleSuivreCollection}> 
+                    <MdAddBox style={{fontSize:'1.5em', margin:'auto'}}/> 
+                   </span>
+              </>
+            )}
           </div>
           <div className={classes.char}>
             <p >{language === 'eng' ? 'Category' : 'Catégorie'}</p>
-            <p
-              onClick={() => {
-                localStorage.removeItem("category");
-                dispatch(
-                  editSearchData({
-                    category: bookData.b_usr_articletheme_id,
-                  })
-                );
-                navigate(`/books`);
-              }}
-              style={{ cursor: "pointer" }}
-            >
-              : {categoryItem?._nom}
-            </p>
-            {categoryItem && categoryItem?._nom !== "" && <span  style={{
-                background: "var(--primary-color)",
-                color:'#fff',
-                height:'fit-content',
-                fontWeight: "500",
-                cursor: "pointer",
-                borderRadius:'0.2em',
-                padding:'0.2em 0.5em',
-                margin:'auto',
-                display:'flex'
-              }}
-               onClick={handleSuivreCategory}> 
-                <MdAddBox style={{fontSize:'1.5em', margin:'auto'}}/> 
-               </span>}
+            {categoryItem && categoryItem?._nom !== "" && (
+              <>
+                <p
+                  onClick={() => {
+                    localStorage.removeItem("category");
+                    dispatch(
+                      editSearchData({
+                        category: bookData.b_usr_articletheme_id,
+                      })
+                    );
+                    navigate(`/books`);
+                  }}
+                  style={{ cursor: "pointer" }}
+                >
+                  : {categoryItem?._nom}
+                </p>
+                <span  style={{
+                    background: "var(--primary-color)",
+                    color:'#fff',
+                    height:'fit-content',
+                    fontWeight: "500",
+                    cursor: "pointer",
+                    borderRadius:'0.2em',
+                    padding:'0.2em 0.5em',
+                    margin:'auto',
+                    display:'flex'
+                  }}
+                   onClick={handleSuivreCategory}> 
+                    <MdAddBox style={{fontSize:'1.5em', margin:'auto'}}/> 
+                   </span>
+              </>
+            )}
           </div>
           <div className={classes.char}>
             <p >EAN</p>
