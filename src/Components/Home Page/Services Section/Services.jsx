@@ -64,7 +64,7 @@ const Services = () => {
                       ? item.title_fr.slice(0, 50) + "..."
                       : item.title_fr}
                   </h2>
-                  <p style={{color: index % 2 === 0 ? "var(--primary-color)" : "var(--secondary-color)"}}>
+                  {/* <p style={{color: index % 2 === 0 ? "var(--primary-color)" : "var(--secondary-color)"}}>
                     {language === "eng"
                       ? item.description_en?.length > 40
                         ? item.description_en.slice(0, 40) + "..."
@@ -72,7 +72,7 @@ const Services = () => {
                       : item.description_fr?.length > 20
                       ? item.description_fr.slice(0, 20) + "..."
                       : item.description_fr}
-                  </p>
+                  </p> */}
                 </div>
               </div>
             );
