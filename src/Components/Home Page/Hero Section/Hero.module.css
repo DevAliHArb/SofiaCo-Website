@@ -296,8 +296,8 @@ color: var(--secondary-color);
   position: relative;
   font-size: calc(1.2rem + 0.4vw);
   text-align: start;
-  margin-top: 2em;
-  margin-bottom: 0.3em;
+  margin-top: 0em;
+  margin-bottom: 1em;
 }
 
 }

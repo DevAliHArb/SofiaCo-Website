@@ -115,12 +115,12 @@ const Hero = ({ carttoggle }) => {
         ) : (
           <div className={classes.swiper}>
           <div style={{marginTop:'1em'}} className={classes.mob}>
-          <SearchBox />
           <h1 className={classes.headerh1}
             dangerouslySetInnerHTML={{
               __html: data.HomePage.Hero.title[language],
             }}
           />
+          <SearchBox />
           </div>
             <Swiper
               onSlideChange={handleSlideChange}
