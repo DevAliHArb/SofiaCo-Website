@@ -136,7 +136,7 @@
     height: 30vw;
   }
   .hex_content h2{
-    font-size: calc(0.7rem + 0.4vw);
+    font-size: calc(0.6rem + 0.3vw);
   }
   
   .hex_content p {

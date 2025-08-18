@@ -802,7 +802,7 @@ const CheckOut = () => {
         price: isFrance
           ? (currency === "eur" ? parseFloat(Number(discountedPrice).toFixed(2)) : parseFloat((discountedPrice * authCtx.currencyRate).toFixed(2)))
           : (currency === "eur" ? parseFloat(((discountedPrice - tva) * 1).toFixed(2)) : parseFloat((((discountedPrice - tva) * 1) * authCtx.currencyRate).toFixed(2))),
-        article_discount: item.discount !== null ? item.discount : 0,
+        article_discount: (item?.discount && item.discount !== null) ? item.discount : 0,
         price_without_discount: currency === "eur" 
           ? parseFloat(Number(item.price_ttc).toFixed(2)) 
           : parseFloat((item.price_ttc * authCtx.currencyRate).toFixed(2)),
@@ -939,7 +939,7 @@ const CheckOut = () => {
         }
 
         setLoading(true);
-        // console.log("deed");
+        console.log("deed",requestData);
         
 
         if (delivery === "Colissimo" && !colissimoPointData) {

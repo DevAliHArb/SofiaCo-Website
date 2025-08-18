@@ -93,12 +93,12 @@ const Hero = ({ carttoggle }) => {
     <>
       <div className='bigContainer'>
         <div className={classes.header}>
-          <h1
+          <div style={{marginTop:'1em'}} className={classes.desk}>
+          <h1 className={classes.headerh1}
             dangerouslySetInnerHTML={{
               __html: data.HomePage.Hero.title[language],
             }}
           />
-          <div style={{marginTop:'1em'}} className={classes.desk}>
           <SearchBox />
           </div>
         </div>
@@ -115,6 +115,11 @@ const Hero = ({ carttoggle }) => {
         ) : (
           <div className={classes.swiper}>
           <div style={{marginTop:'1em'}} className={classes.mob}>
+          <h1 className={classes.headerh1}
+            dangerouslySetInnerHTML={{
+              __html: data.HomePage.Hero.title[language],
+            }}
+          />
           <SearchBox />
           </div>
             <Swiper

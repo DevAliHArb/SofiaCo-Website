@@ -1,7 +1,7 @@
 {
   "HomePage": {
     "Deals": {
-      "title": { "eng": "<b>Deals</b> of the <b>Week</b>", "fr": "<b>Offres</b> de la <b>semaine </b>" },
+      "title": { "eng": "<b>Deals of the Week</b>", "fr": "<b>Offres de la semaine </b>" },
       "description": { "eng": "Discover our weekly deals! A variety of products, new products and inspiration await you. Stay tuned so you don't miss a thing!", "fr": "Découvrez nos offres de la semaine! Produits variés, nouveautés et inspirations vous attendent. Restez à l’affût pour ne rien manquer!" },
       "button": { "eng": "Add to cart", "fr": "Ajouter au panier" }
     },
@@ -30,7 +30,7 @@
       "description": { "eng": "Discover our services: diffusion and distribution of books and specialized products on the Arab-Muslim world, printing, publishing (EDT and white label), and stocking.", "fr": "Découvrez nos services : diffusion et distribution de livres et produits spécialisés sur le monde arabo-musulman, impression, éditions (EDT et white label), et stockage." }
     },
     "Quote": {
-      "title": { "eng": "<b>Quote</b> of the <b>Day</b>", "fr": "<b>Citation</b> Du <b>Jour</b>" }
+      "title": { "eng": "<b>Quote of the Day</b>", "fr": "<b>Citation Du Jour</b>" }
     }
   },
   "Footer": {
