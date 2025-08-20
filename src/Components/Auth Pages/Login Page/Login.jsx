@@ -69,6 +69,12 @@ const Login = () => {
 
 const [formData, setFormData] = useState({ email: "", password: "", type: 'sofiaco' });
 
+// Failed login attempt tracking states
+const [failedAttempts, setFailedAttempts] = useState(0);
+const [isLocked, setIsLocked] = useState(false);
+const [lockoutTime, setLockoutTime] = useState(null);
+const [remainingTime, setRemainingTime] = useState(0);
+
 const handleChange = (e) => {
   const { name, value } = e.target;
   const lowercasedValue = name === 'email' ? value.toLowerCase() : value;
@@ -78,7 +84,122 @@ const handleChange = (e) => {
     setTimeout(checkFieldsAndShowCaptcha, 100);
 };
 
+// Lockout utility functions
+const getLockoutData = () => {
+  const stored = localStorage.getItem('loginLockout');
+  return stored ? JSON.parse(stored) : { attempts: 0, lockoutTime: null };
+};
+
+const saveLockoutData = (attempts, lockoutTime) => {
+  localStorage.setItem('loginLockout', JSON.stringify({ attempts, lockoutTime }));
+};
+
+const clearLockoutData = () => {
+  localStorage.removeItem('loginLockout');
+};
+
+const getLockoutDuration = (attempts) => {
+  const durations = [30000, 60000, 180000, 3600000, 14400000, 28800000, 86400000]; // 30s, 1min, 3min, 1hr, 4hr, 8hr, 24hr
+  return durations[Math.min(attempts - 4, durations.length - 1)];
+};
+
+const formatTime = (seconds) => {
+  if (seconds < 60) {
+    return `${seconds}s`;
+  } else if (seconds < 3600) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}m ${remainingSeconds}s`;
+  } else {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    return `${hours}h ${minutes}m`;
+  }
+};
+
+const handleFailedLogin = () => {
+  const newAttempts = failedAttempts + 1;
+  setFailedAttempts(newAttempts);
+
+  if (newAttempts >= 3) {
+    const lockDuration = getLockoutDuration(newAttempts);
+    const lockTime = Date.now() + lockDuration;
+    
+    setIsLocked(true);
+    setLockoutTime(lockTime);
+    setRemainingTime(Math.floor(lockDuration / 1000));
+    
+    saveLockoutData(newAttempts, lockTime);
+  } else {
+    saveLockoutData(newAttempts, null);
+  }
+};
+
+const handleSuccessfulLogin = () => {
+  setFailedAttempts(0);
+  setIsLocked(false);
+  setLockoutTime(null);
+  setRemainingTime(0);
+  clearLockoutData();
+};
+
+// Check lockout status on component mount and set up timer
+useEffect(() => {
+  const { attempts, lockoutTime } = getLockoutData();
+  setFailedAttempts(attempts);
+
+  if (lockoutTime && Date.now() < lockoutTime) {
+    setIsLocked(true);
+    setLockoutTime(lockoutTime);
+    setRemainingTime(Math.floor((lockoutTime - Date.now()) / 1000));
+  }
+}, []);
+
+// Update remaining time every second when locked
+useEffect(() => {
+  let interval;
+  if (isLocked && lockoutTime) {
+    interval = setInterval(() => {
+      const timeLeft = Math.floor((lockoutTime - Date.now()) / 1000);
+      if (timeLeft <= 0) {
+        setIsLocked(false);
+        setLockoutTime(null);
+        setRemainingTime(0);
+        clearInterval(interval);
+      } else {
+        setRemainingTime(timeLeft);
+      }
+    }, 1000);
+  }
+
+  return () => {
+    if (interval) clearInterval(interval);
+  };
+}, [isLocked, lockoutTime]);
+
 const onFinish = async () => {
+  // Check if account is locked
+  if (isLocked) {
+    toast.error(
+      `${
+        language === "eng"
+          ? `Account locked. Try again in ${formatTime(remainingTime)}`
+          : `Compte verrouillé. Réessayez dans ${formatTime(remainingTime)}`
+      }`,
+      {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: 0,
+        theme: "colored",
+      }
+    );
+    return;
+  }
+
      // Check if CAPTCHA is needed and not verified
     if (showCaptcha && !captchaVerified) {
       // Open the CAPTCHA modal instead of showing error
@@ -167,6 +288,10 @@ const onFinish = async () => {
       progress: 0,
       theme: "colored",
     });
+    
+    // Handle successful login
+    handleSuccessfulLogin();
+    
     setFormData({ email: "", password: "" });
     form.resetFields();
     setCaptchaVerified(false);
@@ -174,18 +299,66 @@ const onFinish = async () => {
     setShowCaptchaModal(false);
     navigate(`/`);
   } catch (error) {
-    const errormsg = error.response.data?.error;
+    const errormsg = error.response?.data?.error || error.message;
     // console.error('Error in Login:', error);
-    toast.error( language === "eng" ? `Error in Login: ${errormsg}` : `Erreur de connexion : ${errormsg}` , {
-      position: "top-right",
-      autoClose: 1500,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: 0,
-      theme: "colored",
-    });
+    
+    // Check if it's a 401 error (authentication failed)
+    if (error.response?.status === 401) {
+      handleFailedLogin();
+      
+      // Show appropriate error message based on attempts
+      if (failedAttempts + 1 <= 3) {
+        const remainingAttempts = 3 - (failedAttempts + 1);
+        toast.error(
+          `${
+            language === "eng"
+              ? `Invalid credentials. ${remainingAttempts} attempts remaining.`
+              : `Identifiants invalides. ${remainingAttempts} tentatives restantes.`
+          }`,
+          {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: 0,
+            theme: "colored",
+          }
+        );
+      } else {
+        const lockoutDuration = getLockoutDuration(failedAttempts + 1);
+        toast.error(
+          `${
+            language === "eng"
+              ? `Too many failed attempts. Account locked for ${formatTime(lockoutDuration)}.`
+              : `Trop de tentatives échouées. Compte verrouillé pour ${formatTime(lockoutDuration)}.`
+          }`,
+          {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: 0,
+            theme: "colored",
+          }
+        );
+      }
+    } else {
+      // For other errors, show the original error message
+      toast.error( language === "eng" ? `Error in Login: ${errormsg}` : `Erreur de connexion : ${errormsg}` , {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: 0,
+        theme: "colored",
+      });
+    }
   } 
   finally {
     setLoading(false)
@@ -290,12 +463,32 @@ const onFinish = async () => {
                   : "Vérification de sécurité terminée"}
               </div>
             )}
+
+           {/* Lockout Status Display */}
+           {isLocked && (
+             <div className="lockout-status" style={{ 
+               textAlign: 'center', 
+               marginBottom: '16px', 
+               padding: '12px', 
+               backgroundColor: '#fff2f0', 
+               border: '1px solid #ffccc7', 
+               borderRadius: '6px' 
+             }}>
+               <p style={{ margin: 0, color: '#cf1322', fontSize: '14px', fontWeight: '500' }}>
+                 {language === "eng" 
+                   ? `Account temporarily locked. Please wait: ${formatTime(remainingTime)}`
+                   : `Compte temporairement verrouillé. Veuillez patienter : ${formatTime(remainingTime)}`
+                 }
+               </p>
+             </div>
+           )}
+
            <Form.Item  style={{width:'100%'}}>
           <Button
            size="large"
            htmlType="submit"
-           disabled={loading}
-           style={{cursor: loading ? 'wait' : 'pointer'}}
+           disabled={loading || isLocked}
+           style={{cursor: loading || isLocked ? 'not-allowed' : 'pointer'}}
            className={classes.logInButton}>
             {language === 'eng' ? "Let’s Get Started" : "Commençons" }
           </Button>
