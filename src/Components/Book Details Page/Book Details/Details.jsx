@@ -397,7 +397,7 @@ const handleSuivreCategory = async () => {
               readOnly
               precision={0.1}
             />
-            {averageRating.toFixed(1)}/{bookData.bookreview?.length}
+            {bookData?.average_rate}/5 ({bookData?.bookreview?.length} {language === 'eng' ? "reviews" : "revues"})
           </p>
         <h1 className={classes.header}>{bookData.designation}</h1>
         <div className={classes.contentss}>
