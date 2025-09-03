@@ -297,7 +297,7 @@ const onFinish = async () => {
     setCaptchaVerified(false);
     setShowCaptcha(false);
     setShowCaptchaModal(false);
-    navigate(`/`);
+    navigate(`/`); 
   } catch (error) {
     const errormsg = error.response?.data?.error || error.message;
     // console.error('Error in Login:', error);
