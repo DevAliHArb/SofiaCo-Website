@@ -153,7 +153,7 @@ const NewPassword = () => {
           <Input.Password
             type="password"
             placeholder={language === "eng" ? "at least 8 characters" : "au moins 8 caractères"} 
-            style={{border:'none',backgroundColor:"rgba(255, 255, 255, 0.1)" ,height:'3em',color:'var(--accent-color)',height:'2.7em'}}
+            style={{border:'none',backgroundColor:"rgba(255, 255, 255, 0.1)" ,color:'var(--accent-color)',height:'2.7em'}}
           />
         </Form.Item>
         <Form.Item style={{width:'100%'}}

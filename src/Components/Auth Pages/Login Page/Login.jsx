@@ -415,7 +415,7 @@ const onFinish = async () => {
             name="password"
             size="large" 
             placeholder={language === 'eng' ? "Password" : "Mot de passe"} 
-            style={{border:'none',backgroundColor:"rgba(255, 255, 255, 0.1)" ,height:'3em',color:'var(--accent-color)',height:'2.7em'}}
+            style={{border:'none',backgroundColor:"rgba(255, 255, 255, 0.1)" , color:'var(--accent-color)',height:'2.7em'}}
             onChange={handleChange}
           />
         </Form.Item>
