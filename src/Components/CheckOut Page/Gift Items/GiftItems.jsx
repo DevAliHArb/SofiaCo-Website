@@ -2,8 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classes from "./GiftItems.module.css";
 import image from "../../../assets/bookPlaceholder.png";
-import DeleteIcon from "../../../assets/DeleteIcon.svg";
-import { decreamentQuantity, deleteItem, changeQuantity, addTocart } from "../../Common/redux/productSlice";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { Rate, Input } from "antd";
@@ -23,7 +21,7 @@ const GiftItems = ({ handleGiftChange, selectedGiftItems, subtotalAmt, onMaxGift
   const fetchArticles = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=maktabox&is_gift`
+          `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&is_gift`
         );
         setArticles(response.data.data);
       } catch (error) {
@@ -33,7 +31,7 @@ const GiftItems = ({ handleGiftChange, selectedGiftItems, subtotalAmt, onMaxGift
   const fetchGiftConfiguration = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_TESTING_API}/gift-configuration?ecom_type=maktabox`
+          `${import.meta.env.VITE_TESTING_API}/gift-configuration?ecom_type=sofiaco`
         );
         setGiftConfiguration(response.data);
         console.log("Gift Configuration:", response.data);
@@ -72,7 +70,7 @@ const GiftItems = ({ handleGiftChange, selectedGiftItems, subtotalAmt, onMaxGift
 
     return (
       <>
-        <div className={classes.header}>
+        {articles?.length > 0 && <div className={classes.header}>
             <h2>{maxGifts > 0
                     ? (
                         language === "eng"
@@ -85,7 +83,7 @@ const GiftItems = ({ handleGiftChange, selectedGiftItems, subtotalAmt, onMaxGift
                         : "Aucun cadeau disponible pour votre sous-total"
                     )}
                 </h2>
-          </div>
+          </div>}
         {articles?.map((props) => {
           const isSelected = selectedGiftItems.some((item) => item.id === props.id);
           const outOfStock = props._qte_a_terme_calcule <= 0;
