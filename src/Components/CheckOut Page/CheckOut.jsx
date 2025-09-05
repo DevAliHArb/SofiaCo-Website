@@ -44,6 +44,7 @@ import { PayPalButtons } from "@paypal/react-paypal-js";
 import { useStripe } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { decryptAES128CTR } from "../Common/Decrypt";
+import GiftItems from "./Gift Items/GiftItems";
 
 const { TextArea } = Input;
 
@@ -151,6 +152,42 @@ const CheckOut = () => {
   const widgetRef = useRef(null);
   const [colisssimopass, setColisssimoPass] = useState(null);
   const [stripePublishableKey, setStripePublishableKey] = useState(null);
+  const [selectedGiftItems, setSelectedGiftItems] = useState([]);
+  const [maxGifts, setMaxGifts] = useState(0);
+
+  const handleGiftChange = (item) => {
+    console.log(selectedGiftItems);
+
+    setSelectedGiftItems((prev) => {
+      const exists = prev.find((i) => i.id === item.id);
+      if (exists) {
+        // Unselect
+        return prev.filter((i) => i.id !== item.id);
+      } else {
+        // Select
+        return [...prev, item];
+      }
+    });
+  };
+
+  // Reset selectedGiftItems if productData changes and there are selected gifts
+  useEffect(() => {
+    if (selectedGiftItems && selectedGiftItems.length > 0) {
+      setSelectedGiftItems([]);
+      toast.info(language === "eng"
+        ? "Gift selection has been reset due to cart changes."
+        : "La sélection des cadeaux a été réinitialisée en raison de modifications du panier.", {
+        position: "top-right",
+        autoClose: 3500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: 0,
+        theme: "colored",
+      });
+    }
+  }, [productData]);
   
   useEffect(() => {
     const fetchDecryptedValues = async () => {
@@ -883,6 +920,9 @@ const CheckOut = () => {
           total_price: (totalAmt * 1).toFixed(2),
           review: reviewMsg,
           order_invoice_items: order_invoice_items,
+          order_invoice_gifts: selectedGiftItems,
+        number_of_gifts: maxGifts,
+        number_of_gifts_used: selectedGiftItems?.length || 0,
           shipping_type_id: delivery === "standard" ? 40 : 39,
           colissimo_code:
             delivery === "standard" ? null : colissimoPointData?.identifiant,
@@ -916,6 +956,9 @@ const CheckOut = () => {
           total_price: totalAmt,
           review: reviewMsg,
           order_invoice_items: order_invoice_items,
+          order_invoice_gifts: selectedGiftItems,
+        number_of_gifts: maxGifts,
+        number_of_gifts_used: selectedGiftItems?.length || 0,
           currency: currency,
           shippingPrice: delivery !== "standard" ? 0 : deliveryFees,
           shipping_type_id: delivery === "standard" ? 40 : 39,
@@ -1084,6 +1127,9 @@ const CheckOut = () => {
         total_price: totalAmt,
         review: reviewMsg,
         order_invoice_items: order_invoice_items,
+          order_invoice_gifts: selectedGiftItems,
+        number_of_gifts: maxGifts,
+        number_of_gifts_used: selectedGiftItems?.length || 0,
         currency: currency,
         shippingPrice: delivery !== "standard" ? 0 : deliveryFees,
         shipping_type_id: delivery === "standard" ? 40 : 39,
@@ -1905,6 +1951,8 @@ const CheckOut = () => {
               )}
             </div>
           )}
+          
+            <GiftItems handleGiftChange={handleGiftChange} selectedGiftItems={selectedGiftItems} subtotalAmt={subtotalAmt} onMaxGiftsChange={setMaxGifts} />
         </div>
       <div className={classes.bigContainer} >
         <div className={classes.auth_bg}></div>

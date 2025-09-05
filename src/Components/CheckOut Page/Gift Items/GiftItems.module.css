@@ -1,0 +1,204 @@
+ .card{
+    width: 95%;
+    position: relative;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 2%;
+    color: var(--secondary-color);
+    margin:  0 auto 1em auto ;
+    background-color: #fff;
+}
+
+.header h2{
+     font-size: calc(0.8rem + 0.5vw);
+     font-family: 600;
+     text-align: start;
+     margin: 3em 0 1em 0;
+     font-family: var(--font-family);
+     color: var(--primary-color);
+}
+.imageCont{
+    width: 4em !important;
+    max-height: 6em;
+    flex: 1;
+    margin: auto;
+}
+.imageCont img{
+    width: 4em !important;
+    max-height: 6em;
+    object-fit: fill;
+}
+
+.card p{
+    margin: 0.4em 0;
+}
+
+.quantity{
+    position: relative;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: calc(.7rem + 0.3vw);
+    font-family: var(--font-family);
+}
+
+
+.cardmobile{
+    display: none;
+    grid-template-columns: 30% 70%;
+    color: var(--secondary-color);
+    margin: 5% 0 0% 0;
+    border: 1px solid #D3DADC;
+    border-radius: 20px;
+}
+
+.quantitymobile{
+    width: 100%;
+    display: none;
+    flex-direction: row;
+    margin-top: 1em;
+    justify-content: space-between;
+}
+
+.font_size{
+    font-size: calc(0.6vw + 0.3rem);
+}
+.infoCont{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.infoCont p{
+    white-space: normal; /* Allow text to wrap */
+    overflow: hidden;    /* Hide any overflow text */
+    display: -webkit-box; /* Use the webkit box model for multi-line ellipsis */
+    -webkit-box-orient: vertical; /* Set the box orientation to vertical */
+    -webkit-line-clamp: 2; /* Limit the text to 3 lines */
+    line-clamp: 2;
+}
+
+.delete_btn{
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    width: fit-content;
+    height: fit-content;
+    border: none;
+    background-color: var(--primary-color);
+    color: #fff !important;
+    transition: background-color 0.5s ease, color 1s ease;
+    font-size: calc(.7rem + 0.3vw);
+    border-radius: .0em;
+    padding: 0.2em .3em;
+    margin: 0 0 auto auto;
+    cursor: pointer;
+}
+
+.delete_btn:hover{
+    background-color: var(--secondary-color) !important;
+
+}
+.delete_btnMob{
+    display: none;
+    width: fit-content;
+    height: fit-content;
+    border: none;
+    background-color: var(--primary-color);
+    color: #fff !important;
+    transition: background-color 0.5s ease, color 1s ease;
+    font-size: calc(.7rem + 0.3vw);
+    border-radius: .5em;
+    padding: 0.6em .6em;
+    margin-left: auto;
+}
+
+.delete_btnMob:hover{
+    background-color: var(--secondary-color) !important;
+
+}
+.dicription{
+    width: 30em;
+    overflow: hidden;
+    height: 4.3em;
+    color: var(--secondary-color);
+    font-size: calc(.6rem + 0.2vw);
+}
+.dicription ,
+.dicription p,
+.dicription span,
+.dicription h1,
+.dicription h2,
+.dicription h3,
+.dicription h4,
+.dicription h5,
+.dicription h6,
+.dicription div {
+    color: var(--secondary-color) !important;
+    font-size: calc(0.6rem + 0.2vw) !important;
+    line-height: 1.5em !important;
+    margin: 0 !important;
+    font-weight: 500 !important;
+    font-style: normal !important;
+    font-family: var(--font-family) !important;
+    background-color: transparent !important;
+}
+.price{
+    height: fit-content;
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: small;
+    margin: auto 0;
+}
+
+
+.inputt{
+    display: flex;
+    max-width: 5em;
+    border-color: var(--secondary-color) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: auto 0;
+    height: 2em;
+}
+
+.inputt:focus{
+    outline: none !important;
+    border-color: var(--secondary-color) !important;
+}
+
+@media screen and (max-width: 1400px) {
+    .dicription{
+        width: 17em;
+        color: var(--secondary-color);
+        font-size: small;
+    }
+.font_size{
+    font-size: calc(0.6vw + 0.4rem);
+}
+}
+
+
+@media screen and ( max-width: 750px) {
+    .card{
+        margin: 1% auto 1em 0 ;
+    }
+      .quantity{
+        display: none;
+      }
+      .card p{
+        margin: 0.1em 0;
+    }
+    .font_size{
+        font-size: calc(0.6vw + 0.6rem);
+    }
+    .quantitymobile{
+        display: flex;
+    }
+    
+    
+}

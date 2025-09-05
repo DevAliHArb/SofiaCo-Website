@@ -801,7 +801,8 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
           <div className={classes.cardCont}>
              {selectedOrder?.order_invoice_items?.map((props)=>{
             return(
-        <div className={classes.card} key={props._id} onClick={()=>console.log(props)}>
+        <div className={classes.card} key={props._id} onClick={()=>console.log(props)} style={{position:'relative'}}>
+          {props.is_gift && <div style={{fontSize:'calc(0.7rem + 0.3vw)',position:'absolute',top:'0.5em',right:'.5em',padding:".3em 1em",width:'fit-content',height:'fit-content',backgroundColor:'var(--primary-color)',color:"#fff",zIndex:'9'}}>{language === 'eng' ? "Gift" : "Cadeau"}</div>}
             <div style={{display:"flex",flexDirection:"row",gap:".5em",width:'100%'}}>
             <div className={classes.imageCont}>
               <img src={props.article.articleimage[0]?.link ? props.article.articleimage[0].link : bookPlaceHolder} alt="" style={{height:'100%', width: '100%',objectFit:'cover' }}/>
