@@ -154,6 +154,7 @@ const CheckOut = () => {
   const [stripePublishableKey, setStripePublishableKey] = useState(null);
   const [selectedGiftItems, setSelectedGiftItems] = useState([]);
   const [maxGifts, setMaxGifts] = useState(0);
+  const [gifts_configuration, setGiftsConfiguration] = useState([]);
 
   const handleGiftChange = (item) => {
     console.log(selectedGiftItems);
@@ -922,6 +923,7 @@ const CheckOut = () => {
           order_invoice_items: order_invoice_items,
           order_invoice_gifts: selectedGiftItems,
         number_of_gifts: maxGifts,
+        gifts_configuration: gifts_configuration,
         number_of_gifts_used: selectedGiftItems?.length || 0,
           shipping_type_id: delivery === "standard" ? 40 : 39,
           colissimo_code:
@@ -958,6 +960,7 @@ const CheckOut = () => {
           order_invoice_items: order_invoice_items,
           order_invoice_gifts: selectedGiftItems,
         number_of_gifts: maxGifts,
+        gifts_configuration: gifts_configuration,
         number_of_gifts_used: selectedGiftItems?.length || 0,
           currency: currency,
           shippingPrice: delivery !== "standard" ? 0 : deliveryFees,
@@ -1129,6 +1132,7 @@ const CheckOut = () => {
         order_invoice_items: order_invoice_items,
           order_invoice_gifts: selectedGiftItems,
         number_of_gifts: maxGifts,
+        gifts_configuration: gifts_configuration,
         number_of_gifts_used: selectedGiftItems?.length || 0,
         currency: currency,
         shippingPrice: delivery !== "standard" ? 0 : deliveryFees,
@@ -1952,7 +1956,7 @@ const CheckOut = () => {
             </div>
           )}
           
-            <GiftItems handleGiftChange={handleGiftChange} selectedGiftItems={selectedGiftItems} subtotalAmt={subtotalAmt} onMaxGiftsChange={setMaxGifts} />
+            <GiftItems handleGiftChange={handleGiftChange} selectedGiftItems={selectedGiftItems} subtotalAmt={subtotalAmt} onMaxGiftsChange={setMaxGifts} onGiftsconfigurationChange={setGiftsConfiguration} />
         </div>
       <div className={classes.bigContainer} >
         <div className={classes.auth_bg}></div>

@@ -9,7 +9,7 @@ import AuthContext from "../../Common/authContext";
 import { stripHtmlTags, truncateText } from "../../Common Components/TextUtils";
 import axios from "axios"; 
 
-const GiftItems = ({ handleGiftChange, selectedGiftItems, subtotalAmt, onMaxGiftsChange }) => {
+const GiftItems = ({ handleGiftChange, selectedGiftItems, subtotalAmt, onMaxGiftsChange, onGiftsconfigurationChange }) => {
   const language = useSelector(
     (state) => state.products.selectedLanguage[0].Language
   );
@@ -17,6 +17,12 @@ const GiftItems = ({ handleGiftChange, selectedGiftItems, subtotalAmt, onMaxGift
     const productData = useSelector((state) => state.products.productData);
   const [articles, setArticles] = useState([]);
   const [giftConfiguration, setGiftConfiguration] = useState([]);
+
+    function giftConfigToString(configArr) {
+  return configArr
+    .map(obj => `value: ${obj.value}, gifts_number: ${obj.gifts_number}`)
+    .join(' ; ');
+}
   // selectedItems will be array of selected article objects
   const fetchArticles = async () => {
       try {
@@ -34,6 +40,8 @@ const GiftItems = ({ handleGiftChange, selectedGiftItems, subtotalAmt, onMaxGift
           `${import.meta.env.VITE_TESTING_API}/gift-configuration?ecom_type=sofiaco`
         );
         setGiftConfiguration(response.data);
+        const giftConfig = giftConfigToString(response.data);
+        onGiftsconfigurationChange(giftConfig);
         console.log("Gift Configuration:", response.data);
       } catch (error) {
         console.error("Error fetching articles:", error);
