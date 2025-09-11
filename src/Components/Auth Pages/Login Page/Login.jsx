@@ -3,7 +3,7 @@ import classes from './Login.module.css'
 import logo from '../../../assets/navbar/logo.svg'
 import { MdArrowBackIosNew } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Checkbox } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import AuthContext from '../../Common/authContext'
@@ -67,24 +67,24 @@ const Login = () => {
 
 
 
-const [formData, setFormData] = useState({ email: "", password: "", type: 'sofiaco' });
+const [formData, setFormData] = useState({ email: "", password: "", remember_me: false, type: 'sofiaco' });
 
 // Failed login attempt tracking states
   const [lockout, setLockout] = useState(false);
   const [lockoutSeconds, setLockoutSeconds] = useState(0);
 
 const handleChange = (e) => {
-  const { name, value } = e.target;
-  const lowercasedValue = name === 'email' ? value.toLowerCase() : value;
-  setFormData({ ...formData, [name]: lowercasedValue });
-  // console.log(formData);
+  const { name, value, type, checked } = e.target;
+  let newValue = value;
+  if (name === 'email') newValue = value.toLowerCase();
+  if (type === 'checkbox') newValue = checked;
+  setFormData({ ...formData, [name]: newValue });
   // Reset lockout if email changes
   if (name === 'email') {
     setLockout(false);
     setLockoutSeconds(0);
-  }   
-    // Check after a short delay to allow form to update
-    setTimeout(checkFieldsAndShowCaptcha, 100);
+  }    
+  setTimeout(checkFieldsAndShowCaptcha, 100);
 };
 
 const formatTime = (seconds) => {
@@ -295,9 +295,22 @@ const onFinish = async () => {
             onChange={handleChange}
           />
         </Form.Item>
-        <div style={{width:'100%', textAlign: 'end',color:'var(--forth-color)',cursor:'pointer'}} onClick={()=>navigate('/forget-password')}>
+        <div style={{width:'100%', display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+  {/* Remember Me Checkbox */}
+  <Form.Item style={{ marginTop: '-1.5em' }}>
+    <Checkbox
+      name="remember_me"
+      checked={formData.remember_me}
+      onChange={handleChange}
+      style={{color:'#fff', fontWeight:'400', fontFamily:'var(--font-family-primary)'}}
+    >
+      {language === 'eng' ? "Remember me" : "Se souvenir de moi"}
+    </Checkbox>
+  </Form.Item>
+        <div style={{ textAlign: 'end',color:'var(--forth-color)',cursor:'pointer'}} onClick={()=>navigate('/forget-password')}>
           <p style={{marginTop:'-1.3em',marginBottom:'2em',fontFamily:'var(--font-family-primary)',fontStyle:'normal',fontSize:'small'}}>
               {language === 'eng' ? "Forgot password ?" : "Mot De Passe Oublié ?"}</p>
+        </div>
         </div>
         
             {/* Show CAPTCHA verification button when both fields are filled */}
