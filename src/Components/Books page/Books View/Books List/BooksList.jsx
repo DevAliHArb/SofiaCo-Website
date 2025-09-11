@@ -493,7 +493,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                     </div>
                     
                     <div className={classes.bookTitle} >
-                      <p >{props.designation.length > 50 ? props.designation.slice(0,50) + '...' : props.designation}</p>
+                      <p style={{minHeight:"2.3em"}}>{props.designation.length > 50 ? props.designation.slice(0,50) + '...' : props.designation}</p>
                     <p style={{maxWidth:'100%',width:'fit-content',margin:'0em auto 0 auto',display:"flex",flexDirection:"row"}}>
                         <Rating
                           style={{
