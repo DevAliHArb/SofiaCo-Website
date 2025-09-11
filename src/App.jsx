@@ -40,6 +40,7 @@ import Publishers from './Components/Collaborators/Publishers Page/Publishers';
 import NewPassword from './Components/Auth Pages/New Password/NewPassword';
 import ForgotPassword from './Components/Auth Pages/Forgot Password/ForgotPassword';
 import PublisherDetails from './Components/Collaborators/Publisher DetailsPage/PublisherDetails';
+import ResendVerify from './Components/Auth Pages/Verfiy Email/ResendVerify';
 
 function App() {
   const authCtx = useContext(AuthContext)
@@ -87,7 +88,8 @@ function App() {
       path === '/forget-password' ||
       path.startsWith('/reset-password') ||
       path === '/verification' ||
-      path === '/verify-email'
+      path === '/verify-email' ||
+      path === '/resend-verify-email'
     ) {
       setIsAuthPages(true);
     } else {
@@ -153,6 +155,7 @@ function App() {
           <Route path="/register" element={<ScrollToTop><Register /></ScrollToTop>} />
           <Route path="/login" element={<ScrollToTop><Login /></ScrollToTop>} />
           <Route path="/verify-email" element={<ScrollToTop><Verify /></ScrollToTop>} />
+          <Route path="/resend-verify-email" element={<ScrollToTop><ResendVerify /></ScrollToTop>} />
           <Route path='/forget-password' element={<ScrollToTop><ForgotPassword/></ScrollToTop>} />
           <Route path='/reset-password' element={<ScrollToTop><NewPassword/></ScrollToTop>} />
           <Route path="/publishers" element={<ScrollToTop><Publishers /></ScrollToTop>} />

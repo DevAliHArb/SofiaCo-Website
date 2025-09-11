@@ -208,6 +208,9 @@ const onFinish = async () => {
       const seconds = error.response?.data?.remaining_seconds || 0;
       setLockout(true);
       setLockoutSeconds(seconds);
+    } else if (error.response?.status === 406) {
+        localStorage.setItem("unverifiedEmail", formData.email);
+        navigate('/resend-verify-email');
     } else {
       // For other errors, show the original error message
       toast.error( language === "eng" ? `Error in Login: ${errormsg}` : `Erreur de connexion : ${errormsg}` , {

@@ -124,6 +124,8 @@
 }
 
 .auth_card h4{
+    width: 50%;
+    margin: 0em auto;
     font-size: calc(0.7rem + 0.4vw);
     font-family: var(--font-family);
     font-style: normal;
