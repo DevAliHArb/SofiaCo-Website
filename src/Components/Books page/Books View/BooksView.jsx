@@ -41,9 +41,7 @@ const BooksView = ({carttoggle}) => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const [parents, setParents] = useState([]);
-  const [subparents, setSubparents] = useState([]);
-  const [childrens, setChildrens] = useState([]);
+  const [categories, setCategories] = useState([]);
   const authCtx = useContext(AuthContext);
   const [catChemin, setCatChemin] = useState("");
   const [selectedCollection, setSelectedCollection] = useState('all');
@@ -151,20 +149,26 @@ const BooksView = ({carttoggle}) => {
     return (
       <div
         style={{
-          paddingLeft: level === 0 ? "0" : level === 1 ? "1.5em" : "2em",
+          paddingLeft: `${level * 0.5}em`,
           margin: "0.5em 0",
         }}
       >
         <div
+        
           style={{
             color: isExpanded ? "var(--primary-color)" : color,
-            fontSize:
-              level === 0 ? "calc(0.8rem + 0.3vw)" : "calc(0.7rem + 0.3vw)",
-              display:'flex',
-              flexDirection: "row",
+            fontSize: `calc(1rem - ${level * 0.06}vw)`,
+            display: 'flex',
+            flexDirection: "row",
           }}
         >
-{level !== 2 && <KeyboardArrowRightOutlinedIcon  style={{ transform: isExpanded ? 'rotate(90deg)' : 'none', margin: "auto 0", }} onClick={toggleNode} className={classes.listBox} />}
+          {Array.isArray(data.children) && data.children.length > 0 && (
+            <KeyboardArrowRightOutlinedIcon
+              style={{ transform: isExpanded ? 'rotate(90deg)' : 'none', margin: "auto 0" }}
+              onClick={toggleNode}
+              className={classes.listBox}
+            />
+          )}
           <input
             type="checkbox"
             checked={storedCategories.includes(data.id)}
@@ -173,12 +177,12 @@ const BooksView = ({carttoggle}) => {
               marginRight: "5px",
               width: "1.3em",
               height: "1.3em",
-              marginLeft: "3px",
+              marginLeft: Array.isArray(data.children) && data.children.length > 0 && data.niveau !== 4 ? "3px" : "1.6em",
             }}
             onClick={(event) => handleChildClick(data.id, event)}
           />          <p
             style={{ 
-              margin: "0", 
+              margin: "auto 0", 
               width:'100%',
               display: "flex", 
               cursor: "pointer",
@@ -189,17 +193,16 @@ const BooksView = ({carttoggle}) => {
             {data._nom}
           </p>
         </div>
-        {isExpanded && data.children && (
-          <>
+        {isExpanded && Array.isArray(data.children) && data.children.length > 0 && (
+          <div>
             {data.children.map((child, index) => (
-              <p key={index}>
-                <TreeNode
-                  data={child}
-                  level={level + 1}
-                />
-              </p>
+              <TreeNode
+                key={child.id || index}
+                data={child}
+                level={level + 1}
+              />
             ))}
-          </>
+          </div>
         )}
       </div>
     );
@@ -358,26 +361,9 @@ const BooksView = ({carttoggle}) => {
 
   useEffect(() => {
     if (Array.isArray(authCtx.categories)) {
-      // Extract the array of categories from the data property
-      const categories = authCtx.categories;
-
-      // Categorize categories based on their niveau
-      categories.forEach((category) => {
-        const niveau = category.niveau;
-
-        if (niveau === 1) {
-          setParents((prevParent) => [...prevParent, category]);
-        } else if (niveau === 2) {
-          setSubparents((prevSubparent) => [...prevSubparent, category]);
-        } else if (niveau === 3) {
-          setChildrens((prevChild) => [...prevChild, category]);
-        }
-      });
+      setCategories(authCtx.categories);
     } else {
-      // console.error(
-      //   "Data property does not contain an array of categories:",
-      //   authCtx.categories
-      // );
+      console.error("Data property does not contain an array of categories:", authCtx.categories);
     }
   }, [authCtx.categories]);
   
@@ -761,24 +747,44 @@ const handleChangePublisher = (event) => {
     return isdiscount?.includes(discount);
   };
 
-  const mapSubparentsToParents = () => {
-    return parents.map((parent) => {
-      const subparentsWithChildren = subparents.map((subparent) => {
-        const childrenForSubparent = childrens.filter(
-          (child) => child.b_usr_articletheme_id === subparent.id
-        );
-        return { ...subparent, children: childrenForSubparent };
-      });
+  // Dynamic tree mapping based on category_level_ids
+  const getCategoryTree = () => {
+  // Support both companySettings and companysettings for backward compatibility
+  let rawLevels = authCtx.companySettings?.category_level_ids || '';
+  // Parse string to array of numbers
+  const levels = typeof rawLevels === 'string' ? rawLevels.split(',').map(l => Number(l.trim())).filter(Boolean) : Array.isArray(rawLevels) ? rawLevels : [];
+  if (!Array.isArray(levels) || levels.length === 0) return [];
+    // Helper: get all possible parent reference keys
+    const allParentKeys = [
+      'b_usr_articletheme_id',
+      'b_usr_articletheme_id1',
+      'b_usr_articletheme_id2',
+    ];
 
-      const children = subparentsWithChildren.filter(
-        (subparent) => subparent.b_usr_articletheme_id === parent.id
-      );
-
-      return { ...parent, children };
-    });
+    // Recursive function to build tree for a given level
+    const buildTree = (parentId, levelIdx) => {
+      const niveau = levels[levelIdx];
+      return categories
+        .filter(cat => {
+          if (cat.niveau !== niveau) return false;
+          if (levelIdx === 0) return true;
+          // For child levels, match any parent reference to parentId
+          for (const key of allParentKeys) {
+            if (cat[key] === parentId) return true;
+          }
+          return false;
+        })
+        .sort((a, b) => a._nom.localeCompare(b._nom))
+        .map(cat => ({
+          ...cat,
+          children: (levelIdx + 1 < levels.length)
+            ? buildTree(cat.id, levelIdx + 1)
+            : undefined
+        }));
+    };
+    return buildTree(null, 0);
   };
-  // Map subparents and children to parents
-  const mappedParents = mapSubparentsToParents();
+  const mappedCategories = getCategoryTree();
   
   const list = (anchor) => (
     <>
@@ -797,7 +803,7 @@ const handleChangePublisher = (event) => {
             <h2>Categories</h2>
               <div className={classes.dropdown}
                   style={{ maxHeight: "200px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
-                {mappedParents.map((data) => {
+                {mappedCategories.map((data) => {
                   return (
                       <TreeNode data={data} level={0} color='#fff'/>
                   );
@@ -1092,7 +1098,7 @@ const handleChangePublisher = (event) => {
             <h2>Categories</h2>
               <div className={classes.dropdown}
                   style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
-                {mappedParents.map((data) => {
+                {mappedCategories.map((data) => {
                   return (
                       <TreeNode data={data} level={0} color='var(--secondary-color)'/>
                   );
