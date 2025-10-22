@@ -145,7 +145,7 @@ const onFinish = async () => {
           description: cartItem.article.descriptif,
           weight: cartItem.article._poids_net,
           price_ttc: cartItem.article._prix_public_ttc,
-          discount: cartItem.article?.discount,
+          discount: cartItem.discount,
           removed: cartItem.removed,
           article_stock: cartItem.article.article_stock
           }));

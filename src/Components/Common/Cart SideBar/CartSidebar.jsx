@@ -235,11 +235,18 @@ export default function CartSidebar({ toggle, isOpen }) {
             </div>
             <div style={{height:'100%',overflow:'hidden',maxWidth:'30em',justifyContent:'space-between',display:'flex', flexDirection:'column', margin:'auto 0',width:'100%',fontSize:'calc(.7rem + 0.2vw)',fontFamily:'var(--font-family)'}}>
               <p style={{color:'var(--secondary-color)',fontSize:'calc(.9rem + 0.2rem)',fontWeight:'700'}}>{props?.title}</p>
-              <p style={{color:'var(--secondary-color)',fontWeight:'500'}}>{props?.author}</p>
+              {/* <p style={{color:'var(--secondary-color)',fontWeight:'500'}}>{props?.author}</p>*/}
+              <div className={classes.variants}> 
+               {props?.cart_items_variants?.map((item,index)=>{
+                 return(
+                   <p onClick={()=>console.log(item)} style={{padding:index === 0 && "0"}}> <span style={{textTransform:'capitalize'}}>{item?.articlevariant?.nom ? <strong>{item?.articlevariant?.nom}:</strong> : null}</span> {item?.variantitem ? item?.variantitem?.value : item?.value} {props?.cart_items_variants?.length - 1 !== index && " | "} </p>
+                 )
+               })}
+               </div>
               <p style={{color:'var(--secondary-color)',fontWeight:'600',fontSize:'smaller'}}><Rate value={props.average_rate} disabled  style={{color:'var(--primary-color)',fontSize:'small'}}/>{props?.average_rate ? Number(props.average_rate)?.toFixed(1) : 0.0}/5</p>
               <p className={classes.dicription} dangerouslySetInnerHTML={{ __html: props.description }} style={{color:"var(--secondary-color)"}}/>
               {/* <p style={{color:'var(--forth-color)'}}>Cover: Hardcover</p> */}
-              <p style={{ margin: ".5em auto .5em 0",color:props._qte_a_terme_calcule > 0 ? "var(--forth-color)" : "#EE5858",fontWeight:"600" }}>{props._qte_a_terme_calcule > 0 ? `${(props._qte_a_terme_calcule * 1).toFixed(0)} in stock` : `${language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}`} </p>
+              <p style={{ margin: ".5em auto .5em 0",color:props._qte_a_terme_calcule > 0 ? "var(--forth-color)" : "#EE5858",fontWeight:"600" }}>{props._qte_a_terme_calcule > 0 ? `${language === "eng" ? "IN STOCK" : "EN STOCK"} ` : `${language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}`} </p>
               <div style={{display:'flex',flexDirection:'row',gap:'1em'}}>
                   <p className={classes.price}>
                               {/* {language === "eng" ? "price" : "prix"}:{" "} */}

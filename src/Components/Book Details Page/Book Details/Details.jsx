@@ -12,6 +12,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 // import mastercard from "../../../assets/master-card.png";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { FaTwitter, FaFacebookF, FaPinterestP } from "react-icons/fa";
+import NoVariants from "../../../assets/NoVariants.png";
 import AuthContext from "../../Common/authContext";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -457,6 +458,144 @@ const handleCatClick = async () => {
       
       navigate(`/books`);
     }
+
+const [selectedVariants, setSelectedVariants] = useState({});
+  const [article_variant_combination, setSelectedCombinationVariants] = useState({});
+  useEffect(() => {
+    let finalPrice = (bookData?.price * 1); // Start with the base price
+  
+    // Check if all mandatory variants are selected
+    const mandatoryVariants = bookData?.article_variants?.filter(v => v.is_mandatory);
+    const allMandatorySelected = mandatoryVariants?.every(variant => selectedVariants[variant.id]);
+  
+    if (allMandatorySelected) {
+      // If all mandatory variants are selected, look for the matching combination
+      const selectedVariantItemIds = Object.values(selectedVariants)?.map(item => item.id);
+      const matchingCombination = bookData?.article_variant_combinations.find(comb =>
+        comb.combination_variant_items?.every(item =>
+          selectedVariantItemIds.includes(item.b_usr_article_variant_item_id)
+        )
+      );
+  
+      if (matchingCombination) {
+        // If a matching combination is found, add its price to the final price
+        setSelectedCombinationVariants(matchingCombination)
+        finalPrice += parseFloat(matchingCombination.price);
+      }
+    }
+  
+    // Iterate over each selected variant
+    Object.keys(selectedVariants).forEach((variantId) => {
+      const variant = bookData?.article_variants.find(v => v.id === parseInt(variantId));
+      const selectedItem = selectedVariants[variantId];
+      console.log('testt', selectedItem);
+  
+      if (!variant.is_mandatory) {
+        if (variant.price_type === "change_price") {
+          finalPrice = parseFloat(selectedItem.price);  // Replace the base price
+        } else if (variant.price_type === "additional") {
+          finalPrice += parseFloat(selectedItem.price);  // Add to the base price
+        }
+      }
+    });
+  
+    // Update the price state with the calculated final price
+    // setPrice(finalPrice);
+  }, [selectedVariants, bookData]);
+  
+  const handleVariantSelect = (variantId, item) => {
+    setSelectedVariants(prevState => {
+      const updatedState = { ...prevState };
+      setCount(1)
+      // If the same variant item is selected, deselect it
+      if (updatedState[variantId] && updatedState[variantId].id === item.id) {
+        delete updatedState[variantId];
+      } else {
+        // Only proceed with selecting the item if its quantity is > 0
+        const itemQuantity = item?.quantity || 0;
+        const newVariant = bookData?.article_variants?.find(pv => pv.id === parseInt(variantId));
+        const isNewVariantMandatory = newVariant?.is_mandatory;
+  
+        // Prevent selecting non-mandatory variants with quantity <= 0
+        if (!isNewVariantMandatory && itemQuantity <= 0) {
+          // If it's a non-mandatory variant with no stock, just return the updated state without selecting it
+          return updatedState;
+        }
+  
+        // Proceed with selecting the variant if it's either mandatory or has stock for non-mandatory
+        updatedState[variantId] = item;
+  
+        // Apply combination validation for mandatory variants
+        if (isNewVariantMandatory) {
+          Object.keys(updatedState).forEach(prevVariantId => {
+            // Skip checking the currently selected variant itself
+            if (parseInt(prevVariantId) === parseInt(variantId)) return;
+  
+            const prevSelectedVariant = updatedState[prevVariantId];
+  
+            // Check if the previous variant is mandatory
+            const parentVariant = bookData?.article_variants?.find(pv => pv.id === parseInt(prevVariantId));
+            const isMandatory = parentVariant?.is_mandatory;
+  
+            if (isMandatory) {
+              const matchingCombinations = bookData?.article_variant_combinations?.filter(comb =>
+                comb.combination_variant_items.some(combItem => combItem.b_usr_article_variant_item_id === item.id)
+              );
+  
+              // Find a matching combination with the newly selected variant
+              const matchingCombination = matchingCombinations.find(comb => {
+                return comb.combination_variant_items.some(
+                  combItem =>
+                    combItem.b_usr_article_variant_item_id === prevSelectedVariant.id &&
+                    comb.combination_variant_items.some(
+                      newCombItem => newCombItem.b_usr_article_variant_item_id === item.id
+                    )
+                );
+              });
+  
+              // If no valid combination or quantity is less than 1, deselect the previous mandatory variant
+              if (!matchingCombination || matchingCombination.quantity < 1) {
+                delete updatedState[prevVariantId];
+              }
+            }
+          });
+        }
+      }
+  
+      return updatedState;
+    });
+  };
+    const AddtoBag = (props) => {
+    const allMandatorySelected = bookData?.article_variants?.every((variant) => {
+      if (variant.is_mandatory) {
+        return selectedVariants[variant.id] !== undefined && selectedVariants[variant.id]?.id !== undefined;
+      }
+      return true;
+    });
+  
+    if (!allMandatorySelected) {
+      toast.error(`Please select all mandatory variants before submitting.`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: 0,
+        theme: "colored",
+      });
+      return;
+    }
+  
+    const data = {
+      ...props,
+      items_quantity: count,
+      // price: props?.discount && props?.discount > 0 ? `${(props._prix_public_ttc - (props._prix_public_ttc * props?.discount * 0.01)).toFixed(2)}` : (props._prix_public_ttc * 1).toFixed(2),
+      selectedvariants: selectedVariants,
+      article_variant_combination: article_variant_combination
+    };
+    authCtx.addToCart(data);
+  };
   return (
     <>
       <div className={classes.contantContainer}>
@@ -479,7 +618,7 @@ const handleCatClick = async () => {
         <div className={classes.contentss}>
         </div>
         <div className={classes.priceContainer}>
-        <p style={{ margin: ".5em auto .5em 0",color:bookData._qte_a_terme_calcule > 0 ? "var(--forth-color)" : "#EE5858",fontWeight:"600" }}>{bookData._qte_a_terme_calcule > 0 ? `${(bookData._qte_a_terme_calcule * 1).toFixed(0)} in stock` : `${language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}`} </p>
+        <p style={{ margin: ".5em auto .5em 0",color:bookData._qte_a_terme_calcule > 0 ? "var(--forth-color)" : "#EE5858",fontWeight:"600" }}>{bookData._qte_a_terme_calcule > 0 ? ` ${language === "eng" ? "IN STOCK" : "EN STOCK"}` : `${language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}`} </p>
           <p
             style={{
               color: "var(--primary-color)",
@@ -539,7 +678,7 @@ const handleCatClick = async () => {
             className={classes.addToCartBtn}
             onClick={(event) => {
               event.stopPropagation();
-              authCtx.addToCartWithQty( {...bookData, quantity: count} );
+              AddtoBag(bookData);
             }}
           >
             {" "}
@@ -563,6 +702,131 @@ const handleCatClick = async () => {
                             )}
                           </div>
         </div>
+        
+            {bookData?.article_variants?.map((variant) => {
+  return (
+    <div key={variant.id}>
+      <p
+        style={{
+          fontWeight: '600',
+          fontSize: 'calc(.8rem + .3vw)',
+          marginBottom: '0.5em',color:"var(--accent-color)"
+        }}
+        onClick={() => console.log(selectedVariants)}
+      >
+        <span style={{color:"var(--secondary-color)"}}>{variant?.nom}</span> {' '}
+        <span style={{ fontWeight: "400" }}>
+          {/* {selectedVariants[variant.id]?.value} */}
+          <span style={{color:"red"}}>{variant?.is_mandatory && "*"}</span>
+        </span>
+      </p>
+      <div className={classes.selectVariant}>
+        {variant.variant_items?.map((item) => {
+  // Find all combinations that contain the current variant item
+  const matchingCombinations = bookData?.article_variant_combinations?.filter(comb =>
+    comb.combination_variant_items.some(combItem => combItem.b_usr_article_variant_item_id === item.id)
+  );
+
+  // Initialize availableQuantity
+  let availableQuantity = 0;
+  if (!variant.is_mandatory) {
+    // If the variant is not mandatory, take the item's own quantity
+    availableQuantity = item.quantity > 0 ? item.quantity : 0;
+  } else{
+
+  // Check if any items from other variant_ids are selected
+  
+  const selectedMandatoryVariants = Object.keys(selectedVariants)
+  ?.map(key => ({ key, variant: selectedVariants[key] }))  // Map the objects by key
+  ?.filter(({ variant }) => {
+    const parentVariant = bookData?.article_variants?.find(pv => pv.id === variant.b_usr_article_variant_id);
+    return parentVariant && parentVariant.is_mandatory;
+  })
+  .reduce((acc, { key, variant }) => {
+    acc[key] = variant;  // Add the filtered variants back into an object using the original key
+    return acc;
+  }, {});
+
+  const selectedOtherVariants = Object.keys(selectedMandatoryVariants)?.filter(variantId => 
+    parseInt(variantId) !== variant.id
+  );
+
+  if (selectedOtherVariants.length === 0) {
+    // No other variants are selected, sum all matching combinations' quantities
+    availableQuantity = matchingCombinations.reduce((totalQty, comb) => {
+      return totalQty + (comb.quantity > 0 ? comb.quantity : 0);
+    }, 0);
+  } else {
+    // Some other variant items are selected, so filter combinations that match those
+    matchingCombinations.forEach(comb => {
+      // Check if all selected other variants match the combination items
+      const isValidCombination = selectedOtherVariants?.every(variantId => {
+        const selectedVariantItem = selectedVariants[variantId];
+
+        // Find the corresponding combination item for the selected other variant
+        const combItem = comb.combination_variant_items.find(item => item.variant_item.b_usr_article_variant_id == variantId);
+
+        // Check if the combination item exists and matches the selected variant item
+        return combItem && selectedVariantItem.id === combItem.b_usr_article_variant_item_id;
+      });
+
+      // If it's a valid combination and has quantity, add it to availableQuantity
+      if (isValidCombination && comb.quantity > 0) {
+        availableQuantity += comb.quantity;
+      }
+    });
+  }
+}
+  // Determine if this item should be disabled based on available quantity
+  const isVariantDisabled = availableQuantity <= 0;
+
+
+          return (
+            <div
+              key={item.id}
+              className={classes.variant_item}
+              style={{
+                padding: item?.image ? '0' : '1.7em 1em',
+                border: selectedVariants[variant.id]?.id === item.id
+                  ? "2px solid var(--secondary-color)"
+                  : "2px solid #D9D9D9",
+                opacity: isVariantDisabled ? 0.6 : 1,
+              }}
+              onClick={(e) => {
+                e.preventDefault();
+                handleVariantSelect(variant.id, item);
+              }}
+            >
+              {item?.image ? (
+                <img
+                  src={item.image}
+                  alt=""
+                  style={{
+                    width: '4.5em',
+                    height: '4.5em',
+                    margin: '0',
+                    padding: "0",
+                    display: 'block'
+                  }}
+                />
+              ) : (
+                <p style={{ fontSize:'calc(.6rem + .3vw)', margin: '0' }}>
+                  {item.value} 
+                  {/* <span style={{color:"red"}}>{variant?.is_mandatory && "”"}</span>  */}
+                </p>
+              )}
+              {isVariantDisabled && (
+                <div className={classes.diagonaloverlay}>
+                  <img src={NoVariants} alt="" style={{width:"100%",height:"100%"}}/>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+})}
         <div className={classes.char_con}>
           <div className={classes.char}>
             <p>{language === 'eng' ? 'Author' : 'Auteur'}</p>
@@ -722,6 +986,14 @@ const handleCatClick = async () => {
               : {bookData.dc_parution?.substring(0, 10)}
             </p>
           </div>
+          {bookData.characteristics?.map((charac, index) => (
+            <div key={index} className={ classes.char}>
+              <p>{charac.name}</p>
+              <p>{charac.multiproductData?.map((data, i) => (
+                <span key={i}>: {data.name}{i < charac.multiproductData.length - 1 ? ', ' : ''}</span>
+              ))}</p>
+            </div>
+          ))}
           <div className={classes.resume_content}>
           <p >{language === 'eng' ? 'Resume' : 'Résumé'}</p>
           <p>

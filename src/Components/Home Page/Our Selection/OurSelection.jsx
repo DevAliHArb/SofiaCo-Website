@@ -34,15 +34,20 @@ const OurSelection = () => {
   const [articles, setArticles] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0); // State to track active slide index
   const user = useSelector((state) => state.products.userInfo);
+  const SelectedCategoryId = useSelector((state) => state.products.selectedCategoryId);
 
   useEffect(() => {
     fetchArticles();
-  }, []);
+  }, [SelectedCategoryId]);
 
   const fetchArticles = async () => {
     try {
+      let articleFamilleIdParam = '';
+      if (SelectedCategoryId && SelectedCategoryId !== 'null') {
+        articleFamilleIdParam = `&articlefamilleparent_id=${SelectedCategoryId}`;
+      }
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&is_selected&user_id=${user?.id ? user.id : null}`
+        `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco${articleFamilleIdParam}&is_selected&user_id=${user?.id ? user.id : null}`
       );
       // console.log(response.data.data);
       

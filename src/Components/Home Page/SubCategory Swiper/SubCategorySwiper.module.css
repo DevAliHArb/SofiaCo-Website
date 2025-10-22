@@ -1,0 +1,176 @@
+.bigContainer {
+  position: relative;
+  width: 100%;
+  height: fit-content;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  padding: 0% 0 0% 0;
+  max-width: 1900px;
+  margin: 0 auto;
+}
+
+.swiper {
+  position: relative;
+  width: 84% !important;
+  margin: 2em auto;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.swiperslide {
+  padding: 0em 0 0 0;
+}
+
+.card_container {
+  width: 86%;
+  height: fit-content;
+  background: transparent;
+  font-family: var(--font-family-primary);
+  font-size: calc(0.9rem + 0.2vw);
+  letter-spacing: 0.01rem;
+  border-radius: 1em;
+  display: flex;
+  flex-direction: column;
+  padding: 0.8em 0;
+  justify-content: space-between;
+  /* box-shadow: 0.4em 0.4em 2em rgba(0, 0, 0, 0.1); */
+  transition: all 0.3s ease-in-out;
+  /* margin: 10% 0; */
+  border-radius: 50%;
+  background-image: url(../../../assets/servicesBG.png);
+  background-repeat: no-repeat; 
+  background-size: contain;
+  background-position: center;
+}
+
+.card_img {
+  display: flex;
+  position: relative;
+  max-width: 8vw;
+  width: 100%;
+  height: 12vw;
+  max-height: 8vw;
+  margin: 0 auto;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  cursor: pointer;
+}
+.card_img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  margin: auto;
+}
+
+.bookTitle {
+  position: relative;
+  width: 100%;
+  padding: 0.5em 0 2em 0;
+  display: flex;
+  flex-direction: column;
+  color: #111;
+}
+
+.bookTitle h3 {
+  width: 60%;
+  margin: 0 auto;
+  font-family: var(--font-family-primary);
+  font-size: calc(0.8rem + 0.3vw);
+  letter-spacing: 0.01rem;
+  text-align: center;
+  white-space: normal;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+}
+
+.customNavigation {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 45%;
+  width: 92%;
+  left: 4%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.navButton_next {
+  width: 3.5em;
+  height: 3.5em;
+  border: none;
+  cursor: pointer;
+  padding: 0em;
+  z-index: 20 !important;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.navButton_prev {
+  width: 3.5em;
+  height: 3.5em;
+  border: none;
+  cursor: pointer;
+  padding: 0em;
+  z-index: 20;
+  border-radius: 50%;
+}
+
+.navButton_prev:hover {
+  opacity: 0.7; /* Change opacity on hover for effect */
+}
+
+.navButton_next:hover {
+  opacity: 0.7; /* Change opacity on hover for effect */
+}
+
+.nav_icon {
+  width: 1.5em;
+  height: 1.5em;
+  padding: 0.2em;
+  color: var(--primary-color);
+}
+
+@media screen and (max-width: 950px) {
+  .card_img{
+    max-width: 12vw;
+    height: 16vw;
+  }
+  
+.card_container {
+  width: 100% !important;
+  height: 100% !important;
+}
+.card_img {
+  display: flex;
+  position: relative;
+  max-width: 20vw;
+  width: 100%;
+  height: 20vw;
+  max-height: 20vw;
+  margin: 0 auto;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  cursor: pointer;
+}
+.card_img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  margin: auto;
+}
+.bookTitle {
+  padding: 0.2em 0 1em 0;
+}
+
+.customNavigation{
+  display: none;
+}
+}

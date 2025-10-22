@@ -1,7 +1,7 @@
 import React from 'react';
 
 const LoginIcon= ({ firstName, lastName }) => {
-  if (firstName && firstName.length > 0) {
+  if (firstName && firstName?.length > 0) {
   const getInitials = (name) => {
     const words = name.split(' ');
     const initials = words.map((word) => word.charAt(0).toUpperCase());

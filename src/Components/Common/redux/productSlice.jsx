@@ -23,6 +23,7 @@ const initialState = {
   selectedCurrency:[{currency:"eur"}],
   searchData: [],
   orderData: [],
+  selectedCategoryId: null,
 };
 
 export const productSlice = createSlice({
@@ -482,6 +483,11 @@ export const productSlice = createSlice({
   resetOrderData: (state) => {
       state.orderData = []
   },
+  addSelectedCategory: (state, action) => {
+      state.selectedCategoryId = null;
+      const category = action.payload;
+      state.selectedCategoryId = category;
+  },
   },
 });
 
@@ -533,5 +539,6 @@ export const {
   addSearchData,
   editSearchData,
   resetSearchData,
+  addSelectedCategory,
 } = productSlice.actions;
 export default productSlice.reducer;

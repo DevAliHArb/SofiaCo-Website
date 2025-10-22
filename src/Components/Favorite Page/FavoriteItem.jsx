@@ -106,7 +106,7 @@ const FavoriteItem = ({ carttoggle }) => {
             
            {props._qte_a_terme_calcule > 0 ? 
            <div style={{margin:'auto 0'}}>
-            <p style={{ margin: "-2em auto .5em auto",color:props._qte_a_terme_calcule > 0 ? "#2DB224" : "#EE5858",fontWeight:"600" }}>{props._qte_a_terme_calcule > 0 ? `${Number(props._qte_a_terme_calcule).toFixed(0)} in stock` : `${language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}`} </p>
+            <p style={{ margin: "-2em auto .5em auto",color:props._qte_a_terme_calcule > 0 ? "#2DB224" : "#EE5858",fontWeight:"600" }}>{props._qte_a_terme_calcule > 0 ? `${language === "eng" ? "IN STOCK" : "EN STOCK"}` : `${language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}`} </p>
             <div className={classes.quantity}>
               <p
                 style={{

@@ -50,6 +50,123 @@ const BooksView = ({carttoggle}) => {
   const [totalArticlesNumber, setTotalArticlesNumber] = useState(null);
   const [inStock, setinStock] = useState(localStorage.getItem("stock") || null);
   const [isdiscount, setisdiscount] = useState(localStorage.getItem("discount") || []);
+  
+  const [selectedFilters, setSelectedFilters] = useState({
+    rate: [],
+    size: [],
+    hair_type: [],
+    gender: [],
+    formula: [],
+    style: [],
+    material: [],
+    furniture_style: [],
+    furniture_material: [],
+    skin_type: [],
+    skin_tone: [],
+    texture: [],
+    diet: [],
+    allergens: [],
+    age: [],
+    flavor: []
+  });
+  const [filterValues, setfilterValues] = useState([]);
+  const [expanded, setExpanded] = useState({
+    categories: true,
+    editor: true,
+    ratings: true,
+    prix: true,
+    stock: true,
+    age: true,
+    size: true,
+    gender: true,
+    hair_type: true,
+    formula: true,
+    style: true,
+    material: true,
+    furniture_style: true,
+    furniture_material: true,
+    skin_type: true,
+    skin_tone: true,
+    texture: true,
+    diet: true,
+    allergens: true,
+    flavor: true
+});
+  
+  const selectedCategoryId = useSelector((state) => state.products.selectedCategoryId);
+    React.useEffect(() => {
+              setfilterValues([]);
+              setArticles([]);
+              FetchFilters();
+              fetchArticles();
+      }, [selectedCategoryId]);
+  
+    useEffect(() => {
+      fetchArticles();
+    }, []);
+
+// Listen for changes to localStorage in other tabs or windows
+
+  
+  const FetchFilters = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_TESTING_API}/multi-product-values?category_parent_id=${selectedCategoryId}`
+      );
+      const filtersValue = response.data; 
+      setfilterValues(filtersValue)
+      console.log('filtersValue',filtersValue);
+    } catch (error) {
+      console.error("Error fetching filters value:", error);
+    }
+}
+
+  useEffect(() => {
+    FetchFilters()
+  },[])
+
+  const handleMultiProductsChange = (value) => {
+    const newSelectedMultiproduct = value;
+
+    // Retrieve and parse stored multiproducts (ensure it's an array)
+    let storedmultiproducts = JSON.parse(localStorage.getItem("multiproductids")) || [];
+
+    if (storedmultiproducts.includes(newSelectedMultiproduct)) {
+      // If already selected, remove it
+      storedmultiproducts = storedmultiproducts.filter(
+        (col) => col !== newSelectedMultiproduct
+      );
+    } else {
+      // Otherwise, add the new multiproduct
+      storedmultiproducts.push(newSelectedMultiproduct);
+    }
+
+    // Update localStorage with the new multiproducts array
+    localStorage.setItem("multiproductids", JSON.stringify(storedmultiproducts));
+
+    // Dispatch action to update search data
+
+    setArticles([]); // Reset articles
+  };
+
+  
+  // Retrieve stored collections as an array
+  const selectedMultiproducts =
+    JSON.parse(localStorage.getItem("multiproductids")) || [];
+
+  // Function to check if a collection is selected
+  const isMultiproductSelected = (multiproductId) => {
+    return selectedMultiproducts.includes(multiproductId);
+  };
+  
+
+  const toggleDropdown = (dropdown) => {
+    setExpanded((prevExpanded) => ({
+      ...prevExpanded,
+      [dropdown]: !prevExpanded[dropdown],
+    }));
+  };
+
   const authors = authCtx.collaborators?.filter((collaborator) => collaborator?.type?.name_fr === 'auteur');
   const translators = authCtx.collaborators?.filter((collaborator) => collaborator?.type?.name_fr === 'traducteur');
   const illustrators = authCtx.collaborators?.filter((collaborator) => collaborator?.type?.name_fr === 'illustrateur');
@@ -350,14 +467,15 @@ const BooksView = ({carttoggle}) => {
 
   const storedCategory = localStorage.getItem("categories");
   const storedCollec = localStorage.getItem("collections");
+  const storedmultiproducts = localStorage.getItem("multiproductids");
   const storedPublisher = localStorage.getItem("publishers");
   useEffect(() => {
     changechemin();
-  }, [searchData[0]?.category, storedCategory, storedCollec, storedPublisher]);
+  }, [searchData[0]?.category, storedCategory, storedCollec, storedPublisher, storedmultiproducts]);
 
   useEffect(() => {
     fetchArticles(null, null, null, 1);
-  }, [searchData[0], storedCategory, storedCollec, storedPublisher]);
+  }, [searchData[0], storedCategory, storedCollec, storedPublisher, storedmultiproducts]);
 
   useEffect(() => {
     if (Array.isArray(authCtx.categories)) {
@@ -490,8 +608,24 @@ const BooksView = ({carttoggle}) => {
         const selectedCollabParam = searchData[0]?.collaborators
         ? "&" + searchData[0].collaborators.map(value => `collaborator[]=${value}`).join("&")
         : "";
+
+      const selectedCategoryParentParent = selectedCategoryId === 'null' || selectedCategoryId === null
+        ? ""
+        : `&articlefamilleparent_id=${selectedCategoryId}`;
+        
+      const storedmultiproducts = 
+        JSON.parse(localStorage.getItem("multiproductids")) || [];
+     const selectedmultiproductsParam =
+        storedmultiproducts.length > 0
+          ? `&` +
+            storedmultiproducts
+              .map((mproductId) => `multiproduct[]=${mproductId}`)
+              .join("&")
+          : "";
+
+    // Get the category from localStorage if available
       // Finalize the URL by combining all parameters
-      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedillustrateurParam}${selectedCollabParam}${UserIdParam}${selectedCollecParam}${selectedStockParam}${selectedDiscount}${selectedPubliParam}${selectedEANParam}${selectedResumeParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}&ecom_type=sofiaco`;
+      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedillustrateurParam}${selectedCategoryParentParent}${selectedCollabParam}${selectedmultiproductsParam}${UserIdParam}${selectedCollecParam}${selectedStockParam}${selectedDiscount}${selectedPubliParam}${selectedEANParam}${selectedResumeParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}&ecom_type=sofiaco`;
       // Fetch articles using the finalized URL
       const response = await axios.get(finalUrl);
 
@@ -617,6 +751,7 @@ const BooksView = ({carttoggle}) => {
     localStorage.removeItem("categories");
     localStorage.removeItem("collections");
     localStorage.removeItem("publishers");
+    localStorage.removeItem("multiproductids");
     localStorage.removeItem("rate");
     localStorage.removeItem("min_price");
     localStorage.removeItem("max_price");
@@ -625,8 +760,13 @@ const BooksView = ({carttoggle}) => {
     dispatch(resetSearchData());
     setIsOpen(false);
     try {
+      const url = `${import.meta.env.VITE_TESTING_API}/articles`;
+
+      const selectedarticleFamilleId = (selectedCategoryId !== 'null' && selectedCategoryId !== null)
+      ? `&articlefamilleparent_id=${selectedCategoryId}`
+      : "";
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&user_id=${user?.id ? user.id : null}`
+        `${url}?ecom_type=sofiaco&selected_date=any&page=1${selectedarticleFamilleId}`
       );
       setArticles(response.data.data);
       setTotalArticlesNumber(response.data?.total)
@@ -1213,6 +1353,89 @@ const handleChangePublisher = (event) => {
           width="88%"
           style={{margin:'0.5em auto'}}
         />
+ 
+          {/* multi product filters */}
+        {/* Multi product filters with independent dropdowns and checkboxes */}
+        {filterValues?.length > 0 && filterValues.map((filter, index) => {
+          // Each filter gets its own expanded state key
+          const filterKey = `filter_${index}`;
+          const isOpen = expanded[filterKey] || false;
+          return (
+            <div className={classes.categories} key={filterKey}>
+              <h2
+                onClick={() => toggleDropdown(filterKey)}
+                style={
+                  isOpen
+                    ? {
+                        display: "grid",
+                        gridTemplateColumns: "80% 20%",
+                        borderWidth: '100%',
+                        cursor: 'pointer',
+                      }
+                    : {
+                        display: "grid",
+                        gridTemplateColumns: "80% 20%",
+                        borderBottom: "none",
+                        cursor: 'pointer',
+                      }
+                }
+              >
+                <span style={{ paddingLeft: '2%' }}>
+                  {language === "eng" ? filter?.nom : filter?.nom_fr}
+                </span>
+                {isOpen ? (
+                  <span
+                    style={{
+                      margin: "auto",
+                      paddingRight: "0",
+                      rotate: "180deg",
+                    }}
+                  >
+                    <IoIosArrowDown style={{ color: 'var(--primary-color)' }} />
+                  </span>
+                ) : (
+                  <span style={{ margin: "auto", paddingLeft: "0" }}>
+                    <IoIosArrowDown style={{ color: 'var(--primary-color)' }} />
+                  </span>
+                )}
+              </h2>
+              {isOpen && (
+                <div className={classes.dropdown}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5em' }}>
+                    {filter?.values?.map((props) => {
+                      const isSelected = isMultiproductSelected(props.id);
+                      return (
+                        <label
+                          key={props.id}
+                          className={classes.ageSelect}
+                          style={{
+                          borderColor: filter?.values?.length > 0 ? 'var(--primary-color)' : undefined,
+                          display: 'flex',
+                          alignItems: 'center',
+                          cursor: 'pointer',
+                          padding: '0.2em 0.5em',
+                        }}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isSelected}
+                          onChange={() => handleMultiProductsChange(props.id)}
+                          className={classes.checkbox}
+                          style={{
+                            marginRight: "1em",
+                            width: "1.3em",
+                            height: "1.3em",
+                          }}
+                        />
+                        {language === "eng" ? props?.nom : props?.nom_fr}
+                      </label>
+                    )})}
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
 
         
           <div className={classes.categories}>

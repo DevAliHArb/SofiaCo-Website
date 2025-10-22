@@ -97,6 +97,8 @@ export const AuthContextProvider = (props) => {
   const [companySettings, setCompanySettings] = useState([]);
   const [editors, setEditors] = useState([]);
   const [countries, setCountries] = useState([]);
+  const [articleFamilleParents, setArticleFamilleParents] = useState([]);
+  const [articleFamille, setArticleFamille] = useState([]);
   const dispatch = useDispatch();
   const productData = useSelector((state) => state.products.productData);
   const favorites = useSelector((state) => state.products.favorites);
@@ -106,6 +108,17 @@ export const AuthContextProvider = (props) => {
   const user = useSelector((state) => state.products.userInfo);
   const token = localStorage.getItem("token");
   const [isLoading, setIsLoading] = useState(false);
+  const selectedCategoryId = useSelector((state) => state.products.selectedCategoryId);
+  const [articleFamilleId, setarticleFamilleId] = useState(selectedCategoryId || null);
+  React.useEffect(() => {
+            setarticleFamilleId(selectedCategoryId || null);
+    }, [selectedCategoryId]);
+
+  useEffect(() => {
+    fetchArticles();
+    fetchArticleFamille();
+  }, [articleFamilleId]);
+
 
   const fetchfavandcartSettings = async () => {
     if (user) {
@@ -139,7 +152,7 @@ export const AuthContextProvider = (props) => {
                 : bookPlaceHolder,
               price: cartItem.article.prixpublic,
               _qte_a_terme_calcule: cartItem.article?._qte_a_terme_calcule,
-              discount: cartItem.article?.discount,
+              discount: cartItem.discount,
               average_rate: cartItem.average_rate,
               quantity: cartItem.quantity,
               description: cartItem.article.descriptif,
@@ -147,6 +160,8 @@ export const AuthContextProvider = (props) => {
               price_ttc: cartItem.article._prix_public_ttc,
               removed: cartItem.removed,
               article_stock: cartItem.article.article_stock,
+              cart_items_variants: cartItem.cart_items_variants,
+              article_variant_combination: cartItem.article_variant_combination,
             })
           );
         });
@@ -192,13 +207,44 @@ export const AuthContextProvider = (props) => {
       }
     }
   };
-  const fetchArticles = async () => {
+
+  const fetchArticleFamilleParents = async () => {
     try {
       const response = await axios.get(
-        `${
-          import.meta.env.VITE_TESTING_API
-        }/articles?ecom_type=sofiaco&user_id=${user?.id ? user.id : null}`
+        `${import.meta.env.VITE_TESTING_API}/article-famille-parents?ecom_type=sofiaco`
       );
+
+      setArticleFamilleParents(response.data);
+    } catch (error) {
+      // console.error('Error fetching articles:', error);
+    }
+  };
+
+  
+  const fetchArticleFamille = async () => {
+    try {
+      
+      const selectedarticleFamilleId = (articleFamilleId !== 'null' && articleFamilleId !== null)
+      ? `&articlefamilleparent_id=${articleFamilleId}`
+      : "";
+      const response = await axios.get(
+        `${import.meta.env.VITE_TESTING_API}/article-famille?ecom_type=sofiaco${selectedarticleFamilleId}`
+      );
+
+      setArticleFamille(response.data);
+    } catch (error) {
+      // console.error('Error fetching articles:', error);
+    }
+  };
+  const fetchArticles = async () => {
+    try {
+      const url = `${import.meta.env.VITE_TESTING_API}/articles`;
+      
+      const selectedarticleFamilleId = (articleFamilleId !== 'null' && articleFamilleId !== null)
+      ? `&articlefamilleparent_id=${articleFamilleId}`
+      : "";
+      const finalUrl = `${url}?${selectedarticleFamilleId}&ecom_type=sofiaco&user_id=${user?.id ? user.id : null}`;
+      const response = await axios.get(finalUrl);
       const articlesData = response.data.data;
       setArticles(articlesData);
 
@@ -347,157 +393,150 @@ export const AuthContextProvider = (props) => {
     // }
   };
 
-  const addToCarthandler = async ({ props, carttoggle }) => {
-    if (!user) {
-      toast.info(
-        language === "eng"
-          ? "Log in to make your basket."
-          : "Se connecter pour faire son panier.",
-        {
+  
+  
+  const addToCarthandler = async (propss) => {
+    const props = propss.props ? propss.props : propss;
+    
+    setIsLoading(true);
+    const data = {
+      article_id: props.id,
+      user_id: null,
+      quantity: props.items_quantity,
+      // price: props.price,
+      article: props,
+      cart_items_variants: props?.selectedvariants,
+      article_variant_combination: props?.article_variant_combination,
+      b_usr_article_variant_combination_id: props?.article_variant_combination?.id
+    };
+    try {
+      // Check if the product already exists in the cart
+      console.log('testt',productData, data);
+      const userexistingarticle = productData.find(
+        (item) => {
+          if (item?._id !== data?.article_id) return false;
+          
+          // If no variants in data, just match by article id
+          if (!data?.cart_items_variants || Object.keys(data.cart_items_variants).length === 0) {
+            return !item?.cart_items_variants || item.cart_items_variants.length === 0;
+          }
+          
+          // Convert data.cart_items_variants object to array for comparison
+          const dataVariantsArray = Object.values(data.cart_items_variants);
+          
+          // Check if both have the same number of variants
+          if (item?.cart_items_variants?.length !== dataVariantsArray.length) return false;
+          
+          // Check if all variants match
+          return item.cart_items_variants.every(cartVariant => 
+            dataVariantsArray.some(dataVariant => 
+              cartVariant.article_variant_id === dataVariant.b_usr_article_variant_id &&
+              cartVariant.variant_item_id === dataVariant.id
+            )
+          );
+        }
+      );
+console.log(userexistingarticle);
+
+
+      if (user?.id){
+        if (userexistingarticle) {
+          let totalQty = userexistingarticle.quantity + (props.items_quantity ? props.items_quantity : 1);
+          
+          if (props?.article_variant_combination?.id) {
+            
+            if(totalQty > props.article_variant_combination?.quantity){
+              totalQty = props.article_variant_combination?.quantity
+            }
+          } else {
+            console.log('helooo', props?.article_variant_combination);
+            if(totalQty > props?.quantity){
+              totalQty =  props?.quantity
+            }
+          }
+          
+          await axios
+            .put(
+              `${import.meta.env.VITE_TESTING_API}/cart/${userexistingarticle.cart_id}`,
+              {
+                quantity: totalQty,
+              }
+            )
+          dispatch(
+            changeQuantity({
+              id: userexistingarticle.cart_id,
+              quantity: totalQty,
+            })
+          );
+          // setIscartpopup(false);
+          toast.success(`${props.title ? props.title : "Book"} is added`, {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: 0,
+            theme: "colored",
+          });
+        } else {
+          let totalQty1 = data.quantity  || 1;
+          console.log(props.article_variant_combination, totalQty1);
+          
+          if (props?.article_variant_combination?.id) {
+            
+            if(totalQty1 > props.article_variant_combination?.quantity){
+              totalQty1 = props.article_variant_combination?.quantity
+            }
+          } else {
+            if(totalQty1 > props?.quantity){
+              totalQty1 =  props?.quantity
+            }
+          }
+          const response = await axios.post(
+            `${import.meta.env.VITE_TESTING_API}/cart?ecom_type=sofiaco`,
+            { ...props, article_id: props?.id, quantity: totalQty1 , user_id: user?.id, b_usr_article_variant_combination_id: props?.article_variant_combination?.id }
+          );
+          console.log(response);
+          dispatch(addTocart({...response.data.data, article_variant_combination: props.article_variant_combination}));
+          // setIscartpopup(false);
+          toast.success(`${props.title ? props.title : "Product"} is added`, {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: 0,
+            theme: "colored",
+          });
+        }
+      } else {
+        toast.error(`${language === 'eng' ? "Please log in to add items to your cart." : "Veuillez vous connecter pour ajouter des articles à votre panier."}`, {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 4000,
           hideProgressBar: true,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: 0,
           theme: "colored",
-        }
-      );
-    } else {
-      const item = productData.find((item) => item._id === props.id);
-      if (!item) {
-        try {
-          const response = await axios.post(
-            `${import.meta.env.VITE_TESTING_API}/cart`,
-            {
-              user_id: user.id,
-              article_id: props.id,
-              quantity: 1,
-              ecom_type: "sofiaco",
-            }
-          );
-          dispatch(
-            addTocart({
-              _id: props.id,
-              title: props.designation,
-              author: props.dc_auteur,
-              image: props.articleimage[0]?.link
-                ? props.articleimage[0].link
-                : bookPlaceHolder,
-              price: props.prixpublic,
-              _qte_a_terme_calcule: props._qte_a_terme_calcule,
-              quantity: 1,
-              discount: props.discount,
-              average_rate: props.average_rate,
-              description: props.descriptif,
-              cart_id: response.data.data.id,
-              weight: props._poids_net,
-              price_ttc: props._prix_public_ttc,
-              article_stock: props.article_stock,
-            })
-          );
-          if (carttoggle) {
-            carttoggle();
-          }
-          toast.success(
-            language === "eng"
-              ? `${props.name ? props.name : "Article"} is added`
-              : `${props.name ? props.name : "Article"} a été ajouté`,
-            {
-              position: "top-right",
-              autoClose: 1500,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: 0,
-              theme: "colored",
-            }
-          );
-        } catch (error) {
-          // console.error("Error adding to cart:", error);
-          toast.error(
-            language === "eng"
-              ? "Failed to add item to cart."
-              : "Échec de l'ajout de l'article au panier.",
-            {
-              position: "top-right",
-              autoClose: 1500,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: 0,
-              theme: "colored",
-            }
-          );
-        }
-      } else {
-        const newQuantity = item.quantity + 1;
-        if (newQuantity <= item._qte_a_terme_calcule) {
-          axios
-            .put(`${import.meta.env.VITE_TESTING_API}/cart/${item.cart_id}`, {
-              quantity: newQuantity,
-            })
-            .then((response) => {
-              // console.log("PUT request successful:", response.data);
-              dispatch(
-                addTocart({
-                  _id: props.id,
-                })
-              );
-              toast.success(
-                language === "eng"
-                  ? `${props.name ? props.name : "Book"} is added`
-                  : `${props.name ? props.name : "Livre"} a été ajouté`,
-                {
-                  position: "top-right",
-                  autoClose: 1500,
-                  hideProgressBar: true,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: 0,
-                  theme: "colored",
-                }
-              );
-              if (carttoggle) {
-                carttoggle();
-              }
-            })
-            .catch((error) => {
-              // console.error("Error in PUT request:", error);
-              toast.error(
-                language === "eng"
-                  ? "Failed to add item to cart."
-                  : "Échec de l'ajout de l'article au panier.",
-                {
-                  position: "top-right",
-                  autoClose: 1500,
-                  hideProgressBar: true,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: 0,
-                  theme: "colored",
-                }
-              );
-            });
-        } else {
-          toast.info(
-            language === "eng"
-              ? "No more items in stock"
-              : "Plus d'articles en stock",
-            {
-              position: "top-right",
-              autoClose: 1500,
-              hideProgressBar: true,
-              theme: "colored",
-            }
-          );
-        }
+        });
       }
+      await fetchfavandcartSettings();
+    } catch (error) {
+      toast.error("Failed to add item to cart.", {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: 0,
+        theme: "colored",
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -930,6 +969,8 @@ export const AuthContextProvider = (props) => {
     const initializeApp = async () => {
       fetchSocieteConfig();
       await checkUserLoggedIn();
+      fetchArticleFamilleParents();
+      fetchArticleFamille();
       fetchArticles();
       fetchCategories();
       fetchCollaborators();
@@ -996,6 +1037,10 @@ export const AuthContextProvider = (props) => {
     societeConfig,
 
     publishers,
+
+    articleFamilleParents,
+
+    articleFamille,
   };
 
   return (
