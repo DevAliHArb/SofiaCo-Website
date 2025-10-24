@@ -159,18 +159,6 @@ export default function SideBar({ toggle, isOpen, carttoggle }) {
           width="90%"
           style={{margin:'0.5em auto'}}
         />
-
-        
-
-{/* <Link  to='/contactus' style={{textDecoration: 'none', color:'white'}} onClick={toggle}> */}
-        {/* <ListItem disablePadding>
-          <ListItemButton onClick={()=>setaccisopen(!accopen)}>
-            <ListItemText className={classes.text}>
-            <FaRegUser style={{marginRight:'0.5em', marginTop: '0.2em'}}/>ACCOUNT  {accopen ? <IoIosArrowDown style={{transform:'rotate(180deg)'}} /> : <IoIosArrowDown /> }
-            </ListItemText>
-          </ListItemButton>
-        </ListItem> */}
-        {/* </Link> */}
   
 
         

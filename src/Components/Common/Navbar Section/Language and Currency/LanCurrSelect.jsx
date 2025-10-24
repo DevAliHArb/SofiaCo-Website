@@ -296,7 +296,7 @@ export default function LanCurrSelect() {
         <h3 style={{color:"red"}}>{language === "eng" ? "You cannot change the currency. Please contact the administration." : "Vous ne pouvez pas changer la devise. Veuillez contacter l\'administration."}</h3>
         <div style={{width:'fit-content',margin:'auto',display:'flex',flexWrap:'wrap'}}>
         <Button 
-           onClick={()=>{handleCloseModal(); navigate(`/contactus`)}}
+           onClick={()=>{handleCloseModal(); navigate(`/contact`)}}
           style={{backgroundColor:'var(--primary-color)',color: 'white', height:'3em',width:'10em',borderRadius:'3em 0',margin:'2em auto 0 auto'}}>
             {language === "eng" ? "Contact us" : "Nous contacter"}
           </Button>

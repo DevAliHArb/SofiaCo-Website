@@ -450,7 +450,7 @@ function TreeNode({ data, level, fetchArticles }) {
 
 
 
-        <Link  to='/contactus' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+        <Link  to='/contact' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
         <ListItem disablePadding>
           <ListItemButton style={{padding:'0'}}>
             <p className={classes.text}>
