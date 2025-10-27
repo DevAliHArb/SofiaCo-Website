@@ -22,8 +22,12 @@ const SuccessPage = () => {
 const fetchOrder = async () => {
     try {
       setLoading(true);
+        let userId = null;
+        if (user && user.id) {
+          userId = user.id;
+        }
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/order_invoices?user_id=${user.id}`);
+        `${import.meta.env.VITE_TESTING_API}/order_invoices?user_id=${userId}`);
       const orderId = response?.data?.data[0]?.id;
       setorderId(orderId);
     } catch (error) {
