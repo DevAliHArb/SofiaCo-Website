@@ -246,6 +246,9 @@
 }
 
   @media screen and (max-width:950px) {
+    .bigContainer{
+  margin: 5em auto 0 auto;
+}
     .filter_con{
       display: none;
     }

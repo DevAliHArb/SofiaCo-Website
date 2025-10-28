@@ -269,6 +269,7 @@
   @media screen and (max-width:750px) {
     .bookDetails{
         width: 100%;
+        margin-top: 5em;
     }
     .booksContainer{
         width: 100%;

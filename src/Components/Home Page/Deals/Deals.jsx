@@ -467,6 +467,19 @@ const Deals = () => {
                   </SwiperSlide>
                 ))}
             </Swiper>
+
+            <div className={classes.nav_container_mobile}>
+
+      <div className={`${classes.nav_prev}`}>
+        <IoMdArrowBack className={classes.nav_icon}/>
+      </div>
+       <div className={classes.nav_nb}>
+        {activeIndex + 1}
+      </div>
+      <div className={` ${classes.nav_next}`}>
+        <IoMdArrowBack className={classes.nav_icon} style={{transform:'rotate(180deg)'}}/>
+      </div>
+            </div>
           </div>
         )}
       </div>    

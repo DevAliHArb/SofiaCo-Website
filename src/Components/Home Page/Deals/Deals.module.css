@@ -94,6 +94,24 @@
     padding: 0.65em 0.5em;
     border-radius: 0.8em;
   }
+.nav_container_mobile{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 120%;
+    height: fit-content;
+    margin: 0 ;
+    display: none;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-self: flex-start;
+    background: transparent;
+    padding: 0.65em 0;
+    margin: auto 0;
+    margin-left: -10%;
+    z-index: 10;
+  }
   .nav_next{
     position: relative;
     display: flex !important;
@@ -479,6 +497,10 @@
 
   .nav_container{
     display: none;
+  }
+
+  .nav_container_mobile{
+    display: flex;
   }
 
   .cat_btns_wrapper{

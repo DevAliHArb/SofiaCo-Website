@@ -219,7 +219,7 @@ const FeaturedBooks = () => {
                 <SwiperSlide  className={classes.swiperslide} key={props.id}>
                   <div
                     className={classes.card_container}
-                    style={{ transform: index === activeIndex ? 'scale(1)' : index === activeIndex + 1 || index === activeIndex - 1 ? 'scale(0.85)' : 'scale(0.75)'}}
+                    style={{ transform: index === activeIndex ? 'scale(1)' : index === activeIndex + 1 || index === activeIndex - 1 ? 'scale(0.85)' : 'scale(0.75)', background: index === activeIndex ? '#DDE3EC' : '' }}
                     onClick={(event) => {
                       authCtx.setbookDetails(props);
                       event.stopPropagation();

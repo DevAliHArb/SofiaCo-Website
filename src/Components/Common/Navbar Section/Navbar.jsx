@@ -19,7 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import AuthContext from "../authContext";
 import ColoredLogo from "../../../assets/navbar/logo.svg";
-import moblogo from "../../../assets/navbar/moblogo.svg";
+import moblogo from "../../../assets/navbar/favicon.svg";
 import { changeCurrency, changeLanguage, removeUser } from "../redux/productSlice";
 import * as Scroll from "react-scroll";
 
@@ -777,6 +777,16 @@ const Navbar = ({ toggle, cartToggle }) => {
         </div> */}
       </div>
       <div className={classes.mobilenav}>
+        
+            <div className={classes.header_top}>
+              <div className={classes.header_top_content}>
+                <p style={{display:'Flex', flexDirection:'row'}}> <MdOutlineMail style={{width:'1.5em', height:'1.5em', margin:'auto 0.5em auto auto', color:'#fff'}}/>{authCtx.companySettings?.email}</p>
+                <p style={{display:'Flex', flexDirection:'row'}}> <FiPhoneCall style={{width:'1.3em', height:'1.3em', margin:'auto 0.5em auto auto', color:'#fff'}}/>{authCtx.companySettings?.phone}</p>
+              </div>
+              <div className={classes.header_top_content}>
+                <p style={{display:'Flex', flexDirection:'row'}}> {language === 'eng' ? authCtx.companySettings?.announcement_bar_text_en : authCtx.companySettings?.announcement_bar_text_fr }{authCtx.companySettings?.announcement_bar_url && <FaArrowRightLong style={{width:'1.3em', height:'1.3em', margin:'auto auto auto 0.5em', color:'#fff',cursor:'pointer'}} onClick={()=>window.open(authCtx.companySettings?.announcement_bar_url , '_blank')}/>}</p>
+              </div>
+            </div>
         {!isSearchBar && <div
           style={{
             margin: "auto 0",

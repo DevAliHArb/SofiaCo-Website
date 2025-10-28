@@ -23,10 +23,10 @@ const BooksPage = ({carttoggle}) => {
   }, []);
   return (
     <div className={classes.container}>
-      <OurSelectionBanner props={heroData} />
+      {/* <OurSelectionBanner props={heroData} /> */}
       <BooksView carttoggle={carttoggle}/>
       {/* <div style={{marginTop:'-4em'}}> */}
-      <Deals />
+      {/* <Deals /> */}
       {/* </div> */}
     </div>
   )

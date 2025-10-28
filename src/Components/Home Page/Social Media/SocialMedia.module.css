@@ -522,15 +522,15 @@
   display: none;
   }
   .bigContainer{
-    margin-bottom: 0em;
+    margin: -2em auto 0 auto !important;
   }
   .customNavigation {
     display: flex;
     justify-content: space-between;
     position: absolute;
-    top: 70%;
-    width: 92%;
-    left: 4%;
+    top: 55%;
+    width: 94%;
+    left: 3%;
     transform: translateY(-50%);
     z-index: 1;
     }
@@ -635,11 +635,18 @@
     }
   
     .card_img{
-        max-height: 24em;
         width: 100%;
-        height: 35vw;
+        height: 60vh;
         margin: 0 auto;
         transition: all 0.3s ease-in-out;
+      }
+
+      .card_img img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        margin: auto;
+        border-radius: 1em;
       }
   }  
   @media screen and (max-width:650px) {

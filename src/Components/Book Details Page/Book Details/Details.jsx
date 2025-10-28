@@ -656,52 +656,6 @@ const [selectedVariants, setSelectedVariants] = useState({});
                       {bookData.discount}%</span>} 
           </p>
         </div>
-        <div className={classes.bottonsContainer}>
-          <TextField
-            type="number"
-            value={count}
-            disabled={bookData._qte_a_terme_calcule < 1}
-            onChange={handleCountChange}
-            InputProps={{
-              inputProps: { min: 1 },
-              style: {
-                margin: "0",
-                height: "2.5em",
-                backgroundColor: "#fff",
-                color: "var(--secondary-color)",
-              },
-            }}
-            className={classes.inputt}
-          />
-          <button
-          disabled={bookData._qte_a_terme_calcule < 1} style={{cursor:bookData._qte_a_terme_calcule < 1 &&'not-allowed'}}
-            className={classes.addToCartBtn}
-            onClick={(event) => {
-              event.stopPropagation();
-              AddtoBag(bookData);
-            }}
-          >
-            {" "}
-            {language === 'eng' ? 'Add to cart' : 'Ajouter Au Panier'}
-          </button>
-                          <div className={classes.favoriteIcon}
-                            onClick={FavoriteClick}
-                          >
-                            {favoriteData?.some(
-                              (book) => book._favid === bookData.id
-                            ) ? (
-                              <FavoriteIcon
-                                className={classes.fav}
-                                fontSize="inherit"
-                              />
-                            ) : (
-                              <FavoriteBorderIcon
-                                className={classes.nonfav}
-                                fontSize="inherit"
-                              />
-                            )}
-                          </div>
-        </div>
         
             {bookData?.article_variants?.map((variant) => {
   return (
@@ -827,6 +781,52 @@ const [selectedVariants, setSelectedVariants] = useState({});
     </div>
   );
 })}
+        <div className={classes.bottonsContainer}>
+          <TextField
+            type="number"
+            value={count}
+            disabled={bookData._qte_a_terme_calcule < 1}
+            onChange={handleCountChange}
+            InputProps={{
+              inputProps: { min: 1 },
+              style: {
+                margin: "0",
+                height: "2.5em",
+                backgroundColor: "#fff",
+                color: "var(--secondary-color)",
+              },
+            }}
+            className={classes.inputt}
+          />
+          <button
+          disabled={bookData._qte_a_terme_calcule < 1} style={{cursor:bookData._qte_a_terme_calcule < 1 &&'not-allowed'}}
+            className={classes.addToCartBtn}
+            onClick={(event) => {
+              event.stopPropagation();
+              AddtoBag(bookData);
+            }}
+          >
+            {" "}
+            {language === 'eng' ? 'Add to cart' : 'Ajouter Au Panier'}
+          </button>
+                          <div className={classes.favoriteIcon}
+                            onClick={FavoriteClick}
+                          >
+                            {favoriteData?.some(
+                              (book) => book._favid === bookData.id
+                            ) ? (
+                              <FavoriteIcon
+                                className={classes.fav}
+                                fontSize="inherit"
+                              />
+                            ) : (
+                              <FavoriteBorderIcon
+                                className={classes.nonfav}
+                                fontSize="inherit"
+                              />
+                            )}
+                          </div>
+        </div>
         <div className={classes.char_con}>
           <div className={classes.char}>
             <p>{language === 'eng' ? 'Author' : 'Auteur'}</p>

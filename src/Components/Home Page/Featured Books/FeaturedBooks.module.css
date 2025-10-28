@@ -154,6 +154,7 @@
     border-radius: 0.5em;
     transition: color 0.5s ease, color 1s ease;
     display: none;
+    margin-bottom: 1em;
   }
 
   .cat_btns_wrapper{
@@ -274,7 +275,8 @@
     font-family: var(--font-family);
     font-size: calc(0.9rem + 0.2vw);
     letter-spacing: 0.01rem;
-    border-radius: 0 0 1.2em 0;
+    border-radius: 1.2em;
+    padding: 0.8em 0;
     transition: all 0.3s ease-in-out;
     cursor: pointer;
   }
