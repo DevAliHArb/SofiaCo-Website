@@ -824,47 +824,6 @@ const Navbar = ({ toggle, cartToggle }) => {
                   </Tooltip>
             </div>
             <div className={classes.siderowrightmobile}>
-              <Tooltip title="Cart">
-                <IconButton
-                  sx={{ p: 0 }}
-                  onClick={() => {
-                    if (userInfo) {
-                      navigate(`/cart`);
-                    } else {
-                      navigate(`/login`);
-                    }
-                  }}
-                >
-                  <ShoppingCartOutlinedIcon
-                    style={{
-                      width: "25px",
-                      height: "25px",
-                      color: "var(--secondary-color)",
-                      margin: "0",
-                    }}
-                  />
-                </IconButton>
-              </Tooltip>
-              {productData?.length !== 0 && (
-                <span
-                  style={{
-                    width: "1.5em",
-                    height: "1.5em",
-                    position: "absolute",
-                    marginLeft: "-12px",
-                    marginTop: "5px",
-                    borderRadius: "50%",
-                    background: "var(--primary-color)",
-                    textAlign: "center",
-                    color: "#fff",
-                    fontSize: "12px",
-                  }}
-                >
-                  {productData?.length}
-                </span>
-              )}
-            </div>
-            <div className={classes.siderowrightmobile}>
               <Tooltip title="Wishlist">
                 <IconButton
                   sx={{ p: 0 }}
@@ -902,6 +861,47 @@ const Navbar = ({ toggle, cartToggle }) => {
                   }}
                 >
                   {favoriteData?.length}
+                </span>
+              )}
+            </div>
+            <div className={classes.siderowrightmobile}>
+              <Tooltip title="Cart">
+                <IconButton
+                  sx={{ p: 0 }}
+                  onClick={() => {
+                    if (userInfo) {
+                      navigate(`/cart`);
+                    } else {
+                      navigate(`/login`);
+                    }
+                  }}
+                >
+                  <ShoppingCartOutlinedIcon
+                    style={{
+                      width: "25px",
+                      height: "25px",
+                      color: "var(--secondary-color)",
+                      margin: "0",
+                    }}
+                  />
+                </IconButton>
+              </Tooltip>
+              {productData?.length !== 0 && (
+                <span
+                  style={{
+                    width: "1.5em",
+                    height: "1.5em",
+                    position: "absolute",
+                    marginLeft: "-12px",
+                    marginTop: "5px",
+                    borderRadius: "50%",
+                    background: "var(--primary-color)",
+                    textAlign: "center",
+                    color: "#fff",
+                    fontSize: "12px",
+                  }}
+                >
+                  {productData?.length}
                 </span>
               )}
             </div>
