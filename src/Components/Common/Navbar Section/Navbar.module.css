@@ -381,7 +381,8 @@
     position: relative;
     display: flex;
     flex-direction: row;
-    column-gap: 1em;
+    column-gap: 2em;
+    margin-right: 1em;
 }
 
 .leftsidenav{
