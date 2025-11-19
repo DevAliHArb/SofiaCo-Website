@@ -20,7 +20,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import AuthContext from "../authContext";
 import axios from "axios";
-import { addSelectedCategory, changeCurrency, changeLanguage, editSearchData, removeUser } from "../redux/productSlice";
+import { addSelectedCategory, changeCurrency, changeLanguage, editSearchData, removeUser, resetSearchData } from "../redux/productSlice";
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 import ColoredLogo from "../../../assets/navbar/favicon.svg";
 import allcat from "../../../assets/icons/all-cat.svg";
@@ -187,8 +187,8 @@ function TreeNode({ data, level, fetchArticles }) {
       dispatch(editSearchData(newCategoryData));
       setIsExpanded(!isExpanded);
       // Fetch articles with the new category ID
-      navigate('/books')
-      if (window.location.pathname === '/books') {
+      navigate('/products')
+      if (window.location.pathname === '/products') {
         window.location.reload();
       }
       toggle()
@@ -278,6 +278,20 @@ function TreeNode({ data, level, fetchArticles }) {
     </div>
   );
 }
+
+
+    const ResetfilterHandle = async () => {
+      localStorage.removeItem("stock");
+      localStorage.removeItem("categories");
+      localStorage.removeItem("collections");
+      localStorage.removeItem("multiproductids");
+      localStorage.removeItem("publishers");
+      localStorage.removeItem("subCategories");
+      localStorage.removeItem("parentCategories");
+      localStorage.removeItem("min_price");
+      localStorage.removeItem("max_price");
+      dispatch(resetSearchData());
+    };
   const list = (anchor) => ( 
     <>
     <button style={{position:'absolute',top:'1em', right:'1em', color:'var(--secondary-color)', borderRadius:'50%', fontSize:'large',padding:'0.3em .5em', border:'none'}} onClick={toggle}>
@@ -373,10 +387,16 @@ function TreeNode({ data, level, fetchArticles }) {
         </Link>
 
 
-        {/* <Link  to='/books' style={{textDecoration: 'none', color:'white'}} onClick={toggle}> */}
+        {/* <Link  to='/products' style={{textDecoration: 'none', color:'white'}} onClick={toggle}> */}
 
 
-        <Link  to='/books' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+        <Link  to='/products' style={{textDecoration: 'none', color:'white'}} 
+          onClick={e => {
+            e.preventDefault();
+            toggle();
+            ResetfilterHandle();
+            navigate('/products');
+          }}>
         <ListItem disablePadding>
           <ListItemButton style={{padding:'0'}}>
             <p className={classes.text}>{language === 'eng' ? "Products" : "Produits"} </p>

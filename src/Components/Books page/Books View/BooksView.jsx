@@ -4,7 +4,7 @@ import classes from "./BooksView.module.css";
 import { IoIosArrowDown } from "react-icons/io";
 import { Box, Checkbox, Divider, FormControl, FormControlLabel, FormGroup, Radio, RadioGroup, TextField } from "@mui/material";
 import Slider from '@mui/material-next/Slider';
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import ScrollToTop from "../../Common/ScrollToTop";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -27,6 +27,7 @@ import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRig
 const BooksView = ({carttoggle}) => {
   const [value, setValue] = useState([0, 100]);
   const location = useLocation();
+  const { id: subcatageoryId } = useParams();
   const [isOpen, setIsOpen] = useState(false);
   const [rate, setrate] = useState(0);
   const searchData = useSelector((state) => state.products.searchData);
@@ -47,6 +48,12 @@ const BooksView = ({carttoggle}) => {
   const [selectedCollection, setSelectedCollection] = useState('all');
   const [selectedRate, setSelectedRate] = useState(0);
   const [changepricetoggle, setchangePricetoggle] = useState(false);
+  const [parentCategoriesOpen, setparentCategoriesOpen] = useState(true);
+  const [subCategoriesOpen, setsubCategoriesOpen] = useState(true);
+  const [themesOpen, setthemesOpen] = useState(false);
+  const [publishinghouseOpen, setpublishinghouseOpen] = useState(false);
+  const [collectionsOpen, setcollectionsOpen] = useState(false);
+  const [collaboratorsOpen, setCollaboratorsOpen] = useState(false);
   const [totalArticlesNumber, setTotalArticlesNumber] = useState(null);
   const [inStock, setinStock] = useState(localStorage.getItem("stock") || null);
   const [isdiscount, setisdiscount] = useState(localStorage.getItem("discount") || []);
@@ -71,11 +78,11 @@ const BooksView = ({carttoggle}) => {
   });
   const [filterValues, setfilterValues] = useState([]);
   const [expanded, setExpanded] = useState({
-    categories: true,
-    editor: true,
-    ratings: true,
-    prix: true,
-    stock: true,
+    categories: false,
+    editor: false,
+    ratings: false,
+    prix: false,
+    stock: false,
     age: true,
     size: true,
     gender: true,
@@ -99,7 +106,7 @@ const BooksView = ({carttoggle}) => {
               setArticles([]);
               FetchFilters();
               fetchArticles();
-      }, [selectedCategoryId]);
+      }, [selectedCategoryId, authCtx.articleFamilleParents]); 
   
     useEffect(() => {
       fetchArticles();
@@ -110,12 +117,31 @@ const BooksView = ({carttoggle}) => {
   
   const FetchFilters = async () => {
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/multi-product-values?category_parent_id=${selectedCategoryId}`
-      );
-      const filtersValue = response.data; 
+      const storedParentCategories = JSON.parse(localStorage.getItem("parentCategories")) || [];
+      
+      let url = `${import.meta.env.VITE_TESTING_API}/multi-product-values?`;
+      
+      // If selectedCategoryId is null or undefined, use storedParentCategories
+      if (selectedCategoryId === null || selectedCategoryId === undefined || selectedCategoryId === 'null') {
+        if (storedParentCategories.length > 0) {
+          const categoryParams = storedParentCategories
+            .map(id => `category_parent_id[]=${id}`)
+            .join('&');
+          url += categoryParams;
+        } else {
+        const categoryParams = authCtx.articleFamilleParents
+            .map(item => `category_parent_id[]=${item.id}`)
+            .join('&');
+          url += categoryParams;
+        }
+      } else {
+        url += `category_parent_id[]=${selectedCategoryId}`;
+      }
+      
+      const response = await axios.get(url);
+      const filtersValue = response.data.filter(item => item.values && item.values.length > 0); 
       setfilterValues(filtersValue)
-      console.log('filtersValue',filtersValue);
+      // console.log('filtersValue',filtersValue);
     } catch (error) {
       console.error("Error fetching filters value:", error);
     }
@@ -166,11 +192,6 @@ const BooksView = ({carttoggle}) => {
       [dropdown]: !prevExpanded[dropdown],
     }));
   };
-
-  const authors = authCtx.collaborators?.filter((collaborator) => collaborator?.type?.name_fr === 'auteur');
-  const translators = authCtx.collaborators?.filter((collaborator) => collaborator?.type?.name_fr === 'traducteur');
-  const illustrators = authCtx.collaborators?.filter((collaborator) => collaborator?.type?.name_fr === 'illustrateur');
-  const editors = authCtx.collaborators?.filter((collaborator) => collaborator?.type?.name_fr === 'editeur');
 
 
   const changechemin = async () => {
@@ -326,19 +347,39 @@ const BooksView = ({carttoggle}) => {
   }
  
   
-  const initialState = {
-    authors: false,
-    translators: false,
-    illustrators: false,
-    editors: false,
-  };
+  // Dynamically create arrays for each collaborator type
+  const collaboratorsByType = React.useMemo(() => {
+    if (!authCtx.collaboratorsTypes || !authCtx.collaborators) return {};
+    
+    return authCtx.collaboratorsTypes.reduce((acc, type) => {
+      acc[type.name_fr] = authCtx.collaborators.filter(
+        (collaborator) => collaborator.type?.name_fr === type.name_fr
+      );
+      return acc;
+    }, {});
+  }, [authCtx.collaboratorsTypes, authCtx.collaborators]);
+
+  const initialState = React.useMemo(() => {
+    if (!authCtx.collaboratorsTypes) return {};
+    
+    return authCtx.collaboratorsTypes.reduce((acc, type) => {
+      const typeKey = type.name_fr.toLowerCase().replace(/\s+/g, '_');
+      acc[typeKey] = false;
+      return acc;
+    }, {});
+  }, [authCtx.collaboratorsTypes]);
 
   const getStoredExpansionState = () => {
     const storedState = localStorage.getItem("expandedNodes");
-    return storedState ? JSON.parse(storedState) : initialState;
+    return storedState ? { ...initialState, ...JSON.parse(storedState) } : initialState;
   };
 
-  const [expandedNodes, setExpandedNodes] = useState(getStoredExpansionState());
+  const [expandedNodes, setExpandedNodes] = useState({});
+
+  // Update expandedNodes when initialState changes
+  React.useEffect(() => {
+    setExpandedNodes(getStoredExpansionState());
+  }, [authCtx.collaboratorsTypes]);
 
   useEffect(() => {
     localStorage.setItem("expandedNodes", JSON.stringify(expandedNodes));
@@ -469,13 +510,15 @@ const BooksView = ({carttoggle}) => {
   const storedCollec = localStorage.getItem("collections");
   const storedmultiproducts = localStorage.getItem("multiproductids");
   const storedPublisher = localStorage.getItem("publishers");
+  const storedParentCategories = localStorage.getItem("parentCategories");
+  const storedSubCategories = localStorage.getItem("subCategories");
   useEffect(() => {
     changechemin();
-  }, [searchData[0]?.category, storedCategory, storedCollec, storedPublisher, storedmultiproducts]);
+  }, [searchData[0]?.category, storedCategory, storedCollec, storedPublisher, storedmultiproducts, storedParentCategories, storedSubCategories]);
 
   useEffect(() => {
     fetchArticles(null, null, null, 1);
-  }, [searchData[0], storedCategory, storedCollec, storedPublisher, storedmultiproducts]);
+  }, [searchData[0], storedCategory, storedCollec, storedPublisher, storedmultiproducts, storedParentCategories, storedSubCategories]);
 
   useEffect(() => {
     if (Array.isArray(authCtx.categories)) {
@@ -622,15 +665,45 @@ const BooksView = ({carttoggle}) => {
               .map((mproductId) => `multiproduct[]=${mproductId}`)
               .join("&")
           : "";
+          
+      // Check if route is /products/subcategory/:id and get subcategory id
+      let selectedsubCategoryParam = "";
+      if (location.pathname.startsWith("/products/subcategory/") && subcatageoryId && subcatageoryId !== "null") {
+        selectedsubCategoryParam = `&articlefamille_id=${subcatageoryId}`;
+      }
+
+      
+        // Get the category from localStorage if available
+      const storedParentCategories =
+      JSON.parse(localStorage.getItem("parentCategories")) || [];
+    const selectedParentCategoriesParam =
+      storedParentCategories.length > 0
+        ? `&` +
+          storedParentCategories
+            .map((parentCatId) => `articlecategoryparent_id[]=${parentCatId}`)
+            .join("&")
+        : "";
+
+        
+        // Get the category from localStorage if available
+      const storedsubCategories =
+      JSON.parse(localStorage.getItem("subCategories")) || [];
+    const selectedsubCategoriesParam =
+      storedsubCategories.length > 0
+        ? `&` +
+          storedsubCategories
+            .map((subCatId) => `articlecategory_id[]=${subCatId}`)
+            .join("&")
+        : "";
 
     // Get the category from localStorage if available
       // Finalize the URL by combining all parameters
-      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedillustrateurParam}${selectedCategoryParentParent}${selectedCollabParam}${selectedmultiproductsParam}${UserIdParam}${selectedCollecParam}${selectedStockParam}${selectedDiscount}${selectedPubliParam}${selectedEANParam}${selectedResumeParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}&ecom_type=sofiaco`;
+      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedillustrateurParam}${selectedCategoryParentParent}${selectedsubCategoriesParam}${selectedParentCategoriesParam}${selectedCollabParam}${selectedmultiproductsParam}${UserIdParam}${selectedCollecParam}${selectedStockParam}${selectedDiscount}${selectedPubliParam}${selectedEANParam}${selectedResumeParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}${selectedsubCategoryParam}&ecom_type=sofiaco`;
       // Fetch articles using the finalized URL
       const response = await axios.get(finalUrl);
 
       // If page > 1 or articles exist, append new data to the current articles
-      if (page !== 1) {
+      if (page && page !== 1) {
         setArticles((prevArticles) => [...prevArticles, ...response.data.data]);
       } else {
         // Otherwise, replace the articles
@@ -650,7 +723,9 @@ const BooksView = ({carttoggle}) => {
  };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+      window.scrollTo(0, 0);
+    }
   }, [location]);
 
  
@@ -751,6 +826,8 @@ const BooksView = ({carttoggle}) => {
     localStorage.removeItem("categories");
     localStorage.removeItem("collections");
     localStorage.removeItem("publishers");
+    localStorage.removeItem("subCategories");
+    localStorage.removeItem("parentCategories");
     localStorage.removeItem("multiproductids");
     localStorage.removeItem("rate");
     localStorage.removeItem("min_price");
@@ -765,8 +842,14 @@ const BooksView = ({carttoggle}) => {
       const selectedarticleFamilleId = (selectedCategoryId !== 'null' && selectedCategoryId !== null)
       ? `&articlefamilleparent_id=${selectedCategoryId}`
       : "";
+      
+      // Check if route is /products/subcategory/:id and get subcategory id
+      let selectedsubCategoryParam = "";
+      if (location.pathname.startsWith("/products/subcategory/") && subcatageoryId && subcatageoryId !== "null") {
+        selectedsubCategoryParam = `&articlefamille_id=${subcatageoryId}`;
+      }
       const response = await axios.get(
-        `${url}?ecom_type=sofiaco&selected_date=any&page=1${selectedarticleFamilleId}`
+        `${url}?ecom_type=sofiaco&selected_date=any&page=1${selectedarticleFamilleId}${selectedsubCategoryParam}`
       );
       setArticles(response.data.data);
       setTotalArticlesNumber(response.data?.total)
@@ -887,6 +970,85 @@ const handleChangePublisher = (event) => {
     return isdiscount?.includes(discount);
   };
 
+
+  
+const handleChangeParentCategory = (event) => {
+    const newSelectedParentCategory = event;
+
+    // Retrieve and parse stored parent categories (ensure it's an array)
+    let storedParentCategories = JSON.parse(localStorage.getItem("parentCategories")) || [];
+
+    if (storedParentCategories.includes(newSelectedParentCategory)) {
+      // If already selected, remove it
+      storedParentCategories = storedParentCategories.filter(
+        (cat) => cat !== newSelectedParentCategory
+      );
+    } else {
+      // Otherwise, add the new parent category
+      storedParentCategories.push(newSelectedParentCategory);
+    }
+
+    // Update localStorage with the new parent categories array
+    localStorage.setItem("parentCategories", JSON.stringify(storedParentCategories));
+
+    // Dispatch action to update search data
+    setfilterValues([]);
+    FetchFilters();
+    setArticles([]); // Reset articles
+  };
+
+  // Retrieve stored parent categories as an array
+  const selectedParentCategories =
+    JSON.parse(localStorage.getItem("parentCategories")) || [];
+
+  // Function to check if a parent category is selected
+  const isParentCategorySelected = (categoryID) => {
+    if (!categoryID) return false;
+    return selectedParentCategories.some(
+      (cat) => cat === categoryID
+    );
+  };
+
+
+const handleChangeSubCategory = (event) => {
+    const newSelectedSubCategory = event;
+
+    // Retrieve and parse stored sub categories (ensure it's an array)
+    let storedSubCategories = JSON.parse(localStorage.getItem("subCategories")) || [];
+
+    if (storedSubCategories.includes(newSelectedSubCategory)) {
+      // If already selected, remove it
+      storedSubCategories = storedSubCategories.filter(
+        (subCat) => subCat !== newSelectedSubCategory
+      );
+    } else {
+      // Otherwise, add the new sub category
+      storedSubCategories.push(newSelectedSubCategory);
+    }
+
+    // Update localStorage with the new sub categories array
+    localStorage.setItem("subCategories", JSON.stringify(storedSubCategories));
+
+    // Dispatch action to update search data
+
+    setArticles([]); // Reset articles
+  };
+
+  // Retrieve stored sub categories as an array
+  const selectedSubCategories =
+    JSON.parse(localStorage.getItem("subCategories")) || [];
+
+  // Function to check if a sub category is selected
+  const isSubCategorySelected = (subCategoryID) => {
+    if (!subCategoryID) return false;
+    return selectedSubCategories.some(
+      (subCat) => subCat === subCategoryID
+    );
+  };
+
+  const parsedStoredParentCategories = JSON.parse(storedParentCategories || '[]');
+  const isLibrary = Number(selectedCategoryId) === 1 || parsedStoredParentCategories.includes(1) || (parsedStoredParentCategories.length === 0 && (selectedCategoryId === null || selectedCategoryId === 'null'));
+
   // Dynamic tree mapping based on category_level_ids
   const getCategoryTree = () => {
   // Support both companySettings and companysettings for backward compatibility
@@ -939,17 +1101,76 @@ const handleChangePublisher = (event) => {
           <div style={{display:'flex',position:'relative', flexDirection:'column',fontFamily:'var(--font-family)' ,width:'96%', color:'#fff'}}>
         <h1>{language === 'eng' ? "Filter" : "Filtre " }</h1>
         <div className={classes.filter}>
-          <div className={classes.categories}>
-            <h2>Categories</h2>
-              <div className={classes.dropdown}
-                  style={{ maxHeight: "200px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
-                {mappedCategories.map((data) => {
-                  return (
-                      <TreeNode data={data} level={0} color='#fff'/>
-                  );
-                })}
+          
+          {(selectedCategoryId === null || selectedCategoryId === 'null') && <div className={classes.categories}>
+            <h2
+              onClick={() => setparentCategoriesOpen(!parentCategoriesOpen)}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "80% 20%", 
+              }}
+            >
+              <span>
+              {language === "eng" ? "PARENT CATEGORIES" : "CATÉGORIES PARENTALES"}{" "}
+              </span>
+              {parentCategoriesOpen ? (
+                <span
+                  style={{
+                    margin: "auto",
+                    paddingRight: "0",
+                    rotate: "180deg",
+                    
+                  }}
+                >
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}}/>
+                </span>
+              ) : (
+                <span style={{ margin: "auto", paddingLeft: "0" }}>
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}} />
+                </span>
+              )}
+            </h2>
+            {parentCategoriesOpen && (<div className={classes.dropdown}
+                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+               {authCtx?.articleFamilleParents?.map((parent) => {
+                    const isChecked = isParentCategorySelected(parent.id);
+
+                    return (
+                      <div
+                        key={parent.id}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          marginBottom: "0.5em",
+                        }}
+                        onClick={(e) => handleChangeParentCategory(parent.id)}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          className={classes.checkbox}
+                          style={{
+                            marginRight: "0px",
+                            width: "1.3em",
+                            height: "1.3em",
+                          }}
+                        />
+                        <p
+                          style={{
+                            margin: "auto 0 auto 2%",
+                            width: "92%",
+                            display: "flex",
+                            cursor: "pointer",  
+                          }}
+                        >
+                          {parent.nom}
+                        </p>
+                      </div>
+                    );
+                  })}
               </div>
-          </div>
+            )}
+          </div>}
 
           <Divider  
           color="var(--secondary-color)"
@@ -957,293 +1178,118 @@ const handleChangePublisher = (event) => {
           style={{margin:'0.5em auto'}}
         />
 
-          <div className={classes.categories}>
-            <h2 onClick={()=>console.log(authCtx.publishers)}>{language === "eng" ? "Publishing House" : "Maisons d'édition"}</h2>
-              <div className={classes.dropdown}
-                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
-
-                {authCtx?.publishers?.map((publisher) => {
-                    const isChecked = isPublisherSelected(publisher.id);
-
-                    return (
-                      <div
-                        key={publisher.id}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          marginBottom: "0.5em",
-                        }}
-                        onClick={(e) => handleChangePublisher(publisher.id)}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          className={classes.checkbox}
-                          style={{
-                            marginRight: "0px",
-                            width: "1.3em",
-                            height: "1.3em",
-                          }}
-                        />
-                        <p
-                          style={{
-                            margin: "auto 0 auto 2%",
-                            width: "92%",
-                            display: "flex",
-                            cursor: "pointer", 
-                            color: "var(--secondary-color)" 
-                          }}
-                        >
-                          {publisher.title}
-                        </p>
-                      </div>
-                    );
-                  })}
-              </div>
-          </div>
-
-
-          <Divider  
-          color="#fff"
-          width="88%"
-          style={{margin:'0.5em auto'}}
-        />
-
-        
-<div className={classes.categories}>
-            <h2 onClick={()=>console.log(authCtx.collections)}>{language === "eng" ? "Collections" : "Collections"}</h2>
-              <div className={classes.dropdown}
-                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
-                
-                {authCtx?.collections?.map((collection) => {
-                    const isChecked = isCollectionSelected(collection.id);
-
-                    return (
-                      <div
-                        key={collection.id}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          marginBottom: "0.5em",
-                        }}
-                        onClick={(e) => handleChangeCollection(collection.id)}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          className={classes.checkbox}
-                          style={{
-                            marginRight: "0px",
-                            width: "1.3em",
-                            height: "1.3em",
-                          }}
-                        />
-                        <p
-                          style={{
-                            margin: "auto 0 auto 2%",
-                            width: "92%",
-                            display: "flex",
-                            cursor: "pointer", 
-                            color: "#fff" 
-                          }}
-                        >
-                          {collection.nom}
-                        </p>
-                      </div>
-                    );
-                  })}
-              </div>
-          </div>
-
-          <Divider  
-          color="#fff"
-          width="88%"
-          style={{margin:'0.5em auto'}}
-        />
-          
-<div className={classes.categories}>
-            <h2>{language === 'eng' ? "Collaborators" : "Collaborateurs"}</h2>
-              <div className={classes.dropdown}
-                  style={{  margin:'1em auto ' }}>
-                  <CollaboratorTreeNode title="Authors" isExpanded={expandedNodes.authors} setIsExpanded={() => handleExpand('authors')}  collaborators={authors} fieldName="author"  searchQuery={(props)=>dispatch(addSearchData({collaborators: props.id}))}/>
-                  <CollaboratorTreeNode title="Translators" isExpanded={expandedNodes.translators} setIsExpanded={() => handleExpand('translators')} collaborators={translators} fieldName="traducteur" searchQuery={(props)=>dispatch(addSearchData({collaborators: props.id}))} />
-                  <CollaboratorTreeNode title="Illustrators" isExpanded={expandedNodes.illustrators} setIsExpanded={() => handleExpand('illustrators')} collaborators={illustrators} fieldName="illustrateur" searchQuery={(props)=>dispatch(addSearchData({collaborators: props.id}))} />
-                  <CollaboratorTreeNode title="Editors" isExpanded={expandedNodes.editors} setIsExpanded={() => handleExpand('editors')} collaborators={editors} fieldName="editor" searchQuery={(props)=>dispatch(addSearchData({collaborators: props.id}))} />
-                     </div>
-          </div>
-
-        <Divider  
-          color="#fff"
-          width="88%"
-          style={{margin:'0.5em auto'}}
-        />
-
-
-          <div className={classes.categories}>
-            <h2>Stock</h2>
-              <div className={classes.dropdown}>
-              <FormControl>
-                  <RadioGroup
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue='all'
-                    value={inStock}
-                    name="radio-buttons-group"
-                    onChange={handleChangeStock}
-                  >
-                    <FormControlLabel
-                      value={null}
-                      control={
-                        <Radio style={{color:'#fff'}} />
-                      }
-                      label={language === "eng" ? 'All' : "Tout"}
-                    />
-                    <FormControlLabel
-                      value={true}
-                      control={<Radio style={{color:'#fff'}}/>}
-                      label={language === 'eng' ? "In Stock" : "En stock" } // Make sure item.nom is a string
-                    />
-                    <FormControlLabel
-                      value={false}
-                      control={<Radio style={{color:'#fff'}}/>}
-                      label={language === 'eng' ? "Out Of Stock" : "En rupture de stock" } // Make sure item.nom is a string
-                    />
-                  </RadioGroup>
-                </FormControl>
-              </div>
-          </div>
-          {/* <Divider  
-          color="#fff"
-          width="88%"
-          style={{margin:'0.5em auto'}}
-        />
-        {authCtx?.remiseCatalogues?.length > 0 && <div className={classes.categories}>
-            <h2>Discount</h2>
-              <div className={classes.dropdown}>
-                
-              {authCtx.remiseCatalogues?.map((discount) => {
-                    const isChecked = isDiscountSelected(discount);
-
-                    return (
-                      <div
-                        key={discount}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          marginBottom: "0.5em",
-                        }}
-                        onClick={(e) => handleDiscountChange(discount)}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          className={classes.checkbox}
-                          style={{
-                            marginRight: "0px",
-                            width: "1.3em",
-                            height: "1.3em",
-                          }}
-                        />
-                        <p
-                          style={{
-                            margin: "auto 0 auto 2%",
-                            width: "92%",
-                            display: "flex",
-                            cursor: "pointer", 
-                            color: "#fff" 
-                          }}
-                        >
-                          {discount} % 
-                        </p>
-                      </div>
-                    );
-                  })}
-              </div>
-          </div>}  */}
-
-          <Divider  
-          color="#fff"
-          width="88%"
-          style={{margin:'0.5em auto'}}
-        />
-          <div className={classes.categories}>
-            <h2>Prix</h2>
-              <div className={classes.dropdown}>
-                <div style={{display:'flex',width:'95%', flexDirection:'row',justifyContent:'space-between', marginTop:'1em'}}>
-                  <TextField
-                  style={{width:'48%',textAlign:'center',padding:'0'}}
-                  type="number"
-                  variant="standard"
-                    InputProps={{
-                      inputProps: {
-                        min: 0,
-
-                        style: {
-                          color: '#fff', 
-                          border: 'none',
-                          borderBottomColor: '#fff',
-                        },
-                      },
-                    }}
-                    value={selectedPrice[0]}
-                    onChange={handleMinChange}
-                  />
-                  <TextField
-                  style={{width:' 48%',textAlign:'center',padding:'0'}}
-                  type="number"
-                  variant="standard"
-                  InputProps={{
-                    inputProps: {
-                      min: 0,
-                      style: {
-                        color: '#fff', 
-                        borderColor: '#fff',
-                      },
-                    },
+          {<div className={classes.categories}>
+            <h2
+              onClick={() => setsubCategoriesOpen(!subCategoriesOpen)}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "80% 20%", 
+              }}
+            >
+              <span>
+              {language === "eng" ? "SUB CATEGORIES" : "LES SOUS-CATEGORIES"}{" "}
+              </span>
+              {subCategoriesOpen ? (
+                <span
+                  style={{
+                    margin: "auto",
+                    paddingRight: "0",
+                    rotate: "180deg",
+                    
                   }}
-                    value={selectedPrice[1]}
-                    onChange={handleMaxChange}
-                  />
-                  </div>
-          <div style={{position:'relative',justifyContent:'flex-end'}}>
-          <p style={{width:'fit-content',margin:'2em 0 1em 0',color:'#fff',cursor:'pointer',fontWeight:'500', fontFamily:'var(--font-family)'}} onClick={RefineHandle}><u>{language === "eng" ? "Refine" : "Affiner"}</u></p>
-          </div>
+                >
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}}/>
+                </span>
+              ) : (
+                <span style={{ margin: "auto", paddingLeft: "0" }}>
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}} />
+                </span>
+              )}
+            </h2>
+            {subCategoriesOpen && (<div className={classes.dropdown}
+                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+               {authCtx?.articleFamille?.filter(parent => selectedParentCategories.length === 0 || selectedParentCategories.includes(parent.b_usr_parentcategorie_id)).map((parent) => {
+                    const isChecked = isSubCategorySelected(parent.id);
+
+                    return (
+                      <div
+                        key={parent.id}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          marginBottom: "0.5em",
+                        }}
+                        onClick={(e) => handleChangeSubCategory(parent.id)}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          className={classes.checkbox}
+                          style={{
+                            marginRight: "0px",
+                            width: "1.3em",
+                            height: "1.3em",
+                          }}
+                        />
+                        <p
+                          style={{
+                            margin: "auto 0 auto 2%",
+                            width: "92%",
+                            display: "flex",
+                            cursor: "pointer", 
+                          }}
+                        >
+                          {parent.type_nom}
+                        </p>
+                      </div>
+                    );
+                  })}
               </div>
-          </div>
+            )}
+          </div>}
 
-
-          <div>
-          <p style={{width:'fit-content',margin:'0 0 1em 7.5%',color:'#fff',cursor:'pointer',fontWeight:'500', fontFamily:'var(--font-family)'}} onClick={ResetfilterHandle}><u>{language === "eng" ? "Reset All" : "Réinitialiser"}</u></p>
-          </div>
-        </div>
-        </div>
-        </ListItem>
-      </List>
-    </Box>
-    </>
-  );
-  const getAriaValueText = (value) => {
-    return `$${value}`;
-  };
-
-  return (
-    <div className={classes.bigContainer}>
-      <div className={classes.content}>
-        <div className={classes.filter_con}>
-        <h1>{language === 'eng' ? "Filter" : "Filtre " }</h1>
-        <div className={classes.filter}>
-          <div>
-          <p style={{width:'fit-content',color:'#fff',cursor:'pointer',fontWeight:'500', fontFamily:'var(--font-family)', background:'var(--primary-color)', padding:'0.5em 1em', borderRadius:'0.5em', textDecoration:'none', margin:'0.5em 0.5em -1em auto' }} onClick={ResetfilterHandle}><u>{language === "eng" ? "Reset All" : "Réinitialiser"}</u></p>
-          </div>
+          <Divider  
+          color="var(--secondary-color)"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
+          {isLibrary && <>
           <div className={classes.categories}>
-            <h2>Categories</h2>
-              <div className={classes.dropdown}
+            <h2
+              onClick={() => setthemesOpen(!themesOpen)}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "80% 20%", 
+              }}
+            >
+              <span>
+              {language === "eng" ? "Themes" : "Thèmes"}{" "}
+              </span>
+              {themesOpen ? (
+                <span
+                  style={{
+                    margin: "auto",
+                    paddingRight: "0",
+                    rotate: "180deg",
+                    
+                  }}
+                >
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}}/>
+                </span>
+              ) : (
+                <span style={{ margin: "auto", paddingLeft: "0" }}>
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}} />
+                </span>
+              )}
+            </h2>
+              {themesOpen && <div className={classes.dropdown}
                   style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
                 {mappedCategories.map((data) => {
                   return (
                       <TreeNode data={data} level={0} color='var(--secondary-color)'/>
                   );
                 })}
-              </div>
+              </div>}
           </div>
 
           <Divider  
@@ -1253,8 +1299,34 @@ const handleChangePublisher = (event) => {
         />
 
           <div className={classes.categories}>
-            <h2 onClick={()=>console.log(authCtx.publishers)}>{language === "eng" ? "Publishing House" : "Maisons d'édition"}</h2>
-              <div className={classes.dropdown}
+            <h2
+              onClick={() => setpublishinghouseOpen(!publishinghouseOpen)}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "80% 20%", 
+              }}
+            >
+              <span>
+              {language === "eng" ? "Publishing House" : "Maisons d'édition"}{" "}
+              </span>
+              {publishinghouseOpen ? (
+                <span
+                  style={{
+                    margin: "auto",
+                    paddingRight: "0",
+                    rotate: "180deg",
+                    
+                  }}
+                >
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}}/>
+                </span>
+              ) : (
+                <span style={{ margin: "auto", paddingLeft: "0" }}>
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}} />
+                </span>
+              )}
+            </h2>
+              {publishinghouseOpen && <div className={classes.dropdown}
                   style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
 
                 {authCtx?.publishers?.map((publisher) => {
@@ -1294,7 +1366,7 @@ const handleChangePublisher = (event) => {
                       </div>
                     );
                   })}
-              </div>
+              </div>}
           </div>
 
           <Divider  
@@ -1304,8 +1376,34 @@ const handleChangePublisher = (event) => {
         />
 
           <div className={classes.categories}>
-            <h2 onClick={()=>console.log(authCtx.collections)}>{language === "eng" ? "Collections" : "Collections"}</h2>
-              <div className={classes.dropdown}
+            <h2
+              onClick={() => setcollectionsOpen(!collectionsOpen)}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "80% 20%", 
+              }}
+            >
+              <span>
+              {language === "eng" ? "Collections" : "Collections"}{" "}
+              </span>
+              {collectionsOpen ? (
+                <span
+                  style={{
+                    margin: "auto",
+                    paddingRight: "0",
+                    rotate: "180deg",
+                    
+                  }}
+                >
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}}/>
+                </span>
+              ) : (
+                <span style={{ margin: "auto", paddingLeft: "0" }}>
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}} />
+                </span>
+              )}
+            </h2>
+              {collectionsOpen && <div className={classes.dropdown}
                   style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
                 
                 {authCtx?.collections?.map((collection) => {
@@ -1345,7 +1443,7 @@ const handleChangePublisher = (event) => {
                       </div>
                     );
                   })}
-              </div>
+              </div>}
           </div>
           
           <Divider  
@@ -1354,6 +1452,68 @@ const handleChangePublisher = (event) => {
           style={{margin:'0.5em auto'}}
         />
  
+          <div className={classes.categories}>
+            <h2
+              onClick={() => setCollaboratorsOpen(!collaboratorsOpen)}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "80% 20%", 
+              }}
+            >
+              <span>
+              {language === "eng" ? "Collaborators" : "Collaborateurs"}{" "}
+              </span>
+              {collaboratorsOpen ? (
+                <span
+                  style={{
+                    margin: "auto",
+                    paddingRight: "0",
+                    rotate: "180deg",
+                    
+                  }}
+                >
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}}/>
+                </span>
+              ) : (
+                <span style={{ margin: "auto", paddingLeft: "0" }}>
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}} />
+                </span>
+              )}
+            </h2>
+              <div className={classes.dropdown}
+                  style={{  margin:'0em auto ' }}>
+            {collaboratorsOpen && (
+              <div className={classes.dropdown}
+                  style={{ height:'fit-content', margin:'0em auto ', paddingTop:collaboratorsOpen ? '0' : '4%' }}>
+                  {authCtx.collaboratorsTypes?.map((type) => {
+                    const typeName = type.name_fr;
+                    const typeKey = typeName.toLowerCase().replace(/\s+/g, '_');
+                    const collaborators = collaboratorsByType[typeName] || [];
+                    const title = type.nom_pluriel_fr || typeName.charAt(0).toUpperCase() + typeName.slice(1) + 's';
+                    
+                    return (
+                      <CollaboratorTreeNode 
+                        key={typeKey}
+                        title={title}
+                        isExpanded={expandedNodes[typeKey]} 
+                        setIsExpanded={() => handleExpand(typeKey)}
+                        collaborators={collaborators} 
+                        fieldName={typeName}
+                        searchQuery={(props)=>dispatch(addSearchData({collaborators: props.id}))}
+                      />
+                    );
+                  })}
+                </div>
+            )}
+                      </div>
+          </div>
+          </>}
+          
+          <Divider  
+          color="var(--secondary-color)"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
           {/* multi product filters */}
         {/* Multi product filters with independent dropdowns and checkboxes */}
         {filterValues?.length > 0 && filterValues.map((filter, index) => {
@@ -1361,7 +1521,8 @@ const handleChangePublisher = (event) => {
           const filterKey = `filter_${index}`;
           const isOpen = expanded[filterKey] || false;
           return (
-            <div className={classes.categories} key={filterKey}>
+            <>
+              <div className={classes.categories} key={filterKey}>
               <h2
                 onClick={() => toggleDropdown(filterKey)}
                 style={
@@ -1433,27 +1594,17 @@ const handleChangePublisher = (event) => {
                   </div>
                 </div>
               )}
-            </div>
+              </div>
+
+              <Divider  
+              color="var(--secondary-color)"
+              width="88%"
+              style={{margin:'0.5em auto'}}
+              />
+            </>
           );
         })}
 
-        
-          <div className={classes.categories}>
-          <h2>{language === 'eng' ? "Collaborators" : "Collaborateurs"}</h2>
-              <div className={classes.dropdown}
-                  style={{  margin:'1em auto ' }}>
-                  <CollaboratorTreeNode title="Authors" isExpanded={expandedNodes.authors} setIsExpanded={() => handleExpand('authors')}  collaborators={authors} fieldName="author"  searchQuery={(props)=>dispatch(addSearchData({collaborators: props.id}))}/>
-                  <CollaboratorTreeNode title="Translators" isExpanded={expandedNodes.translators} setIsExpanded={() => handleExpand('translators')} collaborators={translators} fieldName="traducteur" searchQuery={(props)=>dispatch(addSearchData({collaborators: props.id}))} />
-                  <CollaboratorTreeNode title="Illustrators" isExpanded={expandedNodes.illustrators} setIsExpanded={() => handleExpand('illustrators')} collaborators={illustrators} fieldName="illustrateur" searchQuery={(props)=>dispatch(addSearchData({collaborators: props.id}))} />
-                  <CollaboratorTreeNode title="Editors" isExpanded={expandedNodes.editors} setIsExpanded={() => handleExpand('editors')} collaborators={editors} fieldName="editor" searchQuery={(props)=>dispatch(addSearchData({collaborators: props.id}))} />
-                      </div>
-          </div>
-
-          <Divider  
-          color="var(--secondary-color)"
-          width="88%"
-          style={{margin:'0.5em auto'}}
-        />
 
 
           <div className={classes.categories}>
@@ -1488,28 +1639,320 @@ const handleChangePublisher = (event) => {
                 </FormControl>
               </div>
           </div>
-          {/* <Divider  
+
+          <Divider  
           color="var(--secondary-color)"
           width="88%"
           style={{margin:'0.5em auto'}}
         />
-          
-          {authCtx?.remiseCatalogues?.length > 0 && <div className={classes.categories}>
-            <h2>Discount</h2>
+          <div className={classes.categories}>
+            <h2>{language === 'eng' ? "Price" : "Prix" }</h2>
               <div className={classes.dropdown}>
-                
-              {authCtx.remiseCatalogues?.map((discount) => {
-                    const isChecked = isDiscountSelected(discount);
+                <div style={{display:'flex',width:'95%', flexDirection:'row',justifyContent:'space-between'}}>
+                  <TextField
+                  style={{width:'48%',textAlign:'center',padding:'0'}}
+                  type="number"
+                  variant="standard"
+                    InputProps={{
+                      inputProps: {
+                        min: 0,
+
+                        style: {
+                          color: 'var(--secondary-color)', 
+                          border: 'none',
+                          borderBottomColor: 'var(--secondary-color)',
+                        },
+                      },
+                    }}
+                    value={selectedPrice[0]}
+                    onChange={handleMinChange}
+                  />
+                  <TextField
+                  style={{width:' 48%',textAlign:'center',padding:'0'}}
+                  type="number"
+                  variant="standard"
+                  InputProps={{
+                    inputProps: {
+                      min: 0,
+                      style: {
+                        color: 'var(--secondary-color)', 
+                        borderColor: 'var(--secondary-color)',
+                      },
+                    },
+                  }}
+                    value={selectedPrice[1]}
+                    onChange={handleMaxChange}
+                  />
+                  </div>
+          <div style={{position:'relative',justifyContent:'flex-end'}}>
+          <p style={{width:'fit-content',margin:'2em 0 0em 0',color:'var(--primary-color)',cursor:'pointer',fontWeight:'500'}} onClick={RefineHandle}><u>{language === "eng" ? "Refine" : "Affiner"}</u></p>
+          </div>
+              </div>
+          </div>
+
+          <div>
+          <p style={{width:'fit-content',margin:'0 0 1em 7.5%',color:'#fff',cursor:'pointer',fontWeight:'500', fontFamily:'var(--font-family)'}} onClick={ResetfilterHandle}><u>{language === "eng" ? "Reset All" : "Réinitialiser"}</u></p>
+          </div>
+        </div>
+        </div>
+        </ListItem>
+      </List>
+    </Box>
+    </>
+  );
+  const getAriaValueText = (value) => {
+    return `$${value}`;
+  };
+
+  return (
+    <div className={classes.bigContainer}>
+      <div className={classes.content}>
+        <div className={classes.filter_con}>
+        <h1>{language === 'eng' ? "Filter" : "Filtre " }</h1>
+        <div className={classes.filter}>
+          <div>
+          <p style={{width:'fit-content',color:'#fff',cursor:'pointer',fontWeight:'500', fontFamily:'var(--font-family)', background:'var(--primary-color)', padding:'0.5em 1em', borderRadius:'0.5em', textDecoration:'none', margin:'0.5em 0.5em 0em auto' }} onClick={ResetfilterHandle}><u>{language === "eng" ? "Reset All" : "Réinitialiser"}</u></p>
+          </div>
+          
+          {(selectedCategoryId === null || selectedCategoryId === 'null') && <div className={classes.categories}>
+            <h2
+              onClick={() => setparentCategoriesOpen(!parentCategoriesOpen)}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "80% 20%", 
+              }}
+            >
+              <span>
+              {language === "eng" ? "PARENT CATEGORIES" : "CATÉGORIES PARENTALES"}{" "}
+              </span>
+              {parentCategoriesOpen ? (
+                <span
+                  style={{
+                    margin: "auto",
+                    paddingRight: "0",
+                    rotate: "180deg",
+                    
+                  }}
+                >
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}}/>
+                </span>
+              ) : (
+                <span style={{ margin: "auto", paddingLeft: "0" }}>
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}} />
+                </span>
+              )}
+            </h2>
+            {parentCategoriesOpen && (<div className={classes.dropdown}
+                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+               {authCtx?.articleFamilleParents?.map((parent) => {
+                    const isChecked = isParentCategorySelected(parent.id);
 
                     return (
                       <div
-                        key={discount}
+                        key={parent.id}
                         style={{
                           display: "flex",
                           alignItems: "center",
                           marginBottom: "0.5em",
                         }}
-                        onClick={(e) => handleDiscountChange(discount)}
+                        onClick={(e) => handleChangeParentCategory(parent.id)}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          className={classes.checkbox}
+                          style={{
+                            marginRight: "0px",
+                            width: "1.3em",
+                            height: "1.3em",
+                          }}
+                        />
+                        <p
+                          style={{
+                            margin: "auto 0 auto 2%",
+                            width: "92%",
+                            display: "flex",
+                            cursor: "pointer",  
+                          }}
+                        >
+                          {parent.nom}
+                        </p>
+                      </div>
+                    );
+                  })}
+              </div>
+            )}
+          </div>}
+
+          <Divider  
+          color="var(--secondary-color)"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
+
+          {<div className={classes.categories}>
+            <h2
+              onClick={() => setsubCategoriesOpen(!subCategoriesOpen)}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "80% 20%", 
+              }}
+            >
+              <span>
+              {language === "eng" ? "SUB CATEGORIES" : "LES SOUS-CATEGORIES"}{" "}
+              </span>
+              {subCategoriesOpen ? (
+                <span
+                  style={{
+                    margin: "auto",
+                    paddingRight: "0",
+                    rotate: "180deg",
+                    
+                  }}
+                >
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}}/>
+                </span>
+              ) : (
+                <span style={{ margin: "auto", paddingLeft: "0" }}>
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}} />
+                </span>
+              )}
+            </h2>
+            {subCategoriesOpen && (<div className={classes.dropdown}
+                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+               {authCtx?.articleFamille?.filter(parent => selectedParentCategories.length === 0 || selectedParentCategories.includes(parent.b_usr_parentcategorie_id)).map((parent) => {
+                    const isChecked = isSubCategorySelected(parent.id);
+
+                    return (
+                      <div
+                        key={parent.id}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          marginBottom: "0.5em",
+                        }}
+                        onClick={(e) => handleChangeSubCategory(parent.id)}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          className={classes.checkbox}
+                          style={{
+                            marginRight: "0px",
+                            width: "1.3em",
+                            height: "1.3em",
+                          }}
+                        />
+                        <p
+                          style={{
+                            margin: "auto 0 auto 2%",
+                            width: "92%",
+                            display: "flex",
+                            cursor: "pointer", 
+                          }}
+                        >
+                          {parent.type_nom}
+                        </p>
+                      </div>
+                    );
+                  })}
+              </div>
+            )}
+          </div>}
+
+          <Divider  
+          color="var(--secondary-color)"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
+          {isLibrary && <>
+          <div className={classes.categories}>
+            <h2
+              onClick={() => setthemesOpen(!themesOpen)}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "80% 20%", 
+              }}
+            >
+              <span>
+              {language === "eng" ? "Themes" : "Thèmes"}{" "}
+              </span>
+              {themesOpen ? (
+                <span
+                  style={{
+                    margin: "auto",
+                    paddingRight: "0",
+                    rotate: "180deg",
+                    
+                  }}
+                >
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}}/>
+                </span>
+              ) : (
+                <span style={{ margin: "auto", paddingLeft: "0" }}>
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}} />
+                </span>
+              )}
+            </h2>
+              {themesOpen && <div className={classes.dropdown}
+                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+                {mappedCategories.map((data) => {
+                  return (
+                      <TreeNode data={data} level={0} color='var(--secondary-color)'/>
+                  );
+                })}
+              </div>}
+          </div>
+
+          <Divider  
+          color="var(--secondary-color)"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
+
+          <div className={classes.categories}>
+            <h2
+              onClick={() => setpublishinghouseOpen(!publishinghouseOpen)}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "80% 20%", 
+              }}
+            >
+              <span>
+              {language === "eng" ? "Publishing House" : "Maisons d'édition"}{" "}
+              </span>
+              {publishinghouseOpen ? (
+                <span
+                  style={{
+                    margin: "auto",
+                    paddingRight: "0",
+                    rotate: "180deg",
+                    
+                  }}
+                >
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}}/>
+                </span>
+              ) : (
+                <span style={{ margin: "auto", paddingLeft: "0" }}>
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}} />
+                </span>
+              )}
+            </h2>
+              {publishinghouseOpen && <div className={classes.dropdown}
+                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+
+                {authCtx?.publishers?.map((publisher) => {
+                    const isChecked = isPublisherSelected(publisher.id);
+
+                    return (
+                      <div
+                        key={publisher.id}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          marginBottom: "0.5em",
+                        }}
+                        onClick={(e) => handleChangePublisher(publisher.id)}
                       >
                         <input
                           type="checkbox"
@@ -1530,13 +1973,284 @@ const handleChangePublisher = (event) => {
                             color: "var(--secondary-color)" 
                           }}
                         >
-                          {discount} % 
+                          {publisher.title}
                         </p>
                       </div>
                     );
                   })}
+              </div>}
+          </div>
+
+          <Divider  
+          color="var(--secondary-color)"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
+
+          <div className={classes.categories}>
+            <h2
+              onClick={() => setcollectionsOpen(!collectionsOpen)}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "80% 20%", 
+              }}
+            >
+              <span>
+              {language === "eng" ? "Collections" : "Collections"}{" "}
+              </span>
+              {collectionsOpen ? (
+                <span
+                  style={{
+                    margin: "auto",
+                    paddingRight: "0",
+                    rotate: "180deg",
+                    
+                  }}
+                >
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}}/>
+                </span>
+              ) : (
+                <span style={{ margin: "auto", paddingLeft: "0" }}>
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}} />
+                </span>
+              )}
+            </h2>
+              {collectionsOpen && <div className={classes.dropdown}
+                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+                
+                {authCtx?.collections?.map((collection) => {
+                    const isChecked = isCollectionSelected(collection.id);
+
+                    return (
+                      <div
+                        key={collection.id}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          marginBottom: "0.5em",
+                        }}
+                        onClick={(e) => handleChangeCollection(collection.id)}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          className={classes.checkbox}
+                          style={{
+                            marginRight: "0px",
+                            width: "1.3em",
+                            height: "1.3em",
+                          }}
+                        />
+                        <p
+                          style={{
+                            margin: "auto 0 auto 2%",
+                            width: "92%",
+                            display: "flex",
+                            cursor: "pointer", 
+                            color: "var(--secondary-color)" 
+                          }}
+                        >
+                          {collection.nom}
+                        </p>
+                      </div>
+                    );
+                  })}
+              </div>}
+          </div>
+          
+          <Divider  
+          color="var(--secondary-color)"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
+ 
+          <div className={classes.categories}>
+            <h2
+              onClick={() => setCollaboratorsOpen(!collaboratorsOpen)}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "80% 20%", 
+              }}
+            >
+              <span>
+              {language === "eng" ? "Collaborators" : "Collaborateurs"}{" "}
+              </span>
+              {collaboratorsOpen ? (
+                <span
+                  style={{
+                    margin: "auto",
+                    paddingRight: "0",
+                    rotate: "180deg",
+                    
+                  }}
+                >
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}}/>
+                </span>
+              ) : (
+                <span style={{ margin: "auto", paddingLeft: "0" }}>
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}} />
+                </span>
+              )}
+            </h2>
+              <div className={classes.dropdown}
+                  style={{  margin:'0em auto ' }}>
+            {collaboratorsOpen && (
+              <div className={classes.dropdown}
+                  style={{ height:'fit-content', margin:'0em auto ', paddingTop:collaboratorsOpen ? '0' : '4%' }}>
+                  {authCtx.collaboratorsTypes?.map((type) => {
+                    const typeName = type.name_fr;
+                    const typeKey = typeName.toLowerCase().replace(/\s+/g, '_');
+                    const collaborators = collaboratorsByType[typeName] || [];
+                    const title = type.nom_pluriel_fr || typeName.charAt(0).toUpperCase() + typeName.slice(1) + 's';
+                    
+                    return (
+                      <CollaboratorTreeNode 
+                        key={typeKey}
+                        title={title}
+                        isExpanded={expandedNodes[typeKey]} 
+                        setIsExpanded={() => handleExpand(typeKey)}
+                        collaborators={collaborators} 
+                        fieldName={typeName}
+                        searchQuery={(props)=>dispatch(addSearchData({collaborators: props.id}))}
+                      />
+                    );
+                  })}
+                </div>
+            )}
+                      </div>
+          </div>
+          </>}
+          
+          <Divider  
+          color="var(--secondary-color)"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
+          {/* multi product filters */}
+        {/* Multi product filters with independent dropdowns and checkboxes */}
+        {filterValues?.length > 0 && filterValues.map((filter, index) => {
+          // Each filter gets its own expanded state key
+          const filterKey = `filter_${index}`;
+          const isOpen = expanded[filterKey] || false;
+          return (
+            <>
+              <div className={classes.categories} key={filterKey}>
+              <h2
+                onClick={() => toggleDropdown(filterKey)}
+                style={
+                  isOpen
+                    ? {
+                        display: "grid",
+                        gridTemplateColumns: "80% 20%",
+                        borderWidth: '100%',
+                        cursor: 'pointer',
+                      }
+                    : {
+                        display: "grid",
+                        gridTemplateColumns: "80% 20%",
+                        borderBottom: "none",
+                        cursor: 'pointer',
+                      }
+                }
+              >
+                <span style={{ paddingLeft: '2%' }}>
+                  {language === "eng" ? filter?.nom : filter?.nom_fr}
+                </span>
+                {isOpen ? (
+                  <span
+                    style={{
+                      margin: "auto",
+                      paddingRight: "0",
+                      rotate: "180deg",
+                    }}
+                  >
+                    <IoIosArrowDown style={{ color: 'var(--primary-color)' }} />
+                  </span>
+                ) : (
+                  <span style={{ margin: "auto", paddingLeft: "0" }}>
+                    <IoIosArrowDown style={{ color: 'var(--primary-color)' }} />
+                  </span>
+                )}
+              </h2>
+              {isOpen && (
+                <div className={classes.dropdown}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5em' }}>
+                    {filter?.values?.map((props) => {
+                      const isSelected = isMultiproductSelected(props.id);
+                      return (
+                        <label
+                          key={props.id}
+                          className={classes.ageSelect}
+                          style={{
+                          borderColor: filter?.values?.length > 0 ? 'var(--primary-color)' : undefined,
+                          display: 'flex',
+                          alignItems: 'center',
+                          cursor: 'pointer',
+                          padding: '0.2em 0.5em',
+                        }}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isSelected}
+                          onChange={() => handleMultiProductsChange(props.id)}
+                          className={classes.checkbox}
+                          style={{
+                            marginRight: "1em",
+                            width: "1.3em",
+                            height: "1.3em",
+                          }}
+                        />
+                        {language === "eng" ? props?.nom : props?.nom_fr}
+                      </label>
+                    )})}
+                  </div>
+                </div>
+              )}
               </div>
-          </div>} */}
+
+              <Divider  
+              color="var(--secondary-color)"
+              width="88%"
+              style={{margin:'0.5em auto'}}
+              />
+            </>
+          );
+        })}
+
+
+
+          <div className={classes.categories}>
+            <h2>{language === 'eng' ? "Stock" : "Stock" }</h2>
+              <div className={classes.dropdown}>
+              <FormControl>
+                  <RadioGroup
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    defaultValue='all'
+                    value={inStock}
+                    name="radio-buttons-group"
+                    onChange={handleChangeStock}
+                  >
+                    <FormControlLabel
+                      value={null}
+                      control={
+                        <Radio style={{color:'var(--primary-color)'}} />
+                      }
+                      label={language === "eng" ? 'All' : "Tout"}
+                    />
+                    <FormControlLabel
+                      value={true}
+                      control={<Radio style={{color:'var(--primary-color)'}}/>}
+                      label={language === 'eng' ? "In Stock" : "En stock" } // Make sure item.nom is a string
+                    />
+                    <FormControlLabel
+                      value={false}
+                      control={<Radio style={{color:'var(--primary-color)'}}/>}
+                      label={language === 'eng' ? "Out Of Stock" : "En rupture de stock" } // Make sure item.nom is a string
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </div>
+          </div>
 
           <Divider  
           color="var(--secondary-color)"

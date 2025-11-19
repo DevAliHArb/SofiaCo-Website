@@ -63,11 +63,22 @@ export const productSlice = createSlice({
           item.discount = Number(action.payload.discount) || item.discount;
       }
   },
-    deleteItem: (state,action) => {
+    deleteItem: (state, action) => {
+      if (action.payload.article_variant_combination) {
+        const variantId = action.payload.article_variant_combination.id;
+        const itemId = action.payload._id;
         state.productData = state.productData.filter(
-            (item) => item._id !== action.payload
-        )
-            // console.log(state.productData);
+          (item) =>
+            !(item.article_variant_combination?.id === variantId &&
+              item._id === itemId)
+        );
+      } else {
+        const itemId = action.payload._id;
+        state.productData = state.productData.filter(
+          (item) => item._id !== itemId
+        );
+      }
+      // console.log(state.productData);
     },
     resetCart: (state) => {
         state.productData = [];
@@ -87,12 +98,20 @@ export const productSlice = createSlice({
         }
     },
     changeQuantity: (state, action) => {
+      if (action.payload.article_variant_combination) {
+          const item = state.productData.find((item) => item._id === action.payload._id && item.article_variant_combination?.id === action.payload.article_variant_combination.id);
+          // console.log('testttt', item)
+          if (item) {
+              item.quantity = action.payload.quantity;
+          }
+      } else {
       const item = state.productData.find((item) => item._id === action.payload._id);
-      // console.log('testttt', item)
-      if (item) {
-          item.quantity = action.payload.quantity;
+          // console.log('testttt', item)
+          if (item) {
+              item.quantity = action.payload.quantity;
+          }
       }
-  },
+    },
     addUser: (state, action) => {
       state.userInfo = {
         ...action.payload,

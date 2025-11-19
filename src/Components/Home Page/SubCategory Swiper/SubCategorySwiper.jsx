@@ -11,6 +11,7 @@ import AuthContext from "../../Common/authContext";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigation, Pagination } from "swiper/modules";
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import { resetSearchData } from "../../Common/redux/productSlice";
 
 const SubCategorySwiper = (categoryData) => {
   const authCtx = useContext(AuthContext);
@@ -25,6 +26,21 @@ const SubCategorySwiper = (categoryData) => {
 
   
 
+  const handleCategoryClick = ( id) => {
+    dispatch(resetSearchData()); 
+    localStorage.removeItem("subCategories");
+    localStorage.removeItem("parentCategories");
+    localStorage.removeItem("publishers");
+    localStorage.removeItem("categories");
+    localStorage.removeItem("collections");
+    // Add articlefamille_id to subCategories in localStorage
+    const subCategories = JSON.parse(localStorage.getItem("subCategories")) || [];
+    if (!subCategories.includes(id)) {
+      subCategories.push(id);
+      localStorage.setItem("subCategories", JSON.stringify(subCategories));
+    }
+    navigate("/products");
+  };
 
   const filteredArticleFamille = authCtx.articleFamille;
   return (
@@ -60,11 +76,7 @@ const SubCategorySwiper = (categoryData) => {
                 <SwiperSlide key={props.id} className={classes.swiperslide}>
                 <div
                   className={classes.card_container}
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    // dispatch(addSelectedBook(props));
-                    navigate(`/categoryproductlist/${props.id}`);
-                  }}
+              onClick={() => { handleCategoryClick(props.id) }}
                 >
                   <div className={classes.card_img}>
                       <img

@@ -31,6 +31,7 @@ function SearchBox() {
   const searchData = useSelector((state) => state.products.searchData);
   const user = useSelector((state) => state.products.userInfo);
 
+  const SelectedCategoryId = useSelector((state) => state.products.selectedCategoryId);
   const handleSearchInputChange = (e) => {
     setCatSearchQuery(e.target.value);
   };
@@ -42,7 +43,11 @@ function SearchBox() {
         setLoading(true);
         const fetchArticles = async () => {
           try {
-            let url = `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&user_id=${user?.id ? user.id : null}&`;
+            let articleFamilleIdParam = '';
+            if (SelectedCategoryId && SelectedCategoryId !== 'null') {
+              articleFamilleIdParam = `&articlefamilleparent_id=${SelectedCategoryId}`;
+            }
+            let url = `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&user_id=${user?.id ? user.id : null}${articleFamilleIdParam}&`;
             if (selectedOption === "Book") {
               url += `title=${searchQuery}`;
             } else if (selectedOption === "Author") {
@@ -103,10 +108,10 @@ function SearchBox() {
     dispatch(editSearchData({ ...search }));
   
     // If the current path is /products, reload the page, otherwise navigate
-    if (window.location.pathname === "/books") {
+    if (window.location.pathname === "/products") {
       window.location.reload(); // Reload if already on /products
     } else {
-      navigate("/books"); // Navigate to /products if not already there
+      navigate("/products"); // Navigate to /products if not already there
     }
   
     // Clear the search query
@@ -225,7 +230,7 @@ function SearchBox() {
                       dispatch(deleteSelectedBook(article.id));
                       dispatch(addSelectedBook(article));
                       setSearchQuery('');
-                      navigate(`/bookdetails/${article.id}`);
+                      navigate(`/productdetails/${article.id}`);
                     }}
                   >
                     <div className={classes.dropdown_card_img} style={{position:"relative"}}>

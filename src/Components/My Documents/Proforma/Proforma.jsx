@@ -179,7 +179,7 @@ const Proforma = () => {
                   </h1>
                   <button
                     className={classes.btn}
-                    onClick={() => navigate("/books")}
+                    onClick={() => navigate("/products")}
                   >
                     {language === "fr"
                       ? "Commencer vos achats"

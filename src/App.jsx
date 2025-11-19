@@ -41,6 +41,7 @@ import NewPassword from './Components/Auth Pages/New Password/NewPassword';
 import ForgotPassword from './Components/Auth Pages/Forgot Password/ForgotPassword';
 import PublisherDetails from './Components/Collaborators/Publisher DetailsPage/PublisherDetails';
 import ResendVerify from './Components/Auth Pages/Verfiy Email/ResendVerify';
+import AddCartPopup from './Components/Common Components/Add To Cart Popup/AddCartPopup';
 
 function App() {
   const authCtx = useContext(AuthContext)
@@ -139,6 +140,7 @@ function App() {
       {!isAuthPages && <Navbar toggle={toggle} cartToggle={cartToggle} />}
       <CartSidebar isOpen={cartisOpen} toggle={cartToggle} />
       <SideBar isOpen={isOpen} toggle={toggle} />
+      <AddCartPopup />
       <div>
         <Routes>
           <Route
@@ -167,8 +169,9 @@ function App() {
           <Route path="/checkout" element={<ScrollToTop><CheckOut /></ScrollToTop>} />
           <Route path="/checkout-completed/:id" element={<ScrollToTop><CompletedOrder /></ScrollToTop>} />
           <Route path="/contact" element={<ScrollToTop><ContactUs/></ScrollToTop>} />
-          <Route path="/books" element={<ScrollToTop><BooksPage /></ScrollToTop>} />
-          <Route path="/bookdetails/:id" element={<ScrollToTop><BookDetailsPage cartToggle={cartToggle} /></ScrollToTop>} />
+          <Route path="/products" element={<ScrollToTop><BooksPage /></ScrollToTop>} />
+          <Route path="/products/subcategory/:id" element={<ScrollToTop><BooksPage /></ScrollToTop>} />
+          <Route path="/productdetails/:id" element={<ScrollToTop><BookDetailsPage cartToggle={cartToggle} /></ScrollToTop>} />
           <Route path="/account/:pageId/*" element={user ? <ScrollToTop><AccountPage /></ScrollToTop> : <Navigate to="/login" replace />} />
           <Route path="/my-documents/:pageId" element={user ? <ScrollToTop><MyDocumentsPage /></ScrollToTop> : <Navigate to="/login" replace />} />
           <Route path="/policies" element={<ScrollToTop><Mentions /></ScrollToTop>} />

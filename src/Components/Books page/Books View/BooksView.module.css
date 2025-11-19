@@ -61,9 +61,10 @@
   margin: 0 auto;
   color: var(--secondary-color);
   font-family: var(--font-family);
-  font-size: calc(0.8rem + 0.3vw);
+  font-size: calc(0.7rem + 0.3vw);
   font-style: normal;
   font-weight: 700;
+  text-transform: capitalize;
   line-height: normal;
 }
 

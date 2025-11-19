@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classes from "./CartItem.module.css";
-import { addTocart, decreamentQuantity, increamentQuantity } from "../Common/redux/productSlice";
+import { addTocart, changeQuantity, decreamentQuantity, increamentQuantity } from "../Common/redux/productSlice";
 import DeleteIcon from "../../assets/DeleteIcon.svg";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -75,9 +75,11 @@ const CartItem = () => {
   const [isLoading, setIsLoading] = React.useState(false);
 
   
-  React.useEffect(() => {
+  useEffect(() => {
     const initialQuantities = productData.reduce((acc, item) => {
-      acc[item._id] = item.quantity;
+      // Use article_variant_combination.id if exists, else fallback to _id
+      const key = item.article_variant_combination?.id || item._id;
+      acc[key] = item.quantity;
       return acc;
     }, {});
     setLocalQuantities(initialQuantities);
@@ -86,7 +88,21 @@ const CartItem = () => {
   
   const updateQuantity = (item) => {
     if (!isLoading) {
-    const newQuantity = localQuantities[item._id];
+      const key = item.article_variant_combination?.id || item._id;
+      const newQuantity = localQuantities[key];
+
+      
+      // Find if product already exists in the cart (match by id and variants)
+      let userexistingarticle = null;
+      if (item.article_variant_combination) {
+        userexistingarticle = productData.find(existitem => 
+          item?._id === existitem._id && item.article_variant_combination?.id === existitem.article_variant_combination?.id
+        );
+      } else {
+        userexistingarticle = productData.find(existitem => item?._id === existitem._id);
+      }
+
+
     if (newQuantity !== item.quantity) {
     setIsLoading(true)
       axios
@@ -95,15 +111,9 @@ const CartItem = () => {
         })
         .then(() => {
           dispatch(
-            addTocart({
-              _id: item._id,
-              title: item.name,
-              author: item.author,
-              average_rate: item.average_rate,
-              image: item.image,
-              price: item.price,
-              quantity: newQuantity - item.quantity, // The difference in quantities
-              description: item.resume,
+            changeQuantity({
+              ...userexistingarticle,
+              quantity: newQuantity,
             })
           );
         })
@@ -214,9 +224,9 @@ const CartItem = () => {
                   defaultValue={1} 
                   disabled={isLoading}
                   className={classes.quantity1}
-                  value={localQuantities[props._id] || ""}
+                  value={localQuantities[props.article_variant_combination?.id || props._id] || ""}
                   onChange={(e) =>
-                    handleInputChange(props._id, e.target.value, props._qte_a_terme_calcule)
+                    handleInputChange(props.article_variant_combination?.id || props._id, e.target.value, props._qte_a_terme_calcule)
                   }
                   onBlur={() => handleBlur(props)} 
                   onKeyPress={(e) => handleKeyPress(e, props)}
@@ -260,7 +270,7 @@ const CartItem = () => {
       ? ((props.price_ttc - props.price_ttc * (props.discount / 100)) * authCtx.currencyRate).toFixed(2) * props.quantity
       : (props.price_ttc * authCtx.currencyRate) * props.quantity).toFixed(2)}$`}
             </p>
-            <div className={classes.delete_btn} style={{zIndex:'50'}}><img src={DeleteIcon} style={{width:'1em'}}  onClick={() => setShowPopup(props._id)} /></div>
+            <div className={classes.delete_btn} style={{zIndex:'50'}}><img src={DeleteIcon} style={{width:'1em'}}  onClick={() => setShowPopup(props)} /></div>
           </div>
           <div className={classes.cardmobile} key={index} style={{borderBottom:(index + 1) !== productData?.length && "1px solid var(--primary-color)",position:'relative',overflow:'hidden'}}>
           {props?.removed && <div className={classes.removed_item}>
@@ -287,7 +297,7 @@ const CartItem = () => {
               <p style={{width:'80%',textAlign:"start",fontSize:"calc(.8rem + .3vw)",fontWeight:"600"}}>{props.title.slice(0,20)}</p>
               
            
-              <div className={classes.delete_btn} style={{zIndex:'50'}}><img src={DeleteIcon} style={{width:'1.5em'}}  onClick={() => setShowPopup(props._id)} /></div>
+              <div className={classes.delete_btn} style={{zIndex:'50'}}><img src={DeleteIcon} style={{width:'1.5em'}}  onClick={() => setShowPopup(props)} /></div>
             </div>
               <p style={{margin:'0.2em 0', width:'100%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"500"}}>{props.author.slice(0,20)}</p>
               {/* <p style={{margin:'0.2em 0', width:'100%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"500"}}>{new Date(props.date).toDateString()}</p> */}
@@ -342,9 +352,9 @@ const CartItem = () => {
                   defaultValue={1} 
                   disabled={isLoading}
                   className={classes.quantity1}
-                  value={localQuantities[props._id] || ""}
+                  value={localQuantities[props.article_variant_combination?.id || props._id] || ""}
                   onChange={(e) =>
-                    handleInputChange(props._id, e.target.value, props._qte_a_terme_calcule)
+                    handleInputChange(props.article_variant_combination?.id || props._id, e.target.value, props._qte_a_terme_calcule)
                   }
                   onBlur={() => handleBlur(props)} 
                   onKeyPress={(e) => handleKeyPress(e, props)}
@@ -366,7 +376,7 @@ const CartItem = () => {
         message= {language === 'eng' ? "Are you sure you want to delete this item?" : "Êtes-vous sûr de bien vouloir supprimer cet article?"}
         onConfirm={() => handleDelete(showPopup)}
         onCancel={() => setShowPopup(false)}
-        showPopup={showPopup === props._id}
+        showPopup={JSON.stringify(showPopup) === JSON.stringify(props)}
       />
       )}
         </>
