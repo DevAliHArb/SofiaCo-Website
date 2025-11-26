@@ -162,7 +162,7 @@ swiper.slideTo(index)};
           <p>{language === 'eng' ? '100%  guarantee of identification' : ''}</p>
           </div>               */}
         <div className={classes.socialsCont}> 
-            <p style={{color:'var(--secondary-color)',fontSize:'calc(.9rem + .3vw)',fontWeight:"600",paddingLeft:'1em', margin:'auto 0'}}><FiShare2 style={{margin:'0 .3em -.3em 0'}}/>{language === 'eng' ? 'Share:' : 'Recommander ce livre:'}</p>
+            <p style={{color:'var(--secondary-color)',fontSize:'calc(.9rem + .3vw)',fontWeight:"600",paddingLeft:'1em', margin:'auto 0'}}><FiShare2 style={{margin:'0 .3em -.3em 0'}}/>{language === 'eng' ? 'Share:' : 'Recommander ce produit:'}</p>
             <div style={{display:'flex',flexDirection:'row'}}>
               <div className={classes.iconCont}><FaFacebook style={{fontSize:'1.6em',marginTop:'.45em', color:'var(--primary-color)', cursor:'pointer'}}/></div>
               <div className={classes.iconCont}><FaXTwitter style={{fontSize:'1.6em',marginTop:'.45em', color:'var(--primary-color)', cursor:'pointer'}}/></div>
@@ -172,7 +172,7 @@ swiper.slideTo(index)};
           </div> 
           </div>
         <div className={classes.socialsContMob}> 
-            <p style={{color:'var(--secondary-color)',fontSize:'calc(.9rem + .3vw)',fontWeight:"600"}}><FiShare2 style={{margin:'0 .3em -.1em 0'}}/>{language === 'eng' ? 'Share:' : 'Recommander ce livre:'}</p>
+            <p style={{color:'var(--secondary-color)',fontSize:'calc(.9rem + .3vw)',fontWeight:"600"}}><FiShare2 style={{margin:'0 .3em -.1em 0'}}/>{language === 'eng' ? 'Share:' : 'Recommander ce produit:'}</p>
             <div style={{display:'flex',flexDirection:'row'}}>
               <div className={classes.iconCont}><FaFacebook style={{fontSize:'1.4em',marginTop:'.45em', color:'var(--primary-color)', cursor:'pointer'}}/></div>
               <div className={classes.iconCont}><FaXTwitter style={{fontSize:'1.4em',marginTop:'.45em', color:'var(--primary-color)', cursor:'pointer'}}/></div>

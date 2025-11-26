@@ -307,7 +307,7 @@ const CheckOut = () => {
   
     // Cleanup function
     return () => {
-      if (window.$ && widgetRef.current) {
+      if (window.$ && widgetRef.current && typeof window.$.fn.frameColissimoClose === "function") {
         window.$(widgetRef.current).frameColissimoClose();
         setColissimoPopupOpen(false);
       }
@@ -320,7 +320,7 @@ const CheckOut = () => {
       setColissimoPointData(point);
   
       // Ensure to close widget and update state
-      if (window.$ && widgetRef.current) {
+      if (window.$ && widgetRef.current && typeof window.$.fn.frameColissimoClose === "function") {
         window.$(widgetRef.current).frameColissimoClose();
       }
       setColissimoPopupOpen(false);
@@ -850,6 +850,7 @@ const CheckOut = () => {
         cost_without_discount: currency === "eur" 
           ? parseFloat(Number(item.price).toFixed(2)) 
           : parseFloat((item.price * authCtx.currencyRate).toFixed(2)),
+        variant_combination_id: item.article_variant_combination?.id || null,
       });
   
       totalPrice += (price * 1).toFixed(2) * item.quantity;

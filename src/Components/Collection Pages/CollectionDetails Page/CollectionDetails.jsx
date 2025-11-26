@@ -50,6 +50,7 @@ const CollectionDetailsPage = () => {
   const user = useSelector((state) => state.products.userInfo);
   const favoriteData = useSelector((state) => state.products.favorites);
   const collectionData = useSelector((state) => state.products.collection[0]);
+  const SelectedCategoryId = useSelector((state) => state.products.selectedCategoryId);
 
   const authCtx = useContext(AuthContext);
   const dispatch = useDispatch();
@@ -111,12 +112,16 @@ const CollectionDetailsPage = () => {
 
   useEffect(() => {
     fetchArticles();
-  }, [collectionData]);
+  }, [collectionData, SelectedCategoryId]);
 
   const fetchArticles = async () => {
     try {
+      let articleFamilleIdParam = '';
+      if (SelectedCategoryId && SelectedCategoryId !== 'null') {
+        articleFamilleIdParam = `&articlefamilleparent_id=${SelectedCategoryId}`;
+      }
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&collection=${collectionData?.id}&user_id=${user?.id ? user.id : null}`
+        `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&collection=${collectionData?.id}&user_id=${user?.id ? user.id : null}${articleFamilleIdParam}`
       );
       setArticles(response.data.data);
     } catch (error) {
@@ -261,7 +266,7 @@ const CollectionDetailsPage = () => {
                     onClick={(event) => {
                       authCtx.setbookDetails(props);
                       event.stopPropagation();
-                      navigate(`/bookdetails/${props.id}`);
+                      navigate(`/productdetails/${props.id}`);
                     }}
                   >
                     <div className={classes.card_img} style={{position:"relative"}}>

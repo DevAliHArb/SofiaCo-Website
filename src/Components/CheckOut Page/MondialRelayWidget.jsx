@@ -31,7 +31,7 @@ const MondialRelayWidget = ({ onPointSelect, onClose }) => {
       if (window.$ && window.$.fn && window.$.fn.MR_ParcelShopPicker) {
         window.$("#Zone_Widget").MR_ParcelShopPicker({
           Target: "#Target_Widget",
-          Brand: "BDTEST  ",
+          Brand: "CC23IE3G",
           Country: "FR",
           PostCode: "77330",
           ColLivMod: "24R",

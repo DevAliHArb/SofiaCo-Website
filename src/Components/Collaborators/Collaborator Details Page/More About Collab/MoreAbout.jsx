@@ -35,14 +35,19 @@ const MoreAbout = () => {
   const [articles, setArticles] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0); // State to track active slide index
   const user = useSelector((state) => state.products.userInfo);
+  const SelectedCategoryId = useSelector((state) => state.products.selectedCategoryId);
 
   useEffect(() => {
     fetchArticles();
-  }, []);
+  }, [SelectedCategoryId]);
 
   const fetchArticles = async () => {
     try {
-      const baseURL = `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&user_id=${user?.id ? user.id : null}`;
+      let articleFamilleIdParam = '';
+      if (SelectedCategoryId && SelectedCategoryId !== 'null') {
+        articleFamilleIdParam = `&articlefamilleparent_id=${SelectedCategoryId}`;
+      }
+      const baseURL = `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&user_id=${user?.id ? user.id : null}${articleFamilleIdParam}`;
 
     let queryParam = '';
     switch (CollaboratorData?.type?.name_fr) {
@@ -130,7 +135,7 @@ const MoreAbout = () => {
                       authCtx.setbookDetails(props);
                       event.stopPropagation();
                       dispatch(addSelectedBook(props))
-                      navigate(`/bookdetails/${props.id}`);
+                      navigate(`/productdetails/${props.id}`);
                     }}
                   >
                     <div className={classes.card_img} style={{position:"relative"}}>
@@ -182,7 +187,12 @@ const MoreAbout = () => {
                             className={classes.fav}
                             onClick={(event) => {
                               event.stopPropagation();
-                              authCtx.addToCart({props: props}); 
+                              if (props.article_variant_combinations && props.article_variant_combinations.length > 0) {
+                                authCtx.setaddtocartPopupOpen(true);
+                                authCtx.setaddtocartPopupId(props.id);
+                              } else {
+                                authCtx.addToCart({ props: props });
+                              } 
                             }}
                             fontSize="inherit"
                           />

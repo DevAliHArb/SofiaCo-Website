@@ -116,7 +116,7 @@ const AlsoSee = (props) => {
                       authCtx.setbookDetails(props);
                       event.stopPropagation();
                       dispatch(addSelectedBook(props))
-                      navigate(`/bookdetails/${props.id}`);
+                      navigate(`/productdetails/${props.id}`);
                     }}
                   >
                     <div className={classes.card_img}>
@@ -168,7 +168,12 @@ const AlsoSee = (props) => {
                             className={classes.fav}
                             onClick={(event) => {
                               event.stopPropagation();
-                              authCtx.addToCart({props: props}); 
+                              if (props.article_variant_combinations && props.article_variant_combinations.length > 0) {
+                                authCtx.setaddtocartPopupOpen(true);
+                                authCtx.setaddtocartPopupId(props.id);
+                              } else {
+                                authCtx.addToCart({ props: props });
+                              }
                             }}
                             fontSize="inherit"
                           />

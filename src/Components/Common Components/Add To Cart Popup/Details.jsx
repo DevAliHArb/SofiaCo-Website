@@ -141,49 +141,177 @@ const Details = () => {
 
   const token = getToken();
   
-  
-  const handleSuivreCollab = async (collaborator) => {
+  const handleSuivreCollab = async () => {
     if (!user) {
-      // If user is not defined, throw an error
-      toast.error(
-        `${
-          language === "eng"
-            ? "Please log in first"
-            : "Veuillez d'abord vous connecter"
-        }`
-      );
-      return;
+        // If user is not defined, throw an error
+        toast.error(`${language === 'eng' ? "Please log in first" : "Veuillez d'abord vous connecter"}`);
+        return;
     }
 
     try {
+        // Fetch the list of collaborators
+        const collaboratorsResponse = await axios.get(`${import.meta.env.VITE_TESTING_API}/collaborators?ecom_type=sofiaco`);
+        const collaborators = collaboratorsResponse.data;
+
+        const cleanedAuteur = bookData.dc_auteur.trim();
+        // Find the collaborator whose nom + prenom matches bookData.dc_auteur
+        const collaborator = collaborators.find(collaborator => {
+            const fullName = `${collaborator.nom}`;
+            // console.log(fullName.toLowerCase())
+            // console.log(cleanedAuteur.toLowerCase())
+            return fullName.toLowerCase() === cleanedAuteur.toLowerCase();
+        });
+        
+        if (!collaborator) {
+            throw new Error('Collaborator not found');
+        }
+
+        // Send the subscription request with the found collaborator's id
+        const response = await axios.post(`${import.meta.env.VITE_TESTING_API}/users/${user.id}/subscriptions`, {
+            collaborator_id: collaborator.id,
+            ecom_type: 'sofiaco'
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}` // Include token in the headers
+            }
+        });
+
+        // console.log(response.data);
+        toast.success(language === "eng" ? `${collaborator.nom} subscribed successfully!` : `${collaborator.nom} s'est abonné avec succès !`, {hideProgressBar: true}); // You can handle the response here
+    } catch (error) {
+        // console.error('Error:', error);
+        toast.error(error.response?.data?.error || error.message);
+    }
+};
+
+const handleSuivreEditor = async () => {
+  if (!user) {
+      // If user is not defined, throw an error
+      toast.error(`${language === 'eng' ? "Please log in first" : "Veuillez d'abord vous connecter"}`);
+      return;
+  }
+
+  try {
+      // Fetch the list of collaborators
+      const collaboratorsResponse = await axios.get(`${import.meta.env.VITE_TESTING_API}/collaborators?ecom_type=sofiaco`);
+      const collaborators = collaboratorsResponse.data;
+
+      const cleanedAuteur = bookData?.dc_editor.trim();
+      // Find the collaborator whose nom + prenom matches bookData.dc_auteur
+      const collaborator = collaborators.find(collaborator => {
+          const fullName = `${collaborator.nom}`;
+          // console.log(fullName.toLowerCase())
+          // console.log(cleanedAuteur.toLowerCase())
+          return fullName.toLowerCase() === cleanedAuteur.toLowerCase();
+      });
 
       if (!collaborator) {
-        throw new Error("Collaborator not found");
+          throw new Error('Collaborator not found');
       }
 
       // Send the subscription request with the found collaborator's id
-      const response = await axios.post(
-        `${import.meta.env.VITE_TESTING_API}/users/${user.id}/subscriptions`,
-        {
+      const response = await axios.post(`${import.meta.env.VITE_TESTING_API}/users/${user.id}/subscriptions`, {
           collaborator_id: collaborator.id,
-          ecom_type: "hanoot",
-        },
-        {
+          ecom_type: 'sofiaco',
+      }, {
           headers: {
-            Authorization: `Bearer ${token}`, // Include token in the headers
-          },
-        }
-      );
+              Authorization: `Bearer ${token}` // Include token in the headers
+          }
+      });
 
       // console.log(response.data);
-      toast.success(`${collaborator.nom} subscribed successfully!`, {
-        hideProgressBar: true,
-      }); // You can handle the response here
-    } catch (error) {
+      toast.success(`${language === 'eng' ? `${collaborator.nom} subscribed successfully!` : `${collaborator.nom} abonné avec succès !!`}`, {hideProgressBar: true}); // You can handle the response here
+  } catch (error) {
       // console.error('Error:', error);
       toast.error(error.response?.data?.error || error.message);
-    }
-  };
+  }
+};
+
+const handleSuivreTranslator = async () => {
+  if (!user) {
+      // If user is not defined, throw an error
+      toast.error(`${language === 'eng' ? "Please log in first" : "Veuillez d'abord vous connecter"}`);
+      return;
+  }
+
+  try {
+      // Fetch the list of collaborators
+      const collaboratorsResponse = await axios.get(`${import.meta.env.VITE_TESTING_API}/collaborators?ecom_type=sofiaco`);
+      const collaborators = collaboratorsResponse.data;
+
+      const cleanedAuteur = bookData.dc_traducteur.trim();
+      // Find the collaborator whose nom + prenom matches bookData.dc_auteur
+      const collaborator = collaborators.find(collaborator => {
+          const fullName = `${collaborator.nom}`;
+          // console.log(fullName.toLowerCase())
+          // console.log(cleanedAuteur.toLowerCase())
+          return fullName.toLowerCase() === cleanedAuteur.toLowerCase();
+      });
+
+      if (!collaborator) {
+          throw new Error('Collaborator not found');
+      }
+
+      // Send the subscription request with the found collaborator's id
+      const response = await axios.post(`${import.meta.env.VITE_TESTING_API}/users/${user.id}/subscriptions`, {
+          collaborator_id: collaborator.id,
+          ecom_type: 'sofiaco',
+      }, {
+          headers: {
+              Authorization: `Bearer ${token}` // Include token in the headers
+          }
+      });
+
+      // console.log(response.data);
+      toast.success(`${language === 'eng' ? `${collaborator.nom} subscribed successfully!` : `${collaborator.nom} abonné avec succès !!`}`, {hideProgressBar: true}); // You can handle the response here
+  } catch (error) {
+      // console.error('Error:', error);
+      toast.error(error.response?.data?.error || error.message);
+  }
+};
+
+const handleSuivreIllustrateur = async () => {
+  if (!user) {
+      // If user is not defined, throw an error
+      toast.error(`${language === 'eng' ? "Please log in first" : "Veuillez d'abord vous connecter"}`);
+      return;
+  }
+
+  try {
+      // Fetch the list of collaborators
+      const collaboratorsResponse = await axios.get(`${import.meta.env.VITE_TESTING_API}/collaborators?ecom_type=sofiaco`);
+      const collaborators = collaboratorsResponse.data;
+
+      const cleanedAuteur = bookData.dc_illustrateur.trim();
+      // Find the collaborator whose nom + prenom matches bookData.dc_auteur
+      const collaborator = collaborators.find(collaborator => {
+          const fullName = `${collaborator.nom}`;
+          // console.log(fullName.toLowerCase())
+          // console.log(cleanedAuteur.toLowerCase())
+          return fullName.toLowerCase() === cleanedAuteur.toLowerCase();
+      });
+
+      if (!collaborator) {
+          throw new Error('Collaborator not found');
+      }
+
+      // Send the subscription request with the found collaborator's id
+      const response = await axios.post(`${import.meta.env.VITE_TESTING_API}/users/${user.id}/subscriptions`, {
+          collaborator_id: collaborator.id,
+          ecom_type: 'sofiaco',
+      }, {
+          headers: {
+              Authorization: `Bearer ${token}` // Include token in the headers
+          }
+      });
+
+      // console.log(response.data);
+      toast.success(`${language === 'eng' ? `${collaborator.nom} subscribed successfully!` : `${collaborator.nom} abonné avec succès !!`}`, {hideProgressBar: true}); // You can handle the response here
+  } catch (error) {
+      // console.error('Error:', error);
+      toast.error(error.response?.data?.error || error.message);
+  }
+};
 
 const handleSuivreCollection = async () => {
   if (!user) {
@@ -282,7 +410,11 @@ const handleCatClick = async () => {
     };
 
     
-    const handleFilterCollaborator = (collaboratorId) => {
+    const handleFilterCollaborator = (collaboratorName) => {
+      const cleanString = (str) => str?.toLowerCase().replace(/[^a-z0-9]/gi, '');
+      const collaboratorId = authCtx.collaborators.find(
+        collab => cleanString(collab.nom) === cleanString(collaboratorName)
+      )?.id;
       localStorage.removeItem("categories");
       localStorage.removeItem("publishers");
       localStorage.removeItem("collections");
@@ -694,128 +826,6 @@ const [selectedVariants, setSelectedVariants] = useState({});
                               />
                             )}
                           </div>
-        </div>
-        <div className={classes.char_con}>
-          {/* Grouped Collaborators Rendering */}
-          {bookData?.collaborators && bookData?.collaborators.length > 0 && (() => {
-            // Group collaborators by type_id
-            const groupedCollaborators = bookData.collaborators.reduce((acc, collab) => {
-              const typeId = collab.type_id;
-              if (!acc[typeId]) {
-                acc[typeId] = {
-                  type: collab.type,
-                  type_fr: collab.type_fr,
-                  collaborators: []
-                };
-              }
-              acc[typeId].collaborators.push(collab);
-              return acc;
-            }, {});
-
-            // Convert to array and render
-            return Object.values(groupedCollaborators).map((group, index) => {
-              return (
-                <div key={index} className={index % 2 === 0 ? classes.char : classes.char}>
-                  <p style={{fontWeight:'400', textTransform:'capitalize'}}>{language === 'eng' ? group.type : group.type_fr}</p>
-                  <p style={{fontWeight:'400', cursor:'pointer'}}>
-                    {group.collaborators.map((collab, idx) => (
-                      <span key={idx}>
-                        <span
-                          onClick={() => handleFilterCollaborator(collab.id)}
-                          style={{cursor:'pointer', borderBottom: '1px solid var(--primary-color)'}}
-                        >
-                          {collab.nom}
-                        </span>
-                        {idx < group.collaborators.length - 1 && ', '}
-                      </span>
-                    ))}
-                  </p>
-                </div>
-              );
-            });
-          })()}
-          <div className={classes.char}>
-            <p >{language === 'eng' ? "Publishing house" : "Maison d'édition" }</p>
-            <p style={{cursor:'pointer'}}
-              onClick={() => handleFilterPublisher(bookData?.editor?.id)}
-            >
-              : {bookData?.editor?._nom}
-            </p>
-          </div>
-          <div className={classes.char}>
-            <p >{language === 'eng' ? 'Collection' : 'Collection'}</p>
-            <p
-              onClick={() => handleFilterCollection(bookData?.b_usr_article_collection_id)}
-              style={{ cursor: "pointer" }}
-            >
-              : {bookData.dc_collection}
-            </p>
-            {bookData.dc_collection && bookData.dc_collection !== "" && <span  style={{
-                background: "var(--primary-color)",
-                color:'#fff',
-                height:'fit-content',
-                fontWeight: "500",
-                cursor: "pointer",
-                borderRadius:'0.2em',
-                padding:'0.2em 0.5em',
-                margin:'auto',
-                display:'flex'
-              }}
-               onClick={handleSuivreCollection}> 
-                <MdAddBox style={{fontSize:'1.5em', margin:'auto'}}/> 
-               </span>}
-          </div>
-          <div className={classes.char}>
-            <p >{language === 'eng' ? 'Category' : 'Catégorie'}</p>
-            <p
-              onClick={() => handleCatClick()}
-              style={{ cursor: "pointer" }}
-            >
-              : {categoryItem?._nom}
-            </p>
-            {categoryItem && categoryItem?._nom !== "" && <span  style={{
-                background: "var(--primary-color)",
-                color:'#fff',
-                height:'fit-content',
-                fontWeight: "500",
-                cursor: "pointer",
-                borderRadius:'0.2em',
-                padding:'0.2em 0.5em',
-                margin:'auto',
-                display:'flex'
-              }}
-               onClick={handleSuivreCategory}> 
-                <MdAddBox style={{fontSize:'1.5em', margin:'auto'}}/> 
-               </span>}
-          </div>
-          <div className={classes.char}>
-            <p >EAN</p>
-            <p >: {bookData._code_barre}</p>
-          </div>
-          <div className={classes.char}>
-            <p >{language === 'eng' ? 'Number pf pages' : 'Nombre de pages'}</p>
-            <p >: {bookData.nbpages}</p>
-          </div>
-          <div className={classes.char}>
-            <p >{language === 'eng' ? 'Publish date' : 'Date de parution'}</p>
-            <p >
-              : {bookData.dc_parution?.substring(0, 10)}
-            </p>
-          </div>
-          {bookData.characteristics?.map((charac, index) => (
-            <div key={index} className={ classes.char}>
-              <p>{charac.name}</p>
-              <p>{charac.multiproductData?.map((data, i) => (
-                <span key={i}>: {data.name}{i < charac.multiproductData.length - 1 ? ', ' : ''}</span>
-              ))}</p>
-            </div>
-          ))}
-          <div className={classes.resume_content}>
-          <p >{language === 'eng' ? 'Resume' : 'Résumé'}</p>
-          <p>
-            : {truncateText(stripHtmlTags(bookData.descriptif), 500)}
-          </p>
-          </div>
         </div>
       </div>
     </>

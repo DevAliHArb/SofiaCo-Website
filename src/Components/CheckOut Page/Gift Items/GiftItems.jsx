@@ -15,6 +15,7 @@ const GiftItems = ({ handleGiftChange, selectedGiftItems, subtotalAmt, onMaxGift
   );
     const authCtx = useContext(AuthContext);
     const productData = useSelector((state) => state.products.productData);
+  const SelectedCategoryId = useSelector((state) => state.products.selectedCategoryId);
   const [articles, setArticles] = useState([]);
   const [giftConfiguration, setGiftConfiguration] = useState([]);
 
@@ -26,8 +27,12 @@ const GiftItems = ({ handleGiftChange, selectedGiftItems, subtotalAmt, onMaxGift
   // selectedItems will be array of selected article objects
   const fetchArticles = async () => {
       try {
+      let articleFamilleIdParam = '';
+      if (SelectedCategoryId && SelectedCategoryId !== 'null') {
+        articleFamilleIdParam = `&articlefamilleparent_id=${SelectedCategoryId}`;
+      }
         const response = await axios.get(
-          `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&is_gift`
+          `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&is_gift${articleFamilleIdParam}`
         );
         setArticles(response.data.data);
       } catch (error) {
@@ -53,7 +58,7 @@ const GiftItems = ({ handleGiftChange, selectedGiftItems, subtotalAmt, onMaxGift
   useEffect(() => {
     fetchArticles();
     fetchGiftConfiguration();
-  }, []);
+  }, [SelectedCategoryId]);
 
 
 

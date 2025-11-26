@@ -43,7 +43,9 @@ export default function CartSidebar({ toggle, isOpen }) {
   
   React.useEffect(() => {
     const initialQuantities = productData.reduce((acc, item) => {
-      acc[item._id] = item.quantity;
+      // Use article_variant_combination.id if exists, else fallback to _id
+      const key = item.article_variant_combination?.id || item._id;
+      acc[key] = item.quantity;
       return acc;
     }, {});
     setLocalQuantities(initialQuantities);
@@ -52,11 +54,12 @@ export default function CartSidebar({ toggle, isOpen }) {
   
   const updateQuantity = (item) => {
     if (!isLoading) {
-    const newQuantity = localQuantities[item._id];
-    if (newQuantity !== item.quantity) {
-    setIsLoading(true)
-      axios
-        .put(`${import.meta.env.VITE_TESTING_API}/cart/${item.cart_id}`, {
+      const key = item.article_variant_combination?.id || item._id;
+      const newQuantity = localQuantities[key];
+      if (newQuantity !== item.quantity) {
+        setIsLoading(true);
+        axios
+          .put(`${import.meta.env.VITE_TESTING_API}/cart/${item.cart_id}`, {
           quantity: newQuantity,
         })
         .then(() => {
@@ -105,14 +108,6 @@ export default function CartSidebar({ toggle, isOpen }) {
   const handleBlur = (item) => {
     updateQuantity(item);
   };
-
-  React.useEffect(() => {
-    const initialQuantities = productData.reduce((acc, item) => {
-      acc[item._id] = item.quantity;
-      return acc;
-    }, {});
-    setLocalQuantities(initialQuantities);
-  }, [productData]);
   
   const handleInputChange = (id, value, maxQuantity) => {
     // Ensure only numeric values are parsed
@@ -294,9 +289,9 @@ export default function CartSidebar({ toggle, isOpen }) {
                   defaultValue={1} 
                   disabled={isLoading}
                   className={classes.quantity1}
-                  value={localQuantities[props._id] || ""}
+                  value={localQuantities[props.article_variant_combination?.id || props._id] || ""}
                   onChange={(e) =>
-                    handleInputChange(props._id, e.target.value, props._qte_a_terme_calcule)
+                    handleInputChange(props.article_variant_combination?.id || props._id, e.target.value, props._qte_a_terme_calcule)
                   }
                   onBlur={() => handleBlur(props)} 
                   onKeyPress={(e) => handleKeyPress(e, props)}
@@ -343,7 +338,7 @@ export default function CartSidebar({ toggle, isOpen }) {
                      
                      
                 <div className={classes.delete_btn} style={{backgroundColor:props?.removed &&"rgb(255, 66, 66)",zIndex:'50'}}>
-                  <img src={DeleteIcon} style={{width:'1em'}} onClick={() =>authCtx.deleteFromcart(props?._id)} /></div> 
+                  <img src={DeleteIcon} style={{width:'1em'}} onClick={() =>authCtx.deleteFromcart(props)} /></div> 
               </div>
             
             

@@ -52,7 +52,7 @@ const RatingSummary = () => {
         value={calculateAverageRating()}
         readOnly
       />
-     <div className={styles.subtext}>{language === 'eng' ? "Book Rating" : "Cote du livre"}</div>
+     <div className={styles.subtext}>{language === 'eng' ? "Product Rating" : "Cote du produit"}</div>
       <div className={styles.bars}>
         {[5, 4, 3, 2, 1].map((stars, index) => (
           <div key={stars} className={styles.bar}>

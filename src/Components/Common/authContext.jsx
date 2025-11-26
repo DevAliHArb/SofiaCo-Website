@@ -92,6 +92,7 @@ export const AuthContextProvider = (props) => {
   const [remiseCatalogues, setremiseCatalogues] = useState([]);
   const [societeConfig, setSocieteConfig] = useState([]);
   const [themes, setThemes] = useState([]);
+  const [collaboratorsTypes, setCollaboratorsTypes] = useState([]);
   const [currencyRate, setcurrencyRate] = useState(null);
   const [selectedlanguage, setselectedlanguage] = useState("fr");
   const [companySettings, setCompanySettings] = useState([]);
@@ -99,6 +100,8 @@ export const AuthContextProvider = (props) => {
   const [countries, setCountries] = useState([]);
   const [articleFamilleParents, setArticleFamilleParents] = useState([]);
   const [articleFamille, setArticleFamille] = useState([]);
+  const [addtocartPopupOpen, setaddtocartPopupOpen] = useState(false);
+  const [addtocartPopupId, setaddtocartPopupId] = useState(null);
   const dispatch = useDispatch();
   const productData = useSelector((state) => state.products.productData);
   const favorites = useSelector((state) => state.products.favorites);
@@ -280,6 +283,15 @@ export const AuthContextProvider = (props) => {
       // console.error('Error fetching categories:', error);
     }
   };
+  
+    const fetchCollabTypes = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/collaborators/types?ecom_type=hanoot`);
+        setCollaboratorsTypes(response.data);
+      } catch (error) {
+        // console.error('Error fetching collaborator types:', error);
+      }
+    };
 
   const fetchCollaborators = async () => {
     try {
@@ -397,120 +409,66 @@ export const AuthContextProvider = (props) => {
   
   const addToCarthandler = async (propss) => {
     const props = propss.props ? propss.props : propss;
-    
+
     setIsLoading(true);
     const data = {
       article_id: props.id,
-      user_id: null,
+      user_id: user?.id || null,
       quantity: props.items_quantity,
-      // price: props.price,
       article: props,
       cart_items_variants: props?.selectedvariants,
       article_variant_combination: props?.article_variant_combination,
       b_usr_article_variant_combination_id: props?.article_variant_combination?.id
     };
     try {
-      // Check if the product already exists in the cart
-      console.log('testt',productData, data);
-      const userexistingarticle = productData.find(
-        (item) => {
-          if (item?._id !== data?.article_id) return false;
-          
-          // If no variants in data, just match by article id
-          if (!data?.cart_items_variants || Object.keys(data.cart_items_variants).length === 0) {
-            return !item?.cart_items_variants || item.cart_items_variants.length === 0;
-          }
-          
-          // Convert data.cart_items_variants object to array for comparison
-          const dataVariantsArray = Object.values(data.cart_items_variants);
-          
-          // Check if both have the same number of variants
-          if (item?.cart_items_variants?.length !== dataVariantsArray.length) return false;
-          
-          // Check if all variants match
-          return item.cart_items_variants.every(cartVariant => 
-            dataVariantsArray.some(dataVariant => 
-              cartVariant.article_variant_id === dataVariant.b_usr_article_variant_id &&
-              cartVariant.variant_item_id === dataVariant.id
-            )
-          );
+      // Find if product already exists in the cart (match by id and variants)
+      let userexistingarticle = null;
+      if (data.article_variant_combination) {
+        userexistingarticle = productData.find(item => 
+          item?._id === data.article_id && item.article_variant_combination?.id === data.b_usr_article_variant_combination_id
+        );
+      } else {
+        userexistingarticle = productData.find(item => item?._id === data.article_id);
+      }
+
+      // Helper to get max allowed quantity
+      const getMaxQty = () => {
+        if (props?.article_variant_combination?.id) {
+          return props.article_variant_combination?.quantity;
         }
-      );
-console.log(userexistingarticle);
+        return props?.quantity;
+      };
 
-
-      if (user?.id){
+      // Calculate new quantity
+      let newQty;
+      if (userexistingarticle) {
+        newQty = userexistingarticle.quantity + (props.items_quantity ? props.items_quantity : 1);
+        const maxQty = getMaxQty();
+        if (maxQty && newQty > maxQty) newQty = maxQty;
+      } else {
+        newQty = data.quantity || 1;
+        const maxQty = getMaxQty();
+        if (maxQty && newQty > maxQty) newQty = maxQty;
+      }
+      console.log("New Quantity to add:", userexistingarticle);
+      if (user?.id) {
         if (userexistingarticle) {
-          let totalQty = userexistingarticle.quantity + (props.items_quantity ? props.items_quantity : 1);
-          
-          if (props?.article_variant_combination?.id) {
-            
-            if(totalQty > props.article_variant_combination?.quantity){
-              totalQty = props.article_variant_combination?.quantity
-            }
-          } else {
-            console.log('helooo', props?.article_variant_combination);
-            if(totalQty > props?.quantity){
-              totalQty =  props?.quantity
-            }
-          }
-          
-          await axios
-            .put(
-              `${import.meta.env.VITE_TESTING_API}/cart/${userexistingarticle.cart_id}`,
-              {
-                quantity: totalQty,
-              }
-            )
-          dispatch(
-            changeQuantity({
-              id: userexistingarticle.cart_id,
-              quantity: totalQty,
-            })
+          await axios.put(
+            `${import.meta.env.VITE_TESTING_API}/cart/${userexistingarticle.cart_id}`,
+            { quantity: newQty }
           );
-          // setIscartpopup(false);
-          toast.success(`${props.title ? props.title : "Book"} is added`, {
-            position: "top-right",
-            autoClose: 1500,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: 0,
-            theme: "colored",
-          });
+          dispatch(addTocart({
+            ...userexistingarticle,
+            quantity: newQty
+          }));
         } else {
-          let totalQty1 = data.quantity  || 1;
-          console.log(props.article_variant_combination, totalQty1);
-          
-          if (props?.article_variant_combination?.id) {
-            
-            if(totalQty1 > props.article_variant_combination?.quantity){
-              totalQty1 = props.article_variant_combination?.quantity
-            }
-          } else {
-            if(totalQty1 > props?.quantity){
-              totalQty1 =  props?.quantity
-            }
-          }
           const response = await axios.post(
             `${import.meta.env.VITE_TESTING_API}/cart?ecom_type=sofiaco`,
-            { ...props, article_id: props?.id, quantity: totalQty1 , user_id: user?.id, b_usr_article_variant_combination_id: props?.article_variant_combination?.id }
+            { ...props, article_id: props.id, quantity: newQty, user_id: user.id, b_usr_article_variant_combination_id: props?.article_variant_combination?.id }
           );
-          console.log(response);
-          dispatch(addTocart({...response.data.data, article_variant_combination: props.article_variant_combination}));
-          // setIscartpopup(false);
-          toast.success(`${props.title ? props.title : "Product"} is added`, {
-            position: "top-right",
-            autoClose: 1500,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: 0,
-            theme: "colored",
-          });
+          dispatch(addTocart({ ...response.data.data, article_variant_combination: props.article_variant_combination }));
         }
+        setaddtocartPopupOpen(false);
       } else {
         toast.error(`${language === 'eng' ? "Please log in to add items to your cart." : "Veuillez vous connecter pour ajouter des articles à votre panier."}`, {
           position: "top-right",
@@ -525,6 +483,7 @@ console.log(userexistingarticle);
       }
       await fetchfavandcartSettings();
     } catch (error) {
+      console.error("Error adding to cart:", error);
       toast.error("Failed to add item to cart.", {
         position: "top-right",
         autoClose: 4000,
@@ -693,14 +652,21 @@ console.log(userexistingarticle);
     }
   };
   const deleteFromcarthandler = async (props) => {
-    const item = productData.find((item) => item._id === props);
+    const variantId = props?.article_variant_combination?.id;
+    const productId = props?._id;
+    let item;
+    if (variantId) {
+      item = productData.find((item) => variantId === item.article_variant_combination?.id && productId === item._id);
+    } else {
+      item = productData.find((item) => item._id === productId);
+    }
     axios
       .delete(`${import.meta.env.VITE_TESTING_API}/cart/${item.cart_id}`)
       .then(() => {
         // console.log("delete request successful:");
-        dispatch(deleteItem(props));
+        dispatch(deleteItem(item));
         toast.success(
-          language === "eng" ? "Book is removed." : "Le livre est supprimé.",
+          language === "eng" ? "Product is removed." : "Le produit est supprimé.",
           {
             position: "top-right",
             autoClose: 1500,
@@ -849,8 +815,8 @@ console.log(userexistingarticle);
 
       toast.success(
         language === "eng"
-          ? `${props.name ? props.name : "Book"} is removed from Favorites`
-          : `${props.name ? props.name : "Livre"} a été retiré des Favoris`,
+          ? `${props.name ? props.name : "Product"} is removed from Favorites`
+          : `${props.name ? props.name : "Produit"} a été retiré des Favoris`,
         {
           position: "top-right",
           autoClose: 1500,
@@ -973,6 +939,7 @@ console.log(userexistingarticle);
       fetchArticleFamille();
       fetchArticles();
       fetchCategories();
+      fetchCollabTypes();
       fetchCollaborators();
       fetchCollections();
       fetchRemiseCatalogues();
@@ -1041,6 +1008,14 @@ console.log(userexistingarticle);
     articleFamilleParents,
 
     articleFamille,
+
+    
+    addtocartPopupOpen,
+    setaddtocartPopupOpen,
+    addtocartPopupId,
+    setaddtocartPopupId,
+
+    collaboratorsTypes,
   };
 
   return (
