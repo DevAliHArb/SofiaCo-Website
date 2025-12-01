@@ -1111,7 +1111,7 @@ const handleChangeSubCategory = (event) => {
               }}
             >
               <span>
-              {language === "eng" ? "PARENT CATEGORIES" : "CATÉGORIES PARENTALES"}{" "}
+              {language === "eng" ? "CATEGORIES" : "CATÉGORIES"}{" "}
               </span>
               {parentCategoriesOpen ? (
                 <span
@@ -1187,7 +1187,7 @@ const handleChangeSubCategory = (event) => {
               }}
             >
               <span>
-              {language === "eng" ? "SUB CATEGORIES" : "LES SOUS-CATEGORIES"}{" "}
+              {language === "eng" ? "SUB CATEGORIES" : "SOUS CATEGORIES"}{" "}
               </span>
               {subCategoriesOpen ? (
                 <span
@@ -1723,7 +1723,7 @@ const handleChangeSubCategory = (event) => {
               }}
             >
               <span>
-              {language === "eng" ? "PARENT CATEGORIES" : "CATÉGORIES PARENTALES"}{" "}
+              {language === "eng" ? "CATEGORIES" : "CATÉGORIES"}{" "}
               </span>
               {parentCategoriesOpen ? (
                 <span
@@ -1799,7 +1799,7 @@ const handleChangeSubCategory = (event) => {
               }}
             >
               <span>
-              {language === "eng" ? "SUB CATEGORIES" : "LES SOUS-CATEGORIES"}{" "}
+              {language === "eng" ? "SUB CATEGORIES" : "SOUS CATEGORIES"}{" "}
               </span>
               {subCategoriesOpen ? (
                 <span
