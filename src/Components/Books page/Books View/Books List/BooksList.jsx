@@ -31,7 +31,7 @@ import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
 import { stripHtmlTags, truncateText } from "../../../Common Components/TextUtils";
 
 
-const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChemin, selectedRate, selectedPrice, totalArticlesNumber }) => {
+const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChemin, selectedRate, selectedPrice, totalArticlesNumber, loading }) => {
    const authCtx = useContext(AuthContext);
   const [filter, setFilter] = useState("Public");
   const [listview, setListview] = useState("grid");
@@ -417,11 +417,19 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
             </div>
         </div>
           {sortBooks(sortBy).length === 0 ? 
+          loading ? (
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '200px' }}>
+              <div style={{ textAlign: 'center' }}>
+                <div className={classes.spinner} style={{ margin: '0 auto 1em', width: '40px', height: '40px', border: '4px solid #f3f3f3', borderTop: '4px solid var(--primary-color)', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
+                <p>{language === 'eng' ? 'Loading...' : 'Chargement...'}</p>
+              </div>
+            </div>
+          ) : 
           <div className={classes.nodata}>
             <div className={classes.nodata_img}>
               <img src={nodata} alt="" />
             </div>
-            <h1>No Books <br/>were found!</h1>
+            <h1>No Books <br />were found!</h1>
           </div>
           :
       <div style={{width:'100%'}}>

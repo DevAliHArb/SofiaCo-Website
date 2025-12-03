@@ -830,3 +830,12 @@ color: #DED8CC;
   height: 50vw;
 }
 }
+/* Spinner for loading */
+.spinner {
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
