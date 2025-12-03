@@ -283,7 +283,7 @@ const Adresses = () => {
               >
                 <div className={classes.contantContainer}>
                   <div className={classes.contant}>
-                    <p style={{ margin: ".1em 0" }}>{item.name}</p>
+                    <p style={{ margin: ".1em 0" }}>{item.civility === 'Mr' ? 'Mr.' : 'Ms.'} {item.name} {item.last_name}</p>
                     <p style={{ margin: ".1em 0" }}>{item.company}</p>
                     <p style={{ margin: ".1em 0" }}>
                       {item.country}, {item.city}, {item.address.length > 45 ? item.address.substring(0, 45) : item.address}{item?.address2 && ' , '}{item?.address2?.length > 45 ? item?.address2.substring(0, 45) : item.address}
@@ -464,6 +464,54 @@ const Adresses = () => {
                 />
               </Form.Item>
               <Form.Item
+                name="civility"
+                label={
+                  <p
+                    style={{
+                      color: "#fff",
+                      margin: "0",
+                      fontWeight: "300",
+                      fontFamily: "var(--font-family)",
+                      fontSize: "calc(.8rem + .2vw)",
+                    }}
+                  >
+                    {language === "eng" ? "Civility" : "Civilité"}
+                  </p>
+                }
+                rules={[
+                  {
+                    required: true,
+                    message:
+                      language === "eng"
+                        ? "Please select an option!"
+                        : "Veuillez sélectionner une option !",
+                  },
+                ]}
+                initialValue={formData?.civility}
+                style={{ border: "none",width:'100%',borderRadius: ".5em" }}
+              >
+                  <Select
+                    name="civility"
+                  placeholder={
+                    language === "eng"
+                      ? "Select card type"
+                      : "Sélectionnez le type de carte"
+                  }
+                    size="large"
+                    value={formData?.country || ''}
+                    style={{
+                      width: "100%",
+                      height: "3em",
+                      textAlign: "start",
+                    }}
+                    dropdownStyle={{ zIndex: 2000 }}
+                    onChange={(e) => handleChange("civility", e)}
+                  >
+                  <Option value="Mr">{language === "eng" ? "Mr" : "Monsieur"}</Option>
+                  <Option value="Mrs">{language === "eng" ? "Mrs" : "Madame"}</Option>
+                  </Select>
+              </Form.Item>
+              <Form.Item
                 name="name"
                 label={
                   <p
@@ -475,18 +523,14 @@ const Adresses = () => {
                       fontSize: "calc(.8rem + .2vw)",
                     }}
                   >
-                    {
-                      data.AccountProfilePage.Adresses.NomInput[
-                        language
-                      ]
-                    }
+                    {language === 'eng' ? "First Name" : "Prénom"}
                   </p>
                 }
                 rules={[
-                  { required: true, message: "Veuillez saisir votre nom!" },
+                  { required: true, message: language === 'eng' ? "Enter your first name!" : "Saisir votre prénom !" },
                   {
                     max: 24,
-                    message: "Le titre ne doit pas dépasser 24 caractères.",
+                    message: language === 'eng' ? "The title must not exceed 24 characters." : "Le titre ne doit pas dépasser 24 caractères.",
                   },
                 ]}
                 style={{ border: "none",width:'100%', borderRadius: ".5em" }}
@@ -494,14 +538,43 @@ const Adresses = () => {
                 <Input
                   name="name"
                   size="large"
-                    placeholder={
-                      data.AccountProfilePage.Adresses.NomInput[
-                        language
-                      ]
-                    }
+                    placeholder={language === 'eng' ? "First Name" : "Prénom"}
                   className={classes.inputt}
                   // value={formData?.name || ''}
                   onChange={(e) => handleChange("name", e.target.value)}
+                />
+              </Form.Item>
+              <Form.Item
+                name="last_name"
+                label={
+                  <p
+                    style={{
+                      color: "#fff",
+                      margin: "0",
+                      fontWeight: "300",
+                      fontFamily: "var(--font-family)",
+                      fontSize: "calc(.8rem + .2vw)",
+                    }}
+                  >
+                    { language === 'eng' ? "Last Name" : "Nom de famille"}           
+                  </p>
+                }
+                rules={[
+                  { required: true, message: language === 'eng' ? "Enter your last name!" : "Saisir votre nom de famille !" },
+                  {
+                    max: 24,
+                    message:language === 'eng' ? "The title must not exceed 24 characters." : "Le titre ne doit pas dépasser 24 caractères.",
+                  },
+                ]}
+                style={{ border: "none",width:'100%', borderRadius: ".5em" }}
+              >
+                <Input
+                  name="last_name"
+                  size="large"
+                    placeholder={language === 'eng' ? "Last Name" : "Nom de famille"}
+                  className={classes.inputt}
+                  // value={formData?.last_name || ''}
+                  onChange={(e) => handleChange("last_name", e.target.value)}
                 />
               </Form.Item>
               <Form.Item

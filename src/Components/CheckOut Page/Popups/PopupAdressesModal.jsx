@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import { Row, Col, Button, Checkbox, Form, Input, Select } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import {
   addPayment,
   deletePayment,
@@ -23,9 +23,8 @@ import { useNavigate } from "react-router-dom";
 import { FiEdit } from "react-icons/fi";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import axios from "axios";
-import data from '../../../Data.json'
+import data from "../../../Data.json";
 import AuthContext from "../../Common/authContext";
-
 
 const style = {
   position: "absolute",
@@ -40,7 +39,7 @@ const style = {
   fontFamily: "var(--font-family)",
   overflow: "hidden",
   borderRadius: "1em",
-  padding:'1em 2em'
+  padding: "1em 2em",
 };
 
 function generateNewId(arrayOfObjects) {
@@ -58,7 +57,14 @@ function generateNewId(arrayOfObjects) {
   return newId;
 }
 
-const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, formDataa, editaddressId }) => {
+const PopupAdressesModal = ({
+  open,
+  handleClose,
+  isselectedAddress,
+  editModee,
+  formDataa,
+  editaddressId,
+}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
@@ -69,15 +75,13 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
   const language = useSelector(
     (state) => state.products.selectedLanguage[0].Language
   );
-  const fetchAddresses = async () => {
-    
-  };
-  
+  const fetchAddresses = async () => {};
+
   const getToken = () => {
-    return localStorage.getItem('token');
+    return localStorage.getItem("token");
   };
 
-  const token = getToken()
+  const token = getToken();
   useEffect(() => {
     fetchAddresses();
   }, []);
@@ -91,37 +95,47 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
     form.resetFields();
     setFormData({});
     if (editModee) {
-      form.setFieldsValue(formDataa)
+      form.setFieldsValue(formDataa);
     }
   }, [open]);
 
   const handleSubmit = async () => {
-    setaddLoading(true)
+    setaddLoading(true);
     try {
       if (editModee) {
         // console.log(formData)
-        await axios.put(`${import.meta.env.VITE_TESTING_API}/users/${user.id}/addresses/${editaddressId}`, formData, {
-          headers: {
-              Authorization: `Bearer ${token}` // Include token in the headers
+        await axios.put(
+          `${import.meta.env.VITE_TESTING_API}/users/${
+            user.id
+          }/addresses/${editaddressId}`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Include token in the headers
+            },
           }
-      });
+        );
       } else {
-        await axios.post(`${import.meta.env.VITE_TESTING_API}/users/${user.id}/addresses`, {
-          ...formData,
-          default: true
-        }, {
-          headers: {
-              Authorization: `Bearer ${token}` // Include token in the headers
+        await axios.post(
+          `${import.meta.env.VITE_TESTING_API}/users/${user.id}/addresses`,
+          {
+            ...formData,
+            default: true,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Include token in the headers
+            },
           }
-      });
+        );
       }
       handleClose();
       fetchAddresses();
-      form.resetFields()
+      form.resetFields();
     } catch (error) {
       // console.error('Error submitting address:', error);
     } finally {
-      setaddLoading(false)
+      setaddLoading(false);
     }
   };
 
@@ -129,56 +143,61 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
     <div>
       <Modal
         open={open}
-        onClose={()=>handleClose() & form.resetFields()}
+        onClose={() => handleClose() & form.resetFields()}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        sx={{ overflow: "hidden",border:'none' }}
+        sx={{ overflow: "hidden", border: "none" }}
       >
-        
         <Box sx={style}>
-          {editModee ?<h4
-            style={{
-              color: "#fff",
-              fontWeight: "600",
-              fontFamily: "var(--font-family)",
-              width: "100%",
-              padding: "0 2em",
-              textAlign: "start",
-              fontSize: "calc(.9rem + .3vw)",
-            }}
-          >
-          {language === "eng" ? "Edit address" : "Modifier l'adresse"}
-          </h4> : <h4
-            style={{
-              color: "#fff",
-              fontWeight: "600",
-              fontFamily: "var(--font-family)",
-              width: "100%",
-              padding: "0 2em",
-              textAlign: "start",
-              fontSize: "calc(.9rem + .3vw)",
-            }}
-          >
-          {language === "eng" ? "Add a new address" : "Ajouter une nouvelle addresse"}
-          </h4>}
+          {editModee ? (
+            <h4
+              style={{
+                color: "#fff",
+                fontWeight: "600",
+                fontFamily: "var(--font-family)",
+                width: "100%",
+                padding: "0 2em",
+                textAlign: "start",
+                fontSize: "calc(.9rem + .3vw)",
+              }}
+            >
+              {language === "eng" ? "Edit address" : "Modifier l'adresse"}
+            </h4>
+          ) : (
+            <h4
+              style={{
+                color: "#fff",
+                fontWeight: "600",
+                fontFamily: "var(--font-family)",
+                width: "100%",
+                padding: "0 2em",
+                textAlign: "start",
+                fontSize: "calc(.9rem + .3vw)",
+              }}
+            >
+              {language === "eng"
+                ? "Add a new address"
+                : "Ajouter une nouvelle addresse"}
+            </h4>
+          )}
           <Form
-                layout="vertical"
-                name="nest-messages"
-                form={form}
-                // initialValues={formDataa}
-                onFinish={handleSubmit}
-                style={{
-                width: '100%',
-                margin:'0 auto',
-                alignItems: "center",
-                textAlign: "center",
-                justifyItems: "center",
-                maxHeight:'80vh',
-                padding:'2em',
-                overflowX:"hidden",
-                overflowY:'scroll'
-                }}
-      >
+            layout="vertical"
+            name="nest-messages"
+            form={form}
+            // initialValues={formDataa}
+            onFinish={handleSubmit}
+            style={{
+              width: "100%",
+              margin: "0 auto",
+              alignItems: "center",
+              textAlign: "center",
+              justifyItems: "center",
+              maxHeight: "80vh",
+              padding: "2em",
+              overflowX: "hidden",
+              overflowY: "scroll",
+            }}
+          >
             <div className={classes.inputsContainer}>
               <Form.Item
                 name="title"
@@ -209,26 +228,75 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
                     message: "Le titre ne doit pas dépasser 24 caractères.",
                   },
                 ]}
-                style={{ border: "none",width:'100%', borderRadius: ".5em" }}
+                style={{ border: "none", width: "100%", borderRadius: ".5em" }}
               >
                 <Input
                   size="large"
                   name="title"
-                    style={{
-                      width: "100%",
-                      height: "3em",
-                      textAlign: "start",
-                      backgroundColor: "#fff",
-                    }}
-                    placeholder={
-                      data.AccountProfilePage.Adresses.AdresseInputTitle[
-                        language
-                      ]
-                    }
-                  value={ formData?.title}
-                  className={classes.inputt}
+                  placeholder={
+                    data.AccountProfilePage.Adresses.AdresseInputTitle[language]
+                  }
+                  value={formData?.title}
+                  style={{
+                    width: "100%",
+                    height: "3em",
+                    textAlign: "start",
+                    backgroundColor: "#fff",
+                  }}
                   onChange={(e) => handleChange("title", e.target.value)}
                 />
+              </Form.Item>
+              <Form.Item
+                name="civility"
+                label={
+                  <p
+                    style={{
+                      color: "#fff",
+                      margin: "0",
+                      fontWeight: "300",
+                      fontFamily: "var(--font-family)",
+                      fontSize: "calc(.8rem + .2vw)",
+                    }}
+                  >
+                    {language === "eng" ? "Civility" : "Civilité"}
+                  </p>
+                }
+                rules={[
+                  {
+                    required: true,
+                    message:
+                      language === "eng"
+                        ? "Please select an option!"
+                        : "Veuillez sélectionner une option !",
+                  },
+                ]}
+                initialValue={formData?.civility}
+                style={{ border: "none", width: "100%", borderRadius: ".5em" }}
+              >
+                <Select
+                  name="civility"
+                  placeholder={
+                    language === "eng"
+                      ? "Select card type"
+                      : "Sélectionnez le type de carte"
+                  }
+                  size="large"
+                  value={formData?.country || ""}
+                  style={{
+                    width: "100%",
+                    height: "3em",
+                    textAlign: "start",
+                  }}
+                  dropdownStyle={{ zIndex: 2000 }}
+                  onChange={(e) => handleChange("civility", e)}
+                >
+                  <Option value="Mr">
+                    {language === "eng" ? "Mr" : "Monsieur"}
+                  </Option>
+                  <Option value="Mrs">
+                    {language === "eng" ? "Mrs" : "Madame"}
+                  </Option>
+                </Select>
               </Form.Item>
               <Form.Item
                 name="name"
@@ -242,39 +310,88 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
                       fontSize: "calc(.8rem + .2vw)",
                     }}
                   >
-                    {
-                      data.AccountProfilePage.Adresses.NomInput[
-                        language
-                      ]
-                    }
+                    {language === "eng" ? "First Name" : "Prénom"}
                   </p>
                 }
                 rules={[
-                  { required: true, message: "Veuillez saisir votre nom!" },
+                  {
+                    required: true,
+                    message:
+                      language === "eng"
+                        ? "Enter your first name!"
+                        : "Saisir votre prénom !",
+                  },
                   {
                     max: 24,
-                    message: "Le titre ne doit pas dépasser 24 caractères.",
+                    message:
+                      language === "eng"
+                        ? "The title must not exceed 24 characters."
+                        : "Le titre ne doit pas dépasser 24 caractères.",
                   },
                 ]}
-                style={{ border: "none",width:'100%', borderRadius: ".5em" }}
+                style={{ border: "none", width: "100%", borderRadius: ".5em" }}
               >
                 <Input
                   name="name"
                   size="large"
-                    style={{
-                      width: "100%",
-                      height: "3em",
-                      textAlign: "start",
-                      backgroundColor: "#fff",
-                    }}
-                    placeholder={
-                      data.AccountProfilePage.Adresses.NomInput[
-                        language
-                      ]
-                    }
-                  className={classes.inputt}
+                  placeholder={language === "eng" ? "First Name" : "Prénom"}
+                  style={{
+                    width: "100%",
+                    height: "3em",
+                    textAlign: "start",
+                    backgroundColor: "#fff",
+                  }}
                   // value={formData?.name || ''}
                   onChange={(e) => handleChange("name", e.target.value)}
+                />
+              </Form.Item>
+              <Form.Item
+                name="last_name"
+                label={
+                  <p
+                    style={{
+                      color: "#fff",
+                      margin: "0",
+                      fontWeight: "300",
+                      fontFamily: "var(--font-family)",
+                      fontSize: "calc(.8rem + .2vw)",
+                    }}
+                  >
+                    {language === "eng" ? "Last Name" : "Nom de famille"}
+                  </p>
+                }
+                rules={[
+                  {
+                    required: true,
+                    message:
+                      language === "eng"
+                        ? "Enter your last name!"
+                        : "Saisir votre nom de famille !",
+                  },
+                  {
+                    max: 24,
+                    message:
+                      language === "eng"
+                        ? "The title must not exceed 24 characters."
+                        : "Le titre ne doit pas dépasser 24 caractères.",
+                  },
+                ]}
+                style={{ border: "none", width: "100%", borderRadius: ".5em" }}
+              >
+                <Input
+                  name="last_name"
+                  size="large"
+                  placeholder={
+                    language === "eng" ? "Last Name" : "Nom de famille"
+                  }
+                  style={{
+                    width: "100%",
+                    height: "3em",
+                    textAlign: "start",
+                    backgroundColor: "#fff",
+                  }}
+                  // value={formData?.last_name || ''}
+                  onChange={(e) => handleChange("last_name", e.target.value)}
                 />
               </Form.Item>
               <Form.Item
@@ -289,16 +406,15 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
                       fontSize: "calc(.8rem + .2vw)",
                     }}
                   >
-                    {
-                      data.AccountProfilePage.Adresses.CompanyInput[
-                        language
-                      ]
-                    }
+                    {data.AccountProfilePage.Adresses.CompanyInput[language]}
                   </p>
                 }
-                style={{ border: "none",width:'100%', borderRadius: ".5em" }}
+                style={{ border: "none", width: "100%", borderRadius: ".5em" }}
                 rules={[
-                  { required: true, message: "Veuillez saisir votre companie!" },
+                  {
+                    required: true,
+                    message: "Veuillez saisir votre companie!",
+                  },
                   {
                     max: 30,
                     message: "Le titre ne doit pas dépasser 30 caractères.",
@@ -307,19 +423,17 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
               >
                 <Input
                   size="large"
-                    style={{
-                      width: "100%",
-                      height: "3em",
-                      textAlign: "start",
-                      backgroundColor: "#fff",
-                    }}
-                    placeholder={
-                      data.AccountProfilePage.Adresses.CompanyInput[
-                        language
-                      ]
-                    }
+                  style={{
+                    width: "100%",
+                    height: "3em",
+                    textAlign: "start",
+                    backgroundColor: "#fff",
+                  }}
+                  placeholder={
+                    data.AccountProfilePage.Adresses.CompanyInput[language]
+                  }
                   name="company"
-                  value={formData?.company || ''}
+                  value={formData?.company || ""}
                   className={classes.inputt}
                   onChange={(e) => handleChange("company", e.target.value)}
                 />
@@ -336,48 +450,42 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
                       fontSize: "calc(.8rem + .2vw)",
                     }}
                   >
-                    {
-                      data.AccountProfilePage.Adresses.countryInput[
-                        language
-                      ]
-                    }
+                    {data.AccountProfilePage.Adresses.countryInput[language]}
                   </p>
                 }
                 rules={[
                   { required: true, message: "Veuillez saisir votre pays!" },
                 ]}
                 initialValue={formData?.country}
-                style={{ border: "none",width:'100%', borderRadius: ".5em" }}
+                style={{ border: "none", width: "100%", borderRadius: ".5em" }}
               >
-                  <Select
-                    name="country"
-                    placeholder={
-                      data.AccountProfilePage.Adresses.countryInput[
-                        language
-                      ]
-                    }
-                    size="large"
-                    value={formData?.country || ''}
-                    style={{
-                      width: "100%",
-                      height: "3em",
-                      textAlign: "start",
-                    }}
-                    dropdownStyle={{ zIndex: 2000 }}
-                    showSearch // Enables searching
-                    getPopupContainer={(trigger) => trigger.parentNode}
-                    filterOption={(input, option) =>
-                      option.children.toLowerCase().includes(input.toLowerCase())
-                    }
-                    onChange={(e) => handleChange("country", e)}
-                  >
-                    {/* Add options for all countries */}
-                    {authCtx.countries?.map((country, index) => (
-                      <Option key={index} value={country.name}>
-                        {country.name}
-                      </Option>
-                    ))}
-                  </Select>
+                <Select
+                  name="country"
+                  placeholder={
+                    data.AccountProfilePage.Adresses.countryInput[language]
+                  }
+                  size="large"
+                  value={formData?.country || ""}
+                  style={{
+                    width: "100%",
+                    height: "3em",
+                    textAlign: "start",
+                  }}
+                  dropdownStyle={{ zIndex: 2000 }}
+                  showSearch // Enables searching
+                  getPopupContainer={(trigger) => trigger.parentNode}
+                  filterOption={(input, option) =>
+                    option.children.toLowerCase().includes(input.toLowerCase())
+                  }
+                  onChange={(e) => handleChange("country", e)}
+                >
+                  {/* Add options for all countries */}
+                  {authCtx.countries?.map((country, index) => (
+                    <Option key={index} value={country.name}>
+                      {country.name}
+                    </Option>
+                  ))}
+                </Select>
               </Form.Item>
             </div>
             <Form.Item
@@ -392,11 +500,7 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
                     fontSize: "calc(.8rem + .2vw)",
                   }}
                 >
-                  {
-                      data.AccountProfilePage.Adresses.AdresseInput[
-                        language
-                      ]
-                    }
+                  {data.AccountProfilePage.Adresses.AdresseInput[language]}
                 </p>
               }
               rules={[
@@ -411,15 +515,19 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
               <Input
                 name="address"
                 size="large"
-                    style={{
-                      width: "100%",
-                      height: "3em",
-                      textAlign: "start",
-                      backgroundColor: "#fff",
-                    }}
-                placeholder={language === 'eng' ? "1. Street name, apartment, ..." : "1. Nom de la rue, appartement, ..."}
+                style={{
+                  width: "100%",
+                  height: "3em",
+                  textAlign: "start",
+                  backgroundColor: "#fff",
+                }}
+                placeholder={
+                  language === "eng"
+                    ? "1. Street name, apartment, ..."
+                    : "1. Nom de la rue, appartement, ..."
+                }
                 className={classes.inputt}
-                value={formData?.address || ''}
+                value={formData?.address || ""}
                 onChange={(e) => handleChange("address", e.target.value)}
               />
             </Form.Item>
@@ -436,15 +544,19 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
               <Input
                 name="address2"
                 size="large"
-                    style={{
-                      width: "100%",
-                      height: "3em",
-                      textAlign: "start",
-                      backgroundColor: "#fff",
-                    }}
-                placeholder={language === 'eng' ? "2. Street name, apartment, ..." : "2. Nom de la rue, appartement, ..."}
+                style={{
+                  width: "100%",
+                  height: "3em",
+                  textAlign: "start",
+                  backgroundColor: "#fff",
+                }}
+                placeholder={
+                  language === "eng"
+                    ? "2. Street name, apartment, ..."
+                    : "2. Nom de la rue, appartement, ..."
+                }
                 className={classes.inputt}
-                value={formData?.address || ''}
+                value={formData?.address || ""}
                 onChange={(e) => handleChange("address2", e.target.value)}
               />
             </Form.Item>
@@ -457,20 +569,20 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
                   message: "Le titre ne doit pas dépasser 16 caractères.",
                 },
               ]}
-              style={{ border: "none",width:'100%', borderRadius: ".5em" }}
+              style={{ border: "none", width: "100%", borderRadius: ".5em" }}
             >
               <Input
                 size="large"
                 name="city"
-                    style={{
-                      width: "100%",
-                      height: "3em",
-                      textAlign: "start",
-                      backgroundColor: "#fff",
-                    }}
-                placeholder={language === 'eng' ? "City" : "Ville"}
+                style={{
+                  width: "100%",
+                  height: "3em",
+                  textAlign: "start",
+                  backgroundColor: "#fff",
+                }}
+                placeholder={language === "eng" ? "City" : "Ville"}
                 className={classes.inputt}
-                value={formData?.city || ''}
+                value={formData?.city || ""}
                 onChange={(e) => handleChange("city", e.target.value)}
               />
             </Form.Item>
@@ -487,23 +599,24 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
                 },
               ]}
               style={{
-                border: "none",width:'100%',
+                border: "none",
+                width: "100%",
                 borderRadius: ".5em",
                 backgroundColor: "#DED8CC",
               }}
             >
               <Input
                 name="postalcode"
-                placeholder={language === 'eng' ? "Postal code" : "Code postal"}
+                placeholder={language === "eng" ? "Postal code" : "Code postal"}
                 size="large"
-                    style={{
-                      width: "100%",
-                      height: "3em",
-                      textAlign: "start",
-                      backgroundColor: "#fff",
-                    }}
+                style={{
+                  width: "100%",
+                  height: "3em",
+                  textAlign: "start",
+                  backgroundColor: "#fff",
+                }}
                 className={classes.inputt}
-                value={formData?.postalcode || ''}
+                value={formData?.postalcode || ""}
                 onChange={(e) => handleChange("postalcode", e.target.value)}
               />
             </Form.Item>
@@ -521,27 +634,27 @@ const PopupAdressesModal = ({ open, handleClose, isselectedAddress, editModee, f
                 className={classes.cancel}
                 onClick={handleClose}
               >
-                {language === 'eng' ? "Cancel" : "Supprimer"}
+                {language === "eng" ? "Cancel" : "Supprimer"}
               </Button>
               {/* <Form.Item className={classes.formItem}> */}
-                <Button
-                  size="large"
-                  htmlType="submit"
-                  disabled={addloading ? true : false}
+              <Button
+                size="large"
+                htmlType="submit"
+                disabled={addloading ? true : false}
                 style={{
-                    cursor: addloading ? "wait" : "pointer",
+                  cursor: addloading ? "wait" : "pointer",
                 }}
-                  className={classes.addAddBtn}
-                >
-                  {language === 'eng' ? "Add" : "Ajouter"}
-                </Button>
+                className={classes.addAddBtn}
+              >
+                {language === "eng" ? "Add" : "Ajouter"}
+              </Button>
               {/* </Form.Item> */}
               <Button
                 size="large"
                 className={classes.cancelmob}
                 onClick={handleClose}
               >
-                {language === 'eng' ? "Cancel" : "Supprimer"}
+                {language === "eng" ? "Cancel" : "Supprimer"}
               </Button>
             </div>
             {/* </div>  */}

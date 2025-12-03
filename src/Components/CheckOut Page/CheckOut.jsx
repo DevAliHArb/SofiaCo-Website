@@ -1523,7 +1523,7 @@ const CheckOut = () => {
                       </RadioGroup>{" "}
                       <div style={{paddingLeft:'.3em'}}>
                         <p style={{ fontSize: "calc(.9rem + .3vw)" }}>
-                          {address.name}{" "}
+                          {address.civility === 'Mr' ? 'Mr.' : 'Ms.'} {address.name} {address.last_name} {" "}
                           <button
                             style={{
                               cursor: "auto",
