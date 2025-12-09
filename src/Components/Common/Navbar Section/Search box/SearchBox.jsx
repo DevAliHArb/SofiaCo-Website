@@ -51,6 +51,7 @@ function SearchBox(ParentProps) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const searchData = useSelector((state) => state.products.searchData);
+  const SelectedCategoryId = useSelector((state) => state.products.selectedCategoryId);
 
   const handleSearchInputChange = (e) => {
     setCatSearchQuery(e.target.value);
@@ -63,7 +64,6 @@ function SearchBox(ParentProps) {
         setLoading(true);
         const fetchArticles = async () => {
           try {
-            const SelectedCategoryId = useSelector((state) => state.products.selectedCategoryId);
             let articleFamilleIdParam = '';
             if (SelectedCategoryId && SelectedCategoryId !== 'null') {
               articleFamilleIdParam = `&articlefamilleparent_id=${SelectedCategoryId}`;
@@ -98,7 +98,7 @@ function SearchBox(ParentProps) {
 
     // Dynamically set the search key based on the selected option
     if (selectedOption === "Book") {
-      search = { title: searchQuery };
+      search = { smartdata: searchQuery };
     } else if (selectedOption === "Author") {
       search = { author: searchQuery };
     } else if (

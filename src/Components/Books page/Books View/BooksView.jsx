@@ -696,9 +696,13 @@ const BooksView = ({carttoggle}) => {
             .join("&")
         : "";
 
+      const selectedSmartData = searchData[0]?.smartdata 
+      ? `&smart_search=${searchData[0].smartdata}`
+      : "";
+
     // Get the category from localStorage if available
       // Finalize the URL by combining all parameters
-      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedillustrateurParam}${selectedCategoryParentParent}${selectedsubCategoriesParam}${selectedParentCategoriesParam}${selectedCollabParam}${selectedmultiproductsParam}${UserIdParam}${selectedCollecParam}${selectedStockParam}${selectedDiscount}${selectedPubliParam}${selectedEANParam}${selectedResumeParam}${selectedtitleParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}${selectedsubCategoryParam}&ecom_type=sofiaco`;
+      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedillustrateurParam}${selectedCategoryParentParent}${selectedsubCategoriesParam}${selectedParentCategoriesParam}${selectedCollabParam}${selectedmultiproductsParam}${UserIdParam}${selectedCollecParam}${selectedStockParam}${selectedDiscount}${selectedPubliParam}${selectedEANParam}${selectedResumeParam}${selectedSmartData}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}${selectedsubCategoryParam}&ecom_type=sofiaco`;
       // Fetch articles using the finalized URL
       const response = await axios.get(finalUrl);
 

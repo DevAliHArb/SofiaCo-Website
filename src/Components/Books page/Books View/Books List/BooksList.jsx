@@ -286,6 +286,10 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
       finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Price: ${searchData[0]?.min_price}${currency === "usd" ? "$" : '€'} - ${searchData[0]?.max_price}${currency === "usd" ? "$" : '€'}` : `Prix: ${searchData[0]?.min_price}${currency === "usd" ? "$" : '€'} - ${searchData[0]?.max_price}${currency === "usd" ? "$" : '€'}`);
     }
     
+    if (searchData[0]?.smartdata) {
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Search` : `Recherche`) + `: ${searchData[0]?.smartdata}`;
+    }
+    
     const stockStatus = localStorage.getItem('stock');
     if (stockStatus === 'true') {
       finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `en stock` : `En Stock`);
