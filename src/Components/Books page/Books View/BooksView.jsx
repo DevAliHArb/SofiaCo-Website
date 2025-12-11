@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import BooksList from "./Books List/BooksList";
 import classes from "./BooksView.module.css";
 import { IoIosArrowDown } from "react-icons/io";
@@ -77,6 +77,50 @@ const BooksView = ({carttoggle}) => {
     flavor: []
   });
   const [filterValues, setfilterValues] = useState([]);
+  // Search inputs for dropdowns (drawer & main)
+  const [parentCategorySearch, setParentCategorySearch] = useState("");
+  const [subCategorySearch, setSubCategorySearch] = useState("");
+  const [themeSearch, setThemeSearch] = useState("");
+  const [publisherSearch, setPublisherSearch] = useState("");
+  const [collectionSearch, setCollectionSearch] = useState("");
+  const [collaboratorSearch, setCollaboratorSearch] = useState("");
+  // Per-dynamic-filter searches
+  const [dynamicFilterSearches, setDynamicFilterSearches] = useState({});
+  // Loading flags for debounced searches
+  const [searchLoading, setSearchLoading] = useState({});
+  const searchTimeouts = useRef({});
+
+  // Helper: case-insensitive contains
+  const contains = (text = "", q = "") =>
+    text?.toString().toLowerCase().includes(q.trim().toLowerCase());
+
+   const filterTreeByQuery = (nodes, query) => {
+    if (!query || query.trim() === "") return nodes;
+    const q = query.trim().toLowerCase();
+    const filterNode = (node) => {
+      const nameMatch = contains(node._nom, q) || contains(node._nom_fr, q) || contains(node.nom, q);
+      let children = [];
+      if (Array.isArray(node.children) && node.children.length > 0) {
+        children = node.children.map(filterNode).filter(Boolean);
+      }
+      if (nameMatch || children.length > 0) {
+        return { ...node, children: children.length > 0 ? children : node.children };
+      }
+      return null;
+    };
+    return nodes.map(filterNode).filter(Boolean);
+  };
+
+  // Debounced setter helper
+  const handleDebouncedSearch = (key, value, setter, delay = 0) => {
+    setSearchLoading((s) => ({ ...s, [key]: true }));
+    if (searchTimeouts.current[key]) clearTimeout(searchTimeouts.current[key]);
+    searchTimeouts.current[key] = setTimeout(() => {
+      setter(value);
+      setSearchLoading((s) => ({ ...s, [key]: false }));
+      delete searchTimeouts.current[key];
+    }, delay);
+  };
   const [expanded, setExpanded] = useState({
     categories: false,
     editor: false,
@@ -352,8 +396,8 @@ const BooksView = ({carttoggle}) => {
     if (!authCtx.collaboratorsTypes || !authCtx.collaborators) return {};
     
     return authCtx.collaboratorsTypes.reduce((acc, type) => {
-      acc[type.name_fr] = authCtx.collaborators.filter(
-        (collaborator) => collaborator.type?.name_fr === type.name_fr
+      acc[type?.name_fr] = authCtx.collaborators.filter(
+        (collaborator) => collaborator.type?.name_fr === type?.name_fr
       );
       return acc;
     }, {});
@@ -363,7 +407,7 @@ const BooksView = ({carttoggle}) => {
     if (!authCtx.collaboratorsTypes) return {};
     
     return authCtx.collaboratorsTypes.reduce((acc, type) => {
-      const typeKey = type.name_fr.toLowerCase().replace(/\s+/g, '_');
+      const typeKey = type?.name_fr.toLowerCase().replace(/\s+/g, '_');
       acc[typeKey] = false;
       return acc;
     }, {});
@@ -404,6 +448,7 @@ const BooksView = ({carttoggle}) => {
       fieldName,
       isExpanded,
       setIsExpanded,
+      collaboratorSearchValue = "",
     }) => {
       const selectedCollaborators = searchData[0]?.collaborators || [];
 
@@ -423,11 +468,14 @@ const BooksView = ({carttoggle}) => {
         return selectedCollaborators.includes(collaboratorNom);
       };
 
-      // Sort collaborators alphabetically and remove leading spaces
-      const sortedCollaborators = collaborators
+      // Apply client-side search filter then sort
+      const filtered = collaborators.filter((c) =>
+        contains(c.nom || c.title || "", collaboratorSearchValue)
+      );
+      const sortedCollaborators = filtered
         .map((collaborator) => ({
-          ...collaborator, // Ensure we're not mutating the original array
-          nom: collaborator.nom.trim(), // Remove leading/trailing spaces
+          ...collaborator,
+          nom: (collaborator.nom || collaborator.title || "").trim(),
         }))
         .sort((a, b) => a.nom.localeCompare(b.nom));
 
@@ -1134,44 +1182,22 @@ const handleChangeSubCategory = (event) => {
                 </span>
               )}
             </h2>
-            {parentCategoriesOpen && (<div className={classes.dropdown}
-                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
-               {authCtx?.articleFamilleParents?.map((parent) => {
-                    const isChecked = isParentCategorySelected(parent.id);
+            {parentCategoriesOpen && (
+              <div className={classes.dropdown} style={{ maxHeight: "400px", height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+                <div style={{ padding: '0 0.6em 0.6em 0' }}>
+                  <TextField size="small" variant="standard" placeholder={language === 'eng' ? 'Search parent...' : 'Rechercher...'} value={parentCategorySearch} onChange={(e) => handleDebouncedSearch('parent-drawer', e.target.value, setParentCategorySearch)} fullWidth />
+                </div>
+                {authCtx?.articleFamilleParents?.map((parent) => {
+                  if (parentCategorySearch && !contains(parent.nom, parentCategorySearch)) return null;
+                  const isChecked = isParentCategorySelected(parent.id);
 
-                    return (
-                      <div
-                        key={parent.id}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          marginBottom: "0.5em",
-                        }}
-                        onClick={(e) => handleChangeParentCategory(parent.id)}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          className={classes.checkbox}
-                          style={{
-                            marginRight: "0px",
-                            width: "1.3em",
-                            height: "1.3em",
-                          }}
-                        />
-                        <p
-                          style={{
-                            margin: "auto 0 auto 2%",
-                            width: "92%",
-                            display: "flex",
-                            cursor: "pointer",  
-                          }}
-                        >
-                          {parent.nom}
-                        </p>
-                      </div>
-                    );
-                  })}
+                  return (
+                    <div key={parent.id} style={{ display: "flex", alignItems: "center", marginBottom: "0.5em" }} onClick={(e) => handleChangeParentCategory(parent.id)}>
+                      <input type="checkbox" checked={isChecked} className={classes.checkbox} style={{ marginRight: "0px", width: "1.3em", height: "1.3em" }} />
+                      <p style={{ margin: "auto 0 auto 2%", width: "92%", display: "flex", cursor: "pointer" }}>{parent.nom}</p>
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>}
@@ -1210,44 +1236,22 @@ const handleChangeSubCategory = (event) => {
                 </span>
               )}
             </h2>
-            {subCategoriesOpen && (<div className={classes.dropdown}
-                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
-               {authCtx?.articleFamille?.filter(parent => selectedParentCategories.length === 0 || selectedParentCategories.includes(parent.b_usr_parentcategorie_id)).map((parent) => {
-                    const isChecked = isSubCategorySelected(parent.id);
+            {subCategoriesOpen && (
+              <div className={classes.dropdown} style={{ maxHeight: "400px", height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+                <div style={{ padding: '0 0.6em 0.6em 0' }}>
+                  <TextField size="small" variant="standard" placeholder={language === 'eng' ? 'Search sub...' : 'Rechercher...'} value={subCategorySearch} onChange={(e) => handleDebouncedSearch('sub-drawer', e.target.value, setSubCategorySearch)} fullWidth />
+                </div>
+                {authCtx?.articleFamille?.filter(parent => selectedParentCategories.length === 0 || selectedParentCategories.includes(parent.b_usr_parentcategorie_id)).map((parent) => {
+                  if (subCategorySearch && !contains(parent.type_nom, subCategorySearch)) return null;
+                  const isChecked = isSubCategorySelected(parent.id);
 
-                    return (
-                      <div
-                        key={parent.id}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          marginBottom: "0.5em",
-                        }}
-                        onClick={(e) => handleChangeSubCategory(parent.id)}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          className={classes.checkbox}
-                          style={{
-                            marginRight: "0px",
-                            width: "1.3em",
-                            height: "1.3em",
-                          }}
-                        />
-                        <p
-                          style={{
-                            margin: "auto 0 auto 2%",
-                            width: "92%",
-                            display: "flex",
-                            cursor: "pointer", 
-                          }}
-                        >
-                          {parent.type_nom}
-                        </p>
-                      </div>
-                    );
-                  })}
+                  return (
+                    <div key={parent.id} style={{ display: "flex", alignItems: "center", marginBottom: "0.5em" }} onClick={(e) => handleChangeSubCategory(parent.id)}>
+                      <input type="checkbox" checked={isChecked} className={classes.checkbox} style={{ marginRight: "0px", width: "1.3em", height: "1.3em" }} />
+                      <p style={{ margin: "auto 0 auto 2%", width: "92%", display: "flex", cursor: "pointer" }}>{parent.type_nom}</p>
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>}
@@ -1286,14 +1290,22 @@ const handleChangeSubCategory = (event) => {
                 </span>
               )}
             </h2>
-              {themesOpen && <div className={classes.dropdown}
-                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
-                {mappedCategories.map((data) => {
-                  return (
-                      <TreeNode data={data} level={0} color='var(--secondary-color)'/>
-                  );
-                })}
-              </div>}
+              {themesOpen && (
+                <div className={classes.dropdown} style={{ maxHeight: "400px", height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+                  <div style={{ padding: '0 0.6em 0.6em 0' }}>
+                    <TextField size="small" variant="standard" placeholder={language === 'eng' ? 'Search theme...' : 'Rechercher...'} value={themeSearch} onChange={(e) => handleDebouncedSearch('theme-drawer', e.target.value, setThemeSearch)} fullWidth />
+                  </div>
+                {filterTreeByQuery(mappedCategories, themeSearch).map((parent, index) => (
+                  <TreeNode
+                    key={index}
+                    data={parent}
+                    fetchArticles={fetchArticles}
+                    setArticles={setArticles}
+                    level={0}
+                  />
+                ))}
+                </div>
+              )}
           </div>
 
           <Divider  
@@ -1330,47 +1342,24 @@ const handleChangeSubCategory = (event) => {
                 </span>
               )}
             </h2>
-              {publishinghouseOpen && <div className={classes.dropdown}
-                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
-
-                {authCtx?.publishers?.map((publisher) => {
+              {publishinghouseOpen && (
+                <div className={classes.dropdown} style={{ maxHeight: "400px", height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+                  <div style={{ padding: '0 0.6em 0.6em 0' }}>
+                    <TextField size="small" variant="standard" placeholder={language === 'eng' ? 'Search publisher...' : 'Rechercher...'} value={publisherSearch} onChange={(e) => handleDebouncedSearch('publisher-drawer', e.target.value, setPublisherSearch)} fullWidth />
+                  </div>
+                  {authCtx?.publishers?.map((publisher) => {
+                    if (publisherSearch && !contains(publisher.title, publisherSearch)) return null;
                     const isChecked = isPublisherSelected(publisher.id);
 
                     return (
-                      <div
-                        key={publisher.id}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          marginBottom: "0.5em",
-                        }}
-                        onClick={(e) => handleChangePublisher(publisher.id)}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          className={classes.checkbox}
-                          style={{
-                            marginRight: "0px",
-                            width: "1.3em",
-                            height: "1.3em",
-                          }}
-                        />
-                        <p
-                          style={{
-                            margin: "auto 0 auto 2%",
-                            width: "92%",
-                            display: "flex",
-                            cursor: "pointer", 
-                            color: "var(--secondary-color)" 
-                          }}
-                        >
-                          {publisher.title}
-                        </p>
+                      <div key={publisher.id} style={{ display: "flex", alignItems: "center", marginBottom: "0.5em" }} onClick={(e) => handleChangePublisher(publisher.id)}>
+                        <input type="checkbox" checked={isChecked} className={classes.checkbox} style={{ marginRight: "0px", width: "1.3em", height: "1.3em" }} />
+                        <p style={{ margin: "auto 0 auto 2%", width: "92%", display: "flex", cursor: "pointer", color: "var(--secondary-color)" }}>{publisher.title}</p>
                       </div>
                     );
                   })}
-              </div>}
+                </div>
+              )}
           </div>
 
           <Divider  
@@ -1407,47 +1396,24 @@ const handleChangeSubCategory = (event) => {
                 </span>
               )}
             </h2>
-              {collectionsOpen && <div className={classes.dropdown}
-                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
-                
-                {authCtx?.collections?.map((collection) => {
+              {collectionsOpen && (
+                <div className={classes.dropdown} style={{ maxHeight: "400px", height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+                  <div style={{ padding: '0 0.6em 0.6em 0' }}>
+                    <TextField size="small" variant="standard" placeholder={language === 'eng' ? 'Search collection...' : 'Rechercher...'} value={collectionSearch} onChange={(e) => handleDebouncedSearch('collection-drawer', e.target.value, setCollectionSearch)} fullWidth />
+                  </div>
+                  {authCtx?.collections?.map((collection) => {
+                    if (collectionSearch && !contains(collection.nom, collectionSearch)) return null;
                     const isChecked = isCollectionSelected(collection.id);
 
                     return (
-                      <div
-                        key={collection.id}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          marginBottom: "0.5em",
-                        }}
-                        onClick={(e) => handleChangeCollection(collection.id)}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          className={classes.checkbox}
-                          style={{
-                            marginRight: "0px",
-                            width: "1.3em",
-                            height: "1.3em",
-                          }}
-                        />
-                        <p
-                          style={{
-                            margin: "auto 0 auto 2%",
-                            width: "92%",
-                            display: "flex",
-                            cursor: "pointer", 
-                            color: "var(--secondary-color)" 
-                          }}
-                        >
-                          {collection.nom}
-                        </p>
+                      <div key={collection.id} style={{ display: "flex", alignItems: "center", marginBottom: "0.5em" }} onClick={(e) => handleChangeCollection(collection.id)}>
+                        <input type="checkbox" checked={isChecked} className={classes.checkbox} style={{ marginRight: "0px", width: "1.3em", height: "1.3em" }} />
+                        <p style={{ margin: "auto 0 auto 2%", width: "92%", display: "flex", cursor: "pointer", color: "var(--secondary-color)" }}>{collection.nom}</p>
                       </div>
                     );
                   })}
-              </div>}
+                </div>
+              )}
           </div>
           
           <Divider  
@@ -1487,24 +1453,18 @@ const handleChangeSubCategory = (event) => {
               <div className={classes.dropdown}
                   style={{  margin:'0em auto ' }}>
             {collaboratorsOpen && (
-              <div className={classes.dropdown}
-                  style={{ height:'fit-content', margin:'0em auto ', paddingTop:collaboratorsOpen ? '0' : '4%' }}>
+                <div className={classes.dropdown} style={{ height:'fit-content', margin:'0em auto ', paddingTop:collaboratorsOpen ? '0' : '4%' }}>
+                  <div style={{ padding: '0 0.6em 0.6em 0' }}>
+                    <TextField size="small" variant="standard" placeholder={language === 'eng' ? 'Search collaborators...' : 'Rechercher...'} value={collaboratorSearch} onChange={(e) => handleDebouncedSearch('collab-drawer', e.target.value, setCollaboratorSearch)} fullWidth />
+                  </div>
                   {authCtx.collaboratorsTypes?.map((type) => {
-                    const typeName = type.name_fr;
+                    const typeName = type?.name_fr;
                     const typeKey = typeName.toLowerCase().replace(/\s+/g, '_');
                     const collaborators = collaboratorsByType[typeName] || [];
                     const title = type.nom_pluriel_fr || typeName.charAt(0).toUpperCase() + typeName.slice(1) + 's';
-                    
+
                     return (
-                      <CollaboratorTreeNode 
-                        key={typeKey}
-                        title={title}
-                        isExpanded={expandedNodes[typeKey]} 
-                        setIsExpanded={() => handleExpand(typeKey)}
-                        collaborators={collaborators} 
-                        fieldName={typeName}
-                        searchQuery={(props)=>dispatch(addSearchData({collaborators: props.id}))}
-                      />
+                      <CollaboratorTreeNode key={typeKey} title={title} isExpanded={expandedNodes[typeKey]} setIsExpanded={() => handleExpand(typeKey)} collaborators={collaborators} fieldName={typeName} searchQuery={(props)=>dispatch(addSearchData({collaborators: props.id}))} collaboratorSearchValue={collaboratorSearch} />
                     );
                   })}
                 </div>
@@ -1566,8 +1526,19 @@ const handleChangeSubCategory = (event) => {
               </h2>
               {isOpen && (
                 <div className={classes.dropdown}>
+                  <div style={{ padding: '0 0.6em 0.6em 0' }}>
+                    {/* per-filter drawer search */}
+                    <TextField size="small" variant="standard" placeholder={language === 'eng' ? 'Search...' : 'Rechercher...'} value={(dynamicFilterSearches && dynamicFilterSearches[`filter_search_${index}`]) || ''} onChange={(e) => {
+                      const key = `filter_search_${index}`;
+                      handleDebouncedSearch(key, e.target.value, (v) => setDynamicFilterSearches(prev => ({ ...prev, [key]: v })));
+                    }} fullWidth />
+                  </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5em' }}>
-                    {filter?.values?.map((props) => {
+                    {filter?.values?.filter(val => {
+                      const searchVal = (dynamicFilterSearches && dynamicFilterSearches[`filter_search_${index}`]) || '';
+                      if (!searchVal) return true;
+                      return contains(val.nom || val.nom_fr || val.label || '', searchVal);
+                    }).map((props) => {
                       const isSelected = isMultiproductSelected(props.id);
                       return (
                         <label
@@ -1746,44 +1717,22 @@ const handleChangeSubCategory = (event) => {
                 </span>
               )}
             </h2>
-            {parentCategoriesOpen && (<div className={classes.dropdown}
-                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
-               {authCtx?.articleFamilleParents?.map((parent) => {
-                    const isChecked = isParentCategorySelected(parent.id);
+            {parentCategoriesOpen && (
+              <div className={classes.dropdown} style={{ maxHeight: "400px", height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+                <div style={{ padding: '0 0.6em 0.6em 0' }}>
+                  <TextField size="small" variant="standard" placeholder={language === 'eng' ? 'Search parent...' : 'Rechercher...'} value={parentCategorySearch} onChange={(e) => handleDebouncedSearch('parent-drawer', e.target.value, setParentCategorySearch)} fullWidth />
+                </div>
+                {authCtx?.articleFamilleParents?.map((parent) => {
+                  if (parentCategorySearch && !contains(parent.nom, parentCategorySearch)) return null;
+                  const isChecked = isParentCategorySelected(parent.id);
 
-                    return (
-                      <div
-                        key={parent.id}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          marginBottom: "0.5em",
-                        }}
-                        onClick={(e) => handleChangeParentCategory(parent.id)}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          className={classes.checkbox}
-                          style={{
-                            marginRight: "0px",
-                            width: "1.3em",
-                            height: "1.3em",
-                          }}
-                        />
-                        <p
-                          style={{
-                            margin: "auto 0 auto 2%",
-                            width: "92%",
-                            display: "flex",
-                            cursor: "pointer",  
-                          }}
-                        >
-                          {parent.nom}
-                        </p>
-                      </div>
-                    );
-                  })}
+                  return (
+                    <div key={parent.id} style={{ display: "flex", alignItems: "center", marginBottom: "0.5em" }} onClick={(e) => handleChangeParentCategory(parent.id)}>
+                      <input type="checkbox" checked={isChecked} className={classes.checkbox} style={{ marginRight: "0px", width: "1.3em", height: "1.3em" }} />
+                      <p style={{ margin: "auto 0 auto 2%", width: "92%", display: "flex", cursor: "pointer" }}>{parent.nom}</p>
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>}
@@ -1822,44 +1771,22 @@ const handleChangeSubCategory = (event) => {
                 </span>
               )}
             </h2>
-            {subCategoriesOpen && (<div className={classes.dropdown}
-                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
-               {authCtx?.articleFamille?.filter(parent => selectedParentCategories.length === 0 || selectedParentCategories.includes(parent.b_usr_parentcategorie_id)).map((parent) => {
-                    const isChecked = isSubCategorySelected(parent.id);
+            {subCategoriesOpen && (
+              <div className={classes.dropdown} style={{ maxHeight: "400px", height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+                <div style={{ padding: '0 0.6em 0.6em 0' }}>
+                  <TextField size="small" variant="standard" placeholder={language === 'eng' ? 'Search sub...' : 'Rechercher...'} value={subCategorySearch} onChange={(e) => handleDebouncedSearch('sub-drawer', e.target.value, setSubCategorySearch)} fullWidth />
+                </div>
+                {authCtx?.articleFamille?.filter(parent => selectedParentCategories.length === 0 || selectedParentCategories.includes(parent.b_usr_parentcategorie_id)).map((parent) => {
+                  if (subCategorySearch && !contains(parent.type_nom, subCategorySearch)) return null;
+                  const isChecked = isSubCategorySelected(parent.id);
 
-                    return (
-                      <div
-                        key={parent.id}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          marginBottom: "0.5em",
-                        }}
-                        onClick={(e) => handleChangeSubCategory(parent.id)}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          className={classes.checkbox}
-                          style={{
-                            marginRight: "0px",
-                            width: "1.3em",
-                            height: "1.3em",
-                          }}
-                        />
-                        <p
-                          style={{
-                            margin: "auto 0 auto 2%",
-                            width: "92%",
-                            display: "flex",
-                            cursor: "pointer", 
-                          }}
-                        >
-                          {parent.type_nom}
-                        </p>
-                      </div>
-                    );
-                  })}
+                  return (
+                    <div key={parent.id} style={{ display: "flex", alignItems: "center", marginBottom: "0.5em" }} onClick={(e) => handleChangeSubCategory(parent.id)}>
+                      <input type="checkbox" checked={isChecked} className={classes.checkbox} style={{ marginRight: "0px", width: "1.3em", height: "1.3em" }} />
+                      <p style={{ margin: "auto 0 auto 2%", width: "92%", display: "flex", cursor: "pointer" }}>{parent.type_nom}</p>
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>}
@@ -1898,14 +1825,22 @@ const handleChangeSubCategory = (event) => {
                 </span>
               )}
             </h2>
-              {themesOpen && <div className={classes.dropdown}
-                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
-                {mappedCategories.map((data) => {
-                  return (
-                      <TreeNode data={data} level={0} color='var(--secondary-color)'/>
-                  );
-                })}
-              </div>}
+              {themesOpen && (
+                <div className={classes.dropdown} style={{ maxHeight: "400px", height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+                  <div style={{ padding: '0 0.6em 0.6em 0' }}>
+                    <TextField size="small" variant="standard" placeholder={language === 'eng' ? 'Search theme...' : 'Rechercher...'} value={themeSearch} onChange={(e) => handleDebouncedSearch('theme-drawer', e.target.value, setThemeSearch)} fullWidth />
+                  </div>
+                {filterTreeByQuery(mappedCategories, themeSearch).map((parent, index) => (
+                  <TreeNode
+                    key={index}
+                    data={parent}
+                    fetchArticles={fetchArticles}
+                    setArticles={setArticles}
+                    level={0}
+                  />
+                ))}
+                </div>
+              )}
           </div>
 
           <Divider  
@@ -1942,47 +1877,24 @@ const handleChangeSubCategory = (event) => {
                 </span>
               )}
             </h2>
-              {publishinghouseOpen && <div className={classes.dropdown}
-                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
-
-                {authCtx?.publishers?.map((publisher) => {
+              {publishinghouseOpen && (
+                <div className={classes.dropdown} style={{ maxHeight: "400px", height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+                  <div style={{ padding: '0 0.6em 0.6em 0' }}>
+                    <TextField size="small" variant="standard" placeholder={language === 'eng' ? 'Search publisher...' : 'Rechercher...'} value={publisherSearch} onChange={(e) => handleDebouncedSearch('publisher-drawer', e.target.value, setPublisherSearch)} fullWidth />
+                  </div>
+                  {authCtx?.publishers?.map((publisher) => {
+                    if (publisherSearch && !contains(publisher.title, publisherSearch)) return null;
                     const isChecked = isPublisherSelected(publisher.id);
 
                     return (
-                      <div
-                        key={publisher.id}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          marginBottom: "0.5em",
-                        }}
-                        onClick={(e) => handleChangePublisher(publisher.id)}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          className={classes.checkbox}
-                          style={{
-                            marginRight: "0px",
-                            width: "1.3em",
-                            height: "1.3em",
-                          }}
-                        />
-                        <p
-                          style={{
-                            margin: "auto 0 auto 2%",
-                            width: "92%",
-                            display: "flex",
-                            cursor: "pointer", 
-                            color: "var(--secondary-color)" 
-                          }}
-                        >
-                          {publisher.title}
-                        </p>
+                      <div key={publisher.id} style={{ display: "flex", alignItems: "center", marginBottom: "0.5em" }} onClick={(e) => handleChangePublisher(publisher.id)}>
+                        <input type="checkbox" checked={isChecked} className={classes.checkbox} style={{ marginRight: "0px", width: "1.3em", height: "1.3em" }} />
+                        <p style={{ margin: "auto 0 auto 2%", width: "92%", display: "flex", cursor: "pointer", color: "var(--secondary-color)" }}>{publisher.title}</p>
                       </div>
                     );
                   })}
-              </div>}
+                </div>
+              )}
           </div>
 
           <Divider  
@@ -2019,47 +1931,24 @@ const handleChangeSubCategory = (event) => {
                 </span>
               )}
             </h2>
-              {collectionsOpen && <div className={classes.dropdown}
-                  style={{ maxHeight: "400px",height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
-                
-                {authCtx?.collections?.map((collection) => {
+              {collectionsOpen && (
+                <div className={classes.dropdown} style={{ maxHeight: "400px", height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+                  <div style={{ padding: '0 0.6em 0.6em 0' }}>
+                    <TextField size="small" variant="standard" placeholder={language === 'eng' ? 'Search collection...' : 'Rechercher...'} value={collectionSearch} onChange={(e) => handleDebouncedSearch('collection-drawer', e.target.value, setCollectionSearch)} fullWidth />
+                  </div>
+                  {authCtx?.collections?.map((collection) => {
+                    if (collectionSearch && !contains(collection.nom, collectionSearch)) return null;
                     const isChecked = isCollectionSelected(collection.id);
 
                     return (
-                      <div
-                        key={collection.id}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          marginBottom: "0.5em",
-                        }}
-                        onClick={(e) => handleChangeCollection(collection.id)}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          className={classes.checkbox}
-                          style={{
-                            marginRight: "0px",
-                            width: "1.3em",
-                            height: "1.3em",
-                          }}
-                        />
-                        <p
-                          style={{
-                            margin: "auto 0 auto 2%",
-                            width: "92%",
-                            display: "flex",
-                            cursor: "pointer", 
-                            color: "var(--secondary-color)" 
-                          }}
-                        >
-                          {collection.nom}
-                        </p>
+                      <div key={collection.id} style={{ display: "flex", alignItems: "center", marginBottom: "0.5em" }} onClick={(e) => handleChangeCollection(collection.id)}>
+                        <input type="checkbox" checked={isChecked} className={classes.checkbox} style={{ marginRight: "0px", width: "1.3em", height: "1.3em" }} />
+                        <p style={{ margin: "auto 0 auto 2%", width: "92%", display: "flex", cursor: "pointer", color: "var(--secondary-color)" }}>{collection.nom}</p>
                       </div>
                     );
                   })}
-              </div>}
+                </div>
+              )}
           </div>
           
           <Divider  
@@ -2099,24 +1988,18 @@ const handleChangeSubCategory = (event) => {
               <div className={classes.dropdown}
                   style={{  margin:'0em auto ' }}>
             {collaboratorsOpen && (
-              <div className={classes.dropdown}
-                  style={{ height:'fit-content', margin:'0em auto ', paddingTop:collaboratorsOpen ? '0' : '4%' }}>
+                <div className={classes.dropdown} style={{ height:'fit-content', margin:'0em auto ', paddingTop:collaboratorsOpen ? '0' : '4%' }}>
+                  <div style={{ padding: '0 0.6em 0.6em 0' }}>
+                    <TextField size="small" variant="standard" placeholder={language === 'eng' ? 'Search collaborators...' : 'Rechercher...'} value={collaboratorSearch} onChange={(e) => handleDebouncedSearch('collab-drawer', e.target.value, setCollaboratorSearch)} fullWidth />
+                  </div>
                   {authCtx.collaboratorsTypes?.map((type) => {
-                    const typeName = type.name_fr;
+                    const typeName = type?.name_fr;
                     const typeKey = typeName.toLowerCase().replace(/\s+/g, '_');
                     const collaborators = collaboratorsByType[typeName] || [];
                     const title = type.nom_pluriel_fr || typeName.charAt(0).toUpperCase() + typeName.slice(1) + 's';
-                    
+
                     return (
-                      <CollaboratorTreeNode 
-                        key={typeKey}
-                        title={title}
-                        isExpanded={expandedNodes[typeKey]} 
-                        setIsExpanded={() => handleExpand(typeKey)}
-                        collaborators={collaborators} 
-                        fieldName={typeName}
-                        searchQuery={(props)=>dispatch(addSearchData({collaborators: props.id}))}
-                      />
+                      <CollaboratorTreeNode key={typeKey} title={title} isExpanded={expandedNodes[typeKey]} setIsExpanded={() => handleExpand(typeKey)} collaborators={collaborators} fieldName={typeName} searchQuery={(props)=>dispatch(addSearchData({collaborators: props.id}))} collaboratorSearchValue={collaboratorSearch} />
                     );
                   })}
                 </div>
@@ -2178,8 +2061,19 @@ const handleChangeSubCategory = (event) => {
               </h2>
               {isOpen && (
                 <div className={classes.dropdown}>
+                  <div style={{ padding: '0 0.6em 0.6em 0' }}>
+                    {/* per-filter drawer search */}
+                    <TextField size="small" variant="standard" placeholder={language === 'eng' ? 'Search...' : 'Rechercher...'} value={(dynamicFilterSearches && dynamicFilterSearches[`filter_search_${index}`]) || ''} onChange={(e) => {
+                      const key = `filter_search_${index}`;
+                      handleDebouncedSearch(key, e.target.value, (v) => setDynamicFilterSearches(prev => ({ ...prev, [key]: v })));
+                    }} fullWidth />
+                  </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5em' }}>
-                    {filter?.values?.map((props) => {
+                    {filter?.values?.filter(val => {
+                      const searchVal = (dynamicFilterSearches && dynamicFilterSearches[`filter_search_${index}`]) || '';
+                      if (!searchVal) return true;
+                      return contains(val.nom || val.nom_fr || val.label || '', searchVal);
+                    }).map((props) => {
                       const isSelected = isMultiproductSelected(props.id);
                       return (
                         <label
@@ -2320,6 +2214,7 @@ const handleChangeSubCategory = (event) => {
             carttoggle={carttoggle}
             filteredartciles={articles}
             catChemin={catChemin}
+            loading={loading}
             selectedRate={selectedRate}
             selectedPrice={changepricetoggle}
             totalArticlesNumber={totalArticlesNumber}
