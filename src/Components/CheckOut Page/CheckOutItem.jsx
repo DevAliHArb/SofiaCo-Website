@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classes from "./CheckOutItem.module.css";
-import { addTocart, decreamentQuantity, increamentQuantity } from "../Common/redux/productSlice";
+import { addTocart, changeQuantity, decreamentQuantity, increamentQuantity } from "../Common/redux/productSlice";
 import DeleteIcon from "../../assets/DeleteIcon.svg";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -76,18 +76,34 @@ const CheckOutItem = () => {
   const [isLoading, setIsLoading] = React.useState(false);
 
   
-  React.useEffect(() => {
-    const initialQuantities = productData.reduce((acc, item) => {
-      acc[item._id] = item.quantity;
-      return acc;
-    }, {});
-    setLocalQuantities(initialQuantities);
-  }, [productData]);
+    useEffect(() => {
+      const initialQuantities = productData.reduce((acc, item) => {
+        // Use article_variant_combination.id if exists, else fallback to _id
+        const key = item.article_variant_combination?.id || item._id;
+        acc[key] = item.quantity;
+        return acc;
+      }, {});
+      setLocalQuantities(initialQuantities);
+    }, [productData]);
 
   
   const updateQuantity = (item) => {
     if (!isLoading) {
-    const newQuantity = localQuantities[item._id];
+      const key = item.article_variant_combination?.id || item._id;
+      const newQuantity = localQuantities[key];
+
+      
+      // Find if product already exists in the cart (match by id and variants)
+      let userexistingarticle = null;
+      if (item.article_variant_combination) {
+        userexistingarticle = productData.find(existitem => 
+          item?._id === existitem._id && item.article_variant_combination?.id === existitem.article_variant_combination?.id
+        );
+      } else {
+        userexistingarticle = productData.find(existitem => item?._id === existitem._id);
+      }
+
+
     if (newQuantity !== item.quantity) {
     setIsLoading(true)
       axios
@@ -96,15 +112,9 @@ const CheckOutItem = () => {
         })
         .then(() => {
           dispatch(
-            addTocart({
-              _id: item._id,
-              title: item.name,
-              author: item.author,
-              average_rate: item.average_rate,
-              image: item.image,
-              price: item.price,
-              quantity: newQuantity - item.quantity, // The difference in quantities
-              description: item.resume,
+            changeQuantity({
+              ...userexistingarticle,
+              quantity: newQuantity,
             })
           );
         })
@@ -193,9 +203,16 @@ const CheckOutItem = () => {
               >
                 <p style={{width:'100%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"600",margin:'0'}} onClick={()=>console.log(props)}>{props.title.slice(0,20)}</p>
                 <p style={{width:'100%',textAlign:"start",fontSize:"calc(.6rem + .3vw)",fontWeight:"500",margin:'0'}}>{props.author.slice(0,20)}</p>
-                <p style={{width:'100%',textAlign:"start",fontSize:"calc(.6rem + .3vw)",fontWeight:"500",margin:'0'}}>{new Date(props.date).toDateString()}</p>
+              <div className={classes.variants}> 
+               {props?.cart_items_variants?.map((item,index)=>{
+                 return(
+                   <p onClick={()=>console.log(item)} style={{padding:index === 0 && "0"}}> <span style={{textTransform:'capitalize'}}>{item?.articlevariant?.nom ? <strong>{item?.articlevariant?.nom}:</strong> : null}</span> {item?.variantitem ? item?.variantitem?.value : item?.value} {props?.cart_items_variants?.length - 1 !== index && " | "} </p>
+                 )
+               })}
+               </div>
+                {/* <p style={{width:'100%',textAlign:"start",fontSize:"calc(.6rem + .3vw)",fontWeight:"500",margin:'0'}}>{new Date(props.date).toDateString()}</p> */}
                 <p style={{color:'var(--secondary-color)',fontSize:'smaller',textAlign:'start'}}><Rate value={props.average_rate} disabled  style={{color:'var(--primary-color)',fontSize:'small'}}/>{props?.average_rate ? Number(props.average_rate)?.toFixed(1) : 0.0}/5</p>
-                <p style={{ margin: ".5em auto .5em 0",color:props._qte_a_terme_calcule > 0 ? "var(--forth-color)" : "#EE5858",fontWeight:"600" }}>{props._qte_a_terme_calcule > 0 ? `${(props._qte_a_terme_calcule * 1).toFixed(0)} in stock` : `${language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}`} </p>
+                <p style={{ margin: ".5em auto .5em 0",color:props._qte_a_terme_calcule > 0 ? "var(--forth-color)" : "#EE5858",fontWeight:"600" }}>{props._qte_a_terme_calcule > 0 ? `${language === "eng" ? "IN STOCK" : "EN STOCK"}` : `${language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}`} </p>
                 </div>
              
                 {props?._qte_a_terme_calcule > 0 && 
@@ -207,9 +224,9 @@ const CheckOutItem = () => {
                     defaultValue={1} 
                     disabled={isLoading}
                     className={classes.quantity1}
-                    value={localQuantities[props._id] || ""}
+                    value={localQuantities[props.article_variant_combination?.id || props._id] || ""}
                     onChange={(e) =>
-                      handleInputChange(props._id, e.target.value, props._qte_a_terme_calcule)
+                      handleInputChange(props.article_variant_combination?.id || props._id, e.target.value, props._qte_a_terme_calcule)
                     }
                     onBlur={() => handleBlur(props)} 
                     onKeyPress={(e) => handleKeyPress(e, props)}
@@ -253,7 +270,7 @@ const CheckOutItem = () => {
         ? ((props.price_ttc - props.price_ttc * (props.discount / 100)) * authCtx.currencyRate).toFixed(2) * props.quantity
         : (props.price_ttc * authCtx.currencyRate) * props.quantity).toFixed(2)}$`}
               </p>
-              <div className={classes.delete_btn} style={{zIndex:'50'}}><img src={DeleteIcon} style={{width:'1em'}}  onClick={() => setShowPopup(props._id)} /></div>
+              <div className={classes.delete_btn} style={{zIndex:'50'}}><img src={DeleteIcon} style={{width:'1em'}}  onClick={() => setShowPopup(props)} /></div>
             </div>
             <div className={classes.cardmobile} key={index} style={{borderBottom:(index + 1) !== productData?.length && "1px solid var(--primary-color)",position:'relative',overflow:'hidden'}}>
             {props?.removed && <div className={classes.removed_item}>
@@ -280,12 +297,12 @@ const CheckOutItem = () => {
                 <p style={{width:'80%',textAlign:"start",fontSize:"calc(.8rem + .3vw)",fontWeight:"600"}}>{props.title.slice(0,20)}</p>
                 
              
-                <div className={classes.delete_btn} style={{zIndex:'50'}}><img src={DeleteIcon} style={{width:'1.5em'}}  onClick={() => setShowPopup(props._id)} /></div>
+                <div className={classes.delete_btn} style={{zIndex:'50'}}><img src={DeleteIcon} style={{width:'1.5em'}}  onClick={() => setShowPopup(props)} /></div>
               </div>
                 <p style={{margin:'0.2em 0', width:'100%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"500"}}>{props.author.slice(0,20)}</p>
                 <p style={{margin:'0.2em 0', width:'100%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"500"}}>{new Date(props.date).toDateString()}</p>
                 <p style={{color:'var(--secondary-color)',fontSize:'smaller',textAlign:'start'}}><Rate value={props.average_rate} disabled  style={{color:'var(--primary-color)',fontSize:'small'}}/>{props.average_rate}/5</p>
-                <p style={{ margin: ".5em auto .5em 0",color:props._qte_a_terme_calcule > 0 ? "var(--forth-color)" : "#EE5858",fontWeight:"600", fontSize:"calc(.7rem + .3vw)", }}>{props._qte_a_terme_calcule > 0 ? `${(props._qte_a_terme_calcule * 1).toFixed(0)} in stock` : `${language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}`} </p>
+                <p style={{ margin: ".5em auto .5em 0",color:props._qte_a_terme_calcule > 0 ? "var(--forth-color)" : "#EE5858",fontWeight:"600", fontSize:"calc(.7rem + .3vw)", }}>{props._qte_a_terme_calcule > 0 ? `${language === "eng" ? "IN STOCK" : "EN STOCK"}` : `${language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}`} </p>
             </div>
               </div>
             <div
@@ -317,9 +334,9 @@ const CheckOutItem = () => {
                     defaultValue={1} 
                     disabled={isLoading}
                     className={classes.quantity1}
-                    value={localQuantities[props._id] || ""}
+                    value={localQuantities[props.article_variant_combination?.id || props._id] || ""}
                     onChange={(e) =>
-                      handleInputChange(props._id, e.target.value, props._qte_a_terme_calcule)
+                      handleInputChange(props.article_variant_combination?.id || props._id, e.target.value, props._qte_a_terme_calcule)
                     }
                     onBlur={() => handleBlur(props)} 
                     onKeyPress={(e) => handleKeyPress(e, props)}
@@ -341,7 +358,7 @@ const CheckOutItem = () => {
           message= {language === 'eng' ? "Are you sure you want to delete this item?" : "Êtes-vous sûr de bien vouloir supprimer cet article?"}
           onConfirm={() => handleDelete(showPopup)}
           onCancel={() => setShowPopup(false)}
-          showPopup={showPopup === props._id}
+        showPopup={JSON.stringify(showPopup) === JSON.stringify(props)}
         />
         )}
           </>

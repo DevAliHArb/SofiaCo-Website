@@ -46,10 +46,10 @@ const BookDetailsPage = () => {
   return (
     <div className={classes.bookDetailsPageContaimer}>
       <img src={abs} alt="" className={classes.img_abs}/>
-      <OurSelectionBanner  props={heroData}/>
+      {/* <OurSelectionBanner  props={heroData}/> */}
       <BookDetails/>
         <ViewTab />
-        <AlsoSee collection={bookData?.dc_collection}/>
+        <AlsoSee collection={bookData?.b_usr_article_collection_id}/>
       <div className={classes.deals_con}>
       <Deals />
       </div>

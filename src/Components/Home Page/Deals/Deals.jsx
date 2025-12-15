@@ -19,6 +19,7 @@ import { stripHtmlTags, truncateText } from "../../Common/TextUtils";
 import { Rating } from "@mui/material";
 
 const Deals = () => {
+  const catBtnsRef = React.useRef(null);
   const authCtx = useContext(AuthContext);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,16 +33,38 @@ const Deals = () => {
   const favoriteData = useSelector((state) => state.products.favorites);
   const [articles, setArticles] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0); // State to track active slide index
+    const [ selectedsubCategoryId, setSelectedsubCategoryId ] = useState(null);
   const user = useSelector((state) => state.products.userInfo);
+  const SelectedCategoryId = useSelector((state) => state.products.selectedCategoryId);
 
+  // Scroll category container left/right
+  const scrollCatBtns = (direction) => {
+    const container = catBtnsRef.current;
+    if (!container) return;
+    const scrollAmount = 120; // px per click
+    if (direction === 'left') {
+      container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    } else {
+      container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
   useEffect(() => {
     fetchArticles();
-  }, []);
+  }, [ SelectedCategoryId, selectedsubCategoryId]);
 
   const fetchArticles = async () => {
     try {
+      let articleFamilleIdParam = '';
+      if (SelectedCategoryId && SelectedCategoryId !== 'null') {
+        articleFamilleIdParam = `&articlefamilleparent_id=${SelectedCategoryId}`;
+      }
+      
+      let articlefamilleSubIdParam = '';
+      if (selectedsubCategoryId && selectedsubCategoryId !== 'null') {
+        articlefamilleSubIdParam = `&articlefamille_id=${selectedsubCategoryId}`;
+      }
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&is_selected&user_id=${user?.id ? user.id : null}`
+        `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco${articleFamilleIdParam}${articlefamilleSubIdParam}&is_selected&user_id=${user?.id ? user.id : null}`
       );
       //   const filteredArticles = response?.data?.data?.filter(article => article._qte_a_terme_calcule > 0);
   
@@ -53,6 +76,37 @@ const Deals = () => {
       // toast.error("Failed to fetch articles.");
     }
   };
+  
+    // Add drag-to-scroll functionality
+    const handleMouseDown = (e) => {
+      e.preventDefault();
+      const container = e.currentTarget;
+      container.isDown = true;
+      container.startX = e.pageX - container.offsetLeft;
+      container.scrollLeft = container.scrollLeft;
+    };
+  
+    const handleMouseLeave = (e) => {
+      e.currentTarget.isDown = false;
+    };
+  
+    const handleMouseUp = (e) => {
+      e.currentTarget.isDown = false;
+    };
+  
+    const handleMouseMove = (e) => {
+      if (!e.currentTarget.isDown) return;
+      e.preventDefault();
+      const container = e.currentTarget;
+      const x = e.pageX - container.offsetLeft;
+      const walk = (x - container.startX) * 2; // Scroll-fast ratio
+      container.scrollLeft = container.scrollLeft - walk;
+    };
+
+    
+  const handleCategoryClick = (id) => {
+  setSelectedsubCategoryId(Number(id));
+  };
 
   return (
     <div className={classes.big_container}>
@@ -63,8 +117,70 @@ const Deals = () => {
               __html: data.HomePage.Deals?.title[language],
             }}
           />
-          <p>{data.HomePage.Deals?.description[language]}</p>
-        </div>
+
+          <div className={classes.header_low}>
+            <div className={classes.nav_container}>
+              
+      <div className={`${classes.nav_prev}`}>
+        <IoMdArrowBack className={classes.nav_icon}/>
+      </div>
+       <div className={classes.nav_nb}>
+        {activeIndex + 1}
+      </div>
+      <div className={` ${classes.nav_next}`}>
+        <IoMdArrowBack className={classes.nav_icon} style={{transform:'rotate(180deg)'}}/>
+      </div>
+            </div>
+            <div className={classes.cat_btns_wrapper}>
+              <button
+                className={classes.cat_arrow}
+                aria-label="Scroll categories left"
+                onClick={() => scrollCatBtns('left')}
+              >
+                <IoMdArrowBack className={classes.cat_arrow_icon} />
+              </button>
+              <div
+                className={classes.cat_btns}
+                ref={catBtnsRef}
+                onMouseDown={handleMouseDown}
+                onMouseLeave={handleMouseLeave}
+                onMouseUp={handleMouseUp}
+                onMouseMove={handleMouseMove}
+                style={{ display: 'flex', overflowX: 'auto', scrollbarWidth: 'none' }}
+              >
+                <button
+                  className={selectedsubCategoryId === null || selectedsubCategoryId === 'null' ? classes.selectedCategory : classes.cat_btns_button}
+                  onClick={() => {
+                    setSelectedsubCategoryId(null);
+                  }}
+                    style={{ fontWeight: selectedsubCategoryId === "null" || selectedsubCategoryId === null && "600", textDecoration: selectedsubCategoryId === "null" || selectedsubCategoryId === null && "underline"}}
+                >
+                  {language === 'eng' ? "All" : "Tous"}
+                </button>
+                {authCtx.articleFamille?.map((item) => (
+                  <button
+                    key={item.id}
+                    className={selectedsubCategoryId === Number(item?.id) ? classes.selectedCategory : ""}
+                    onClick={() => handleCategoryClick(item?.id)}
+                    style={{ fontWeight: selectedsubCategoryId === Number(item?.id) && "600", textDecoration: selectedsubCategoryId === Number(item?.id) && "underline"}}
+                  >
+                    {item?.type_nom}
+                  </button>
+                ))}
+              </div>
+              <button
+                className={classes.cat_arrow}
+                aria-label="Scroll categories right"
+                onClick={() => scrollCatBtns('right')}
+              >
+                <IoMdArrowBack className={classes.cat_arrow_icon} style={{ transform: 'rotate(180deg)' }} />
+              </button>
+            </div>
+        <button className={classes.view_more} onClick={()=>navigate(`\products`)}>
+          {language === "eng" ? "View More" : "Voir Plus"}
+        </button>
+          </div>
+          </div>
 
         {articles?.length === 0 ? (
           <div className={classes.nodata}>
@@ -109,7 +225,7 @@ const Deals = () => {
                         authCtx.setbookDetails(props);
                         event.stopPropagation();
                         dispatch(addSelectedBook(props))
-                        navigate(`/bookdetails/${props.id}`);
+                        navigate(`/productdetails/${props.id}`);
                       }}
                     >
                       <div className={classes.card_img} style={{position:"relative"}}>
@@ -341,7 +457,12 @@ const Deals = () => {
                           {props._qte_a_terme_calcule > 0 &&<button className={classes.buttoncart} 
                         onClick={(event) => {
                           event.stopPropagation();
-                          authCtx.addToCart({props: props}); 
+                              if (props.article_variant_combinations && props.article_variant_combinations.length > 0) {
+                                authCtx.setaddtocartPopupOpen(true);
+                                authCtx.setaddtocartPopupId(props.id);
+                              } else {
+                                authCtx.addToCart({ props: props });
+                              } 
                         }}>
                             {data.HomePage.Deals.button[language]}
                           </button>}
@@ -351,20 +472,25 @@ const Deals = () => {
                   </SwiperSlide>
                 ))}
             </Swiper>
+
+            <div className={classes.nav_container_mobile}>
+
+      <div className={`${classes.nav_prev}`}>
+        <IoMdArrowBack className={classes.nav_icon}/>
+      </div>
+       <div className={classes.nav_nb}>
+        {activeIndex + 1}
+      </div>
+      <div className={` ${classes.nav_next}`}>
+        <IoMdArrowBack className={classes.nav_icon} style={{transform:'rotate(180deg)'}}/>
+      </div>
+            </div>
           </div>
         )}
-      </div>
-      {/* <p className={classes.viewall} onClick={()=>navigate(`/books`)}>{language === 'eng' ? 'View all' : 'View all(fr)'}</p> */}
-      <div className={`${classes.nav_prev}`}>
-        <IoMdArrowBack className={classes.nav_icon} />
-      </div>
-      <div className={`${classes.nav_nb}`}>{activeIndex + 1}</div>
-      <div className={` ${classes.nav_next}`}>
-        <IoMdArrowBack
-          className={classes.nav_icon}
-          style={{ transform: "rotate(180deg)" }}
-        />
-      </div>
+      </div>    
+        <button className={classes.view_more_mob} onClick={()=>navigate(`\products`)}>
+          {language === "eng" ? "View More" : "Voir Plus"}
+        </button>
     </div>
   );
 };

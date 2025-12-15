@@ -45,6 +45,7 @@ import { useStripe } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { decryptAES128CTR } from "../Common/Decrypt";
 import GiftItems from "./Gift Items/GiftItems";
+import MondialRelayWidget from "./MondialRelayWidget";
 
 const { TextArea } = Input;
 
@@ -147,6 +148,8 @@ const CheckOut = () => {
     setErrorModalOpen(true);
   };
 
+  const [mondialRelayPopupOpen, setMondialRelayPopupOpen] = useState(false);
+  const [mondialRelayPointData, setMondialRelayPointData] = useState(null);
   const [colissimoPopupOpen, setColissimoPopupOpen] = useState(false);
   const [colissimoPointData, setColissimoPointData] = useState(null);
   const widgetRef = useRef(null);
@@ -218,10 +221,10 @@ const CheckOut = () => {
   }, [productData]);
 
   useEffect(() => {
-    if (colissimoPointData === null) {
+    if (colissimoPointData === null && mondialRelayPointData === null) {
       setDelivery("standard");
     }
-  }, [colissimoPointData]);
+  }, [colissimoPointData, mondialRelayPointData]);
 
   useEffect(() => {
     // Function to load external scripts
@@ -304,7 +307,7 @@ const CheckOut = () => {
   
     // Cleanup function
     return () => {
-      if (window.$ && widgetRef.current) {
+      if (window.$ && widgetRef.current && typeof window.$.fn.frameColissimoClose === "function") {
         window.$(widgetRef.current).frameColissimoClose();
         setColissimoPopupOpen(false);
       }
@@ -317,7 +320,7 @@ const CheckOut = () => {
       setColissimoPointData(point);
   
       // Ensure to close widget and update state
-      if (window.$ && widgetRef.current) {
+      if (window.$ && widgetRef.current && typeof window.$.fn.frameColissimoClose === "function") {
         window.$(widgetRef.current).frameColissimoClose();
       }
       setColissimoPopupOpen(false);
@@ -662,18 +665,18 @@ const CheckOut = () => {
   };
 
   useEffect(() => {
-    if (colissimoPointData) {
-      FetchShippinCost();
+    if (colissimoPointData || mondialRelayPointData) {
+      setdeliveryFees(0);
     } else {
       FetchShippinCost();
     }
-  }, [colissimoPointData]);
+  }, [colissimoPointData, mondialRelayPointData]);
 
   useEffect(() => {
-    if (!colissimoPointData) {
+    if (!colissimoPointData && !mondialRelayPointData) {
       FetchShippinCost();     
     }
-  }, [addresseslist, subtotalAmt,totalWeight]);
+  }, [addresseslist, subtotalAmt, totalWeight]);
 
   const fetchAddresses = async () => {
     try {
@@ -847,6 +850,7 @@ const CheckOut = () => {
         cost_without_discount: currency === "eur" 
           ? parseFloat(Number(item.price).toFixed(2)) 
           : parseFloat((item.price * authCtx.currencyRate).toFixed(2)),
+        variant_combination_id: item.article_variant_combination?.id || null,
       });
   
       totalPrice += (price * 1).toFixed(2) * item.quantity;
@@ -926,8 +930,9 @@ const CheckOut = () => {
         gifts_configuration: gifts_configuration,
         number_of_gifts_used: selectedGiftItems?.length || 0,
           shipping_type_id: delivery === "standard" ? 40 : 39,
+        delivery_type: delivery,
           colissimo_code:
-            delivery === "standard" ? null : colissimoPointData?.identifiant,
+            delivery === "standard" ? null : colissimoPointData ? colissimoPointData?.identifiant : mondialRelayPointData?.ID,
           currency: currency,
           coupon_amount: coupon.reduction
             ? coupon.type === "Percentage"
@@ -965,8 +970,9 @@ const CheckOut = () => {
           currency: currency,
           shippingPrice: delivery !== "standard" ? 0 : deliveryFees,
           shipping_type_id: delivery === "standard" ? 40 : 39,
+        delivery_type: delivery,
           colissimo_code:
-            delivery === "standard" ? null : colissimoPointData?.identifiant,
+            delivery === "standard" ? null : colissimoPointData ? colissimoPointData?.identifiant : mondialRelayPointData?.ID,
           coupon_discount: coupon.reduction ? coupon.reduction : 0,
           coupon_type: coupon.type,
           coupon_amount: coupon.reduction
@@ -988,7 +994,7 @@ const CheckOut = () => {
         console.log("deed",requestData);
         
 
-        if (delivery === "Colissimo" && !colissimoPointData) {
+        if ((delivery === "Colissimo" && !colissimoPointData) || (delivery === "Mondial Relay" && !mondialRelayPointData)) {
           toast.error(
             `${
               language === "eng"
@@ -1137,8 +1143,9 @@ const CheckOut = () => {
         currency: currency,
         shippingPrice: delivery !== "standard" ? 0 : deliveryFees,
         shipping_type_id: delivery === "standard" ? 40 : 39,
+        delivery_type: delivery,
         colissimo_code:
-          delivery === "standard" ? null : colissimoPointData?.identifiant,
+          delivery === "standard" ? null : colissimoPointData ? colissimoPointData?.identifiant : mondialRelayPointData?.ID,
           coupon_amount: coupon.reduction
             ? coupon.type === "Percentage"
               ? null
@@ -1200,9 +1207,15 @@ const CheckOut = () => {
     setDelivery(selectedDelivery);
     if (selectedDelivery === "Colissimo") {
       setColissimoPopupOpen(true);
+      setMondialRelayPointData(null);
+    } else if (selectedDelivery === "Mondial Relay") {
+      setMondialRelayPopupOpen(true);
+      setColissimoPointData(null)
     } else {
       setColissimoPopupOpen(false);
+      setMondialRelayPopupOpen(false);
       setColissimoPointData(null)
+      setMondialRelayPointData(null);
     }
   };
 
@@ -1288,7 +1301,7 @@ const CheckOut = () => {
     dispatch(editDefaultAdd(id));
     setdisplayedAddress(1);
     
-    if (!colissimoPointData) {
+    if (!colissimoPointData && !mondialRelayPointData) {
       FetchShippinCost(id);     
     }
 
@@ -1510,7 +1523,7 @@ const CheckOut = () => {
                       </RadioGroup>{" "}
                       <div style={{paddingLeft:'.3em'}}>
                         <p style={{ fontSize: "calc(.9rem + .3vw)" }}>
-                          {address.name}{" "}
+                          {address.civility === 'Mr' ? 'Mr.' : 'Ms.'} {address.name} {address.last_name} {" "}
                           <button
                             style={{
                               cursor: "auto",
@@ -1839,13 +1852,15 @@ const CheckOut = () => {
                       label={
                         <p style={{ margin: "auto 0 auto 1.2em", whiteSpace: "normal" }}>
                           {language === "eng"
-                            ? "Retriat Point"
-                            : "Point de Retriat"}
+                            ? "Colissimo Pickup Point"
+                            : "Colissimo Point de Retrait"}
                         </p>
-                      } 
-                      onClick={()=>{if (!colissimoPointData?.identifiant) {
-                        setColissimoPopupOpen(true)
-                      }}}
+                      }
+                      onClick={() => {
+                        if (!colissimoPointData?.identifiant) {
+                          setColissimoPopupOpen(true)
+                        }
+                      }}
                       control={
                         <Radio
                           value="Colissimo"
@@ -1871,6 +1886,45 @@ const CheckOut = () => {
                       }}
                     >
                       {colissimoPointData?.identifiant}
+                    </p>
+                  )}
+                  {<FormControlLabel
+                      value="Mondial Relay"
+                      label={
+                        <p style={{ margin: "auto 0 auto 1.2em", whiteSpace: "normal" }}>
+                          {language === "eng"
+                            ? "Mondial Relay Pickup Point"
+                            : "Point de Retrait Mondial Relay"}
+                        </p>
+                      }
+                      onClick={() => {
+                          setMondialRelayPopupOpen(true);
+                      }}
+                      control={
+                        <Radio
+                          value="Mondial Relay"
+                          sx={{
+                            color: "var(--primary-color)",
+                            "&.Mui-checked": {
+                              color: "var(--primary-color)",
+                            },
+                            margin: " auto 0",
+                          }}
+                        />
+                      }
+                    />}
+                     {delivery === "Mondial Relay" && (
+                    <p
+                      style={{
+                        paddingLeft: "3.2em",
+                        display: "flex",
+                        flexDirection: "row",
+                        margin:'0em 0',
+                        width: "100%",
+                        fontSize: "calc(0.5rem + 0.5vw)",
+                      }}
+                    >
+                      {mondialRelayPointData?.ID}
                     </p>
                   )}
                   </RadioGroup>
@@ -2207,6 +2261,20 @@ const CheckOut = () => {
           <div ref={widgetRef} id="monIdDeWidgetColissimo" className=""></div>
 
           {/* <div id="monIdDeWidgetColissimo" className=""></div> */}
+        </Box>
+      </Modal>
+
+      
+      <Modal
+        open={mondialRelayPopupOpen}
+        onClose={() => setMondialRelayPopupOpen(false)}
+        aria-labelledby="mondial-relay-widget-title"
+        aria-describedby="mondial-relay-widget-description"
+        style={{width:'100%', height:'100%', display:'flex', justifyContent:'center', alignItems:'center'}}
+        // className={classes.modalpopup}
+      >
+        <Box className={classes.modalpopup1}>
+          <MondialRelayWidget onPointSelect={setMondialRelayPointData} onClose={() => setMondialRelayPopupOpen(false)}/>
         </Box>
       </Modal>
 

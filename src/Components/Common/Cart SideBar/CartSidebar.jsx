@@ -43,7 +43,9 @@ export default function CartSidebar({ toggle, isOpen }) {
   
   React.useEffect(() => {
     const initialQuantities = productData.reduce((acc, item) => {
-      acc[item._id] = item.quantity;
+      // Use article_variant_combination.id if exists, else fallback to _id
+      const key = item.article_variant_combination?.id || item._id;
+      acc[key] = item.quantity;
       return acc;
     }, {});
     setLocalQuantities(initialQuantities);
@@ -52,11 +54,12 @@ export default function CartSidebar({ toggle, isOpen }) {
   
   const updateQuantity = (item) => {
     if (!isLoading) {
-    const newQuantity = localQuantities[item._id];
-    if (newQuantity !== item.quantity) {
-    setIsLoading(true)
-      axios
-        .put(`${import.meta.env.VITE_TESTING_API}/cart/${item.cart_id}`, {
+      const key = item.article_variant_combination?.id || item._id;
+      const newQuantity = localQuantities[key];
+      if (newQuantity !== item.quantity) {
+        setIsLoading(true);
+        axios
+          .put(`${import.meta.env.VITE_TESTING_API}/cart/${item.cart_id}`, {
           quantity: newQuantity,
         })
         .then(() => {
@@ -105,14 +108,6 @@ export default function CartSidebar({ toggle, isOpen }) {
   const handleBlur = (item) => {
     updateQuantity(item);
   };
-
-  React.useEffect(() => {
-    const initialQuantities = productData.reduce((acc, item) => {
-      acc[item._id] = item.quantity;
-      return acc;
-    }, {});
-    setLocalQuantities(initialQuantities);
-  }, [productData]);
   
   const handleInputChange = (id, value, maxQuantity) => {
     // Ensure only numeric values are parsed
@@ -235,11 +230,18 @@ export default function CartSidebar({ toggle, isOpen }) {
             </div>
             <div style={{height:'100%',overflow:'hidden',maxWidth:'30em',justifyContent:'space-between',display:'flex', flexDirection:'column', margin:'auto 0',width:'100%',fontSize:'calc(.7rem + 0.2vw)',fontFamily:'var(--font-family)'}}>
               <p style={{color:'var(--secondary-color)',fontSize:'calc(.9rem + 0.2rem)',fontWeight:'700'}}>{props?.title}</p>
-              <p style={{color:'var(--secondary-color)',fontWeight:'500'}}>{props?.author}</p>
+              {/* <p style={{color:'var(--secondary-color)',fontWeight:'500'}}>{props?.author}</p>*/}
+              <div className={classes.variants}> 
+               {props?.cart_items_variants?.map((item,index)=>{
+                 return(
+                   <p onClick={()=>console.log(item)} style={{padding:index === 0 && "0"}}> <span style={{textTransform:'capitalize'}}>{item?.articlevariant?.nom ? <strong>{item?.articlevariant?.nom}:</strong> : null}</span> {item?.variantitem ? item?.variantitem?.value : item?.value} {props?.cart_items_variants?.length - 1 !== index && " | "} </p>
+                 )
+               })}
+               </div>
               <p style={{color:'var(--secondary-color)',fontWeight:'600',fontSize:'smaller'}}><Rate value={props.average_rate} disabled  style={{color:'var(--primary-color)',fontSize:'small'}}/>{props?.average_rate ? Number(props.average_rate)?.toFixed(1) : 0.0}/5</p>
               <p className={classes.dicription} dangerouslySetInnerHTML={{ __html: props.description }} style={{color:"var(--secondary-color)"}}/>
               {/* <p style={{color:'var(--forth-color)'}}>Cover: Hardcover</p> */}
-              <p style={{ margin: ".5em auto .5em 0",color:props._qte_a_terme_calcule > 0 ? "var(--forth-color)" : "#EE5858",fontWeight:"600" }}>{props._qte_a_terme_calcule > 0 ? `${(props._qte_a_terme_calcule * 1).toFixed(0)} in stock` : `${language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}`} </p>
+              <p style={{ margin: ".5em auto .5em 0",color:props._qte_a_terme_calcule > 0 ? "var(--forth-color)" : "#EE5858",fontWeight:"600" }}>{props._qte_a_terme_calcule > 0 ? `${language === "eng" ? "IN STOCK" : "EN STOCK"} ` : `${language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}`} </p>
               <div style={{display:'flex',flexDirection:'row',gap:'1em'}}>
                   <p className={classes.price}>
                               {/* {language === "eng" ? "price" : "prix"}:{" "} */}
@@ -287,9 +289,9 @@ export default function CartSidebar({ toggle, isOpen }) {
                   defaultValue={1} 
                   disabled={isLoading}
                   className={classes.quantity1}
-                  value={localQuantities[props._id] || ""}
+                  value={localQuantities[props.article_variant_combination?.id || props._id] || ""}
                   onChange={(e) =>
-                    handleInputChange(props._id, e.target.value, props._qte_a_terme_calcule)
+                    handleInputChange(props.article_variant_combination?.id || props._id, e.target.value, props._qte_a_terme_calcule)
                   }
                   onBlur={() => handleBlur(props)} 
                   onKeyPress={(e) => handleKeyPress(e, props)}
@@ -336,7 +338,7 @@ export default function CartSidebar({ toggle, isOpen }) {
                      
                      
                 <div className={classes.delete_btn} style={{backgroundColor:props?.removed &&"rgb(255, 66, 66)",zIndex:'50'}}>
-                  <img src={DeleteIcon} style={{width:'1em'}} onClick={() =>authCtx.deleteFromcart(props?._id)} /></div> 
+                  <img src={DeleteIcon} style={{width:'1em'}} onClick={() =>authCtx.deleteFromcart(props)} /></div> 
               </div>
             
             

@@ -223,7 +223,7 @@
   .contactUs{
     width: 88%;
     max-width: 1900px;
-    margin:  0 auto;
+    margin: 8em auto 0 auto;
     height: fit-content;
     border-radius: 2em;
     z-index: 30;

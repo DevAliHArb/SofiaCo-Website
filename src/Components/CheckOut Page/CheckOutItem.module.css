@@ -143,6 +143,19 @@
     background-color: var(--secondary-color) !important;
 
 }
+
+.variants{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.variants p{
+    font-size: calc(0.6rem + 0.2vw);
+    color: #868686;
+    font-family: var(--font-family);
+    margin: .3em 0 0 0;
+    padding: 0 0 0 .3em;
+}
 @media screen and (max-width: 1024px) {
 
 .font_size{

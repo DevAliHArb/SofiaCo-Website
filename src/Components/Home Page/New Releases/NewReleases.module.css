@@ -72,8 +72,8 @@
 
 .header{
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .title h1{
@@ -85,6 +85,160 @@
   line-height: normal;
   margin:0 auto;
 }
+
+.header_low{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2em 0;
+}
+
+.nav_container{
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    margin: 0 ;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    justify-self: flex-start;
+    background: rgba(211, 227, 236, 0.6);
+    padding: 0.65em 0.5em;
+    border-radius: 0.8em;
+  }
+  .nav_next{
+    position: relative;
+    display: flex !important;
+    width: 1.6em;
+    height: 1.6em;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+  }
+  
+  .nav_nb{
+    position: relative;
+    margin: auto 0.8em;
+    border-radius: 50%;
+    font-size: large;
+    text-align: center;
+    color: var(--secondary-color);
+    display: flex;
+  }
+  .nav_prev{
+    position: relative;
+    display: flex !important;
+    width: 1.6em;
+    height: 1.6em;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    z-index: 10;
+  }
+
+  .nav_icon{
+    font-size: 1em;
+    color: #fff;
+    margin: auto;
+    cursor: pointer;
+  }
+
+  .view_more{
+    width: fit-content;
+    padding: 0.5em 1em;
+    font-family: var(--font-family);
+    font-size: calc(0.8rem + 0.3vw);
+    font-weight: 500;
+    background-color: var(--primary-color);
+    color: #fff;
+    cursor: pointer;
+    justify-self: flex-end;
+    border-color: transparent;
+    border-radius: 0.5em;
+    transition: color 0.5s ease, color 1s ease;
+  }
+
+  
+  .view_more_mob{
+    width: fit-content;
+    padding: 0.5em 3em;
+    font-family: var(--font-family);
+    font-size: calc(0.8rem + 0.3vw);
+    font-weight: 500;
+    background-color: var(--primary-color);
+    color: #fff;
+    cursor: pointer;
+    justify-self: center;
+    border-color: transparent;
+    border-radius: 0.5em;
+    transition: color 0.5s ease, color 1s ease;
+    display: none;
+  }
+
+  .cat_btns_wrapper{
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background: rgba(211, 227, 236, 0.6);
+    padding: 0.7em 0.5em;
+    border-radius: 0.8em;
+  }
+  
+  .cat_arrow{
+    position: relative;
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cat_arrow_icon{
+    font-size: 1.5em;
+    color: #fff;
+    margin: auto;
+    cursor: pointer;
+  }
+    
+  .cat_btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: start; /* Align items to the start */
+  align-items: start;
+  column-gap: 2em;
+  margin: auto ;
+  max-width: 90%;
+  overflow-x: auto; /* Allow horizontal scrolling */
+  overflow-y: hidden; /* Hide vertical scrolling if present */
+  white-space: nowrap; /* Prevent wrapping of buttons */
+  }
+  
+  .cat_btns::-webkit-scrollbar {
+  display: none; /* Hide the scrollbar for WebKit browsers */
+  }
+  
+  .cat_btns button {
+  font-size: medium;
+  font-family: var(--font-family);
+  background-color: transparent;
+  color: #000;
+  padding: 0.0em 0.5em;
+  border-radius: 0;
+  font-weight: 400;
+  border: none;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: transform 0.4s ease-in-out;
+  white-space: nowrap; /* Prevent button text from wrapping */
+  }
+  
+  .cat_btns button:hover {
+  transform: scale(1.08);
+  }
 
 .favoriteIcon{
   position: absolute;
@@ -313,17 +467,20 @@
     font-weight:700 ;
     transition: color 0.3s ease-in-out;
   }
+  
   .swiper{
-    position: relative;
-    width: 100%;
-    display: none;
-    margin: 1em auto;
-    /* margin-top: 5vh; */
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-}
-
+      position: relative;
+      width: 100%;
+      margin: 1em auto;
+      /* margin-top: 5vh; */
+      justify-content: center;
+      text-align: center;
+      align-items: center;
+  }
+  
+  .arrowDesktop{
+    display: flex ;
+  }
 @media screen and (max-width:1024px) {
     .books_list{
         display: none;
@@ -353,10 +510,39 @@
     font-weight: 500;
   }
   .title h1{
-    margin-bottom: 2em;
+    margin-top: 1em;
   }
   .categories{
     margin-bottom: 0.5em;
+  }
+
+  .header_low{
+    margin: 1.5em 0 0.5em 0;
+  }
+  .view_more_mob{
+    display: block;
+  }
+
+  .view_more{
+    display: none;
+  }
+
+  .nav_container{
+    display: none;
+  }
+
+  .cat_btns_wrapper{
+    width: 94%;
+    padding: 0.7em 3%;
+  }
+
+  .cat_btns{
+    max-width: 80%;
+  }
+
+  .cat_btns button {
+    font-size: small;
+    padding: 0.5em 0em;
   }
 }
 

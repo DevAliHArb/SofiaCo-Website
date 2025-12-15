@@ -31,7 +31,7 @@ import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
 import { stripHtmlTags, truncateText } from "../../../Common Components/TextUtils";
 
 
-const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChemin, selectedRate, selectedPrice, totalArticlesNumber }) => {
+const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChemin, selectedRate, selectedPrice, totalArticlesNumber, loading }) => {
    const authCtx = useContext(AuthContext);
   const [filter, setFilter] = useState("Public");
   const [listview, setListview] = useState("grid");
@@ -185,7 +185,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
     if (searchData[0]?.illustrateur) {
       finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Illustrator: ${searchData[0]?.illustrateur}` : `Illustrateur: ${searchData[0]?.illustrateur}`);
     }
-    
+  
     const storedCollection = JSON.parse(localStorage.getItem("collections")) || [];
     if (storedCollection && storedCollection?.length > 0) {
 
@@ -207,6 +207,30 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
         })
         .filter(name => name !== null);
       finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Publisher: ${publisherNames.join(", ")}` : `Publisher: ${publisherNames.join(", ")}`);
+    }
+
+
+    const storedParentCategories = JSON.parse(localStorage.getItem("parentCategories")) || [];
+    if (storedParentCategories && storedParentCategories?.length > 0) {
+      const parentCategoryNames = storedParentCategories
+        .map(id => {
+          const parentCategory = authCtx.articleFamilleParents?.find(col => col.id === id);
+          return parentCategory ? parentCategory.nom : null;
+        })
+        .filter(name => name !== null);
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Parent Category: ${parentCategoryNames.join(", ")}` : `Catégorie Parente: ${parentCategoryNames.join(", ")}`);
+    }
+    
+
+    const storedSubCategories = JSON.parse(localStorage.getItem("subCategories")) || [];
+    if (storedSubCategories && storedSubCategories?.length > 0) {
+      const subCategoryNames = storedSubCategories
+        .map(id => {
+          const subCategory = authCtx.articleFamille?.find(col => col.id === id);
+          return subCategory ? subCategory.type_nom : null;
+        })
+        .filter(name => name !== null);
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Sub Category: ${subCategoryNames.join(", ")}` : `Sous-catégorie: ${subCategoryNames.join(", ")}`);
     }
     
     const storedCollabs = searchData[0]?.collaborators || [];
@@ -237,7 +261,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
     }
   
     if (searchData[0]?.upcoming) {
-      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Up Coming` : `A Paraître`);
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Up Coming` : `À Paraître`);
     }
   
     if (searchData[0]?.newarrival) {
@@ -246,25 +270,35 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
   
     if (searchData[0]?.bestsellers) {
       finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Best Sales` : `Meilleures Ventes`);
+    } else if (searchData[0]?.bestseller) {
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Best Sales` : `Meilleures Ventes`);
     }
   
     if (searchData[0]?.favorites) {
       finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Favorites` : `Favoris`);
+    }
+    
+    if (searchData[0]?.isSelected) {
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Deals Of The Day` : `Offres Du Jour`);
     }
   
     if (searchData[0]?.max_price) {
       finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Price: ${searchData[0]?.min_price}${currency === "usd" ? "$" : '€'} - ${searchData[0]?.max_price}${currency === "usd" ? "$" : '€'}` : `Prix: ${searchData[0]?.min_price}${currency === "usd" ? "$" : '€'} - ${searchData[0]?.max_price}${currency === "usd" ? "$" : '€'}`);
     }
     
+    if (searchData[0]?.smartdata) {
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Search` : `Recherche`) + `: ${searchData[0]?.smartdata}`;
+    }
+    
     const stockStatus = localStorage.getItem('stock');
     if (stockStatus === 'true') {
-      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `In Stock` : `En Stock`);
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `en stock` : `En Stock`);
     } else if (stockStatus === 'false') {
       finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Out of Stock` : `En rupture de stock`);
     }
     // Default fallback if no conditions are met
     if (!finalResult) {
-      finalResult = language === "eng" ? `All Books` : `Tous les livres`;
+      finalResult = language === "eng" ? `All Products` : `Tous les Produits`;
     }
   
     return finalResult;
@@ -387,11 +421,19 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
             </div>
         </div>
           {sortBooks(sortBy).length === 0 ? 
+          loading ? (
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '200px' }}>
+              <div style={{ textAlign: 'center' }}>
+                <div className={classes.spinner} style={{ margin: '0 auto 1em', width: '40px', height: '40px', border: '4px solid #f3f3f3', borderTop: '4px solid var(--primary-color)', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
+                <p>{language === 'eng' ? 'Loading...' : 'Chargement...'}</p>
+              </div>
+            </div>
+          ) : 
           <div className={classes.nodata}>
             <div className={classes.nodata_img}>
               <img src={nodata} alt="" />
             </div>
-            <h1>No Books <br/>were found!</h1>
+            <h1>No Books <br />were found!</h1>
           </div>
           :
       <div style={{width:'100%'}}>
@@ -433,7 +475,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                       authCtx.setbookDetails(props);
                       event.stopPropagation();
                       dispatch(addSelectedBook(props))
-                      navigate(`/bookdetails/${props.id}`);
+                      navigate(`/productdetails/${props.id}`);
                     }}
                   >
                     <div className={classes.card_img}>
@@ -485,7 +527,12 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                             className={classes.fav}
                             onClick={(event) => {
                               event.stopPropagation();
-                              authCtx.addToCart({props: props}); 
+                              if (props.article_variant_combinations && props.article_variant_combinations.length > 0) {
+                                authCtx.setaddtocartPopupOpen(true);
+                                authCtx.setaddtocartPopupId(props.id);
+                              } else {
+                                authCtx.addToCart({ props: props });
+                              }
                             }}
                             fontSize="inherit"
                           />
@@ -597,7 +644,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                 onClick={(event) => {
                   event.stopPropagation();
                   dispatch(addSelectedBook(props));
-                  navigate(`/bookdetails/${props.id}`);
+                  navigate(`/productdetails/${props.id}`);
                 }}>
                   <div className={classes.leftContainer}>
                      <div className={classes.imgCont}>
@@ -683,7 +730,12 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                         {props._qte_a_terme_calcule > 0 &&<div className={classes.icon_con}  
                         onClick={(event) => {
                           event.stopPropagation();
-                          authCtx.addToCart({props: props}); 
+                              if (props.article_variant_combinations && props.article_variant_combinations.length > 0) {
+                                authCtx.setaddtocartPopupOpen(true);
+                                authCtx.setaddtocartPopupId(props.id);
+                              } else {
+                                authCtx.addToCart({ props: props });
+                              }
                         }}
                         >
                           <PiShoppingCartSimpleLight className={classes.icon} />
@@ -759,7 +811,12 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                        {props._qte_a_terme_calcule > 0 && <div className={classes.icon_con}  
                         onClick={(event) => {
                           event.stopPropagation();
-                          authCtx.addToCart({props: props}); 
+                              if (props.article_variant_combinations && props.article_variant_combinations.length > 0) {
+                                authCtx.setaddtocartPopupOpen(true);
+                                authCtx.setaddtocartPopupId(props.id);
+                              } else {
+                                authCtx.addToCart({ props: props });
+                              }
                         }}
                         >
                           <PiShoppingCartSimpleLight className={classes.icon} />
