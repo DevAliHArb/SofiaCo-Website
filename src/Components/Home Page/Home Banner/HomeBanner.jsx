@@ -36,7 +36,7 @@ const HomeBanner = () => {
   }, []);
 
   useEffect(() => {
-    if (banners.length > 0) {
+    if (banners?.length > 0) {
       // Always set data on banners load and activeIndex change
       setData(banners[activeIndex] || banners[0] || {});
     }
