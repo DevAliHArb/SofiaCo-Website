@@ -464,6 +464,26 @@ const [selectedVariants, setSelectedVariants] = useState({});
     };
     authCtx.addToCart(data);
   };
+  
+    const handleFilterMultiproduct = (multiproductId) => {
+      // Clear other filters to focus on this multiproduct
+      localStorage.removeItem('categories');
+      localStorage.removeItem('publishers');
+      localStorage.removeItem('collections');
+      dispatch(resetSearchData());
+
+      // Toggle the multiproduct id in localStorage (same behavior as handleMultiProductsChange)
+      const existing = JSON.parse(localStorage.getItem('multiproductids')) || [];
+      let updated = [];
+      if (existing.includes(multiproductId)) {
+        updated = existing.filter(id => id !== multiproductId);
+      } else {
+        updated = [...existing, multiproductId];
+      }
+      localStorage.setItem('multiproductids', JSON.stringify(updated));
+
+      navigate('/products');
+    }
   return (
     <>
       <div className={classes.contantContainer}>
@@ -805,8 +825,11 @@ const [selectedVariants, setSelectedVariants] = useState({});
           {bookData.characteristics?.map((charac, index) => (
             <div key={index} className={ classes.char}>
               <p>{charac.name}</p>
-              <p>{charac.multiproductData?.map((data, i) => (
-                <span key={i}>: {data.name}{i < charac.multiproductData.length - 1 ? ', ' : ''}</span>
+              <p> : {charac.multiproductData?.map((data, i) => (
+                <span key={i}><span
+                          onClick={() => handleFilterMultiproduct(data.id)}
+                          style={{ cursor: 'pointer', borderBottom: '1px solid var(--primary-color)' }}
+                        >{data.name}</span> {i < charac.multiproductData.length - 1 ? ', ' : ''}</span>
               ))}</p>
             </div>
           ))}
