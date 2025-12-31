@@ -113,7 +113,7 @@ const onFinish = async () => {
   try {
     const response = await axios.post( `${import.meta.env.VITE_TESTING_API}/login`,formData);
     const token = response.data.token;
-    localStorage.setItem("token", token);
+    sessionStorage.setItem("token", token);
     const user = response.data;
     const userInfo = user.user;
     const userId = userInfo.id;

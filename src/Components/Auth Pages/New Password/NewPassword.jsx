@@ -30,7 +30,7 @@ const NewPassword = () => {
   const language = useSelector((state) => state.products.selectedLanguage[0].Language);
   const user = useSelector((state) => state.products.userInfo);
   const getToken = () => {
-    return localStorage.getItem("token");
+    return sessionStorage.getItem("token");
   };
 
   const usertoken = getToken();

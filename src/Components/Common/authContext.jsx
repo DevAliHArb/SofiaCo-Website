@@ -109,7 +109,7 @@ export const AuthContextProvider = (props) => {
     (state) => state.products.selectedLanguage[0].Language
   );
   const user = useSelector((state) => state.products.userInfo);
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
   const [isLoading, setIsLoading] = useState(false);
   const selectedCategoryId = useSelector((state) => state.products.selectedCategoryId);
   const [articleFamilleId, setarticleFamilleId] = useState(selectedCategoryId || null);

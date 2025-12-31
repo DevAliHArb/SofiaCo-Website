@@ -134,7 +134,7 @@ const Navbar = ({ toggle, cartToggle }) => {
   const logout = async () => {
     try {
       // Get the token from local storage
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
 
       // If token is not available, there's no need to logout
       if (!token) {

@@ -78,7 +78,7 @@ const PopupAdressesModal = ({
   const fetchAddresses = async () => {};
 
   const getToken = () => {
-    return localStorage.getItem("token");
+    return sessionStorage.getItem("token");
   };
 
   const token = getToken();

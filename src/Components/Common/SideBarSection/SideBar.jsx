@@ -58,14 +58,14 @@ export default function SideBar({ toggle, isOpen }) {
 
   
   const getToken = () => {
-    return localStorage.getItem("token");
+    return sessionStorage.getItem("token");
   };
   const token = getToken();
    
   const logout = async () => {
     try {
       // Get the token from local storage
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
 
       // If token is not available, there's no need to logout
       if (!token) {
@@ -82,7 +82,7 @@ export default function SideBar({ toggle, isOpen }) {
       await axios.get(`${import.meta.env.VITE_TESTING_API}/logout`, { headers });
 
       // Remove the token from local storage after successful logout
-      localStorage.removeItem('token');
+      sessionStorage.removeItem('token');
 
       dispatch(removeUser()) ;
       toggle();

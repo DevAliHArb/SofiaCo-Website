@@ -135,7 +135,7 @@ const OrderTracking = () => {
   const [showPopup, setShowPopup] = useState(false);
 
   const getToken = () => {
-    return localStorage.getItem('token');
+    return sessionStorage.getItem('token');
   };
 
   const token = getToken()

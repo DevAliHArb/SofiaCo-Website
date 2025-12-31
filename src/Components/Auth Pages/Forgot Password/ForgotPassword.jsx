@@ -25,7 +25,7 @@ const ForgotPassword = () => {
   const language = useSelector((state) => state.products.selectedLanguage[0].Language);
   const user = useSelector((state) => state.products.userInfo);
   const getToken = () => {
-    return localStorage.getItem("token");
+    return sessionStorage.getItem("token");
   };
 
   const usertoken = getToken();
@@ -76,7 +76,7 @@ const responseGoogle = async (response) => {
               type: 'sofiaco'
           });
           const token = loginResponse.data.token;
-          localStorage.setItem("token", token);
+          sessionStorage.setItem("token", token);
           const user = loginResponse.data;
           const userInfo = user.user;
           const userId = userInfo.id;
