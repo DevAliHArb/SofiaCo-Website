@@ -63,9 +63,9 @@ const Details = () => {
     const value = parseInt(event.target.value, 10);
 
   // Only set the count if the value is greater than zero
-  if  (value > Number(bookData._qte_a_terme_calcule)) {
+  if  (value > Number(bookData?._qte_a_terme_calcule)) {
     // Reset to minimum if the user tries to input a negative or zero value
-    setCount(Number(bookData._qte_a_terme_calcule).toFixed(0));
+    setCount(Number(bookData?._qte_a_terme_calcule).toFixed(0));
   } else if (value > 0) {
     setCount(value);
   }else {
@@ -77,14 +77,14 @@ const Details = () => {
   useEffect(() => {
     const calculateAverageRating = () => {
       if (
-        !bookData.bookreview ||
-        !Array.isArray(bookData.bookreview) ||
-        bookData.bookreview.length === 0
+        !bookData?.bookreview ||
+        !Array.isArray(bookData?.bookreview) ||
+        bookData?.bookreview.length === 0
       ) {
         return 0; // Return 0 if there are no reviews or if bookreview is not an array
       }
 
-      const validRatings = bookData.bookreview.filter(
+      const validRatings = bookData?.bookreview.filter(
         (review) => !isNaN(parseFloat(review.rate))
       );
 
@@ -92,11 +92,11 @@ const Details = () => {
         return 0; // Return 0 if there are no valid ratings
       }
 
-      const totalRatings = bookData.bookreview.reduce(
+      const totalRatings = bookData?.bookreview.reduce(
         (accumulator, review) => accumulator + parseFloat(review.rate),
         0
       );
-      let reviewsCount = bookData.bookreview.length;
+      let reviewsCount = bookData?.bookreview.length;
 
       return totalRatings / reviewsCount;
     };
@@ -107,7 +107,7 @@ const Details = () => {
 
   useEffect(() => {
     {
-      favoriteData.some((book) => book._favid === bookData.id)
+      favoriteData.some((book) => book._favid === bookData?.id)
         ? setfavorite(true)
         : setfavorite(false);
     }
@@ -116,7 +116,7 @@ const Details = () => {
   const FavoriteClick = () => {
     if (user?.id) {
       if (favorite) {
-        authCtx.deleteFavorite(bookData.id);
+        authCtx.deleteFavorite(bookData?.id);
       } else {
         authCtx.addToFavorite(bookData);
       }
@@ -196,8 +196,8 @@ const handleSuivreCollection = async () => {
       // Fetch the list of collaborators
       const collectionsResponse = await axios.get(`${import.meta.env.VITE_TESTING_API}/collections?ecom_type=sofiaco`);
       const collections = collectionsResponse.data;
-      const cleanedCollec = bookData.dc_collection.trim();
-      // Find the collaborator whose nom + prenom matches bookData.dc_auteur
+      const cleanedCollec = bookData?.dc_collection.trim();
+      // Find the collaborator whose nom + prenom matches bookData?.dc_auteur
       const Collectiondata = collections.find(collaborator => {
           const fullName = `${collaborator.nom}`;
           // console.log(fullName.toLowerCase())
@@ -228,9 +228,9 @@ const handleSuivreCollection = async () => {
 };
 
 useEffect(() => {
-  const foundItem = authCtx.categories.find(category => category.id === bookData.b_usr_articletheme_id);
+  const foundItem = authCtx.categories.find(category => category.id === bookData?.b_usr_articletheme_id);
   setCategoryItem(foundItem);
-}, [bookData.b_usr_articletheme_id, authCtx.categories]);
+}, [bookData?.b_usr_articletheme_id, authCtx.categories]);
 
 const handleSuivreCategory = async () => {
   if (!user) {
@@ -488,7 +488,7 @@ const [selectedVariants, setSelectedVariants] = useState({});
     <>
       <div className={classes.contantContainer}>
           <p style={{ color: "var(--primary-color)", fontSize: "small", display:'flex', flexDirection:'row' }}>
-            <span>ISBN: {bookData._code_barre}</span>
+            <span>ISBN: {bookData?._code_barre}</span>
             <Rating
               style={{
                 color: "var(--primary-color)",
@@ -502,11 +502,11 @@ const [selectedVariants, setSelectedVariants] = useState({});
             />
             {bookData?.average_rate}/5 ({bookData?.bookreview?.length} {language === 'eng' ? "reviews" : "revues"})
           </p>
-        <h1 className={classes.header}>{bookData.designation}</h1>
+        <h1 className={classes.header}>{bookData?.designation}</h1>
         <div className={classes.contentss}>
         </div>
         <div className={classes.priceContainer}>
-        <p style={{ margin: ".5em auto .5em 0",color:bookData._qte_a_terme_calcule > 0 ? "var(--forth-color)" : "#EE5858",fontWeight:"600" }}>{bookData._qte_a_terme_calcule > 0 ? ` ${language === "eng" ? "IN STOCK" : "EN STOCK"}` : `${language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}`} </p>
+        <p style={{ margin: ".5em auto .5em 0",color:bookData?._qte_a_terme_calcule > 0 ? "var(--forth-color)" : "#EE5858",fontWeight:"600" }}>{bookData?._qte_a_terme_calcule > 0 ? ` ${language === "eng" ? "IN STOCK" : "EN STOCK"}` : `${language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}`} </p>
           <p
             style={{
               color: "var(--primary-color)",
@@ -518,30 +518,30 @@ const [selectedVariants, setSelectedVariants] = useState({});
           >
             {currency === "eur"
                             ? `€${
-                              bookData.discount > 0
+                              bookData?.discount > 0
                                   ? (
-                                    bookData._prix_public_ttc -
-                                    bookData._prix_public_ttc * (bookData.discount / 100)
+                                    bookData?._prix_public_ttc -
+                                    bookData?._prix_public_ttc * (bookData?.discount / 100)
                                     ).toFixed(2)
-                                  : Number(bookData._prix_public_ttc).toFixed(2)
+                                  : Number(bookData?._prix_public_ttc).toFixed(2)
                               }`
                             : `$${
-                              bookData.discount > 0
+                              bookData?.discount > 0
                                   ? (
-                                      (bookData._prix_public_ttc -
-                                        bookData._prix_public_ttc *
-                                          (bookData.discount / 100)) *
+                                      (bookData?._prix_public_ttc -
+                                        bookData?._prix_public_ttc *
+                                          (bookData?.discount / 100)) *
                                       authCtx.currencyRate
                                     ).toFixed(2)
                                   : (
-                                    bookData._prix_public_ttc * authCtx.currencyRate
+                                    bookData?._prix_public_ttc * authCtx.currencyRate
                                     ).toFixed(2)
                               }`}{" "}
-                              {bookData.discount > 0 && <span style={{opacity: "0.8",textDecoration:'line-through',fontSize: "calc(.9rem + 0.3vw)",margin:'0 1em'}} >
-                               {currency === "eur" ? `€${Number(bookData._prix_public_ttc).toFixed(2)} `: `$${(bookData._prix_public_ttc * authCtx.currencyRate ).toFixed(2)} `}</span>}  
+                              {bookData?.discount > 0 && <span style={{opacity: "0.8",textDecoration:'line-through',fontSize: "calc(.9rem + 0.3vw)",margin:'0 1em'}} >
+                               {currency === "eur" ? `€${Number(bookData?._prix_public_ttc).toFixed(2)} `: `$${(bookData?._prix_public_ttc * authCtx.currencyRate ).toFixed(2)} `}</span>}  
                     
-                     {bookData.discount > 0 && <span style={{background:'var(--primary-color)', color:'#fff', padding:'0.2em 0.8em',fontSize: "calc(.9rem + 0.3vw)",borderRadius:'5px'}} >
-                      {bookData.discount}%</span>} 
+                     {bookData?.discount > 0 && <span style={{background:'var(--primary-color)', color:'#fff', padding:'0.2em 0.8em',fontSize: "calc(.9rem + 0.3vw)",borderRadius:'5px'}} >
+                      {bookData?.discount}%</span>} 
           </p>
         </div>
         
@@ -673,7 +673,7 @@ const [selectedVariants, setSelectedVariants] = useState({});
           <TextField
             type="number"
             value={count}
-            disabled={bookData._qte_a_terme_calcule < 1}
+            disabled={bookData?._qte_a_terme_calcule < 1}
             onChange={handleCountChange}
             InputProps={{
               inputProps: { min: 1 },
@@ -687,7 +687,7 @@ const [selectedVariants, setSelectedVariants] = useState({});
             className={classes.inputt}
           />
           <button
-          disabled={bookData._qte_a_terme_calcule < 1} style={{cursor:bookData._qte_a_terme_calcule < 1 &&'not-allowed'}}
+          disabled={bookData?._qte_a_terme_calcule < 1} style={{cursor:bookData?._qte_a_terme_calcule < 1 &&'not-allowed'}}
             className={classes.addToCartBtn}
             onClick={(event) => {
               event.stopPropagation();
@@ -701,7 +701,7 @@ const [selectedVariants, setSelectedVariants] = useState({});
                             onClick={FavoriteClick}
                           >
                             {favoriteData?.some(
-                              (book) => book._favid === bookData.id
+                              (book) => book._favid === bookData?.id
                             ) ? (
                               <FavoriteIcon
                                 className={classes.fav}
@@ -719,7 +719,7 @@ const [selectedVariants, setSelectedVariants] = useState({});
           {/* Grouped Collaborators Rendering */}
           {bookData?.collaborators && bookData?.collaborators.length > 0 && (() => {
             // Group collaborators by type_id
-            const groupedCollaborators = bookData.collaborators.reduce((acc, collab) => {
+            const groupedCollaborators = bookData?.collaborators.reduce((acc, collab) => {
               const typeId = collab.type_id;
               if (!acc[typeId]) {
                 acc[typeId] = {
@@ -768,9 +768,9 @@ const [selectedVariants, setSelectedVariants] = useState({});
               onClick={() => handleFilterCollection(bookData?.b_usr_article_collection_id)}
               style={{ cursor: "pointer" }}
             >
-              : {bookData.dc_collection}
+              : {bookData?.dc_collection}
             </p>
-            {bookData.dc_collection && bookData.dc_collection !== "" && <span  style={{
+            {bookData?.dc_collection && bookData?.dc_collection !== "" && <span  style={{
                 background: "var(--primary-color)",
                 color:'#fff',
                 height:'fit-content',
@@ -810,19 +810,19 @@ const [selectedVariants, setSelectedVariants] = useState({});
           </div>
           <div className={classes.char}>
             <p >EAN</p>
-            <p >: {bookData._code_barre}</p>
+            <p >: {bookData?._code_barre}</p>
           </div>
           <div className={classes.char}>
             <p >{language === 'eng' ? 'Number pf pages' : 'Nombre de pages'}</p>
-            <p >: {bookData.nbpages}</p>
+            <p >: {bookData?.nbpages}</p>
           </div>
           <div className={classes.char}>
             <p >{language === 'eng' ? 'Publish date' : 'Date de parution'}</p>
             <p >
-              : {bookData.dc_parution?.substring(0, 10)}
+              : {bookData?.dc_parution?.substring(0, 10)}
             </p>
           </div>
-          {bookData.characteristics?.map((charac, index) => (
+          {bookData?.characteristics?.map((charac, index) => (
             <div key={index} className={ classes.char}>
               <p>{charac.name}</p>
               <p> : {charac.multiproductData?.map((data, i) => (
@@ -836,7 +836,7 @@ const [selectedVariants, setSelectedVariants] = useState({});
           <div className={classes.resume_content}>
           <p >{language === 'eng' ? 'Resume' : 'Résumé'}</p>
           <p>
-            : {truncateText(stripHtmlTags(bookData.descriptif), 500)}
+            : {truncateText(stripHtmlTags(bookData?.descriptif), 500)}
           </p>
           </div>
         </div>

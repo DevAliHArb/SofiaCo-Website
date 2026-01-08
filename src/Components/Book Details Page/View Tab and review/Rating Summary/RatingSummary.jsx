@@ -9,10 +9,10 @@ const RatingSummary = () => {
   const language = useSelector(
     (state) => state.products.selectedLanguage[0].Language
   );
-  const totalRatings = bookData.bookreview?.length || 0;
+  const totalRatings = bookData?.bookreview?.length || 0;
   const ratingCounts = [5, 4, 3, 2, 1].map((stars) => {
     return (
-      bookData.bookreview?.filter((rating) => parseInt(rating.rate) === stars)
+      bookData?.bookreview?.filter((rating) => parseInt(rating.rate) === stars)
         .length || 0
     );
   });

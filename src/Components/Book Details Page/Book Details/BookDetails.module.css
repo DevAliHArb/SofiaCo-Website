@@ -82,6 +82,7 @@
     height: fit-content;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     
 }
 .bookCovers{
@@ -179,8 +180,8 @@
   position: relative;
 }
 .iconCont{
-  width: 3em;
-  height: 3em;
+  width: 2em;
+  height: 2em;
   color: var(--forth-color);
   border-radius: 50%;
   text-align: center;
