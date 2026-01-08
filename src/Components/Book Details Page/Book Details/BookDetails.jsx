@@ -73,7 +73,7 @@ const BookDetails = () => {
 
   const constantValue = activeSlideIndex + 1;
   useEffect(() => {
-    selectedBook.articleimage?.forEach((item) => {
+    selectedBook?.articleimage?.forEach((item) => {
       if (item.id === constantValue) {
         setactiveId(item.id); 
       }
@@ -112,9 +112,9 @@ swiper.slideTo(index)};
             // }}
             // modules={[Navigation]}
           >
-            {selectedBook.articleimage?.length != 0 ? 
+            {selectedBook?.articleimage?.length != 0 ? 
            <>
-            {selectedBook.articleimage?.map((props) => {
+            {selectedBook?.articleimage?.map((props) => {
               return (
                 <SwiperSlide style={{padding:'0 0%'}}>
                     <div className={classes.imageContainer}>
@@ -130,7 +130,7 @@ swiper.slideTo(index)};
             :
                 <SwiperSlide style={{padding:'0 0%'}}>
                     <div className={classes.imageContainer}>
-                     {selectedBook._qte_a_terme_calcule < 1 && <div className={classes.out_of_stock}>
+                     {selectedBook?._qte_a_terme_calcule < 1 && <div className={classes.out_of_stock}>
                         <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
                       </div>}
                         <img src={img} alt="Book Cover" onMouseMove={handleMouseMove}/>
@@ -147,7 +147,7 @@ swiper.slideTo(index)};
         </div>
         
         <div className={classes.bookCoversContainer}>
-          {selectedBook.articleimage?.map((props, index) => {
+          {selectedBook?.articleimage?.map((props, index) => {
                         return (
                           <div className={classes.bookCovers} onClick={() => slideTo(index) & console.log(activeId)}>
                             <div style={{width:'100%', margin:'auto',position:'relative'}}>
