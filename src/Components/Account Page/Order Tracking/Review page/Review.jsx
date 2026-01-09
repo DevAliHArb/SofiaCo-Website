@@ -185,7 +185,7 @@ const Review = ({props}) => {
           <>
           <div className={classes.content}>
             <div className={classes.imgContainer} onClick={()=>console.log(reviewData)}>
-              <img src={item.article.articleimage[0]?.link ? item.article.articleimage[0].link : bookPlaceHolder} alt="" style={{width:'100%',height:'100%',objectFit:'fill'}} />
+              <img src={item.article.articleimage[0]?.link ? item.article.articleimage[0].link : bookPlaceHolder} alt="" style={{width:'100%',height:'100%',objectFit:'contain',margin:"auto"}} />
 
             </div>
               <div className={classes.btn_con}>

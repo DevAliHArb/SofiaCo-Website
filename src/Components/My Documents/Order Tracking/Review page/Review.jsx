@@ -169,7 +169,7 @@ const Review = ({props}) => {
           <>
           <div className={classes.content}>
             <div className={classes.imgContainer}>
-              <img src={item.article.articleimage[0]?.link ? item.article.articleimage[0].link : bookPlaceHolder} alt="" style={{width:'100%'}}/>
+              <img src={item.article.articleimage[0]?.link ? item.article.articleimage[0].link : bookPlaceHolder} alt="" style={{width:'100%',objectFit:'contain'}}/>
                 <div className={classes.bookName}>
                   <h3 className={classes.imgContainerh3}>{item.article.designation}</h3>
                   <h3 className={classes.imgContainerh3} style={{fontWeight:'400'}}>{item.article.dc_auteur}</h3>
