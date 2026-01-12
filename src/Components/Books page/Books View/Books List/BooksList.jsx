@@ -41,7 +41,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
   const [to, setto] = useState(1);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [recordsPerPage, setrecordsPerPage] = useState(12); 
+  const [recordsPerPage, setrecordsPerPage] = useState(36); 
   const [arraypage, setarraypage] = useState(1);
 
   // Function to handle changes in the input value
@@ -81,8 +81,11 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
       setpagenbroute(pagenbroute + 1);
     }
     if (currentpage === pagenb - 2 || currentpage === pagenb - 1) {
-      setarraypage(arraypage +1)
-      fetchArticles(selectedRate, null, null, arraypage);
+      setarraypage((prevArrayPage) => {
+          const newArrayPage = prevArrayPage + 1;
+          fetchArticles(selectedRate, null, null, newArrayPage);
+          return newArrayPage;
+        });
     }
   };
 
@@ -132,12 +135,12 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
     } else if (filteredartciles.length === 0) {
       setto(0);
     } else {
-      setto(currentpage * 12);
+      setto(currentpage * recordsPerPage);
     }
     if (filteredartciles.length === 0) {
       setfrom(0);
     } else {
-      setfrom(currentpage * 12 - 11);
+      setfrom(currentpage * recordsPerPage - recordsPerPage + 1);
     }
   }, [currentpage, filteredartciles, recordsPerPage]);
 
@@ -345,7 +348,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
             <p style={{margin:'auto 0'}}>
               Show
             </p></span> */}
-            <div>
+            <div style={{display:'flex',gap:'0.5em',alignItems:'center'}}>
             {/* <span className={classes.showFilter}>
               <InputNumber min={1} max={100} value={recordsPerPage} controls={false} onChange={handleChange} style={{width:'3em',margin:'0 .5em',height:'2.5em',borderRadius:'.5em'}}/>
             </span> */}
@@ -361,6 +364,22 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                     <MenuItem value="titleZA" style={{textAlign:'center'}}>Sort Z-A </MenuItem>
                     <MenuItem value="priceLow" style={{textAlign:'center'}}>Price Low To High </MenuItem>
                     <MenuItem value="priceHigh" style={{textAlign:'center'}}>Price High To Low </MenuItem>
+            </Select>
+            <Select
+                disableUnderline
+                inputProps={{ 'aria-label': 'Without label' }}
+                value={recordsPerPage}
+                onChange={(e) => {
+                  setrecordsPerPage(e.target.value);
+                  setCurrentPage(1);
+                  setpagenbroute(1);
+                }}
+                style={{height:'2.2em',width:"6em",borderColor:'var(--secondary-color)',textAlign:'center',color:'var(--secondary-color)',backgroundColor:'var(--forth-color)',borderRadius:'1em',margin:'0'}}
+            > 
+                <MenuItem value={36} style={{textAlign:'center'}}>36</MenuItem>
+                <MenuItem value={48} style={{textAlign:'center'}}>48</MenuItem>
+                <MenuItem value={72} style={{textAlign:'center'}}>72</MenuItem>
+                <MenuItem value={100} style={{textAlign:'center'}}>100</MenuItem>
             </Select>
           </div>
             
