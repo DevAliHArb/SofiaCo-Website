@@ -202,9 +202,9 @@ const Reviews = () => {
                         </div>
                     ))}
                 </div>
-                {bookreview.length > 2 && (
-                    <p style={{ margin: '0em' }} onClick={displayedObjects < bookreview.length ? showMore : showLess} className={classes.addbtn}>
-                        {displayedObjects < bookreview.length ? (language === 'eng' ? 'View All Reviews' : 'Voir tous les commentaires') : (language === 'eng' ? 'View Less' : 'Voir Moins')}
+                {bookreview?.length > 2 && (
+                    <p style={{ margin: '0em' }} onClick={displayedObjects < bookreview?.length ? showMore : showLess} className={classes.addbtn}>
+                        {displayedObjects < bookreview?.length ? (language === 'eng' ? 'View All Reviews' : 'Voir tous les commentaires') : (language === 'eng' ? 'View Less' : 'Voir Moins')}
                     </p>
                 )}
             </div>

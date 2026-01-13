@@ -164,14 +164,14 @@
   margin: auto;
   width: 100%;
   height: 11.5em;
-  background-color: #f3f3f3;
 }
 
 .dropdown_card_img img{
   width: 70%;
   height: 80%;
   margin: auto;
-  object-fit: fill;
+  object-fit: contain;
+  object-fit: contain;
 }
 
 .dropdown_card_content{
@@ -249,7 +249,6 @@
   width: 40%;
   margin: 0 auto 1em 0;
   display: flex;
-  background-color: #f3f3f3;
   position: relative;
 }
 
@@ -258,6 +257,7 @@
     height: 80%;
     margin: auto;
     object-fit: contain;
+    object-position: center;
     border-radius: 0.5em;
 }
 .header{
@@ -521,7 +521,6 @@
   }
 .dropdown_card_img{
   height: 9em;
-  object-fit: fill;
 }
 
 .close_mob{

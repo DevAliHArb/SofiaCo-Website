@@ -114,7 +114,7 @@ const GiftItems = ({ handleGiftChange, selectedGiftItems, subtotalAmt, onMaxGift
             >
               <div style={{display:"flex",flexDirection:"row",gap:"1em",width:"100%"}}>
                 <div className={classes.imageCont}>
-                  <img src={props.articleimage[0] ? props.articleimage[0]?.link : image} alt="" style={{height:'100%',objectFit:'cover' ,maxWidth:'350px' }}/>
+                  <img src={props.articleimage[0] ? props.articleimage[0]?.link : image} alt="" style={{height:'100%',objectFit:'contain' ,maxWidth:'350px' }}/>
                 </div>
                 <div style={{height:'fit-content',justifyContent:'space-between',display:'flex', flexDirection:'column', margin:'auto 0',fontSize:'calc(.5rem + 0.2vw)',fontFamily:'var(--font-family)',width:"100%"}}>
                   <div className={classes.infoCont}>

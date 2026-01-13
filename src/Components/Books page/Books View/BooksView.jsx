@@ -1187,7 +1187,7 @@ const handleChangeSubCategory = (event) => {
                 <div style={{ padding: '0 0.6em 0.6em 0' }}>
                   <TextField size="small" variant="standard" placeholder={language === 'eng' ? 'Search parent...' : 'Rechercher...'} value={parentCategorySearch} onChange={(e) => handleDebouncedSearch('parent-drawer', e.target.value, setParentCategorySearch)} fullWidth />
                 </div>
-                {authCtx?.articleFamilleParents?.map((parent) => {
+                {authCtx?.articleFamilleParents?.sort((a, b) => (a.nom || '').localeCompare(b.nom || ''))?.map((parent) => {
                   if (parentCategorySearch && !contains(parent.nom, parentCategorySearch)) return null;
                   const isChecked = isParentCategorySelected(parent.id);
 
@@ -1241,7 +1241,7 @@ const handleChangeSubCategory = (event) => {
                 <div style={{ padding: '0 0.6em 0.6em 0' }}>
                   <TextField size="small" variant="standard" placeholder={language === 'eng' ? 'Search sub...' : 'Rechercher...'} value={subCategorySearch} onChange={(e) => handleDebouncedSearch('sub-drawer', e.target.value, setSubCategorySearch)} fullWidth />
                 </div>
-                {authCtx?.articleFamille?.filter(parent => selectedParentCategories.length === 0 || selectedParentCategories.includes(parent.b_usr_parentcategorie_id)).map((parent) => {
+                {authCtx?.articleFamille?.filter(parent => selectedParentCategories.length === 0 || selectedParentCategories.includes(parent.b_usr_parentcategorie_id))?.sort((a, b) => ((a.type_nom || '')).localeCompare((b.type_nom || ''))).map((parent) => {
                   if (subCategorySearch && !contains(parent.type_nom, subCategorySearch)) return null;
                   const isChecked = isSubCategorySelected(parent.id);
 
@@ -1295,7 +1295,7 @@ const handleChangeSubCategory = (event) => {
                   <div style={{ padding: '0 0.6em 0.6em 0' }}>
                     <TextField size="small" variant="standard" placeholder={language === 'eng' ? 'Search theme...' : 'Rechercher...'} value={themeSearch} onChange={(e) => handleDebouncedSearch('theme-drawer', e.target.value, setThemeSearch)} fullWidth />
                   </div>
-                {filterTreeByQuery(mappedCategories, themeSearch).map((parent, index) => (
+                {filterTreeByQuery(mappedCategories, themeSearch)?.sort((a, b) => ((a._nom || a._nom_fr || '')).localeCompare((b._nom || b._nom_fr || '')))?.map((parent, index) => (
                   <TreeNode
                     key={index}
                     data={parent}
@@ -1347,7 +1347,7 @@ const handleChangeSubCategory = (event) => {
                   <div style={{ padding: '0 0.6em 0.6em 0' }}>
                     <TextField size="small" variant="standard" placeholder={language === 'eng' ? 'Search publisher...' : 'Rechercher...'} value={publisherSearch} onChange={(e) => handleDebouncedSearch('publisher-drawer', e.target.value, setPublisherSearch)} fullWidth />
                   </div>
-                  {authCtx?.publishers?.map((publisher) => {
+                  {authCtx?.publishers?.sort((a, b) => ((a.title || a.name || '')).localeCompare((b.title || b.name || '')))?.map((publisher) => {
                     if (publisherSearch && !contains(publisher.title, publisherSearch)) return null;
                     const isChecked = isPublisherSelected(publisher.id);
 
@@ -1538,7 +1538,11 @@ const handleChangeSubCategory = (event) => {
                       const searchVal = (dynamicFilterSearches && dynamicFilterSearches[`filter_search_${index}`]) || '';
                       if (!searchVal) return true;
                       return contains(val.nom || val.nom_fr || val.label || '', searchVal);
-                    }).map((props) => {
+                    })?.sort((a, b) => {
+                        const aLabel = (language === 'eng' ? a.nom : a.nom_fr) || a.nom || '';
+                        const bLabel = (language === 'eng' ? b.nom : b.nom_fr) || b.nom || '';
+                        return aLabel.localeCompare(bLabel);
+                      })?.map((props) => {
                       const isSelected = isMultiproductSelected(props.id);
                       return (
                         <label
@@ -1722,7 +1726,7 @@ const handleChangeSubCategory = (event) => {
                 <div style={{ padding: '0 0.6em 0.6em 0' }}>
                   <TextField size="small" variant="standard" placeholder={language === 'eng' ? 'Search parent...' : 'Rechercher...'} value={parentCategorySearch} onChange={(e) => handleDebouncedSearch('parent-drawer', e.target.value, setParentCategorySearch)} fullWidth />
                 </div>
-                {authCtx?.articleFamilleParents?.map((parent) => {
+                {authCtx?.articleFamilleParents?.sort((a, b) => (a.nom || '').localeCompare(b.nom || ''))?.map((parent) => {
                   if (parentCategorySearch && !contains(parent.nom, parentCategorySearch)) return null;
                   const isChecked = isParentCategorySelected(parent.id);
 
@@ -1776,7 +1780,7 @@ const handleChangeSubCategory = (event) => {
                 <div style={{ padding: '0 0.6em 0.6em 0' }}>
                   <TextField size="small" variant="standard" placeholder={language === 'eng' ? 'Search sub...' : 'Rechercher...'} value={subCategorySearch} onChange={(e) => handleDebouncedSearch('sub-drawer', e.target.value, setSubCategorySearch)} fullWidth />
                 </div>
-                {authCtx?.articleFamille?.filter(parent => selectedParentCategories.length === 0 || selectedParentCategories.includes(parent.b_usr_parentcategorie_id)).map((parent) => {
+                {authCtx?.articleFamille?.filter(parent => selectedParentCategories.length === 0 || selectedParentCategories.includes(parent.b_usr_parentcategorie_id))?.sort((a, b) => ((a.type_nom || '')).localeCompare((b.type_nom || ''))).map((parent) => {
                   if (subCategorySearch && !contains(parent.type_nom, subCategorySearch)) return null;
                   const isChecked = isSubCategorySelected(parent.id);
 
@@ -1830,7 +1834,7 @@ const handleChangeSubCategory = (event) => {
                   <div style={{ padding: '0 0.6em 0.6em 0' }}>
                     <TextField size="small" variant="standard" placeholder={language === 'eng' ? 'Search theme...' : 'Rechercher...'} value={themeSearch} onChange={(e) => handleDebouncedSearch('theme-drawer', e.target.value, setThemeSearch)} fullWidth />
                   </div>
-                {filterTreeByQuery(mappedCategories, themeSearch).map((parent, index) => (
+                {filterTreeByQuery(mappedCategories, themeSearch)?.sort((a, b) => ((a._nom || a._nom_fr || '')).localeCompare((b._nom || b._nom_fr || '')))?.map((parent, index) => (
                   <TreeNode
                     key={index}
                     data={parent}
@@ -1882,7 +1886,7 @@ const handleChangeSubCategory = (event) => {
                   <div style={{ padding: '0 0.6em 0.6em 0' }}>
                     <TextField size="small" variant="standard" placeholder={language === 'eng' ? 'Search publisher...' : 'Rechercher...'} value={publisherSearch} onChange={(e) => handleDebouncedSearch('publisher-drawer', e.target.value, setPublisherSearch)} fullWidth />
                   </div>
-                  {authCtx?.publishers?.map((publisher) => {
+                  {authCtx?.publishers?.sort((a, b) => ((a.title || a.name || '')).localeCompare((b.title || b.name || '')))?.map((publisher) => {
                     if (publisherSearch && !contains(publisher.title, publisherSearch)) return null;
                     const isChecked = isPublisherSelected(publisher.id);
 
@@ -2073,7 +2077,11 @@ const handleChangeSubCategory = (event) => {
                       const searchVal = (dynamicFilterSearches && dynamicFilterSearches[`filter_search_${index}`]) || '';
                       if (!searchVal) return true;
                       return contains(val.nom || val.nom_fr || val.label || '', searchVal);
-                    }).map((props) => {
+                    })?.sort((a, b) => {
+                        const aLabel = (language === 'eng' ? a.nom : a.nom_fr) || a.nom || '';
+                        const bLabel = (language === 'eng' ? b.nom : b.nom_fr) || b.nom || '';
+                        return aLabel.localeCompare(bLabel);
+                      })?.map((props) => {
                       const isSelected = isMultiproductSelected(props.id);
                       return (
                         <label

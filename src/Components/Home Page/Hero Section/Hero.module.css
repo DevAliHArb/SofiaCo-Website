@@ -138,6 +138,7 @@
     height: 22vw;
     max-height: 22em;
     overflow: hidden;
+    display: flex;
 }
 
 
@@ -206,9 +207,12 @@
 }
 
 .img{
-  object-fit: fill !important;
-  height: 100%;
-  width: 100%;
+    object-fit: contain !important;
+    margin: auto;
+    height: fit-content;
+    width: fit-content;
+    max-height: 100%;
+    max-width: 100%;
   border-radius: 1em;
 }
 
