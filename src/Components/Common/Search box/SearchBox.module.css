@@ -182,7 +182,6 @@
   }
 .dropdown_card_img img{
   height: 100%;
-  object-fit: fill;
 }
 
 .out_of_stock{
