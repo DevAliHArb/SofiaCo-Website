@@ -154,7 +154,7 @@ const Publishers = () => {
             
         <div className={classes.header}>
           <h1 onClick={()=>console.log(records)}>
-                {language === 'eng' ? 'Publishing House' : 'Maison D\'édition'}</h1>
+                {language === 'eng' ? 'Brands' : 'Marques'}</h1>
         </div>
           <div
             style={{
@@ -312,7 +312,7 @@ const Publishers = () => {
               event.stopPropagation();
               dispatch(deleteSelectedCollab());
               dispatch(addSelectedCollab(props));
-              navigate(`/publishers/${props.id}/details`);
+              navigate(`/brands/${props.id}/details`);
             }}
            className={classes.card_container}>
               <div className={classes.card_img}>

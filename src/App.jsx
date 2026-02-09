@@ -160,8 +160,8 @@ function App() {
           <Route path="/resend-verify-email" element={<ScrollToTop><ResendVerify /></ScrollToTop>} />
           <Route path='/forget-password' element={<ScrollToTop><ForgotPassword/></ScrollToTop>} />
           <Route path='/reset-password' element={<ScrollToTop><NewPassword/></ScrollToTop>} />
-          <Route path="/publishers" element={<ScrollToTop><Publishers /></ScrollToTop>} />
-          <Route path="/publishers/:id/details" element={<ScrollToTop><PublisherDetails /></ScrollToTop>} />
+          <Route path="/brands" element={<ScrollToTop><Publishers /></ScrollToTop>} />
+          <Route path="/brands/:id/details" element={<ScrollToTop><PublisherDetails /></ScrollToTop>} />
           <Route path="/collaborators" element={<ScrollToTop><Collaborators /></ScrollToTop>} />
           <Route path="/collaborators/:id/details" element={<ScrollToTop><CollaboratorDetails /></ScrollToTop>} />
           <Route path="/wishlist" element={<ScrollToTop><Favorite /></ScrollToTop>} />

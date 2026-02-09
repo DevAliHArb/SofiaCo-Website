@@ -143,6 +143,7 @@ const CheckOut = () => {
   const handleClosepaypal = () => setOpenpaypal(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [couponCode, setCouponCode] = useState("");
+  const [lookupStatus, setLookupStatus] = useState(51); // Default to 51
   const handleErrorOpen = (message) => {
     setErrorMessage(message);
     setErrorModalOpen(true);
@@ -893,6 +894,30 @@ const CheckOut = () => {
 
   const stripePromise = loadStripe(stripePublishableKey);
   
+  // Function to check payment conditions before placing order
+  const checkPaymentConditions = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_TESTING_API}/users/${user.id}/check-payment-conditions`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.data && response.data.has_valid_conditions) {
+        setLookupStatus(52);
+      } else {
+        setLookupStatus(51);
+      }
+    } catch (error) {
+      // Default to 51 if check fails
+      console.error("Error checking payment conditions:", error);
+      setLookupStatus(51);
+    }
+  };
+  
   const CheckOutHandler = async () => {
     if (!user.defaultAdd) {
       toast.error(`${language === 'eng' ? "Please add a default Address." : "Veuillez ajouter une adresse par défaut."}`, {
@@ -907,6 +932,9 @@ const CheckOut = () => {
       });
     } else {
       try {
+        // Check payment conditions before proceeding
+        await checkPaymentConditions();
+        
         const requestData = {
           user_id: user.id,
           user_address_id: user.defaultAdd,
@@ -943,6 +971,7 @@ const CheckOut = () => {
             : 0,
             payment_method_id: 17,
             rate: authCtx.currencyRate,
+            lookup_status: lookupStatus,
         };
         const requestData1 = {
           user_id: user.id,
@@ -984,6 +1013,7 @@ const CheckOut = () => {
             : 0,
             payment_method_id: 41,
             rate: authCtx.currencyRate,
+            lookup_status: lookupStatus,
         };
         if (userCoupon.length > 0) {
           requestData.user_coupon_id = userCoupon[0].id;
@@ -1004,7 +1034,7 @@ const CheckOut = () => {
             { hideProgressBar: true }
           );
         } else {
-          if (directPay) {
+          if (directPay && lookupStatus === 52) {
             
             dispatch(addOrderData(requestData1))
             
@@ -1117,6 +1147,10 @@ const CheckOut = () => {
   };
 
   const checkoutPaypalHandler = async (name) => {
+    if (lookupStatus === 51) {
+      CheckOutHandler();
+      return;
+    }
     try {
       const requestData = {
         user_id: user.id,

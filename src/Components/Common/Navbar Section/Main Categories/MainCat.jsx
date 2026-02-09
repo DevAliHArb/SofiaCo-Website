@@ -84,7 +84,8 @@ const MainCat = () => {
                 src={Number(selectedCategoryId) === Number(item?.id) ? allcatw : allcat}
                 alt=""
                 className={classes.icon}
-              /></div>
+              />
+              </div>
               <p style={{ color:'#111' }}>
                 {item?.type_nom} 
               </p>

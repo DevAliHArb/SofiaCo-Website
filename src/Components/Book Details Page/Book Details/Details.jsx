@@ -755,7 +755,7 @@ const [selectedVariants, setSelectedVariants] = useState({});
             });
           })()}
           <div className={classes.char}>
-            <p >{language === 'eng' ? "Publishing house" : "Maison d'édition" }</p>
+            <p >{language === 'eng' ? "Brands" : "Marques" }</p>
             <p style={{cursor:'pointer'}}
               onClick={() => handleFilterPublisher(bookData?.editor?.id)}
             >

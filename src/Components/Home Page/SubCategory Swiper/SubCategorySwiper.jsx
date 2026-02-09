@@ -17,14 +17,28 @@ const SubCategorySwiper = (categoryData) => {
   const authCtx = useContext(AuthContext);
   const language = useSelector((state) => state.products.selectedLanguage[0].Language);
   const currency = useSelector((state) => state.products.selectedCurrency[0].currency );
-    const compareData = useSelector((state) => state.products.compare);
+  const compareData = useSelector((state) => state.products.compare);
+  const selectedCategoryId = useSelector((state) => state.products.selectedCategoryId);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [articles, setArticles] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategoryRoute, setSelectedCategoryRoute] = useState('');
+  const [initialSlide, setInitialSlide] = useState(0);
 
-  
+  // If there is no selected category (null or 'null') show the parent categories list
+  const categoriesToShow = (selectedCategoryId === null || selectedCategoryId === 'null')
+    ? authCtx?.articleFamilleParents
+    : authCtx?.articleFamille;
+
+  useEffect(() => {
+    const selectedCategoryId = localStorage.getItem('route');
+    setSelectedCategoryRoute(selectedCategoryId ? selectedCategoryId : '/');
+    
+    // Set the initialSlide index based on localStorage route value
+    if (selectedCategoryId && authCtx.articleFamilleParents) {
+      const selectedIndex = authCtx.articleFamilleParents?.findIndex(item => item.route === selectedCategoryId);
+      setInitialSlide(selectedIndex !== -1 ? selectedIndex : 0);
+    }
+  }, [authCtx.articleFamilleParents]);
 
   const handleCategoryClick = ( id) => {
     dispatch(resetSearchData()); 
@@ -33,21 +47,31 @@ const SubCategorySwiper = (categoryData) => {
     localStorage.removeItem("publishers");
     localStorage.removeItem("categories");
     localStorage.removeItem("collections");
-    // Add articlefamille_id to subCategories in localStorage
-    const subCategories = JSON.parse(localStorage.getItem("subCategories")) || [];
-    if (!subCategories.includes(id)) {
-      subCategories.push(id);
-      localStorage.setItem("subCategories", JSON.stringify(subCategories));
+    
+    // Check if selectedCategoryId is null or 'null'
+    if (selectedCategoryId === null || selectedCategoryId === 'null') {
+      // Store in parentCategories
+      const parentCategories = JSON.parse(localStorage.getItem("parentCategories")) || [];
+      if (!parentCategories.includes(id)) {
+        parentCategories.push(id);
+        localStorage.setItem("parentCategories", JSON.stringify(parentCategories));
+      }
+    } else {
+      // Store in subCategories
+      const subCategories = JSON.parse(localStorage.getItem("subCategories")) || [];
+      if (!subCategories.includes(id)) {
+        subCategories.push(id);
+        localStorage.setItem("subCategories", JSON.stringify(subCategories));
+      }
     }
     navigate("/products");
   };
 
-  const filteredArticleFamille = authCtx.articleFamille;
   return (
     <>
       <div className={classes.bigContainer} style={{ position: "relative" }}>
         <div id="best_sellers" style={{ position: "absolute", top: "80%" }}/>
-        {filteredArticleFamille.length === 0 ? (
+        {!categoriesToShow || categoriesToShow.length === 0 ? (
           <div className={classes.nodata}>
           </div>
         ) : (
@@ -55,6 +79,7 @@ const SubCategorySwiper = (categoryData) => {
             <Swiper
               spaceBetween={20}
               effect={"fade"}
+              initialSlide={initialSlide}
               navigation={{
                 nextEl: `.${classes.navButton_next}`,
                 prevEl: `.${classes.navButton_prev}`,
@@ -72,20 +97,20 @@ const SubCategorySwiper = (categoryData) => {
                 },
               }}
             >
-              {filteredArticleFamille.map((props) => (
-                <SwiperSlide key={props.id} className={classes.swiperslide}>
+              {categoriesToShow.map((props) => (
+                <SwiperSlide key={props.id} className={classes.swiperslide}
+              onClick={() => { handleCategoryClick(props.id) }}>
                 <div
                   className={classes.card_container}
-              onClick={() => { handleCategoryClick(props.id) }}
                 >
                   <div className={classes.card_img}>
                       <img
                         src={props.dark_image ? props.dark_image : placeholder}
-                        alt=""
+                        alt={props?.nom || ''}
                       />
                     </div>
                   <div className={classes.bookTitle} >
-                    <h3>{props.type_nom}</h3>
+                    <h3>{props?.type_nom || props?.nom}</h3>
                   </div>
                 </div>
                 </SwiperSlide>

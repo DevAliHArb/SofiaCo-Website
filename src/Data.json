@@ -42,7 +42,7 @@
       "point1": { "eng": "Shop All", "fr": "Livres" },
       "point2": { "eng": "Events", "fr": "Evénements" },
       "point3": { "eng": "Collaborators", "fr": "Collaborateurs" },
-      "point4": { "eng": "publishing house", "fr": "Maison D'édition" }
+      "point4": { "eng": "Brands", "fr": "Marques" }
     },
     "CUSTOMERSERVICE": {
       "title": { "eng": "CUSTOMER SERVICE", "fr": "SERVICE CLIENTÈLE" },
