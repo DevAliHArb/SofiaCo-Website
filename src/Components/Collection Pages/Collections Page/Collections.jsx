@@ -132,7 +132,7 @@ const CollectionsPage = () => {
                 <div key={props.id} className={classes.logo_con} onClick={() => {
                   // console.log(props)
                   dispatch(addCollection(props));
-                  navigate(`/brands/${props.id}/details`);
+                  navigate(`/main/brands/${props.id}/details`);
                 }}>
                   <div className={classes.content}>
                     {props?.image !== null ? (

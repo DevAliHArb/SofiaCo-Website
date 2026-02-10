@@ -232,7 +232,7 @@ useEffect(() => {
         <div className={classes.contentss}>
           <h2>{language == 'eng' ? eventData.name_eng : eventData?.name_fr}</h2>
           <p>{language == 'eng' ? eventData.description_eng : eventData.description_fr}</p>
-          <div className={classes.contactBtn} onClick={()=>navigate(`/contact`)}>
+          <div className={classes.contactBtn} onClick={()=>navigate(`/main/contact`)}>
           {language === 'eng' ? "CONTACT US" : "CONTACTEZ-NOUS" }
           </div>
         </div>

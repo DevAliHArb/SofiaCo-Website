@@ -119,11 +119,11 @@ function SearchBox(ParentProps) {
     // Dispatch the search data, combining with existing search data if necessary
     dispatch(editSearchData({ ...search }));
 
-    // If the current path is /products, reload the page, otherwise navigate
-    if (window.location.pathname === "/products") {
-      window.location.reload(); // Reload if already on /products
+    // If the current path is /main/products, reload the page, otherwise navigate
+    if (window.location.pathname === "/main/products") {
+      window.location.reload(); // Reload if already on /main/products
     } else {
-      navigate("/products"); // Navigate to /products if not already there
+      navigate("/main/products"); // Navigate to /main/products if not already there
     }
 
     // Clear the search query
@@ -252,7 +252,7 @@ function SearchBox(ParentProps) {
                           dispatch(deleteSelectedBook(article.id));
                           dispatch(addSelectedBook(article));
                           setSearchQuery("");
-                          navigate(`/productdetails/${article.id}`);
+                          navigate(`/main/productdetails/${article.id}`);
                         }}
                       >
                         <div

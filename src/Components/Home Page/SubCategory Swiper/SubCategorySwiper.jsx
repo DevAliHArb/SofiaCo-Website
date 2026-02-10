@@ -64,7 +64,7 @@ const SubCategorySwiper = (categoryData) => {
         localStorage.setItem("subCategories", JSON.stringify(subCategories));
       }
     }
-    navigate("/products");
+    navigate("/main/products");
   };
 
   return (

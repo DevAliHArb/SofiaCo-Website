@@ -312,7 +312,7 @@ const Publishers = () => {
               event.stopPropagation();
               dispatch(deleteSelectedCollab());
               dispatch(addSelectedCollab(props));
-              navigate(`/brands/${props.id}/details`);
+              navigate(`/main/brands/${props.id}/details`);
             }}
            className={classes.card_container}>
               <div className={classes.card_img}>

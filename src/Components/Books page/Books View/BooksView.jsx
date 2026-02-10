@@ -716,7 +716,7 @@ const BooksView = ({carttoggle}) => {
           
       // Check if route is /products/subcategory/:id and get subcategory id
       let selectedsubCategoryParam = "";
-      if (location.pathname.startsWith("/products/subcategory/") && subcatageoryId && subcatageoryId !== "null") {
+      if (location.pathname.startsWith("/main/products/subcategory/") && subcatageoryId && subcatageoryId !== "null") {
         selectedsubCategoryParam = `&articlefamille_id=${subcatageoryId}`;
       }
 
@@ -897,7 +897,7 @@ const BooksView = ({carttoggle}) => {
       
       // Check if route is /products/subcategory/:id and get subcategory id
       let selectedsubCategoryParam = "";
-      if (location.pathname.startsWith("/products/subcategory/") && subcatageoryId && subcatageoryId !== "null") {
+      if (location.pathname.startsWith("/main/products/subcategory/") && subcatageoryId && subcatageoryId !== "null") {
         selectedsubCategoryParam = `&articlefamille_id=${subcatageoryId}`;
       }
       const response = await axios.get(

@@ -372,7 +372,7 @@ const Collaborators = () => {
               event.stopPropagation();
               dispatch(deleteSelectedCollab());
               dispatch(addSelectedCollab(props));
-              navigate(`/collaborators/${props.id}/details`);
+              navigate(`/main/collaborators/${props.id}/details`);
             }}
            className={classes.card_container}>
               <div className={classes.card_img}>

@@ -188,8 +188,8 @@ function TreeNode({ data, level, fetchArticles }) {
       dispatch(editSearchData(newCategoryData));
       setIsExpanded(!isExpanded);
       // Fetch articles with the new category ID
-      navigate('/products')
-      if (window.location.pathname === '/products') {
+      navigate('/main/products')
+      if (window.location.pathname === '/main/products') {
         window.location.reload();
       }
       toggle()
@@ -388,15 +388,15 @@ function TreeNode({ data, level, fetchArticles }) {
         </Link>
 
 
-        {/* <Link  to='/products' style={{textDecoration: 'none', color:'white'}} onClick={toggle}> */}
+        {/* <Link  to='/main/products' style={{textDecoration: 'none', color:'white'}} onClick={toggle}> */}
 
 
-        <Link  to='/products' style={{textDecoration: 'none', color:'white'}} 
+        <Link  to='/main/products' style={{textDecoration: 'none', color:'white'}} 
           onClick={e => {
             e.preventDefault();
             toggle();
             ResetfilterHandle();
-            navigate('/products');
+            navigate('/main/products');
           }}>
         <ListItem disablePadding>
           <ListItemButton style={{padding:'0'}}>
@@ -426,7 +426,7 @@ function TreeNode({ data, level, fetchArticles }) {
 
 
 
-        <Link  to='/about' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+        <Link  to='/main/about' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
         <ListItem disablePadding>
           <ListItemButton style={{padding:'0'}}>
             <p className={classes.text}>{language === 'eng' ? "About Us" : "A Propos"} </p>
@@ -436,7 +436,7 @@ function TreeNode({ data, level, fetchArticles }) {
 
 
 
-        <Link  to='/events' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+        <Link  to='/main/events' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
         <ListItem disablePadding>
           <ListItemButton style={{padding:'0'}}>
             <p className={classes.text}>
@@ -446,7 +446,7 @@ function TreeNode({ data, level, fetchArticles }) {
         </ListItem>
         </Link>
 
-        <Link  to='/brands' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+        <Link  to='/main/brands' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
         <ListItem disablePadding>
           <ListItemButton style={{padding:'0'}}>
             <p className={classes.text}>
@@ -456,7 +456,7 @@ function TreeNode({ data, level, fetchArticles }) {
         </ListItem>
         </Link>
         
-                <Link  to='/collaborators' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+                <Link  to='/main/collaborators' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
                 <ListItem disablePadding>
           <ListItemButton style={{padding:'0'}}>
                     <p className={classes.text}>
@@ -471,7 +471,7 @@ function TreeNode({ data, level, fetchArticles }) {
 
 
 
-        <Link  to='/contact' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+        <Link  to='/main/contact' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
         <ListItem disablePadding>
           <ListItemButton style={{padding:'0'}}>
             <p className={classes.text}>

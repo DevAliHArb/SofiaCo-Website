@@ -143,38 +143,39 @@ function App() {
       <AddCartPopup />
       <div>
         <Routes>
+          <Route path="/" element={<Navigate to="/main" replace />} />
           <Route
-            path="/"
+            path="/main"
             element={
               <ScrollToTop>
                 <HomePage cartToggle={cartToggle} />
               </ScrollToTop>
             }
           />
-          <Route path="/about" element={<ScrollToTop><About /></ScrollToTop>} />
-          <Route path="/events" element={<ScrollToTop><Events /></ScrollToTop>} />
-          <Route path="/events/:id/event-details" element={<ScrollToTop><EventsDetails /></ScrollToTop>} />
+          <Route path="/main/about" element={<ScrollToTop><About /></ScrollToTop>} />
+          <Route path="/main/events" element={<ScrollToTop><Events /></ScrollToTop>} />
+          <Route path="/main/events/:id/event-details" element={<ScrollToTop><EventsDetails /></ScrollToTop>} />
           <Route path="/register" element={<ScrollToTop><Register /></ScrollToTop>} />
           <Route path="/login" element={<ScrollToTop><Login /></ScrollToTop>} />
           <Route path="/verify-email" element={<ScrollToTop><Verify /></ScrollToTop>} />
           <Route path="/resend-verify-email" element={<ScrollToTop><ResendVerify /></ScrollToTop>} />
           <Route path='/forget-password' element={<ScrollToTop><ForgotPassword/></ScrollToTop>} />
           <Route path='/reset-password' element={<ScrollToTop><NewPassword/></ScrollToTop>} />
-          <Route path="/brands" element={<ScrollToTop><Publishers /></ScrollToTop>} />
-          <Route path="/brands/:id/details" element={<ScrollToTop><PublisherDetails /></ScrollToTop>} />
-          <Route path="/collaborators" element={<ScrollToTop><Collaborators /></ScrollToTop>} />
-          <Route path="/collaborators/:id/details" element={<ScrollToTop><CollaboratorDetails /></ScrollToTop>} />
-          <Route path="/wishlist" element={<ScrollToTop><Favorite /></ScrollToTop>} />
-          <Route path="/cart" element={<ScrollToTop><Cart /></ScrollToTop>} />
-          <Route path="/checkout" element={<ScrollToTop><CheckOut /></ScrollToTop>} />
-          <Route path="/checkout-completed/:id" element={<ScrollToTop><CompletedOrder /></ScrollToTop>} />
-          <Route path="/contact" element={<ScrollToTop><ContactUs/></ScrollToTop>} />
-          <Route path="/products" element={<ScrollToTop><BooksPage /></ScrollToTop>} />
-          <Route path="/products/subcategory/:id" element={<ScrollToTop><BooksPage /></ScrollToTop>} />
-          <Route path="/productdetails/:id" element={<ScrollToTop><BookDetailsPage cartToggle={cartToggle} /></ScrollToTop>} />
+          <Route path="/main/brands" element={<ScrollToTop><Publishers /></ScrollToTop>} />
+          <Route path="/main/brands/:id/details" element={<ScrollToTop><PublisherDetails /></ScrollToTop>} />
+          <Route path="/main/collaborators" element={<ScrollToTop><Collaborators /></ScrollToTop>} />
+          <Route path="/main/collaborators/:id/details" element={<ScrollToTop><CollaboratorDetails /></ScrollToTop>} />
+          <Route path="/main/wishlist" element={<ScrollToTop><Favorite /></ScrollToTop>} />
+          <Route path="/main/cart" element={<ScrollToTop><Cart /></ScrollToTop>} />
+          <Route path="/main/checkout" element={<ScrollToTop><CheckOut /></ScrollToTop>} />
+          <Route path="/main/checkout-completed/:id" element={<ScrollToTop><CompletedOrder /></ScrollToTop>} />
+          <Route path="/main/contact" element={<ScrollToTop><ContactUs/></ScrollToTop>} />
+          <Route path="/main/products" element={<ScrollToTop><BooksPage /></ScrollToTop>} />
+          <Route path="/main/products/subcategory/:id" element={<ScrollToTop><BooksPage /></ScrollToTop>} />
+          <Route path="/main/productdetails/:id" element={<ScrollToTop><BookDetailsPage cartToggle={cartToggle} /></ScrollToTop>} />
           <Route path="/account/:pageId/*" element={user ? <ScrollToTop><AccountPage /></ScrollToTop> : <Navigate to="/login" replace />} />
           <Route path="/my-documents/:pageId" element={user ? <ScrollToTop><MyDocumentsPage /></ScrollToTop> : <Navigate to="/login" replace />} />
-          <Route path="/policies" element={<ScrollToTop><Mentions /></ScrollToTop>} />
+          <Route path="/main/policies" element={<ScrollToTop><Mentions /></ScrollToTop>} />
           <Route path='/order-success' element={<ScrollToTop><SuccessPage/></ScrollToTop>} /> 
           <Route path="*" element={<ErrorPage />} />       
           </Routes>

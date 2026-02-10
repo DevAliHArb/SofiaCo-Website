@@ -217,7 +217,7 @@ const CheckOut = () => {
     const outOfStockItems = productData.filter(item => item._qte_a_terme_calcule < 1);
     const removedItems = productData.filter(item => item?.removed);
     if (outOfStockItems.length > 0 ) {
-      navigate('/cart');
+      navigate('/main/cart');
     }
   }, [productData]);
 
@@ -1444,7 +1444,7 @@ const CheckOut = () => {
         <h1>
         {language === "eng" ? "Checkout" : "Procéder au paiement"}</h1>
         <div style={{width:'fit-content',margin:"2em auto",display:'flex',flexDirection:"row",gap:"2em"}}>
-          <h4 style={{padding:'1em',margin:'0 .5em',cursor:"pointer"}} onClick={()=>navigate('/cart')}><span style={{padding:'.3em .5em',backgroundColor:'var(--primary-color)',color:'#fff',borderRadius:'50%'}}>1</span> {Data.Cart.title1[language]}</h4>
+          <h4 style={{padding:'1em',margin:'0 .5em',cursor:"pointer"}} onClick={()=>navigate('/main/cart')}><span style={{padding:'.3em .5em',backgroundColor:'var(--primary-color)',color:'#fff',borderRadius:'50%'}}>1</span> {Data.Cart.title1[language]}</h4>
           <h4 style={{padding:'1em',margin:'0 .5em',cursor:'default',borderBottom:".2em solid var(--primary-color)"}}><span style={{padding:'.3em .5em',backgroundColor:'var(--primary-color)',color:'#fff',borderRadius:'50%'}}>2</span> {Data.Cart.title2[language]}</h4>
           <h4 style={{padding:'1em',margin:'0 .5em',cursor:'not-allowed'}}><span style={{padding:'.3em .5em',backgroundColor:'#EEBA7F',color:'#fff',borderRadius:'50%'}}>3</span> {Data.Cart.title3[language]}</h4>
         </div>
