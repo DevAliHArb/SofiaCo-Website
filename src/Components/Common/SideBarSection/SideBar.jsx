@@ -100,7 +100,7 @@ export default function SideBar({ toggle, isOpen }) {
           theme: 'colored',
         });
       });
-      // navigate(`/login`);
+      navigate(`/main`);
       // Add any additional logic you may need, such as redirecting the user to the login page or updating the application state
     } catch (error) {
       console.error('Error logging out:', error);

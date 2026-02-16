@@ -159,6 +159,7 @@ const CheckOut = () => {
   const [selectedGiftItems, setSelectedGiftItems] = useState([]);
   const [maxGifts, setMaxGifts] = useState(0);
   const [gifts_configuration, setGiftsConfiguration] = useState([]);
+  const [paymentChoiceModal, setPaymentChoiceModal] = useState(false);
 
   const handleGiftChange = (item) => {
     console.log(selectedGiftItems);
@@ -897,28 +898,32 @@ const CheckOut = () => {
   // Function to check payment conditions before placing order
   const checkPaymentConditions = async () => {
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/users/${user.id}/check-payment-conditions`,
+      const response = await axios.post(
+        `${import.meta.env.VITE_TESTING_API}/users/check-payment-conditions`,
+        {
+          user_id: user.id,
+        },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`, // Include token in the headers
           },
         }
       );
 
       if (response.data && response.data.has_valid_conditions) {
-        setLookupStatus(52);
-      } else {
         setLookupStatus(51);
+      } else {
+        setLookupStatus(52);
       }
     } catch (error) {
-      // Default to 51 if check fails
+      // Default to 52 if check fails
       console.error("Error checking payment conditions:", error);
-      setLookupStatus(51);
+      setLookupStatus(52);
     }
   };
+  console.log("lookupStatus", lookupStatus);
   
-  const CheckOutHandler = async () => {
+  const CheckOutHandler = async (skipPaymentCheck = false) => {
     if (!user.defaultAdd) {
       toast.error(`${language === 'eng' ? "Please add a default Address." : "Veuillez ajouter une adresse par défaut."}`, {
         position: "top-right",
@@ -933,7 +938,37 @@ const CheckOut = () => {
     } else {
       try {
         // Check payment conditions before proceeding
-        await checkPaymentConditions();
+        let currentLookupStatus = lookupStatus;
+        
+        // Only check payment conditions if not skipping
+        if (!skipPaymentCheck) {
+          const response = await axios.post(
+            `${import.meta.env.VITE_TESTING_API}/users/check-payment-conditions`,
+            {
+              user_id: user.id,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          if (response.data && response.data.has_valid_conditions) {
+            currentLookupStatus = 51;
+          } else {
+            currentLookupStatus = 52;
+          }
+
+          // If lookupStatus is 51, show payment choice modal
+          if (currentLookupStatus === 51) {
+            setLookupStatus(currentLookupStatus);
+            setPaymentChoiceModal(true);
+            return;
+          }
+          
+          setLookupStatus(currentLookupStatus);
+        }
         
         const requestData = {
           user_id: user.id,
@@ -1146,79 +1181,41 @@ const CheckOut = () => {
     return expiryDateObj < currentDate;
   };
 
-  const checkoutPaypalHandler = async (name) => {
-    if (lookupStatus === 51) {
-      CheckOutHandler();
-      return;
-    }
+  const checkoutPaypalHandler = async () => {
+    // First check payment conditions for PayPal users
     try {
-      const requestData = {
-        user_id: user.id,
-        user_address_id: user.defaultAdd,
-        paypal: true,
-        delivery_id: deliveryId,
-        base_price: (subtotalAmt - TVA).toFixed(2),
-        tva: TVA,
-        shipping_fees:
-          currency === "eur"
-            ? deliveryFees
-            : (deliveryFees * authCtx.currencyRate).toFixed(2),
-        ttc_price: subtotalAmt,
-        weight: totalWeight,
-        ecom_type: "sofiaco",
-        date: generatedate(),
-        total_price: totalAmt,
-        review: reviewMsg,
-        order_invoice_items: order_invoice_items,
-          order_invoice_gifts: selectedGiftItems,
-        number_of_gifts: maxGifts,
-        gifts_configuration: gifts_configuration,
-        number_of_gifts_used: selectedGiftItems?.length || 0,
-        currency: currency,
-        shippingPrice: delivery !== "standard" ? 0 : deliveryFees,
-        shipping_type_id: delivery === "standard" ? 40 : 39,
-        delivery_type: delivery,
-        colissimo_code:
-          delivery === "standard" ? null : colissimoPointData ? colissimoPointData?.identifiant : mondialRelayPointData?.ID,
-          coupon_amount: coupon.reduction
-            ? coupon.type === "Percentage"
-              ? null
-              : currency === "usd"
-              ? (coupon.reduction * authCtx.currencyRate).toFixed(2)
-              : coupon.reduction
-            : 0,
-            payment_method_id: 16,
-            rate: authCtx.currencyRate,
-      };
-
-      if (userCoupon.length > 0) {
-        requestData.user_coupon_id = userCoupon[0].id;
-      }
-      setLoading(true);
-      await axios.post(
-        `${import.meta.env.VITE_TESTING_API}/order_invoices`,
-        requestData
+      const response = await axios.post(
+        `${import.meta.env.VITE_TESTING_API}/users/check-payment-conditions`,
+        {
+          user_id: user.id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
-      dispatch(resetCart());
-      navigate("/order-success");
-      setLoading(false);
-      toast.success(`${language === 'eng' ? `Order success` : "Succès de la commande"}`, {
-        position: "top-right",
-        autoClose: 1500,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: 0,
-        theme: "colored",
-      });
+      let currentLookupStatus = 51;
+      if (response.data && response.data.has_valid_conditions) {
+        currentLookupStatus = 51;
+      } else {
+        currentLookupStatus = 52;
+      }
+
+      // If payment condition requires choice, show modal
+      if (currentLookupStatus === 51) {
+        setLookupStatus(currentLookupStatus);
+        setPaymentChoiceModal(true);
+        return;
+      }
+
+      // Otherwise open PayPal directly
+      setLookupStatus(currentLookupStatus);
+      setOpenpaypal(true);
     } catch (error) {
-      // console.error("Error in ordering:", error);
-      setLoading(false);
-      // setErrorMessage(
-      //   error.response?.data?.error || "An unexpected error occurred"
-      // );
+      console.error("Error checking payment conditions:", error);
+      setOpenpaypal(true);
     }
   }
 
@@ -1298,33 +1295,6 @@ const CheckOut = () => {
   };
 
   const handleChange2 = async (id) => {
-    // try {
-    //   // Update the database to set the selected address as default
-    //   await axios.put(
-    //     `${import.meta.env.VITE_TESTING_API}/users/${user.id}/addresses/${id}`,
-    //     {
-    //       default: "true",
-    //     },
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${token}`, // Include token in the headers
-    //       },
-    //     }
-    //   );
-    //   fetchAddresses();
-    //   toast.success(`${language === 'eng' ? "Default address is set!" : "L'adresse par défaut est définie !"}`, {
-    //     position: "top-right",
-    //     autoClose: 1500,
-    //     hideProgressBar: true,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: 0,
-    //     theme: "colored",
-    //   });
-    // } catch (error) {
-    //   console.error("Error setting default address:", error);
-    // }
     const sortedAddresses = addresseslist.sort((a, b) => {
       if (a.id === id) return -1;
       if (b.id === id) return 1;
@@ -1436,6 +1406,169 @@ const CheckOut = () => {
     setuserCoupon([]);
     authCtx.fetchfavandcartSettings();
 };
+
+  const handlePaymentChoice = async (payNow) => {
+    setPaymentChoiceModal(false);
+    const newLookupStatus = payNow ? 52 : 51;
+    
+    // If PayPal is selected
+    if (ispaypal) {
+      if (payNow) {
+        // Pay Now - open PayPal modal
+        setLookupStatus(newLookupStatus);
+        setOpenpaypal(true);
+      } else {
+        // Pay Later - create order without payment
+        setLookupStatus(newLookupStatus);
+        // Skip payment check since we already did it
+        await CheckOutHandler(true);
+      }
+      return;
+    }
+    
+    // Proceed with checkout using the new status directly
+    try {
+      const requestData = {
+        user_id: user.id,
+        user_address_id: user.defaultAdd,
+        user_payment_id: directPay ? null : user.defaultPay,
+        delivery_id: deliveryId,
+        base_price: (subtotalAmt - TVA).toFixed(2),
+        tva: TVA,
+        ttc_price: subtotalAmt,
+        shipping_fees:
+          currency === "eur"
+            ? deliveryFees
+            : (deliveryFees * authCtx.currencyRate).toFixed(2),
+        weight: totalWeight,
+        ecom_type: "sofiaco",
+        date: generatedate(),
+        total_price: (totalAmt * 1).toFixed(2),
+        review: reviewMsg,
+        order_invoice_items: order_invoice_items,
+        order_invoice_gifts: selectedGiftItems,
+        number_of_gifts: maxGifts,
+        gifts_configuration: gifts_configuration,
+        number_of_gifts_used: selectedGiftItems?.length || 0,
+        shipping_type_id: delivery === "standard" ? 40 : 39,
+        delivery_type: delivery,
+        colissimo_code:
+          delivery === "standard" ? null : colissimoPointData ? colissimoPointData?.identifiant : mondialRelayPointData?.ID,
+        currency: currency,
+        coupon_amount: coupon.reduction
+          ? coupon.type === "Percentage"
+            ? null
+            : currency === "usd"
+            ? (coupon.reduction * authCtx.currencyRate).toFixed(2)
+            : coupon.reduction
+          : 0,
+        payment_method_id: 17,
+        rate: authCtx.currencyRate,
+        lookup_status: newLookupStatus,
+      };
+      const requestData1 = {
+        user_id: user.id,
+        user_address_id: user.defaultAdd,
+        user_payment_id: directPay ? null : user.defaultPay,
+        delivery_id: deliveryId,
+        base_price: subtotalAmt - TVA,
+        tva: TVA,
+        ttc_price: subtotalAmt,
+        shipping_fees:
+          currency === "eur"
+            ? deliveryFees
+            : deliveryFees * authCtx.currencyRate,
+        weight: totalWeight,
+        ecom_type: "sofiaco",
+        tvaAmount: EURTVA,
+        date: generatedate(),
+        total_price: totalAmt,
+        review: reviewMsg,
+        order_invoice_items: order_invoice_items,
+        order_invoice_gifts: selectedGiftItems,
+        number_of_gifts: maxGifts,
+        gifts_configuration: gifts_configuration,
+        number_of_gifts_used: selectedGiftItems?.length || 0,
+        currency: currency,
+        shippingPrice: delivery !== "standard" ? 0 : deliveryFees,
+        shipping_type_id: delivery === "standard" ? 40 : 39,
+        delivery_type: delivery,
+        colissimo_code:
+          delivery === "standard" ? null : colissimoPointData ? colissimoPointData?.identifiant : mondialRelayPointData?.ID,
+        coupon_discount: coupon.reduction ? coupon.reduction : 0,
+        coupon_type: coupon.type,
+        coupon_amount: coupon.reduction
+          ? coupon.type === "Percentage"
+            ? null
+            : currency === "usd"
+            ? (coupon.reduction * authCtx.currencyRate).toFixed(2)
+            : coupon.reduction
+          : 0,
+        payment_method_id: 41,
+        rate: authCtx.currencyRate,
+        lookup_status: newLookupStatus,
+      };
+
+      if (userCoupon.length > 0) {
+        requestData.user_coupon_id = userCoupon[0].id;
+        requestData1.user_coupon_id = userCoupon[0].id;
+      }
+
+      setLoading(true);
+
+      if ((delivery === "Colissimo" && !colissimoPointData) || (delivery === "Mondial Relay" && !mondialRelayPointData)) {
+        setLoading(false);
+        toast.error(
+          `${
+            language === "eng"
+              ? "Please select pickup point"
+              : "Veuillez sélectionner le point de ramassage"
+          }`,
+          { hideProgressBar: true }
+        );
+        return;
+      }
+      
+      if (directPay && newLookupStatus === 52) {
+        dispatch(addOrderData(requestData1));
+        
+        const response = await axios.post(
+          `${import.meta.env.VITE_TESTING_API}/create-checkout-session`,
+          requestData1
+        );
+        const sessionId = response.data.sessionId;
+
+        const stripe = await stripePromise;
+        const { error } = await stripe.redirectToCheckout({ sessionId });
+
+        if (error) {
+          toast.error(`${language === 'eng' ? "Error with Stripe Checkout. Please try again." : "Erreur avec Stripe Checkout. Veuillez réessayer."}`);
+        }
+      } else {
+        await axios.post(
+          `${import.meta.env.VITE_TESTING_API}/order_invoices`,
+          requestData
+        );
+
+        dispatch(resetCart());
+        navigate("/order-success");
+        toast.success(`${language === 'eng' ? `Order success` : "Succès de la commande"}`, {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: 0,
+          theme: "colored",
+        });
+      }
+
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
   return (
     <div className={classes.cart_container}>
       {loading && <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(224, 195, 137, 0.2)', zIndex: 9999 }}><CircularProgress style={{margin:"45vh",color:'var(--primary-color)'}}/></div>} 
@@ -2023,7 +2156,7 @@ const CheckOut = () => {
             {ispaypal ? (
                 <button
                   className={classes.checkout_btn}
-                  onClick={() => setOpenpaypal(true)}
+                  onClick={() => checkoutPaypalHandler()}
                   disabled={loading || productData?.length === 0}
                   id="footer"
               style={{ margin: "2em 0" }}
@@ -2241,7 +2374,7 @@ const CheckOut = () => {
             {ispaypal ? (
                 <button
                   className={classes.checkout_btn}
-                  onClick={() => setOpenpaypal(true)}
+                  onClick={() => checkoutPaypalHandler()}
                   disabled={loading || productData?.length === 0}
                   id="footer"
               style={{ margin: "2em 0" }}
@@ -2353,6 +2486,52 @@ const CheckOut = () => {
   }}
 />
 
+        </Box>
+      </Modal>
+
+      <Modal
+        open={paymentChoiceModal}
+        onClose={() => setPaymentChoiceModal(false)}
+        aria-labelledby="payment-choice-modal"
+        aria-describedby="payment-choice-description"
+        className={classes.modalpopup}
+      >
+        <Box sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 400,
+          bgcolor: 'background.paper',
+          boxShadow: 24,
+          p: 4,
+          borderRadius: 2,
+          textAlign: 'center'
+        }}>
+          <h2 style={{ fontFamily: 'var(--font-family)', color: 'var(--secondary-color)', marginBottom: '1em' }}>
+            {language === 'eng' ? 'Payment Option' : 'Option de paiement'}
+          </h2>
+          <p style={{ fontFamily: 'var(--font-family)', marginBottom: '2em', fontSize: 'calc(.8rem + 0.3vw)' }}>
+            {language === 'eng' 
+              ? 'Would you like to pay now or pay later?' 
+              : 'Souhaitez-vous payer maintenant ou payer plus tard?'}
+          </p>
+          <div style={{ display: 'flex', gap: '1em', justifyContent: 'center' }}>
+            <button
+              className={classes.checkout_btn}
+              onClick={() => handlePaymentChoice(true)}
+              style={{ margin: 0, padding: '0.8em 2em' }}
+            >
+              {language === 'eng' ? 'Pay Now' : 'Payer maintenant'}
+            </button>
+            <button
+              className={classes.checkout_btn}
+              onClick={() => handlePaymentChoice(false)}
+              style={{ margin: 0, padding: '0.8em 2em', backgroundColor: '#6c757d' }}
+            >
+              {language === 'eng' ? 'Pay Later' : 'Payer plus tard'}
+            </button>
+          </div>
         </Box>
       </Modal>
     </div>
