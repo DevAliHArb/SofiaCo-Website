@@ -1001,7 +1001,7 @@ const CheckOut = () => {
           user_address_id: user.defaultAdd,
           // When using payment conditions (statusToUse === 51), always use default payment method
           // When not using conditions, respect the directPay flag
-          user_payment_id: statusToUse === 51 ? null : (directPay ? null : user.defaultPay),
+          user_payment_id: statusToUse === 51 ? user.defaultPay : (directPay ? null : user.defaultPay),
           delivery_id: deliveryId,
           base_price: (subtotalAmt - TVA).toFixed(2),
           tva: TVA,
@@ -1041,7 +1041,7 @@ const CheckOut = () => {
           user_address_id: user.defaultAdd,
           // When using payment conditions (statusToUse === 51), always use default payment method
           // When not using conditions, respect the directPay flag
-          user_payment_id: statusToUse === 51 ? null : (directPay ? null : user.defaultPay),
+          user_payment_id: statusToUse === 51 ? user.defaultPay : (directPay ? null : user.defaultPay),
           delivery_id: deliveryId,
           base_price: subtotalAmt - TVA,
           tva: TVA,
