@@ -941,19 +941,19 @@ const CheckOut = () => {
     setLookupStatus(51); // Keep payment conditions
     
     // Check if user has a default payment method
-    if (!user.defaultPay) {
-      toast.error(`${language === 'eng' ? "Please add a default payment method to use payment conditions." : "Veuillez ajouter un moyen de paiement par défaut pour utiliser les conditions de paiement."}`, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: 0,
-        theme: "colored",
-      });
-      return;
-    }
+    // if (!user.defaultPay) {
+    //   toast.error(`${language === 'eng' ? "Please add a default payment method to use payment conditions." : "Veuillez ajouter un moyen de paiement par défaut pour utiliser les conditions de paiement."}`, {
+    //     position: "top-right",
+    //     autoClose: 3000,
+    //     hideProgressBar: true,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: 0,
+    //     theme: "colored",
+    //   });
+    //   return;
+    // }
     
     // Process checkout directly with lookup status 51 (pay later)
     processCheckout(51);
@@ -1001,7 +1001,7 @@ const CheckOut = () => {
           user_address_id: user.defaultAdd,
           // When using payment conditions (statusToUse === 51), always use default payment method
           // When not using conditions, respect the directPay flag
-          user_payment_id: statusToUse === 51 ? user.defaultPay : (directPay ? null : user.defaultPay),
+          user_payment_id: statusToUse === 51 ? null : (directPay ? null : user.defaultPay),
           delivery_id: deliveryId,
           base_price: (subtotalAmt - TVA).toFixed(2),
           tva: TVA,
@@ -1041,7 +1041,7 @@ const CheckOut = () => {
           user_address_id: user.defaultAdd,
           // When using payment conditions (statusToUse === 51), always use default payment method
           // When not using conditions, respect the directPay flag
-          user_payment_id: statusToUse === 51 ? user.defaultPay : (directPay ? null : user.defaultPay),
+          user_payment_id: statusToUse === 51 ? null : (directPay ? null : user.defaultPay),
           delivery_id: deliveryId,
           base_price: subtotalAmt - TVA,
           tva: TVA,
