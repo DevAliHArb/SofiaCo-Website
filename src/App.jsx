@@ -168,6 +168,7 @@ function App() {
           <Route path="/main/wishlist" element={<ScrollToTop><Favorite /></ScrollToTop>} />
           <Route path="/main/cart" element={<ScrollToTop><Cart /></ScrollToTop>} />
           <Route path="/main/checkout" element={<ScrollToTop><CheckOut /></ScrollToTop>} />
+          <Route path="/checkout" element={<Navigate to="/main/checkout" replace />} />
           <Route path="/main/checkout-completed/:id" element={<ScrollToTop><CompletedOrder /></ScrollToTop>} />
           <Route path="/main/contact" element={<ScrollToTop><ContactUs/></ScrollToTop>} />
           <Route path="/main/products" element={<ScrollToTop><BooksPage /></ScrollToTop>} />
