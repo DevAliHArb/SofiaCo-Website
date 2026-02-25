@@ -49,18 +49,18 @@ function openNewWindow(url) {
                     </div>
                 <div className={classes.info}>
                 <h3>{data.Footer.Menu.title[language]}</h3>
-                    <p onClick={()=>navigate(`/products`)}>{data.Footer.Menu.point1[language]}</p>
-                    <p onClick={()=>navigate(`/about`)}>{data.Footer.GENERAL.point1[language]}</p>
-                    <p onClick={()=>navigate(`/events`)}>{data.Footer.Menu.point2[language]}</p>
-                    <p onClick={()=>navigate(`/contact`)}>{data.Footer.GENERAL.point2[language]}</p>
-                    <p onClick={()=>navigate(`/collaborators`)}>{data.Footer.Menu.point3[language]}</p>
-                    <p onClick={()=>navigate(`/publishers`)}>{data.Footer.Menu.point4[language]}</p>
+                    <p onClick={()=>navigate(`/main/products`)}>{data.Footer.Menu.point1[language]}</p>
+                    <p onClick={()=>navigate(`/main/about`)}>{data.Footer.GENERAL.point1[language]}</p>
+                    <p onClick={()=>navigate(`/main/events`)}>{data.Footer.Menu.point2[language]}</p>
+                    <p onClick={()=>navigate(`/main/contact`)}>{data.Footer.GENERAL.point2[language]}</p>
+                    <p onClick={()=>navigate(`/main/collaborators`)}>{data.Footer.Menu.point3[language]}</p>
+                    <p onClick={()=>navigate(`/main/brands`)}>{data.Footer.Menu.point4[language]}</p>
                 </div>
                 <div className={classes.info}>
                 <h3>{data.Footer.CUSTOMERSERVICE.title[language]}</h3>
                 {userInfo?.id ? <p onClick={()=>navigate(`/account/profile`)}>{data.Footer.CUSTOMERSERVICE.point1[language]}</p> : <p onClick={()=>navigate(`login`)}>{language === 'eng' ? "Login" : "Se Connecter"}</p>}
                 {userInfo?.id ? <p onClick={()=>navigate(`/my-documents/orders`)}>{data.Footer.CUSTOMERSERVICE.point2[language]}</p> : <p onClick={()=>navigate(`register`)}>{language === 'eng' ? "Register" : "Créer un compte"}</p>}
-                    <p onClick={()=>navigate(`/policies`)}>{data.Footer.CUSTOMERSERVICE.point3[language]}</p>
+                    <p onClick={()=>navigate(`/main/policies`)}>{data.Footer.CUSTOMERSERVICE.point3[language]}</p>
                 </div>
                 <div className={classes.info}>
                 {/* <h3>{data.Footer.GENERAL.title[language]}</h3> */}

@@ -23,10 +23,11 @@ import axios from "axios";
 import { addSelectedCategory, changeCurrency, changeLanguage, editSearchData, removeUser, resetSearchData } from "../redux/productSlice";
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 import ColoredLogo from "../../../assets/navbar/favicon.svg";
-import allcat from "../../../assets/icons/all-cat.svg";
+import allcat from "../../../assets/subcategoryplaceholder.png";
 
 import { GoPerson } from "react-icons/go";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import { TbCategory } from "react-icons/tb";
 
 
 
@@ -99,7 +100,7 @@ export default function SideBar({ toggle, isOpen }) {
           theme: 'colored',
         });
       });
-      // navigate(`/login`);
+      navigate(`/main`);
       // Add any additional logic you may need, such as redirecting the user to the login page or updating the application state
     } catch (error) {
       console.error('Error logging out:', error);
@@ -187,8 +188,8 @@ function TreeNode({ data, level, fetchArticles }) {
       dispatch(editSearchData(newCategoryData));
       setIsExpanded(!isExpanded);
       // Fetch articles with the new category ID
-      navigate('/products')
-      if (window.location.pathname === '/products') {
+      navigate('/main/products')
+      if (window.location.pathname === '/main/products') {
         window.location.reload();
       }
       toggle()
@@ -364,13 +365,13 @@ function TreeNode({ data, level, fetchArticles }) {
               <div className={classes.dropdown} style={{width:"100%"}}>
                 {/* All category */}
                 <div style={{display: 'flex', alignItems: 'center', gap: '0.7em', cursor: 'pointer', padding: '0.7em 0'}} onClick={() => handleCategoryMobClick('/', null)}>
-                  <img src={allcat} alt="" style={{width:'1.7em'}}/>
+                  <TbCategory style={{fontSize:'1.5em', color:'var(--primary-color)'}}/>
                   <span style={{color:'#111', fontWeight: 54000}}>{language === 'eng' ? 'All' : 'Tous'}</span>
                 </div>
                 {/* Render each category from articleFamille */}
                 {authCtx.articleFamilleParents?.map(item => (
                   <div key={item.id} style={{display: 'flex', alignItems: 'center', gap: '0.7em', cursor: 'pointer', padding: '0.7em 0'}} onClick={() => handleCategoryMobClick(item.route, item.id)}>
-                    <img src={allcat} alt="" style={{width:'1.7em'}}/>
+                    <img src={item?.dark_image ? item?.dark_image : allcat} alt="" style={{width:'1.4em'}}/>
                     <span style={{color:'#111', fontWeight: 400,textTransform: 'capitalize'}}>{item?.nom}</span>
                   </div>
                 ))}
@@ -387,15 +388,15 @@ function TreeNode({ data, level, fetchArticles }) {
         </Link>
 
 
-        {/* <Link  to='/products' style={{textDecoration: 'none', color:'white'}} onClick={toggle}> */}
+        {/* <Link  to='/main/products' style={{textDecoration: 'none', color:'white'}} onClick={toggle}> */}
 
 
-        <Link  to='/products' style={{textDecoration: 'none', color:'white'}} 
+        <Link  to='/main/products' style={{textDecoration: 'none', color:'white'}} 
           onClick={e => {
             e.preventDefault();
             toggle();
             ResetfilterHandle();
-            navigate('/products');
+            navigate('/main/products');
           }}>
         <ListItem disablePadding>
           <ListItemButton style={{padding:'0'}}>
@@ -425,7 +426,7 @@ function TreeNode({ data, level, fetchArticles }) {
 
 
 
-        <Link  to='/about' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+        <Link  to='/main/about' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
         <ListItem disablePadding>
           <ListItemButton style={{padding:'0'}}>
             <p className={classes.text}>{language === 'eng' ? "About Us" : "A Propos"} </p>
@@ -435,7 +436,7 @@ function TreeNode({ data, level, fetchArticles }) {
 
 
 
-        <Link  to='/events' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+        <Link  to='/main/events' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
         <ListItem disablePadding>
           <ListItemButton style={{padding:'0'}}>
             <p className={classes.text}>
@@ -445,17 +446,17 @@ function TreeNode({ data, level, fetchArticles }) {
         </ListItem>
         </Link>
 
-        <Link  to='/publishers' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+        <Link  to='/main/brands' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
         <ListItem disablePadding>
           <ListItemButton style={{padding:'0'}}>
             <p className={classes.text}>
-            {language === 'eng' ? 'Publishing House' : 'Maison d’édition'}
+            {language === 'eng' ? 'Brands' : 'Marques'}
             </p>
           </ListItemButton>
         </ListItem>
         </Link>
         
-                <Link  to='/collaborators' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+                <Link  to='/main/collaborators' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
                 <ListItem disablePadding>
           <ListItemButton style={{padding:'0'}}>
                     <p className={classes.text}>
@@ -470,7 +471,7 @@ function TreeNode({ data, level, fetchArticles }) {
 
 
 
-        <Link  to='/contact' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+        <Link  to='/main/contact' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
         <ListItem disablePadding>
           <ListItemButton style={{padding:'0'}}>
             <p className={classes.text}>

@@ -640,10 +640,10 @@ const AccountDetails = () => {
               name="newpassword"
               style={{ border: "none",width:'100%', borderRadius: ".5em" }}
               rules={[
-                { required: true, message: 'Please confirm your new password!' },
+                { required: true, message: language === "eng" ? "Please confirm your new password!" : "Veuillez confirmer votre nouveau mot de passe !" },
                 {
-                  pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-                  message: 'Password must be at least 8 characters long and include at least one lowercase letter, one uppercase letter, and one number.'
+                  pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/,
+                  message: language === "eng" ? "Password must be at least 8 characters long and include at least one lowercase letter, one uppercase letter, one number, and one special character (!@#$%^&*)." : "Le mot de passe doit comporter au moins 8 caractères et inclure au moins une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial (!@#$%^&*)."
                 }
               ]}
             >
@@ -660,10 +660,10 @@ const AccountDetails = () => {
               name="confirmpassword"
               style={{ border: "none",width:'100%', borderRadius: ".5em" }}
               rules={[
-                { required: true, message: 'Please confirm your new password!' },
+                { required: true, message: language === "eng" ? "Please confirm your new password!" : "Veuillez confirmer votre nouveau mot de passe !" },
                 {
-                  pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-                  message: 'Password must be at least 8 characters long and include at least one lowercase letter, one uppercase letter, and one number.'
+                  pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/,
+                  message: language === "eng" ? "Password must be at least 8 characters long and include at least one lowercase letter, one uppercase letter, one number, and one special character (!@#$%^&*)." : "Le mot de passe doit comporter au moins 8 caractères et inclure au moins une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial (!@#$%^&*)."
                 }
               ]}
             >

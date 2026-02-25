@@ -394,7 +394,7 @@ const handleCatClick = async () => {
 
       if (storedCategories.includes(categoryItem?.id)) {
         // If the clicked category is already selected, remove it
-        return navigate(`/products`)
+        return navigate(`/main/products`)
       } else {
         // Otherwise, add the new category
         storedCategories.push(categoryItem?.id);
@@ -406,7 +406,7 @@ const handleCatClick = async () => {
       // Dispatch action to update search data with the updated category list
       dispatch(addSearchData({ category: storedCategories }));
 
-      navigate(`/products`)
+      navigate(`/main/products`)
     };
 
     
@@ -420,7 +420,7 @@ const handleCatClick = async () => {
       localStorage.removeItem("collections");
       dispatch(resetSearchData());
       dispatch(addSearchData({ collaborators: collaboratorId }));
-      navigate(`/products`);
+      navigate(`/main/products`);
     }
 
     const handleFilterPublisher = (publisherId) => {
@@ -436,7 +436,7 @@ const handleCatClick = async () => {
       }
       // Store the updated array back to localStorage
       localStorage.setItem("publishers", JSON.stringify(existingPublishers));
-      navigate(`/products`);
+      navigate(`/main/products`);
     }
     
     const handleFilterCollection = (collectionId) => {
@@ -456,7 +456,7 @@ const handleCatClick = async () => {
       // Store the updated array back to localStorage
       localStorage.setItem('collections', JSON.stringify(existingCollections)); 
 
-      navigate(`/products`);
+      navigate(`/main/products`);
     }
 
 const [selectedVariants, setSelectedVariants] = useState({});

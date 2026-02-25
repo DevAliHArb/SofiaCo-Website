@@ -61,7 +61,7 @@ const Cart = () => {
         theme: "colored",
       });
     } else {
-      navigate('/checkout');
+      navigate('/main/checkout');
     }
     
   };

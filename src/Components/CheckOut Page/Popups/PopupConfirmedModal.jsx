@@ -45,7 +45,7 @@ const PopupConfirmedModal = ({ open, handleClose, orderId }) => {
         <div style={{width:'85%',gap:'1em',margin:'1em auto 2em auto',display:"flex",flexDirection:"column"}}>
         <Button 
            size="large"
-           onClick={()=>navigate(`/checkout-completed/${orderId}`)}
+           onClick={()=>navigate(`/main/checkout-completed/${orderId}`)}
           style={{backgroundColor:'var(--forth-color)',color: '#DED8CC', fontWeight:'600', height:'3em',width:'100%',borderRadius:'.7em'}}>
             View Order
           </Button>

@@ -4,7 +4,7 @@ import classes from "./BooksView.module.css";
 import { IoIosArrowDown } from "react-icons/io";
 import { Box, Checkbox, Divider, FormControl, FormControlLabel, FormGroup, Radio, RadioGroup, TextField } from "@mui/material";
 import Slider from '@mui/material-next/Slider';
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useNavigate, useSearchParams } from "react-router-dom";
 import ScrollToTop from "../../Common/ScrollToTop";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -27,6 +27,8 @@ import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRig
 const BooksView = ({carttoggle}) => {
   const [value, setValue] = useState([0, 100]);
   const location = useLocation();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { id: subcatageoryId } = useParams();
   const [isOpen, setIsOpen] = useState(false);
   const [rate, setrate] = useState(0);
@@ -57,6 +59,7 @@ const BooksView = ({carttoggle}) => {
   const [totalArticlesNumber, setTotalArticlesNumber] = useState(null);
   const [inStock, setinStock] = useState(localStorage.getItem("stock") || null);
   const [isdiscount, setisdiscount] = useState(localStorage.getItem("discount") || []);
+  const [urlSyncComplete, setUrlSyncComplete] = useState(false);
   
   const [selectedFilters, setSelectedFilters] = useState({
     rate: [],
@@ -145,16 +148,119 @@ const BooksView = ({carttoggle}) => {
 });
   
   const selectedCategoryId = useSelector((state) => state.products.selectedCategoryId);
+
+  // Function to sync filters to URL
+  const syncFiltersToURL = () => {
+    const params = new URLSearchParams();
+    
+    // Get all filter values from localStorage
+    const categories = JSON.parse(localStorage.getItem("categories")) || [];
+    const collections = JSON.parse(localStorage.getItem("collections")) || [];
+    const publishers = JSON.parse(localStorage.getItem("publishers")) || [];
+    const parentCategories = JSON.parse(localStorage.getItem("parentCategories")) || [];
+    const subCategories = JSON.parse(localStorage.getItem("subCategories")) || [];
+    const multiproductids = JSON.parse(localStorage.getItem("multiproductids")) || [];
+    const discount = JSON.parse(localStorage.getItem("discount")) || [];
+    const minPrice = localStorage.getItem("min_price");
+    const maxPrice = localStorage.getItem("max_price");
+    const stock = localStorage.getItem("stock");
+    const rate = localStorage.getItem("rate");
+    
+    // Add to URL params if they exist
+    if (categories.length > 0) params.set("categories", categories.join(","));
+    if (collections.length > 0) params.set("collections", collections.join(","));
+    if (publishers.length > 0) params.set("publishers", publishers.join(","));
+    if (parentCategories.length > 0) params.set("parentCategories", parentCategories.join(","));
+    if (subCategories.length > 0) params.set("subCategories", subCategories.join(","));
+    if (multiproductids.length > 0) params.set("multiproducts", multiproductids.join(","));
+    if (discount.length > 0) params.set("discount", discount.join(","));
+    if (minPrice) params.set("minPrice", minPrice);
+    if (maxPrice) params.set("maxPrice", maxPrice);
+    if (stock && stock !== "null") params.set("stock", stock);
+    if (rate) params.set("rate", rate);
+    
+    // Update URL without reloading
+    const newUrl = params.toString() ? `${location.pathname}?${params.toString()}` : location.pathname;
+    navigate(newUrl, { replace: true });
+  };
+
+  // Function to initialize filters from URL
+  const initializeFiltersFromURL = () => {
+    const categories = searchParams.get("categories");
+    const collections = searchParams.get("collections");
+    const publishers = searchParams.get("publishers");
+    const parentCategories = searchParams.get("parentCategories");
+    const subCategories = searchParams.get("subCategories");
+    const multiproducts = searchParams.get("multiproducts");
+    const discount = searchParams.get("discount");
+    const minPrice = searchParams.get("minPrice");
+    const maxPrice = searchParams.get("maxPrice");
+    const stock = searchParams.get("stock");
+    const rate = searchParams.get("rate");
+    
+    // Set localStorage from URL params
+    if (categories) {
+      localStorage.setItem("categories", JSON.stringify(categories.split(",").map(Number)));
+    }
+    if (collections) {
+      localStorage.setItem("collections", JSON.stringify(collections.split(",").map(Number)));
+    }
+    if (publishers) {
+      localStorage.setItem("publishers", JSON.stringify(publishers.split(",").map(Number)));
+    }
+    if (parentCategories) {
+      localStorage.setItem("parentCategories", JSON.stringify(parentCategories.split(",").map(Number)));
+    }
+    if (subCategories) {
+      localStorage.setItem("subCategories", JSON.stringify(subCategories.split(",").map(Number)));
+    }
+    if (multiproducts) {
+      localStorage.setItem("multiproductids", JSON.stringify(multiproducts.split(",").map(Number)));
+    }
+    if (discount) {
+      const discountArray = discount.split(",").map(d => d === "true" ? true : d === "false" ? false : Number(d));
+      localStorage.setItem("discount", JSON.stringify(discountArray));
+      setisdiscount(discountArray);
+    }
+    if (minPrice) {
+      localStorage.setItem("min_price", minPrice);
+      setSelectedPrice(prev => [Number(minPrice), prev[1]]);
+    }
+    if (maxPrice) {
+      localStorage.setItem("max_price", maxPrice);
+      setSelectedPrice(prev => [prev[0], Number(maxPrice)]);
+    }
+    if (stock) {
+      localStorage.setItem("stock", stock);
+      setinStock(stock === "true" ? true : stock === "false" ? false : null);
+    }
+    if (rate) {
+      localStorage.setItem("rate", rate);
+      setSelectedRate(Number(rate));
+    }
+    
+    setUrlSyncComplete(true);
+  };
+
+  // Initialize from URL on mount
+  useEffect(() => {
+    initializeFiltersFromURL();
+  }, []);
+
     React.useEffect(() => {
-              setfilterValues([]);
-              setArticles([]);
-              FetchFilters();
-              fetchArticles();
-      }, [selectedCategoryId, authCtx.articleFamilleParents]); 
+      if (urlSyncComplete) {
+        setfilterValues([]);
+        setArticles([]);
+        FetchFilters();
+        fetchArticles();
+      }
+      }, [selectedCategoryId, authCtx.articleFamilleParents, urlSyncComplete]); 
   
     useEffect(() => {
-      fetchArticles();
-    }, []);
+      if (urlSyncComplete) {
+        fetchArticles();
+      }
+    }, [urlSyncComplete]);
 
 // Listen for changes to localStorage in other tabs or windows
 
@@ -215,7 +321,7 @@ const BooksView = ({carttoggle}) => {
     localStorage.setItem("multiproductids", JSON.stringify(storedmultiproducts));
 
     // Dispatch action to update search data
-
+    syncFiltersToURL();
     setArticles([]); // Reset articles
   };
 
@@ -302,6 +408,7 @@ const BooksView = ({carttoggle}) => {
       // Dispatch action to update search data with the updated category list
       dispatch(addSearchData({ category: storedCategories }));
 
+      syncFiltersToURL();
       setIsExpanded(!isExpanded);
       setArticles([]); // Clear previous articles
       // fetchArticles(selectedDate, 1);
@@ -716,7 +823,7 @@ const BooksView = ({carttoggle}) => {
           
       // Check if route is /products/subcategory/:id and get subcategory id
       let selectedsubCategoryParam = "";
-      if (location.pathname.startsWith("/products/subcategory/") && subcatageoryId && subcatageoryId !== "null") {
+      if (location.pathname.startsWith("/main/products/subcategory/") && subcatageoryId && subcatageoryId !== "null") {
         selectedsubCategoryParam = `&articlefamille_id=${subcatageoryId}`;
       }
 
@@ -795,6 +902,7 @@ const BooksView = ({carttoggle}) => {
     setinStock(null);
     localStorage.setItem("stock", null);
     }
+    syncFiltersToURL();
     fetchArticles(null, null, null, 1);
   };
 
@@ -815,6 +923,7 @@ const BooksView = ({carttoggle}) => {
     }
     setisdiscount(storedCollec)
     localStorage.setItem("discount", JSON.stringify(storedCollec));
+    syncFiltersToURL();
     fetchArticles(null, null, null, 1);
   };
 
@@ -862,6 +971,7 @@ const BooksView = ({carttoggle}) => {
   const ResetRateHandle = async () => {
     setSelectedRate(0)
     localStorage.removeItem("rate");
+    syncFiltersToURL();
     setArticles([])
     fetchArticles(null, null, null, 1);
   }
@@ -887,6 +997,8 @@ const BooksView = ({carttoggle}) => {
     resetLocalStorageItems();
     setchangePricetoggle(!changepricetoggle)
     dispatch(resetSearchData());
+    // Clear URL params
+    navigate(location.pathname, { replace: true });
     setIsOpen(false);
     try {
       const url = `${import.meta.env.VITE_TESTING_API}/articles`;
@@ -897,7 +1009,7 @@ const BooksView = ({carttoggle}) => {
       
       // Check if route is /products/subcategory/:id and get subcategory id
       let selectedsubCategoryParam = "";
-      if (location.pathname.startsWith("/products/subcategory/") && subcatageoryId && subcatageoryId !== "null") {
+      if (location.pathname.startsWith("/main/products/subcategory/") && subcatageoryId && subcatageoryId !== "null") {
         selectedsubCategoryParam = `&articlefamille_id=${subcatageoryId}`;
       }
       const response = await axios.get(
@@ -940,6 +1052,7 @@ const BooksView = ({carttoggle}) => {
     // Dispatch the updated data
     dispatch(addSearchData(newData));
     
+    syncFiltersToURL();
     // Fetch updated articles based on the new price range
     fetchArticles(null, null, null, 1);
     
@@ -952,6 +1065,7 @@ const BooksView = ({carttoggle}) => {
     const newSelectedRate = event.target.value;
     setSelectedRate(newSelectedRate);
     localStorage.setItem("rate", newSelectedRate);
+    syncFiltersToURL();
     // Call fetchArticles function with the new selectedDate
     fetchArticles(newSelectedRate, null, null, 1);
   };
@@ -976,7 +1090,7 @@ const BooksView = ({carttoggle}) => {
     localStorage.setItem("collections", JSON.stringify(storedCollec));
 
     // Dispatch action to update search data
-
+    syncFiltersToURL();
     setArticles([]); // Reset articles
   };
 const handleChangePublisher = (event) => {
@@ -999,7 +1113,7 @@ const handleChangePublisher = (event) => {
     localStorage.setItem("publishers", JSON.stringify(storedPublishers));
 
     // Dispatch action to update search data
-
+    syncFiltersToURL();
     setArticles([]); // Reset articles
   };
   // Retrieve stored collections as an array
@@ -1044,6 +1158,7 @@ const handleChangeParentCategory = (event) => {
     localStorage.setItem("parentCategories", JSON.stringify(storedParentCategories));
 
     // Dispatch action to update search data
+    syncFiltersToURL();
     setfilterValues([]);
     FetchFilters();
     setArticles([]); // Reset articles
@@ -1082,7 +1197,7 @@ const handleChangeSubCategory = (event) => {
     localStorage.setItem("subCategories", JSON.stringify(storedSubCategories));
 
     // Dispatch action to update search data
-
+    syncFiltersToURL();
     setArticles([]); // Reset articles
   };
 

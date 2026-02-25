@@ -340,7 +340,7 @@ const Navbar = ({ toggle, cartToggle }) => {
                       sx={{ p: 0 }}
                       onClick={() => {
                         if (userInfo) {
-                          navigate(`/wishlist`);
+                          navigate(`/main/wishlist`);
                         } else {
                           navigate(`/login`);
                         }
@@ -829,7 +829,7 @@ const Navbar = ({ toggle, cartToggle }) => {
                   sx={{ p: 0 }}
                   onClick={() => {
                     if (userInfo) {
-                      navigate(`/wishlist`);
+                      navigate(`/main/wishlist`);
                     } else {
                       navigate(`/login`);
                     }
@@ -870,7 +870,7 @@ const Navbar = ({ toggle, cartToggle }) => {
                   sx={{ p: 0 }}
                   onClick={() => {
                     if (userInfo) {
-                      navigate(`/cart`);
+                      navigate(`/main/cart`);
                     } else {
                       navigate(`/login`);
                     }

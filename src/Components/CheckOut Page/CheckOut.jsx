@@ -18,6 +18,7 @@ import Data from '../../Data.json'
 import PopupAdressesModal from "./Popups/PopupAdressesModal";
 import PopupPaymentModal from "./Popups/PopupPaymentModal";
 import PopupConfirmedModal from "./Popups/PopupConfirmedModal";
+import PopupPaymentConditionsModal from "./Popups/PopupPaymentConditionsModal";
 import AuthContext from "../Common/authContext";
 import {
   Box,
@@ -143,6 +144,7 @@ const CheckOut = () => {
   const handleClosepaypal = () => setOpenpaypal(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [couponCode, setCouponCode] = useState("");
+  const [lookupStatus, setLookupStatus] = useState(51); // Default to 51
   const handleErrorOpen = (message) => {
     setErrorMessage(message);
     setErrorModalOpen(true);
@@ -158,6 +160,7 @@ const CheckOut = () => {
   const [selectedGiftItems, setSelectedGiftItems] = useState([]);
   const [maxGifts, setMaxGifts] = useState(0);
   const [gifts_configuration, setGiftsConfiguration] = useState([]);
+  const [paymentConditionsModalOpen, setPaymentConditionsModalOpen] = useState(false);
 
   const handleGiftChange = (item) => {
     console.log(selectedGiftItems);
@@ -216,7 +219,7 @@ const CheckOut = () => {
     const outOfStockItems = productData.filter(item => item._qte_a_terme_calcule < 1);
     const removedItems = productData.filter(item => item?.removed);
     if (outOfStockItems.length > 0 ) {
-      navigate('/cart');
+      navigate('/main/cart');
     }
   }, [productData]);
 
@@ -893,6 +896,75 @@ const CheckOut = () => {
 
   const stripePromise = loadStripe(stripePublishableKey);
   
+  // Function to check payment conditions before placing order
+  const checkPaymentConditions = async () => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_TESTING_API}/users/check-payment-conditions`,
+        {
+          user_id: user.id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.data && response.data.has_valid_conditions) {
+        setLookupStatus(51);
+      } else {
+        setLookupStatus(52);
+      }
+    } catch (error) {
+      // Default to 52 if check fails
+      console.error("Error checking payment conditions:", error);
+      setLookupStatus(52);
+    }
+  };
+
+  useEffect(() => {
+    checkPaymentConditions();
+  }, []);
+
+  // Handler for "Pay Now" option from payment conditions popup
+  const handlePayNow = () => {
+    setPaymentConditionsModalOpen(false);
+    setLookupStatus(52); // Set to direct payment
+    // Process checkout directly with lookup status 52 (pay now)
+    processCheckout(52);
+  };
+
+  // Handler for "Pay Later" option from payment conditions popup
+  const handlePayLater = () => {
+    setPaymentConditionsModalOpen(false);
+    setLookupStatus(51); // Keep payment conditions
+    
+    // Check if user has a default payment method
+    // if (!user.defaultPay) {
+    //   toast.error(`${language === 'eng' ? "Please add a default payment method to use payment conditions." : "Veuillez ajouter un moyen de paiement par défaut pour utiliser les conditions de paiement."}`, {
+    //     position: "top-right",
+    //     autoClose: 3000,
+    //     hideProgressBar: true,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: 0,
+    //     theme: "colored",
+    //   });
+    //   return;
+    // }
+    
+    // Process checkout directly with lookup status 51 (pay later)
+    processCheckout(51);
+  };
+
+  // Handler to close payment conditions popup
+  const handlePaymentConditionsClose = () => {
+    setPaymentConditionsModalOpen(false);
+  };
+  
+  // Main checkout handler - shows popup if user has payment conditions
   const CheckOutHandler = async () => {
     if (!user.defaultAdd) {
       toast.error(`${language === 'eng' ? "Please add a default Address." : "Veuillez ajouter une adresse par défaut."}`, {
@@ -906,11 +978,30 @@ const CheckOut = () => {
         theme: "colored",
       });
     } else {
-      try {
+      // Check if user has payment conditions and show popup
+      if (lookupStatus === 51) {
+        setPaymentConditionsModalOpen(true);
+        return;
+      }
+      
+      // If no payment conditions, process checkout directly
+      processCheckout(lookupStatus);
+    }
+  };
+
+  // Process the actual checkout with the specified lookup status
+  const processCheckout = async (statusToUse) => {
+    try {
+        console.log("Processing checkout with status:", statusToUse);
+        console.log("User defaultPay:", user.defaultPay);
+        console.log("directPay:", directPay);
+        
         const requestData = {
           user_id: user.id,
           user_address_id: user.defaultAdd,
-          user_payment_id: directPay ? null : user.defaultPay,
+          // When using payment conditions (statusToUse === 51), always use default payment method
+          // When not using conditions, respect the directPay flag
+          user_payment_id: statusToUse === 51 ? null : (directPay ? null : user.defaultPay),
           delivery_id: deliveryId,
           base_price: (subtotalAmt - TVA).toFixed(2),
           tva: TVA,
@@ -943,11 +1034,14 @@ const CheckOut = () => {
             : 0,
             payment_method_id: 17,
             rate: authCtx.currencyRate,
+            lookup_status: statusToUse,
         };
         const requestData1 = {
           user_id: user.id,
           user_address_id: user.defaultAdd,
-          user_payment_id: directPay ? null : user.defaultPay,
+          // When using payment conditions (statusToUse === 51), always use default payment method
+          // When not using conditions, respect the directPay flag
+          user_payment_id: statusToUse === 51 ? null : (directPay ? null : user.defaultPay),
           delivery_id: deliveryId,
           base_price: subtotalAmt - TVA,
           tva: TVA,
@@ -984,6 +1078,7 @@ const CheckOut = () => {
             : 0,
             payment_method_id: 41,
             rate: authCtx.currencyRate,
+            lookup_status: statusToUse,
         };
         if (userCoupon.length > 0) {
           requestData.user_coupon_id = userCoupon[0].id;
@@ -1004,7 +1099,7 @@ const CheckOut = () => {
             { hideProgressBar: true }
           );
         } else {
-          if (directPay) {
+          if (directPay && statusToUse === 52) {
             
             dispatch(addOrderData(requestData1))
             
@@ -1054,7 +1149,6 @@ const CheckOut = () => {
         //   error.response?.data?.error || "An unexpected error occurred"
         // );
       }
-    }
   };
 
   const calculateReduction = (subtotalAmt, percentage) => {
@@ -1117,6 +1211,10 @@ const CheckOut = () => {
   };
 
   const checkoutPaypalHandler = async (name) => {
+    if (lookupStatus === 51) {
+      CheckOutHandler();
+      return;
+    }
     try {
       const requestData = {
         user_id: user.id,
@@ -1410,7 +1508,7 @@ const CheckOut = () => {
         <h1>
         {language === "eng" ? "Checkout" : "Procéder au paiement"}</h1>
         <div style={{width:'fit-content',margin:"2em auto",display:'flex',flexDirection:"row",gap:"2em"}}>
-          <h4 style={{padding:'1em',margin:'0 .5em',cursor:"pointer"}} onClick={()=>navigate('/cart')}><span style={{padding:'.3em .5em',backgroundColor:'var(--primary-color)',color:'#fff',borderRadius:'50%'}}>1</span> {Data.Cart.title1[language]}</h4>
+          <h4 style={{padding:'1em',margin:'0 .5em',cursor:"pointer"}} onClick={()=>navigate('/main/cart')}><span style={{padding:'.3em .5em',backgroundColor:'var(--primary-color)',color:'#fff',borderRadius:'50%'}}>1</span> {Data.Cart.title1[language]}</h4>
           <h4 style={{padding:'1em',margin:'0 .5em',cursor:'default',borderBottom:".2em solid var(--primary-color)"}}><span style={{padding:'.3em .5em',backgroundColor:'var(--primary-color)',color:'#fff',borderRadius:'50%'}}>2</span> {Data.Cart.title2[language]}</h4>
           <h4 style={{padding:'1em',margin:'0 .5em',cursor:'not-allowed'}}><span style={{padding:'.3em .5em',backgroundColor:'#EEBA7F',color:'#fff',borderRadius:'50%'}}>3</span> {Data.Cart.title3[language]}</h4>
         </div>
@@ -2248,6 +2346,12 @@ const CheckOut = () => {
         open={confirmedmodalopen}
         orderId={orderId}
         handleClose={handleConfirmedClose}
+      />
+      <PopupPaymentConditionsModal
+        open={paymentConditionsModalOpen}
+        handleClose={handlePaymentConditionsClose}
+        onPayNow={handlePayNow}
+        onPayLater={handlePayLater}
       />
       <Modal
         open={colissimoPopupOpen}

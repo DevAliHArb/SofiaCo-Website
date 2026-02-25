@@ -73,7 +73,7 @@ const Events = () => {
             <div key={props.id}  onClick={(event) => {
               event.stopPropagation();
               dispatch(addSelectedEvent(props));
-              navigate(`/events/${props.id}/event-details`);
+              navigate(`/main/events/${props.id}/event-details`);
             }}
            className={classes.card_container}>
               <div className={classes.card_img}>

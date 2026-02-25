@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { TbCategory } from "react-icons/tb";
 import { IoBookOutline } from 'react-icons/io5';
+import placeholder from '../../../../assets/subcategoryplaceholder.png';
 
 
 const style = {
@@ -218,7 +219,7 @@ export default function LanCurrSelect() {
               const item = authCtx.articleFamilleParents?.find(i => i.id === selected);
               return (
                 <span style={{display:'flex',alignItems:'center',gap:'0.7em'}}>
-                <IoBookOutline style={{fontSize:'1.5em', color:'var(--primary-color)'}}/>
+                  <img src={item?.dark_image ? item?.dark_image : placeholder} alt="" style={{width:'1.5em',height:"1.5em",objectFit:"contain"}}/>
                   <span style={{color:'#111'}}>{item?.nom}</span>
                 </span>
               );
@@ -233,7 +234,7 @@ export default function LanCurrSelect() {
             {authCtx.articleFamilleParents?.map((item) => (
               <MenuItem key={item.id} value={item.id} style={{padding:".5em 1em",margin:'0',height:"fit-content"}}>
                 <span style={{display:'flex',alignItems:'center',gap:'0.7em'}}>
-                <IoBookOutline style={{fontSize:'1.5em', color:'var(--primary-color)'}}/>
+                  <img src={item?.dark_image ? item?.dark_image : placeholder} alt="" style={{width:'1.5em',height:"1.5em",objectFit:"contain"}}/>
                   <span style={{ color:'#111' }}>{item?.nom}</span>
                 </span>
               </MenuItem>
@@ -296,7 +297,7 @@ export default function LanCurrSelect() {
         <h3 style={{color:"red"}}>{language === "eng" ? "You cannot change the currency. Please contact the administration." : "Vous ne pouvez pas changer la devise. Veuillez contacter l\'administration."}</h3>
         <div style={{width:'fit-content',margin:'auto',display:'flex',flexWrap:'wrap'}}>
         <Button 
-           onClick={()=>{handleCloseModal(); navigate(`/contact`)}}
+           onClick={()=>{handleCloseModal(); navigate(`/main/contact`)}}
           style={{backgroundColor:'var(--primary-color)',color: 'white', height:'3em',width:'10em',borderRadius:'3em 0',margin:'2em auto 0 auto'}}>
             {language === "eng" ? "Contact us" : "Nous contacter"}
           </Button>

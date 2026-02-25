@@ -594,7 +594,7 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
                   />
                 </div>
                 <h1 style={{ textAlign: "center",color:"#fff",fontWeight:'600' }}>{language === 'fr' ? "Vous n'avez pas encore passé de commande !" : 'You haven’t made any orders yet!'}</h1>
-                <button className={classes.btn} onClick={()=>navigate('/products')}>
+                <button className={classes.btn} onClick={()=>navigate('/main/products')}>
                   {language === 'fr' ? "Commencer vos achats" : 'Start shopping'}
 
                 </button>
@@ -680,7 +680,7 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
                   />
                 </div>
                 <h1 style={{ textAlign: "center",color:"#fff",fontWeight:'600' }}>{language === 'fr' ? `Vous n’avez encore aucune commande ${ordertrackcategories?.find(step => step.id === selectedCategory)?.name_fr} !` : `You haven’t any orders ${ordertrackcategories?.find(step => step.id === selectedCategory)?.name} yet!`}</h1>
-                <button className={classes.btn} onClick={()=>navigate('/products')}>
+                <button className={classes.btn} onClick={()=>navigate('/main/products')}>
                   {language === 'fr' ? "Commencer vos achats" : 'Start shopping'}
 
                 </button>

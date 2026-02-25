@@ -450,7 +450,7 @@ const Subscriptions = () => {
                           dispatch(deleteSelectedCollab());
                           dispatch(addSelectedCollab(collab));
                           navigate(
-                            `/collaborators/${collab.id}/details`
+                            `/main/collaborators/${collab.id}/details`
                           );
                         }}
                       >

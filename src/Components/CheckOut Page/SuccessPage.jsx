@@ -57,11 +57,11 @@ const fetchOrder = async () => {
       {!loading && (
         <>
           {error ? (
-            <button onClick={() => navigate(`/checkout`)}>
+            <button onClick={() => navigate(`/main/checkout`)}>
               {language === "eng" ? "Back to checkout" : "Retour à la caisse"}
             </button>
           ) : (
-            <button onClick={() => navigate(`/`)}>
+            <button onClick={() => navigate(`/main`)}>
               {language === "eng" ? "Back to home page" : "Retour à la page d'accueil"}
             </button>
           )}

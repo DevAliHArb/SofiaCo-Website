@@ -369,7 +369,7 @@ export default function CartSidebar({ toggle, isOpen }) {
                 {Number(totalAmt)?.toFixed(2)}{currency === "eur" ? `€`: `$`}</p>
               </div>
                 <div className={classes.btn_con}>
-              <button className={classes.btn} onClick={()=>navigate(`/cart`) & toggle()}>
+              <button className={classes.btn} onClick={()=>navigate(`/main/cart`) & toggle()}>
                   {language === "eng" ? "View Cart" : "Voir le panier"}
               </button></div>
             </ListItemText>
