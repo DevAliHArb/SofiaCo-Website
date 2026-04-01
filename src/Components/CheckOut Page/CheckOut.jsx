@@ -667,13 +667,13 @@ const CheckOut = () => {
     }
   };
 
-  useEffect(() => {
-    if (colissimoPointData || mondialRelayPointData) {
-      setdeliveryFees(0);
-    } else {
-      FetchShippinCost();
-    }
-  }, [colissimoPointData, mondialRelayPointData]);
+  // useEffect(() => {
+  //   if (colissimoPointData || mondialRelayPointData) {
+  //     setdeliveryFees(0);
+  //   } else {
+  //     FetchShippinCost();
+  //   }
+  // }, [colissimoPointData, mondialRelayPointData]);
 
   useEffect(() => {
     if (!colissimoPointData && !mondialRelayPointData) {
