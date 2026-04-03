@@ -28,7 +28,7 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { stripHtmlTags, truncateText } from "../../Common Components/TextUtils";
 import axios from "axios";
 import { MdAddBox } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 
 const Details = () => {
   const authCtx = useContext(AuthContext);

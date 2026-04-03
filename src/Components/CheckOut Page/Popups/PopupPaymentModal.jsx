@@ -20,7 +20,7 @@ import {
   addAddress,
   editAddress,
 } from "../../Common/redux/productSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import axios from "axios";
 import { CardCvcElement, CardElement, CardExpiryElement, CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';

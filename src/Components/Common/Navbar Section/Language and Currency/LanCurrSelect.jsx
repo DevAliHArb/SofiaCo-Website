@@ -9,7 +9,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { Button } from "antd";
 import InfoIcon from '@mui/icons-material/Info';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "@hooks/useNavigate";
 
 import { TbCategory } from "react-icons/tb";
 import { IoBookOutline } from 'react-icons/io5';

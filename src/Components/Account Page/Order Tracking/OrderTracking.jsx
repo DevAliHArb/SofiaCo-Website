@@ -28,7 +28,8 @@ import Rating from "@mui/material/Rating";
 
 import { Button } from "antd";
 import { toast } from 'react-toastify';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from "@hooks/useNavigate";
 import { PiNotebook } from "react-icons/pi";
 import { PiPackageDuotone } from "react-icons/pi";
 import { PiTruck } from "react-icons/pi";

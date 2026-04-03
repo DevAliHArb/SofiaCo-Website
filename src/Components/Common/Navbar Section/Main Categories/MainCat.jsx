@@ -14,7 +14,7 @@ import { FreeMode, Navigation } from 'swiper/modules';
 import AuthContext from '../../authContext';
 import allcatw from "../../../../assets/icons/all-cat-w.svg";
 import allcat from "../../../../assets/icons/all-cat.svg";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "@hooks/useNavigate";
 import { addSelectedCategory } from '../../../redux/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
 

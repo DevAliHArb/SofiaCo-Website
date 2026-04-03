@@ -10,7 +10,7 @@ import { FreeMode, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "@hooks/useNavigate";
 import AuthContext from '../../Common/authContext';
 import { Scale } from '@mui/icons-material';
 import { addSelectedBook } from '../../Common/redux/productSlice';

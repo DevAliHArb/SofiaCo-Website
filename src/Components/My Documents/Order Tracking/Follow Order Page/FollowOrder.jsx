@@ -12,7 +12,7 @@ import StepLabel from '@mui/material/StepLabel';
 import { StepContent, Typography } from '@mui/material';
 import { orders } from '../../constants/data';
 import { useParams } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 

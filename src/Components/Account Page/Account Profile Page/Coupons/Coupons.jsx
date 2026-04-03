@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import classes from "./Coupons.module.css";
 import { Button, Checkbox, Form, Input } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import { useDispatch, useSelector } from "react-redux";
 import * as XLSX from "xlsx";
 import { addTocart, resetfavorite } from "../../../Common/redux/productSlice";

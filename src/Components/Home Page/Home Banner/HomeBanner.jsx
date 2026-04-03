@@ -4,7 +4,7 @@ import 'swiper/css';
 import classes from './HomeBanner.module.css'
 import img from '../../../assets/homeherobg.png'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "@hooks/useNavigate";
 import axios from 'axios'
 import { Pagination, Autoplay } from 'swiper/modules';
 import './styles.css'

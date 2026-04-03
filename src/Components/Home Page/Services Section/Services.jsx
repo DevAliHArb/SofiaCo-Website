@@ -3,7 +3,7 @@ import classes from "./Services.module.css";
 import data from "../../../Data.json";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import AuthContext from "../../Common/authContext";
 import placeholder from '../../../assets/servicesplaceholder.svg'
 

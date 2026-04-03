@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import classes from "./Collections.module.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import AuthContext from "../../Common/authContext";
 import { addCollection } from "../../Common/redux/productSlice";
 import { IoSearchOutline } from "react-icons/io5";

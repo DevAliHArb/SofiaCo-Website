@@ -9,7 +9,7 @@ import { FiShoppingCart } from "react-icons/fi";
 
 import AuthContext from '../Common/authContext';
 import AlsoSee from '../Common Components/Also See/AlsoSee';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "@hooks/useNavigate";
 import Data from '../../Data.json'
 import { toast } from 'react-toastify';
 

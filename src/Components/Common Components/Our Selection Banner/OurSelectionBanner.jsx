@@ -3,7 +3,7 @@ import classes from './OurSelectionBanner.module.css'
 import img from '../../../assets/ouselectionbanner.png'
 import data from '../../../Data.json'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "@hooks/useNavigate";
 import axios from 'axios'
 
 const OurSelectionBanner = ({props}) => {

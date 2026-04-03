@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState, useRef } from 'react'
 import classes from './Login.module.css'
 import logo from '../../../assets/navbar/logo.svg'
 import { MdArrowBackIosNew } from "react-icons/md";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "@hooks/useNavigate";
 import { Button, Form, Input, Checkbox } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';

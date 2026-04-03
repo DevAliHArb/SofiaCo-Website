@@ -5,7 +5,8 @@ import { Button, Form, Input } from 'antd';
 import { useState } from "react";
 import Radio from '@mui/material/Radio';
 import { Divider} from "@mui/material";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import CartSidebar from "../../Common/Cart SideBar/CartSidebar";
 
 import CheckOutSummaryItem from "./CheckOutSummaryItem";

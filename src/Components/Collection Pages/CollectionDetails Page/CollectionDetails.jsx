@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import classes from "./CollectionDetails.module.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import AuthContext from "../../Common/authContext";
 // import BookHeroImage from '../../../assets/BookHeroImage.png'
 import nodata from "../../../assets/nobookfound.svg";

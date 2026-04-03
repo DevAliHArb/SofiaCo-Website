@@ -4,7 +4,8 @@ import bookPlaceHolder from '../../../assets/bookPlaceholder.png';
 import "react-toastify/dist/ReactToastify.css";
 import Data from '../../../Data.json'
 import AlsoSee from '../../Common Components/Also See/AlsoSee';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { useNavigate } from "@hooks/useNavigate";
 import axios from 'axios';
 
 const CompletedOrder = () => {
