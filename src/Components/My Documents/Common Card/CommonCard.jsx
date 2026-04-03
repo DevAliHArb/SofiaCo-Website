@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import classes from './CommonCard.module.css'
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";

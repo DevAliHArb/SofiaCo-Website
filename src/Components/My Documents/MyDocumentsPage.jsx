@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import classes from './MyDocumentsPage.module.css'
 
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
+import { useNavigate } from "@hooks/useNavigate";
 import { useSelector } from 'react-redux';
 // import Commands from './Account Profile Page/Commands/Commands';
 import data from '../../Data.json'

@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import './App.css';
 import Navbar from './Components/Common/Navbar Section/Navbar';
-import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { useNavigate } from "@hooks/useNavigate";
 
 import { ToastContainer } from 'react-toastify';
 import Footer from './Components/Common/Footer Section/Footer';

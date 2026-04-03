@@ -7,7 +7,7 @@ import AuthContext from "../authContext";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addSearchData, addSelectedBook, deleteSelectedBook, editSearchData, resetSearchData } from "../redux/productSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import img from "../../../assets/bookPlaceholder.png";
 import { stripHtmlTags, truncateText } from "../TextUtils";
 import { FormControl, MenuItem, Select, TextField } from "@mui/material";

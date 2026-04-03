@@ -11,7 +11,7 @@ import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
 import { Drawer } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { addSelectedCollab, deleteSelectedCollab } from "../../Common/redux/productSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import { useDispatch, useSelector } from "react-redux";
 import AuthContext from "../../Common/authContext";
 import collabPlaceholder from '../../../assets/collab-placeholder.png'

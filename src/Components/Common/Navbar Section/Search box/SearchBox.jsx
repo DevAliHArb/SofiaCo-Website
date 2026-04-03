@@ -12,7 +12,7 @@ import {
   editSearchData,
   resetSearchData,
 } from "../../redux/productSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import img from "../../../../assets/bookPlaceholder.png";
 import {
   FormControl,

@@ -14,7 +14,8 @@ import {
 import { IoBagOutline } from "react-icons/io5";
 import SearchBox from "./Search box/SearchBox";
 import LanCurrSelect from "./Language and Currency/LanCurrSelect";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import AuthContext from "../authContext";

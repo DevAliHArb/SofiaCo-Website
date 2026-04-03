@@ -1,6 +1,7 @@
 import React, { useContext, useRef, useState } from 'react'
 import classes from './Favorite.module.css'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { useNavigate } from "@hooks/useNavigate";
 import { FiArrowRight } from "react-icons/fi";
 import { useDispatch, useSelector } from 'react-redux';
 import FavoriteItem from './FavoriteItem';

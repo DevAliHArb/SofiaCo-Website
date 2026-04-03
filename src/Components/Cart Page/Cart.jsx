@@ -7,7 +7,8 @@ import Data from '../../Data.json'
 import { GoTag } from "react-icons/go";
 import { useState } from "react";
 import { Divider, FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import CartSidebar from "../Common/Cart SideBar/CartSidebar";
 import CartItem from "./CartItem";
 // import CoupsDeCoeur from "../Common/CoupsDeCoeur Section/CoupsDeCoeur";

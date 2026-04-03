@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import classes from './Verify.module.css'
 import logo from '../../../assets/navbar/logo.svg'
 import { MdArrowBackIosNew } from "react-icons/md";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "@hooks/useNavigate";
 import { Button, Form, Input } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';

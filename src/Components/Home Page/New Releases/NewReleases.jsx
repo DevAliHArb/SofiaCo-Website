@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import classes from "./NewReleases.module.css";
 import AuthContext from "../../Common/authContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import { useDispatch, useSelector } from "react-redux";
 import data from "../../../Data.json";
 import img from "../../../assets/bookPlaceholder.png";

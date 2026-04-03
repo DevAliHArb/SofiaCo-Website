@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import classes from './Success.module.css'
 import axios from 'axios';
-import { useLocation, useNavigate, useParams } from 'react-router-dom'; // <-- import useParams
+import { useLocation, useParams } from 'react-router-dom'; // <-- import useParams
+import { useNavigate } from "@hooks/useNavigate";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux';

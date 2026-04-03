@@ -1,7 +1,7 @@
 
 import React, { useContext, useEffect, useState } from 'react'
 import classes from './HistoryCard.module.css'
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles

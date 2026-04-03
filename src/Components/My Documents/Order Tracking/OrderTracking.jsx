@@ -25,7 +25,7 @@ import EmptyCart from "../../../assets/EmptyOrder.png";
 
 import { Button } from "antd";
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "@hooks/useNavigate";
 import { PiNotebook } from "react-icons/pi";
 import { PiPackageDuotone } from "react-icons/pi";
 import { PiTruck } from "react-icons/pi";
