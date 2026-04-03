@@ -1,8 +1,23 @@
 import React, { useEffect, useRef } from "react";
 
-const MondialRelayWidget = ({ onPointSelect, onClose }) => {
+const normalizeCountryCode = (countryValue) => {
+  console.log('countryValue:', countryValue);
+  
+  if (!countryValue) return "FR";
+  const normalizedCountry = String(countryValue).trim().toLowerCase();
+  console.log('normalizedCountry:', normalizedCountry);
+  if (normalizedCountry.length === 2) return normalizedCountry.toUpperCase();
+  if (["france", "français", "francais"].includes(normalizedCountry)) {
+    return "FR";
+  }
+  return "FR";
+};
+
+const MondialRelayWidget = ({ country, postCode, onPointSelect, onClose }) => {
   const inputRef = useRef();
   useEffect(() => {
+    const widgetCountry = normalizeCountryCode(country);
+    const widgetPostCode = postCode ? String(postCode) : "77330";
     // Dynamically load scripts and CSS
     const loadScript = (src) => {
       return new Promise((resolve) => {
@@ -32,8 +47,8 @@ const MondialRelayWidget = ({ onPointSelect, onClose }) => {
         window.$("#Zone_Widget").MR_ParcelShopPicker({
           Target: "#Target_Widget",
           Brand: "CC23IE3G",
-          Country: "FR",
-          PostCode: "77330",
+          Country: widgetCountry,
+          PostCode: widgetPostCode,
           ColLivMod: "24R",
           NbResults: "7",
           Responsive: true,
@@ -45,7 +60,7 @@ const MondialRelayWidget = ({ onPointSelect, onClose }) => {
         });
       }
     });
-  }, []);
+  }, [country, postCode, onPointSelect, onClose]);
 
   return (
     <div>
