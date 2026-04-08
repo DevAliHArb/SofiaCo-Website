@@ -139,13 +139,13 @@ const CheckOut = () => {
   const [delivery, setDelivery] = useState("standard");
   const [paymentId, setPaymentId] = useState("direct");
   const [EURTVA, setEURTVA] = useState(0);
-
+  const [thecoupon, setthecoupon] = useState("");
+  
   const [openpaypal, setOpenpaypal] = React.useState(false);
   const handleOpenpaypal = () => setOpenpaypal(true);
   const handleClosepaypal = () => setOpenpaypal(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [couponCode, setCouponCode] = useState("");
-  const [lookupStatus, setLookupStatus] = useState(51); // Default to 51
   const handleErrorOpen = (message) => {
     setErrorMessage(message);
     setErrorModalOpen(true);
@@ -155,13 +155,153 @@ const CheckOut = () => {
   const [mondialRelayPointData, setMondialRelayPointData] = useState(null);
   const [colissimoPopupOpen, setColissimoPopupOpen] = useState(false);
   const [colissimoPointData, setColissimoPointData] = useState(null);
+  const [colissimoWidgetKey, setColissimoWidgetKey] = useState(0);
   const widgetRef = useRef(null);
+  const colissimoJQueryRef = useRef(null);
+  const colissimoPopupOpenRef = useRef(false);
+  const colissimoInitTimeoutRef = useRef(null);
   const [colisssimopass, setColisssimoPass] = useState(null);
   const [stripePublishableKey, setStripePublishableKey] = useState(null);
   const [selectedGiftItems, setSelectedGiftItems] = useState([]);
   const [maxGifts, setMaxGifts] = useState(0);
   const [gifts_configuration, setGiftsConfiguration] = useState([]);
-  const [paymentConditionsModalOpen, setPaymentConditionsModalOpen] = useState(false);
+  
+  const [guestUser, setguestUser] = useState(null);
+  const [codes, setCodes] = useState(['', '', '', '']);
+  const inputRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
+  const [openVerify, setOpenVerify] = React.useState(false);
+  const [isVerified, setisVerified] = React.useState(false);
+
+  const openColissimoPopup = async () => {
+    setMondialRelayPopupOpen(false);
+    colissimoPopupOpenRef.current = false;
+
+    if (colissimoInitTimeoutRef.current) {
+      clearTimeout(colissimoInitTimeoutRef.current);
+      colissimoInitTimeoutRef.current = null;
+    }
+
+    setColissimoPopupOpen(false);
+    resetColissimoRuntime();
+
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
+    colissimoPopupOpenRef.current = true;
+    setColissimoWidgetKey((prev) => prev + 1);
+    setColissimoPopupOpen(true);
+  };
+
+  const getColissimoJQuery = () => window.jQuery || window.$;
+
+  const resetColissimoRuntime = () => {
+    const colissimoJQuery = getColissimoJQuery();
+
+    if (
+      colissimoJQuery &&
+      widgetRef.current &&
+      typeof colissimoJQuery.fn.frameColissimoClose === "function"
+    ) {
+      colissimoJQuery(widgetRef.current).frameColissimoClose();
+    }
+
+    if (widgetRef.current) {
+      widgetRef.current.innerHTML = "";
+    }
+
+    const colissimoGlobalKeys = [
+      "incomingParams",
+      "colissimo_widget_map",
+      "colissimo_widget_markers",
+      "conteneur_widget_colissimo",
+      "colissimo_widget_listPoint",
+      "colissimo_widget_callBack",
+      "colissimo_widget_paramsCharges",
+      "colissimo_widget_ismobile",
+      "colissimo_widget_messages",
+      "latPosition",
+      "lngPosition",
+      "selectedTransportation",
+    ];
+
+    colissimoGlobalKeys.forEach((key) => {
+      if (Object.prototype.hasOwnProperty.call(window, key)) {
+        try {
+          if (
+            key === "incomingParams" ||
+            key === "colissimo_widget_paramsCharges"
+          ) {
+            window[key] = {};
+          } else if (
+            key === "colissimo_widget_markers" ||
+            key === "colissimo_widget_listPoint"
+          ) {
+            window[key] = [];
+          } else {
+            window[key] = null;
+          }
+        } catch (error) {
+          console.error(`Failed resetting ${key}:`, error);
+        }
+      }
+    });
+
+    document.querySelectorAll(".mapboxgl-popup, .mapboxgl-canvas-container").forEach((el) => {
+      el.remove();
+    });
+
+    [localStorage, sessionStorage].forEach((storageInstance) => {
+      Object.keys(storageInstance).forEach((key) => {
+        const lowered = key.toLowerCase();
+        if (
+          lowered.includes("colissimo") ||
+          lowered.includes("widget") ||
+          lowered.includes("mapbox")
+        ) {
+          storageInstance.removeItem(key);
+        }
+      });
+    });
+
+    document.cookie.split(";").forEach((cookiePart) => {
+      const cookieName = cookiePart.split("=")[0]?.trim();
+      const lowered = cookieName?.toLowerCase() || "";
+      if (
+        lowered.includes("colissimo") ||
+        lowered.includes("widget") ||
+        lowered.includes("mapbox")
+      ) {
+        document.cookie = `${cookieName}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+      }
+    });
+  };
+
+  const closeColissimoPopup = () => {
+    colissimoPopupOpenRef.current = false;
+    
+    if (colissimoInitTimeoutRef.current) {
+      clearTimeout(colissimoInitTimeoutRef.current);
+      colissimoInitTimeoutRef.current = null;
+    }
+
+    resetColissimoRuntime();
+
+    setColissimoPopupOpen(false);
+  };
+
+  const closeMondialRelayPopup = () => {
+    setMondialRelayPopupOpen(false);
+    colissimoPopupOpenRef.current = false;
+
+    if (colissimoInitTimeoutRef.current) {
+      clearTimeout(colissimoInitTimeoutRef.current);
+      colissimoInitTimeoutRef.current = null;
+    }
+
+    setColissimoPopupOpen(false);
+    setColissimoPointData(null);
+    resetColissimoRuntime();
+    setColissimoWidgetKey((prev) => prev + 1);
+  };
 
   const handleGiftChange = (item) => {
     console.log(selectedGiftItems);
@@ -231,13 +371,77 @@ const CheckOut = () => {
   }, [colissimoPointData, mondialRelayPointData]);
 
   useEffect(() => {
+    colissimoPopupOpenRef.current = colissimoPopupOpen;
+  }, [colissimoPopupOpen]);
+
+  useEffect(() => {
     // Function to load external scripts
-    const loadScript = (src, onLoad) => {
-      const script = document.createElement("script");
-      script.src = src;
-      script.async = true;
-      script.onload = onLoad;
-      document.body.appendChild(script);
+    const loadScript = (src, onLoad, isReady) => {
+      const createScriptTag = (scriptSrc) => {
+        const script = document.createElement("script");
+        script.src = scriptSrc;
+        script.async = true;
+        script.onload = () => {
+          script.dataset.loaded = "true";
+          onLoad?.();
+        };
+        document.body.appendChild(script);
+      };
+
+      if (isReady?.()) {
+        onLoad?.();
+        return;
+      }
+
+      const currentScript = document.querySelector(`script[src^="${src}"]`);
+
+      if (currentScript) {
+        let hasCalledOnLoad = false;
+
+        const triggerOnLoad = () => {
+          if (hasCalledOnLoad) return;
+          hasCalledOnLoad = true;
+          onLoad?.();
+        };
+
+        const isScriptReady =
+          isReady?.() ||
+          currentScript.dataset.loaded === "true" ||
+          currentScript.readyState === "complete" ||
+          currentScript.readyState === "loaded";
+
+        if (isScriptReady) {
+          triggerOnLoad();
+          return;
+        }
+
+        currentScript.addEventListener("load", triggerOnLoad, {
+          once: true,
+        });
+
+        let attempts = 0;
+        const maxAttempts = 60;
+        const readyCheckInterval = setInterval(() => {
+          attempts += 1;
+
+          if (isReady?.()) {
+            clearInterval(readyCheckInterval);
+            triggerOnLoad();
+            return;
+          }
+
+          if (attempts >= maxAttempts) {
+            clearInterval(readyCheckInterval);
+            if (isReady?.()) {
+              triggerOnLoad();
+            }
+          }
+        }, 100);
+
+        return;
+      }
+
+      createScriptTag(src);
     };
   
     // Function to fetch authentication token
@@ -270,69 +474,113 @@ const CheckOut = () => {
       loadScript(
         "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js",
         () => {
-          if (window.$) {
+          const colissimoJQuery = getColissimoJQuery();
+
+          if (colissimoJQuery) {
             loadScript(
               "https://ws.colissimo.fr/widget-colissimo/js/jquery.plugin.colissimo.min.js",
               () => {
-                if (window.$ && typeof window.$.fn.frameColissimoOpen === "function") {
-                  // Ensure widgetRef is set and the element exists
-                  if (widgetRef.current) {
-                    window.$(widgetRef.current).frameColissimoOpen({
-                      URLColissimo: url_serveur,
-                      callBackFrame: "maMethodeDeCallBack",
-                      ceCountry: "FR",
-                      ceAddress: user_address.address,
-                      ceZipCode: user_address.postalcode,
-                      ceTown: user_address.city,
-                      token: token,
-                    });
-  
-                    // Override colissimo_widget_internalClose to close the widget and set state
-                    const originalCloseFunction = window.colissimo_widget_internalClose;
-                    window.colissimo_widget_internalClose = () => {
-                      setColissimoPopupOpen(false);
-                      if (originalCloseFunction) {
-                        originalCloseFunction(); // Call the original function after setting the state
-                      }
-                    };
-                  }
+                const currentColissimoJQuery = getColissimoJQuery();
+                if (currentColissimoJQuery?.fn?.frameColissimoOpen) {
+                  colissimoJQueryRef.current = currentColissimoJQuery;
                 }
-              }
+
+                const openWidgetWithRetry = (attempt = 0) => {
+                  const maxAttempts = 10;
+                  const jqueryInstance = colissimoJQueryRef.current || getColissimoJQuery();
+                  const pluginReady =
+                    jqueryInstance &&
+                    typeof jqueryInstance.fn.frameColissimoOpen === "function";
+
+                  if (!widgetRef.current || !colissimoPopupOpenRef.current) {
+                    return;
+                  }
+
+                  if (!pluginReady) {
+                    if (attempt >= maxAttempts) return;
+                    setTimeout(() => openWidgetWithRetry(attempt + 1), 150);
+                    return;
+                  }
+
+                  widgetRef.current.innerHTML = "";
+
+                  requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                      if (!widgetRef.current || !colissimoPopupOpenRef.current) {
+                        return;
+                      }
+
+                      if (jqueryInstance) {
+                        window.jQuery = jqueryInstance;
+                        window.$ = jqueryInstance;
+                      }
+
+                      jqueryInstance(widgetRef.current).frameColissimoOpen({
+                        URLColissimo: url_serveur,
+                        callBackFrame: "maMethodeDeCallBack",
+                        ceCountry: "FR",
+                        ceAddress: user_address?.address,
+                        ceZipCode: user_address?.postalcode,
+                        ceTown: user_address?.city,
+                        token: token,
+                      });
+
+                      const originalCloseFunction =
+                        window.colissimo_widget_internalClose;
+                      window.colissimo_widget_internalClose = () => {
+                        closeColissimoPopup();
+                        if (originalCloseFunction) {
+                          originalCloseFunction();
+                        }
+                      };
+                    });
+                  });
+                };
+
+                openWidgetWithRetry();
+              },
+              () =>
+                Boolean(
+                  getColissimoJQuery() &&
+                    getColissimoJQuery().fn &&
+                    typeof getColissimoJQuery().fn.frameColissimoOpen === "function"
+                )
             );
           }
-        }
+        },
+        () => Boolean(getColissimoJQuery())
       );
     };
-  
+
     // Load and initialize widget
     if (colissimoPopupOpen) {
-      initializeColissimoWidget();
+      colissimoInitTimeoutRef.current = setTimeout(() => {
+        initializeColissimoWidget();
+      }, 150);
     }
-  
+
     // Cleanup function
     return () => {
-      if (window.$ && widgetRef.current && typeof window.$.fn.frameColissimoClose === "function") {
-        window.$(widgetRef.current).frameColissimoClose();
-        setColissimoPopupOpen(false);
+      if (colissimoInitTimeoutRef.current) {
+        clearTimeout(colissimoInitTimeoutRef.current);
+        colissimoInitTimeoutRef.current = null;
       }
+
+      resetColissimoRuntime();
     };
-  }, [colissimoPopupOpen]);
-  
+  }, [colissimoPopupOpen, addresseslist, colisssimopass, colissimoWidgetKey]);
+
   // Callback method
   useEffect(() => {
     window.maMethodeDeCallBack = (point) => {
       setColissimoPointData(point);
   
       // Ensure to close widget and update state
-      if (window.$ && widgetRef.current && typeof window.$.fn.frameColissimoClose === "function") {
-        window.$(widgetRef.current).frameColissimoClose();
-      }
-      setColissimoPopupOpen(false);
+      closeColissimoPopup();
     };
   
     // Cleanup callback when component unmounts
     return () => {
-      setColissimoPopupOpen(false);
       delete window.maMethodeDeCallBack;
     };
   }, []);
@@ -445,24 +693,138 @@ const CheckOut = () => {
   
   const handleApplyCoupon = async (id) => {
     try {
-      // Step 1: Check if the coupon code exists in the coupons table
-      const couponResponse = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/coupons`,
-        {
-          params: {
-            code: id,
-            ecom_type: 'sofiaco',
-          },
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, // Include token in the headers
-          },
-        }
+      const typedCouponCode = selectedCoupon?.trim();
+
+      if (!typedCouponCode) {
+        toast.error(
+          `${
+            language === "eng"
+              ? "Please enter a coupon code."
+              : "Veuillez saisir un code promo."
+          }`,
+          {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: 0,
+            theme: "colored",
+          }
+        );
+        return;
+      }
+
+      let couponData = couponList.find(
+        (item) => item?.code?.toLowerCase() === typedCouponCode.toLowerCase()
       );
-      // If the coupon exists
-      if (couponResponse.data && couponResponse.data.data) {
-        const couponId = couponResponse.data.data.id;
+
+      if (!couponData) {
+        const couponResponse = await axios.get(
+          `${import.meta.env.VITE_TESTING_API}/coupons?ecom_type=${import.meta.env.VITE_ECOM_TYPE}&code=${typedCouponCode}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const fetchedCoupon = Array.isArray(couponResponse?.data?.data)
+          ? couponResponse?.data?.data?.[0]
+          : couponResponse?.data?.data;
+
+        if (!fetchedCoupon?.id) {
+          toast.error(
+            `${
+              language === "eng"
+                ? `Invalid coupon code.`
+                : "Code de coupon invalide."
+            }`,
+            {
+              position: "top-right",
+              autoClose: 1500,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: 0,
+              theme: "colored",
+            }
+          );
+          return;
+        }
+
+        try {
+          await axios.post(
+            `${import.meta.env.VITE_TESTING_API}/users/${user?.id}/coupons`,
+            {
+              coupon_id: `${fetchedCoupon.id}`,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+        } catch (addCouponError) {
+          const errorMessage = addCouponError?.response?.data?.error;
+          if (!errorMessage?.coupon_id) {
+            throw addCouponError;
+          }
+        }
+
+        await fetchCoupons();
+        couponData = fetchedCoupon;
+      }
+
+      if (couponData?.id) {
+        const couponId = couponData.id;
+
+        // Check if it's an affiliate program coupon and validate dates
+        if (couponData.affiliate_program_id !== null) {
+          const currentDate = new Date();
+          const startDate = new Date(couponData.affiliate_program.start_date);
+          const endDate = new Date(couponData.affiliate_program.end_date);
+
+          if (currentDate < startDate) {
+            toast.error(
+              language === "eng"
+                ? `This coupon is not active yet. It will be available from ${startDate.toLocaleDateString()}.`
+                : `Ce coupon n'est pas encore actif. Il sera disponible à partir du ${startDate.toLocaleDateString()}.`,
+              {
+                position: "top-right",
+                autoClose: 1500,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: 0,
+                theme: "colored",
+              }
+            );
+            return;
+          }
+          
+          if (currentDate > endDate) {
+            toast.error(
+              language === "eng"
+                ? `This coupon has expired on ${endDate.toLocaleDateString()}.`
+                : `Ce coupon a expiré le ${endDate.toLocaleDateString()}.`,
+              {
+                position: "top-right",
+                autoClose: 1500,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: 0,
+                theme: "colored",
+              }
+            );
+            return;
+          }
+        }
 
         // Step 2: Check if the coupon is associated with the user in the user_coupons table
         const userCouponResponse = await axios.get(
@@ -478,8 +840,8 @@ const CheckOut = () => {
         );
 
         setSelectedCoupon("");
-        form.resetFields()
-        setcoupon(couponResponse.data.data);
+        form.resetFields();
+        setcoupon(couponData);
         setuserCoupon(userCouponResponse.data.data);
         // Notify the user about successful coupon application
         toast.success(
@@ -591,6 +953,9 @@ const CheckOut = () => {
           },
         }
       );
+  
+      // Clear input fields and reset the form
+      setthecoupon("");
       // Apply the coupon immediately by setting the state with the coupon details
       setcoupon(couponResponse.data.data);
       setuserCoupon(userCouponResponse.data.data);
@@ -634,38 +999,65 @@ const CheckOut = () => {
     }
     
   };
+  
+  
 
-  const FetchShippinCost = async (id) => {
-    if (addresseslist?.length === 0) {
+  const FetchShippinCost = async (id, selectedCountry = null) => {
+    const targetAddressId = id || user?.defaultAdd;
+    const activeAddress = addresseslist?.find(
+      (address) => address.id === targetAddressId
+    );
+    const countryName = selectedCountry || activeAddress?.country;
+
+    if (!countryName) {
       setshippingCosts([]);
-    } else {
-      const activeAddress = addresseslist?.find(
-        (address) => address.id === id ? id : user.defaultAdd 
-      );
-      // console.log(activeAddress.country);
-      try {
-        const orderCartCost = subtotalAmt;
-        const orderWeight = totalWeight;
-        setLoading(true);
-        const response = await axios.get(
-          `${import.meta.env.VITE_TESTING_API}/shipping-costs?ecom_type=sofiaco&country_name=${activeAddress.country}`
-        );
-        setshippingCosts(response.data.data);
-        const shippingCost = getShippingCost(
-          orderCartCost,
-          orderWeight,
-          response.data.data
-        );
-        const roundedShippingCost = parseFloat(shippingCost).toFixed(2);
-        setdeliveryFees(roundedShippingCost);
-      } catch (error) {
-        window.location.reload();
-        setLoading(false);
-        // console.error("Error fetching addresses:", error);
-      } finally {
-        setLoading(false);
-      }
+      setdeliveryFees(0);
+      return;
     }
+
+    try {
+      const orderCartCost = subtotalAmt;
+      const orderWeight = totalWeight;
+      setLoading(true);
+      const response = await axios.get(
+        `${import.meta.env.VITE_TESTING_API}/shipping-costs?ecom_type=sofiaco&country_name=${countryName}`
+      );
+      setshippingCosts(response.data.data);
+      const shippingCost = getShippingCost(
+        orderCartCost,
+        orderWeight,
+        response.data.data
+      );
+      const roundedShippingCost = parseFloat(shippingCost).toFixed(2);
+      setdeliveryFees(roundedShippingCost);
+    } catch (error) {
+      window.location.reload();
+      setLoading(false);
+      // console.error("Error fetching addresses:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const normalizeCountryName = (countryValue) => {
+    if (!countryValue) return "";
+    const matchedCountry = authCtx.countries?.find(
+      (country) =>
+        country?.name === countryValue ||
+        String(country?.id) === String(countryValue)
+    );
+    return matchedCountry?.name || countryValue;
+  };
+
+  const normalizeCountryCode = (countryValue) => {
+    if (!countryValue) return "FR";
+    const matchedCountry = authCtx.countries?.find(
+      (country) =>
+        country?.code === countryValue ||
+        country?.name === countryValue ||
+        String(country?.id) === String(countryValue)
+    );
+    return matchedCountry?.code || "FR";
   };
 
   // useEffect(() => {
@@ -1399,10 +1791,7 @@ const CheckOut = () => {
     setAddressesList(sortedAddresses);
     dispatch(editDefaultAdd(id));
     setdisplayedAddress(1);
-    
-    if (!colissimoPointData && !mondialRelayPointData) {
-      FetchShippinCost(id);     
-    }
+    FetchShippinCost(id);
 
   };
 
@@ -1501,6 +1890,20 @@ const CheckOut = () => {
     setuserCoupon([]);
     authCtx.fetchfavandcartSettings();
 };
+
+  const selectedCheckoutAddress = user?.id
+    ? addresseslist?.find((address) => address.id === user?.defaultAdd) ||
+      addresseslist?.find((address) => address.default === "true") ||
+      addresseslist?.[0]
+    : null;
+
+  const mondialRelayCountry = user?.id
+    ? normalizeCountryCode(selectedCheckoutAddress?.country)
+    : normalizeCountryCode(formData?.country);
+
+  const mondialRelayPostCode = user?.id
+    ? selectedCheckoutAddress?.postalcode
+    : formData?.postalcode;
   return (
     <div className={classes.cart_container}>
       {loading && <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(224, 195, 137, 0.2)', zIndex: 9999 }}><CircularProgress style={{margin:"45vh",color:'var(--primary-color)'}}/></div>} 
@@ -2355,14 +2758,21 @@ const CheckOut = () => {
         onPayLater={handlePayLater}
       />
       <Modal
+        key={colissimoWidgetKey}
         open={colissimoPopupOpen}
-        onClose={() => setColissimoPopupOpen(false)}
+        onClose={closeColissimoPopup}
         aria-labelledby="colissimo-widget-title"
         aria-describedby="colissimo-widget-description"
-        style={{width:'100%', height:'100%', display:'flex', justifyContent:'center', alignItems:'center'}}
         // className={classes.modalpopup}
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
-        <Box className={classes.modalpopup1}>
+        <Box key={`colissimo-box-${colissimoWidgetKey}`} className={classes.modalpopup1}>
           <div ref={widgetRef} id="monIdDeWidgetColissimo" className=""></div>
 
           {/* <div id="monIdDeWidgetColissimo" className=""></div> */}
@@ -2372,14 +2782,19 @@ const CheckOut = () => {
       
       <Modal
         open={mondialRelayPopupOpen}
-        onClose={() => setMondialRelayPopupOpen(false)}
+        onClose={closeMondialRelayPopup}
         aria-labelledby="mondial-relay-widget-title"
         aria-describedby="mondial-relay-widget-description"
         style={{width:'100%', height:'100%', display:'flex', justifyContent:'center', alignItems:'center'}}
         // className={classes.modalpopup}
       >
         <Box className={classes.modalpopup1}>
-          <MondialRelayWidget onPointSelect={setMondialRelayPointData} onClose={() => setMondialRelayPopupOpen(false)}/>
+          <MondialRelayWidget
+            country={mondialRelayCountry}
+            postCode={mondialRelayPostCode}
+            onPointSelect={setMondialRelayPointData}
+            onClose={closeMondialRelayPopup}
+          />
         </Box>
       </Modal>
 
