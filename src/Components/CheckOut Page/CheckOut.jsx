@@ -165,7 +165,8 @@ const CheckOut = () => {
   const [selectedGiftItems, setSelectedGiftItems] = useState([]);
   const [maxGifts, setMaxGifts] = useState(0);
   const [gifts_configuration, setGiftsConfiguration] = useState([]);
-  
+  const [paymentConditionsModalOpen , setPaymentConditionsModalOpen] = useState(false);
+
   const [guestUser, setguestUser] = useState(null);
   const [codes, setCodes] = useState(['', '', '', '']);
   const inputRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
