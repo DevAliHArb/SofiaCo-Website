@@ -57,6 +57,7 @@ const BooksView = ({carttoggle}) => {
   const [publishinghouseOpen, setpublishinghouseOpen] = useState(false);
   const [collectionsOpen, setcollectionsOpen] = useState(false);
   const [collaboratorsOpen, setCollaboratorsOpen] = useState(false);
+  const [specialFiltersOpen, setSpecialFiltersOpen] = useState(false);
   const [totalArticlesNumber, setTotalArticlesNumber] = useState(null);
   const [inStock, setinStock] = useState(localStorage.getItem("stock") || null);
   const [isdiscount, setisdiscount] = useState(localStorage.getItem("discount") || []);
@@ -718,8 +719,29 @@ const BooksView = ({carttoggle}) => {
         : "";
 
         
-      const selectedbestseller = searchData[0]?.bestseller === true
-      ? `&bestseller`
+      const selectedbestseller =
+        searchData[0]?.bestsellers === true || searchData[0]?.bestseller === true
+      ? `&bestsellers=true`
+      : "";
+
+      const selectednewarrivalParam = searchData[0]?.newarrival === true
+      ? `&newarrival=true`
+      : "";
+
+      const selectedupcomingParam = searchData[0]?.upcoming === true
+      ? `&upcoming=true`
+      : "";
+
+      const selectedFavoritesParam = searchData[0]?.favorites === true
+      ? `&favorites=true`
+      : "";
+
+      const selectedisSelectedParam = searchData[0]?.is_selected === true || searchData[0]?.isSelected === true
+      ? `&is_selected=true`
+      : "";
+
+      const selectedalsoseeParam = searchData[0]?.alsosee === true
+      ? `&alsosee=true`
       : "";
 
         
@@ -858,7 +880,7 @@ const BooksView = ({carttoggle}) => {
 
     // Get the category from localStorage if available
       // Finalize the URL by combining all parameters
-      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedillustrateurParam}${selectedCategoryParentParent}${selectedsubCategoriesParam}${selectedParentCategoriesParam}${selectedCollabParam}${selectedmultiproductsParam}${UserIdParam}${selectedCollecParam}${selectedStockParam}${selectedDiscount}${selectedPubliParam}${selectedEANParam}${selectedResumeParam}${selectedSmartData}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}${selectedsubCategoryParam}&ecom_type=sofiaco`;
+      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedillustrateurParam}${selectedCategoryParentParent}${selectedsubCategoriesParam}${selectedParentCategoriesParam}${selectedCollabParam}${selectedmultiproductsParam}${UserIdParam}${selectedCollecParam}${selectedStockParam}${selectedDiscount}${selectedPubliParam}${selectedEANParam}${selectedResumeParam}${selectedSmartData}${selectedupcomingParam}${selectedalsoseeParam}${selectednewarrivalParam}${selectedFavoritesParam}${selectedisSelectedParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}${selectedsubCategoryParam}&ecom_type=sofiaco`;
       // Fetch articles using the finalized URL
       const response = await axios.get(finalUrl);
 
@@ -1135,6 +1157,41 @@ const handleChangePublisher = (event) => {
   };
   const isDiscountSelected = (discount) => {
     return isdiscount?.includes(discount);
+  };
+
+  const specialCheckboxFilters = [
+    { key: "is_selected", label: language === "eng" ? "Deals of the Day" : "Offres du jour" },
+    { key: "newarrival", label: language === "eng" ? "New Products" : "Nouveautés" },
+    { key: "bestsellers", label: language === "eng" ? "Best Sellers" : "Meilleures ventes" },
+    { key: "favorites", label: language === "eng" ? "Favorites" : "Favoris" },
+    { key: "alsosee", label: language === "eng" ? "Also See" : "Voir aussi" },
+    { key: "upcoming", label: language === "eng" ? "Upcoming" : "À paraître" },
+  ];
+
+  const isSpecialFilterSelected = (key) => {
+    if (key === "is_selected") {
+      return searchData[0]?.is_selected === true || searchData[0]?.isSelected === true;
+    }
+    if (key === "bestsellers") {
+      return searchData[0]?.bestsellers === true || searchData[0]?.bestseller === true;
+    }
+    return searchData[0]?.[key] === true;
+  };
+
+  const handleSpecialFilterChange = (key) => {
+    const currentlySelected = isSpecialFilterSelected(key);
+    const updatedSearchData = { [key]: !currentlySelected };
+
+    if (key === "is_selected") {
+      updatedSearchData.isSelected = !currentlySelected;
+    }
+
+    if (key === "bestsellers") {
+      updatedSearchData.bestseller = !currentlySelected;
+    }
+
+    dispatch(editSearchData(updatedSearchData));
+    fetchArticles(null, null, null, 1);
   };
 
 
@@ -1740,6 +1797,56 @@ const handleChangeSubCategory = (event) => {
           width="88%"
           style={{margin:'0.5em auto'}}
         />
+
+          <div className={classes.categories}>
+            <h2
+              onClick={() => setSpecialFiltersOpen(!specialFiltersOpen)}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "80% 20%",
+                cursor: "pointer",
+              }}
+            >
+              <span>{language === "eng" ? "Additional Filters" : "Filtres supplémentaires"}</span>
+              {specialFiltersOpen ? (
+                <span style={{ margin: "auto", paddingRight: "0", rotate: "180deg" }}>
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}}/>
+                </span>
+              ) : (
+                <span style={{ margin: "auto", paddingLeft: "0" }}>
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}} />
+                </span>
+              )}
+            </h2>
+            {specialFiltersOpen && (
+              <div className={classes.dropdown} style={{ maxHeight: "220px", height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+                {specialCheckboxFilters.map((filter) => (
+                  <div
+                    key={filter.key}
+                    style={{ display: "flex", alignItems: "center", marginBottom: "0.5em" }}
+                    onClick={() => handleSpecialFilterChange(filter.key)}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={isSpecialFilterSelected(filter.key)}
+                      className={classes.checkbox}
+                      style={{ marginRight: "0px", width: "1.3em", height: "1.3em" }}
+                      onChange={() => handleSpecialFilterChange(filter.key)}
+                    />
+                    <p style={{ margin: "auto 0 auto 2%", width: "92%", display: "flex", cursor: "pointer" }}>
+                      {filter.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <Divider  
+          color="var(--secondary-color)"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
           <div className={classes.categories}>
             <h2>{language === 'eng' ? "Price" : "Prix" }</h2>
               <div className={classes.dropdown}>
@@ -2272,6 +2379,56 @@ const handleChangeSubCategory = (event) => {
                   </RadioGroup>
                 </FormControl>
               </div>
+          </div>
+
+          <Divider  
+          color="var(--secondary-color)"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
+
+          <div className={classes.categories}>
+            <h2
+              onClick={() => setSpecialFiltersOpen(!specialFiltersOpen)}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "80% 20%",
+                cursor: "pointer",
+              }}
+            >
+              <span>{language === "eng" ? "Additional Filters" : "Filtres supplémentaires"}</span>
+              {specialFiltersOpen ? (
+                <span style={{ margin: "auto", paddingRight: "0", rotate: "180deg" }}>
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}}/>
+                </span>
+              ) : (
+                <span style={{ margin: "auto", paddingLeft: "0" }}>
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}} />
+                </span>
+              )}
+            </h2>
+            {specialFiltersOpen && (
+              <div className={classes.dropdown} style={{ maxHeight: "220px", height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+                {specialCheckboxFilters.map((filter) => (
+                  <div
+                    key={filter.key}
+                    style={{ display: "flex", alignItems: "center", marginBottom: "0.5em" }}
+                    onClick={() => handleSpecialFilterChange(filter.key)}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={isSpecialFilterSelected(filter.key)}
+                      className={classes.checkbox}
+                      style={{ marginRight: "0px", width: "1.3em", height: "1.3em" }}
+                      onChange={() => handleSpecialFilterChange(filter.key)}
+                    />
+                    <p style={{ margin: "auto 0 auto 2%", width: "92%", display: "flex", cursor: "pointer" }}>
+                      {filter.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <Divider  
