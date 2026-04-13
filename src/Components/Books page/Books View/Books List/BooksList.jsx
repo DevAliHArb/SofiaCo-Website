@@ -282,7 +282,11 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
       finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Favorites` : `Favoris`);
     }
     
-    if (searchData[0]?.isSelected) {
+    if (searchData[0]?.alsosee) {
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Also See` : `Voir Aussi`);
+    }
+
+    if (searchData[0]?.isSelected || searchData[0]?.is_selected) {
       finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Deals Of The Day` : `Offres Du Jour`);
     }
   
