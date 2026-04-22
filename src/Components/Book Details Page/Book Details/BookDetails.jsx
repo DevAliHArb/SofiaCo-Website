@@ -12,6 +12,7 @@ import Details from './Details';
 import AuthContext from '../../Common/authContext';
 import { useSelector } from 'react-redux';
 import img from '../../../assets/bookPlaceholder.png'
+import { Helmet } from 'react-helmet-async';
 
 const BookDetails = () => {
 
@@ -97,8 +98,40 @@ swiper.slideTo(index)};
     image.style.transformOrigin = `${x * 100}% ${y * 100}%`;
   };
 
+  
+  const normalizeMetaValue = (value) => (typeof value === 'string' ? value.trim() : '');
+
+  const metaTitle = normalizeMetaValue(
+    selectedBook?.meta_title ||
+    selectedBook?.designation
+  );
+
+  const metaDescription = normalizeMetaValue(
+    selectedBook?.meta_description ||
+    (language === 'eng' ? selectedBook?.description_en : selectedBook?.description_fr)
+  );
+
+  const keyword = normalizeMetaValue(
+    selectedBook?.keywords ||
+    selectedBook?.designation
+  );
+
+  const secondaryKeyword = normalizeMetaValue(
+    selectedBook?.secondary_keywords ||
+    selectedBook?.isbn
+  );
+
+  const longTailText = normalizeMetaValue(selectedBook?.long_tail_text);
+
   return (
     <div className={classes.bookDetails}>
+        <Helmet>
+          {metaTitle && <title>{metaTitle}</title>}
+          {metaDescription && <meta name="description" content={metaDescription} />}
+          {keyword && <meta name="keywords" content={keyword} />}
+          {secondaryKeyword && <meta name="secondary_keywords" content={secondaryKeyword} />}
+          {longTailText && <meta name="long_tail_text" content={longTailText} />}
+        </Helmet>
         <div className={classes.bigContainer}>
           <div className={classes.booksContainer}>
         <div className={classes.swiper}>

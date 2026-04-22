@@ -13,6 +13,7 @@ import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js';
 import logo from './assets/loading-gif.gif'
 import { decryptAES128CTR } from './Components/Common/Decrypt.jsx'
+import { HelmetProvider } from 'react-helmet-async'
 
 
 const PayPalAndStripeComponent = () => {
@@ -74,13 +75,15 @@ const PayPalAndStripeComponent = () => {
 };
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <Provider store={store}>
-    <AuthContextProvider>
-      <BrowserRouter>
-        <PersistGate loading={'loading'} persistor={persistor}>
-          <PayPalAndStripeComponent /> {/* PayPal & Stripe rendered here */}
-        </PersistGate>
-      </BrowserRouter>
-    </AuthContextProvider>
-  </Provider>
+  <HelmetProvider>
+    <Provider store={store}>
+      <AuthContextProvider>
+        <BrowserRouter>
+          <PersistGate loading={'loading'} persistor={persistor}>
+            <PayPalAndStripeComponent /> {/* PayPal & Stripe rendered here */}
+          </PersistGate>
+        </BrowserRouter>
+      </AuthContextProvider>
+    </Provider>
+  </HelmetProvider>
 )
