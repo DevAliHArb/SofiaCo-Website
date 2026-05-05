@@ -240,7 +240,7 @@ function SearchBox() {
                       {article.articleimage[0] ? (
                         <img
                           src={`${article.articleimage[0]?.link}`}
-                          alt=""
+                          alt={article.articleimage[0]?.type}
                           width="100%"
                           height="100%"
                           className={classes.img}

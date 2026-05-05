@@ -569,7 +569,7 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
         <div className={classes.card} key={props._id}>
             <div style={{display:"flex",flexDirection:"row",gap:".5em",width:'100%'}}>
             <div className={classes.imageCont}>
-              <img src={props.article.articleimage[0]?.link ? props.article.articleimage[0].link : bookPlaceHolder} alt="" style={{height:'100%', width: '100%',objectFit:'cover' }}/>
+              <img src={props.article.articleimage[0]?.link ? props.article.articleimage[0].link : bookPlaceHolder} alt={props.article.articleimage[0]?.type} style={{height:'100%', width: '100%',objectFit:'cover' }}/>
             </div>
             <div style={{height:'100%',justifyContent:'space-between',display:'flex', flexDirection:'column',width:'80%',fontSize:'calc(.7rem + 0.3vw)',fontFamily:'var(--font-family)'}}>
               <p style={{fontWeight:'600'}}>{props.article.designation}</p>
