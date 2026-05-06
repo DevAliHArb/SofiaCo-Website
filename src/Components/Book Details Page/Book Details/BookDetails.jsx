@@ -154,7 +154,7 @@ swiper.slideTo(index)};
                      {props._qte_a_terme_calcule < 1 && <div className={classes.out_of_stock}>
                         <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
                       </div>}
-                        <img src={props.link} alt="Book Cover" onMouseMove={handleMouseMove}/>
+                        <img src={props.link} alt={props?.type} onMouseMove={handleMouseMove}/>
                     </div>
                 </SwiperSlide>
               );
@@ -184,7 +184,7 @@ swiper.slideTo(index)};
                         return (
                           <div className={classes.bookCovers} onClick={() => slideTo(index) & console.log(activeId)}>
                             <div style={{width:'100%', margin:'auto',position:'relative'}}>
-                            <img src={props.link} className={`${constantValue === index + 1  ? classes.bookCoverSelectedimg : classes.bookCoverimg }`} alt="Book Cover"/>
+                            <img src={props.link} className={`${constantValue === index + 1  ? classes.bookCoverSelectedimg : classes.bookCoverimg }`} alt={props?.type}/>
                           </div></div>
                         )})} 
                         

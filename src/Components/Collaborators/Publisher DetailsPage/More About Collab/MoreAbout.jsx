@@ -128,7 +128,7 @@ const MoreAbout = ({publisher_name}) => {
                       {props.articleimage[0] ? (
                         <img
                           src={`${props.articleimage[0]?.link}`}
-                          alt=""
+                          alt={props.articleimage[0]?.type}
                           width="100%"
                           height="100%"
                           className={classes.img}
