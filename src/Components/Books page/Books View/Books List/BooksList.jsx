@@ -506,10 +506,10 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                      {props._qte_a_terme_calcule < 1 &&  <div className={classes.out_of_stock}>
                         <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
                       </div>}
-                      {props.articleimage[0] ? (
+                      {props.articleimage?.[0] ? (
                         <img
-                          src={`${props.articleimage[0]?.link}`}
-                          alt={props.articleimage[0]?.type}
+                          src={`${props.articleimage?.[0]?.link}`}
+                          alt={props.articleimage?.[0]?.type}
                           width="100%"
                           height="100%"
                           className={classes.img}
@@ -675,10 +675,10 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                      {props._qte_a_terme_calcule < 1 && <div className={classes.out_of_stock}>
                         <p style={{fontSize:'calc(.4rem + .2vw)',padding:'.3em'}}>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
                       </div>}
-                    {props.articleimage[0] ? (
+                    {props.articleimage?.[0] ? (
                       <img
-                        src={`${props.articleimage[0]?.link}`}
-                        alt={props.articleimage[0]?.type}
+                        src={`${props.articleimage?.[0]?.link}`}
+                        alt={props.articleimage?.[0]?.type}
                         width="100%"
                         height="100%"
                       />

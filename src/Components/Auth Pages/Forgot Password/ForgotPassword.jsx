@@ -101,7 +101,7 @@ const responseGoogle = async (response) => {
           //             _id: foundBook.id,
           //             title: foundBook.designation,
           //             author: foundBook.dc_auteur,
-          //             image: foundBook.articleimage[0].link,
+          //             image: foundBook.articleimage?.[0].link,
           //             price: foundBook.prixpublic,
           //             quantity: cartItem.quantity,
           //             description: foundBook.descriptif,
@@ -124,7 +124,7 @@ const responseGoogle = async (response) => {
           //             _favid: foundBook.id,
           //             favtitle: foundBook.designation,
           //             favauthor: foundBook.dc_auteur,
-          //             favimage: foundBook.articleimage[0].link,
+          //             favimage: foundBook.articleimage?.[0].link,
           //             favprice: foundBook.prixpublic,
           //             favdescription: foundBook.descriptif,
           //         }));

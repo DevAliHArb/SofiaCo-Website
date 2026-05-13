@@ -125,8 +125,8 @@ swiper.slideTo(index)};
               </div>
             )}
             <img 
-              src={selectedBook.articleimage[0]?.link || img} 
-              alt={selectedBook.articleimage[0]?.type || 'Book Image'} 
+              src={selectedBook.articleimage?.[0]?.link || img} 
+              alt={selectedBook.articleimage?.[0]?.type || 'Book Image'} 
               onMouseMove={handleMouseMove}
             />
           </div>

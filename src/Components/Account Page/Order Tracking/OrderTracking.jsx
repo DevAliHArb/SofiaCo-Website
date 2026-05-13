@@ -436,7 +436,7 @@ element.quantity > element.article._qte_a_terme_calcule
         id: element.article.id,
         designation: element.article.designation,
         dc_auteur: element.article.dc_auteur,
-        image: element.article.articleimage[0]?.link ? element.article.articleimage[0].link : bookPlaceHolder,
+        image: element.article.articleimage?.[0]?.link ? element.article.articleimage?.[0].link : bookPlaceHolder,
         prixpublic: element.article.prixpublic,
         _qte_a_terme_calcule: element.article._qte_a_terme_calcule,
         _code_barre: element.article._code_barre,
@@ -806,7 +806,7 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
           {props.is_gift && <div style={{fontSize:'calc(0.7rem + 0.3vw)',position:'absolute',top:'0.5em',right:'.5em',padding:".3em 1em",width:'fit-content',height:'fit-content',backgroundColor:'var(--primary-color)',color:"#fff",zIndex:'9'}}>{language === 'eng' ? "Gift" : "Cadeau"}</div>}
             <div style={{display:"flex",flexDirection:"row",gap:".5em",width:'100%'}}>
             <div className={classes.imageCont}>
-              <img src={props.article.articleimage[0]?.link ? props.article.articleimage[0].link : bookPlaceHolder} alt={props.article.articleimage[0]?.type} style={{height:'100%', width: '100%',objectFit:'contain',margin:"auto" }}/>
+              <img src={props.article.articleimage?.[0]?.link ? props.article.articleimage?.[0].link : bookPlaceHolder} alt={props.article.articleimage?.[0]?.type} style={{height:'100%', width: '100%',objectFit:'contain',margin:"auto" }}/>
             </div>
             <div style={{height:'100%',textAlign:'start',margin:'auto 0 auto auto',justifyContent:'space-between',display:'flex', flexDirection:'column',width:'70%',fontSize:'calc(.7rem + 0.3vw)',fontFamily:'var(--font-family)'}}>
               <p style={{fontWeight:'600',marginBottom:"1em",marginTop:'0'}}>{props.article.designation}</p>

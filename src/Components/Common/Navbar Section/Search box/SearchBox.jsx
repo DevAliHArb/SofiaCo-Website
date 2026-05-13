@@ -269,10 +269,10 @@ function SearchBox(ParentProps) {
                               </p>
                             </div>
                           )}
-                          {article.articleimage[0] ? (
+                          {article.articleimage?.[0] ? (
                             <img
-                              src={`${article.articleimage[0]?.link}`}
-                              alt={article.articleimage[0]?.type}
+                              src={`${article.articleimage?.[0]?.link}`}
+                              alt={article.articleimage?.[0]?.type}
                               width="100%"
                               height="100%"
                               className={classes.img}
@@ -426,11 +426,11 @@ function SearchBox(ParentProps) {
                     )}
                     <img
                       src={bookData && bookData.articleimage &&
-                        bookData?.articleimage[0]
-                          ? bookData?.articleimage[0]?.link
+                        bookData?.articleimage?.[0]
+                          ? bookData?.articleimage?.[0]?.link
                           : img
                       }
-                      alt={bookData?.articleimage[0]?.type}
+                      alt={bookData?.articleimage?.[0]?.type}
                     />
                   </div>
                   <h1

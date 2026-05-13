@@ -83,7 +83,7 @@ const OrderCard = ({data ,reviewHandler}) => {
         quantity:item.quantity,
         date: data.date,
         article_id: item.article_id,
-        image: item.article.articleimage[0]?.link ? item.article.articleimage[0].link : bookPlaceHolder
+        image: item.article.articleimage?.[0]?.link ? item.article.articleimage?.[0].link : bookPlaceHolder
       };
   });
     setImages(items)

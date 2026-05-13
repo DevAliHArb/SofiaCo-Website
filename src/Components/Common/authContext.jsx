@@ -150,8 +150,8 @@ export const AuthContextProvider = (props) => {
               _id: cartItem.article.id,
               title: cartItem.article.designation,
               author: cartItem.article.dc_auteur,
-              image: cartItem.article.articleimage[0]?.link
-                ? cartItem.article.articleimage[0].link
+              image: cartItem.article.articleimage?.[0]?.link
+                ? cartItem.article.articleimage?.[0].link
                 : bookPlaceHolder,
               price: cartItem.article.prixpublic,
               _qte_a_terme_calcule: cartItem.article?._qte_a_terme_calcule,
@@ -190,8 +190,8 @@ export const AuthContextProvider = (props) => {
               favtitle: favtItem.article.designation,
               favrate: favtItem.average_rate,
               favauthor: favtItem.article.dc_auteur,
-              favimage: favtItem.article.articleimage[0]?.link
-                ? favtItem.article.articleimage[0].link
+              favimage: favtItem.article.articleimage?.[0]?.link
+                ? favtItem.article.articleimage?.[0].link
                 : bookPlaceHolder,
               favprice: favtItem.article.prixpublic,
               _qte_a_terme_calcule: favtItem.article?._qte_a_terme_calcule,
@@ -750,8 +750,8 @@ export const AuthContextProvider = (props) => {
             favtitle: props.designation,
             favrate: props.average_rate,
             favauthor: props.dc_auteur,
-            favimage: props.articleimage[0]?.link
-              ? props.articleimage[0].link
+            favimage: props.articleimage?.[0]?.link
+              ? props.articleimage?.[0].link
               : bookPlaceHolder,
             favprice: props.prixpublic,
             _qte_a_terme_calcule: props._qte_a_terme_calcule,

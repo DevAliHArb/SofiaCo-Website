@@ -84,7 +84,7 @@ const OrderCard = ({data ,reviewHandler}) => {
         date: data.date,
         article_id: item.article_id,
         is_gift: item.is_gift,
-        image: item.article.articleimage[0]?.link ? item.article.articleimage[0].link : bookPlaceHolder
+        image: item.article.articleimage?.[0]?.link ? item.article.articleimage?.[0].link : bookPlaceHolder
       };
   });
     setImages(items)

@@ -44,7 +44,7 @@ useEffect(() => {
             {(data?.order_invoice_items || []).map((props)=>{
               return (
                 <div style={{position:'relative',width:'fit-content'}}>
-                  <img src={props.article.articleimage[0]?.link ? props.article.articleimage[0].link : bookPlaceHolder} alt={props.article.articleimage[0]?.type} />
+                  <img src={props.article.articleimage?.[0]?.link ? props.article.articleimage?.[0].link : bookPlaceHolder} alt={props.article.articleimage?.[0]?.type} />
                   <p style={{position:'absolute',top:'0',right:"0",background:'var(--primary-color)',margin:'0',padding:".2em .45em",borderRadius:"50%",color:'#fff',fontSize:'calc(.9rem + .3vw)'}}>{props.quantity}</p>
                 </div>
               )
