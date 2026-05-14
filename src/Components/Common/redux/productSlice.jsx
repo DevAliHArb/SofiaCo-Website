@@ -24,6 +24,8 @@ const initialState = {
   searchData: [],
   orderData: [],
   selectedCategoryId: null,
+  selectedVariants: {},
+  selectedVariantProduct: null,
 };
 
 export const productSlice = createSlice({
@@ -507,6 +509,18 @@ export const productSlice = createSlice({
       const category = action.payload;
       state.selectedCategoryId = category;
   },
+    updateSelectedVariants: (state, action) => {
+      state.selectedVariants = action.payload;
+    },
+    resetSelectedVariants: (state) => {
+      state.selectedVariants = {};
+    },
+    updateSelectedVariantProduct: (state, action) => {
+      state.selectedVariantProduct = action.payload;
+    },
+    resetSelectedVariantProduct: (state) => {
+      state.selectedVariantProduct = null;
+    },
   },
 });
 
@@ -559,5 +573,9 @@ export const {
   editSearchData,
   resetSearchData,
   addSelectedCategory,
+  updateSelectedVariants,
+  resetSelectedVariants,
+  updateSelectedVariantProduct,
+  resetSelectedVariantProduct,
 } = productSlice.actions;
 export default productSlice.reducer;

@@ -168,7 +168,7 @@ const AlsoSee = (props) => {
                             className={classes.fav}
                             onClick={(event) => {
                               event.stopPropagation();
-                              if (props.article_variant_combinations && props.article_variant_combinations.length > 0) {
+                              if (props.article_variant_combinations && props.article_variant_combinations?.length > 0) {
                                 authCtx.setaddtocartPopupOpen(true);
                                 authCtx.setaddtocartPopupId(props.id);
                               } else {
@@ -182,7 +182,7 @@ const AlsoSee = (props) => {
                     
                     <div className={classes.bookTitle} >
                       <p >{props.designation.length > 50 ? props.designation.slice(0,50) + '...' : props.designation}</p>
-                      <p style={{ height:'1em', fontSize:'small', fontWeight: 400 }}>{props.dc_auteur.length > 15 ? props.dc_auteur.slice(0,15) + '...' : props.dc_auteur}</p>
+                      <p style={{ height:'1em', fontSize:'small', fontWeight: 400 }}>{props.dc_auteur?.length > 15 ? props.dc_auteur.slice(0,15) + '...' : props.dc_auteur}</p>
                       <p style={{ height:'1.5em', fontSize:'small', fontWeight: 400 }}>{truncateText(stripHtmlTags(props.descriptif), 30)}</p>
                       <span style={{ display: "flex", flexDirection: "row", margin:'0 auto', columnGap:'0.5em' }}>
                         <p
