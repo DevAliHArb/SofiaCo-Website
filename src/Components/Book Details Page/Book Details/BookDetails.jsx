@@ -19,6 +19,8 @@ const BookDetails = () => {
   const authCtx = useContext(AuthContext)
   const [bookData, setbookData] = useState({});
     const selectedBook = useSelector((state) => state.products.selectedBook[0])
+    const selectedVariants = useSelector((state) => state.products.selectedVariants);
+    const selectedVariantProduct = useSelector((state) => state.products.selectedVariantProduct);
     
   const language = useSelector(
     (state) => state.products.selectedLanguage[0].Language
@@ -67,6 +69,8 @@ const BookDetails = () => {
       };
       const [activeSlideIndex, setActiveSlideIndex] = useState(0);
       const [activeId, setactiveId] = useState(1);
+      const [filteredImages, setFilteredImages] = useState([]);
+      const [swiper, setSwiper] = useState(null);
       
   const handleSlideChange = (swiper) => {
     setActiveSlideIndex(swiper.activeIndex);
@@ -74,15 +78,62 @@ const BookDetails = () => {
 
   const constantValue = activeSlideIndex + 1;
   useEffect(() => {
-    selectedBook?.articleimage?.forEach((item) => {
-      if (item.id === constantValue) {
-        setactiveId(item.id); 
-      }
-    });
-  }, [constantValue]);
-// console.log(constantValue)
+        filteredImages?.forEach((item, index) => {
+          if (index + 1 === constantValue) {
+            setactiveId(index + 1); 
+          }
+        });
+      }, [constantValue, filteredImages]);
 
-  const [swiper, setSwiper] = useState(null);
+      useEffect(() => {
+        if (!selectedBook?.articleimage) {
+          setFilteredImages([]);
+          return;
+        }
+
+        if (selectedVariantProduct?.articleimage?.length > 0) {
+          setFilteredImages(selectedVariantProduct.articleimage);
+          return;
+        }
+
+        if (selectedVariantProduct?.image) {
+          setFilteredImages([
+            {
+              id: selectedVariantProduct.id || 'selected-variant-product-image',
+              link: selectedVariantProduct.image,
+              type: selectedVariantProduct.designation,
+            },
+          ]);
+          return;
+        }
+
+        const selectedVariantItemIds = Object.values(selectedVariants || {})
+          .map((variant) => variant?.id)
+          .filter((variantId) => variantId);
+
+        if (selectedVariantItemIds.length === 0) {
+          setFilteredImages(selectedBook.articleimage);
+          return;
+        }
+
+        const variantSpecificImages = selectedBook.articleimage.filter((image) =>
+          selectedVariantItemIds.includes(image.b_usr_article_variant_items_id)
+        );
+
+        if (variantSpecificImages.length > 0) {
+          setFilteredImages(variantSpecificImages);
+        } else {
+          setFilteredImages(selectedBook.articleimage);
+        }
+      }, [selectedBook?.articleimage, selectedVariants, selectedVariantProduct]);
+
+      useEffect(() => {
+        setActiveSlideIndex(0);
+        setactiveId(1);
+        if (swiper) {
+          swiper.slideTo(0);
+        }
+      }, [filteredImages, swiper]);
 
   const slideTo = (index) => {
 if(swiper) 
@@ -145,9 +196,9 @@ swiper.slideTo(index)};
             // }}
             // modules={[Navigation]}
           >
-            {selectedBook?.articleimage?.length != 0 ? 
+            {filteredImages?.length != 0 ? 
            <>
-            {selectedBook?.articleimage?.map((props) => {
+            {filteredImages?.map((props) => {
               return (
                 <SwiperSlide style={{padding:'0 0%'}}>
                     <div className={classes.imageContainer}>
@@ -180,7 +231,7 @@ swiper.slideTo(index)};
         </div>
         
         <div className={classes.bookCoversContainer}>
-          {selectedBook?.articleimage?.map((props, index) => {
+          {filteredImages?.map((props, index) => {
                         return (
                           <div className={classes.bookCovers} onClick={() => slideTo(index) & console.log(activeId)}>
                             <div style={{width:'100%', margin:'auto',position:'relative'}}>

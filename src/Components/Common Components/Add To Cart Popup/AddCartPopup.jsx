@@ -21,6 +21,8 @@ const AddCartPopup = () => {
 
   const authCtx = useContext(AuthContext)
   const [selectedBook, setSelectedBook] = useState({});
+  const selectedVariants = useSelector((state) => state.products.selectedVariants);
+  const selectedVariantProduct = useSelector((state) => state.products.selectedVariantProduct);
     
   const id = authCtx.addtocartPopupId;
   const isOpen = authCtx.addtocartPopupOpen;
@@ -76,6 +78,42 @@ swiper.slideTo(index)};
     image.style.transformOrigin = `${x * 100}% ${y * 100}%`;
   };
 
+  const getMainImage = () => {
+    const popupHasResolvedVariantProduct = selectedBook?.variant_product?.variants?.some(
+      (row) => Number(row?.product?.id) === Number(selectedVariantProduct?.id)
+    );
+
+    if (popupHasResolvedVariantProduct && selectedVariantProduct?.articleimage?.length > 0) {
+      return selectedVariantProduct.articleimage[0]?.link || img;
+    }
+
+    if (popupHasResolvedVariantProduct && selectedVariantProduct?.image) {
+      return selectedVariantProduct.image;
+    }
+
+    if (selectedBook?.articleimage && selectedBook.articleimage.length > 0) {
+      const selectedVariantItemIds = Object.values(selectedVariants || {})
+        .map((variant) => variant?.id)
+        .filter((variantId) => variantId);
+
+      if (selectedVariantItemIds.length === 0) {
+        return selectedBook.articleimage[0].link;
+      }
+
+      const variantSpecificImages = selectedBook.articleimage.filter((image) =>
+        selectedVariantItemIds.includes(image.b_usr_article_variant_items_id)
+      );
+
+      if (variantSpecificImages.length > 0) {
+        return variantSpecificImages[0].link;
+      }
+
+      return selectedBook.articleimage[0].link;
+    }
+
+    return img;
+  };
+
   const modalStyle = {
     position: 'absolute',
     top: '50%',
@@ -125,7 +163,7 @@ swiper.slideTo(index)};
               </div>
             )}
             <img 
-              src={selectedBook.articleimage?.[0]?.link || img} 
+              src={getMainImage()} 
               alt={selectedBook.articleimage?.[0]?.type || 'Book Image'} 
               onMouseMove={handleMouseMove}
             />
