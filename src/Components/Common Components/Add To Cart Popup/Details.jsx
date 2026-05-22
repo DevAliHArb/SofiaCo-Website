@@ -551,6 +551,49 @@ const [selectedVariants, setSelectedVariants] = useState({});
   const resolvedAvailableQty = hasVariantProduct
     ? (allVariantProductFieldsSelected ? selectedVariantProductQty : 0)
     : Number(getQtyFromObject(article_variant_combination) || bookData?._qte_a_terme_calcule || 0);
+
+  const hasPriceRange = (product) =>
+    Number(product?._prix_public_ttc_max || 0) > Number(product?._prix_public_ttc || 0);
+
+  const getDiscountedPrice = (price, discount) => {
+    const normalizedPrice = Number(price || 0);
+    const normalizedDiscount = Number(discount || 0);
+    if (normalizedDiscount <= 0) {
+      return normalizedPrice;
+    }
+    return normalizedPrice - normalizedPrice * (normalizedDiscount / 100);
+  };
+
+  const formatPriceValue = (price, currentCurrency, currencyRate) => {
+    const normalizedPrice = Number(price || 0);
+    if (currentCurrency === "eur") {
+      return `€${normalizedPrice.toFixed(2)}`;
+    }
+    return `$${(normalizedPrice * Number(currencyRate || 1)).toFixed(2)}`;
+  };
+
+  const getDisplayPrice = (product, discount, currentCurrency, currencyRate) => {
+    const minPrice = getDiscountedPrice(product?._prix_public_ttc, discount);
+    if (hasPriceRange(product)) {
+      const maxPrice = getDiscountedPrice(product?._prix_public_ttc_max, discount);
+      return `${formatPriceValue(minPrice, currentCurrency, currencyRate)} - ${formatPriceValue(maxPrice, currentCurrency, currencyRate)}`;
+    }
+    return formatPriceValue(minPrice, currentCurrency, currencyRate);
+  };
+
+  const getOriginalPrice = (product, currentCurrency, currencyRate) => {
+    const minPrice = Number(product?._prix_public_ttc || 0);
+    if (hasPriceRange(product)) {
+      const maxPrice = Number(product?._prix_public_ttc_max || 0);
+      return `${formatPriceValue(minPrice, currentCurrency, currencyRate)} - ${formatPriceValue(maxPrice, currentCurrency, currencyRate)}`;
+    }
+    return formatPriceValue(minPrice, currentCurrency, currencyRate);
+  };
+
+  const selectedPricingProduct = selectedVariantProductRow?.product || bookData;
+  const selectedPricingDiscount = Number(
+    selectedPricingProduct?.discount ?? bookData?.discount ?? 0
+  );
   useEffect(() => {
     setSelectedVariants({});
     setSelectedVariantProductValues({});
@@ -753,6 +796,7 @@ const [selectedVariants, setSelectedVariants] = useState({});
         id: variantProduct.id,
         designation: variantProduct.designation || props.designation,
         _prix_public_ttc: variantProduct._prix_public_ttc ?? props._prix_public_ttc,
+        _prix_public_ttc_max: variantProduct._prix_public_ttc_max ?? props._prix_public_ttc_max,
         _qte_a_terme_calcule: variantProduct._qte_a_terme_calcule,
         articleimage: variantProduct.articleimage?.length > 0 ? variantProduct.articleimage : props.articleimage,
         _code_barre: variantProduct._code_barre || props._code_barre,
@@ -805,32 +849,42 @@ const [selectedVariants, setSelectedVariants] = useState({});
               fontWeight: "700",
             }}
           >
-            {currency === "eur"
-                            ? `€${
-                              bookData.discount > 0
-                                  ? (
-                                    bookData._prix_public_ttc -
-                                    bookData._prix_public_ttc * (bookData.discount / 100)
-                                    ).toFixed(2)
-                                  : Number(bookData._prix_public_ttc).toFixed(2)
-                              }`
-                            : `$${
-                              bookData.discount > 0
-                                  ? (
-                                      (bookData._prix_public_ttc -
-                                        bookData._prix_public_ttc *
-                                          (bookData.discount / 100)) *
-                                      authCtx.currencyRate
-                                    ).toFixed(2)
-                                  : (
-                                    bookData._prix_public_ttc * authCtx.currencyRate
-                                    ).toFixed(2)
-                              }`}{" "}
-                              {bookData.discount > 0 && <span style={{opacity: "0.8",textDecoration:'line-through',fontSize: "calc(.9rem + 0.3vw)",margin:'0 1em'}} >
-                               {currency === "eur" ? `€${Number(bookData._prix_public_ttc).toFixed(2)} `: `$${(bookData._prix_public_ttc * authCtx.currencyRate ).toFixed(2)} `}</span>}  
-                    
-                     {bookData.discount > 0 && <span style={{background:'var(--primary-color)', color:'#fff', padding:'0.2em 0.8em',fontSize: "calc(.9rem + 0.3vw)",borderRadius:'5px'}} >
-                      {bookData.discount}%</span>} 
+            {getDisplayPrice(
+              selectedPricingProduct,
+              selectedPricingDiscount,
+              currency,
+              authCtx.currencyRate
+            )}{" "}
+            {selectedPricingDiscount > 0 && (
+              <span
+                style={{
+                  opacity: "0.8",
+                  textDecoration: "line-through",
+                  fontSize: "calc(.9rem + 0.3vw)",
+                  margin: "0 1em",
+                }}
+              >
+                {getOriginalPrice(
+                  selectedPricingProduct,
+                  currency,
+                  authCtx.currencyRate
+                )}
+              </span>
+            )}
+
+            {selectedPricingDiscount > 0 && (
+              <span
+                style={{
+                  background: "var(--primary-color)",
+                  color: "#fff",
+                  padding: "0.2em 0.8em",
+                  fontSize: "calc(.9rem + 0.3vw)",
+                  borderRadius: "5px",
+                }}
+              >
+                {selectedPricingDiscount}%
+              </span>
+            )}
           </p>
         </div>
         
