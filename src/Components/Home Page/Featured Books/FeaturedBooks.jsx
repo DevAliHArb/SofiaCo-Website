@@ -110,6 +110,45 @@ const FeaturedBooks = () => {
   const handleCategoryClick = (id) => {
   setSelectedsubCategoryId(Number(id));
   };
+
+  const hasPriceRange = (product) =>
+    Number(product?._prix_public_ttc_max || 0) > Number(product?._prix_public_ttc || 0);
+
+  const getDiscountedPrice = (price, discount) => {
+    const normalizedPrice = Number(price || 0);
+    const normalizedDiscount = Number(discount || 0);
+    if (normalizedDiscount <= 0) {
+      return normalizedPrice;
+    }
+    return normalizedPrice - normalizedPrice * (normalizedDiscount / 100);
+  };
+
+  const formatPriceValue = (price, currentCurrency, currencyRate) => {
+    const normalizedPrice = Number(price || 0);
+    if (currentCurrency === "eur") {
+      return `€${normalizedPrice.toFixed(2)}`;
+    }
+    return `$${(normalizedPrice * Number(currencyRate || 1)).toFixed(2)}`;
+  };
+
+  const getDisplayPrice = (product, discount, currentCurrency, currencyRate) => {
+    const minPrice = getDiscountedPrice(product?._prix_public_ttc, discount);
+    if (hasPriceRange(product)) {
+      const maxPrice = getDiscountedPrice(product?._prix_public_ttc_max, discount);
+      return `${formatPriceValue(minPrice, currentCurrency, currencyRate)} - ${formatPriceValue(maxPrice, currentCurrency, currencyRate)}`;
+    }
+    return formatPriceValue(minPrice, currentCurrency, currencyRate);
+  };
+
+  const getOriginalPrice = (product, currentCurrency, currencyRate) => {
+    const minPrice = Number(product?._prix_public_ttc || 0);
+    if (hasPriceRange(product)) {
+      const maxPrice = Number(product?._prix_public_ttc_max || 0);
+      return `${formatPriceValue(minPrice, currentCurrency, currencyRate)} - ${formatPriceValue(maxPrice, currentCurrency, currencyRate)}`;
+    }
+    return formatPriceValue(minPrice, currentCurrency, currencyRate);
+  };
+
   return (
     <div className={classes.big_container}>
       <div className={classes.content}>
@@ -292,27 +331,12 @@ const FeaturedBooks = () => {
                           <p
                             style={{ textAlign: "center", padding: "0 ",color: "#EEBA7F",fontWeight:700,fontSize:'calc(1rem + .3vw)' }}
                           >
-                            {currency === "eur"
-                              ? `€${
-                                  props.discount > 0
-                                    ? (
-                                        props._prix_public_ttc -
-                                        props._prix_public_ttc * (props.discount / 100)
-                                      ).toFixed(2)
-                                    : Number(props._prix_public_ttc).toFixed(2)
-                                }`
-                              : `$${
-                                  props.discount > 0
-                                    ? (
-                                        (props._prix_public_ttc -
-                                          props._prix_public_ttc *
-                                            (props.discount / 100)) *
-                                        authCtx.currencyRate
-                                      ).toFixed(2)
-                                    : (
-                                        props._prix_public_ttc * authCtx.currencyRate
-                                      ).toFixed(2)
-                                }`}{" "}
+                            {getDisplayPrice(
+                              props,
+                              Number(props?.discount || 0),
+                              currency,
+                              authCtx.currencyRate
+                            )}
                           </p>
                           {props.discount > 0 && (
                             <p
@@ -322,11 +346,7 @@ const FeaturedBooks = () => {
                                 margin:"auto 0"
                               }}
                             >
-                              {currency === "eur"
-                                ? `€ ${Number(props._prix_public_ttc).toFixed(2)} `
-                                : `$ ${(
-                                    props._prix_public_ttc * authCtx.currencyRate
-                                  ).toFixed(2)} `}
+                              {getOriginalPrice(props, currency, authCtx.currencyRate)}
                             </p>
                           )}
                         </span>
