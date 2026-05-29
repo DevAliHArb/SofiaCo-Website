@@ -25,7 +25,7 @@ import EmptyCart from "../../../assets/EmptyOrder.png";
 
 import { Button } from "antd";
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "@hooks/useNavigate";
 import { PiNotebook } from "react-icons/pi";
 import { PiPackageDuotone } from "react-icons/pi";
 import { PiTruck } from "react-icons/pi";
@@ -342,7 +342,7 @@ element.quantity > element.article._qte_a_terme_calcule
         id: element.article.id,
         designation: element.article.designation,
         dc_auteur: element.article.dc_auteur,
-        image: element.article.articleimage[0]?.link ? element.article.articleimage[0].link : bookPlaceHolder,
+        image: element.article.articleimage?.[0]?.link ? element.article.articleimage?.[0].link : bookPlaceHolder,
         prixpublic: element.article.prixpublic,
         _qte_a_terme_calcule: element.article._qte_a_terme_calcule,
         _code_barre: element.article._code_barre,
@@ -569,7 +569,7 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
         <div className={classes.card} key={props._id}>
             <div style={{display:"flex",flexDirection:"row",gap:".5em",width:'100%'}}>
             <div className={classes.imageCont}>
-              <img src={props.article.articleimage[0]?.link ? props.article.articleimage[0].link : bookPlaceHolder} alt="" style={{height:'100%', width: '100%',objectFit:'cover' }}/>
+              <img src={props.article.articleimage?.[0]?.link ? props.article.articleimage?.[0].link : bookPlaceHolder} alt={props.article.articleimage?.[0]?.type} style={{height:'100%', width: '100%',objectFit:'cover' }}/>
             </div>
             <div style={{height:'100%',justifyContent:'space-between',display:'flex', flexDirection:'column',width:'80%',fontSize:'calc(.7rem + 0.3vw)',fontFamily:'var(--font-family)'}}>
               <p style={{fontWeight:'600'}}>{props.article.designation}</p>

@@ -4,7 +4,8 @@ import gridview from "../../../../assets/gridview.svg";
 import rowsview from "../../../../assets/rowsview.svg";
 import filterIcon from "../../../../assets/filter.svg";
 import { InputNumber } from 'antd';
-import { useActionData, useNavigate } from "react-router-dom";
+import { useActionData } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import { FormControl, MenuItem, Rating, Select } from "@mui/material";
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from "react-redux";
@@ -52,7 +53,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
   const lastIndex = currentpage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
   const records = filteredartciles.slice(firstIndex, lastIndex);
-  const pagenb = Math.ceil(filteredartciles.length / recordsPerPage);
+  const pagenb = Math.ceil(filteredartciles?.length / recordsPerPage);
   const numbers = [...Array(pagenb + 1).keys()].slice(1);
   const searchData = useSelector((state) => state.products.searchData);
   
@@ -131,13 +132,13 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
 
   useEffect(() => {
     if (currentpage == pagenb) {
-      setto(filteredartciles.length);
-    } else if (filteredartciles.length === 0) {
+      setto(filteredartciles?.length);
+    } else if (filteredartciles?.length === 0) {
       setto(0);
     } else {
       setto(currentpage * recordsPerPage);
     }
-    if (filteredartciles.length === 0) {
+    if (filteredartciles?.length === 0) {
       setfrom(0);
     } else {
       setfrom(currentpage * recordsPerPage - recordsPerPage + 1);
@@ -165,6 +166,44 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
 
   const handleSortChange = (e) => {
     setSortBy(e.target.value);
+  };
+
+  const hasPriceRange = (product) =>
+    Number(product?._prix_public_ttc_max || 0) > Number(product?._prix_public_ttc || 0);
+
+  const getDiscountedPrice = (price, discount) => {
+    const normalizedPrice = Number(price || 0);
+    const normalizedDiscount = Number(discount || 0);
+    if (normalizedDiscount <= 0) {
+      return normalizedPrice;
+    }
+    return normalizedPrice - normalizedPrice * (normalizedDiscount / 100);
+  };
+
+  const formatPriceValue = (price, currentCurrency, currencyRate) => {
+    const normalizedPrice = Number(price || 0);
+    if (currentCurrency === "eur") {
+      return `€${normalizedPrice.toFixed(2)}`;
+    }
+    return `$${(normalizedPrice * Number(currencyRate || 1)).toFixed(2)}`;
+  };
+
+  const getDisplayPrice = (product, discount, currentCurrency, currencyRate) => {
+    const minPrice = getDiscountedPrice(product?._prix_public_ttc, discount);
+    if (hasPriceRange(product)) {
+      const maxPrice = getDiscountedPrice(product?._prix_public_ttc_max, discount);
+      return `${formatPriceValue(minPrice, currentCurrency, currencyRate)} - ${formatPriceValue(maxPrice, currentCurrency, currencyRate)}`;
+    }
+    return formatPriceValue(minPrice, currentCurrency, currencyRate);
+  };
+
+  const getOriginalPrice = (product, currentCurrency, currencyRate) => {
+    const minPrice = Number(product?._prix_public_ttc || 0);
+    if (hasPriceRange(product)) {
+      const maxPrice = Number(product?._prix_public_ttc_max || 0);
+      return `${formatPriceValue(minPrice, currentCurrency, currencyRate)} - ${formatPriceValue(maxPrice, currentCurrency, currencyRate)}`;
+    }
+    return formatPriceValue(minPrice, currentCurrency, currencyRate);
   };
 
   const chain = () => {
@@ -281,7 +320,11 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
       finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Favorites` : `Favoris`);
     }
     
-    if (searchData[0]?.isSelected) {
+    if (searchData[0]?.alsosee) {
+      finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Also See` : `Voir Aussi`);
+    }
+
+    if (searchData[0]?.isSelected || searchData[0]?.is_selected) {
       finalResult += (finalResult ? ' | ' : '') + (language === 'eng' ? `Deals Of The Day` : `Offres Du Jour`);
     }
   
@@ -439,7 +482,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
               </p>
             </div>
         </div>
-          {sortBooks(sortBy).length === 0 ? 
+          {sortBooks(sortBy)?.length === 0 ? 
           loading ? (
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '200px' }}>
               <div style={{ textAlign: 'center' }}>
@@ -463,7 +506,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                 if (
                   !props.bookreview ||
                   !Array.isArray(props.bookreview) ||
-                  props.bookreview.length === 0
+                  props.bookreview?.length === 0
                 ) {
                   return 0; // Return 0 if there are no reviews or if bookreview is not an array
                 }
@@ -472,7 +515,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                   (review) => !isNaN(parseFloat(review.rate))
                 );
 
-                if (validRatings.length === 0) {
+                if (validRatings?.length === 0) {
                   return 0; // Return 0 if there are no valid ratings
                 }
 
@@ -481,7 +524,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                     accumulator + parseFloat(review.rate),
                   0
                 );
-                let reviewsCount = props.bookreview.length;
+                let reviewsCount = props.bookreview?.length;
 
                 return totalRatings / reviewsCount;
               };
@@ -501,10 +544,10 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                      {props._qte_a_terme_calcule < 1 &&  <div className={classes.out_of_stock}>
                         <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
                       </div>}
-                      {props.articleimage[0] ? (
+                      {props.articleimage?.[0] ? (
                         <img
-                          src={`${props.articleimage[0]?.link}`}
-                          alt=""
+                          src={`${props.articleimage?.[0]?.link}`}
+                          alt={props.articleimage?.[0]?.type}
                           width="100%"
                           height="100%"
                           className={classes.img}
@@ -546,7 +589,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                             className={classes.fav}
                             onClick={(event) => {
                               event.stopPropagation();
-                              if (props.article_variant_combinations && props.article_variant_combinations.length > 0) {
+                              if (props.article_variant_combinations && props.article_variant_combinations?.length > 0) {
                                 authCtx.setaddtocartPopupOpen(true);
                                 authCtx.setaddtocartPopupId(props.id);
                               } else {
@@ -559,7 +602,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                     </div>
                     
                     <div className={classes.bookTitle} >
-                      <p style={{minHeight:"2.3em"}}>{props.designation.length > 50 ? props.designation.slice(0,50) + '...' : props.designation}</p>
+                      <p style={{minHeight:"2.3em"}}>{props.designation?.length > 50 ? props.designation.slice(0,50) + '...' : props.designation}</p>
                     <p style={{maxWidth:'100%',width:'fit-content',margin:'0em auto 0 auto',display:"flex",flexDirection:"row"}}>
                         <Rating
                           style={{
@@ -573,7 +616,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                           readOnly
                       /><p style={{margin:'0 0 0 0 ',color:"#EEBA7F"}}>{props.average_rate}/5</p>
                       </p>
-                      <p style={{ height:'1em', fontSize:'small', fontWeight: 400 }}>{props.dc_auteur.length > 15 ? props.dc_auteur.slice(0,15) + '...' : props.dc_auteur}</p>
+                      <p style={{ height:'1em', fontSize:'small', fontWeight: 400 }}>{props.dc_auteur?.length > 15 ? props.dc_auteur.slice(0,15) + '...' : props.dc_auteur}</p>
                       
                       <p className={classes.dicription} >
                       {truncateText(stripHtmlTags(props.descriptif), 30)}
@@ -582,27 +625,12 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                         <p
                           style={{ textAlign: "center", padding: "0 ",color: "var(--primary-color)",fontWeight:700 }}
                         >
-                          {currency === "eur"
-                            ? `€${
-                                props.discount > 0
-                                  ? (
-                                      props._prix_public_ttc -
-                                      props._prix_public_ttc * (props.discount / 100)
-                                    ).toFixed(2)
-                                  : Number(props._prix_public_ttc).toFixed(2)
-                              }`
-                            : `$${
-                                props.discount > 0
-                                  ? (
-                                      (props._prix_public_ttc -
-                                        props._prix_public_ttc *
-                                          (props.discount / 100)) *
-                                      authCtx.currencyRate
-                                    ).toFixed(2)
-                                  : (
-                                      props._prix_public_ttc * authCtx.currencyRate
-                                    ).toFixed(2)
-                              }`}{" "}
+                          {getDisplayPrice(
+                            props,
+                            Number(props?.discount || 0),
+                            currency,
+                            authCtx.currencyRate
+                          )}
                         </p>
                         {props.discount > 0 && (
                           <p
@@ -613,11 +641,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                               margin:"auto 0"
                             }}
                           >
-                            {currency === "eur"
-                              ? `€ ${Number(props._prix_public_ttc).toFixed(2)} `
-                              : `$ ${(
-                                  props._prix_public_ttc * authCtx.currencyRate
-                                ).toFixed(2)} `}
+                            {getOriginalPrice(props, currency, authCtx.currencyRate)}
                           </p>
                         )}
                       </span>
@@ -634,7 +658,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                 if (
                   !props.bookreview ||
                   !Array.isArray(props.bookreview) ||
-                  props.bookreview.length === 0
+                  props.bookreview?.length === 0
                 ) {
                   return 0; // Return 0 if there are no reviews or if bookreview is not an array
                 }
@@ -643,7 +667,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                   (review) => !isNaN(parseFloat(review.rate))
                 );
 
-                if (validRatings.length === 0) {
+                if (validRatings?.length === 0) {
                   return 0; // Return 0 if there are no valid ratings
                 }
 
@@ -652,7 +676,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                     accumulator + parseFloat(review.rate),
                   0
                 );
-                let reviewsCount = props.bookreview.length;
+                let reviewsCount = props.bookreview?.length;
 
                 return totalRatings / reviewsCount;
               };
@@ -670,10 +694,10 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                      {props._qte_a_terme_calcule < 1 && <div className={classes.out_of_stock}>
                         <p style={{fontSize:'calc(.4rem + .2vw)',padding:'.3em'}}>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
                       </div>}
-                    {props.articleimage[0] ? (
+                    {props.articleimage?.[0] ? (
                       <img
-                        src={`${props.articleimage[0]?.link}`}
-                        alt=""
+                        src={`${props.articleimage?.[0]?.link}`}
+                        alt={props.articleimage?.[0]?.type}
                         width="100%"
                         height="100%"
                       />
@@ -720,7 +744,14 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                       <p className={classes.bookRowDescription} >
                       {truncateText(stripHtmlTags(props.descriptif), 80)}
                       </p>
-                      <p className={classes.priceMob}>{(props._prix_public_ttc * 1).toFixed(2)} $</p> 
+                      <p className={classes.priceMob}>
+                        {getDisplayPrice(
+                          props,
+                          Number(props?.discount || 0),
+                          currency,
+                          authCtx.currencyRate
+                        )}
+                      </p>
                     </div>
                   </div>
             
@@ -749,7 +780,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                         {props._qte_a_terme_calcule > 0 &&<div className={classes.icon_con}  
                         onClick={(event) => {
                           event.stopPropagation();
-                              if (props.article_variant_combinations && props.article_variant_combinations.length > 0) {
+                              if (props.article_variant_combinations && props.article_variant_combinations?.length > 0) {
                                 authCtx.setaddtocartPopupOpen(true);
                                 authCtx.setaddtocartPopupId(props.id);
                               } else {
@@ -770,37 +801,18 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                               margin:"auto 0 auto 0"
                             }}
                           >
-                            {currency === "eur"
-                              ? `€${Number(props._prix_public_ttc).toFixed(2)} `
-                              : `$${(
-                                  props._prix_public_ttc * authCtx.currencyRate
-                                ).toFixed(2)} `}
+                            {getOriginalPrice(props, currency, authCtx.currencyRate)}
                           </p>
                         )}
                         <p
                           className={classes.price}
                         >
-                          {currency === "eur"
-                            ? `€${
-                                props.discount > 0
-                                  ? (
-                                      props._prix_public_ttc -
-                                      props._prix_public_ttc * (props.discount / 100)
-                                    ).toFixed(2)
-                                  : Number(props._prix_public_ttc).toFixed(2)
-                              }`
-                            : `$${
-                                props.discount > 0
-                                  ? (
-                                      (props._prix_public_ttc -
-                                        props._prix_public_ttc *
-                                          (props.discount / 100)) *
-                                      authCtx.currencyRate
-                                    ).toFixed(2)
-                                  : (
-                                      props._prix_public_ttc * authCtx.currencyRate
-                                    ).toFixed(2)
-                              }`}{" "}
+                          {getDisplayPrice(
+                            props,
+                            Number(props?.discount || 0),
+                            currency,
+                            authCtx.currencyRate
+                          )}
                         </p>
                       </span>
             <div className={classes.iconslistContainerMob} >
@@ -830,7 +842,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                        {props._qte_a_terme_calcule > 0 && <div className={classes.icon_con}  
                         onClick={(event) => {
                           event.stopPropagation();
-                              if (props.article_variant_combinations && props.article_variant_combinations.length > 0) {
+                              if (props.article_variant_combinations && props.article_variant_combinations?.length > 0) {
                                 authCtx.setaddtocartPopupOpen(true);
                                 authCtx.setaddtocartPopupId(props.id);
                               } else {

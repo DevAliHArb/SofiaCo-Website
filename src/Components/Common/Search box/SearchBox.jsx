@@ -7,7 +7,7 @@ import AuthContext from "../authContext";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addSearchData, addSelectedBook, deleteSelectedBook, editSearchData, resetSearchData } from "../redux/productSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import img from "../../../assets/bookPlaceholder.png";
 import { stripHtmlTags, truncateText } from "../TextUtils";
 import { FormControl, MenuItem, Select, TextField } from "@mui/material";
@@ -237,10 +237,10 @@ function SearchBox() {
             {article?._qte_a_terme_calcule < 1 && <div onClick={(e)=>e.stopPropagation()} className={classes.out_of_stock}>
                         <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
                       </div>}
-                      {article.articleimage[0] ? (
+                      {article.articleimage?.[0] ? (
                         <img
-                          src={`${article.articleimage[0]?.link}`}
-                          alt=""
+                          src={`${article.articleimage?.[0]?.link}`}
+                          alt={article.articleimage?.[0]?.type}
                           width="100%"
                           height="100%"
                           className={classes.img}

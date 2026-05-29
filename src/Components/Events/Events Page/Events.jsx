@@ -8,7 +8,7 @@ import { MdLocationOn } from "react-icons/md";
 import { CiUser } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
 import { addSelectedEvent } from "../../Common/redux/productSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import nodata from '../../../assets/noevents.png'
 import axios from "axios";
 import data from "../../../Data.json";

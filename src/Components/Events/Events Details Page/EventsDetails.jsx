@@ -13,7 +13,7 @@ import { CiClock2, CiLocationOn } from "react-icons/ci";
 import { MdLocationOn } from "react-icons/md";
 import 'react-toastify/dist/ReactToastify.css';
 import { addSelectedEvent } from "../../Common/redux/productSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import Services from "../../Home Page/Services Section/Services";
 import EventImg from "../../../assets/EventImg.png";
 import AuthContext from "../../Common/authContext";

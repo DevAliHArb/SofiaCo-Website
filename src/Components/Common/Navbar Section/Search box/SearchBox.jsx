@@ -12,7 +12,7 @@ import {
   editSearchData,
   resetSearchData,
 } from "../../redux/productSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import img from "../../../../assets/bookPlaceholder.png";
 import {
   FormControl,
@@ -269,10 +269,10 @@ function SearchBox(ParentProps) {
                               </p>
                             </div>
                           )}
-                          {article.articleimage[0] ? (
+                          {article.articleimage?.[0] ? (
                             <img
-                              src={`${article.articleimage[0]?.link}`}
-                              alt=""
+                              src={`${article.articleimage?.[0]?.link}`}
+                              alt={article.articleimage?.[0]?.type}
                               width="100%"
                               height="100%"
                               className={classes.img}
@@ -426,11 +426,11 @@ function SearchBox(ParentProps) {
                     )}
                     <img
                       src={bookData && bookData.articleimage &&
-                        bookData?.articleimage[0]
-                          ? bookData?.articleimage[0]?.link
+                        bookData?.articleimage?.[0]
+                          ? bookData?.articleimage?.[0]?.link
                           : img
                       }
-                      alt=""
+                      alt={bookData?.articleimage?.[0]?.type}
                     />
                   </div>
                   <h1

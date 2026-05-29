@@ -15,7 +15,7 @@ import { toast } from "react-toastify";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import { useDispatch, useSelector } from "react-redux";
 import { IoGitCompare } from "react-icons/io5";
 import AuthContext from "../../Common/authContext";
@@ -164,9 +164,9 @@ const Hero = ({ carttoggle }) => {
                      {props._qte_a_terme_calcule < 1 && <div className={classes.out_of_stock}>
                         <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
                       </div>}
-                        {props.articleimage[0] ? (
+                        {props.articleimage?.[0] ? (
                           <img
-                            src={`${props.articleimage[0].link}`}
+                            src={`${props.articleimage?.[0].link}`}
                             alt=""
                             width="100%"
                             height="100%"

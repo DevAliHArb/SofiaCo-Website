@@ -19,7 +19,7 @@ import {
   addAddress,
   editAddress,
 } from "../../Common/redux/productSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import { FiEdit } from "react-icons/fi";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import axios from "axios";

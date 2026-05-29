@@ -6,7 +6,8 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
 import ListItemButton from "@mui/material/ListItemButton";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import {
   FaDeleteLeft,
   FaRegUser,

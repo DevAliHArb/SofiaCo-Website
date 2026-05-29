@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import box from "../../../assets/quote.svg";
 import classes from "./Quote.module.css";
 import { ToastContainer, toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import axios from "axios";
 import data from "../../../Data.json";
 import { useSelector } from "react-redux";

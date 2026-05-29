@@ -12,12 +12,15 @@ import Details from './Details';
 import AuthContext from '../../Common/authContext';
 import { useSelector } from 'react-redux';
 import img from '../../../assets/bookPlaceholder.png'
+import { Helmet } from 'react-helmet-async';
 
 const BookDetails = () => {
 
   const authCtx = useContext(AuthContext)
   const [bookData, setbookData] = useState({});
     const selectedBook = useSelector((state) => state.products.selectedBook[0])
+    const selectedVariants = useSelector((state) => state.products.selectedVariants);
+    const selectedVariantProduct = useSelector((state) => state.products.selectedVariantProduct);
     
   const language = useSelector(
     (state) => state.products.selectedLanguage[0].Language
@@ -66,6 +69,8 @@ const BookDetails = () => {
       };
       const [activeSlideIndex, setActiveSlideIndex] = useState(0);
       const [activeId, setactiveId] = useState(1);
+      const [filteredImages, setFilteredImages] = useState([]);
+      const [swiper, setSwiper] = useState(null);
       
   const handleSlideChange = (swiper) => {
     setActiveSlideIndex(swiper.activeIndex);
@@ -73,15 +78,62 @@ const BookDetails = () => {
 
   const constantValue = activeSlideIndex + 1;
   useEffect(() => {
-    selectedBook?.articleimage?.forEach((item) => {
-      if (item.id === constantValue) {
-        setactiveId(item.id); 
-      }
-    });
-  }, [constantValue]);
-// console.log(constantValue)
+        filteredImages?.forEach((item, index) => {
+          if (index + 1 === constantValue) {
+            setactiveId(index + 1); 
+          }
+        });
+      }, [constantValue, filteredImages]);
 
-  const [swiper, setSwiper] = useState(null);
+      useEffect(() => {
+        if (!selectedBook?.articleimage) {
+          setFilteredImages([]);
+          return;
+        }
+
+        if (selectedVariantProduct?.articleimage?.length > 0) {
+          setFilteredImages(selectedVariantProduct.articleimage);
+          return;
+        }
+
+        if (selectedVariantProduct?.image) {
+          setFilteredImages([
+            {
+              id: selectedVariantProduct.id || 'selected-variant-product-image',
+              link: selectedVariantProduct.image,
+              type: selectedVariantProduct.designation,
+            },
+          ]);
+          return;
+        }
+
+        const selectedVariantItemIds = Object.values(selectedVariants || {})
+          .map((variant) => variant?.id)
+          .filter((variantId) => variantId);
+
+        if (selectedVariantItemIds.length === 0) {
+          setFilteredImages(selectedBook.articleimage);
+          return;
+        }
+
+        const variantSpecificImages = selectedBook.articleimage.filter((image) =>
+          selectedVariantItemIds.includes(image.b_usr_article_variant_items_id)
+        );
+
+        if (variantSpecificImages.length > 0) {
+          setFilteredImages(variantSpecificImages);
+        } else {
+          setFilteredImages(selectedBook.articleimage);
+        }
+      }, [selectedBook?.articleimage, selectedVariants, selectedVariantProduct]);
+
+      useEffect(() => {
+        setActiveSlideIndex(0);
+        setactiveId(1);
+        if (swiper) {
+          swiper.slideTo(0);
+        }
+      }, [filteredImages, swiper]);
 
   const slideTo = (index) => {
 if(swiper) 
@@ -97,8 +149,40 @@ swiper.slideTo(index)};
     image.style.transformOrigin = `${x * 100}% ${y * 100}%`;
   };
 
+  
+  const normalizeMetaValue = (value) => (typeof value === 'string' ? value.trim() : '');
+
+  const metaTitle = normalizeMetaValue(
+    selectedBook?.meta_title ||
+    selectedBook?.designation
+  );
+
+  const metaDescription = normalizeMetaValue(
+    selectedBook?.meta_description ||
+    (language === 'eng' ? selectedBook?.description_en : selectedBook?.description_fr)
+  );
+
+  const keyword = normalizeMetaValue(
+    selectedBook?.keywords ||
+    selectedBook?.designation
+  );
+
+  const secondaryKeyword = normalizeMetaValue(
+    selectedBook?.secondary_keywords ||
+    selectedBook?.isbn
+  );
+
+  const longTailText = normalizeMetaValue(selectedBook?.long_tail_text);
+
   return (
     <div className={classes.bookDetails}>
+        <Helmet>
+          {metaTitle && <title>{metaTitle}</title>}
+          {metaDescription && <meta name="description" content={metaDescription} />}
+          {keyword && <meta name="keywords" content={keyword} />}
+          {secondaryKeyword && <meta name="secondary_keywords" content={secondaryKeyword} />}
+          {longTailText && <meta name="long_tail_text" content={longTailText} />}
+        </Helmet>
         <div className={classes.bigContainer}>
           <div className={classes.booksContainer}>
         <div className={classes.swiper}>
@@ -112,16 +196,16 @@ swiper.slideTo(index)};
             // }}
             // modules={[Navigation]}
           >
-            {selectedBook?.articleimage?.length != 0 ? 
+            {filteredImages?.length != 0 ? 
            <>
-            {selectedBook?.articleimage?.map((props) => {
+            {filteredImages?.map((props) => {
               return (
                 <SwiperSlide style={{padding:'0 0%'}}>
                     <div className={classes.imageContainer}>
                      {props._qte_a_terme_calcule < 1 && <div className={classes.out_of_stock}>
                         <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
                       </div>}
-                        <img src={props.link} alt="Book Cover" onMouseMove={handleMouseMove}/>
+                        <img src={props.link} alt={props?.type} onMouseMove={handleMouseMove}/>
                     </div>
                 </SwiperSlide>
               );
@@ -147,11 +231,11 @@ swiper.slideTo(index)};
         </div>
         
         <div className={classes.bookCoversContainer}>
-          {selectedBook?.articleimage?.map((props, index) => {
+          {filteredImages?.map((props, index) => {
                         return (
                           <div className={classes.bookCovers} onClick={() => slideTo(index) & console.log(activeId)}>
                             <div style={{width:'100%', margin:'auto',position:'relative'}}>
-                            <img src={props.link} className={`${constantValue === index + 1  ? classes.bookCoverSelectedimg : classes.bookCoverimg }`} alt="Book Cover"/>
+                            <img src={props.link} className={`${constantValue === index + 1  ? classes.bookCoverSelectedimg : classes.bookCoverimg }`} alt={props?.type}/>
                           </div></div>
                         )})} 
                         

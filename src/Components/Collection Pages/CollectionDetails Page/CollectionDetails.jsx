@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import classes from "./CollectionDetails.module.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import AuthContext from "../../Common/authContext";
 // import BookHeroImage from '../../../assets/BookHeroImage.png'
 import nodata from "../../../assets/nobookfound.svg";
@@ -273,10 +273,10 @@ const CollectionDetailsPage = () => {
                      {props._qte_a_terme_calcule < 1 && <div className={classes.out_of_stock}>
                         <p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p>
                       </div>}
-                      {props.articleimage[0] ? (
+                      {props.articleimage?.[0] ? (
                         <img
-                          src={`${props.articleimage[0]?.link}`}
-                          alt=""
+                          src={`${props.articleimage?.[0]?.link}`}
+                          alt={props.articleimage?.[0]?.type}
                           width="100%"
                           height="100%"
                           className={classes.img}

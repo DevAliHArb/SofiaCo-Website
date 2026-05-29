@@ -23,12 +23,16 @@ import {
   deletefavorite,
   editSearchData,
   resetSearchData,
+  updateSelectedVariants,
+  resetSelectedVariants,
+  updateSelectedVariantProduct,
+  resetSelectedVariantProduct,
 } from "../../Common/redux/productSlice";
 import { TbTruckDelivery } from "react-icons/tb";
 import { stripHtmlTags, truncateText } from "../../Common Components/TextUtils";
 import axios from "axios";
 import { MdAddBox } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 
 const Details = () => {
   const authCtx = useContext(AuthContext);
@@ -61,11 +65,12 @@ const Details = () => {
 
   const handleCountChange = (event) => {
     const value = parseInt(event.target.value, 10);
+    const maxQty = Number(resolvedAvailableQty || 0);
 
   // Only set the count if the value is greater than zero
-  if  (value > Number(bookData?._qte_a_terme_calcule)) {
+  if  (maxQty > 0 && value > maxQty) {
     // Reset to minimum if the user tries to input a negative or zero value
-    setCount(Number(bookData?._qte_a_terme_calcule).toFixed(0));
+    setCount(Number(maxQty).toFixed(0));
   } else if (value > 0) {
     setCount(value);
   }else {
@@ -329,6 +334,149 @@ const handleCatClick = async () => {
 
 const [selectedVariants, setSelectedVariants] = useState({});
   const [article_variant_combination, setSelectedCombinationVariants] = useState({});
+  const [selectedVariantProductValues, setSelectedVariantProductValues] = useState({});
+  const selectedVariantProduct = useSelector((state) => state.products.selectedVariantProduct);
+
+  const variantProductFields = bookData?.variant_product?.variant_product_combine_fields || [];
+  const variantProductRows = bookData?.variant_product?.variants || [];
+  const hasVariantProduct = variantProductFields.length > 0 && variantProductRows.length > 0;
+
+  const normalizeVariantText = (value) => String(value || "").trim().toLowerCase();
+
+  const getVariantFieldNameById = (fieldId) => {
+    const result = variantProductFields.find((field) => Number(field.id) === Number(fieldId))?.field_name;
+    return normalizeVariantText(result);
+  };
+
+  const getVariantProductQty = (variantRow) => {
+    return Number(variantRow?.product?._qte_a_terme_calcule || 0);
+  };
+
+  const getQtyFromObject = (obj) => {
+    return Number(obj?._qte_a_terme_calcule || obj?.quantity || 0);
+  };
+
+  const extractProductCombination = (product) => {
+    const combination = {};
+    if (!product?.article_multi_products || !Array.isArray(product.article_multi_products)) {
+      return combination;
+    }
+
+    product.article_multi_products.forEach((item) => {
+      const fieldName = normalizeVariantText(
+        item?.lookup_multiproduct_parent?.nom_fr ||
+          item?.lookup_multiproduct_parent?.nom ||
+          item?.lookup_multiproduct_parent?.field_name
+      );
+      const valueText = normalizeVariantText(
+        item?.lookup_multiproduct?.nom_fr ||
+          item?.lookup_multiproduct?.nom ||
+          item?.lookup_multiproduct?.display_text ||
+          item?.lookup_multiproduct?.value
+      );
+      if (fieldName && valueText) {
+        combination[fieldName] = valueText;
+      }
+    });
+
+    return combination;
+  };
+
+  const variantProductMatchesSelections = (variantRow, selections) => {
+    if (!variantRow?.product) {
+      return false;
+    }
+
+    const productCombination = extractProductCombination(variantRow.product);
+    return Object.entries(selections).every(([fieldId, selectedItem]) => {
+      const fieldName = getVariantFieldNameById(fieldId);
+      const selectedValue = normalizeVariantText(
+        selectedItem?.nom_fr || selectedItem?.nom || selectedItem?.display_text || selectedItem?.value
+      );
+      return fieldName && selectedValue && productCombination[fieldName] === selectedValue;
+    });
+  };
+
+  const getCompatibleVariantProducts = (selections) => {
+    if (!hasVariantProduct) return [];
+    return variantProductRows.filter((variantRow) =>
+      variantProductMatchesSelections(variantRow, selections)
+    );
+  };
+
+  const selectedCompatibleVariantProducts = getCompatibleVariantProducts(selectedVariantProductValues);
+
+  const allVariantProductFieldsSelected =
+    hasVariantProduct &&
+    variantProductFields.every((field) => selectedVariantProductValues[field.id]);
+
+  const selectedVariantProductRow = allVariantProductFieldsSelected
+    ? selectedCompatibleVariantProducts.find((variantRow) => getVariantProductQty(variantRow) > 0) ||
+      selectedCompatibleVariantProducts[0]
+    : null;
+
+  const selectedVariantProductQty = getVariantProductQty(selectedVariantProductRow);
+
+  const resolvedAvailableQty = hasVariantProduct
+    ? (allVariantProductFieldsSelected ? selectedVariantProductQty : 0)
+    : Number(getQtyFromObject(article_variant_combination) || bookData?._qte_a_terme_calcule || 0);
+
+  const hasPriceRange = (product) =>
+    Number(product?._prix_public_ttc_max || 0) > Number(product?._prix_public_ttc || 0);
+
+  const getDiscountedPrice = (price, discount) => {
+    const normalizedPrice = Number(price || 0);
+    const normalizedDiscount = Number(discount || 0);
+    if (normalizedDiscount <= 0) {
+      return normalizedPrice;
+    }
+    return normalizedPrice - normalizedPrice * (normalizedDiscount / 100);
+  };
+
+  const formatPriceValue = (price, currentCurrency, currencyRate) => {
+    const normalizedPrice = Number(price || 0);
+    if (currentCurrency === "eur") {
+      return `€${normalizedPrice.toFixed(2)}`;
+    }
+    return `$${(normalizedPrice * Number(currencyRate || 1)).toFixed(2)}`;
+  };
+
+  const getDisplayPrice = (product, discount, currentCurrency, currencyRate) => {
+    const minPrice = getDiscountedPrice(product?._prix_public_ttc, discount);
+    if (hasPriceRange(product)) {
+      const maxPrice = getDiscountedPrice(product?._prix_public_ttc_max, discount);
+      return `${formatPriceValue(minPrice, currentCurrency, currencyRate)} - ${formatPriceValue(maxPrice, currentCurrency, currencyRate)}`;
+    }
+    return formatPriceValue(minPrice, currentCurrency, currencyRate);
+  };
+
+  const getOriginalPrice = (product, currentCurrency, currencyRate) => {
+    const minPrice = Number(product?._prix_public_ttc || 0);
+    if (hasPriceRange(product)) {
+      const maxPrice = Number(product?._prix_public_ttc_max || 0);
+      return `${formatPriceValue(minPrice, currentCurrency, currencyRate)} - ${formatPriceValue(maxPrice, currentCurrency, currencyRate)}`;
+    }
+    return formatPriceValue(minPrice, currentCurrency, currencyRate);
+  };
+
+  const selectedPricingProduct =
+    selectedVariantProductRow?.product || selectedVariantProduct || bookData;
+  const selectedPricingDiscount = Number(
+    selectedPricingProduct?.discount ?? bookData?.discount ?? 0
+  );
+  useEffect(() => {
+    setSelectedVariants({});
+    setSelectedVariantProductValues({});
+    setSelectedCombinationVariants({});
+    setCount(1);
+    dispatch(resetSelectedVariants());
+    dispatch(resetSelectedVariantProduct());
+  }, [bookData?.id, dispatch]);
+
+  useEffect(() => {
+    dispatch(updateSelectedVariantProduct(selectedVariantProductRow?.product || null));
+  }, [dispatch, selectedVariantProductRow]);
+
   useEffect(() => {
     let finalPrice = (bookData?.price * 1); // Start with the base price
   
@@ -379,18 +527,10 @@ const [selectedVariants, setSelectedVariants] = useState({});
       if (updatedState[variantId] && updatedState[variantId].id === item.id) {
         delete updatedState[variantId];
       } else {
-        // Only proceed with selecting the item if its quantity is > 0
-        const itemQuantity = item?.quantity || 0;
         const newVariant = bookData?.article_variants?.find(pv => pv.id === parseInt(variantId));
         const isNewVariantMandatory = newVariant?.is_mandatory;
   
-        // Prevent selecting non-mandatory variants with quantity <= 0
-        if (!isNewVariantMandatory && itemQuantity <= 0) {
-          // If it's a non-mandatory variant with no stock, just return the updated state without selecting it
-          return updatedState;
-        }
-  
-        // Proceed with selecting the variant if it's either mandatory or has stock for non-mandatory
+        // Allow selecting the variant even if quantity is 0; Add to Cart validation handles stock checks.
         updatedState[variantId] = item;
   
         // Apply combination validation for mandatory variants
@@ -421,8 +561,8 @@ const [selectedVariants, setSelectedVariants] = useState({});
                 );
               });
   
-              // If no valid combination or quantity is less than 1, deselect the previous mandatory variant
-              if (!matchingCombination || matchingCombination.quantity < 1) {
+              // If no valid combination is found, deselect the previous mandatory variant.
+              if (!matchingCombination) {
                 delete updatedState[prevVariantId];
               }
             }
@@ -430,18 +570,39 @@ const [selectedVariants, setSelectedVariants] = useState({});
         }
       }
   
+      dispatch(updateSelectedVariants(updatedState));
+      return updatedState;
+    });
+  };
+
+  const handleVariantProductSelect = (fieldId, item) => {
+    setCount(1);
+    setSelectedVariantProductValues((prevState) => {
+      const updatedState = { ...prevState };
+      if (updatedState[fieldId] && updatedState[fieldId].id === item.id) {
+        delete updatedState[fieldId];
+        return updatedState;
+      }
+
+      updatedState[fieldId] = item;
+
+      const compatible = getCompatibleVariantProducts(updatedState);
+      const hasStock = compatible.some((row) => getVariantProductQty(row) > 0);
+
+      if (!hasStock) {
+        return { [fieldId]: item };
+      }
+
       return updatedState;
     });
   };
     const AddtoBag = (props) => {
-    const allMandatorySelected = bookData?.article_variants?.every((variant) => {
-      if (variant.is_mandatory) {
-        return selectedVariants[variant.id] !== undefined && selectedVariants[variant.id]?.id !== undefined;
-      }
-      return true;
-    });
-  
-    if (!allMandatorySelected) {
+    const mandatoryVariants = (bookData?.article_variants || []).filter((variant) => variant.is_mandatory);
+    const allMandatorySelected = mandatoryVariants.every(
+      (variant) => selectedVariants[variant.id] !== undefined && selectedVariants[variant.id]?.id !== undefined
+    );
+
+    if (mandatoryVariants.length > 0 && !allMandatorySelected) {
       toast.error(`Please select all mandatory variants before submitting.`, {
         position: "top-right",
         autoClose: 4000,
@@ -454,12 +615,68 @@ const [selectedVariants, setSelectedVariants] = useState({});
       });
       return;
     }
+
+    if (hasVariantProduct && !allVariantProductFieldsSelected) {
+      toast.error(language === 'eng' ? "Please select all options." : "Veuillez sélectionner toutes les options.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: 0,
+        theme: "colored",
+      });
+      return;
+    }
+
+    if (hasVariantProduct && resolvedAvailableQty < 1) {
+      toast.error(language === 'eng' ? "Selected options are out of stock." : "Les options sélectionnées sont en rupture de stock.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: 0,
+        theme: "colored",
+      });
+      return;
+    }
+
+    if (Number(count) > Number(resolvedAvailableQty)) {
+      toast.error(language === 'eng' ? "Requested quantity exceeds stock." : "La quantité demandée dépasse le stock.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: 0,
+        theme: "colored",
+      });
+      return;
+    }
+
+    const variantProduct = selectedVariantProductRow?.product;
   
     const data = {
       ...props,
-      items_quantity: count,
+      ...(variantProduct ? {
+        id: variantProduct.id,
+        designation: variantProduct.designation || props.designation,
+        _prix_public_ttc: variantProduct._prix_public_ttc ?? props._prix_public_ttc,
+        _prix_public_ttc_max: variantProduct._prix_public_ttc_max ?? props._prix_public_ttc_max,
+        _qte_a_terme_calcule: variantProduct._qte_a_terme_calcule,
+        articleimage: variantProduct.articleimage?.length > 0 ? variantProduct.articleimage : props.articleimage,
+        _code_barre: variantProduct._code_barre || props._code_barre,
+      } : {}),
+      items_quantity: Math.min(Number(count), Number(resolvedAvailableQty)),
       // price: props?.discount && props?.discount > 0 ? `${(props._prix_public_ttc - (props._prix_public_ttc * props?.discount * 0.01)).toFixed(2)}` : (props._prix_public_ttc * 1).toFixed(2),
       selectedvariants: selectedVariants,
+      selected_variant_product_values: selectedVariantProductValues,
+      selected_variant_product: variantProduct,
+      parent_product: hasVariantProduct ? props : undefined,
       article_variant_combination: article_variant_combination
     };
     authCtx.addToCart(data);
@@ -506,7 +723,13 @@ const [selectedVariants, setSelectedVariants] = useState({});
         <div className={classes.contentss}>
         </div>
         <div className={classes.priceContainer}>
-        <p style={{ margin: ".5em auto .5em 0",color:bookData?._qte_a_terme_calcule > 0 ? "var(--forth-color)" : "#EE5858",fontWeight:"600" }}>{bookData?._qte_a_terme_calcule > 0 ? ` ${language === "eng" ? "IN STOCK" : "EN STOCK"}` : `${language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}`} </p>
+        <p style={{ margin: ".5em auto .5em 0",color:hasVariantProduct && !allVariantProductFieldsSelected ? "#868686" : resolvedAvailableQty > 0 ? "var(--forth-color)" : "#EE5858",fontWeight:"600" }}>
+          {hasVariantProduct && !allVariantProductFieldsSelected
+            ? (language === 'eng' ? 'Select all options' : 'Sélectionnez toutes les options')
+            : resolvedAvailableQty > 0
+              ? (language === 'eng' ? 'IN STOCK' : 'EN STOCK')
+              : (language === 'eng' ? 'OUT OF STOCK' : 'HORS STOCK')}
+        </p>
           <p
             style={{
               color: "var(--primary-color)",
@@ -516,32 +739,42 @@ const [selectedVariants, setSelectedVariants] = useState({});
               fontWeight: "700",
             }}
           >
-            {currency === "eur"
-                            ? `€${
-                              bookData?.discount > 0
-                                  ? (
-                                    bookData?._prix_public_ttc -
-                                    bookData?._prix_public_ttc * (bookData?.discount / 100)
-                                    ).toFixed(2)
-                                  : Number(bookData?._prix_public_ttc).toFixed(2)
-                              }`
-                            : `$${
-                              bookData?.discount > 0
-                                  ? (
-                                      (bookData?._prix_public_ttc -
-                                        bookData?._prix_public_ttc *
-                                          (bookData?.discount / 100)) *
-                                      authCtx.currencyRate
-                                    ).toFixed(2)
-                                  : (
-                                    bookData?._prix_public_ttc * authCtx.currencyRate
-                                    ).toFixed(2)
-                              }`}{" "}
-                              {bookData?.discount > 0 && <span style={{opacity: "0.8",textDecoration:'line-through',fontSize: "calc(.9rem + 0.3vw)",margin:'0 1em'}} >
-                               {currency === "eur" ? `€${Number(bookData?._prix_public_ttc).toFixed(2)} `: `$${(bookData?._prix_public_ttc * authCtx.currencyRate ).toFixed(2)} `}</span>}  
-                    
-                     {bookData?.discount > 0 && <span style={{background:'var(--primary-color)', color:'#fff', padding:'0.2em 0.8em',fontSize: "calc(.9rem + 0.3vw)",borderRadius:'5px'}} >
-                      {bookData?.discount}%</span>} 
+            {getDisplayPrice(
+              selectedPricingProduct,
+              selectedPricingDiscount,
+              currency,
+              authCtx.currencyRate
+            )}{" "}
+            {selectedPricingDiscount > 0 && (
+              <span
+                style={{
+                  opacity: "0.8",
+                  textDecoration: "line-through",
+                  fontSize: "calc(.9rem + 0.3vw)",
+                  margin: "0 1em",
+                }}
+              >
+                {getOriginalPrice(
+                  selectedPricingProduct,
+                  currency,
+                  authCtx.currencyRate
+                )}
+              </span>
+            )}
+
+            {selectedPricingDiscount > 0 && (
+              <span
+                style={{
+                  background: "var(--primary-color)",
+                  color: "#fff",
+                  padding: "0.2em 0.8em",
+                  fontSize: "calc(.9rem + 0.3vw)",
+                  borderRadius: "5px",
+                }}
+              >
+                {selectedPricingDiscount}%
+              </span>
+            )}
           </p>
         </div>
         
@@ -669,11 +902,87 @@ const [selectedVariants, setSelectedVariants] = useState({});
     </div>
   );
 })}
+
+{bookData?.variant_product?.variant_product_combine_fields?.map((variant) => {
+  return (
+    <div key={variant.id}>
+      <p
+        style={{
+          fontWeight: '600',
+          fontSize: 'calc(.8rem + .3vw)',
+          marginBottom: '0.5em',color:"var(--accent-color)"
+        }}
+      >
+        <span style={{color:"var(--secondary-color)"}}>{variant?.field_name}</span> {' '}
+        <span style={{ fontWeight: "400" }}>
+          <span style={{color:"red"}}>*</span>
+        </span>
+      </p>
+      <div className={classes.selectVariant}>
+        {variant.values?.map((item) => {
+          const nextSelections = {
+            ...selectedVariantProductValues,
+            [variant.id]: item,
+          };
+
+          const compatibleRowsForItem = getCompatibleVariantProducts(nextSelections);
+          const availableQuantity = compatibleRowsForItem.reduce(
+            (sum, variantRow) => sum + Math.max(0, getVariantProductQty(variantRow)),
+            0
+          );
+          const isVariantDisabled = availableQuantity <= 0;
+
+          return (
+            <div
+              key={item.id}
+              className={classes.variant_item}
+              style={{
+                padding: item?.image ? '0' : '1.7em 1em',
+                border: selectedVariantProductValues[variant.id]?.id === item.id
+                  ? "2px solid var(--secondary-color)"
+                  : "2px solid #D9D9D9",
+                opacity: isVariantDisabled ? 0.6 : 1,
+                cursor: 'pointer',
+              }}
+              onClick={(e) => {
+                e.preventDefault();
+                handleVariantProductSelect(variant.id, item);
+              }}
+            >
+              {item?.image ? (
+                <img
+                  src={item.image}
+                  alt=""
+                  style={{
+                    width: '4.5em',
+                    height: '4.5em',
+                    margin: '0',
+                    padding: "0",
+                    display: 'block'
+                  }}
+                />
+              ) : (
+                <p style={{ fontSize:'calc(.6rem + .3vw)', margin: '0' }}>
+                  {item.display_text || item.value || item.nom || item.nom_fr}
+                </p>
+              )}
+              {isVariantDisabled && (
+                <div className={classes.diagonaloverlay}>
+                  <img src={NoVariants} alt="" style={{width:"100%",height:"100%"}}/>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+})}
         <div className={classes.bottonsContainer}>
           <TextField
             type="number"
             value={count}
-            disabled={bookData?._qte_a_terme_calcule < 1}
+            disabled={resolvedAvailableQty < 1}
             onChange={handleCountChange}
             InputProps={{
               inputProps: { min: 1 },
@@ -687,7 +996,7 @@ const [selectedVariants, setSelectedVariants] = useState({});
             className={classes.inputt}
           />
           <button
-          disabled={bookData?._qte_a_terme_calcule < 1} style={{cursor:bookData?._qte_a_terme_calcule < 1 &&'not-allowed'}}
+          disabled={resolvedAvailableQty < 1} style={{cursor:resolvedAvailableQty < 1 &&'not-allowed'}}
             className={classes.addToCartBtn}
             onClick={(event) => {
               event.stopPropagation();

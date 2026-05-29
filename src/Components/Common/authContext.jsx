@@ -111,6 +111,7 @@ export const AuthContextProvider = (props) => {
   const user = useSelector((state) => state.products.userInfo);
   const token = sessionStorage.getItem("token");
   const [isLoading, setIsLoading] = useState(false);
+  const isAddingToCartRef = React.useRef(false);
   const selectedCategoryId = useSelector((state) => state.products.selectedCategoryId);
   const [articleFamilleId, setarticleFamilleId] = useState(selectedCategoryId || null);
   React.useEffect(() => {
@@ -150,8 +151,8 @@ export const AuthContextProvider = (props) => {
               _id: cartItem.article.id,
               title: cartItem.article.designation,
               author: cartItem.article.dc_auteur,
-              image: cartItem.article.articleimage[0]?.link
-                ? cartItem.article.articleimage[0].link
+              image: cartItem.article.articleimage?.[0]?.link
+                ? cartItem.article.articleimage?.[0].link
                 : bookPlaceHolder,
               price: cartItem.article.prixpublic,
               _qte_a_terme_calcule: cartItem.article?._qte_a_terme_calcule,
@@ -190,8 +191,8 @@ export const AuthContextProvider = (props) => {
               favtitle: favtItem.article.designation,
               favrate: favtItem.average_rate,
               favauthor: favtItem.article.dc_auteur,
-              favimage: favtItem.article.articleimage[0]?.link
-                ? favtItem.article.articleimage[0].link
+              favimage: favtItem.article.articleimage?.[0]?.link
+                ? favtItem.article.articleimage?.[0].link
                 : bookPlaceHolder,
               favprice: favtItem.article.prixpublic,
               _qte_a_terme_calcule: favtItem.article?._qte_a_terme_calcule,
@@ -408,17 +409,52 @@ export const AuthContextProvider = (props) => {
   
   
   const addToCarthandler = async (propss) => {
-    const props = propss.props ? propss.props : propss;
+    if (isLoading || isAddingToCartRef.current) {
+      return;
+    }
 
+    const props = propss.props ? propss.props : propss;
+    if (!props?.id) return;
+
+    const hasVariantProduct =
+      (props?.variant_product?.variant_product_combine_fields?.length || 0) > 0 &&
+      (props?.variant_product?.variants?.length || 0) > 0;
+    const hasResolvedVariantProduct = Boolean(props?.selected_variant_product?.id);
+
+    if (hasVariantProduct && !hasResolvedVariantProduct) {
+      setaddtocartPopupId(props?.id || null);
+      setaddtocartPopupOpen(true);
+      return;
+    }
+
+    isAddingToCartRef.current = true;
     setIsLoading(true);
+
+    const variantProduct = props?.selected_variant_product?.id ? props.selected_variant_product : null;
+    const articlePayload = variantProduct
+      ? {
+          ...props,
+          id: variantProduct.id,
+          designation: variantProduct.designation || props.designation,
+          _prix_public_ttc: variantProduct._prix_public_ttc ?? props._prix_public_ttc,
+          _qte_a_terme_calcule: variantProduct._qte_a_terme_calcule,
+          articleimage:
+            variantProduct.articleimage?.length > 0 ? variantProduct.articleimage : props.articleimage,
+          _code_barre: variantProduct._code_barre || props._code_barre,
+        }
+      : props;
+
     const data = {
-      article_id: props.id,
+      article_id: articlePayload.id,
       user_id: user?.id || null,
-      quantity: props.items_quantity,
-      article: props,
+      quantity: Number(props.items_quantity ?? props.quantity ?? 1),
+      article: articlePayload,
       cart_items_variants: props?.selectedvariants,
+      selected_variant_product_values: props?.selected_variant_product_values,
+      selected_variant_product: variantProduct,
+      parent_product: hasVariantProduct ? props : undefined,
       article_variant_combination: props?.article_variant_combination,
-      b_usr_article_variant_combination_id: props?.article_variant_combination?.id
+      b_usr_article_variant_combination_id: props?.article_variant_combination?.id,
     };
     try {
       // Find if product already exists in the cart (match by id and variants)
@@ -436,7 +472,10 @@ export const AuthContextProvider = (props) => {
         if (props?.article_variant_combination?.id) {
           return props.article_variant_combination?.quantity;
         }
-        return props?.quantity;
+        if (variantProduct) {
+          return variantProduct._qte_a_terme_calcule;
+        }
+        return props?._qte_a_terme_calcule || props?.quantity;
       };
 
       // Calculate new quantity
@@ -464,7 +503,13 @@ export const AuthContextProvider = (props) => {
         } else {
           const response = await axios.post(
             `${import.meta.env.VITE_TESTING_API}/cart?ecom_type=sofiaco`,
-            { ...props, article_id: props.id, quantity: newQty, user_id: user.id, b_usr_article_variant_combination_id: props?.article_variant_combination?.id }
+            {
+              ...articlePayload,
+              article_id: articlePayload.id,
+              quantity: newQty,
+              user_id: user.id,
+              b_usr_article_variant_combination_id: props?.article_variant_combination?.id,
+            }
           );
           dispatch(addTocart({ ...response.data.data, article_variant_combination: props.article_variant_combination }));
         }
@@ -495,6 +540,7 @@ export const AuthContextProvider = (props) => {
         theme: "colored",
       });
     } finally {
+      isAddingToCartRef.current = false;
       setIsLoading(false);
     }
   };
@@ -750,8 +796,8 @@ export const AuthContextProvider = (props) => {
             favtitle: props.designation,
             favrate: props.average_rate,
             favauthor: props.dc_auteur,
-            favimage: props.articleimage[0]?.link
-              ? props.articleimage[0].link
+            favimage: props.articleimage?.[0]?.link
+              ? props.articleimage?.[0].link
               : bookPlaceHolder,
             favprice: props.prixpublic,
             _qte_a_terme_calcule: props._qte_a_terme_calcule,

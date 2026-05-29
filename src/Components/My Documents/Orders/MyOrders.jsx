@@ -10,7 +10,7 @@ import EmptyCart from "../../../assets/EmptyOrder.png";
 
 import { Button, DatePicker } from "antd";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import CommonCard from "../Common Card/CommonCard";
 import AuthContext from "../../Common/authContext";
 import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";

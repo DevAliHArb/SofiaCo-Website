@@ -16,7 +16,7 @@ import {
   increamentQuantity, changeQuantity,
   addTocart
 } from "../redux/productSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import DeleteIcon from "../../../assets/DeleteIcon.svg";
 import { Rate , Input} from "antd";
 import { FaRegHeart } from "react-icons/fa";

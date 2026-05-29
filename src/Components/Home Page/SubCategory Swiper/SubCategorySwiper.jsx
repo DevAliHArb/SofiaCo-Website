@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import placeholder from '../../../assets/subcategoryplaceholder.png';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import AuthContext from "../../Common/authContext";
 
 import { useDispatch, useSelector } from "react-redux";

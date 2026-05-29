@@ -10,7 +10,7 @@ import { FcEditImage } from "react-icons/fc";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import axios from "axios";
 import data from '../../../../Data.json'
 

@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import './App.css';
 import Navbar from './Components/Common/Navbar Section/Navbar';
-import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { useNavigate } from "@hooks/useNavigate";
 
 import { ToastContainer } from 'react-toastify';
 import Footer from './Components/Common/Footer Section/Footer';
@@ -33,6 +34,7 @@ import ContactUs from './Components/ContactUs/ContactUs';
 import SuccessPage from './Components/CheckOut Page/SuccessPage';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import { Helmet } from 'react-helmet-async';
 import { removeUser } from './Components/Common/redux/productSlice';
 import ErrorPage from './Components/Common/ErrorPage';
 import AuthContext from './Components/Common/authContext';
@@ -42,6 +44,29 @@ import ForgotPassword from './Components/Auth Pages/Forgot Password/ForgotPasswo
 import PublisherDetails from './Components/Collaborators/Publisher DetailsPage/PublisherDetails';
 import ResendVerify from './Components/Auth Pages/Verfiy Email/ResendVerify';
 import AddCartPopup from './Components/Common Components/Add To Cart Popup/AddCartPopup';
+
+
+
+const SEO_ROUTE_SECTION_MAP = [
+  { test: (pathname) => pathname === '/' || pathname === '/main', sectionId: 27 },
+  { test: (pathname) => pathname.startsWith('/main/products') || pathname.startsWith('/main/productdetails') || pathname.startsWith('/products'), sectionId: 30 },
+  { test: (pathname) => pathname.startsWith('/bestsellers'), sectionId: 49 },
+  { test: (pathname) => pathname.startsWith('/nouveautes'), sectionId: 48 },
+  { test: (pathname) => pathname.startsWith('/main/events') || pathname.startsWith('/events') || pathname.startsWith('/eventdetails'), sectionId: 29 },
+  { test: (pathname) => pathname.startsWith('/main/about') || pathname.startsWith('/about-us'), sectionId: 28 },
+  { test: (pathname) => pathname.startsWith('/main/contact') || pathname.startsWith('/contactus'), sectionId: 31 },
+  { test: (pathname) => pathname.startsWith('/blogs') || pathname.startsWith('/blogdetails') || pathname.startsWith('/add-blog') || pathname.startsWith('/edit-blog'), sectionId: 8 },
+  { test: (pathname) => pathname.startsWith('/main/collections') || pathname.startsWith('/collections') || pathname.startsWith('/collection-details'), sectionId: 26 },
+  { test: (pathname) => pathname.startsWith('/main/collaborators') || pathname.startsWith('/main/brands') || pathname.startsWith('/collaborators') || pathname.startsWith('/collaborator') || pathname.startsWith('/brands'), sectionId: 56 },
+  { test: (pathname) => pathname.startsWith('/main/cart') || pathname.startsWith('/cart'), sectionId: 11 },
+  { test: (pathname) => pathname.startsWith('/main/checkout') || pathname.startsWith('/main/checkout-completed') || pathname.startsWith('/checkout') || pathname.startsWith('/order-success'), sectionId: 12 },
+  { test: (pathname) => pathname.startsWith('/main/wishlist') || pathname.startsWith('/wishlist'), sectionId: 55 },
+  { test: (pathname) => pathname.startsWith('/compare'), sectionId: 14 },
+  { test: (pathname) => pathname.startsWith('/account') || pathname.startsWith('/my-documents') || pathname.startsWith('/affiliate') || pathname.startsWith('/refund_return') || pathname.startsWith('/add_refund_return'), sectionId: 15 },
+  { test: (pathname) => pathname.startsWith('/ordertracking') || pathname.startsWith('/followorder') || pathname.startsWith('/review') || pathname.startsWith('/track-order'), sectionId: 16 },
+  { test: (pathname) => pathname.startsWith('/main/policies') || pathname.startsWith('/legal-information'), sectionId: 57 },
+  { test: (pathname) => pathname.startsWith('/login') || pathname.startsWith('/register') || pathname.startsWith('/forget-password') || pathname.startsWith('/reset-password') || pathname.startsWith('/verify-email') || pathname.startsWith('/resend-verify-email'), sectionId: 18 },
+];
 
 function App() {
   const authCtx = useContext(AuthContext)
@@ -54,6 +79,7 @@ function App() {
   const path = location.pathname;
   const [isAuthPages, setIsAuthPages] = useState(false);
   const [withBG, setWithBG] = useState(false);
+  const [pageMetaData, setPageMetaData] = useState({});
 
   useEffect(() => {
     // console.log('Current path:', path);
@@ -67,6 +93,14 @@ function App() {
       setWithBG(false);
     }
   }, [path]);
+
+  
+ const normalizeMetaValue = (value) => (typeof value === 'string' ? value.trim() : '');
+
+ const getSectionIdForPath = (pathname) => {
+  const matchedRoute = SEO_ROUTE_SECTION_MAP.find((route) => route.test(pathname));
+  return matchedRoute?.sectionId ?? null;
+ };
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -135,8 +169,54 @@ function App() {
   //   }
   // },[user])
 
+  
+ useEffect(() => {
+  const sectionId = getSectionIdForPath(path);
+
+  if (!sectionId) {
+    setPageMetaData({});
+    return;
+  }
+
+  let isMounted = true;
+
+  const fetchMetaData = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/seo-meta?ecom_type=sofiaco&section_id=${sectionId}`);
+      if (isMounted) {
+        setPageMetaData(response?.data?.data?.[0] || {});
+        console.log('Fetched meta data:', response?.data?.data?.[0]);
+      }
+    } catch (error) {
+      if (isMounted) {
+        setPageMetaData({});
+      }
+      console.error('Error fetching meta data:', error);
+    }
+  };
+
+  fetchMetaData();
+
+  return () => {
+    isMounted = false;
+  };
+ }, [path]);
+
+ const metaTitle = normalizeMetaValue(pageMetaData?.meta_title);
+ const metaDescription = normalizeMetaValue(pageMetaData?.meta_description);
+ const keyword = normalizeMetaValue(pageMetaData?.keyword);
+ const secondaryKeyword = normalizeMetaValue(pageMetaData?.secondary_keyword);
+ const longTrainText = normalizeMetaValue(pageMetaData?.long_train_text);
+
   return (
     <div className={withBG ? 'App1' : 'App'}>
+      <Helmet>
+        {metaTitle && <title>{metaTitle}</title>}
+        {metaDescription && <meta name="description" content={metaDescription} />}
+        {keyword && <meta name="keyword" content={keyword} />}
+        {secondaryKeyword && <meta name="secondary_keyword" content={secondaryKeyword} />}
+        {longTrainText && <meta name="long_train_text" content={longTrainText} />}
+      </Helmet>
       {!isAuthPages && <Navbar toggle={toggle} cartToggle={cartToggle} />}
       <CartSidebar isOpen={cartisOpen} toggle={cartToggle} />
       <SideBar isOpen={isOpen} toggle={toggle} />

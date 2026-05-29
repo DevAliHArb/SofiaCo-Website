@@ -4,7 +4,7 @@ import Img from "../../../assets/ConfirmIcon.png";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import { Button } from "antd";
 
 

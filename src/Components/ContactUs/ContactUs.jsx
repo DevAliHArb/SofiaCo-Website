@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import classes from "./ContactUs.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@hooks/useNavigate";
 import axios from "axios";
 import data from "../../Data.json";
 import { Button, Radio, Select , Form, Input } from 'antd';

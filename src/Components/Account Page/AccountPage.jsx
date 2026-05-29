@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import classes from './AccountPage.module.css'
 
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
+import { useNavigate } from "@hooks/useNavigate";
 import AccountDetails from './Account Profile Page/Account Details/AccountDetails';
 import Adresses from './Account Profile Page/Addresses/Adresses';
 import Payment from './Account Profile Page/Payment/Payment';
