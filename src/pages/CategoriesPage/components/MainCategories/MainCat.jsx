@@ -1,22 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
-// Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 import classes from './MainCat.module.css';
 import { IoMdArrowBack } from 'react-icons/io';
-
-// import required modules
 import { FreeMode, Navigation } from 'swiper/modules';
-import AuthContext from '../../authContext';
-import allcatw from "../../../../assets/icons/all-cat-w.svg";
-import allcat from "../../../../assets/icons/all-cat.svg";
-import { useNavigate } from "@hooks/useNavigate";
-import { addSelectedCategory, resetSearchData } from '../../redux/productSlice';
+import { useNavigate } from '@hooks/useNavigate';
+import { addSelectedCategory, resetSearchData } from '../../../../Components/Common/redux/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import AuthContext from '../../../../Components/Common/authContext';
 
 // Helper function to slugify and sanitize text
 const slugify = (text, placeholder = 'product') => {
@@ -31,25 +24,29 @@ const slugify = (text, placeholder = 'product') => {
     .replace(/^-+|-+$/g, '');
 };
 
-const MainCat = () => {
+const MainCat = ({ categoryData }) => {
   const authCtx = useContext(AuthContext);
+  const language = useSelector((state) => state.products.selectedLanguage[0].Language);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [selectedCategoryRoute, setSelectedCategoryRoute] = useState('');
-  const [initialSlide, setInitialSlide] = useState(0); // Initialize the state for initialSlide
+  const [initialSlide, setInitialSlide] = useState(0);
   const selectedCategoryId = useSelector((state) => state.products.selectedCategoryId);
   
+  const categoriesToShow = authCtx?.articleFamille?.filter(
+    (item) => Number(item.b_usr_parentcategorie_id) === Number(categoryData?.id)
+  );
+
   useEffect(() => {
     const selectedCategoryId = localStorage.getItem('route');
     setSelectedCategoryRoute(selectedCategoryId ? selectedCategoryId : '/main');
     
-    // Set the initialSlide index based on localStorage route value
     if (selectedCategoryId) {
       const selectedIndex = authCtx.articleFamilleParents?.findIndex(item => item.route === selectedCategoryId);
-      setInitialSlide(selectedIndex !== -1 ? selectedIndex + 1 : 0); // Adjust index to account for the 'All Categories' item
+      setInitialSlide(selectedIndex !== -1 ? selectedIndex + 1 : 0);
     }
   }, []);
-  
+
   const handleCategoryClick = (id, name) => {
     dispatch(resetSearchData());
     localStorage.removeItem("subCategories");
@@ -58,23 +55,32 @@ const MainCat = () => {
     localStorage.removeItem("categories");
     localStorage.removeItem("collections");
     
-    // Add parentcategorie_id to parentCategories in localStorage
-    const parentCategories = JSON.parse(localStorage.getItem("parentCategories")) || [];
-    if (!parentCategories.includes(id)) {
-      parentCategories.push(id);
-      localStorage.setItem("parentCategories", JSON.stringify(parentCategories));
+    const subCategories = JSON.parse(localStorage.getItem("subCategories")) || [];
+    if (!subCategories.includes(id)) {
+      subCategories.push(id);
+      localStorage.setItem("subCategories", JSON.stringify(subCategories));
     }
     
-    dispatch(addSelectedCategory(id === null ? null : String(id)));
+    const slugCat = slugify(categoryData?.type_nom || categoryData?.nom);
     const slug = slugify(name);
-    navigate(`/main/cp/${slug}/${id}`);
+    navigate(`/main/cp/${slugCat}/${slug}/${id}`);
   };
-  
+
+  if (!categoriesToShow || categoriesToShow.length === 0) {
+    return null;
+  }
+
   return (
     <div className={classes.swiper_con}>
+      <div className={classes.header}>
+        <div className={classes.headtitle} style={{ margin: "auto" }}>
+          <h1 style={{ textAlign: "center" }}>
+            {categoryData.sub_cat_section_title || (language === 'eng' ? "Sub Categories" : "Sous-Catégories")}
+          </h1>
+        </div>
+      </div>
       <Swiper
         spaceBetween={20}
-        effect="fade"
         initialSlide={initialSlide}
         navigation={{
           nextEl: `.${classes.navButton_next}`,
@@ -86,37 +92,36 @@ const MainCat = () => {
             slidesPerView: 3,
           },
           951: {
-            slidesPerView: 4,
+            slidesPerView: 5,
           },
           1200: {
-            slidesPerView: 6,
+            slidesPerView: 7,
           },
         }}
         className={classes.swiper}
       >
-        {authCtx.articleFamilleParents?.map((item, index) => {
-          return (
-            <SwiperSlide
-              className={classes.swiper_slide}
-              onClick={() => handleCategoryClick(item.id, item.nom)}
-              key={index}
-            >
-              <div className={classes.iconCont}
-                style={{
-                  background: Number(selectedCategoryId) === Number(item?.id) ? '#E3BA72' : '#FFF4E1',
-                }}>
+        {categoriesToShow.map((item, index) => (
+          <SwiperSlide
+            className={classes.swiper_slide}
+            onClick={() => handleCategoryClick(item.id, item.type_nom || item.nom)}
+            key={index}
+          >
+            <div className={classes.iconCont}>
+              {item?.dark_image ? (
                 <img
-                  src={Number(selectedCategoryId) === Number(item?.id) ? (item?.light_image || allcatw) : (item?.dark_image || allcat)}
+                  src={item.dark_image}
                   alt={item?.nom || ''}
                   className={classes.icon}
                 />
-              </div>
-              <p style={{ color:'#111' }}>
-                {item?.nom} 
-              </p>
-            </SwiperSlide>
-          );
-        })}
+              ) : (
+                <div className={classes.iconPlaceholder}>
+                  {(item?.type_nom || item?.nom)?.charAt(0)?.toUpperCase()}
+                </div>
+              )}
+            </div>
+            <h3>{item?.type_nom || item?.nom}</h3>
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );
