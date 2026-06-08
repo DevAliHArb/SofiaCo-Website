@@ -15,7 +15,7 @@ import Modal from '@mui/material/Modal';
 import { Row, Col, Button, Checkbox, Form, Input } from 'antd';
 import StarIcon from '@mui/icons-material/Star';
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
-import bookPlaceHolder from '../../../../assets/bookPlaceholder.png';
+import bookPlaceholder from '../../../../assets/bookPlaceholder.png';
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -185,7 +185,7 @@ const Review = ({props}) => {
           <>
           <div className={classes.content}>
             <div className={classes.imgContainer} onClick={()=>console.log(reviewData)}>
-              <img src={item.article.articleimage?.[0]?.link ? item.article.articleimage?.[0].link : bookPlaceHolder} alt={item.article.articleimage?.[0]?.type} style={{width:'100%',height:'100%',objectFit:'contain',margin:"auto"}} />
+              <img src={item.article.articleimage?.[0]?.link ? item.article.articleimage?.[0].link : bookPlaceholder} alt={item.article.articleimage?.[0]?.type} style={{width:'100%',height:'100%',objectFit:'contain',margin:"auto"}} />
 
             </div>
               <div className={classes.btn_con}>

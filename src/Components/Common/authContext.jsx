@@ -15,7 +15,7 @@ import {
   resetfavorite,
   removeUser,
 } from "./redux/productSlice";
-import bookPlaceHolder from "../../assets/bookPlaceholder.png";
+import bookPlaceholder from "../../assets/bookPlaceholder.png";
 
 const AuthContext = React.createContext({
   selectedcurrency: {},
@@ -73,6 +73,11 @@ const AuthContext = React.createContext({
 
   societeConfig: [],
   setSocieteConfig: () => {},
+
+  articleFamilleParents: [],
+  articleFamille: [],
+  allarticleFamille: [],
+  subsubCategories: [],
 });
 
 export const AuthContextProvider = (props) => {
@@ -100,6 +105,8 @@ export const AuthContextProvider = (props) => {
   const [countries, setCountries] = useState([]);
   const [articleFamilleParents, setArticleFamilleParents] = useState([]);
   const [articleFamille, setArticleFamille] = useState([]);
+  const [allarticleFamille, setAllarticleFamille] = useState([]);
+  const [subsubCategories, setSubsubCategories] = useState([]);
   const [addtocartPopupOpen, setaddtocartPopupOpen] = useState(false);
   const [addtocartPopupId, setaddtocartPopupId] = useState(null);
   const dispatch = useDispatch();
@@ -153,7 +160,7 @@ export const AuthContextProvider = (props) => {
               author: cartItem.article.dc_auteur,
               image: cartItem.article.articleimage?.[0]?.link
                 ? cartItem.article.articleimage?.[0].link
-                : bookPlaceHolder,
+                : bookPlaceholder,
               price: cartItem.article.prixpublic,
               _qte_a_terme_calcule: cartItem.article?._qte_a_terme_calcule,
               discount: cartItem.discount,
@@ -193,7 +200,7 @@ export const AuthContextProvider = (props) => {
               favauthor: favtItem.article.dc_auteur,
               favimage: favtItem.article.articleimage?.[0]?.link
                 ? favtItem.article.articleimage?.[0].link
-                : bookPlaceHolder,
+                : bookPlaceholder,
               favprice: favtItem.article.prixpublic,
               _qte_a_terme_calcule: favtItem.article?._qte_a_terme_calcule,
               favdescription: favtItem.article.descriptif,
@@ -218,6 +225,7 @@ export const AuthContextProvider = (props) => {
         `${import.meta.env.VITE_TESTING_API}/article-famille-parents?ecom_type=sofiaco`
       );
 
+      response?.data?.sort((a, b) => (a.nom || '').localeCompare(b.nom || ''));
       setArticleFamilleParents(response.data);
     } catch (error) {
       // console.error('Error fetching articles:', error);
@@ -235,9 +243,34 @@ export const AuthContextProvider = (props) => {
         `${import.meta.env.VITE_TESTING_API}/article-famille?ecom_type=sofiaco${selectedarticleFamilleId}`
       );
 
+      response?.data?.sort((a, b) => (a.type_nom || '').localeCompare(b.type_nom || ''));
       setArticleFamille(response.data);
     } catch (error) {
       // console.error('Error fetching articles:', error);
+    }
+  };
+
+  const fetchAllArticleFamille = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_TESTING_API}/article-famille?ecom_type=sofiaco`
+      );
+
+      setAllarticleFamille(response.data);
+    } catch (error) {
+      // console.error('Error fetching all article famille:', error);
+    }
+  };
+
+  const fetchSubSubCat = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_TESTING_API}/article-sous-categories?ecom_type=sofiaco`
+      );
+      response?.data?.sort((a, b) => (a.nom || '').localeCompare(b.nom || ''));
+      setSubsubCategories(response.data);
+    } catch (error) {
+      // console.error('Error fetching sub-subcategories:', error);
     }
   };
   const fetchArticles = async () => {
@@ -287,7 +320,7 @@ export const AuthContextProvider = (props) => {
   
     const fetchCollabTypes = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/collaborators/types?ecom_type=hanoot`);
+        const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/collaborators/types?ecom_type=sofiaco`);
         setCollaboratorsTypes(response.data);
       } catch (error) {
         // console.error('Error fetching collaborator types:', error);
@@ -328,11 +361,13 @@ export const AuthContextProvider = (props) => {
 
   const fetchPublishers = async () => {
     try {
-      const response = await axios.get(
-        `${
-          import.meta.env.VITE_TESTING_API
-        }/publishers?ecom_type=sofiaco&user_id=${user?.id ? user.id : null}`
-      );
+      // If a category is selected, include it in the publishers request so we get publishers
+      // related to that article famille parent. Otherwise fetch all publishers.
+      let url = `${import.meta.env.VITE_TESTING_API}/publishers?ecom_type=sofiaco`;
+      if (selectedCategoryId !== null && selectedCategoryId !== 'null') {
+        url += `&articlefamilleparent_id=${encodeURIComponent(selectedCategoryId)}`;
+      }
+      const response = await axios.get(url);
       const sorteddata = [...response.data].sort((a, b) =>
         a.title.localeCompare(b.title)
       );
@@ -798,7 +833,7 @@ export const AuthContextProvider = (props) => {
             favauthor: props.dc_auteur,
             favimage: props.articleimage?.[0]?.link
               ? props.articleimage?.[0].link
-              : bookPlaceHolder,
+              : bookPlaceholder,
             favprice: props.prixpublic,
             _qte_a_terme_calcule: props._qte_a_terme_calcule,
             discount: props.discount,
@@ -983,6 +1018,8 @@ export const AuthContextProvider = (props) => {
       await checkUserLoggedIn();
       fetchArticleFamilleParents();
       fetchArticleFamille();
+      fetchAllArticleFamille();
+      fetchSubSubCat();
       fetchArticles();
       fetchCategories();
       fetchCollabTypes();
@@ -998,6 +1035,10 @@ export const AuthContextProvider = (props) => {
 
     initializeApp();
   }, []);
+
+  useEffect(() => {
+    fetchPublishers();
+  }, [selectedCategoryId]);
 
   const contextValue = {
     editors,
@@ -1054,6 +1095,10 @@ export const AuthContextProvider = (props) => {
     articleFamilleParents,
 
     articleFamille,
+
+    allarticleFamille,
+
+    subsubCategories,
 
     
     addtocartPopupOpen,

@@ -44,6 +44,9 @@ import ForgotPassword from './Components/Auth Pages/Forgot Password/ForgotPasswo
 import PublisherDetails from './Components/Collaborators/Publisher DetailsPage/PublisherDetails';
 import ResendVerify from './Components/Auth Pages/Verfiy Email/ResendVerify';
 import AddCartPopup from './Components/Common Components/Add To Cart Popup/AddCartPopup';
+import CategoriesPage from './pages/CategoriesPage';
+import SubCategoriesPage from './pages/SubCategoriesPage';
+import SubSubCategoriesPage from './pages/SubSubCategoriesPage';
 
 
 
@@ -254,6 +257,9 @@ function App() {
           <Route path="/main/products" element={<ScrollToTop><BooksPage /></ScrollToTop>} />
           <Route path="/main/products/subcategory/:id" element={<ScrollToTop><BooksPage /></ScrollToTop>} />
           <Route path="/main/productdetails/:id" element={<ScrollToTop><BookDetailsPage cartToggle={cartToggle} /></ScrollToTop>} />
+          <Route path="/main/cp/:catname/:catId" element={<ScrollToTop><CategoriesPage /></ScrollToTop>} />
+          <Route path="/main/cp/:catname/:subcatname/:id" element={<ScrollToTop><SubCategoriesPage /></ScrollToTop>} />
+          <Route path="/main/cp/:catname/:subcatname/:subsubcatname/:id" element={<ScrollToTop><SubSubCategoriesPage /></ScrollToTop>} />
           <Route path="/account/:pageId/*" element={user ? <ScrollToTop><AccountPage /></ScrollToTop> : <Navigate to="/login" replace />} />
           <Route path="/my-documents/:pageId" element={user ? <ScrollToTop><MyDocumentsPage /></ScrollToTop> : <Navigate to="/login" replace />} />
           <Route path="/main/policies" element={<ScrollToTop><Mentions /></ScrollToTop>} />

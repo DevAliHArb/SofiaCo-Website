@@ -44,19 +44,124 @@ export default function SideBar({ toggle, isOpen }) {
   const [parents, setParents] = useState([]);
   const [subparents, setSubparents] = useState([]);
   const [childrens, setChildrens] = useState([]);
+  const [expandedParents, setExpandedParents] = useState({});
+  const [expandedSubCategories, setExpandedSubCategories] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const authCtx = useContext(AuthContext);
   const [catChemin, setCatChemin] = useState("");
 
-    // For LanCurrSelect categories
-    const articleFamille = authCtx.articleFamilleParents || [];
-    // Handler for category click (same as LanCurrSelect)
+  // Helper function to slugify and sanitize text
+  const slugify = (text, placeholder = 'product') => {
+    if (!text || text.trim() === '') return placeholder;
+    return text
+      .toString()
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  };
+
+  // For category navigation
+  const articleFamilleParents = authCtx.articleFamilleParents || [];
+  const articleFamille = authCtx.articleFamille || [];
+  const categories = authCtx.categories || [];
+  
+  // Handler for parent category click
+  const handleParentCategoryClick = (id, name) => {
+    dispatch(resetSearchData());
+    localStorage.removeItem("subCategories");
+    localStorage.removeItem("parentCategories");
+    localStorage.removeItem("publishers");
+    localStorage.removeItem("categories");
+    localStorage.removeItem("collections");
+    
+    const parentCategories = JSON.parse(localStorage.getItem("parentCategories")) || [];
+    if (!parentCategories.includes(id)) {
+      parentCategories.push(id);
+      localStorage.setItem("parentCategories", JSON.stringify(parentCategories));
+    }
+    
+    dispatch(addSelectedCategory(String(id)));
+    const slug = slugify(name);
+    navigate(`/main/cp/${slug}/${id}`);
+    toggle();
+  };
+
+  // Handler for subcategory click
+  const handleSubCategoryClick = (parentId, parentName, id, name) => {
+    dispatch(resetSearchData());
+    localStorage.removeItem("subCategories");
+    localStorage.removeItem("parentCategories");
+    localStorage.removeItem("publishers");
+    localStorage.removeItem("categories");
+    localStorage.removeItem("collections");
+    
+    const subCategories = JSON.parse(localStorage.getItem("subCategories")) || [];
+    if (!subCategories.includes(id)) {
+      subCategories.push(id);
+      localStorage.setItem("subCategories", JSON.stringify(subCategories));
+    }
+    
+    const slugParent = slugify(parentName);
+    const slug = slugify(name);
+    navigate(`/main/cp/${slugParent}/${slug}/${id}`);
+    toggle();
+  };
+
+  // Handler for subsubcategory click
+  const handleSubSubCategoryClick = (parentId, parentName, subId, subName, id, name) => {
+    dispatch(resetSearchData());
+    localStorage.removeItem("subCategories");
+    localStorage.removeItem("parentCategories");
+    localStorage.removeItem("publishers");
+    localStorage.removeItem("categories");
+    localStorage.removeItem("collections");
+    
+    const categories = JSON.parse(localStorage.getItem("categories")) || [];
+    if (!categories.includes(id)) {
+      categories.push(id);
+      localStorage.setItem("categories", JSON.stringify(categories));
+    }
+    
+    const slugParent = slugify(parentName);
+    const slugSub = slugify(subName);
+    const slug = slugify(name);
+    navigate(`/main/cp/${slugParent}/${slugSub}/${slug}/${id}`);
+    toggle();
+  };
+
+    // Handler for old category navigation (keeping for compatibility)
     const handleCategoryMobClick = (route, id) => {
-      // localStorage.setItem('route', route || 'all');
       dispatch(addSelectedCategory( id === null ? null : String(id) ));
       toggle();
     };
+
+    // Toggle functions for expanding/collapsing
+    const toggleParentExpand = (parentId) => {
+      setExpandedParents((prev) => ({
+        ...prev,
+        [parentId]: !prev[parentId],
+      }));
+    };
+
+    const toggleSubCategoryExpand = (subCategoryId) => {
+      setExpandedSubCategories((prev) => ({
+        ...prev,
+        [subCategoryId]: !prev[subCategoryId],
+      }));
+    };
+
+    // Helper functions to get subcategories and sub-subcategories
+    const getSubcategories = (parentId) =>
+      articleFamille.filter((item) => Number(item.b_usr_parentcategorie_id) === Number(parentId));
+
+    const getChildSubcategories = (subCategoryId) =>
+      categories.filter(
+        (item) => Number(item.b_usr_articlecategorie_id) === Number(subCategoryId)
+      );
 
   
   const getToken = () => {
@@ -332,9 +437,9 @@ function TreeNode({ data, level, fetchArticles }) {
 
 
           {/* New categoriesmob div for LanCurrSelect categories with open/close dropdown */}
-          <div className={classes.categoriesmob} style={{margin: '1em 0'}}>
+          <div style={{margin: '1em 0',display: 'flex', flexDirection: 'column', width: '100%'}}>
             <h2
-              onClick={() => setcatisopen(!catopen)}
+              onClick={() => setcatisopen(!catopen)}className={classes.text}
                style={
                         catopen
                           ? {
@@ -363,19 +468,101 @@ function TreeNode({ data, level, fetchArticles }) {
               )}
             </h2>
             {catopen && (
-              <div className={classes.dropdown} style={{width:"100%"}}>
+              <div className={classes.dropdown} style={{width:"90%",marginleft:"auto"}}>
                 {/* All category */}
                 <div style={{display: 'flex', alignItems: 'center', gap: '0.7em', cursor: 'pointer', padding: '0.7em 0'}} onClick={() => handleCategoryMobClick('/', null)}>
                   <TbCategory style={{fontSize:'1.5em', color:'var(--primary-color)'}}/>
-                  <span style={{color:'#111', fontWeight: 54000}}>{language === 'eng' ? 'All' : 'Tous'}</span>
+                  <span style={{color:'#111', fontWeight: 400}}>{language === 'eng' ? 'All' : 'Tous'}</span>
                 </div>
-                {/* Render each category from articleFamille */}
-                {authCtx.articleFamilleParents?.map(item => (
-                  <div key={item.id} style={{display: 'flex', alignItems: 'center', gap: '0.7em', cursor: 'pointer', padding: '0.7em 0'}} onClick={() => handleCategoryMobClick(item.route, item.id)}>
-                    <img src={item?.dark_image ? item?.dark_image : allcat} alt="" style={{width:'1.4em'}}/>
-                    <span style={{color:'#111', fontWeight: 400,textTransform: 'capitalize'}}>{item?.nom}</span>
-                  </div>
-                ))}
+                {/* Render each category from articleFamilleParents with expandable subcategories */}
+                {authCtx.articleFamilleParents
+                  ?.slice()
+                  .sort((a, b) => ((a.nom || '')).localeCompare((b.nom || '')))
+                  .map((item) => {
+                    const isExpanded = !!expandedParents[item.id];
+                    const subcategories = getSubcategories(item.id);
+                    return (
+                      <div key={item.id} style={{padding: '0.7em 0'}}>
+                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.7em'}}>
+                          <div
+                            style={{display: 'flex', alignItems: 'center', gap: '0.7em', cursor: 'pointer'}}
+                            onClick={() => handleParentCategoryClick(item.id, item.nom)}
+                          >
+                            <img src={item?.dark_image ? item?.dark_image : allcat} alt="" style={{width:'1.4em'}}/>
+                            <span style={{color:'#111', fontWeight: 400, textTransform: 'capitalize'}}>{item?.nom}</span>
+                          </div>
+                          {subcategories.length > 0 && (
+                            <span
+                              style={{display: 'flex', alignItems: 'center', cursor: 'pointer', marginLeft: 'auto'}}
+                              onClick={() => toggleParentExpand(item.id)}
+                            >
+                              <IoIosArrowDown
+                                style={{
+                                  color: 'var(--primary-color)',
+                                  transform: isExpanded ? 'rotate(180deg)' : 'rotate(-90deg)',
+                                  transition: 'transform 0.2s ease',
+                                }}
+                              />
+                            </span>
+                          )}
+                        </div>
+                        {isExpanded && subcategories.length > 0 && (
+                          <div style={{paddingLeft: '2.2em', display: 'flex', flexDirection: 'column', gap: '0.5em', marginTop: '0.4em'}}>
+                            {subcategories
+                              .slice()
+                              .sort((a, b) => ((a.type_nom || a.nom || '')).localeCompare((b.type_nom || b.nom || '')))
+                              .map((sub) => {
+                                const isSubExpanded = !!expandedSubCategories[sub.id];
+                                const childSubcategories = getChildSubcategories(sub.id);
+                                return (
+                                  <div key={sub.id} style={{display: 'flex', flexDirection: 'column', gap: '0.3em'}}>
+                                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                                      <span
+                                        style={{color: '#111', fontWeight: 400, textTransform: 'capitalize', cursor: 'pointer', fontSize: '0.95em'}}
+                                        onClick={() => handleSubCategoryClick(item.id, item.nom, sub.id, sub.type_nom || sub.nom)}
+                                      >
+                                        {sub.type_nom || sub.nom}
+                                      </span>
+                                      {childSubcategories.length > 0 && (
+                                        <span
+                                          style={{display: 'flex', alignItems: 'center', cursor: 'pointer', marginLeft: 'auto'}}
+                                          onClick={() => toggleSubCategoryExpand(sub.id)}
+                                        >
+                                          <IoIosArrowDown
+                                            style={{
+                                              color: 'var(--primary-color)',
+                                              fontSize: '0.9em',
+                                              transform: isSubExpanded ? 'rotate(180deg)' : 'rotate(-90deg)',
+                                              transition: 'transform 0.2s ease',
+                                            }}
+                                          />
+                                        </span>
+                                      )}
+                                    </div>
+                                    {isSubExpanded && childSubcategories.length > 0 && (
+                                      <div style={{paddingLeft: '1.5em', display: 'flex', flexDirection: 'column', gap: '0.3em'}}>
+                                        {childSubcategories
+                                          .slice()
+                                          .sort((a, b) => ((a.nom || '')).localeCompare((b.nom || '')))
+                                          .map((child) => (
+                                            <span
+                                              key={child.id}
+                                              style={{color: '#555', fontWeight: 400, textTransform: 'capitalize', cursor: 'pointer', fontSize: '0.9em'}}
+                                              onClick={() => handleSubSubCategoryClick(item.id, item.nom, sub.id, sub.type_nom || sub.nom, child.id, child.nom)}
+                                            >
+                                              {child.nom}
+                                            </span>
+                                          ))}
+                                      </div>
+                                    )}
+                                  </div>
+                                );
+                              })}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
               </div>
             )}
           </div>
