@@ -20,7 +20,7 @@ const CatHero = ({ categoryData }) => {
     // Check for type_nom (subcategory) or nom (category/subsubcategory)
     return categoryData?.type_nom || categoryData?.nom || "";
   };
-
+ 
   return (
     <>
       <div className={classes.home_container} style={{ position: "relative" }}>

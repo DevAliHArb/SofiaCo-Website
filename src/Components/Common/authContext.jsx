@@ -15,7 +15,7 @@ import {
   resetfavorite,
   removeUser,
 } from "./redux/productSlice";
-import bookPlaceHolder from "../../assets/bookPlaceholder.png";
+import bookPlaceholder from "../../assets/bookPlaceholder.png";
 
 const AuthContext = React.createContext({
   selectedcurrency: {},
@@ -160,7 +160,7 @@ export const AuthContextProvider = (props) => {
               author: cartItem.article.dc_auteur,
               image: cartItem.article.articleimage?.[0]?.link
                 ? cartItem.article.articleimage?.[0].link
-                : bookPlaceHolder,
+                : bookPlaceholder,
               price: cartItem.article.prixpublic,
               _qte_a_terme_calcule: cartItem.article?._qte_a_terme_calcule,
               discount: cartItem.discount,
@@ -200,7 +200,7 @@ export const AuthContextProvider = (props) => {
               favauthor: favtItem.article.dc_auteur,
               favimage: favtItem.article.articleimage?.[0]?.link
                 ? favtItem.article.articleimage?.[0].link
-                : bookPlaceHolder,
+                : bookPlaceholder,
               favprice: favtItem.article.prixpublic,
               _qte_a_terme_calcule: favtItem.article?._qte_a_terme_calcule,
               favdescription: favtItem.article.descriptif,
@@ -833,7 +833,7 @@ export const AuthContextProvider = (props) => {
             favauthor: props.dc_auteur,
             favimage: props.articleimage?.[0]?.link
               ? props.articleimage?.[0].link
-              : bookPlaceHolder,
+              : bookPlaceholder,
             favprice: props.prixpublic,
             _qte_a_terme_calcule: props._qte_a_terme_calcule,
             discount: props.discount,

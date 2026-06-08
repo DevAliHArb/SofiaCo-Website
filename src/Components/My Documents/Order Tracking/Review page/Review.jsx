@@ -15,7 +15,7 @@ import Modal from '@mui/material/Modal';
 import { Row, Col, Button, Checkbox, Form, Input } from 'antd';
 import StarIcon from '@mui/icons-material/Star';
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
-import bookPlaceHolder from '../../../../assets/bookPlaceholder.png';
+import bookPlaceholder from '../../../../assets/bookPlaceholder.png';
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -169,7 +169,7 @@ const Review = ({props}) => {
           <>
           <div className={classes.content}>
             <div className={classes.imgContainer}>
-              <img src={item.article.articleimage?.[0]?.link ? item.article.articleimage?.[0].link : bookPlaceHolder} alt={item.article.articleimage?.[0]?.type} style={{width:'100%',objectFit:'contain'}}/>
+              <img src={item.article.articleimage?.[0]?.link ? item.article.articleimage?.[0].link : bookPlaceholder} alt={item.article.articleimage?.[0]?.type} style={{width:'100%',objectFit:'contain'}}/>
                 <div className={classes.bookName}>
                   <h3 className={classes.imgContainerh3}>{item.article.designation}</h3>
                   <h3 className={classes.imgContainerh3} style={{fontWeight:'400'}}>{item.article.dc_auteur}</h3>

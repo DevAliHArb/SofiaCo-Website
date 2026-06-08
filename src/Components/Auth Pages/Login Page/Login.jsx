@@ -11,7 +11,7 @@ import './styles.css'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { addInitialcart, addTofavorite, addUser } from '../../Common/redux/productSlice';
-import bookPlaceHolder from '../../../assets/bookPlaceholder.png'
+import bookPlaceholder from '../../../assets/bookPlaceholder.png'
 import DragPuzzleCaptcha from "drag-puzzle-captcha";
 import "drag-puzzle-captcha/DragPuzzleCaptcha.css";
 
@@ -138,7 +138,7 @@ const onFinish = async () => {
           title: cartItem.article.designation,
           author: cartItem.article.dc_auteur,
           average_rate: cartItem.average_rate,
-          image: cartItem.article.articleimage?.[0]?.link ? cartItem.article.articleimage?.[0].link : bookPlaceHolder,
+          image: cartItem.article.articleimage?.[0]?.link ? cartItem.article.articleimage?.[0].link : bookPlaceholder,
           price: cartItem.article.prixpublic,
           _qte_a_terme_calcule: cartItem.article._qte_a_terme_calcule,
           quantity: cartItem.quantity,
@@ -168,7 +168,7 @@ const onFinish = async () => {
             favtitle: favtItem.article.designation,
             favrate: favtItem.average_rate,
             favauthor: favtItem.article.dc_auteur,
-            favimage: favtItem.article.articleimage?.[0]?.link ? favtItem.article.articleimage?.[0].link : bookPlaceHolder,
+            favimage: favtItem.article.articleimage?.[0]?.link ? favtItem.article.articleimage?.[0].link : bookPlaceholder,
             favprice: favtItem.article.prixpublic,
             _qte_a_terme_calcule: favtItem.article._qte_a_terme_calcule,
             favdescription: favtItem.article.descriptif,
