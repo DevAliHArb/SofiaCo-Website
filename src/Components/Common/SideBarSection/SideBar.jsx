@@ -639,6 +639,14 @@ function TreeNode({ data, level, fetchArticles }) {
         </ListItem>
         </Link>
 
+        <Link to='/main/blogs' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+        <ListItem disablePadding>
+          <ListItemButton style={{padding:'0'}}>
+            <p className={classes.text}>{language === 'eng' ? "Blogs" : "Blogs"}</p>
+          </ListItemButton>
+        </ListItem>
+        </Link>
+
         <Link  to='/main/about' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
         <ListItem disablePadding>
           <ListItemButton style={{padding:'0'}}>
