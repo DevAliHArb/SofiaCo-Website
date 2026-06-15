@@ -40,28 +40,17 @@ const SubSubCategoriesPage = () => {
   const [subCategoryData, setsubCategoryData] = useState({});
   const [subsubCategoryData, setSubsubCategoryData] = useState({});
 
-  useEffect(() => {
-    if (selectedCategoryId && authCtx.categories) {
-      const selectedIndex = authCtx.categories?.find(
+useEffect(() => {
+    if (selectedCategoryId) {
+      const selectedIndex = authCtx.subsubCategories?.find(
         (item) => Number(item.id) === Number(selectedCategoryId),
       );
-      setSubsubCategoryData(selectedIndex || {});
 
-      if (selectedIndex?.b_usr_articlecategorie_id) {
-        const subCategory = authCtx.articleFamille?.find(
-          (item) => Number(item.id) === Number(selectedIndex.b_usr_articlecategorie_id),
-        );
-        setsubCategoryData(subCategory || {});
-
-        if (subCategory?.b_usr_parentcategorie_id) {
-          const parentCategory = authCtx.articleFamilleParents?.find(
-            (item) => Number(item.id) === Number(subCategory.b_usr_parentcategorie_id),
-          );
-          setcategoryData(parentCategory || {});
-        }
-      }
+      setSubsubCategoryData(selectedIndex); // Adjust index to account for the 'All Categories' item
+      setcategoryData(selectedIndex?.article_famille?.parent);
+      setsubCategoryData(selectedIndex?.article_famille);
     }
-  }, [selectedCategoryId, authCtx.categories, authCtx.articleFamille, authCtx.articleFamilleParents]);
+  }, [selectedCategoryId, authCtx.subsubCategories]);
 
   const breadcrumbPaths = [
     { en: "Home", fr: "Accueil", url: "/main" },
@@ -121,7 +110,7 @@ const SubSubCategoriesPage = () => {
         )}
         {longTailText && <meta name="long_tail_text" content={longTailText} />}
       </Helmet>
-      <div>
+      <div onClick={() => console.log(categoryData,subCategoryData,authCtx.allCategories)} >
         <CatHero categoryData={subsubCategoryData} />
         <Breadcrumb paths={breadcrumbPaths} />
         <BooksView />

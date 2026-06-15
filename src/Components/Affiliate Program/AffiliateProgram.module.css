@@ -1,0 +1,427 @@
+.coupon_con {
+  width: 100%;
+  position: relative;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 1900px;
+  margin: 0 auto;
+  font-family: var(--font-family);
+}
+
+.bigContainer {
+  width: 100%;
+  height: fit-content;
+  display: grid;
+  grid-template-columns: 67% 30%;
+  justify-content: space-between;
+}
+
+.contentContainer {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  font-family: var(--font-family);
+}
+
+.header {
+  position: relative;
+  width: 80%;
+  margin: 0em auto 2em auto;
+  text-align: center;
+  justify-content: center;
+}
+
+.headtitle {
+  font-family: var(--font-family);
+  font-size: calc(1.2rem + 1vw);
+  letter-spacing: 0.01rem;
+  text-align: start;
+  margin: auto auto auto 0;
+  padding: 0.5em 0;
+  width: fit-content;
+  color: var(--secondary-color);
+  text-transform: capitalize;
+}
+
+.info_title {
+  text-align: start;
+  color: var(--secondary-color);
+  margin: 0 0 1em 0;
+  font-size: calc(1rem + 0.4vw);
+  text-transform: capitalize;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.info_title p {
+  color: var(--primary-color);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.cardsContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto 2em auto;
+}
+
+/* Table Styles */
+.affiliateTable,
+.earningsTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid #D9D9D9;
+  border-radius: 0px;
+  overflow: hidden;
+}
+
+.tableHead {
+  border-bottom: 1px solid #D9D9D9;
+}
+
+.tableHead th {
+  padding: 1em;
+  text-align: left;
+  font-size: calc(0.7rem + 0.3vw);
+  font-family: var(--font-family);
+  font-weight: 700;
+  color: var(--secondary-color);
+  border-bottom: 1px solid #D9D9D9;
+  border-right: 1px solid #D9D9D9;
+}
+
+.tableHead th:first-child {
+  border-top-left-radius: 7px;
+}
+
+.tableHead th:last-child {
+  border-right: none;
+  border-top-right-radius: 7px;
+}
+
+.list_con {
+  overflow-y: auto;
+}
+
+.tableRow {
+  color: var(--secondary-color);
+  border-bottom: 1px solid #D9D9D9;
+  transition: background-color 0.2s ease;
+}
+
+.tableRow td {
+  padding: 1em;
+  vertical-align: middle;
+  border-bottom: 1px solid #D9D9D9;
+  border-right: 1px solid #D9D9D9;
+}
+
+.tableRow td:last-child {
+  border-right: none;
+}
+
+.tableRow:last-child td {
+  border-bottom: none;
+}
+
+.tableRow:last-child td:first-child {
+  border-bottom-left-radius: 7px;
+}
+
+.tableRow:last-child td:last-child {
+  border-bottom-right-radius: 7px;
+}
+
+/* Table Cell Styles */
+.linkCell {
+  width: 40%;
+}
+
+.linkContent {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.typeCell,
+.actionCell,
+.orderCell,
+.dateCell,
+.commissionCell,
+.purchaseCell {
+  text-align: left;
+}
+
+.typeCell p,
+.orderCell p,
+.dateCell p {
+  margin: 0;
+  font-size: calc(0.7rem + 0.2vw);
+  color: var(--secondary-color);
+}
+
+/* Link Icon and Info */
+.linkIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconCircle {
+  width: 50px;
+  height: 50px;
+  border-radius: 0.1em;
+  background-color: var(--accent-color);
+  color: var(--secondary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2em;
+  padding: 0;
+}
+
+.iconCircle img {
+  width: 60%;
+  height: 80%;
+  object-fit: fill;
+}
+
+.linkInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+}
+
+.promoCode {
+  font-size: calc(0.7rem + 0.2vw);
+  color: var(--secondary-color);
+  margin: 0;
+  text-align: start;
+}
+
+.linkUrl {
+  font-size: calc(0.7rem + 0.2vw);
+  color: var(--secondary-color);
+  margin: 0;
+  word-break: break-all;
+  text-align: start;
+}
+
+/* Status Badge */
+.statusBadge {
+  padding: 0.3em 0.8em;
+  border-radius: 15px;
+  font-size: small;
+  font-weight: 500;
+}
+
+.statusActive {
+  background-color: #E8F5E8;
+  color: #4CAF50;
+}
+
+.statusUsed {
+  background-color: #FFF3E0;
+  color: #FF9800;
+}
+
+/* Copy Button */
+.copyBtn {
+  font-size: calc(0.7rem + 0.3vw);
+  padding: 0.5em 1.5em;
+  background-color: var(--primary-color);
+  border: 1px solid transparent;
+  border-radius: 0.7em;
+  cursor: pointer;
+  color: #fff !important;
+  font-family: var(--font-family);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.copyBtn:hover {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+/* Summary sidebar */
+.c {
+  display: flex;
+  flex-direction: column;
+}
+
+.summaryCard {
+  width: 89%;
+  background-color: #fff;
+  border: 1px solid #E5E5E5;
+  border-radius: 12px;
+  padding: 2em 5% 1em 5%;
+  margin-bottom: 2em;
+  text-align: left;
+}
+
+.totalAmount {
+  font-family: var(--font-family);
+  font-size: 3em;
+  font-weight: 700;
+  color: var(--secondary-color);
+  margin: 0.2em 0;
+}
+
+.redeemAmount {
+  font-size: calc(0.7rem + 0.2vw);
+  font-family: var(--font-family);
+  color: var(--secondary-color);
+  font-weight: 500;
+}
+
+.learnMore {
+  font-size: calc(0.7rem + 0.3vw);
+  font-family: var(--font-family);
+  color: var(--primary-color);
+  font-weight: 600;
+  text-decoration: underline;
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.learnMore:hover {
+  color: var(--secondary-color);
+}
+
+/* Earnings Section */
+.purchaseInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+}
+
+.commissionAmount {
+  color: var(--secondary-color);
+}
+
+/* Back Button */
+.back_btn {
+  display: flex;
+  flex-direction: row;
+  column-gap: 0.5em;
+  justify-content: center;
+  align-items: center;
+  top: 2em;
+  left: 0em;
+  position: absolute;
+  color: var(--secondary-color);
+  cursor: pointer;
+  font-family: var(--font-family);
+}
+
+.back_arrow {
+  font-size: 1em;
+  margin: auto;
+  margin-top: 0.35em;
+}
+
+/* Active button style */
+.activeBtn {
+  border-bottom: 2px solid var(--primary-color) !important;
+  color: var(--primary-color) !important;
+  font-weight: 600 !important;
+}
+
+@media screen and (max-width: 950px) {
+  .bigContainer {
+    display: flex;
+    flex-direction: column-reverse;
+    margin-top: 2em;
+  }
+
+  .back_btn {
+    top: 1em;
+  }
+
+  .info_title {
+    margin-top: 2.5em;
+    margin-bottom: 0em;
+    flex-direction: column;
+  }
+
+  .info_title p {
+    margin-top: 0;
+  }
+
+  .header {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .tableHead {
+    display: none;
+  }
+
+  .affiliateTable,
+  .earningsTable {
+    display: block;
+    overflow-x: auto;
+    white-space: wrap;
+    border: none;
+  }
+
+  .tableRow {
+    display: block;
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 0.5em;
+    padding: 0 0 2em 0;
+  }
+
+  .tableRow td {
+    display: block;
+    padding: 0 0;
+    border: none;
+    text-align: left;
+  }
+
+  .tableRow td:before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--secondary-color);
+    display: block;
+    margin-bottom: 0.3em;
+  }
+
+  .linkCell {
+    width: 100%;
+  }
+
+  .linkContent {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5em;
+  }
+
+  .cardsContainer {
+    margin-top: 1em;
+  }
+
+  .summaryCard {
+    padding: 1em 5% 1em 5%;
+    margin-top: 2em;
+    margin-bottom: 0;
+  }
+
+  .iconCircle {
+    width: 30px;
+    height: 30px;
+    font-size: 1em;
+  }
+}

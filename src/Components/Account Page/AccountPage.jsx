@@ -15,6 +15,7 @@ import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import OrderTracking from './Order Tracking/OrderTracking';
 import DeleteAccount from './Delete Account/DeleteAccount';
 import Subscriptions from './Subscriptions/Subscriptions';
+import AffiliateProgram from '../Affiliate Program/AffiliateProgram';
 
 const AccountPage = () => {
     const navigate = useNavigate();
@@ -54,6 +55,7 @@ const AccountPage = () => {
 
             <button onClick={()=>navigate(`/account/order-tracking`)} style={{background: pageId === 'order-tracking' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.orders.title[language]}</button>
             <button onClick={()=>navigate(`/account/coupons`)} style={{background: pageId === 'coupons' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.Coupons.title[language]}</button>
+            <button onClick={()=>navigate(`/account/affiliate`)} style={{background: pageId === 'affiliate' ? 'var(--primary-color)' : ''}}>{language === 'eng' ? "Affiliate Program" : "Programme d'affiliation"}</button>
             <button onClick={()=>navigate(`/account/subscription`)} style={{background: pageId === 'subscription' ? 'var(--primary-color)' : ''}}>{language === 'eng' ? "Subscription" : "Abonnement" }</button>
             <button onClick={()=>navigate(`/my-documents/orders`)} style={{background: pageId === 'orders' ? 'var(--primary-color)' : ''}}>{language === 'eng' ? "My Documents" : "Mes Documents"}</button>
         </div>
@@ -74,6 +76,7 @@ const AccountPage = () => {
 
             <MenuItem value='order-tracking' onClick={()=>navigate(`/account/order-tracking`)} style={{textTransform:"capitalize",background: pageId === 'order-tracking' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.orders.title[language]}</MenuItem>
             <MenuItem value='coupons' onClick={()=>navigate(`/account/coupons`)} style={{textTransform:"capitalize",background: pageId === 'coupons' ? 'var(--primary-color)' : ''}}>{data.AccountProfilePage.Coupons.title[language]}</MenuItem>
+            <MenuItem value='affiliate' onClick={()=>navigate(`/account/affiliate`)} style={{textTransform:"capitalize",background: pageId === 'affiliate' ? 'var(--primary-color)' : ''}}>{language === 'eng' ? "Affiliate Program" : "Programme d'affiliation"}</MenuItem>
             <MenuItem value='subscription' onClick={()=>navigate(`/account/subscription`)} style={{textTransform:"capitalize",background: pageId === 'subscription' ? 'var(--primary-color)' : ''}}>{language === 'eng' ? "Subscription" : "Abonnement" }</MenuItem>
             <MenuItem value='delete-account' onClick={()=>navigate(`/account/delete-account`)} style={{textTransform:"capitalize",background: pageId === 'delete-account' ? 'var(--primary-color)' : ''}}>{language === 'eng' ? "Delete Account" : "Supprimer le compte" }</MenuItem>
             </Select>
@@ -85,6 +88,7 @@ const AccountPage = () => {
             {pageId == 'order-tracking' && <OrderTracking />}
             {pageId == 'payments' && <Payment />}
             {pageId === 'coupons' && <Coupons/>}
+            {pageId === 'affiliate' && <AffiliateProgram />}
             {pageId === 'subscription' && <Subscriptions />}
             {pageId === 'delete-account' && <DeleteAccount />}
         </div>

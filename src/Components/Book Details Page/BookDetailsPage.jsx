@@ -9,12 +9,12 @@ import ViewTab from './View Tab and review/ViewTab'
 import abs from '../../assets/collab-abs.png'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
-import { addSelectedBook } from '../Common/redux/productSlice'
+import { addSelectedBook, setAffiliateToken } from '../Common/redux/productSlice'
 import { useParams } from 'react-router-dom'
 
 const BookDetailsPage = () => {
   const dispatch = useDispatch()
-  const { id } = useParams();
+  const { id, token } = useParams();
   
   const [heroData, setHeroData] = useState({});
     const bookData = useSelector((state) => state.products.selectedBook[0]);
@@ -39,6 +39,10 @@ const BookDetailsPage = () => {
         // console.error('Error fetching services:', error);
       }
     };
+  useEffect(() => {
+    if (token) dispatch(setAffiliateToken(token));
+  }, [token]);
+
   useEffect(() => {
     fetchHero();
     fetchBook()

@@ -26,6 +26,7 @@ const initialState = {
   selectedCategoryId: null,
   selectedVariants: {},
   selectedVariantProduct: null,
+  affiliate_token: null,
 };
 
 export const productSlice = createSlice({
@@ -521,6 +522,12 @@ export const productSlice = createSlice({
     resetSelectedVariantProduct: (state) => {
       state.selectedVariantProduct = null;
     },
+    setAffiliateToken: (state, action) => {
+      state.affiliate_token = action.payload;
+    },
+    clearAffiliateToken: (state) => {
+      state.affiliate_token = null;
+    },
   },
 });
 
@@ -577,5 +584,7 @@ export const {
   resetSelectedVariants,
   updateSelectedVariantProduct,
   resetSelectedVariantProduct,
+  setAffiliateToken,
+  clearAffiliateToken,
 } = productSlice.actions;
 export default productSlice.reducer;

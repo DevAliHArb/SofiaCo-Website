@@ -47,6 +47,10 @@ import AddCartPopup from './Components/Common Components/Add To Cart Popup/AddCa
 import CategoriesPage from './pages/CategoriesPage';
 import SubCategoriesPage from './pages/SubCategoriesPage';
 import SubSubCategoriesPage from './pages/SubSubCategoriesPage';
+import BestSellersPage from './Components/Best Sellers Page/BestSellersPage';
+import NouveautesPage from './Components/Nouveautes Page/NouveautesPage';
+import AffiliateProgram from './Components/Affiliate Program/AffiliateProgram';
+import AffiliateProgramDetails from './Components/Affiliate Program/AffiliateProgramDetails';
 
 
 
@@ -257,10 +261,15 @@ function App() {
           <Route path="/main/products" element={<ScrollToTop><BooksPage /></ScrollToTop>} />
           <Route path="/main/products/subcategory/:id" element={<ScrollToTop><BooksPage /></ScrollToTop>} />
           <Route path="/main/productdetails/:id" element={<ScrollToTop><BookDetailsPage cartToggle={cartToggle} /></ScrollToTop>} />
+          <Route path="/main/productdetails/:id/:token" element={<ScrollToTop><BookDetailsPage cartToggle={cartToggle} /></ScrollToTop>} />
+          <Route path='/bestsellers' element={<ScrollToTop><BestSellersPage /></ScrollToTop>} />
+          <Route path='/nouveautes' element={<ScrollToTop><NouveautesPage /></ScrollToTop>} />
           <Route path="/main/cp/:catname/:catId" element={<ScrollToTop><CategoriesPage /></ScrollToTop>} />
           <Route path="/main/cp/:catname/:subcatname/:id" element={<ScrollToTop><SubCategoriesPage /></ScrollToTop>} />
           <Route path="/main/cp/:catname/:subcatname/:subsubcatname/:id" element={<ScrollToTop><SubSubCategoriesPage /></ScrollToTop>} />
           <Route path="/account/:pageId/*" element={user ? <ScrollToTop><AccountPage /></ScrollToTop> : <Navigate to="/login" replace />} />
+          <Route path='/affiliate/:id' element={user ? <ScrollToTop><AffiliateProgram /></ScrollToTop> : <Navigate to="/login" replace />} />
+          <Route path='/affiliate/:id/details/:programId' element={user ? <ScrollToTop><AffiliateProgramDetails /></ScrollToTop> : <Navigate to="/login" replace />} />
           <Route path="/my-documents/:pageId" element={user ? <ScrollToTop><MyDocumentsPage /></ScrollToTop> : <Navigate to="/login" replace />} />
           <Route path="/main/policies" element={<ScrollToTop><Mentions /></ScrollToTop>} />
           <Route path='/order-success' element={<ScrollToTop><SuccessPage/></ScrollToTop>} /> 

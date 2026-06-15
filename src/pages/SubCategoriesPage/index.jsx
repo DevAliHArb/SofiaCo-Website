@@ -42,19 +42,20 @@ const SubCategoriesPage = () => {
 
   useEffect(() => {
     if (selectedCategoryId) {
-      const selectedIndex = authCtx.articleFamille?.find(
+      const selectedIndex = authCtx.allarticleFamille?.find(
         (item) => Number(item.id) === Number(selectedCategoryId),
       );
-      setsubCategoryData(selectedIndex);
+      setsubCategoryData(selectedIndex); // Adjust index to account for the 'All Categories' item
     }
-  }, [selectedCategoryId, authCtx.articleFamille]);
+  }, [selectedCategoryId, authCtx.allarticleFamille]);
 
   useEffect(() => {
     if (subCategoryData?.b_usr_parentcategorie_id) {
-      const parentCategory = authCtx.articleFamilleParents?.find(
-        (item) => Number(item.id) === Number(subCategoryData.b_usr_parentcategorie_id),
+      const selectedIndex = authCtx.articleFamilleParents?.find(
+        (item) =>
+          Number(item.id) === Number(subCategoryData.b_usr_parentcategorie_id),
       );
-      setCategoryData(parentCategory || {});
+      setCategoryData(selectedIndex); // Adjust index to account for the 'All Categories' item
     }
   }, [subCategoryData, authCtx.articleFamilleParents]);
 

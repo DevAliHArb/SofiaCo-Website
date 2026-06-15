@@ -36,7 +36,9 @@ const AuthContext = React.createContext({
   setArticles: () => {},
   fetchArticles: () => {},
   categories: [],
+  allCategories: [],
   setCategories: () => {},
+  setAllCategories: () => {},
   mydocuments: [],
   setMydocuments: () => {},
   fetchCategories: () => {},
@@ -90,6 +92,7 @@ export const AuthContextProvider = (props) => {
   const [ReturnSelectedPage, setReturnSelectedPage] = useState("all");
   const [articles, setArticles] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [allCategories, setAllCategories] = useState([]);
   const [mydocuments, setMydocuments] = useState([]);
   const [collaborators, setCollaborators] = useState([]);
   const [collections, setCollections] = useState([]);
@@ -313,6 +316,19 @@ export const AuthContextProvider = (props) => {
         a._nom.localeCompare(b._nom)
       );
       setCategories(sorteddata);
+    } catch (error) {
+      // console.error('Error fetching categories:', error);
+    }
+  };
+
+   const fetchAllCategories = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/categories?ecom_type=sofiaco`);
+      const sorteddata = [...response.data].sort((a, b) =>
+        a._nom.localeCompare(b._nom)
+      );
+      console.log("All Categories:", sorteddata);
+      setAllCategories(sorteddata);
     } catch (error) {
       // console.error('Error fetching categories:', error);
     }
@@ -1022,6 +1038,7 @@ export const AuthContextProvider = (props) => {
       fetchSubSubCat();
       fetchArticles();
       fetchCategories();
+      fetchAllCategories();
       fetchCollabTypes();
       fetchCollaborators();
       fetchCollections();
@@ -1052,6 +1069,7 @@ export const AuthContextProvider = (props) => {
     fetchArticles: fetchArticles,
     categories: categories,
     fetchCategories: fetchCategories,
+    allCategories: allCategories,
     collaborators: collaborators,
     fetchCollaborators: fetchCollaborators,
     collections,

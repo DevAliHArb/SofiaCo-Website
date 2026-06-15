@@ -31,7 +31,7 @@ const CategoriesPage = () => {
       const response = await axios.get(
         `${import.meta.env.VITE_TESTING_API}/article-famille/${catId}`,
         {
-          ecom_type: `${import.meta.env.VITE_ECOM_TYPE}`,
+          ecom_type: `sofiaco`,
         },
       );
       setcategoryData(response.data);

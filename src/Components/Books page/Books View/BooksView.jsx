@@ -709,7 +709,7 @@ const BooksView = ({carttoggle}) => {
     fetchArticles(selectedRate, collection, category, 1 );
   }, [selectedRate]);
 
-  const fetchArticles = async ( rate, collectionId, id,page) => {
+  const fetchArticles = async (rate, collectionId, id, page, sortHeader = null) => {
     let CatID = id;
     setLoading(true);
     try {
@@ -737,14 +737,12 @@ const BooksView = ({carttoggle}) => {
         : "";
 
         
-      const selectedbestseller =
-        searchData[0]?.bestsellers === true || searchData[0]?.bestseller === true
-      ? `&bestsellers=true`
-      : "";
-
-      const selectednewarrivalParam = searchData[0]?.newarrival === true
-      ? `&newarrival=true`
-      : "";
+      const selectedSortParam =
+        sortHeader === "sortbynew" || searchData[0]?.newarrival === true
+          ? "&sortbynew"
+          : sortHeader === "sortbybestseller" || searchData[0]?.bestsellers === true || searchData[0]?.bestseller === true
+          ? "&sortbybestseller"
+          : "";
 
       const selectedupcomingParam = searchData[0]?.upcoming === true
       ? `&upcoming=true`
@@ -909,7 +907,7 @@ const BooksView = ({carttoggle}) => {
 
     // Get the category from localStorage if available
       // Finalize the URL by combining all parameters
-      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedillustrateurParam}${selectedCategoryParentParent}${selectedsubCategoriesParam}${selectedsubSubCategoriesParam}${selectedParentCategoriesParam}${selectedCollabParam}${selectedmultiproductsParam}${UserIdParam}${selectedCollecParam}${selectedStockParam}${selectedDiscount}${selectedPubliParam}${selectedEANParam}${selectedResumeParam}${selectedSmartData}${selectedupcomingParam}${selectedalsoseeParam}${selectednewarrivalParam}${selectedFavoritesParam}${selectedisSelectedParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}${selectedsubCategoryParam}&ecom_type=sofiaco`;
+      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedillustrateurParam}${selectedCategoryParentParent}${selectedsubCategoriesParam}${selectedsubSubCategoriesParam}${selectedParentCategoriesParam}${selectedCollabParam}${selectedmultiproductsParam}${UserIdParam}${selectedCollecParam}${selectedStockParam}${selectedDiscount}${selectedPubliParam}${selectedEANParam}${selectedResumeParam}${selectedSmartData}${selectedupcomingParam}${selectedalsoseeParam}${selectedSortParam}${selectedFavoritesParam}${selectedisSelectedParam}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}${selectedsubCategoryParam}&ecom_type=sofiaco`;
       // Fetch articles using the finalized URL
       const response = await axios.get(finalUrl);
 
