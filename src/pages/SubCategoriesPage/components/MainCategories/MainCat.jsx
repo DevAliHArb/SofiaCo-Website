@@ -29,7 +29,7 @@ const MainCat = ({ categoryData, subCategoryData }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const categoriesToShow = authCtx?.categories?.filter(
+  const categoriesToShow = authCtx?.allCategories?.filter(
     (item) => Number(item.b_usr_articlecategorie_id) === Number(subCategoryData?.id)
   );
 

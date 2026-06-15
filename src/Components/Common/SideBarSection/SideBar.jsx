@@ -51,6 +51,15 @@ export default function SideBar({ toggle, isOpen }) {
   const authCtx = useContext(AuthContext);
   const [catChemin, setCatChemin] = useState("");
 
+  const HandleNouveautesClick = () => {
+    localStorage.removeItem("stock"); localStorage.removeItem("categories"); localStorage.removeItem("collections");
+    localStorage.removeItem("multiproductids"); localStorage.removeItem("publishers"); localStorage.removeItem("subCategories");
+    localStorage.removeItem("parentCategories"); localStorage.removeItem("min_price"); localStorage.removeItem("max_price");
+    dispatch(resetSearchData());
+    dispatch(editSearchData({ newarrival: true }));
+    toggle();
+  };
+
   // Helper function to slugify and sanitize text
   const slugify = (text, placeholder = 'product') => {
     if (!text || text.trim() === '') return placeholder;
@@ -613,6 +622,30 @@ function TreeNode({ data, level, fetchArticles }) {
 
 
 
+
+        <Link to='/nouveautes' style={{textDecoration: 'none', color:'white'}} onClick={() => { HandleNouveautesClick(); }}>
+        <ListItem disablePadding>
+          <ListItemButton style={{padding:'0'}}>
+            <p className={classes.text}>{language === 'eng' ? "New Arrivals" : "Nouveautés"}</p>
+          </ListItemButton>
+        </ListItem>
+        </Link>
+
+        <Link to='/bestsellers' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+        <ListItem disablePadding>
+          <ListItemButton style={{padding:'0'}}>
+            <p className={classes.text}>{language === 'eng' ? "Best Sellers" : "Meilleures Ventes"}</p>
+          </ListItemButton>
+        </ListItem>
+        </Link>
+
+        <Link to='/main/blogs' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+        <ListItem disablePadding>
+          <ListItemButton style={{padding:'0'}}>
+            <p className={classes.text}>{language === 'eng' ? "Blogs" : "Blogs"}</p>
+          </ListItemButton>
+        </ListItem>
+        </Link>
 
         <Link  to='/main/about' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
         <ListItem disablePadding>

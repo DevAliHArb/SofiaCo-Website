@@ -84,7 +84,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
     if (currentpage === pagenb - 2 || currentpage === pagenb - 1) {
       setarraypage((prevArrayPage) => {
           const newArrayPage = prevArrayPage + 1;
-          fetchArticles(selectedRate, null, null, newArrayPage);
+          fetchArticles(selectedRate, null, null, newArrayPage, serverSortHeader);
           return newArrayPage;
         });
     }
@@ -104,7 +104,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
       if (prevCurrentPage === pagenb - 2 || prevCurrentPage === pagenb - 1 || prevCurrentPage === pagenb) {
         setarraypage((prevArrayPage) => {
           const newArrayPage = prevArrayPage + 1;
-          fetchArticles(selectedRate, null, null, newArrayPage);
+          fetchArticles(selectedRate, null, null, newArrayPage, serverSortHeader);
           return newArrayPage;
         });
       }
@@ -148,6 +148,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
   const compareData = useSelector((state) => state.products.compare);
   
   const [sortBy, setSortBy] = useState('default');
+  const [serverSortHeader, setServerSortHeader] = useState(null);
 
   const sortBooks = (sortBy) => {
     switch (sortBy) {
@@ -159,13 +160,32 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
         return [...records].sort((a, b) => a._prix_public_ttc - b._prix_public_ttc);
       case 'priceHigh':
         return [...records].sort((a, b) => b._prix_public_ttc - a._prix_public_ttc);
+      case 'newArrival':
+      case 'bestSeller':
+        return records;
       default:
         return records;
     }
   };
 
+  const getServerSortHeader = (sortValue) => {
+    if (sortValue === 'newArrival') return 'sortbynew';
+    if (sortValue === 'bestSeller') return 'sortbybestseller';
+    return null;
+  };
+
   const handleSortChange = (e) => {
-    setSortBy(e.target.value);
+    const value = e.target.value;
+    setSortBy(value);
+    const nextSortHeader = getServerSortHeader(value);
+    const hadServerSort = Boolean(serverSortHeader);
+    setServerSortHeader(nextSortHeader);
+    if (nextSortHeader || hadServerSort) {
+      setCurrentPage(1);
+      setpagenbroute(1);
+      setarraypage(1);
+      fetchArticles(selectedRate, null, null, 1, nextSortHeader);
+    }
   };
 
   const hasPriceRange = (product) =>
@@ -407,6 +427,8 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                     <MenuItem value="titleZA" style={{textAlign:'center'}}>Sort Z-A </MenuItem>
                     <MenuItem value="priceLow" style={{textAlign:'center'}}>Price Low To High </MenuItem>
                     <MenuItem value="priceHigh" style={{textAlign:'center'}}>Price High To Low </MenuItem>
+                    <MenuItem value="newArrival" style={{textAlign:'center'}}>{language === 'eng' ? "New Arrival" : "Nouveautés"}</MenuItem>
+                    <MenuItem value="bestSeller" style={{textAlign:'center'}}>{language === 'eng' ? "Best Seller" : "Meilleures Ventes"}</MenuItem>
             </Select>
             <Select
                 disableUnderline

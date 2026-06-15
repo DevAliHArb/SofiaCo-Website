@@ -25,7 +25,7 @@ const SocialMedia = (categoryData) => {
   const fetchInstagramPost = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/social-posts?ecom_type=hanoot`
+        `${import.meta.env.VITE_TESTING_API}/social-posts?ecom_type=sofiaco`
       );
       const data = response.data.sort((a, b) => b.id - a.id);
       
