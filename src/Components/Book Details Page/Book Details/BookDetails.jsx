@@ -13,6 +13,7 @@ import AuthContext from '../../Common/authContext';
 import { useSelector } from 'react-redux';
 import img from '../../../assets/bookPlaceholder.png'
 import { Helmet } from 'react-helmet-async';
+import FAQSection from '../FAQ Section/FAQSection';
 
 const BookDetails = () => {
 
@@ -266,6 +267,12 @@ swiper.slideTo(index)};
           </div>
         <Details/>
         </div>
+        <FAQSection
+          faqParams={{
+            field: 'b_usr_article_id',
+            id: selectedBook?.id,
+          }}
+        />
     </div>
   )
 }

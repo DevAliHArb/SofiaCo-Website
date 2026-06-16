@@ -44,7 +44,7 @@ const HomeBanner = () => {
 
   // Show active banner's text/data, images in Swiper
   return (
-    <div className='banner'>
+    <div className='banner' style={{marginBottom:"2em"}}>
       <div className={classes.content}>
         <div className={classes.overlay}></div>
         <div className={classes.data}>

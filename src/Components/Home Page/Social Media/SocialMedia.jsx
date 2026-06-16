@@ -76,7 +76,7 @@ useEffect(() => {
         <div id="best_sellers" style={{ position: "absolute", top: "80%" }}/>
         <div className={classes.header} style={{display:'flex', flexDirection:'column', justifyContent:'center', marginBottom:'2em'}}>
           <div className={classes.title} style={{margin:'auto'}}>
-            <h1 style={{textAlign:'center'}} onClick={fetchInstagramPost}>{language === "eng" ? "As Seen on Social Media" : "Vu Sur Les Médias Sociaux"}</h1>
+            <h1 style={{textAlign:'center'}} onClick={fetchInstagramPost}>{language === "eng" ? "MEDIAS" : "MEDIAS"}</h1>
           </div>
         </div>
         {filteredData?.length === 0 ? (
