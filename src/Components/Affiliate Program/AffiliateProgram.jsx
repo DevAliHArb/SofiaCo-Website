@@ -76,7 +76,10 @@ const AffiliateProgram = () => {
   const [affiliateData, setAffiliateData] = useState([]);
   const [affiliateEarnings, setAffiliateEarnings] = useState([]);
 
-  const getToken = () => sessionStorage.getItem("token") || localStorage.getItem("token");
+  const getToken = () => {
+    return localStorage.getItem("token");
+  };
+
   const token = getToken();
 
   const fetchAffiliate = async () => {

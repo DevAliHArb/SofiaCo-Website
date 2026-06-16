@@ -3,11 +3,12 @@ import AuthContext from '../../authContext';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetSearchData, addSelectedCategory } from '../../redux/productSlice';
 import { useNavigate } from "@hooks/useNavigate";
-import { Tooltip } from '@mui/material';
+import { IconButton, Tooltip } from '@mui/material';
+import MenuIcon from "@mui/icons-material/Menu";
 import allcat from '../../../../assets/icons/all-cat.svg';
 import classes from './LanCurrSelect.module.css';
 
-export default function LanCurrSelect() {
+export default function LanCurrSelect({ toggle }) {
   const language = useSelector((state) => state.products.selectedLanguage[0].Language);
   const authCtx = useContext(AuthContext);
   const dispatch = useDispatch();
@@ -54,6 +55,20 @@ export default function LanCurrSelect() {
 
   return (
     <>
+    <div style={{display:'flex',flexDirection:"row",gap:"1em"}}>
+        <div style={{width:'fit-content',height:'fit-content',margin:'auto 0',padding:'.1em'}} onClick={toggle}>
+          <Tooltip title="menu">
+            <IconButton sx={{ p: 0 }}>
+              <MenuIcon
+                style={{
+                  width: "30px",
+                  height: "30px",
+                  color: "var(--secondary-color)",
+                  margin: "0",
+                }} />
+            </IconButton>
+          </Tooltip>
+        </div>
       <div className={classes.categoriesNav}>
         <Tooltip title={language === 'eng' ? 'All Products' : 'Tous Nos Produits'}>
           <div
@@ -157,7 +172,7 @@ export default function LanCurrSelect() {
           </div>
         ))}
       </div>
-
+    </div>
     </>
   );
 }

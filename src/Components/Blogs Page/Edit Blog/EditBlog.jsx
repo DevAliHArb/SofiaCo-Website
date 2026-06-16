@@ -73,7 +73,7 @@ const EditBlog = () => {
             {coverImage ? (
               <img src={coverImage} alt="Uploaded" style={{ maxWidth: "100%", width: "40em", height: "20em", objectFit: 'cover', margin: "0", borderRadius: ".5em" }} />
             ) : (
-              <div style={{ maxWidth: "100%", width: "40em", height: "20em", margin: "0", display: "flex", flexDirection: "column", border: "1px solid #D9D9D9", borderRadius: ".5em" }}>
+              <div style={{ maxWidth: "100%", width: "40em", height: "20em", margin: "0", display: "flex", flexDirection: "column", border: "1px solid #D9D9D9", borderRadius: ".5em",background:'#fff' }}>
                 <div style={{ margin: "auto" }}>
                   <FiUpload style={{ color: "var(--primary-color)", margin: "auto", fontSize: "2em" }} />
                   <p style={{ margin: '0', fontWeight: '700' }}>{language === 'eng' ? "Drag and Drop files here" : "Glisser-déposer des fichiers ici"}</p>
