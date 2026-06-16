@@ -444,9 +444,16 @@ function TreeNode({ data, level, fetchArticles }) {
   background:'#D9D9D9',
 }}/>
 
+        <Link  to='/' style={{textDecoration: 'none', color:'white',background:'red'}} onClick={toggle}>
+        <ListItem disablePadding>
+          <ListItemButton style={{padding:'0'}}>
+            <p className={classes.text}>{language === 'eng' ? "Home" : "Accueil"} </p>
+          </ListItemButton>
+        </ListItem>
+        </Link>
 
           {/* New categoriesmob div for LanCurrSelect categories with open/close dropdown */}
-          <div style={{margin: '1em 0',display: 'flex', flexDirection: 'column', width: '100%'}}>
+          <div style={{margin: '.4em 0',display: 'flex', flexDirection: 'column', width: '100%'}}>
             <h2
               onClick={() => setcatisopen(!catopen)}className={classes.text}
                style={
@@ -576,19 +583,22 @@ function TreeNode({ data, level, fetchArticles }) {
             )}
           </div>
 
-        <Link  to='/' style={{textDecoration: 'none', color:'white',background:'red'}} onClick={toggle}>
+
+
+        <Link  to='/main/brands' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
         <ListItem disablePadding>
           <ListItemButton style={{padding:'0'}}>
-            <p className={classes.text}>{language === 'eng' ? "Home" : "Accueil"} </p>
+            <p className={classes.text}>
+            {language === 'eng' ? 'Brands' : 'Marques'}
+            </p>
           </ListItemButton>
         </ListItem>
         </Link>
 
-
         {/* <Link  to='/main/products' style={{textDecoration: 'none', color:'white'}} onClick={toggle}> */}
 
 
-        <Link  to='/main/products' style={{textDecoration: 'none', color:'white'}} 
+        {/* <Link  to='/main/products' style={{textDecoration: 'none', color:'white'}} 
           onClick={e => {
             e.preventDefault();
             toggle();
@@ -600,7 +610,7 @@ function TreeNode({ data, level, fetchArticles }) {
             <p className={classes.text}>{language === 'eng' ? "Products" : "Produits"} </p>
           </ListItemButton>
         </ListItem>
-        </Link>
+        </Link> */}
         
         {/* <Link  to='/collaborators' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
         <ListItem disablePadding>
@@ -662,16 +672,6 @@ function TreeNode({ data, level, fetchArticles }) {
           <ListItemButton style={{padding:'0'}}>
             <p className={classes.text}>
             {language === 'eng' ? "Events" : "Evènements"} 
-            </p>
-          </ListItemButton>
-        </ListItem>
-        </Link>
-
-        <Link  to='/main/brands' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
-        <ListItem disablePadding>
-          <ListItemButton style={{padding:'0'}}>
-            <p className={classes.text}>
-            {language === 'eng' ? 'Brands' : 'Marques'}
             </p>
           </ListItemButton>
         </ListItem>

@@ -1,0 +1,123 @@
+.faq_container {
+    width: 100%;
+    height: fit-content;
+    max-width: 1900px;
+    margin: 3em auto 0 auto;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+  }
+
+  .faq_content {
+    width: 88%;
+    margin: 0 auto;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    color: #fff;
+  }
+
+.header{
+    position: relative;
+    width: 100%;
+    margin: 0em auto 0 auto;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .headtitle{
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    max-width: 100%;
+    margin: auto 0;
+    display: flex;
+    flex-direction: column;
+    color: #272E38;
+  }
+
+  .headtitle h1{
+    font-family: var(--font-family);
+    font-size: calc(1.2rem + 1vw);
+    letter-spacing: 0.01rem;
+    text-align: start;
+    margin: auto auto auto 0;
+    padding: .5em 0;
+    width: fit-content;
+    color: var(--secondary-color);
+    text-transform: capitalize;
+    font-weight: 600;
+  }
+
+  .faqCardContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .faqCard{
+    position: relative;
+    width: 100%;
+    background-color: var(--primary-color);
+    border-radius: 1em;
+    padding: .7em 0 ;
+    margin: 1em auto;
+    text-align: start;
+  }
+  .faqCard h2 {
+    width: 100%;
+    font-size: calc(1rem + .4vw);
+    font-family: var(--font-family);
+    font-style: normal;
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+
+  .description {
+    font-size: calc(0.8rem + 0.3vw);
+    font-family: var(--font-family);
+    font-style: normal;
+    font-weight: 300;
+    max-height: 0;
+    overflow: hidden;
+    margin: 0;
+    transition: max-height .4s ease-in-out;
+  }
+
+  .expanded .description {
+    transition: max-height 1s ease-in-out !important;
+    max-height: 1000px;
+  }
+
+
+  .arrow {
+    position: absolute;
+    cursor: pointer;
+    top: 1.6em;
+    right: 3%;
+    transition: transform 3s ease;
+  }
+
+  .expanded .arrow {
+    transform: rotate(180deg);
+  }
+
+  @media screen and (max-width: 950px) {
+    .faqCard{
+      position: relative;
+      width: 100%;
+      background-color: var(--primary-color);
+      border-radius: 1em;
+      padding: .5em 0 ;
+      margin: .7em auto;
+    }
+    .arrow {
+      position: absolute;
+      top: 1.2em;
+      right: 5%;
+      transition: transform 3s ease;
+    }
+  }
