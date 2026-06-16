@@ -33,8 +33,11 @@ const AffiliateProgramDetails = () => {
   const [loading, setLoading] = useState(false);
   const [affiliateData, setAffiliateData] = useState(null);
 
-  const getToken = () =>
-    sessionStorage.getItem("token") || localStorage.getItem("token");
+  
+  const getToken = () => {
+    return localStorage.getItem("token");
+  };
+
   const token = getToken();
 
   const fetchAffiliate = async () => {

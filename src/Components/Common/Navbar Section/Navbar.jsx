@@ -304,6 +304,7 @@ const Navbar = ({ toggle, cartToggle }) => {
               </div>
             </div>
         <div className={classes.header}>
+          {<LanCurrSelect toggle={toggle} />}
           <div className={classes.logocontainer}>
             {/* <Link to="/"> */}
               <img src={isMobile ? moblogo : ColoredLogo} style={{cursor:"pointer"}} alt="logodark"  onClick={NavigateAndScroll}/>
@@ -311,7 +312,6 @@ const Navbar = ({ toggle, cartToggle }) => {
           </div>
           {!isSearchBar && <div className={classes.headercontent}>
             <div className={classes.bottomdiv}>
-              {<LanCurrSelect />}
               <div className={classes.options}>
               <div
                   className={classes.icon}
@@ -418,23 +418,6 @@ const Navbar = ({ toggle, cartToggle }) => {
                       {productData?.length}
                     </span>
                   )}
-                </div>
-                <div
-                  className={classes.icon}
-                  style={{ width: "40px", height: "40px", borderRadius: "50%" }}
-                >
-                    <IconButton
-                      sx={{ p: 0 }}
-                      onClick={toggle}
-                    >
-                    <MenuIcon 
-                        style={{
-                          width: "36px",
-                          height: "36px",
-                          color: "var(--secondary-color)",
-                          margin: "3px 6px",
-                        }} />
-                        </IconButton>
                 </div>
                 {/* <div
                   style={{ width: "30px", height: "30px", marginTop: "-12px" }}
