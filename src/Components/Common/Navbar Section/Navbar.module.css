@@ -17,8 +17,9 @@
 
 .header{
     position: relative;
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 40% 20% 40%;
+    align-items: center;
     height: fit-content;
     width: 88%;
     margin: auto;

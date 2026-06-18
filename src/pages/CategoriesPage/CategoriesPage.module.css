@@ -1,0 +1,28 @@
+.catContent {
+  width: 80%;
+  margin: 2em auto;
+  text-align: center;
+}
+
+.catContent p {
+  margin: 1em 0;
+  line-height: 1.8;
+}
+
+.headtitle {
+  position: relative;
+  margin: 2em auto;
+  padding: 1em 0;
+}
+
+.headtitle h2 {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: var(--secondary-color);
+}
+
+@media (max-width: 768px) {
+  .catContent {
+    width: 90%;
+  }
+}

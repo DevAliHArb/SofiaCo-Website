@@ -171,7 +171,7 @@ const Details = () => {
         `${import.meta.env.VITE_TESTING_API}/users/${user.id}/subscriptions`,
         {
           collaborator_id: collaborator.id,
-          ecom_type: "hanoot",
+          ecom_type: "sofiaco",
         },
         {
           headers: {

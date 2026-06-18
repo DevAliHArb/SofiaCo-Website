@@ -25,7 +25,7 @@ const SocialMedia = (categoryData) => {
   const fetchInstagramPost = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/social-posts?ecom_type=hanoot`
+        `${import.meta.env.VITE_TESTING_API}/social-posts?ecom_type=sofiaco`
       );
       const data = response.data.sort((a, b) => b.id - a.id);
       
@@ -76,7 +76,7 @@ useEffect(() => {
         <div id="best_sellers" style={{ position: "absolute", top: "80%" }}/>
         <div className={classes.header} style={{display:'flex', flexDirection:'column', justifyContent:'center', marginBottom:'2em'}}>
           <div className={classes.title} style={{margin:'auto'}}>
-            <h1 style={{textAlign:'center'}} onClick={fetchInstagramPost}>{language === "eng" ? "As Seen on Social Media" : "Vu Sur Les Médias Sociaux"}</h1>
+            <h1 style={{textAlign:'center'}} onClick={fetchInstagramPost}>{language === "eng" ? "MEDIAS" : "MEDIAS"}</h1>
           </div>
         </div>
         {filteredData?.length === 0 ? (

@@ -30,7 +30,17 @@ const BooksView = ({carttoggle}) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { id: subcatageoryId } = useParams();
+  const { id, subcatname, subsubcatname, catId } = useParams();
+  const isBrandPage = location.pathname.startsWith("/main/brands");
+  const isCategoryPage = location.pathname.startsWith("/main/cp");
+  const isSubCategoryPage = location.pathname.startsWith("/main/cp") && Boolean(subcatname);
+  const isSubSubCategoryPage = location.pathname.startsWith("/main/cp") && subsubcatname && id;
+  const isNouveautesPage = location.pathname.startsWith("/main/nouveautes");
+  
+  // Extract publisher_id from URL if on brands page, otherwise null
+  const publisher_id = isBrandPage ? id : null;
+  const subcatageoryId = isBrandPage ? null : id;
+  
   const [isOpen, setIsOpen] = useState(false);
   const [rate, setrate] = useState(0);
   const searchData = useSelector((state) => state.products.searchData);
@@ -53,6 +63,8 @@ const BooksView = ({carttoggle}) => {
   const [changepricetoggle, setchangePricetoggle] = useState(false);
   const [parentCategoriesOpen, setparentCategoriesOpen] = useState(true);
   const [subCategoriesOpen, setsubCategoriesOpen] = useState(true);
+  const [subSubCategoriesOpen, setsubSubCategoriesOpen] = useState(true);
+  const [subSubCategorySearch, setSubSubCategorySearch] = useState("");
   const [themesOpen, setthemesOpen] = useState(false);
   const [publishinghouseOpen, setpublishinghouseOpen] = useState(false);
   const [collectionsOpen, setcollectionsOpen] = useState(false);
@@ -161,6 +173,7 @@ const BooksView = ({carttoggle}) => {
     const publishers = JSON.parse(localStorage.getItem("publishers")) || [];
     const parentCategories = JSON.parse(localStorage.getItem("parentCategories")) || [];
     const subCategories = JSON.parse(localStorage.getItem("subCategories")) || [];
+    const subSubCategories = JSON.parse(localStorage.getItem("subSubCategories")) || [];
     const multiproductids = JSON.parse(localStorage.getItem("multiproductids")) || [];
     const discount = JSON.parse(localStorage.getItem("discount")) || [];
     const minPrice = localStorage.getItem("min_price");
@@ -174,6 +187,7 @@ const BooksView = ({carttoggle}) => {
     if (publishers.length > 0) params.set("publishers", publishers.join(","));
     if (parentCategories.length > 0) params.set("parentCategories", parentCategories.join(","));
     if (subCategories.length > 0) params.set("subCategories", subCategories.join(","));
+    if (subSubCategories.length > 0) params.set("subSubCategories", subSubCategories.join(","));
     if (multiproductids.length > 0) params.set("multiproducts", multiproductids.join(","));
     if (discount.length > 0) params.set("discount", discount.join(","));
     if (minPrice) params.set("minPrice", minPrice);
@@ -193,6 +207,7 @@ const BooksView = ({carttoggle}) => {
     const publishers = searchParams.get("publishers");
     const parentCategories = searchParams.get("parentCategories");
     const subCategories = searchParams.get("subCategories");
+    const subSubCategories = searchParams.get("subSubCategories");
     const multiproducts = searchParams.get("multiproducts");
     const discount = searchParams.get("discount");
     const minPrice = searchParams.get("minPrice");
@@ -215,6 +230,9 @@ const BooksView = ({carttoggle}) => {
     }
     if (subCategories) {
       localStorage.setItem("subCategories", JSON.stringify(subCategories.split(",").map(Number)));
+    }
+    if (subSubCategories) {
+      localStorage.setItem("subSubCategories", JSON.stringify(subSubCategories.split(",").map(Number)));
     }
     if (multiproducts) {
       localStorage.setItem("multiproductids", JSON.stringify(multiproducts.split(",").map(Number)));
@@ -691,7 +709,7 @@ const BooksView = ({carttoggle}) => {
     fetchArticles(selectedRate, collection, category, 1 );
   }, [selectedRate]);
 
-  const fetchArticles = async ( rate, collectionId, id,page) => {
+  const fetchArticles = async (rate, collectionId, id, page, sortHeader = null) => {
     let CatID = id;
     setLoading(true);
     try {
@@ -719,14 +737,12 @@ const BooksView = ({carttoggle}) => {
         : "";
 
         
-      const selectedbestseller =
-        searchData[0]?.bestsellers === true || searchData[0]?.bestseller === true
-      ? `&bestsellers=true`
-      : "";
-
-      const selectednewarrivalParam = searchData[0]?.newarrival === true
-      ? `&newarrival=true`
-      : "";
+      const selectedSortParam =
+        sortHeader === "sortbynew" || searchData[0]?.newarrival === true
+          ? "&sortbynew"
+          : sortHeader === "sortbybestseller" || searchData[0]?.bestsellers === true || searchData[0]?.bestseller === true
+          ? "&sortbybestseller"
+          : "";
 
       const selectedupcomingParam = searchData[0]?.upcoming === true
       ? `&upcoming=true`
@@ -874,13 +890,24 @@ const BooksView = ({carttoggle}) => {
             .join("&")
         : "";
 
+        // Get sub-subcategories from localStorage
+      const storedsubSubCategories =
+      JSON.parse(localStorage.getItem("subSubCategories")) || [];
+    const selectedsubSubCategoriesParam =
+      storedsubSubCategories.length > 0
+        ? `&` +
+          storedsubSubCategories
+            .map((subsubCatId) => `articlesub_category_id[]=${subsubCatId}`)
+            .join("&")
+        : "";
+
       const selectedSmartData = searchData[0]?.smartdata 
       ? `&smart_search=${searchData[0].smartdata}`
       : "";
 
     // Get the category from localStorage if available
       // Finalize the URL by combining all parameters
-      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedillustrateurParam}${selectedCategoryParentParent}${selectedsubCategoriesParam}${selectedParentCategoriesParam}${selectedCollabParam}${selectedmultiproductsParam}${UserIdParam}${selectedCollecParam}${selectedStockParam}${selectedDiscount}${selectedPubliParam}${selectedEANParam}${selectedResumeParam}${selectedSmartData}${selectedupcomingParam}${selectedalsoseeParam}${selectednewarrivalParam}${selectedFavoritesParam}${selectedisSelectedParam}${selectedbestseller}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}${selectedsubCategoryParam}&ecom_type=sofiaco`;
+      const finalUrl = `${url}?${Pagenum}${selectedRateParam}${selectedillustrateurParam}${selectedCategoryParentParent}${selectedsubCategoriesParam}${selectedsubSubCategoriesParam}${selectedParentCategoriesParam}${selectedCollabParam}${selectedmultiproductsParam}${UserIdParam}${selectedCollecParam}${selectedStockParam}${selectedDiscount}${selectedPubliParam}${selectedEANParam}${selectedResumeParam}${selectedSmartData}${selectedupcomingParam}${selectedalsoseeParam}${selectedSortParam}${selectedFavoritesParam}${selectedisSelectedParam}${selectedCatParam}${selectededitorParam}${selectedauthorParam}${selectedtraducteurParam}${selectedminPriceParam}${selectedmaxPriceParam}${selectedsubCategoryParam}&ecom_type=sofiaco`;
       // Fetch articles using the finalized URL
       const response = await axios.get(finalUrl);
 
@@ -1271,6 +1298,27 @@ const handleChangeSubCategory = (event) => {
     );
   };
 
+  const handleChangeSubSubCategory = (id) => {
+    let storedSubSubCategories = JSON.parse(localStorage.getItem("subSubCategories")) || [];
+    
+    if (storedSubSubCategories.includes(id)) {
+      storedSubSubCategories = storedSubSubCategories.filter((subsubcat) => subsubcat !== id);
+    } else {
+      storedSubSubCategories.push(id);
+    }
+    
+    localStorage.setItem("subSubCategories", JSON.stringify(storedSubSubCategories));
+    syncFiltersToURL();
+    setArticles([]);
+  };
+
+  const selectedSubSubCategories = JSON.parse(localStorage.getItem("subSubCategories")) || [];
+
+  const isSubSubCategorySelected = (id) => {
+    if (!id) return false;
+    return selectedSubSubCategories.some((subsubcat) => subsubcat === id);
+  };
+
   const parsedStoredParentCategories = JSON.parse(storedParentCategories || '[]');
   const isLibrary = Number(selectedCategoryId) === 1 || parsedStoredParentCategories.includes(1) || (parsedStoredParentCategories.length === 0 && (selectedCategoryId === null || selectedCategoryId === 'null'));
 
@@ -1327,7 +1375,7 @@ const handleChangeSubCategory = (event) => {
         <h1>{language === 'eng' ? "Filter" : "Filtre " }</h1>
         <div className={classes.filter}>
           
-          {(selectedCategoryId === null || selectedCategoryId === 'null') && <div className={classes.categories}>
+          {!isBrandPage && (selectedCategoryId === null || selectedCategoryId === 'null') && <div className={classes.categories}>
             <h2
               onClick={() => setparentCategoriesOpen(!parentCategoriesOpen)}
               style={{
@@ -1434,6 +1482,65 @@ const handleChangeSubCategory = (event) => {
           width="88%"
           style={{margin:'0.5em auto'}}
         />
+
+          {<div className={classes.categories}>
+            <h2
+              onClick={() => setsubSubCategoriesOpen(!subSubCategoriesOpen)}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "80% 20%", 
+              }}
+            >
+              <span>
+              {language === "eng" ? "SUB-SUB CATEGORIES" : "SOUS-SOUS CATEGORIES"}{" "}
+              </span>
+              {subSubCategoriesOpen ? (
+                <span
+                  style={{
+                    margin: "auto",
+                    paddingRight: "0",
+                    rotate: "180deg",
+                    
+                  }}
+                >
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}}/>
+                </span>
+              ) : (
+                <span style={{ margin: "auto", paddingLeft: "0" }}>
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}} />
+                </span>
+              )}
+            </h2>
+            {subSubCategoriesOpen && (
+              <div className={classes.dropdown} style={{ maxHeight: "400px", height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+                <div style={{ padding: '0 0.6em 0.6em 0' }}>
+                  <TextField size="small" variant="standard" placeholder={language === 'eng' ? 'Search subsub...' : 'Rechercher...'} value={subSubCategorySearch} onChange={(e) => setSubSubCategorySearch(e.target.value)} fullWidth />
+                </div>
+                {authCtx?.subsubCategories?.filter(subsubcat => {
+                  // Filter by selected subcategories if any are selected
+                  if (selectedSubCategories.length === 0) return true;
+                  return selectedSubCategories.includes(subsubcat.b_usr_articlecategorie_id);
+                })?.sort((a, b) => ((a.nom || '')).localeCompare((b.nom || ''))).map((subsubcat) => {
+                  if (subSubCategorySearch && !contains(subsubcat.nom, subSubCategorySearch)) return null;
+                  const isChecked = isSubSubCategorySelected(subsubcat.id);
+
+                  return (
+                    <div key={subsubcat.id} style={{ display: "flex", alignItems: "center", marginBottom: "0.5em" }} onClick={(e) => handleChangeSubSubCategory(subsubcat.id)}>
+                      <input type="checkbox" checked={isChecked} className={classes.checkbox} style={{ marginRight: "0px", width: "1.3em", height: "1.3em" }} />
+                      <p style={{ margin: "auto 0 auto 2%", width: "92%", display: "flex", cursor: "pointer" }}>{subsubcat.nom}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>}
+
+          <Divider  
+          color="var(--secondary-color)"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
+
           {isLibrary && <>
           <div className={classes.categories}>
             <h2
@@ -1487,7 +1594,7 @@ const handleChangeSubCategory = (event) => {
           style={{margin:'0.5em auto'}}
         />
 
-          <div className={classes.categories}>
+          {!isBrandPage && <div className={classes.categories}>
             <h2
               onClick={() => setpublishinghouseOpen(!publishinghouseOpen)}
               style={{
@@ -1533,7 +1640,7 @@ const handleChangeSubCategory = (event) => {
                   })}
                 </div>
               )}
-          </div>
+          </div>}
 
           <Divider  
           color="var(--secondary-color)"
@@ -1916,7 +2023,7 @@ const handleChangeSubCategory = (event) => {
           <p style={{width:'fit-content',color:'#fff',cursor:'pointer',fontWeight:'500', fontFamily:'var(--font-family)', background:'var(--primary-color)', padding:'0.5em 1em', borderRadius:'0.5em', textDecoration:'none', margin:'0.5em 0.5em 0em auto' }} onClick={ResetfilterHandle}><u>{language === "eng" ? "Reset All" : "Réinitialiser"}</u></p>
           </div>
           
-          {(selectedCategoryId === null || selectedCategoryId === 'null') && <div className={classes.categories}>
+          {!isBrandPage && (selectedCategoryId === null || selectedCategoryId === 'null') && <div className={classes.categories}>
             <h2
               onClick={() => setparentCategoriesOpen(!parentCategoriesOpen)}
               style={{
@@ -2023,6 +2130,65 @@ const handleChangeSubCategory = (event) => {
           width="88%"
           style={{margin:'0.5em auto'}}
         />
+
+          {<div className={classes.categories}>
+            <h2
+              onClick={() => setsubSubCategoriesOpen(!subSubCategoriesOpen)}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "80% 20%", 
+              }}
+            >
+              <span>
+              {language === "eng" ? "SUB-SUB CATEGORIES" : "SOUS-SOUS CATEGORIES"}{" "}
+              </span>
+              {subSubCategoriesOpen ? (
+                <span
+                  style={{
+                    margin: "auto",
+                    paddingRight: "0",
+                    rotate: "180deg",
+                    
+                  }}
+                >
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}}/>
+                </span>
+              ) : (
+                <span style={{ margin: "auto", paddingLeft: "0" }}>
+                  <IoIosArrowDown style={{color:'var(--primary-color)', cursor:'pointer'}} />
+                </span>
+              )}
+            </h2>
+            {subSubCategoriesOpen && (
+              <div className={classes.dropdown} style={{ maxHeight: "400px", height:'fit-content', overflowY: "scroll", margin:'1em auto ' }}>
+                <div style={{ padding: '0 0.6em 0.6em 0' }}>
+                  <TextField size="small" variant="standard" placeholder={language === 'eng' ? 'Search subsub...' : 'Rechercher...'} value={subSubCategorySearch} onChange={(e) => setSubSubCategorySearch(e.target.value)} fullWidth />
+                </div>
+                {authCtx?.subsubCategories?.filter(subsubcat => {
+                  // Filter by selected subcategories if any are selected
+                  if (selectedSubCategories.length === 0) return true;
+                  return selectedSubCategories.includes(subsubcat.b_usr_articlecategorie_id);
+                })?.sort((a, b) => ((a.nom || '')).localeCompare((b.nom || ''))).map((subsubcat) => {
+                  if (subSubCategorySearch && !contains(subsubcat.nom, subSubCategorySearch)) return null;
+                  const isChecked = isSubSubCategorySelected(subsubcat.id);
+
+                  return (
+                    <div key={subsubcat.id} style={{ display: "flex", alignItems: "center", marginBottom: "0.5em" }} onClick={(e) => handleChangeSubSubCategory(subsubcat.id)}>
+                      <input type="checkbox" checked={isChecked} className={classes.checkbox} style={{ marginRight: "0px", width: "1.3em", height: "1.3em" }} />
+                      <p style={{ margin: "auto 0 auto 2%", width: "92%", display: "flex", cursor: "pointer" }}>{subsubcat.nom}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>}
+
+          <Divider  
+          color="var(--secondary-color)"
+          width="88%"
+          style={{margin:'0.5em auto'}}
+        />
+
           {isLibrary && <>
           <div className={classes.categories}>
             <h2
@@ -2076,7 +2242,7 @@ const handleChangeSubCategory = (event) => {
           style={{margin:'0.5em auto'}}
         />
 
-          <div className={classes.categories}>
+          {!isBrandPage && <div className={classes.categories}>
             <h2
               onClick={() => setpublishinghouseOpen(!publishinghouseOpen)}
               style={{
@@ -2122,7 +2288,7 @@ const handleChangeSubCategory = (event) => {
                   })}
                 </div>
               )}
-          </div>
+          </div>}
 
           <Divider  
           color="var(--secondary-color)"

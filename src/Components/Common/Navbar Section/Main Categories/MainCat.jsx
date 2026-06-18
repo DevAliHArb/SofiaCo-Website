@@ -15,8 +15,21 @@ import AuthContext from '../../authContext';
 import allcatw from "../../../../assets/icons/all-cat-w.svg";
 import allcat from "../../../../assets/icons/all-cat.svg";
 import { useNavigate } from "@hooks/useNavigate";
-import { addSelectedCategory } from '../../../redux/productSlice';
+import { addSelectedCategory, resetSearchData } from '../../redux/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
+
+// Helper function to slugify and sanitize text
+const slugify = (text, placeholder = 'product') => {
+  if (!text || text.trim() === '') return placeholder;
+  return text
+    .toString()
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-+|-+$/g, '');
+};
 
 const MainCat = () => {
   const authCtx = useContext(AuthContext);
@@ -24,25 +37,37 @@ const MainCat = () => {
   const dispatch = useDispatch();
   const [selectedCategoryRoute, setSelectedCategoryRoute] = useState('');
   const [initialSlide, setInitialSlide] = useState(0); // Initialize the state for initialSlide
-    const selectedCategoryId = useSelector((state) => state.products.selectedCategoryId);
+  const selectedCategoryId = useSelector((state) => state.products.selectedCategoryId);
   
   useEffect(() => {
     const selectedCategoryId = localStorage.getItem('route');
-    setSelectedCategoryRoute(selectedCategoryId ? selectedCategoryId : '/');
+    setSelectedCategoryRoute(selectedCategoryId ? selectedCategoryId : '/main');
     
     // Set the initialSlide index based on localStorage route value
     if (selectedCategoryId) {
-      const selectedIndex = authCtx.articleFamille?.findIndex(item => item.route === selectedCategoryId);
-      console.log(selectedIndex);
+      const selectedIndex = authCtx.articleFamilleParents?.findIndex(item => item.route === selectedCategoryId);
       setInitialSlide(selectedIndex !== -1 ? selectedIndex + 1 : 0); // Adjust index to account for the 'All Categories' item
     }
   }, []);
   
-  const handleCategoryClick = (route, id) => {
-    localStorage.setItem('route', route);
-    dispatch(addSelectedCategory(id === null ? null : String(id)))
-    setSelectedCategoryRoute(route);
-    // navigate(`${route}`)
+  const handleCategoryClick = (id, name) => {
+    dispatch(resetSearchData());
+    localStorage.removeItem("subCategories");
+    localStorage.removeItem("parentCategories");
+    localStorage.removeItem("publishers");
+    localStorage.removeItem("categories");
+    localStorage.removeItem("collections");
+    
+    // Add parentcategorie_id to parentCategories in localStorage
+    const parentCategories = JSON.parse(localStorage.getItem("parentCategories")) || [];
+    if (!parentCategories.includes(id)) {
+      parentCategories.push(id);
+      localStorage.setItem("parentCategories", JSON.stringify(parentCategories));
+    }
+    
+    dispatch(addSelectedCategory(id === null ? null : String(id)));
+    const slug = slugify(name);
+    navigate(`/main/cp/${slug}/${id}`);
   };
   
   return (
@@ -69,38 +94,30 @@ const MainCat = () => {
         }}
         className={classes.swiper}
       >
-        {authCtx.articleFamille?.map((item, index) => {
+        {authCtx.articleFamilleParents?.map((item, index) => {
           return (
             <SwiperSlide
               className={classes.swiper_slide}
-              onClick={() => handleCategoryClick(item.route, item.id) & console.log('iouwhr',authCtx.articleFamille)}
+              onClick={() => handleCategoryClick(item.id, item.nom)}
               key={index}
             >
-          <div className={classes.iconCont}
-          style={{
-            background: Number(selectedCategoryId) === Number(item?.id) ? '#E3BA72' : '#FFF4E1',
-          }}>
-              <img
-                src={Number(selectedCategoryId) === Number(item?.id) ? allcatw : allcat}
-                alt=""
-                className={classes.icon}
-              />
+              <div className={classes.iconCont}
+                style={{
+                  background: Number(selectedCategoryId) === Number(item?.id) ? '#E3BA72' : '#FFF4E1',
+                }}>
+                <img
+                  src={Number(selectedCategoryId) === Number(item?.id) ? (item?.light_image || allcatw) : (item?.dark_image || allcat)}
+                  alt={item?.nom || ''}
+                  className={classes.icon}
+                />
               </div>
               <p style={{ color:'#111' }}>
-                {item?.type_nom} 
+                {item?.nom} 
               </p>
             </SwiperSlide>
           );
         })}
       </Swiper>
-      {/* <div className={classes.customNavigation}>
-                <button className={classes.navButton_prev}>
-                  <IoMdArrowBack  className={classes.nav_icon}/>
-                </button>
-                <button className={classes.navButton_next}>
-                  <IoMdArrowBack style={{ transform: 'rotate(180deg)' }}  className={classes.nav_icon}/>
-                </button>
-              </div> */}
     </div>
   );
 };

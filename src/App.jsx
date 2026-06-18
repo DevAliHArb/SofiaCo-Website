@@ -44,6 +44,17 @@ import ForgotPassword from './Components/Auth Pages/Forgot Password/ForgotPasswo
 import PublisherDetails from './Components/Collaborators/Publisher DetailsPage/PublisherDetails';
 import ResendVerify from './Components/Auth Pages/Verfiy Email/ResendVerify';
 import AddCartPopup from './Components/Common Components/Add To Cart Popup/AddCartPopup';
+import CategoriesPage from './pages/CategoriesPage';
+import SubCategoriesPage from './pages/SubCategoriesPage';
+import SubSubCategoriesPage from './pages/SubSubCategoriesPage';
+import BestSellersPage from './Components/Best Sellers Page/BestSellersPage';
+import NouveautesPage from './Components/Nouveautes Page/NouveautesPage';
+import AffiliateProgram from './Components/Affiliate Program/AffiliateProgram';
+import AffiliateProgramDetails from './Components/Affiliate Program/AffiliateProgramDetails';
+import BlogPage from './Components/Blogs Page/Blogs Page/BlogPage';
+import BlogDetails from './Components/Blogs Page/Blog Details/BlogDetails';
+import AddBlog from './Components/Blogs Page/Add Blog/AddBlog';
+import EditBlog from './Components/Blogs Page/Edit Blog/EditBlog';
 
 
 
@@ -254,7 +265,19 @@ function App() {
           <Route path="/main/products" element={<ScrollToTop><BooksPage /></ScrollToTop>} />
           <Route path="/main/products/subcategory/:id" element={<ScrollToTop><BooksPage /></ScrollToTop>} />
           <Route path="/main/productdetails/:id" element={<ScrollToTop><BookDetailsPage cartToggle={cartToggle} /></ScrollToTop>} />
+          <Route path="/main/productdetails/:id/:token" element={<ScrollToTop><BookDetailsPage cartToggle={cartToggle} /></ScrollToTop>} />
+          <Route path='/bestsellers' element={<ScrollToTop><BestSellersPage /></ScrollToTop>} />
+          <Route path='/nouveautes' element={<ScrollToTop><NouveautesPage /></ScrollToTop>} />
+          <Route path='/main/blogs' element={<ScrollToTop><BlogPage /></ScrollToTop>} />
+          <Route path='/main/blogdetails/:blogId' element={<ScrollToTop><BlogDetails /></ScrollToTop>} />
+          <Route path='/main/add-blog' element={user ? <ScrollToTop><AddBlog /></ScrollToTop> : <Navigate to="/login" replace />} />
+          <Route path='/main/edit-blog/:blogId' element={user ? <ScrollToTop><EditBlog /></ScrollToTop> : <Navigate to="/login" replace />} />
+          <Route path="/main/cp/:catname/:catId" element={<ScrollToTop><CategoriesPage /></ScrollToTop>} />
+          <Route path="/main/cp/:catname/:subcatname/:id" element={<ScrollToTop><SubCategoriesPage /></ScrollToTop>} />
+          <Route path="/main/cp/:catname/:subcatname/:subsubcatname/:id" element={<ScrollToTop><SubSubCategoriesPage /></ScrollToTop>} />
           <Route path="/account/:pageId/*" element={user ? <ScrollToTop><AccountPage /></ScrollToTop> : <Navigate to="/login" replace />} />
+          <Route path='/affiliate/:id' element={user ? <ScrollToTop><AffiliateProgram /></ScrollToTop> : <Navigate to="/login" replace />} />
+          <Route path='/affiliate/:id/details/:programId' element={user ? <ScrollToTop><AffiliateProgramDetails /></ScrollToTop> : <Navigate to="/login" replace />} />
           <Route path="/my-documents/:pageId" element={user ? <ScrollToTop><MyDocumentsPage /></ScrollToTop> : <Navigate to="/login" replace />} />
           <Route path="/main/policies" element={<ScrollToTop><Mentions /></ScrollToTop>} />
           <Route path='/order-success' element={<ScrollToTop><SuccessPage/></ScrollToTop>} /> 

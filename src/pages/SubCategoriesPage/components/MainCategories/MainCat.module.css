@@ -1,0 +1,125 @@
+.swiper_con{
+    position: relative;
+    width: 100% !important;
+    height: 100%;
+    margin: 4em auto;
+    max-width: 1900px;
+    z-index: 11;
+}
+
+.header{
+    position: relative;
+    width: 100%;
+    margin: 0em auto 2em auto;
+    text-align: center;
+    justify-content: center;
+}
+
+.headtitle{
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    max-width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    color: #272E38;
+}
+
+.headtitle h1{
+    font-family: var(--font-family);
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    letter-spacing: 0.01rem;
+    text-align: center;
+    margin: auto;
+    padding: .5em 0;
+    width: fit-content;
+    color: var(--primary-color);
+    text-transform: capitalize;
+    font-weight: 700;
+}
+
+.swiper {
+    height: 100%;
+    width: 88% !important;
+    margin: 0 auto;
+}
+
+.swiper_slide {
+    text-align: center;
+    display: flex !important;
+    width: auto;
+    border-radius: 1em;
+    flex-direction: column !important;
+    column-gap: .5em;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.5em 0em;
+    transition: transform 0.3s ease;
+}
+
+.swiper_slide:hover {
+    transform: translateY(-5px);
+}
+
+.iconCont {
+    max-width: 11em;
+    max-height: 11em;
+    width: 10vw;
+    height: 10vw;
+    display: flex;
+    border-radius: 50%;
+    background: var(--secondary-color);
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.swiper_slide:hover .iconCont {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    transform: scale(1.05);
+}
+
+.icon {
+    display: block;
+    width: 60%;
+    height: auto;
+    max-height: 60%;
+    margin: auto;
+    object-fit: contain;
+}
+
+.iconPlaceholder {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.swiper_slide h3 {
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    font-family: var(--font-family);
+    text-transform: capitalize;
+    width: fit-content;
+    margin: 0.7em auto 0 auto;
+    text-align: center;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+@media screen and (max-width:950px) {
+    .swiper_con{
+        margin: 3em auto;
+    }
+    .iconCont {
+        max-width: 130em;
+        max-height: 130em;
+        width: 25vw;
+        height: 25vw;
+    }
+    .swiper_slide h3 {
+        font-size: clamp(0.7rem, 2vw, 0.9rem);
+    }
+}

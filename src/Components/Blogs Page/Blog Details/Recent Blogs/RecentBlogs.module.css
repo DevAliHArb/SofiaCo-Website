@@ -1,0 +1,201 @@
+.blogContainert{
+    width: 88%;
+    position: relative;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    max-width: 1900px;
+    margin: 0 auto 0 auto;
+    font-family: var(--font-family);
+}
+
+.header{
+    position: relative;
+    width: 100%;
+    margin: 0em auto 0 auto;
+    text-align: center;
+    justify-content: center;
+}
+
+.title {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    max-width: 100%;
+    margin: auto 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.title h2 {
+    font-family: var(--font-family);
+    font-size: calc(1.2rem + 1vw);
+    letter-spacing: 0.01rem;
+    text-align: center;
+    margin: auto auto auto 0;
+    padding: .3em 0;
+    width: fit-content;
+    color: var(--secondary-color);
+    text-transform: capitalize;
+}
+
+.cardsGridContainer{
+    position: relative;
+    width: 89% !important;
+    margin: 0 auto;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.swiperslide{
+    padding: 0em 0 3em 0;
+}
+
+.customNavigation {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 50%;
+    width: 110%;
+    left: -5%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.navButton_next {
+    width: 3.5em;
+    height: 3.5em;
+    border: none;
+    cursor: pointer;
+    padding: 0em;
+    z-index: 20 !important;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.navButton_prev {
+    width: 3.5em;
+    height: 3.5em;
+    border: none;
+    cursor: pointer;
+    padding: 0em;
+    z-index: 20;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.navButton_prev:hover, .navButton_next:hover {
+    opacity: 0.7;
+}
+
+.nav_icon{
+    width: 1.5em;
+    height: 1.5em;
+    padding: 0.5em;
+    color: var(--primary-color);
+}
+
+.imagesCont{
+    width: 100%;
+    height: 13vw;
+    max-height: 13em;
+    margin: 0 auto 1em auto;
+    border-radius: 1em;
+    overflow: hidden;
+}
+
+.blogImg{
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    object-fit: cover;
+    object-position: center;
+}
+
+.cardGrid{
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    text-align: center;
+    margin: 0 auto 2em auto;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.cardGrid:hover{
+    transform: scale(1.01);
+}
+
+.contantRow{
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    padding: .5em 1em;
+    font-size: calc(.7rem + .3vw);
+    background-color: #fff;
+    border-radius: 10em;
+}
+
+.gridblogContant{
+    position: relative;
+    color: #000;
+    font-family: var(--font-family);
+    font-style: normal;
+    font-weight: 700;
+    padding: 2em 5%;
+    width: 90%;
+    margin: auto;
+    border-radius: .7em;
+}
+
+.gridblogContant p{
+    font-size: calc(.7rem + .3vw);
+    font-family: var(--font-family);
+    font-weight: 400;
+    color: #272E38;
+    margin: .3em 0;
+    text-align: start;
+}
+
+.description{
+    white-space: normal !important;
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 2 !important;
+    line-clamp: 2 !important;
+    font-size: calc(.6rem + .3vw) !important;
+}
+
+.titleCon h2{
+    font-size: calc(1em + .3vw);
+    font-family: var(--font-family);
+    color: #272E38;
+    font-weight: 600;
+    text-align: start;
+    margin: 0em 0;
+}
+
+@media screen and (max-width:750px) {
+    .blogContainert{
+        width: 100%;
+        margin: 2em auto 0 auto !important;
+    }
+
+    .cardGrid{
+        margin: 1em auto;
+    }
+}

@@ -1,0 +1,17 @@
+.bigcontainer { width: 90%; max-width: 1900px; margin: 0 auto; height: fit-content; padding: 3% 0 2% 0; display: flex; flex-direction: column; font-family: var(--font-family); }
+.header { position: relative; width: 100%; margin: 0 auto 1.5em auto; text-align: center; justify-content: center; }
+.headtitle { position: relative; width: fit-content; height: fit-content; max-width: 100%; margin: 0 auto; }
+.headtitle h1 { font-family: var(--font-family); font-size: calc(1.2rem + 1vw); letter-spacing: 0.01rem; text-align: center; margin: 0; padding: 0.4em 0; width: fit-content; color: var(--secondary-color); text-transform: capitalize; font-weight: 600; }
+.filterLayout { width: 100%; display: grid; grid-template-columns: 22% 76%; justify-content: space-between; column-gap: 2%; margin: 0 auto; }
+.filter { width: 100%; height: fit-content; background: #fff; border: 1px solid #f1f1f1; border-radius: 1em; padding: 1.5em 0; position: sticky; top: 10em; }
+.filterHeader { width: 88%; margin: 0 auto 1em auto; text-align: start; }
+.filterHeader h2 { color: var(--secondary-color); font-family: var(--font-family); font-size: calc(1.1rem + 0.3vw); font-weight: 700; margin: 0; }
+.main { width: 100%; display: flex; flex-direction: column; }
+.categories { width: 88%; margin: 0 auto 5% auto; text-align: start; }
+.categories h2 { width: 100%; display: flex; flex-direction: row; text-transform: capitalize; color: #151515; font-family: var(--font-family); font-size: calc(0.65rem + 0.3vw); font-weight: 600; line-height: normal; margin: 0.3em 0; cursor: pointer; }
+.dropdown { padding: 0 4%; }
+.filterActions { width: 88%; margin: 1.5em auto 0 auto; display: flex; justify-content: flex-start; }
+.resetFilter { border: 1px solid var(--primary-color); border-radius: 2em; background: var(--primary-color); color: #fff; padding: 0.6em 1.4em; font-family: var(--font-family); font-size: calc(0.7rem + 0.2vw); cursor: pointer; transition: background-color 0.3s ease, color 0.3s ease; width: 100%; }
+.resetFilter:hover { color: var(--primary-color); background: #fff; }
+.checkbox { accent-color: var(--primary-color); }
+@media screen and (max-width: 950px) { .bigcontainer { margin-top: 2em; width: 95%; } .filterLayout { display: flex; flex-direction: column; } .filter { display: none; } }

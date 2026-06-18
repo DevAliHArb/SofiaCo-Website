@@ -26,7 +26,7 @@ import {
   PiShoppingCartSimpleLight,
 } from "react-icons/pi";
 import { HiOutlineBookOpen } from "react-icons/hi2";
-import bookplaceholder from '../../../assets/bookPlaceholder.png'
+import bookPlaceholder from '../../../assets/bookPlaceholder.png'
 import placeholder from '../../../assets/Collectionplaceholder.png'
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";

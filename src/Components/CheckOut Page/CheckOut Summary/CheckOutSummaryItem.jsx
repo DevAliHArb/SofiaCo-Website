@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classes from "./CheckOutSummaryItem.module.css";
-import bookPlaceHolder from '../../../assets/bookPlaceholder.png';
+import bookPlaceholder from '../../../assets/bookPlaceholder.png';
 import DeleteIcon from "../../../assets/DeleteIcon.svg";
 import { decreamentQuantity, deleteItem, changeQuantity } from "../../Common/redux/productSlice";
 import { toast } from "react-toastify";
@@ -18,7 +18,7 @@ const CheckOutSummaryItem = ({data}) => {
           <div className={classes.card} key={props._id}>
             <div style={{display:"flex",flexDirection:"row",gap:"0em"}}>
             <div className={classes.imageCont}>
-              <img src={props.article.articleimage?.[0]?.link ? props.article.articleimage?.[0].link : bookPlaceHolder} alt={props.article.articleimage?.[0]?.type} style={{height:'100%', width: '80%',objectFit:'cover' ,maxWidth:'350px' }}/>
+              <img src={props.article.articleimage?.[0]?.link ? props.article.articleimage?.[0].link : bookPlaceholder} alt={props.article.articleimage?.[0]?.type} style={{height:'100%', width: '80%',objectFit:'cover' ,maxWidth:'350px' }}/>
             </div>
             <div style={{height:'100%',justifyContent:'space-between',display:'flex', flexDirection:'column', margin:'auto 0',width:'fitcontent',fontSize:'calc(.7rem + 0.3vw)',fontFamily:'var(--font-family)'}}>
               <p style={{color:'var(--accent-color)',fontSize:'calc(.9rem + 0.3vw)',fontWeight:'700'}}>{props.article.designation}</p>

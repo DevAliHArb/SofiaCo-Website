@@ -12,7 +12,7 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import { Pagination } from "swiper/modules";
 import AuthContext from '../../../Common/authContext';
-import bookPlaceHolder from '../../../../assets/bookPlaceholder.png';
+import bookPlaceholder from '../../../../assets/bookPlaceholder.png';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -84,7 +84,7 @@ const OrderCard = ({data ,reviewHandler}) => {
         date: data.date,
         article_id: item.article_id,
         is_gift: item.is_gift,
-        image: item.article.articleimage?.[0]?.link ? item.article.articleimage?.[0].link : bookPlaceHolder
+        image: item.article.articleimage?.[0]?.link ? item.article.articleimage?.[0].link : bookPlaceholder
       };
   });
     setImages(items)

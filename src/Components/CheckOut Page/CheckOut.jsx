@@ -39,6 +39,7 @@ import {
   editDefaultAdd,
   editDefaultPAY,
   resetCart,
+  clearAffiliateToken,
 } from "../Common/redux/productSlice";
 import AlsoSee from "../Common Components/Also See/AlsoSee";
 import { toast } from "react-toastify";
@@ -100,6 +101,7 @@ const CheckOut = () => {
   const productData = useSelector((state) => state.products.productData);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.products.userInfo);
+  const affiliateToken = useSelector((state) => state.products.affiliate_token);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [totalAmt, setTotalAmt] = useState(0);
@@ -723,7 +725,7 @@ const CheckOut = () => {
 
       if (!couponData) {
         const couponResponse = await axios.get(
-          `${import.meta.env.VITE_TESTING_API}/coupons?ecom_type=${import.meta.env.VITE_ECOM_TYPE}&code=${typedCouponCode}`,
+          `${import.meta.env.VITE_TESTING_API}/coupons?ecom_type=sofiaco&code=${typedCouponCode}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -1429,6 +1431,7 @@ const CheckOut = () => {
             payment_method_id: 17,
             rate: authCtx.currencyRate,
             lookup_status: statusToUse,
+            affiliate_token: affiliateToken || undefined,
         };
         const requestData1 = {
           user_id: user.id,
@@ -1473,6 +1476,7 @@ const CheckOut = () => {
             payment_method_id: 41,
             rate: authCtx.currencyRate,
             lookup_status: statusToUse,
+            affiliate_token: affiliateToken || undefined,
         };
         if (userCoupon.length > 0) {
           requestData.user_coupon_id = userCoupon[0].id;
@@ -1521,6 +1525,7 @@ const CheckOut = () => {
             );
 
             dispatch(resetCart());
+            dispatch(clearAffiliateToken());
             navigate("/order-success");
             toast.success(`${language === 'eng' ? `Order success` : "Succès de la commande"}`, {
               position: "top-right",
@@ -1647,6 +1652,7 @@ const CheckOut = () => {
             : 0,
             payment_method_id: 16,
             rate: authCtx.currencyRate,
+            affiliate_token: affiliateToken || undefined,
       };
 
       if (userCoupon.length > 0) {
@@ -1659,6 +1665,7 @@ const CheckOut = () => {
       );
 
       dispatch(resetCart());
+      dispatch(clearAffiliateToken());
       navigate("/order-success");
       setLoading(false);
       toast.success(`${language === 'eng' ? `Order success` : "Succès de la commande"}`, {

@@ -17,7 +17,7 @@ const HomePage = () => {
     <div className={classes.home}>
       <HomeBanner />
         {/* <Hero /> */}
-        <SubCategorySwiper />
+        {/* <SubCategorySwiper /> */}
         <NewReleases />
         <FeaturedBooks />
         {/* <OurSelection /> */}

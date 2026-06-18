@@ -1,0 +1,75 @@
+.maincontainer {
+    width: 88%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2em auto 3em auto;
+    z-index: 100 !important;
+}
+
+.itemsHeading {
+    width: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    font-size: calc(0.3rem + 0.8vw);
+    z-index: 100 !important;
+    margin-bottom: 1em;
+}
+
+.headContainer {
+    position: relative;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.itemHead {
+    color: var(--secondary-color);
+    font-size: calc(2.5rem + .7vw);
+    font-weight: 600;
+    margin: 0;
+}
+
+.card1{
+    width: 100% !important;
+    margin: auto;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.btnsave{
+    position: relative;
+    height: fit-content !important;
+    width: fit-content !important;
+    padding: 0.5em 2em;
+    margin: 0;
+    text-align: center;
+    justify-content: center;
+    text-transform: capitalize;
+    border-radius: 0.5em !important;
+    border: 1px solid transparent !important;
+    background: var(--primary-color);
+    cursor: pointer;
+    z-index: 100 !important;
+    transition: all 0.5s ease-in-out;
+    color: #fff;
+}
+
+.btnsave:hover{
+    color: #fff !important;
+    background: var(--secondary-color) !important;
+}
+
+@media screen and (max-width:750px) {
+    .btnsave{
+        width: 100% !important;
+    }
+
+    .itemHead {
+        font-size: calc(1.5rem + .5vw);
+        margin: 2em 0 0 0;
+    }
+}
