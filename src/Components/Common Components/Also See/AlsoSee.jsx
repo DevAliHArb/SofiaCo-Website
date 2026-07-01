@@ -16,7 +16,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IoMdArrowBack } from "react-icons/io";
 import { addSelectedBook } from '../../Common/redux/productSlice';
 import { IoCartOutline } from "react-icons/io5";
-import { stripHtmlTags, truncateText } from '../TextUtils';
+import { stripHtmlTags, truncateText, slugify } from '../TextUtils';
 
 const AlsoSee = (props) => {
   const authCtx = useContext(AuthContext);
@@ -116,7 +116,7 @@ const AlsoSee = (props) => {
                       authCtx.setbookDetails(props);
                       event.stopPropagation();
                       dispatch(addSelectedBook(props))
-                      navigate(`/main/productdetails/${props.id}`);
+                      navigate(`/cp/${slugify(props?.article_famille?.parent?.nom, 'category')}/${slugify(props?.article_famille?.type_nom, 'subcategory')}/${slugify(props?.article_sous_categorie?.nom, 'sb')}/${slugify(props?.designation, 'product')}/${props.id}`);
                     }}
                   >
                     <div className={classes.card_img}>

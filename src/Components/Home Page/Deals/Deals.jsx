@@ -15,7 +15,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IoMdArrowBack } from "react-icons/io";
 import { addSelectedBook } from "../../Common/redux/productSlice";
-import { stripHtmlTags, truncateText } from "../../Common/TextUtils";
+import { stripHtmlTags, truncateText, slugify } from "../../Common/TextUtils";
 import { Rating } from "@mui/material";
 
 const Deals = () => {
@@ -263,7 +263,7 @@ const Deals = () => {
                         authCtx.setbookDetails(props);
                         event.stopPropagation();
                         dispatch(addSelectedBook(props))
-                        navigate(`/main/productdetails/${props.id}`);
+                        navigate(`/cp/${slugify(props?.article_famille?.parent?.nom, 'category')}/${slugify(props?.article_famille?.type_nom, 'subcategory')}/${slugify(props?.article_sous_categorie?.nom, 'sb')}/${slugify(props?.designation, 'product')}/${props.id}`);
                       }}
                     >
                       <div className={classes.card_img} style={{position:"relative"}}>

@@ -11,4 +11,15 @@ export const stripHtmlTags = (html) => {
     }
     return text;
   };
-  
+
+export const slugify = (text, placeholder = 'product') => {
+  if (!text || text.trim() === '') return placeholder;
+  return text
+    .toString()
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-+|-+$/g, '');
+};

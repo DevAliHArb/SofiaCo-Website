@@ -24,7 +24,7 @@ import {
 import { IoClose, IoHeart, IoHeartOutline } from "react-icons/io5";
 import { BsBagPlus } from "react-icons/bs";
 import AuthContext from "../../authContext";
-import { stripHtmlTags, truncateText } from "../../TextUtils";
+import { stripHtmlTags, truncateText, slugify } from "../../TextUtils";
 
 const { Search } = Input;
 
@@ -252,7 +252,7 @@ function SearchBox(ParentProps) {
                           dispatch(deleteSelectedBook(article.id));
                           dispatch(addSelectedBook(article));
                           setSearchQuery("");
-                          navigate(`/main/productdetails/${article.id}`);
+                          navigate(`/cp/${slugify(article?.article_famille?.parent?.nom, 'category')}/${slugify(article?.article_famille?.type_nom, 'subcategory')}/${slugify(article?.article_sous_categorie?.nom, 'sb')}/${slugify(article?.designation, 'product')}/${article.id}`);
                         }}
                       >
                         <div

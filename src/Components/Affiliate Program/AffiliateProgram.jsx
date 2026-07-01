@@ -261,7 +261,7 @@ const AffiliateProgram = () => {
                                   : " à la caisse et profitez d'économies instantanées."}
                               </p>
                             ) : (
-                              <p className={classes.linkUrl}>{`${window.location.origin}/main/productdetails/${link?.article_id}/${link.token}`}</p>
+                              <p className={classes.linkUrl}>{`${window.location.origin}/cp/${slugify(link?.article?.article_famille?.parent?.nom, 'category')}/${slugify(link?.article?.article_famille?.type_nom, 'subcategory')}/${slugify(link?.article?.article_sous_categorie?.nom, 'sb')}/${slugify(link?.article?.designation, 'product')}/${link?.article_id}/${link.token}`}</p>
                             )}
                           </div>
                         </div>
@@ -308,7 +308,7 @@ const AffiliateProgram = () => {
                             const urlToCopy =
                               link.type === "Global"
                                 ? link?.coupon?.code
-                                : `${window.location.origin}/main/productdetails/${link?.article_id}/${link.token}`;
+                                : `${window.location.origin}/cp/${slugify(link?.article?.article_famille?.parent?.nom, 'category')}/${slugify(link?.article?.article_famille?.type_nom, 'subcategory')}/${slugify(link?.article?.article_sous_categorie?.nom, 'sb')}/${slugify(link?.article?.designation, 'product')}/${link?.article_id}/${link.token}`;
                             navigator.clipboard.writeText(urlToCopy);
                             toast.success(
                               link.type === "Global"

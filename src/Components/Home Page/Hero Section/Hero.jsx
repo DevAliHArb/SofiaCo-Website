@@ -23,6 +23,7 @@ import data from "../../../Data.json";
 import axios from "axios";
 import SearchBox from "../../Common/Search box/SearchBox";
 import { addSelectedBook } from "../../Common/redux/productSlice";
+import { slugify } from "../../Common/TextUtils";
 
 const Hero = ({ carttoggle }) => {
   const authCtx = useContext(AuthContext);
@@ -157,7 +158,7 @@ const Hero = ({ carttoggle }) => {
                       onClick={() => {
                         authCtx.setbookDetails(props);
                         dispatch(addSelectedBook(props))
-                        navigate(`/main/productdetails/${props.id}`);
+                        navigate(`/cp/${slugify(props?.article_famille?.parent?.nom, 'category')}/${slugify(props?.article_famille?.type_nom, 'subcategory')}/${slugify(props?.article_sous_categorie?.nom, 'sb')}/${slugify(props?.designation, 'product')}/${props.id}`);
                       }}
                     >
                       <div className={classes.card_img} style={{position:"relative"}}>

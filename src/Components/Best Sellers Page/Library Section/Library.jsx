@@ -14,6 +14,7 @@ import { IoHeartOutline } from "react-icons/io5";
 import { PiShoppingCartSimpleLight } from "react-icons/pi";
 import axios from "axios";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import { slugify } from "../../Common/TextUtils";
 
 const Library = ({ title_en, title_fr, id }) => {
   const authCtx = useContext(AuthContext);
@@ -73,7 +74,7 @@ const Library = ({ title_en, title_fr, id }) => {
           >
             {articles.slice(0, 20).map((props, index) => (
               <SwiperSlide key={props.id} className={classes.swiperslide}>
-                <div className={classes.card_container} onClick={(e) => { e.stopPropagation(); dispatch(addSelectedBook(props)); navigate(`/main/productdetails/${props.id}`); }}>
+                <div className={classes.card_container} onClick={(e) => { e.stopPropagation(); dispatch(addSelectedBook(props)); navigate(`/cp/${slugify(props?.article_famille?.parent?.nom, 'category')}/${slugify(props?.article_famille?.type_nom, 'subcategory')}/${slugify(props?.article_sous_categorie?.nom, 'sb')}/${slugify(props?.designation, 'product')}/${props.id}`); }}>
                   <p className={classes.bestSellerNb}>#{index + 1}</p>
                   <div className={classes.card_img}>
                     {props._qte_a_terme_calcule < 1 && <div className={classes.out_of_stock}><p>{language === "eng" ? "OUT OF STOCK" : "HORS STOCK"}</p></div>}

@@ -60,7 +60,7 @@ import EditBlog from './Components/Blogs Page/Edit Blog/EditBlog';
 
 const SEO_ROUTE_SECTION_MAP = [
   { test: (pathname) => pathname === '/' || pathname === '/main', sectionId: 27 },
-  { test: (pathname) => pathname.startsWith('/main/products') || pathname.startsWith('/main/productdetails') || pathname.startsWith('/products'), sectionId: 30 },
+  { test: (pathname) => pathname.startsWith('/main/products') || pathname.startsWith('/cp/') || pathname.startsWith('/products'), sectionId: 30 },
   { test: (pathname) => pathname.startsWith('/bestsellers'), sectionId: 49 },
   { test: (pathname) => pathname.startsWith('/nouveautes'), sectionId: 48 },
   { test: (pathname) => pathname.startsWith('/main/events') || pathname.startsWith('/events') || pathname.startsWith('/eventdetails'), sectionId: 29 },
@@ -264,8 +264,8 @@ function App() {
           <Route path="/main/contact" element={<ScrollToTop><ContactUs/></ScrollToTop>} />
           <Route path="/main/products" element={<ScrollToTop><BooksPage /></ScrollToTop>} />
           <Route path="/main/products/subcategory/:id" element={<ScrollToTop><BooksPage /></ScrollToTop>} />
-          <Route path="/main/productdetails/:id" element={<ScrollToTop><BookDetailsPage cartToggle={cartToggle} /></ScrollToTop>} />
-          <Route path="/main/productdetails/:id/:token" element={<ScrollToTop><BookDetailsPage cartToggle={cartToggle} /></ScrollToTop>} />
+          <Route path="/cp/:catname/:subcatname/:subsubcatname/:productname/:id" element={<ScrollToTop><BookDetailsPage cartToggle={cartToggle} /></ScrollToTop>} />
+          <Route path="/cp/:catname/:subcatname/:subsubcatname/:productname/:id/:token" element={<ScrollToTop><BookDetailsPage cartToggle={cartToggle} /></ScrollToTop>} />
           <Route path='/bestsellers' element={<ScrollToTop><BestSellersPage /></ScrollToTop>} />
           <Route path='/nouveautes' element={<ScrollToTop><NouveautesPage /></ScrollToTop>} />
           <Route path='/main/blogs' element={<ScrollToTop><BlogPage /></ScrollToTop>} />

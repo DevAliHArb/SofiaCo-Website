@@ -29,7 +29,7 @@ import nodata from "../../../../assets/nobookfound.svg";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
-import { stripHtmlTags, truncateText } from "../../../Common Components/TextUtils";
+import { stripHtmlTags, truncateText, slugify } from "../../../Common Components/TextUtils";
 
 
 const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChemin, selectedRate, selectedPrice, totalArticlesNumber, loading }) => {
@@ -559,7 +559,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                       authCtx.setbookDetails(props);
                       event.stopPropagation();
                       dispatch(addSelectedBook(props))
-                      navigate(`/main/productdetails/${props.id}`);
+                      navigate(`/cp/${slugify(props?.article_famille?.parent?.nom, 'category')}/${slugify(props?.article_famille?.type_nom, 'subcategory')}/${slugify(props?.article_sous_categorie?.nom, 'sb')}/${slugify(props?.designation, 'product')}/${props.id}`);
                     }}
                   >
                     <div className={classes.card_img}>
@@ -709,7 +709,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                 onClick={(event) => {
                   event.stopPropagation();
                   dispatch(addSelectedBook(props));
-                  navigate(`/main/productdetails/${props.id}`);
+                  navigate(`/cp/${slugify(props?.article_famille?.parent?.nom, 'category')}/${slugify(props?.article_famille?.type_nom, 'subcategory')}/${slugify(props?.article_sous_categorie?.nom, 'sb')}/${slugify(props?.designation, 'product')}/${props.id}`);
                 }}>
                   <div className={classes.leftContainer}>
                      <div className={classes.imgCont}>

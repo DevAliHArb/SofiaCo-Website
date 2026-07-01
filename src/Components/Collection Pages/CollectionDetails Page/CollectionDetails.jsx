@@ -32,7 +32,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import OurSelectionBanner from "../../Common Components/Our Selection Banner/OurSelectionBanner";
-import { stripHtmlTags, truncateText } from "../../Common Components/TextUtils";
+import { stripHtmlTags, truncateText, slugify } from "../../Common Components/TextUtils";
 
 
 const CollectionDetailsPage = () => {
@@ -266,7 +266,7 @@ const CollectionDetailsPage = () => {
                     onClick={(event) => {
                       authCtx.setbookDetails(props);
                       event.stopPropagation();
-                      navigate(`/productdetails/${props.id}`);
+                      navigate(`/cp/${slugify(props?.article_famille?.parent?.nom, 'category')}/${slugify(props?.article_famille?.type_nom, 'subcategory')}/${slugify(props?.article_sous_categorie?.nom, 'sb')}/${slugify(props?.designation, 'product')}/${props.id}`);
                     }}
                   >
                     <div className={classes.card_img} style={{position:"relative"}}>
