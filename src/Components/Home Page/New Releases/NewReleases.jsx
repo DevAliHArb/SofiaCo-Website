@@ -13,6 +13,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { addSelectedBook } from "../../Common/redux/productSlice";
 import { IoMdArrowBack } from "react-icons/io";
+import { slugify } from "../../Common/TextUtils";
 
 const NewReleases = () => {
   // Ref for category buttons container
@@ -286,7 +287,7 @@ const NewReleases = () => {
                               authCtx.setbookDetails(props);
                               event.stopPropagation();
                               dispatch(addSelectedBook(props));
-                              navigate(`/main/productdetails/${props.id}`);
+                              navigate(`/cp/${slugify(props?.article_famille?.parent?.nom, 'category')}/${slugify(props?.article_famille?.type_nom, 'subcategory')}/${slugify(props?.article_sous_categorie?.nom, 'sb')}/${slugify(props?.designation, 'product')}/${props.id}`);
                             }}
                           >
                             <div className={classes.card_img} style={{ position: "relative" }}>

@@ -88,7 +88,7 @@ const AffiliateProgramDetails = () => {
     const urlToCopy =
       affiliateData?.type === "Global"
         ? affiliateData?.coupon?.code
-        : `${window.location.origin}/main/productdetails/${affiliateData?.article_id}/${affiliateData.token}`;
+        : `${window.location.origin}/cp/${slugify(affiliateData?.article?.article_famille?.parent?.nom, 'category')}/${slugify(affiliateData?.article?.article_famille?.type_nom, 'subcategory')}/${slugify(affiliateData?.article?.article_sous_categorie?.nom, 'sb')}/${slugify(affiliateData?.article?.designation, 'product')}/${affiliateData?.article_id}/${affiliateData.token}`;
 
     if (urlToCopy) {
       navigator.clipboard.writeText(urlToCopy);
@@ -393,7 +393,7 @@ const AffiliateProgramDetails = () => {
                   ? language === "eng"
                     ? `Use code: ${affiliateData?.coupon?.code} at checkout`
                     : `Utilisez le code: ${affiliateData?.coupon?.code} à la caisse`
-                  : `${window.location.origin}/main/productdetails/${affiliateData?.article_id}/${affiliateData.token}`}
+                  : `${window.location.origin}/cp/${slugify(affiliateData?.article?.article_famille?.parent?.nom, 'category')}/${slugify(affiliateData?.article?.article_famille?.type_nom, 'subcategory')}/${slugify(affiliateData?.article?.article_sous_categorie?.nom, 'sb')}/${slugify(affiliateData?.article?.designation, 'product')}/${affiliateData?.article_id}/${affiliateData.token}`}
               </p>
               <div className={classes.affiliate_meta}>
                 <div style={{ display: "flex", flexDirection: "column" }}>

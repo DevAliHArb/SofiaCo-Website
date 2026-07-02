@@ -16,7 +16,7 @@ import { IoMdArrowBack } from "react-icons/io";
 import AuthContext from '../../../Common/authContext';
 import { IoCartOutline } from "react-icons/io5";
 import { Rating } from '@mui/material';
-import { stripHtmlTags, truncateText } from '../../../Common Components/TextUtils';
+import { stripHtmlTags, truncateText, slugify } from '../../../Common Components/TextUtils';
 import { addSelectedBook } from '../../../Common/redux/productSlice';
 
 const MoreAbout = () => {
@@ -135,7 +135,7 @@ const MoreAbout = () => {
                       authCtx.setbookDetails(props);
                       event.stopPropagation();
                       dispatch(addSelectedBook(props))
-                      navigate(`/main/productdetails/${props.id}`);
+                      navigate(`/cp/${slugify(props?.article_famille?.parent?.nom, 'category')}/${slugify(props?.article_famille?.type_nom, 'subcategory')}/${slugify(props?.article_sous_categorie?.nom, 'sb')}/${slugify(props?.designation, 'product')}/${props.id}`);
                     }}
                   >
                     <div className={classes.card_img} style={{position:"relative"}}>
