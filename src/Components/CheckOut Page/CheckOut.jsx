@@ -156,6 +156,7 @@ const CheckOut = () => {
   const [mondialRelayPopupOpen, setMondialRelayPopupOpen] = useState(false);
   const [mondialRelayPointData, setMondialRelayPointData] = useState(null);
   const [colissimoPopupOpen, setColissimoPopupOpen] = useState(false);
+  const [lookupStatus, setLookupStatus] = useState(null);
   const [colissimoPointData, setColissimoPointData] = useState(null);
   const [colissimoWidgetKey, setColissimoWidgetKey] = useState(0);
   const widgetRef = useRef(null);
