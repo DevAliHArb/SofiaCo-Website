@@ -7,8 +7,19 @@ export const stripHtmlTags = (html) => {
   // Function to truncate a string if it exceeds maxLength characters
   export const truncateText = (text, maxLength) => {
     if (text.length > maxLength) {
-      return `${text.substring(0, maxLength)}...`; 
+      return `${text.substring(0, maxLength)}...`;
     }
-    return text; 
+    return text;
   };
-    
+
+export const slugify = (text, placeholder = 'product') => {
+  if (!text || text.trim() === '') return placeholder;
+  return text
+    .toString()
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-+|-+$/g, '');
+};

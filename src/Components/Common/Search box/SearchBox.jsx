@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addSearchData, addSelectedBook, deleteSelectedBook, editSearchData, resetSearchData } from "../redux/productSlice";
 import { useNavigate } from "@hooks/useNavigate";
 import img from "../../../assets/bookPlaceholder.png";
-import { stripHtmlTags, truncateText } from "../TextUtils";
+import { stripHtmlTags, truncateText, slugify } from "../TextUtils";
 import { FormControl, MenuItem, Select, TextField } from "@mui/material";
 
 const { Search } = Input;
@@ -230,7 +230,7 @@ function SearchBox() {
                       dispatch(deleteSelectedBook(article.id));
                       dispatch(addSelectedBook(article));
                       setSearchQuery('');
-                      navigate(`/main/productdetails/${article.id}`);
+                      navigate(`/cp/${slugify(article?.article_famille?.parent?.nom, 'category')}/${slugify(article?.article_famille?.type_nom, 'subcategory')}/${slugify(article?.article_sous_categorie?.nom, 'sb')}/${slugify(article?.designation, 'product')}/${article.id}`);
                     }}
                   >
                     <div className={classes.dropdown_card_img} style={{position:"relative"}}>

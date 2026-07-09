@@ -8,6 +8,7 @@ import { Rating } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import img from "../../../../assets/bookPlaceholder.png";
+import { slugify } from "../../../../Components/Common/TextUtils";
 
 const truncateText = (text, maxLength) => {
   if (!text) return "";
@@ -52,7 +53,7 @@ const LibraryProductCard = ({ product, isActive, index, activeIndex }) => {
   const handleClick = () => {
     authCtx.setbookDetails(product);
     dispatch(addSelectedBook(product));
-    navigate(`/main/productdetails/${product.id}`);
+    navigate(`/cp/${slugify(product?.article_famille?.parent?.nom, 'category')}/${slugify(product?.article_famille?.type_nom, 'subcategory')}/${slugify(product?.article_sous_categorie?.nom, 'sb')}/${slugify(product?.designation, 'product')}/${product.id}`);
   };
 
   const handleAddToCart = (event) => {
