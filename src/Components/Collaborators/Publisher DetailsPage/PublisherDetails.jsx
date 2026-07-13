@@ -11,6 +11,7 @@ import OurSelectionBanner from '../../Common Components/Our Selection Banner/Our
 import MoreAbout from './More About Collab/MoreAbout';
 import AuthContext from '../../Common/authContext';
 import Seo, { buildBrandJsonLd } from '../../Common/Seo';
+import FAQSection from '../../Book Details Page/FAQ Section/FAQSection';
 
 // description
 // image
@@ -86,14 +87,27 @@ const PublisherDetails = () => {
     fetchHero();
   }, []);
 
+  const n = (v) => (typeof v === 'string' ? v.trim() : '');
+  const metaTitle = n(CollaboratorData?.meta_title || CollaboratorData?.title || CollaboratorData?.nom);
+  const metaDescription = n(
+    CollaboratorData?.meta_description ||
+    (CollaboratorData?.description || CollaboratorData?.biographie || '').replace(/<[^>]*>/g, '')
+  );
+  const keyword = n(
+    CollaboratorData?.keywords ||
+    [CollaboratorData?.title || CollaboratorData?.nom, language === 'eng' ? 'brand' : 'marque'].filter(Boolean).join(', ')
+  );
+  const ogImage = CollaboratorData?.image;
+
   return (
     <div>
       <Seo
-        title={CollaboratorData?.title}
-        description={CollaboratorData?.meta_description || CollaboratorData?.description}
+        title={metaTitle}
+        description={metaDescription}
         path={location.pathname}
-        image={CollaboratorData?.image}
+        image={ogImage}
         type="profile"
+        keywords={keyword}
         jsonLd={buildBrandJsonLd(CollaboratorData, location.pathname)}
       />
       <div className={classes.login_con}>
@@ -127,6 +141,12 @@ const PublisherDetails = () => {
         </div> */}
     </div>
         {/* <Video /> */}
+        <FAQSection
+          faqParams={{
+            field: 'b_usr_editeur_id',
+            id: CollaboratorData?.id,
+          }}
+        />
         <MoreAbout publisher_name={CollaboratorData.id}/>
       {/* <ToastContainer
         position="top-right"
