@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Video from './Video Section/Video'
 import classes from "./CollaboratorDetails.module.css";
 import collabPlaceholder from '../../../assets/collab-placeholder.png'
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { IoMailOutline } from "react-icons/io5";
 import axios from 'axios';
@@ -10,6 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import OurSelectionBanner from '../../Common Components/Our Selection Banner/OurSelectionBanner';
 import MoreAbout from './More About Collab/MoreAbout';
+import Seo, { buildPersonJsonLd } from '../../Common/Seo';
 
 // description
 // image
@@ -19,6 +20,7 @@ import MoreAbout from './More About Collab/MoreAbout';
 
 const CollaboratorDetails = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
   // const [CollaboratorData, setCollaboratorData] = useState({});
   const user = useSelector((state) => state.products.userInfo);
@@ -80,7 +82,16 @@ const CollaboratorDetails = () => {
   }, []);
 
   return (
-    <div> <div className={classes.login_con}>
+    <div>
+      <Seo
+        title={CollaboratorData?.nom}
+        description={CollaboratorData?.meta_description || CollaboratorData?.biographie}
+        path={location.pathname}
+        image={CollaboratorData?.image}
+        type="profile"
+        jsonLd={buildPersonJsonLd(CollaboratorData, location.pathname)}
+      />
+      <div className={classes.login_con}>
       <OurSelectionBanner props={heroData} />
       <div className={classes.cardContainer}>
         <div className={classes.card} >

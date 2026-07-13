@@ -1,0 +1,83 @@
+# =============================================================================
+#  sofiaco.fr — Apache .htaccess
+# =============================================================================
+
+Options -MultiViews
+
+# -----------------------------------------------------------------------------
+# Security: deny access to sensitive files
+# -----------------------------------------------------------------------------
+<FilesMatch "^\.env">
+  Require all denied
+</FilesMatch>
+
+<FilesMatch "\.(env|log|config|json|lock|md|git|gitignore|htpasswd)$">
+  Require all denied
+</FilesMatch>
+
+RewriteEngine On
+
+# -----------------------------------------------------------------------------
+# 1) HTTPS + canonical domain (prevents http/https/www duplicate content)
+# -----------------------------------------------------------------------------
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://sofiaco.fr%{REQUEST_URI} [L,R=301]
+
+# -----------------------------------------------------------------------------
+# 2) PRERENDER — serve full HTML to bots
+# -----------------------------------------------------------------------------
+RewriteCond %{HTTP_USER_AGENT} googlebot|bingbot|yandex|baiduspider|duckduckbot|slurp|facebookexternalhit|twitterbot|linkedinbot|embedly|pinterest|slackbot|whatsapp|telegrambot|applebot|discordbot|google-inspectiontool|gptbot|oai-searchbot|chatgpt-user|perplexitybot|claudebot|anthropic-ai|bytespider [NC,OR]
+RewriteCond %{QUERY_STRING} _escaped_fragment_
+RewriteCond %{REQUEST_URI} !\.(js|css|xml|less|png|jpg|jpeg|gif|pdf|doc|txt|ico|rss|zip|mp3|rar|exe|wmv|avi|ppt|mpg|mpeg|tif|wav|mov|psd|ai|xls|mp4|m4a|swf|dat|dmg|iso|flv|m4v|torrent|ttf|woff|woff2|svg|webp|avif|eot)$ [NC]
+RequestHeader set X-Prerender-Token "scLOOLhbvI42gbbxUFTU"
+RewriteRule ^(?!.*?_escaped_fragment_)(.*)$ https://service.prerender.io/https://sofiaco.fr/$1 [P,L]
+
+# -----------------------------------------------------------------------------
+# 3) SPA fallback: anything that isn't a real file -> index.html
+# -----------------------------------------------------------------------------
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [L]
+
+# -----------------------------------------------------------------------------
+# Security headers
+# -----------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-XSS-Protection "1; mode=block"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; connect-src 'self' https:; frame-src 'self' https:"
+  Header set Access-Control-Allow-Origin "*"
+  <FilesMatch "\.(js|css|png|jpe?g|gif|svg|webp|avif|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# Performance: GZIP compression
+# -----------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json image/svg+xml
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# Performance: browser cache (1 year for assets, never for HTML)
+# -----------------------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>

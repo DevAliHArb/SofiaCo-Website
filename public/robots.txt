@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+
+# Block user-specific and transactional pages
+Disallow: /main/cart
+Disallow: /main/checkout
+Disallow: /main/checkout-completed
+Disallow: /account
+Disallow: /account/
+Disallow: /my-documents
+Disallow: /affiliate
+Disallow: /login
+Disallow: /register
+Disallow: /forget-password
+Disallow: /reset-password
+Disallow: /verification
+Disallow: /verify-email
+Disallow: /resend-verify-email
+Disallow: /main/wishlist
+Disallow: /order-success
+Disallow: /main/add-blog
+Disallow: /main/edit-blog
+
+Sitemap: https://sofiaco.fr/sitemap.xml
