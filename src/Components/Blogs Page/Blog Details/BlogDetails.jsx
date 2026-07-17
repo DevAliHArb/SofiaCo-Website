@@ -18,6 +18,7 @@ import { toast } from 'react-toastify';
 import RecentBlogs from './Recent Blogs/RecentBlogs';
 import NewsLetterSection from '../../Home Page/NewsLetter/NewsLetterSection';
 import Breadcrumb from '../../Common/Breadcrumb/Breadcrumb';
+import { JsonLd, buildBreadcrumbJsonLd } from '../../Common/Seo';
 
 const BlogDetails = () => {
   const authCtx = useContext(AuthContext);
@@ -117,6 +118,7 @@ const BlogDetails = () => {
 
   return (
     <>
+      <JsonLd items={[buildBreadcrumbJsonLd(breadcrumbPaths, language)]} />
       <Breadcrumb paths={breadcrumbPaths} />
       <div className={classes.blogDetailsContainert}>
         <div className={classes.contantContainer}>

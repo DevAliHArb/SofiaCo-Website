@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { lazy, Suspense, useContext, useEffect, useState } from 'react';
 import './App.css';
 import Navbar from './Components/Common/Navbar Section/Navbar';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
@@ -6,57 +6,88 @@ import { useNavigate } from "@hooks/useNavigate";
 
 import { ToastContainer } from 'react-toastify';
 import Footer from './Components/Common/Footer Section/Footer';
-import HomePage from './Components/Home Page/HomePage';
 import { useDispatch, useSelector } from 'react-redux';
 import ScrollToTop from './Components/Common/ScrollToTop';
 import SideBar from './Components/Common/SideBarSection/SideBar';
-import About from './Components/About Page/About';
-import Events from './Components/Events/Events Page/Events';
-import EventsDetails from './Components/Events/Events Details Page/EventsDetails';
-import Register from './Components/Auth Pages/Register Page/Register';
-import Login from './Components/Auth Pages/Login Page/Login';
-import Verify from './Components/Auth Pages/Verfiy Email/Verify';
-import CollectionsPage from './Components/Collection Pages/Collections Page/Collections';
-import CollectionDetailsPage from './Components/Collection Pages/CollectionDetails Page/CollectionDetails';
-import Collaborators from './Components/Collaborators/Collaborators Page/Collaborators';
-import CollaboratorDetails from './Components/Collaborators/Collaborator Details Page/CollaboratorDetails';
 import CartSidebar from './Components/Common/Cart SideBar/CartSidebar';
-import Cart from './Components/Cart Page/Cart';
-import CheckOut from './Components/CheckOut Page/CheckOut';
-import CompletedOrder from './Components/CheckOut Page/CheckOut Summary/CompletedOrder';
-import BooksPage from './Components/Books page/BooksPage';
-import BookDetailsPage from './Components/Book Details Page/BookDetailsPage';
-import Favorite from './Components/Favorite Page/Favorite';
-import AccountPage from './Components/Account Page/AccountPage';
-import Mentions from './Components/Mentions Légales/Mentions';
-import MyDocumentsPage from './Components/My Documents/MyDocumentsPage';
-import ContactUs from './Components/ContactUs/ContactUs';
-import SuccessPage from './Components/CheckOut Page/SuccessPage';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { Helmet } from 'react-helmet-async';
 import { removeUser } from './Components/Common/redux/productSlice';
 import ErrorPage from './Components/Common/ErrorPage';
 import AuthContext from './Components/Common/authContext';
-import Publishers from './Components/Collaborators/Publishers Page/Publishers';
-import NewPassword from './Components/Auth Pages/New Password/NewPassword';
-import ForgotPassword from './Components/Auth Pages/Forgot Password/ForgotPassword';
-import PublisherDetails from './Components/Collaborators/Publisher DetailsPage/PublisherDetails';
-import ResendVerify from './Components/Auth Pages/Verfiy Email/ResendVerify';
 import AddCartPopup from './Components/Common Components/Add To Cart Popup/AddCartPopup';
-import CategoriesPage from './pages/CategoriesPage';
-import SubCategoriesPage from './pages/SubCategoriesPage';
-import SubSubCategoriesPage from './pages/SubSubCategoriesPage';
-import BestSellersPage from './Components/Best Sellers Page/BestSellersPage';
-import NouveautesPage from './Components/Nouveautes Page/NouveautesPage';
-import AffiliateProgram from './Components/Affiliate Program/AffiliateProgram';
-import AffiliateProgramDetails from './Components/Affiliate Program/AffiliateProgramDetails';
-import BlogPage from './Components/Blogs Page/Blogs Page/BlogPage';
-import BlogDetails from './Components/Blogs Page/Blog Details/BlogDetails';
-import AddBlog from './Components/Blogs Page/Add Blog/AddBlog';
-import EditBlog from './Components/Blogs Page/Edit Blog/EditBlog';
 
+// ---------------------------------------------------------------------------
+// Route-level code splitting — each page's JS loads only when first visited.
+// Keeps the initial bundle small so prerendered/mobile pages don't have to
+// parse the whole app before showing anything.
+// ---------------------------------------------------------------------------
+const HomePage              = lazy(() => import('./Components/Home Page/HomePage'));
+const About                 = lazy(() => import('./Components/About Page/About'));
+const Events                = lazy(() => import('./Components/Events/Events Page/Events'));
+const EventsDetails         = lazy(() => import('./Components/Events/Events Details Page/EventsDetails'));
+const Register              = lazy(() => import('./Components/Auth Pages/Register Page/Register'));
+const Login                 = lazy(() => import('./Components/Auth Pages/Login Page/Login'));
+const Verify                = lazy(() => import('./Components/Auth Pages/Verfiy Email/Verify'));
+const Collaborators         = lazy(() => import('./Components/Collaborators/Collaborators Page/Collaborators'));
+const CollaboratorDetails   = lazy(() => import('./Components/Collaborators/Collaborator Details Page/CollaboratorDetails'));
+const Cart                  = lazy(() => import('./Components/Cart Page/Cart'));
+const CheckOut              = lazy(() => import('./Components/CheckOut Page/CheckOut'));
+const CompletedOrder        = lazy(() => import('./Components/CheckOut Page/CheckOut Summary/CompletedOrder'));
+const BooksPage             = lazy(() => import('./Components/Books page/BooksPage'));
+const BookDetailsPage       = lazy(() => import('./Components/Book Details Page/BookDetailsPage'));
+const Favorite               = lazy(() => import('./Components/Favorite Page/Favorite'));
+const AccountPage           = lazy(() => import('./Components/Account Page/AccountPage'));
+const Mentions               = lazy(() => import('./Components/Mentions Légales/Mentions'));
+const MyDocumentsPage       = lazy(() => import('./Components/My Documents/MyDocumentsPage'));
+const ContactUs              = lazy(() => import('./Components/ContactUs/ContactUs'));
+const SuccessPage            = lazy(() => import('./Components/CheckOut Page/SuccessPage'));
+const Publishers             = lazy(() => import('./Components/Collaborators/Publishers Page/Publishers'));
+const NewPassword            = lazy(() => import('./Components/Auth Pages/New Password/NewPassword'));
+const ForgotPassword         = lazy(() => import('./Components/Auth Pages/Forgot Password/ForgotPassword'));
+const PublisherDetails       = lazy(() => import('./Components/Collaborators/Publisher DetailsPage/PublisherDetails'));
+const ResendVerify           = lazy(() => import('./Components/Auth Pages/Verfiy Email/ResendVerify'));
+const CategoriesPage         = lazy(() => import('./pages/CategoriesPage'));
+const SubCategoriesPage      = lazy(() => import('./pages/SubCategoriesPage'));
+const SubSubCategoriesPage   = lazy(() => import('./pages/SubSubCategoriesPage'));
+const BestSellersPage        = lazy(() => import('./Components/Best Sellers Page/BestSellersPage'));
+const NouveautesPage         = lazy(() => import('./Components/Nouveautes Page/NouveautesPage'));
+const AffiliateProgram       = lazy(() => import('./Components/Affiliate Program/AffiliateProgram'));
+const AffiliateProgramDetails = lazy(() => import('./Components/Affiliate Program/AffiliateProgramDetails'));
+const BlogPage                = lazy(() => import('./Components/Blogs Page/Blogs Page/BlogPage'));
+const BlogDetails             = lazy(() => import('./Components/Blogs Page/Blog Details/BlogDetails'));
+const AddBlog                 = lazy(() => import('./Components/Blogs Page/Add Blog/AddBlog'));
+const EditBlog                 = lazy(() => import('./Components/Blogs Page/Edit Blog/EditBlog'));
 
+// Shown while a lazy route chunk is downloading
+const PageLoader = () => (
+  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
+    Chargement…
+  </div>
+);
+
+const NOINDEX_PATHS = [
+  '/main/cart', '/main/checkout', '/main/checkout-completed', '/account',
+  '/my-documents', '/affiliate', '/login', '/register', '/forget-password',
+  '/reset-password', '/verification', '/verify-email', '/resend-verify-email',
+  '/main/wishlist', '/order-success', '/main/add-blog', '/main/edit-blog',
+];
+
+const ORG_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Sofiaco',
+  url: 'https://sofiaco.fr',
+  logo: { '@type': 'ImageObject', url: 'https://sofiaco.fr/favicon.svg' },
+};
+
+const WEBSITE_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Sofiaco',
+  url: 'https://sofiaco.fr',
+};
 
 const SEO_ROUTE_SECTION_MAP = [
   { test: (pathname) => pathname === '/' || pathname === '/main', sectionId: 27 },
@@ -219,20 +250,38 @@ function App() {
  const secondaryKeyword = normalizeMetaValue(pageMetaData?.secondary_keyword);
  const longTrainText = normalizeMetaValue(pageMetaData?.long_train_text);
 
+ const canonicalPath = path.replace(/\/+$/, '') || '/';
+ const isNoIndex = NOINDEX_PATHS.some((p) => path.startsWith(p));
+ const isHome = path === '/' || path === '/main';
+
   return (
     <div className={withBG ? 'App1' : 'App'}>
       <Helmet>
+        <html lang="fr" />
         {metaTitle && <title>{metaTitle}</title>}
         {metaDescription && <meta name="description" content={metaDescription} />}
         {keyword && <meta name="keyword" content={keyword} />}
         {secondaryKeyword && <meta name="secondary_keyword" content={secondaryKeyword} />}
         {longTrainText && <meta name="long_train_text" content={longTrainText} />}
+        <link rel="canonical" href={`https://sofiaco.fr${canonicalPath}`} />
+        <meta property="og:site_name" content="Sofiaco" />
+        <meta property="og:locale" content="fr_FR" />
+        {metaTitle && <meta property="og:title" content={metaTitle} />}
+        {metaDescription && <meta property="og:description" content={metaDescription} />}
+        <meta property="og:url" content={`https://sofiaco.fr${canonicalPath}`} />
+        {isNoIndex && <meta name="robots" content="noindex,nofollow" />}
+        {isHome && (
+          <script type="application/ld+json">
+            {JSON.stringify([ORG_JSON_LD, WEBSITE_JSON_LD])}
+          </script>
+        )}
       </Helmet>
       {!isAuthPages && <Navbar toggle={toggle} cartToggle={cartToggle} />}
       <CartSidebar isOpen={cartisOpen} toggle={cartToggle} />
       <SideBar isOpen={isOpen} toggle={toggle} />
       <AddCartPopup />
       <div>
+        <Suspense fallback={<PageLoader />}>
         <Routes>
           <Route path="/" element={<Navigate to="/main" replace />} />
           <Route
@@ -281,8 +330,9 @@ function App() {
           <Route path="/my-documents/:pageId" element={user ? <ScrollToTop><MyDocumentsPage /></ScrollToTop> : <Navigate to="/login" replace />} />
           <Route path="/main/policies" element={<ScrollToTop><Mentions /></ScrollToTop>} />
           <Route path='/order-success' element={<ScrollToTop><SuccessPage/></ScrollToTop>} /> 
-          <Route path="*" element={<ErrorPage />} />       
+          <Route path="*" element={<ErrorPage />} />
           </Routes>
+        </Suspense>
       </div>
       {!isAuthPages && <Footer />}
       <ToastContainer

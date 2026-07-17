@@ -16,6 +16,7 @@ import { LuSearch } from 'react-icons/lu';
 import { IoIosArrowDown } from "react-icons/io";
 import NewsLetterSection from '../../Home Page/NewsLetter/NewsLetterSection';
 import Breadcrumb from '../../Common/Breadcrumb/Breadcrumb';
+import { JsonLd, buildBreadcrumbJsonLd } from '../../Common/Seo';
 
 const BlogPage = () => {
   const language = useSelector((state) => state.products.selectedLanguage[0].Language);
@@ -128,6 +129,7 @@ const BlogPage = () => {
 
   return (
     <>
+      <JsonLd items={[buildBreadcrumbJsonLd(breadcrumbPaths, language)]} />
       <Breadcrumb paths={breadcrumbPaths} />
       <div className={classes.blogContainert}>
         {user?.id && (

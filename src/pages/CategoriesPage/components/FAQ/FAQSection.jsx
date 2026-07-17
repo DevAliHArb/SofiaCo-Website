@@ -3,6 +3,7 @@ import classes from "./FAQSection.module.css";
 import FAQCard from "./FAQCard";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { JsonLd, buildFaqJsonLd } from "../../../../Components/Common/Seo";
 
 const FAQSection = ({ faqParams }) => {
   const language = useSelector(
@@ -32,6 +33,7 @@ const FAQSection = ({ faqParams }) => {
 
   return (
     <div className={classes.faq_container}>
+      <JsonLd items={[buildFaqJsonLd(faqData, language)]} />
       {faqData?.length > 0 && (
         <div className={classes.header}>
           <div className={classes.headtitle} style={{ margin: "auto" }}>

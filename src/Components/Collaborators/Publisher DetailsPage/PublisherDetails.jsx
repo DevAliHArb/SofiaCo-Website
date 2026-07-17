@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import classes from "./PublisherDetails.module.css";
 import collabPlaceholder from '../../../assets/collab-placeholder.png'
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams, useLocation } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { IoMailOutline } from "react-icons/io5";
 import axios from 'axios';
@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import OurSelectionBanner from '../../Common Components/Our Selection Banner/OurSelectionBanner';
 import MoreAbout from './More About Collab/MoreAbout';
 import AuthContext from '../../Common/authContext';
+import Seo, { buildBrandJsonLd } from '../../Common/Seo';
 
 // description
 // image
@@ -19,6 +20,7 @@ import AuthContext from '../../Common/authContext';
 
 const PublisherDetails = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const authCtx = useContext(AuthContext);
   const { id } = useParams();
   const [CollaboratorData, setCollaboratorData] = useState({});
@@ -85,7 +87,16 @@ const PublisherDetails = () => {
   }, []);
 
   return (
-    <div> <div className={classes.login_con}>
+    <div>
+      <Seo
+        title={CollaboratorData?.title}
+        description={CollaboratorData?.meta_description || CollaboratorData?.description}
+        path={location.pathname}
+        image={CollaboratorData?.image}
+        type="profile"
+        jsonLd={buildBrandJsonLd(CollaboratorData, location.pathname)}
+      />
+      <div className={classes.login_con}>
       <OurSelectionBanner props={heroData} />
       <div className={classes.cardContainer}>
         <div className={classes.card} >
