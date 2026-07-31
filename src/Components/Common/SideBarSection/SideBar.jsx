@@ -68,7 +68,7 @@ export default function SideBar({ toggle, isOpen }) {
   // Helper function to slugify and sanitize text
   const slugify = (text, placeholder = 'product') => {
     if (!text || text.trim() === '') return placeholder;
-    return text
+    const slug = text
       .toString()
       .trim()
       .toLowerCase()
@@ -76,6 +76,7 @@ export default function SideBar({ toggle, isOpen }) {
       .replace(/\s+/g, '-')
       .replace(/-+/g, '-')
       .replace(/^-+|-+$/g, '');
+  return slug || placeholder;
   };
 
   // For category navigation

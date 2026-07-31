@@ -13,8 +13,10 @@ import AuthContext from '../../Common/authContext';
 import { useSelector } from 'react-redux';
 import img from '../../../assets/bookPlaceholder.png'
 import { useLocation } from 'react-router-dom';
-import Seo, { buildProductJsonLd } from '../../Common/Seo';
+import Seo, { buildProductJsonLd, buildVideoObjectJsonLd } from '../../Common/Seo';
 import FAQSection from '../FAQ Section/FAQSection';
+
+const YOUTUBE_ID_RE = /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:embed\/|shorts\/|watch\?v=|watch\?.+&v=|v\/))([A-Za-z0-9_-]{11})/;
 
 const BookDetails = () => {
 
@@ -172,6 +174,22 @@ swiper.slideTo(index)};
 
   const ogImage = selectedBook?.articleimage?.[0]?.link || selectedBook?.image;
 
+  // YouTube videos only: best Google video rich-result support. Instagram/TikTok
+  // embeds have no Google rich results, so they stay social-proof only (per spec).
+  const videoJsonLd = (selectedBook?.video_links || [])
+    .filter((v) => v?.platform?.toLowerCase() === 'youtube')
+    .map((v) => {
+      const id = v?.link?.match(YOUTUBE_ID_RE)?.[1];
+      if (!id) return null;
+      return buildVideoObjectJsonLd({
+        name: `${selectedBook?.designation} — présentation vidéo`,
+        description: metaDescription,
+        thumbnailUrl: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+        embedUrl: `https://www.youtube.com/embed/${id}`,
+      });
+    })
+    .filter(Boolean);
+
   return (
     <div className={classes.bookDetails}>
         <Seo
@@ -181,7 +199,7 @@ swiper.slideTo(index)};
           image={ogImage}
           type="product"
           keywords={keyword}
-          jsonLd={buildProductJsonLd(selectedBook, location.pathname)}
+          jsonLd={[buildProductJsonLd(selectedBook, location.pathname), ...videoJsonLd]}
         />
         <div className={classes.bigContainer}>
           <div className={classes.booksContainer}>

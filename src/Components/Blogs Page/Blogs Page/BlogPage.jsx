@@ -17,6 +17,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import NewsLetterSection from '../../Home Page/NewsLetter/NewsLetterSection';
 import Breadcrumb from '../../Common/Breadcrumb/Breadcrumb';
 import { JsonLd, buildBreadcrumbJsonLd } from '../../Common/Seo';
+import { stripHtmlTags, truncateText } from '../../Common/TextUtils';
 
 const BlogPage = () => {
   const language = useSelector((state) => state.products.selectedLanguage[0].Language);
@@ -156,7 +157,7 @@ const BlogPage = () => {
                       </span>
                     </h1>
                   </div>
-                  <p dangerouslySetInnerHTML={{ __html: blog?.description }} className={classes.description} />
+                  <p className={classes.description}>{truncateText(stripHtmlTags(blog?.description || ''), 160)}</p>
                   {blog?.status_id === 12 && <p className={classes.description} style={{ color: 'var(--primary-color)' }}>{language === 'eng' ? "Reason of rejection: " : "Raison du rejet: "}{blog?.reason}</p>}
                   <p style={{ color: '#868686', borderBottom: '1px solid #D9D9D9', paddingBottom: "1em", marginBottom: "1em" }}>{blog?.user?.first_name} {blog?.user?.last_name}</p>
                   <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', margin: "0 0" }}>
@@ -223,7 +224,7 @@ const BlogPage = () => {
                   <div className={classes.titleCon}>
                     <h1>{blog.title}</h1>
                   </div>
-                  <p dangerouslySetInnerHTML={{ __html: blog?.description }} className={classes.description} />
+                  <p className={classes.description}>{truncateText(stripHtmlTags(blog?.description || ''), 160)}</p>
                   <p style={{ color: '#868686', borderBottom: '1px solid #D9D9D9', paddingBottom: "1em", marginBottom: "1em" }}>{blog?.user?.first_name} {blog?.user?.last_name}</p>
                   <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', margin: "0 0" }}>
                     <div className={classes.contantRow} style={{ backgroundColor: 'transparent' }}>

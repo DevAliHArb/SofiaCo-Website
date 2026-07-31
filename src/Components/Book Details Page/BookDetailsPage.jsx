@@ -6,6 +6,7 @@ import Deals from '../Home Page/Deals/Deals'
 import OurSelectionBanner from '../Common Components/Our Selection Banner/OurSelectionBanner'
 import Reviews from './View Tab and review/Reviews'
 import ViewTab from './View Tab and review/ViewTab'
+import VideoPreviewSection from './Video Preview/VideoPreviewSection'
 import abs from '../../assets/collab-abs.png'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
@@ -52,6 +53,7 @@ const BookDetailsPage = () => {
       <img src={abs} alt="" className={classes.img_abs}/>
       {/* <OurSelectionBanner  props={heroData}/> */}
       <BookDetails/>
+        <VideoPreviewSection videoLinks={bookData?.video_links} />
         <ViewTab />
         <AlsoSee collection={bookData?.b_usr_article_collection_id}/>
       <div className={classes.deals_con}>

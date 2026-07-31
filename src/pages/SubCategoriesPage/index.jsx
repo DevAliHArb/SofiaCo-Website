@@ -16,14 +16,15 @@ import NewsLetterSection from "../../Components/Home Page/NewsLetter/NewsLetterS
 // Helper function to slugify and sanitize text
 const slugify = (text, placeholder = "product") => {
   if (!text || text.trim() === "") return placeholder;
-  return text
+  const slug = text
     .toString()
     .trim()
     .toLowerCase()
     .replace(/[^a-z0-9\s-]/g, "") // Remove all symbols except spaces and hyphens
     .replace(/\s+/g, "-") // Replace spaces with hyphens
     .replace(/-+/g, "-") // Replace multiple hyphens with single hyphen
-    .replace(/^-+|-+$/g, ""); // Remove leading/trailing hyphens
+    .replace(/^-+|-+$/g, "");
+  return slug || placeholder; // Remove leading/trailing hyphens
 };
 
 const SubCategoriesPage = () => {

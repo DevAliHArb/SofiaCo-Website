@@ -13,6 +13,7 @@ import CartSidebar from './Components/Common/Cart SideBar/CartSidebar';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { Helmet } from 'react-helmet-async';
+import { buildOrganizationJsonLd, buildWebSiteJsonLd } from './Components/Common/Seo';
 import { removeUser } from './Components/Common/redux/productSlice';
 import ErrorPage from './Components/Common/ErrorPage';
 import AuthContext from './Components/Common/authContext';
@@ -74,20 +75,14 @@ const NOINDEX_PATHS = [
   '/main/wishlist', '/order-success', '/main/add-blog', '/main/edit-blog',
 ];
 
-const ORG_JSON_LD = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'Sofiaco',
-  url: 'https://sofiaco.fr',
-  logo: { '@type': 'ImageObject', url: 'https://sofiaco.fr/favicon.svg' },
-};
+// Non-production hosts (dev/recette/staging) must never be indexed by Google.
+// Safe-by-default: only forces noindex when the hostname clearly looks like a
+// non-prod environment; an unrecognized host is left alone so this can never
+// accidentally noindex production. Mirrors the X-Robots-Tag rule in .htaccess.
+const NON_PROD_HOST_RE = /(dev|recette|staging|test|localhost|^\d+\.\d+\.\d+\.\d+$)/i;
+const isNonProdHost = () =>
+  typeof window !== 'undefined' && NON_PROD_HOST_RE.test(window.location.hostname);
 
-const WEBSITE_JSON_LD = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: 'Sofiaco',
-  url: 'https://sofiaco.fr',
-};
 
 const SEO_ROUTE_SECTION_MAP = [
   { test: (pathname) => pathname === '/' || pathname === '/main', sectionId: 27 },
@@ -251,8 +246,10 @@ function App() {
  const longTrainText = normalizeMetaValue(pageMetaData?.long_train_text);
 
  const canonicalPath = path.replace(/\/+$/, '') || '/';
- const isNoIndex = NOINDEX_PATHS.some((p) => path.startsWith(p));
+ const isNoIndex = NOINDEX_PATHS.some((p) => path.startsWith(p)) || isNonProdHost();
  const isHome = path === '/' || path === '/main';
+ const orgJsonLd = buildOrganizationJsonLd(authCtx.companySettings);
+ const websiteJsonLd = buildWebSiteJsonLd();
 
   return (
     <div className={withBG ? 'App1' : 'App'}>
@@ -272,7 +269,7 @@ function App() {
         {isNoIndex && <meta name="robots" content="noindex,nofollow" />}
         {isHome && (
           <script type="application/ld+json">
-            {JSON.stringify([ORG_JSON_LD, WEBSITE_JSON_LD])}
+            {JSON.stringify([orgJsonLd, websiteJsonLd])}
           </script>
         )}
       </Helmet>

@@ -153,7 +153,7 @@ const FeaturedBooks = () => {
     <div className={classes.big_container}>
       <div className={classes.content}>
         <div className={classes.header}>
-          <h1>{data.HomePage.FeaturedBooks.title[language]}</h1>
+          <h2>{data.HomePage.FeaturedBooks.title[language]}</h2>
 
           <div className={classes.header_low}>
             <div className={classes.nav_container}>
@@ -223,10 +223,10 @@ const FeaturedBooks = () => {
             <div className={classes.nodata_img}>
               <img src={nodata} alt="" />
             </div>
-            <h1>
+            <p>
               No Books <br />
               were found!
-            </h1>
+            </p>
           </div>
         ) : (
           <div className={classes.swiper}>

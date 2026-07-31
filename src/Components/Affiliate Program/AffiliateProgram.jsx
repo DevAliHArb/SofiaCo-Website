@@ -17,7 +17,7 @@ import { editUser } from "../Common/redux/productSlice";
 // Helper function to slugify and sanitize text
 const slugify = (text, fallback = "product") => {
   if (!text || text.trim() === "") return fallback;
-  return text
+  const slug = text
     .toString()
     .trim()
     .toLowerCase()
@@ -25,6 +25,7 @@ const slugify = (text, fallback = "product") => {
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-")
     .replace(/^-+|-+$/g, "");
+  return slug || fallback;
 };
 
 const style = {

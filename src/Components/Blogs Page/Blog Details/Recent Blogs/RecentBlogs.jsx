@@ -15,6 +15,7 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { toast } from 'react-toastify';
+import { stripHtmlTags, truncateText } from '../../../Common/TextUtils';
 
 const RecentBlogs = () => {
   const language = useSelector((state) => state.products.selectedLanguage[0].Language);
@@ -70,7 +71,7 @@ const RecentBlogs = () => {
                     <div className={classes.titleCon}>
                       <h2>{blog.title}</h2>
                     </div>
-                    <p dangerouslySetInnerHTML={{ __html: blog?.description }} className={classes.description} />
+                    <p className={classes.description}>{truncateText(stripHtmlTags(blog?.description || ''), 160)}</p>
                     <p style={{ color: '#868686', borderBottom: '1px solid #D9D9D9', paddingBottom: "1em", marginBottom: "1em" }}>{blog?.user?.first_name} {blog?.user?.last_name}</p>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', margin: "0 0" }}>
                       <div className={classes.contantRow} style={{ backgroundColor: 'transparent' }}>

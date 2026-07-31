@@ -18,6 +18,18 @@ Options -MultiViews
 RewriteEngine On
 
 # -----------------------------------------------------------------------------
+# 0) Non-production hosts (dev/recette/staging) must never be indexed.
+#    Safe-by-default: only blocks when the hostname clearly looks like a
+#    non-prod environment; an unrecognized host is left alone so this can
+#    never accidentally noindex production.
+# -----------------------------------------------------------------------------
+RewriteCond %{HTTP_HOST} (dev|recette|staging|test|localhost|^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$) [NC]
+RewriteRule ^ - [E=NOTPROD:1]
+<IfModule mod_headers.c>
+  Header always set X-Robots-Tag "noindex, nofollow, noarchive" env=NOTPROD
+</IfModule>
+
+# -----------------------------------------------------------------------------
 # 1) HTTPS + canonical domain (prevents http/https/www duplicate content)
 # -----------------------------------------------------------------------------
 RewriteCond %{HTTPS} off [OR]
@@ -26,12 +38,18 @@ RewriteRule ^ https://sofiaco.fr%{REQUEST_URI} [L,R=301]
 
 # -----------------------------------------------------------------------------
 # 2) PRERENDER — serve full HTML to bots
+#    DISABLED as of 2026-07-31: the Prerender.io account's paid plan expired
+#    (2026-07-24), so this proxy was returning errors on every bot request —
+#    same root cause confirmed and fixed on Hanout (ohanoot.fr), causing
+#    Google Search Console "Server error (5xx)" indexing failures there.
+#    Re-enable once the Prerender.io account is reactivated, or once the
+#    self-hosted replacement is working (see ~/prerender-service on apiweb).
 # -----------------------------------------------------------------------------
-RewriteCond %{HTTP_USER_AGENT} googlebot|bingbot|yandex|baiduspider|duckduckbot|slurp|facebookexternalhit|twitterbot|linkedinbot|embedly|pinterest|slackbot|whatsapp|telegrambot|applebot|discordbot|google-inspectiontool|gptbot|oai-searchbot|chatgpt-user|perplexitybot|claudebot|anthropic-ai|bytespider [NC,OR]
-RewriteCond %{QUERY_STRING} _escaped_fragment_
-RewriteCond %{REQUEST_URI} !\.(js|css|xml|less|png|jpg|jpeg|gif|pdf|doc|txt|ico|rss|zip|mp3|rar|exe|wmv|avi|ppt|mpg|mpeg|tif|wav|mov|psd|ai|xls|mp4|m4a|swf|dat|dmg|iso|flv|m4v|torrent|ttf|woff|woff2|svg|webp|avif|eot)$ [NC]
-RequestHeader set X-Prerender-Token "scLOOLhbvI42gbbxUFTU"
-RewriteRule ^(?!.*?_escaped_fragment_)(.*)$ https://service.prerender.io/https://sofiaco.fr/$1 [P,L]
+# RewriteCond %{HTTP_USER_AGENT} googlebot|bingbot|yandex|baiduspider|duckduckbot|slurp|facebookexternalhit|twitterbot|linkedinbot|embedly|pinterest|slackbot|whatsapp|telegrambot|applebot|discordbot|google-inspectiontool|gptbot|oai-searchbot|chatgpt-user|perplexitybot|claudebot|anthropic-ai|bytespider [NC,OR]
+# RewriteCond %{QUERY_STRING} _escaped_fragment_
+# RewriteCond %{REQUEST_URI} !\.(js|css|xml|less|png|jpg|jpeg|gif|pdf|doc|txt|ico|rss|zip|mp3|rar|exe|wmv|avi|ppt|mpg|mpeg|tif|wav|mov|psd|ai|xls|mp4|m4a|swf|dat|dmg|iso|flv|m4v|torrent|ttf|woff|woff2|svg|webp|avif|eot)$ [NC]
+# RequestHeader set X-Prerender-Token "scLOOLhbvI42gbbxUFTU"
+# RewriteRule ^(?!.*?_escaped_fragment_)(.*)$ https://service.prerender.io/https://sofiaco.fr/$1 [P,L]
 
 # -----------------------------------------------------------------------------
 # 3) SPA fallback: anything that isn't a real file -> index.html
