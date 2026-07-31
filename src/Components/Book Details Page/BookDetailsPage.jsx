@@ -54,6 +54,7 @@ const BookDetailsPage = () => {
       {/* <OurSelectionBanner  props={heroData}/> */}
       <BookDetails/>
         <VideoPreviewSection videoLinks={bookData?.video_links} />
+
         <ViewTab />
         <AlsoSee collection={bookData?.b_usr_article_collection_id}/>
       <div className={classes.deals_con}>
