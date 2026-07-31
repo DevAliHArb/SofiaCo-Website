@@ -15,7 +15,7 @@ import {
   resetfavorite,
   removeUser,
 } from "./redux/productSlice";
-import bookPlaceholder from "../../assets/bookPlaceholder.png";
+import bookPlaceholder from "../../assets/bookPlaceholder.webp";
 
 const AuthContext = React.createContext({
   selectedcurrency: {},

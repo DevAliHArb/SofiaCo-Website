@@ -29,20 +29,21 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const SITE = 'https://sofiaco.fr';
-const API  = process.env.VITE_TESTING_API || 'https://api.leonardo-service.com/api/sofiadis/sofiaco';
+const API  = process.env.VITE_TESTING_API || 'https://backapi.leonardo-service.com/api/sofiadis/sofiaco';
 const ECOM = process.env.VITE_ECOM_TYPE   || 'sofiaco';
 const OUT  = path.resolve(process.cwd(), 'public', 'sitemap.xml');
 
 // ---------- slugify (identical to the front-end helper) --------------------
 const slugify = (text, placeholder = 'product') => {
   if (!text || String(text).trim() === '') return placeholder;
-  return String(text)
+  const slug = String(text)
     .trim()
     .toLowerCase()
     .replace(/[^a-z0-9\s-]/g, '')
     .replace(/\s+/g, '-')
     .replace(/-+/g, '-')
     .replace(/^-+|-+$/g, '');
+  return slug || placeholder;
 };
 
 // ---------- static pages ---------------------------------------------------

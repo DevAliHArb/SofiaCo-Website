@@ -52,7 +52,7 @@
     justify-content: center;
 }
 
-.header h1{
+.header h2{
     position: relative;
     font-size: calc(1.2rem + 0.7vw);
     color: var(--secondary-color);
@@ -267,7 +267,7 @@
     object-fit: cover;
   }
   
-  .nodata h1{
+  .nodata p{
     font-family: var(--font-family);
     font-size: calc(1.5rem + 0.8vw);
     color: #EEBA7F;
@@ -444,7 +444,7 @@
     .nodata{
       flex-direction: column;
     }
-    .nodata h1{
+    .nodata p{
       text-align: center;
     }
 

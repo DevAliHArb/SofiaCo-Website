@@ -3,7 +3,7 @@ import classes from './FeaturedBooks.module.css';
 import data from '../../../Data.json';
 import { useDispatch, useSelector } from 'react-redux';
 import nodata from '../../../assets/nobookfound.svg';
-import img from "../../../assets/bookPlaceholder.png";
+import img from "../../../assets/bookPlaceholder.webp";
 import axios from 'axios';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Pagination } from "swiper/modules";
@@ -153,7 +153,7 @@ const FeaturedBooks = () => {
     <div className={classes.big_container}>
       <div className={classes.content}>
         <div className={classes.header}>
-          <h1>{data.HomePage.FeaturedBooks.title[language]}</h1>
+          <h2>{data.HomePage.FeaturedBooks.title[language]}</h2>
 
           <div className={classes.header_low}>
             <div className={classes.nav_container}>
@@ -223,10 +223,10 @@ const FeaturedBooks = () => {
             <div className={classes.nodata_img}>
               <img src={nodata} alt="" />
             </div>
-            <h1>
+            <p>
               No Books <br />
               were found!
-            </h1>
+            </p>
           </div>
         ) : (
           <div className={classes.swiper}>

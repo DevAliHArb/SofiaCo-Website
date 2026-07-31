@@ -8,7 +8,7 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { CgInfo } from "react-icons/cg";
-import placeholder from "../../assets/bookPlaceholder.png";
+import placeholder from "../../assets/bookPlaceholder.webp";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { IoIosLink } from "react-icons/io";
@@ -17,7 +17,7 @@ import { editUser } from "../Common/redux/productSlice";
 // Helper function to slugify and sanitize text
 const slugify = (text, fallback = "product") => {
   if (!text || text.trim() === "") return fallback;
-  return text
+  const slug = text
     .toString()
     .trim()
     .toLowerCase()
@@ -25,6 +25,7 @@ const slugify = (text, fallback = "product") => {
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-")
     .replace(/^-+|-+$/g, "");
+  return slug || fallback;
 };
 
 const style = {

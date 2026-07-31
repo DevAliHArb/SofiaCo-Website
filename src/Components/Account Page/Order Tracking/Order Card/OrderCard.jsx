@@ -12,7 +12,7 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import { Pagination } from "swiper/modules";
 import AuthContext from '../../../Common/authContext';
-import bookPlaceholder from '../../../../assets/bookPlaceholder.png';
+import bookPlaceholder from '../../../../assets/bookPlaceholder.webp';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { toast } from 'react-toastify';

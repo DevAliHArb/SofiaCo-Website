@@ -13,7 +13,7 @@ import {
   resetSearchData,
 } from "../../redux/productSlice";
 import { useNavigate } from "@hooks/useNavigate";
-import img from "../../../../assets/bookPlaceholder.png";
+import img from "../../../../assets/bookPlaceholder.webp";
 import {
   FormControl,
   MenuItem,

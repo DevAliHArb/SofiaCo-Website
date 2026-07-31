@@ -101,6 +101,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://sofiaco.fr/main/cp/logistique/17</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://sofiaco.fr/main/cp/lifestyle-accessoires/sac/34</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -251,12 +256,12 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/cp/librairie/livre/sous-sous-categorytest/3</loc>
+    <loc>https://sofiaco.fr/main/cp/logistique/article-logistique/54</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/cp/spiritualit/accesoires/test-bukl/7</loc>
+    <loc>https://sofiaco.fr/main/cp/librairie/livre/sous-sous-categorytest/3</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -767,11 +772,6 @@
   </url>
   <url>
     <loc>https://sofiaco.fr/cp/librairie/livre/sb/le-kazimirski-2-tomes-dictionnaire-arabe-franais/659218</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/cp/test/testsubcategory/sb/testz/11</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -5111,17 +5111,12 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/cp/test/testsubcategory/sb/liban-nation-martyre/675436</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://sofiaco.fr/cp/librairie/livre/sb/la-purification-et-la-prire-du-malade/675456</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/cp/spiritualit/accesoires/test-bukl/limmeuble-yacoubian/675459</loc>
+    <loc>https://sofiaco.fr/cp/logistique/article-logistique/sb/limmeuble-yacoubian/675459</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -20726,12 +20721,12 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/cp/librairie/livre/sb//703008</loc>
+    <loc>https://sofiaco.fr/cp/librairie/livre/sb/product/703008</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/cp/librairie/livre/sb//703011</loc>
+    <loc>https://sofiaco.fr/cp/librairie/livre/sb/product/703011</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -22936,7 +22931,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/cp/librairie/livre/sb//704196</loc>
+    <loc>https://sofiaco.fr/cp/librairie/livre/sb/product/704196</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -27066,7 +27061,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/cp/librairie/livre/sb//706062</loc>
+    <loc>https://sofiaco.fr/cp/librairie/livre/sb/product/706062</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -28216,352 +28211,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/15/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/46342/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/46358/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/46865/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/47120/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/47158/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/47796/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/47834/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/48037/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/48062/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/48108/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/48126/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/48136/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/48158/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/48233/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/48281/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/48298/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/48343/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/48386/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/48391/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/48435/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/48549/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/48566/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/48585/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/48611/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/48783/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/48986/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/49138/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/49139/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/49159/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/49161/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/49189/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/49259/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/49342/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/49429/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/49483/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/49540/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/49608/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/49690/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/49781/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/50108/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/50126/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/50173/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/50248/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/50261/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/50300/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/50400/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/50473/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/50518/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/50661/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/50695/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/50908/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/50930/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/51210/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/51313/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/51332/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/51345/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/51644/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/51856/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/52048/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/52190/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/52253/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/52415/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/53157/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/53158/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/53167/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/53460/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/53480/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/53483/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/53922/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/58238/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -28571,367 +28221,22 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/54350/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/51856/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/54647/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67388/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/54831/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67473/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/54880/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/54974/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/55004/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/55021/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/55119/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/55272/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/55501/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/55523/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/55830/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/55924/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/55992/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/56054/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/56142/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/56364/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/56386/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/56679/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/56712/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/56871/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/57209/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/57232/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/57430/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/57461/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/57479/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/57480/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/57515/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/57556/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/57604/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/57609/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/57644/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/57760/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/58077/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/58238/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/58624/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/58625/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/58867/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/58950/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/59527/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/59530/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/59628/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/59725/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/59775/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/59896/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/59901/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/59974/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/60068/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/60100/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/60236/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/60296/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/60332/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/60421/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/60422/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/60428/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/60620/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/60624/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/60639/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/60645/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/60653/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/60684/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/60695/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/60701/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/60717/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/60723/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/60729/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/60746/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/60771/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/60789/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/60795/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/60871/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/60915/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/61371/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67599/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -28941,47 +28246,832 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/61469/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67080/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/61627/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67172/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/61802/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67348/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/61820/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67186/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/62029/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67542/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/62234/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67537/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/62378/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67433/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/62440/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67445/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/62500/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67516/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67220/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67159/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67069/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/48566/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67397/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67224/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67580/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67387/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67544/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67034/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67315/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67334/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93833/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/50400/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94788/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/46358/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67419/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67078/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67309/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94418/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67035/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67566/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67112/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67442/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67482/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67201/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67171/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67540/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67386/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67443/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67591/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/55830/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67162/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67583/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67449/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67109/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67561/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67458/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67202/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93700/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94430/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67104/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67124/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67398/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67082/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93344/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67160/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67451/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67362/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93719/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67421/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67569/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67497/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67278/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67431/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67469/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67602/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67459/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67208/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67064/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67045/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67411/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67287/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/59628/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67223/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67490/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/51313/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/64951/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67470/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/95392/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67304/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67038/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67229/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67292/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67040/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67486/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67041/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67273/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67589/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67067/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67512/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67105/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67169/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67230/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67305/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67265/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67450/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67268/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67215/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67420/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67302/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67318/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67135/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/48783/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67576/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67481/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67468/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67269/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67510/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67086/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67577/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67092/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67424/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67406/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67051/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67440/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67562/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/65987/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67320/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67425/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/66166/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67163/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67498/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67596/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67134/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67108/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67227/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67378/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67158/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67622/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67524/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67225/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67384/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67350/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67515/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67522/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67541/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67173/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67136/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67084/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/50173/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67434/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67597/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67471/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67039/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67144/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67410/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67547/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67526/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67444/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67447/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67336/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67546/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/55272/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67360/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67199/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67365/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67581/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67308/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67557/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/58867/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67415/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67575/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67087/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/60428/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/54974/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67361/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -28991,32 +29081,407 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/62835/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/47834/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/62881/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/64206/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/63208/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67286/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/63240/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67148/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/63798/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/55021/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/63873/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67560/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67046/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/57479/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/49189/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/53167/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67093/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67376/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/55004/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/50300/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/53483/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/46865/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/57480/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67298/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/53480/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/57461/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/48037/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/66651/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93724/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67453/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93393/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/47158/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/95397/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67221/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67115/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67233/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67276/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/57556/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/50108/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/49259/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/64667/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67088/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/53157/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67052/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/57609/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/53158/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/50908/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/57604/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/48126/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/49139/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/57430/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/48108/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/61820/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/65568/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/49138/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67556/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67379/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67242/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/47120/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/95459/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/48549/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/95414/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/57209/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/49608/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/62378/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67416/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67044/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/62029/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/50248/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67043/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67463/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67090/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67574/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/50661/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/54350/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/57232/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/53460/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/56054/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/60068/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/55992/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/65423/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/53922/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/47796/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/65936/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/65197/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/58950/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/56364/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -29031,77 +29496,32 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/64206/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/59896/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/64257/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/55501/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/64667/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/61371/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/64951/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/62500/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/65073/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/63240/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/65137/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/65197/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/65423/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/65568/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/65746/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/65906/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/65936/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/65987/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/66166/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/66445/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/61802/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -29111,737 +29531,152 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/66651/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/56142/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67033/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/51644/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67034/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/59725/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67035/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/56712/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67036/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/50126/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67038/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/60332/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67039/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/52415/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67040/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/51332/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67041/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/59974/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67043/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/65746/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67044/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/51345/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67045/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/65073/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67046/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/64257/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67050/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/65137/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67051/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/62440/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67052/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/62881/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67054/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/51210/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67064/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/50695/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67067/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/52190/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67068/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/59775/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67069/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/62234/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67074/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/59530/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67075/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/66445/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67078/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/55924/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67080/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/52048/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67082/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/65906/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67083/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/49429/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67084/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/63873/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67085/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/56386/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67086/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67087/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67088/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67090/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67092/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67093/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67099/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67104/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67105/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67108/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67109/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67112/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67115/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67124/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67132/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67134/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67135/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67136/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67141/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67142/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67144/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67145/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67148/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67158/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67159/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67160/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67162/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67163/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67169/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67171/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67172/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67173/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67184/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67186/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67199/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67201/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67202/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67203/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67205/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67208/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67214/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67215/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67220/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67221/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67222/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67223/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67224/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67225/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67227/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67229/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67230/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67233/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67242/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67250/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67261/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67265/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67268/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67269/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67273/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67276/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67278/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67286/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67287/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67292/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67293/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67298/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67300/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67302/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67303/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67304/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67305/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67308/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67309/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67315/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67318/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67319/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67320/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67332/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67334/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67336/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67348/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67350/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67352/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67355/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67360/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67361/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67362/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67364/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67365/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67371/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67376/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67378/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67379/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67383/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67384/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67386/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67387/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67388/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67397/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67398/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67400/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67406/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67410/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67411/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67415/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67416/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67417/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67419/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67420/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67421/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67424/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67425/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67428/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67429/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67431/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67433/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67434/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67438/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/56871/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -29851,357 +29686,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67440/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67441/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67442/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67443/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67444/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67445/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67447/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67449/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67450/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67451/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67453/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67455/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67456/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67457/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67458/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67459/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67461/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67463/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67464/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67468/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67469/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67470/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67471/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67473/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67481/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67482/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67484/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67486/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67490/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67492/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67497/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67498/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67510/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67512/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67515/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67516/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67517/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67522/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67524/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67526/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67537/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67540/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67541/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67542/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67544/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67546/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67547/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67556/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67557/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67559/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67560/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67561/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67562/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67563/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67564/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67566/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67569/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67574/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67575/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67576/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67577/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67580/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67581/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67583/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67589/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67591/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67596/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67597/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67599/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67600/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/67602/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/93270/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30211,12 +29696,22 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/67622/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/57515/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93270/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/56679/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/15/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93458/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30226,17 +29721,12 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93318/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/93335/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://sofiaco.fr/main/collaborators/93336/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67484/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30246,22 +29736,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93344/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/93355/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/93366/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/93372/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/93403/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30271,27 +29746,17 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93389/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/93431/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93390/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/93430/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93393/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/93403/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/93413/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/93355/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30306,12 +29771,12 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93430/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/57644/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93431/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/93413/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30321,7 +29786,12 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93443/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67417/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94357/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30336,12 +29806,12 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93458/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/93459/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93459/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67050/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30351,12 +29821,12 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93465/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/93466/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93466/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/93465/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30367,6 +29837,11 @@
   </url>
   <url>
     <loc>https://sofiaco.fr/main/collaborators/93476/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67293/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30386,17 +29861,12 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93506/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67319/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93508/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/93524/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67085/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30406,12 +29876,17 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93527/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67184/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93528/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/93443/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93524/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30421,7 +29896,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93532/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67303/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30436,7 +29911,12 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93550/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67250/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93372/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30451,17 +29931,42 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93562/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67083/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93580/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/93532/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93506/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93527/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93528/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://sofiaco.fr/main/collaborators/93588/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93550/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67400/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30486,6 +29991,11 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://sofiaco.fr/main/collaborators/93635/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://sofiaco.fr/main/collaborators/93613/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -30501,22 +30011,12 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93635/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/93638/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67214/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://sofiaco.fr/main/collaborators/93640/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/93651/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30531,12 +30031,22 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93688/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67352/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93692/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/93651/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93638/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67132/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30551,32 +30061,27 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93700/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67075/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93705/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67428/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93708/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/94192/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93711/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/93688/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93715/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/93719/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67600/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30586,7 +30091,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93724/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/93727/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30596,7 +30101,17 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93727/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/93736/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67464/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93708/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30606,12 +30121,22 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93736/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/93715/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://sofiaco.fr/main/collaborators/93744/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93781/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/95025/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30631,17 +30156,22 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://sofiaco.fr/main/collaborators/63798/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://sofiaco.fr/main/collaborators/93774/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93781/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67517/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93791/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/93508/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30651,7 +30181,37 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://sofiaco.fr/main/collaborators/93791/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67355/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67036/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93366/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://sofiaco.fr/main/collaborators/93802/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93849/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67455/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30666,11 +30226,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93833/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://sofiaco.fr/main/collaborators/93839/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -30681,27 +30236,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93844/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/93849/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://sofiaco.fr/main/collaborators/93853/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/93857/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/93858/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30716,6 +30251,21 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://sofiaco.fr/main/collaborators/93844/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93857/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93858/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://sofiaco.fr/main/collaborators/93877/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -30726,17 +30276,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93882/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://sofiaco.fr/main/collaborators/93892/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/93894/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30746,7 +30286,12 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93904/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/93882/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67203/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30756,17 +30301,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/93909/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://sofiaco.fr/main/collaborators/93913/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/93916/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30776,7 +30311,37 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://sofiaco.fr/main/collaborators/93916/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67332/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://sofiaco.fr/main/collaborators/93927/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67441/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93909/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93904/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67371/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30791,17 +30356,17 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://sofiaco.fr/main/collaborators/93958/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://sofiaco.fr/main/collaborators/93942/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://sofiaco.fr/main/collaborators/93953/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/93958/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30816,6 +30381,36 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://sofiaco.fr/main/collaborators/67564/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94010/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94013/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94021/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94016/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94022/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://sofiaco.fr/main/collaborators/94003/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -30826,52 +30421,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/94008/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94010/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94011/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94013/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94016/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94021/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94022/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94043/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94044/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94046/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/60717/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30891,12 +30441,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/94055/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94069/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/93894/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30911,7 +30456,32 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://sofiaco.fr/main/collaborators/94043/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94044/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94046/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://sofiaco.fr/main/collaborators/94078/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93711/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94069/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30926,17 +30496,22 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/94104/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://sofiaco.fr/main/collaborators/94128/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/94131/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/48062/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93580/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93335/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30961,7 +30536,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/94155/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/94161/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30971,7 +30546,17 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/94161/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/94104/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94155/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94131/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30981,22 +30566,17 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/94188/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94192/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://sofiaco.fr/main/collaborators/94203/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/94212/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67141/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/57760/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -31006,17 +30586,17 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://sofiaco.fr/main/collaborators/67054/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94212/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://sofiaco.fr/main/collaborators/94248/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94255/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94256/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -31036,6 +30616,16 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://sofiaco.fr/main/collaborators/94255/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94256/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://sofiaco.fr/main/collaborators/94284/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -31046,37 +30636,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/94305/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://sofiaco.fr/main/collaborators/94307/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94319/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94328/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94351/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94357/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94363/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -31096,12 +30656,37 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/94390/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/94363/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/94391/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/94328/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94500/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94319/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94398/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94425/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/60100/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -31116,32 +30701,12 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/94398/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/94390/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/94418/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94425/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94430/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94443/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94444/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/94391/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -31156,22 +30721,27 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://sofiaco.fr/main/collaborators/94011/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94443/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94444/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://sofiaco.fr/main/collaborators/94464/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/94493/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94497/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94500/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/94188/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -31186,22 +30756,12 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://sofiaco.fr/main/collaborators/94497/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://sofiaco.fr/main/collaborators/94536/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94555/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94556/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94567/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -31211,7 +30771,22 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://sofiaco.fr/main/collaborators/94567/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://sofiaco.fr/main/collaborators/94590/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67205/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67461/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -31221,27 +30796,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/94643/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94653/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94654/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94657/details</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://sofiaco.fr/main/collaborators/94659/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/93562/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -31251,7 +30806,17 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://sofiaco.fr/main/collaborators/94643/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://sofiaco.fr/main/collaborators/94664/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94659/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -31266,12 +30831,27 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://sofiaco.fr/main/collaborators/67142/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67559/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://sofiaco.fr/main/collaborators/94690/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://sofiaco.fr/main/collaborators/94691/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94729/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -31296,7 +30876,12 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/94729/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67145/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67492/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -31321,12 +30906,17 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/94767/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67383/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://sofiaco.fr/main/collaborators/94773/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94767/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -31341,7 +30931,152 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/94788/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67438/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67429/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67033/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67074/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67261/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67456/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94555/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94556/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93705/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94657/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94351/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94008/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93692/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93390/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93389/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67364/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94653/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94654/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67222/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67099/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/93318/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94493/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94305/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67457/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67300/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/95450/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/95449/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/58624/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/58625/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/67068/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -31351,12 +31086,22 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/95025/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/67563/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/63208/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://sofiaco.fr/main/collaborators/95380/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/94055/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -31371,32 +31116,272 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/95392/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/48281/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/95397/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/60701/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/95414/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/49483/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/95449/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/60639/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/95450/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/49159/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sofiaco.fr/main/collaborators/95459/details</loc>
+    <loc>https://sofiaco.fr/main/collaborators/49342/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/48391/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/48298/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/49690/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/48233/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/54647/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/48435/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/48585/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/48611/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/48386/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/48158/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/48343/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/49781/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/60723/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/50261/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/48136/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/60236/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/60795/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/54880/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/49161/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/59527/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/59901/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/60684/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/60653/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/60746/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/60296/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/60729/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/60789/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/50518/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/60695/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/60422/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/60421/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/60645/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/48986/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/60624/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/61627/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/60620/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/55119/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/61469/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/50473/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/60871/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/50930/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/62835/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/60915/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/60771/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/58077/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/52253/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/49540/details</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sofiaco.fr/main/collaborators/54831/details</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

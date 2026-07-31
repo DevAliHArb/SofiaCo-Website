@@ -53,7 +53,8 @@ const BookDetailsPage = () => {
       <img src={abs} alt="" className={classes.img_abs}/>
       {/* <OurSelectionBanner  props={heroData}/> */}
       <BookDetails/>
-      <VideoPreviewSection videoLinks={bookData?.video_links} />
+        <VideoPreviewSection videoLinks={bookData?.video_links} />
+
         <ViewTab />
         <AlsoSee collection={bookData?.b_usr_article_collection_id}/>
       <div className={classes.deals_con}>

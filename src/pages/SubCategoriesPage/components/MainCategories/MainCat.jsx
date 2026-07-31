@@ -13,7 +13,7 @@ import AuthContext from '../../../../Components/Common/authContext';
 // Helper function to slugify and sanitize text
 const slugify = (text, placeholder = 'product') => {
   if (!text || text.trim() === '') return placeholder;
-  return text
+  const slug = text
     .toString()
     .trim()
     .toLowerCase()
@@ -21,6 +21,7 @@ const slugify = (text, placeholder = 'product') => {
     .replace(/\s+/g, '-')
     .replace(/-+/g, '-')
     .replace(/^-+|-+$/g, '');
+  return slug || placeholder;
 };
 
 const MainCat = ({ categoryData, subCategoryData }) => {

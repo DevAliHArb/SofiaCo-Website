@@ -1,11 +1,12 @@
 // Function to strip HTML tags from a string
 export const stripHtmlTags = (html) => {
-    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const doc = new DOMParser().parseFromString(html || '', 'text/html');
     return doc.body.textContent || "";
   };
-  
+
   // Function to truncate a string if it exceeds maxLength characters
   export const truncateText = (text, maxLength) => {
+    if (!text) return "";
     if (text.length > maxLength) {
       return `${text.substring(0, maxLength)}...`;
     }
@@ -14,7 +15,7 @@ export const stripHtmlTags = (html) => {
 
 export const slugify = (text, placeholder = 'product') => {
   if (!text || text.trim() === '') return placeholder;
-  return text
+  const slug = text
     .toString()
     .trim()
     .toLowerCase()
@@ -22,4 +23,5 @@ export const slugify = (text, placeholder = 'product') => {
     .replace(/\s+/g, '-')
     .replace(/-+/g, '-')
     .replace(/^-+|-+$/g, '');
+  return slug || placeholder;
 };

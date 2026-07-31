@@ -10,7 +10,7 @@ import { FreeMode, Pagination } from "swiper/modules";
 import nodata from "../../../assets/nobookfound.svg";
 
 import { IoCartOutline } from "react-icons/io5";
-import img from "../../../assets/bookPlaceholder.png";
+import img from "../../../assets/bookPlaceholder.webp";
 import { toast } from "react-toastify";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";

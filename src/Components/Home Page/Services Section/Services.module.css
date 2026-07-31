@@ -18,7 +18,7 @@
     flex-direction: column;
 }
 
-.header h1{
+.header h2{
     position: relative;
     font-size: calc(1.2rem + 0.7vw);
     color: var(--secondary-color);

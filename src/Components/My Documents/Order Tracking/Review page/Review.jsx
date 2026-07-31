@@ -15,7 +15,7 @@ import Modal from '@mui/material/Modal';
 import { Row, Col, Button, Checkbox, Form, Input } from 'antd';
 import StarIcon from '@mui/icons-material/Star';
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
-import bookPlaceholder from '../../../../assets/bookPlaceholder.png';
+import bookPlaceholder from '../../../../assets/bookPlaceholder.webp';
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";

@@ -16,6 +16,14 @@ const DEFAULT_DESC =
   "Sofiaco : boutique en ligne, large sélection de produits. Livraison rapide, paiement sécurisé.";
 const DEFAULT_IMAGE = `${SITE_URL}/favicon.svg`;
 
+// Non-production hosts (dev/recette/staging) must never be indexed by Google.
+// Safe-by-default: only forces noindex when the hostname clearly looks like a
+// non-prod environment; an unrecognized host is left alone so this can never
+// accidentally noindex production. Mirrors the X-Robots-Tag rule in .htaccess.
+const NON_PROD_HOST_RE = /(dev|recette|staging|test|localhost|^\d+\.\d+\.\d+\.\d+$)/i;
+const isNonProdHost = () =>
+  typeof window !== 'undefined' && NON_PROD_HOST_RE.test(window.location.hostname);
+
 export default function Seo({
   title,
   description,
@@ -33,6 +41,7 @@ export default function Seo({
   const canonical = `${SITE_URL}${path || ''}`.replace(/\/+$/, '') || SITE_URL;
   const img = image || DEFAULT_IMAGE;
   const jsonLdList = (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).filter(Boolean);
+  const forceNoindex = noindex || isNonProdHost();
 
   return (
     <Helmet prioritizeSeoTags>
@@ -40,7 +49,7 @@ export default function Seo({
       <title>{fullTitle}</title>
       <meta name="description" content={desc} />
       {keywords && <meta name="keywords" content={keywords} />}
-      {noindex && <meta name="robots" content="noindex,nofollow" />}
+      {forceNoindex && <meta name="robots" content="noindex,nofollow" />}
       <link rel="canonical" href={canonical} />
 
       {/* Open Graph (partages réseaux sociaux / WhatsApp) */}
@@ -243,4 +252,142 @@ export function buildBrandJsonLd(publisher, canonicalPath) {
     logo: publisher?.image || DEFAULT_IMAGE,
     url: `${SITE}${canonicalPath || ''}`,
   };
+}
+
+/**
+ * Construit un objet JSON-LD ItemList à partir d'une liste de produits/
+ * collections affichés sur une page listing (catégorie, recherche, meilleures
+ * ventes...). `items` = [{ name, url, image }].
+ */
+export function buildItemListJsonLd(items, canonicalPath) {
+  if (!Array.isArray(items) || items.length === 0) return null;
+
+  const itemListElement = items
+    .map((it, index) => {
+      if (!it?.name || !it?.url) return null;
+      return {
+        '@type': 'ListItem',
+        position: index + 1,
+        name: it.name,
+        url: /^https?:\/\//.test(it.url) ? it.url : `${SITE_URL}${it.url}`,
+        ...(it.image ? { image: it.image } : {}),
+      };
+    })
+    .filter(Boolean);
+
+  if (itemListElement.length === 0) return null;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    url: `${SITE_URL}${canonicalPath || ''}`,
+    itemListElement,
+  };
+}
+
+/**
+ * Construit un objet JSON-LD VideoObject pour une vidéo présentée sur une
+ * fiche produit (YouTube en priorité — Instagram/TikTok n'ont pas de rich
+ * results Google mais peuvent aussi être déclarés si un embedUrl existe).
+ * `video` = { name, description, thumbnailUrl, uploadDate, embedUrl, contentUrl }.
+ */
+export function buildVideoObjectJsonLd(video) {
+  if (!video?.name || (!video?.embedUrl && !video?.contentUrl)) return null;
+
+  const ld = {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: video.name,
+    description: video.description ? stripHtml(video.description) : video.name,
+    thumbnailUrl: [video.thumbnailUrl || DEFAULT_IMAGE],
+    uploadDate: video.uploadDate || new Date().toISOString().slice(0, 10),
+  };
+  if (video.embedUrl) ld.embedUrl = video.embedUrl;
+  if (video.contentUrl) ld.contentUrl = video.contentUrl;
+  return ld;
+}
+
+/**
+ * Construit un objet JSON-LD BlogPosting à partir d'un article de blog.
+ */
+export function buildBlogPostingJsonLd(post, canonicalPath) {
+  if (!post?.title) return null;
+  const url = `${SITE_URL}${canonicalPath || ''}`;
+  const authorName = [post?.user?.first_name, post?.user?.last_name].filter(Boolean).join(' ').trim() || SITE_NAME;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: stripHtml(post?.introduction || post?.description) || post.title,
+    image: [post?.image || DEFAULT_IMAGE],
+    datePublished: post?.created_at,
+    dateModified: post?.updated_at || post?.created_at,
+    author: { '@type': 'Person', name: authorName },
+    publisher: {
+      '@type': 'Organization',
+      name: SITE_NAME,
+      logo: { '@type': 'ImageObject', url: DEFAULT_IMAGE },
+    },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    url,
+  };
+}
+
+/**
+ * Construit l'objet JSON-LD Organization pour la home. `sameAs` est
+ * construit dynamiquement depuis `companySettings` (authCtx) — jamais codé
+ * en dur, les réseaux sociaux venant du back-office et pouvant changer.
+ */
+export function buildOrganizationJsonLd(companySettings) {
+  const sameAs = ['facebook', 'twitter', 'insta', 'instagram', 'youtube', 'linkedin', 'tiktok', 'snapchat']
+    .map((key) => companySettings?.[key])
+    .filter((v) => typeof v === 'string' && v.trim() !== '');
+
+  const ld = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: SITE_NAME,
+    url: SITE_URL,
+    logo: DEFAULT_IMAGE,
+  };
+  if (sameAs.length > 0) ld.sameAs = sameAs;
+  return ld;
+}
+
+/** Construit l'objet JSON-LD WebSite pour la home. */
+export function buildWebSiteJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE_NAME,
+    url: SITE_URL,
+  };
+}
+
+/**
+ * Construit l'objet JSON-LD LocalBusiness pour la page contact, à partir de
+ * `companySettings` (adresse/email/téléphone viennent du back-office).
+ * Retourne null si aucune adresse n'est disponible.
+ */
+export function buildLocalBusinessJsonLd(companySettings) {
+  const address = companySettings?.location || companySettings?.address;
+  if (!address) return null;
+
+  const sameAs = ['facebook', 'twitter', 'insta', 'instagram', 'youtube', 'linkedin', 'tiktok', 'snapchat']
+    .map((key) => companySettings?.[key])
+    .filter((v) => typeof v === 'string' && v.trim() !== '');
+
+  const ld = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: SITE_NAME,
+    url: SITE_URL,
+    image: DEFAULT_IMAGE,
+    address: { '@type': 'PostalAddress', streetAddress: address },
+  };
+  if (companySettings?.email) ld.email = companySettings.email;
+  if (companySettings?.phone) ld.telephone = companySettings.phone;
+  if (sameAs.length > 0) ld.sameAs = sameAs;
+  return ld;
 }
