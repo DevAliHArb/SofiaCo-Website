@@ -15,7 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { addSelectedEvent } from "../../Common/redux/productSlice";
 import { useNavigate } from "@hooks/useNavigate";
 import Services from "../../Home Page/Services Section/Services";
-import EventImg from "../../../assets/EventImg.png";
+import EventImg from "../../../assets/EventImg.webp";
 import AuthContext from "../../Common/authContext";
 
 const formatTime = (dateTimeString) => {

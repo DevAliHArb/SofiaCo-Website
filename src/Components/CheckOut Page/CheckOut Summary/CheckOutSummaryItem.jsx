@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classes from "./CheckOutSummaryItem.module.css";
-import bookPlaceholder from '../../../assets/bookPlaceholder.png';
+import bookPlaceholder from '../../../assets/bookPlaceholder.webp';
 import DeleteIcon from "../../../assets/DeleteIcon.svg";
 import { decreamentQuantity, deleteItem, changeQuantity } from "../../Common/redux/productSlice";
 import { toast } from "react-toastify";

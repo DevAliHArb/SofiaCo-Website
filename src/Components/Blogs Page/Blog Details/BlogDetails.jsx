@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import classes from './BlogDetails.module.css'
-import blogImg from '../../../assets/EventImg.png'
+import blogImg from '../../../assets/EventImg.webp'
 import { FaFacebookF } from "react-icons/fa";
 import XIcon from '@mui/icons-material/X';
 import { FaRegCommentDots } from "react-icons/fa";

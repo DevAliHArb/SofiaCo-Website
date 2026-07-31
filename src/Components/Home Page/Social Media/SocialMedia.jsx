@@ -9,7 +9,7 @@ import { useNavigate } from "@hooks/useNavigate";
 import AuthContext from "../../Common/authContext";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import  SocialImg from "../../../assets/SocialImg.png";
+import  SocialImg from "../../../assets/SocialImg.webp";
 import { Navigation } from "swiper/modules";
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 

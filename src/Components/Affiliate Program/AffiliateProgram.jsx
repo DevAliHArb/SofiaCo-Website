@@ -8,7 +8,7 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { CgInfo } from "react-icons/cg";
-import placeholder from "../../assets/bookPlaceholder.png";
+import placeholder from "../../assets/bookPlaceholder.webp";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { IoIosLink } from "react-icons/io";

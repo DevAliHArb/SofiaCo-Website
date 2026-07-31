@@ -11,7 +11,7 @@ import { Navigation } from "swiper/modules";
 import Details from './Details';
 import AuthContext from '../../Common/authContext';
 import { useSelector } from 'react-redux';
-import img from '../../../assets/bookPlaceholder.png'
+import img from '../../../assets/bookPlaceholder.webp'
 import { useLocation } from 'react-router-dom';
 import Seo, { buildProductJsonLd, buildVideoObjectJsonLd } from '../../Common/Seo';
 import FAQSection from '../FAQ Section/FAQSection';

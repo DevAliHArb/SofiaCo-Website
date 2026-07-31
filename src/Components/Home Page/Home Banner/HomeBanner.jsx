@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import classes from './HomeBanner.module.css'
-import img from '../../../assets/homeherobg.png'
+import img from '../../../assets/homeherobg.webp'
 import { useSelector } from 'react-redux'
 import { useNavigate } from "@hooks/useNavigate";
 import axios from 'axios'

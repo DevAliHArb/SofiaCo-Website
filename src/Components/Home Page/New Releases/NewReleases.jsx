@@ -4,7 +4,7 @@ import AuthContext from "../../Common/authContext";
 import { useNavigate } from "@hooks/useNavigate";
 import { useDispatch, useSelector } from "react-redux";
 import data from "../../../Data.json";
-import img from "../../../assets/bookPlaceholder.png";
+import img from "../../../assets/bookPlaceholder.webp";
 import axios from "axios";
 import nodata from "../../../assets/nobookfound.svg";
 import { Swiper, SwiperSlide } from "swiper/react";

@@ -14,7 +14,7 @@ import {
 import EmptySubs from "../../../assets/EmptySubs.png";
 import DeleteIcon from "../../../assets/DeleteIcon.svg";
 import collabPlaceholder from "../../../assets/collab-placeholder.png";
-import collecPlaceholder from "../../../assets/Collectionplaceholder.png";
+import collecPlaceholder from "../../../assets/Collectionplaceholder.webp";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";

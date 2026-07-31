@@ -3,7 +3,7 @@ import classes from './FeaturedBooks.module.css';
 import data from '../../../Data.json';
 import { useDispatch, useSelector } from 'react-redux';
 import nodata from '../../../assets/nobookfound.svg';
-import img from "../../../assets/bookPlaceholder.png";
+import img from "../../../assets/bookPlaceholder.webp";
 import axios from 'axios';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Pagination } from "swiper/modules";

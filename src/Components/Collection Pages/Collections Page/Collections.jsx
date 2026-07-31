@@ -14,7 +14,7 @@ import {
 } from "react-icons/md";
 import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
-import placeholder from '../../../assets/Collectionplaceholder.png'
+import placeholder from '../../../assets/Collectionplaceholder.webp'
 import nodata from '../../../assets/noCollabFound.svg'
 import OurSelectionBanner from "../../Common Components/Our Selection Banner/OurSelectionBanner";
 import axios from "axios";

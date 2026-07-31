@@ -4,7 +4,7 @@ import { useNavigate } from '@hooks/useNavigate';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import AuthContext from '../../Common/authContext';
-import blogImg from '../../../assets/EventImg.png'
+import blogImg from '../../../assets/EventImg.webp'
 import { FaRegCommentDots } from "react-icons/fa";
 import { AiOutlineLike } from "react-icons/ai";
 import { BiSolidLike } from "react-icons/bi";

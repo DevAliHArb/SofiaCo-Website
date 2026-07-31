@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import classes from "./Events.module.css";
-import EventImg from "../../../assets/EventImg.png";
+import EventImg from "../../../assets/EventImg.webp";
 import { FaCalendarAlt } from "react-icons/fa";
 import { CiClock2, CiLocationOn } from "react-icons/ci";
 import { FaRegClock } from "react-icons/fa6";

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classes from "./GiftItems.module.css";
-import image from "../../../assets/bookPlaceholder.png";
+import image from "../../../assets/bookPlaceholder.webp";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { Rate, Input } from "antd";
