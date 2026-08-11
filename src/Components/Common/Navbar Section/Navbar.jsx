@@ -91,17 +91,11 @@ const Navbar = ({ toggle, cartToggle }) => {
   
   const handleChangeCurrency = async (event) => {
     const cur = event.target.value;
-    
-    // Check for currency and currencyRate
-    if (currency === 'eur' && !authCtx.currencyRate) {
-        return setOpenmodal(true)
-    }
-  
     dispatch(changeCurrency({ currency: cur }));
-  
     try {
+      const token = localStorage.getItem('token');
       await axios.put(
-        `${import.meta.env.VITE_TESTING_API}/users/${user.id}`,
+        `${import.meta.env.VITE_TESTING_API}/users/${userInfo.id}`,
         { currency: cur },
         {
           headers: {
@@ -118,6 +112,7 @@ const Navbar = ({ toggle, cartToggle }) => {
     const lan = event.target.value;
     dispatch(changeLanguage({ Language: lan }));
     try {
+      const token = localStorage.getItem('token');
       await axios.put(
         `${import.meta.env.VITE_TESTING_API}/users/${userInfo.id}`,
         { language: lan },

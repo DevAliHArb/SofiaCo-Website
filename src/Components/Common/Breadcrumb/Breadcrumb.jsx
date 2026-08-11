@@ -63,7 +63,7 @@ const Breadcrumb = ({ paths }) => {
       <p className={classes.breadcrumb}>
         {visiblePaths.map((path, index) => (
           <span key={index} className={classes.breadcrumb_item} style={{cursor:path?.url ? 'pointer' : 'default'}}>
-            <span className={classes.breadcrumb_text} onClick={()=>{if(path?.url) navigate(path.url)}}>
+            <span className={classes.breadcrumb_text} onClick={() => { if (path?.onClick) { path.onClick(); } else if (path?.url) { navigate(path.url); } }}>
               {getTranslatedText(path)}
             </span>
             {index < visiblePaths.length - 1 && (

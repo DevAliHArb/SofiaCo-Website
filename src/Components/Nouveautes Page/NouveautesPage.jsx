@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import classes from "./NouveautesPage.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import Breadcrumb from "../Common/Breadcrumb/Breadcrumb";
+import { JsonLd, buildBreadcrumbJsonLd } from "../Common/Seo";
 import BooksView from "../Books page/Books View/BooksView";
 import NewsLetterSection from "../Home Page/NewsLetter/NewsLetterSection";
 import { editSearchData, resetSearchData } from "../Common/redux/productSlice";
@@ -28,6 +29,7 @@ const NouveautesPage = () => {
 
   return (
     <div className={classes.container}>
+      <JsonLd items={[buildBreadcrumbJsonLd(breadcrumbPaths, language)]} />
       <Breadcrumb paths={breadcrumbPaths} />
       <div className={classes.header}>
         <div className={classes.headtitle}>

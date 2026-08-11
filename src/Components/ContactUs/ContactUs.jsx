@@ -15,6 +15,7 @@ import AuthContext from '../Common/authContext';
 import TextField from "./Text Field/TextField";
 import Services from "../Home Page/Services Section/Services";
 import { toast } from "react-toastify";
+import { JsonLd, buildLocalBusinessJsonLd } from '../Common/Seo';
 
 
 const ContactUs = () => {
@@ -75,6 +76,7 @@ const ContactUs = () => {
 
   return (
     <div className={classes.contactUs}>
+      <JsonLd items={[buildLocalBusinessJsonLd(authCtx.companySettings)]} />
       <div className={classes.header}>
         <h1 className={classes.headerh1}>{data.ContactUsPage.title[language]}</h1>
         <h2 className={classes.headerh2}>{data.ContactUsPage.Subtitle[language]}</h2>

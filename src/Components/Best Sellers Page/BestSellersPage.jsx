@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import AuthContext from "../Common/authContext";
 import Library from "./Library Section/Library";
 import Breadcrumb from "../Common/Breadcrumb/Breadcrumb";
+import { JsonLd, buildBreadcrumbJsonLd } from "../Common/Seo";
 import { IoIosArrowDown } from "react-icons/io";
 
 const BestSellersPage = () => {
@@ -47,6 +48,7 @@ const BestSellersPage = () => {
 
   return (
     <div className={classes.bigcontainer}>
+      <JsonLd items={[buildBreadcrumbJsonLd(breadcrumbPaths, language)]} />
       <Breadcrumb paths={breadcrumbPaths} />
       <div className={classes.header}>
         <div className={classes.headtitle}>

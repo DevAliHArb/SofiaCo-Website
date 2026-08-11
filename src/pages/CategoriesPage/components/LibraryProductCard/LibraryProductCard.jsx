@@ -7,7 +7,7 @@ import { addSelectedBook } from "../../../../Components/Common/redux/productSlic
 import { Rating } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import img from "../../../../assets/bookPlaceholder.png";
+import img from "../../../../assets/bookPlaceholder.webp";
 import { slugify } from "../../../../Components/Common/TextUtils";
 
 const truncateText = (text, maxLength) => {

@@ -24,7 +24,7 @@ import {
   PiShoppingCartSimpleLight,
 } from "react-icons/pi";
 import { HiOutlineBookOpen } from "react-icons/hi2";
-import img from "../../../../assets/bookPlaceholder.png";
+import img from "../../../../assets/bookPlaceholder.webp";
 import nodata from "../../../../assets/nobookfound.svg";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -569,7 +569,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                       {props.articleimage?.[0] ? (
                         <img
                           src={`${props.articleimage?.[0]?.link}`}
-                          alt={props.articleimage?.[0]?.type}
+                          alt={props?.designation || props.articleimage?.[0]?.type}
                           width="100%"
                           height="100%"
                           className={classes.img}
@@ -719,7 +719,7 @@ const BooksList = ({ toggle, carttoggle, filteredartciles, fetchArticles, catChe
                     {props.articleimage?.[0] ? (
                       <img
                         src={`${props.articleimage?.[0]?.link}`}
-                        alt={props.articleimage?.[0]?.type}
+                        alt={props?.designation || props.articleimage?.[0]?.type}
                         width="100%"
                         height="100%"
                       />

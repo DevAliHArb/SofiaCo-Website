@@ -4,7 +4,7 @@ import AuthContext from "../../Common/authContext";
 import { useNavigate } from "@hooks/useNavigate";
 import { useDispatch, useSelector } from "react-redux";
 import data from "../../../Data.json";
-import img from "../../../assets/bookPlaceholder.png";
+import img from "../../../assets/bookPlaceholder.webp";
 import axios from "axios";
 import nodata from "../../../assets/nobookfound.svg";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -151,7 +151,7 @@ const NewReleases = () => {
       <div className={classes.content}>
         <div className={classes.header}>
           <div className={classes.title}>
-            <h1>{data.HomePage.NewArrivals.title[language]}</h1>
+            <h2>{data.HomePage.NewArrivals.title[language]}</h2>
           </div>
           <div className={classes.header_low}>
             <div className={classes.nav_container}>
@@ -243,15 +243,15 @@ const NewReleases = () => {
             <div className={classes.nodata_img}>
               <img src={nodata} alt="" />
             </div>
-            <h1>
+            <p>
               No Books <br />were found!
-            </h1>
+            </p>
           </div>
         ) : (
           <>
             {loading ? (
               <div>
-                <h1 style={{ color: "Var(--secondary-color)" }}>Loading...</h1>
+                <p style={{ color: "Var(--secondary-color)" }}>Loading...</p>
               </div>
             ) : (
               <>
@@ -299,7 +299,7 @@ const NewReleases = () => {
                               {props.articleimage?.[0] ? (
                                 <img
                                   src={`${props.articleimage?.[0]?.link}`}
-                                  alt={props.articleimage?.[0]?.type}
+                                  alt={props?.designation || props.articleimage?.[0]?.type}
                                   width="100%"
                                   height="100%"
                                   className={classes.img}

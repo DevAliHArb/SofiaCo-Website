@@ -43,7 +43,7 @@ const Services = () => {
     <div className={classes.big_container}>
       <div className={classes.content}>
         <div className={classes.header}>
-          <h1>{data.HomePage.OurServices?.title[language]}</h1>
+          <h2>{data.HomePage.OurServices?.title[language]}</h2>
           <p>{data.HomePage.OurServices?.description[language]}</p>
         </div>
 

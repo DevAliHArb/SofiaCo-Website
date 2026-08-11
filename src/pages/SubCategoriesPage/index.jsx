@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classes from "./SubCategoriesPage.module.css";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import AuthContext from "../../Components/Common/authContext";
 import CatHero from "../CategoriesPage/components/Hero/Hero";
 import FAQSection from "../CategoriesPage/components/FAQ/FAQSection";
@@ -9,26 +9,28 @@ import BooksView from "../../Components/Books page/Books View/BooksView";
 import MainCat from "./components/MainCategories/MainCat";
 import { addSelectedCategory } from "../../Components/Common/redux/productSlice";
 import Breadcrumb from "../../Components/Common/Breadcrumb/Breadcrumb";
-import { Helmet } from "react-helmet-async";
+import Seo, { buildBreadcrumbJsonLd } from "../../Components/Common/Seo";
 import OurSelection from "../CategoriesPage/components/OurSelection/OurSelection";
 import NewsLetterSection from "../../Components/Home Page/NewsLetter/NewsLetterSection";
 
 // Helper function to slugify and sanitize text
 const slugify = (text, placeholder = "product") => {
   if (!text || text.trim() === "") return placeholder;
-  return text
+  const slug = text
     .toString()
     .trim()
     .toLowerCase()
     .replace(/[^a-z0-9\s-]/g, "") // Remove all symbols except spaces and hyphens
     .replace(/\s+/g, "-") // Replace spaces with hyphens
     .replace(/-+/g, "-") // Replace multiple hyphens with single hyphen
-    .replace(/^-+|-+$/g, ""); // Remove leading/trailing hyphens
+    .replace(/^-+|-+$/g, "");
+  return slug || placeholder; // Remove leading/trailing hyphens
 };
 
 const SubCategoriesPage = () => {
   const authCtx = useContext(AuthContext);
   const { catId, id } = useParams();
+  const location = useLocation();
   const selectedCategoryId = catId || id;
   const dispatch = useDispatch();
   const currency = useSelector(
@@ -98,26 +100,17 @@ const SubCategoriesPage = () => {
   const keyword = normalizeMetaValue(
     subCategoryData?.keywords || subCategoryData?.nom,
   );
-  const secondaryKeyword = normalizeMetaValue(
-    subCategoryData?.secondary_keywords || subCategoryData?.type_nom,
-  );
-  const longTrainText = normalizeMetaValue(subCategoryData?.long_tail_text);
 
   return (
     <>
-      <Helmet>
-        {metaTitle && <title>{metaTitle}</title>}
-        {metaDescription && (
-          <meta name="description" content={metaDescription} />
-        )}
-        {keyword && <meta name="keyword" content={keyword} />}
-        {secondaryKeyword && (
-          <meta name="secondary_keyword" content={secondaryKeyword} />
-        )}
-        {longTrainText && (
-          <meta name="long_train_text" content={longTrainText} />
-        )}
-      </Helmet>
+      <Seo
+        title={metaTitle}
+        description={metaDescription}
+        path={location.pathname}
+        image={subCategoryData?.image}
+        keywords={keyword}
+        jsonLd={buildBreadcrumbJsonLd(breadcrumbPaths, language)}
+      />
       <div>
         <CatHero categoryData={subCategoryData} />
         <Breadcrumb paths={breadcrumbPaths} />

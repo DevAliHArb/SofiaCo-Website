@@ -4,7 +4,7 @@ import { useNavigate } from "@hooks/useNavigate";
 import AuthContext from "../../Common/authContext";
 // import BookHeroImage from '../../../assets/BookHeroImage.png'
 import nodata from "../../../assets/nobookfound.svg";
-import img from "../../../assets/bookPlaceholder.png";
+import img from "../../../assets/bookPlaceholder.webp";
 import data from '../../../Data.json'
 import { IoSearchOutline } from "react-icons/io5";
 import {
@@ -26,8 +26,8 @@ import {
   PiShoppingCartSimpleLight,
 } from "react-icons/pi";
 import { HiOutlineBookOpen } from "react-icons/hi2";
-import bookPlaceholder from '../../../assets/bookPlaceholder.png'
-import placeholder from '../../../assets/Collectionplaceholder.png'
+import bookPlaceholder from '../../../assets/bookPlaceholder.webp'
+import placeholder from '../../../assets/Collectionplaceholder.webp'
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -276,7 +276,7 @@ const CollectionDetailsPage = () => {
                       {props.articleimage?.[0] ? (
                         <img
                           src={`${props.articleimage?.[0]?.link}`}
-                          alt={props.articleimage?.[0]?.type}
+                          alt={props?.designation || props.articleimage?.[0]?.type}
                           width="100%"
                           height="100%"
                           className={classes.img}

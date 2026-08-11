@@ -3,7 +3,7 @@ import classes from './OurSelection.module.css';
 import data from '../../../Data.json';
 import { useDispatch, useSelector } from 'react-redux';
 import nodata from '../../../assets/nobookfound.svg';
-import img from "../../../assets/bookPlaceholder.png";
+import img from "../../../assets/bookPlaceholder.webp";
 import axios from 'axios';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -129,7 +129,7 @@ const OurSelection = () => {
                       {props.articleimage?.[0] ? (
                         <img
                           src={`${props.articleimage?.[0]?.link}`}
-                          alt={props.articleimage?.[0]?.type}
+                          alt={props?.designation || props.articleimage?.[0]?.type}
                           width="100%"
                           height="100%"
                           className={classes.img}

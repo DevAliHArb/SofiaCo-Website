@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classes from "./CategoriesPage.module.css";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import AuthContext from "../../Components/Common/authContext";
 import axios from "axios";
 import CatHero from "./components/Hero/Hero";
@@ -10,13 +10,14 @@ import BooksView from "../../Components/Books page/Books View/BooksView";
 import MainCat from "./components/MainCategories/MainCat";
 import { addSelectedCategory } from "../../Components/Common/redux/productSlice";
 import Breadcrumb from "../../Components/Common/Breadcrumb/Breadcrumb";
-import { Helmet } from "react-helmet-async";
+import Seo, { buildBreadcrumbJsonLd } from "../../Components/Common/Seo";
 import OurSelection from "./components/OurSelection/OurSelection";
 import NewsLetterSection from "../../Components/Home Page/NewsLetter/NewsLetterSection";
 
 const CategoriesPage = () => {
   const authCtx = useContext(AuthContext);
   const { catId } = useParams();
+  const location = useLocation();
   const dispatch = useDispatch();
   const currency = useSelector(
     (state) => state.products.selectedCurrency[0].currency,
@@ -69,26 +70,17 @@ const CategoriesPage = () => {
   const keyword = normalizeMetaValue(
     categoryData?.keywords || categoryData?.nom,
   );
-  const secondaryKeyword = normalizeMetaValue(
-    categoryData?.secondary_keywords || categoryData?.type_nom,
-  );
-  const longTrainText = normalizeMetaValue(categoryData?.long_tail_text);
 
   return (
     <>
-      <Helmet>
-        {metaTitle && <title>{metaTitle}</title>}
-        {metaDescription && (
-          <meta name="description" content={metaDescription} />
-        )}
-        {keyword && <meta name="keyword" content={keyword} />}
-        {secondaryKeyword && (
-          <meta name="secondary_keyword" content={secondaryKeyword} />
-        )}
-        {longTrainText && (
-          <meta name="long_train_text" content={longTrainText} />
-        )}
-      </Helmet>
+      <Seo
+        title={metaTitle}
+        description={metaDescription}
+        path={location.pathname}
+        image={categoryData?.image}
+        keywords={keyword}
+        jsonLd={buildBreadcrumbJsonLd(breadcrumbPaths, language)}
+      />
       <div>
         <CatHero categoryData={categoryData} />
         <Breadcrumb paths={breadcrumbPaths} />

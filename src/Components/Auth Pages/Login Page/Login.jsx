@@ -11,7 +11,7 @@ import './styles.css'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { addInitialcart, addTofavorite, addUser } from '../../Common/redux/productSlice';
-import bookPlaceholder from '../../../assets/bookPlaceholder.png'
+import bookPlaceholder from '../../../assets/bookPlaceholder.webp'
 import DragPuzzleCaptcha from "drag-puzzle-captcha";
 import "drag-puzzle-captcha/DragPuzzleCaptcha.css";
 

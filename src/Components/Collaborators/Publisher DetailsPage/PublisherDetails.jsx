@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import classes from "./PublisherDetails.module.css";
 import collabPlaceholder from '../../../assets/collab-placeholder.png'
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams, useLocation } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { IoMailOutline } from "react-icons/io5";
 import axios from 'axios';
@@ -10,6 +10,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import OurSelectionBanner from '../../Common Components/Our Selection Banner/OurSelectionBanner';
 import MoreAbout from './More About Collab/MoreAbout';
 import AuthContext from '../../Common/authContext';
+import Seo, { buildBrandJsonLd } from '../../Common/Seo';
+import FAQSection from '../../Book Details Page/FAQ Section/FAQSection';
 
 // description
 // image
@@ -19,6 +21,7 @@ import AuthContext from '../../Common/authContext';
 
 const PublisherDetails = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const authCtx = useContext(AuthContext);
   const { id } = useParams();
   const [CollaboratorData, setCollaboratorData] = useState({});
@@ -84,8 +87,30 @@ const PublisherDetails = () => {
     fetchHero();
   }, []);
 
+  const n = (v) => (typeof v === 'string' ? v.trim() : '');
+  const metaTitle = n(CollaboratorData?.meta_title || CollaboratorData?.title || CollaboratorData?.nom);
+  const metaDescription = n(
+    CollaboratorData?.meta_description ||
+    (CollaboratorData?.description || CollaboratorData?.biographie || '').replace(/<[^>]*>/g, '')
+  );
+  const keyword = n(
+    CollaboratorData?.keywords ||
+    [CollaboratorData?.title || CollaboratorData?.nom, language === 'eng' ? 'brand' : 'marque'].filter(Boolean).join(', ')
+  );
+  const ogImage = CollaboratorData?.image;
+
   return (
-    <div> <div className={classes.login_con}>
+    <div>
+      <Seo
+        title={metaTitle}
+        description={metaDescription}
+        path={location.pathname}
+        image={ogImage}
+        type="profile"
+        keywords={keyword}
+        jsonLd={buildBrandJsonLd(CollaboratorData, location.pathname)}
+      />
+      <div className={classes.login_con}>
       <OurSelectionBanner props={heroData} />
       <div className={classes.cardContainer}>
         <div className={classes.card} >
@@ -116,6 +141,12 @@ const PublisherDetails = () => {
         </div> */}
     </div>
         {/* <Video /> */}
+        <FAQSection
+          faqParams={{
+            field: 'b_usr_editeur_id',
+            id: CollaboratorData?.id,
+          }}
+        />
         <MoreAbout publisher_name={CollaboratorData.id}/>
       {/* <ToastContainer
         position="top-right"

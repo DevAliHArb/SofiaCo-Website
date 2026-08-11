@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import classes from './CompletedOrder.module.css'
-import bookPlaceholder from '../../../assets/bookPlaceholder.png';
+import bookPlaceholder from '../../../assets/bookPlaceholder.webp';
 import "react-toastify/dist/ReactToastify.css";
 import Data from '../../../Data.json'
 import AlsoSee from '../../Common Components/Also See/AlsoSee';

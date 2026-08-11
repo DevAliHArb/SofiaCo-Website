@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import classes from './OurSelectionBanner.module.css'
-import img from '../../../assets/ouselectionbanner.png'
+import img from '../../../assets/ouselectionbanner.webp'
 import data from '../../../Data.json'
 import { useSelector } from 'react-redux'
 import { useNavigate } from "@hooks/useNavigate";

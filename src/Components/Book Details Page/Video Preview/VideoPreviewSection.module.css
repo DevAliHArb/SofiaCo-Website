@@ -1,0 +1,155 @@
+.section {
+  width: 90%;
+  max-width: 900px;
+  margin: 1em auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  align-self: center;
+}
+
+.title {
+  font-size: calc(1rem + 0.4vw);
+  color: var(--primary-color);
+  font-weight: 700;
+  margin-bottom: 1em;
+  align-self: center; /* keep title left-aligned */
+}
+
+/* Shared container — same height for every platform */
+.videoContainer {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  position: relative;
+  height: 460px;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  align-self: center;
+}
+
+/* Landscape (YouTube, Facebook, Twitter) — full width */
+.landscape {
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  align-self: center;
+}
+
+/* Portrait (TikTok, Instagram, Snapchat) — narrower column, same height, centered by parent flex */
+.portrait {
+  width: min(290px, 85%);
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  align-self: center;
+}
+
+.iframe {
+  position: absolute;
+  display: flex;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  align-self: center;
+}
+
+/* External link card (Instagram, Snapchat, Twitter) */
+.externalCard {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7em;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.externalCard:hover {
+  opacity: 0.85;
+}
+
+.externalIcon {
+  font-size: 3.5em;
+}
+
+.externalLabel {
+  font-size: calc(0.9rem + 0.3vw);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-align: center;
+  padding: 0 1em;
+}
+
+.externalHint {
+  font-size: calc(0.7rem + 0.2vw);
+}
+
+/* Platform tabs */
+.tabs {
+  display: flex;
+  gap: 0.6em;
+  flex-wrap: wrap;
+  margin-top: 1em;
+  align-self: flex-start; /* keep tabs left-aligned */
+  width: 100%;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 0.45em 1em;
+  border-radius: 50px;
+  border: 1.5px solid #ddd;
+  background: transparent;
+  color: #888;
+  font-size: calc(0.65rem + 0.2vw);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.tab:hover {
+  border-color: #bbb;
+  color: #444;
+}
+
+.tabActive {
+  font-weight: 600;
+}
+
+@media screen and (max-width: 768px) {
+  .section {
+    width: 90%;
+  }
+
+  .videoContainer {
+    height: 320px;
+  }
+
+  .portrait {
+    width: min(180px, 75%);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .videoContainer {
+    height: 300px;
+  }
+
+  .portrait {
+    width: 80%;
+  }
+}

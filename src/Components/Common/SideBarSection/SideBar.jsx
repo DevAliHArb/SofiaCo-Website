@@ -51,10 +51,15 @@ export default function SideBar({ toggle, isOpen }) {
   const authCtx = useContext(AuthContext);
   const [catChemin, setCatChemin] = useState("");
 
-  const HandleNouveautesClick = () => {
+  const clearFilters = () => {
     localStorage.removeItem("stock"); localStorage.removeItem("categories"); localStorage.removeItem("collections");
     localStorage.removeItem("multiproductids"); localStorage.removeItem("publishers"); localStorage.removeItem("subCategories");
-    localStorage.removeItem("parentCategories"); localStorage.removeItem("min_price"); localStorage.removeItem("max_price");
+    localStorage.removeItem("subSubCategories"); localStorage.removeItem("parentCategories");
+    localStorage.removeItem("min_price"); localStorage.removeItem("max_price");
+  };
+
+  const HandleNouveautesClick = () => {
+    clearFilters();
     dispatch(resetSearchData());
     dispatch(editSearchData({ newarrival: true }));
     toggle();
@@ -63,7 +68,7 @@ export default function SideBar({ toggle, isOpen }) {
   // Helper function to slugify and sanitize text
   const slugify = (text, placeholder = 'product') => {
     if (!text || text.trim() === '') return placeholder;
-    return text
+    const slug = text
       .toString()
       .trim()
       .toLowerCase()
@@ -71,6 +76,7 @@ export default function SideBar({ toggle, isOpen }) {
       .replace(/\s+/g, '-')
       .replace(/-+/g, '-')
       .replace(/^-+|-+$/g, '');
+  return slug || placeholder;
   };
 
   // For category navigation
@@ -81,18 +87,8 @@ export default function SideBar({ toggle, isOpen }) {
   // Handler for parent category click
   const handleParentCategoryClick = (id, name) => {
     dispatch(resetSearchData());
-    localStorage.removeItem("subCategories");
-    localStorage.removeItem("parentCategories");
-    localStorage.removeItem("publishers");
-    localStorage.removeItem("categories");
-    localStorage.removeItem("collections");
-    
-    const parentCategories = JSON.parse(localStorage.getItem("parentCategories")) || [];
-    if (!parentCategories.includes(id)) {
-      parentCategories.push(id);
-      localStorage.setItem("parentCategories", JSON.stringify(parentCategories));
-    }
-    
+    clearFilters();
+    localStorage.setItem("parentCategories", JSON.stringify([id]));
     dispatch(addSelectedCategory(String(id)));
     const slug = slugify(name);
     navigate(`/main/cp/${slug}/${id}`);
@@ -102,18 +98,10 @@ export default function SideBar({ toggle, isOpen }) {
   // Handler for subcategory click
   const handleSubCategoryClick = (parentId, parentName, id, name) => {
     dispatch(resetSearchData());
-    localStorage.removeItem("subCategories");
-    localStorage.removeItem("parentCategories");
-    localStorage.removeItem("publishers");
-    localStorage.removeItem("categories");
-    localStorage.removeItem("collections");
-    
-    const subCategories = JSON.parse(localStorage.getItem("subCategories")) || [];
-    if (!subCategories.includes(id)) {
-      subCategories.push(id);
-      localStorage.setItem("subCategories", JSON.stringify(subCategories));
-    }
-    
+    clearFilters();
+    localStorage.setItem("parentCategories", JSON.stringify([parentId]));
+    localStorage.setItem("subCategories", JSON.stringify([id]));
+    dispatch(addSelectedCategory(String(parentId)));
     const slugParent = slugify(parentName);
     const slug = slugify(name);
     navigate(`/main/cp/${slugParent}/${slug}/${id}`);
@@ -123,18 +111,10 @@ export default function SideBar({ toggle, isOpen }) {
   // Handler for subsubcategory click
   const handleSubSubCategoryClick = (parentId, parentName, subId, subName, id, name) => {
     dispatch(resetSearchData());
-    localStorage.removeItem("subCategories");
-    localStorage.removeItem("parentCategories");
-    localStorage.removeItem("publishers");
-    localStorage.removeItem("categories");
-    localStorage.removeItem("collections");
-    
-    const categories = JSON.parse(localStorage.getItem("categories")) || [];
-    if (!categories.includes(id)) {
-      categories.push(id);
-      localStorage.setItem("categories", JSON.stringify(categories));
-    }
-    
+    clearFilters();
+    if (parentId) localStorage.setItem("parentCategories", JSON.stringify([parentId]));
+    localStorage.setItem("subSubCategories", JSON.stringify([id]));
+    dispatch(addSelectedCategory(String(parentId)));
     const slugParent = slugify(parentName);
     const slugSub = slugify(subName);
     const slug = slugify(name);

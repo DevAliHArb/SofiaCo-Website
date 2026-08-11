@@ -143,6 +143,30 @@ const CheckOut = () => {
   const [EURTVA, setEURTVA] = useState(0);
   const [thecoupon, setthecoupon] = useState("");
   
+  const [verifiedPayments, setVerifiedPayments] = useState(null);
+
+  // Live-verify PayPal/Stripe credentials actually work before offering them at checkout -
+  // a misconfigured/expired key would otherwise let a customer pick a payment method that
+  // can never complete. Falls back to the unverified company settings if the check itself
+  // fails (e.g. network hiccup), so checkout doesn't lose payment options over that.
+  useEffect(() => {
+    const checkPaymentMethodsStatus = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_TESTING_API}/company-settings-payment-methods-status?ecom_type=sofiaco`
+        );
+        setVerifiedPayments(response.data);
+      } catch (error) {
+        setVerifiedPayments({
+          is_paypal: authCtx.companySettings?.is_paypal,
+          is_payment_cards: authCtx.companySettings?.is_payment_cards,
+          is_direct_pay: authCtx.companySettings?.is_direct_pay,
+        });
+      }
+    };
+    checkPaymentMethodsStatus();
+  }, []);
+
   const [openpaypal, setOpenpaypal] = React.useState(false);
   const handleOpenpaypal = () => setOpenpaypal(true);
   const handleClosepaypal = () => setOpenpaypal(false);
@@ -2157,7 +2181,7 @@ const CheckOut = () => {
                           setopenPay(false)
                         }
                       >
-                {authCtx.companySettings?.is_payment_cards && paymentslist?.map((payment) => {
+                {(verifiedPayments?.is_payment_cards ?? authCtx.companySettings?.is_payment_cards) && paymentslist?.map((payment) => {
                   return (
                     <>
                     {((!openPay && Number(payment.id) === Number(paymentId)) || openPay) && <div className={classes.adressCard}>
@@ -2221,7 +2245,7 @@ const CheckOut = () => {
                   );
                 })}
                
-        {authCtx.companySettings?.is_paypal && ((!openPay && 'paypal'=== paymentId) || openPay) && <div style={{display:'flex', flexDirection:'row'}} className={classes.adressCard}>
+        {(verifiedPayments?.is_paypal ?? authCtx.companySettings?.is_paypal) && ((!openPay && 'paypal'=== paymentId) || openPay) && <div style={{display:'flex', flexDirection:'row'}} className={classes.adressCard}>
         <FormControlLabel
           value='paypal'
           control={
@@ -2242,7 +2266,7 @@ const CheckOut = () => {
         </p>}
         />
         </div>}
-        {authCtx.companySettings?.is_direct_pay && ((!openPay && 'direct'=== paymentId) || openPay) && <div className={classes.adressCard} style={{display:'flex', flexDirection:'row'}}>
+        {(verifiedPayments?.is_direct_pay ?? authCtx.companySettings?.is_direct_pay) && ((!openPay && 'direct'=== paymentId) || openPay) && <div className={classes.adressCard} style={{display:'flex', flexDirection:'row'}}>
         <FormControlLabel
           value='direct'
           control={
@@ -2267,7 +2291,7 @@ const CheckOut = () => {
         </div>}
         
                       </RadioGroup>
-                {authCtx.companySettings?.is_payment_cards && <p
+                {(verifiedPayments?.is_payment_cards ?? authCtx.companySettings?.is_payment_cards) && <p
                   onClick={() => {
                     handlePaymentOpen();
                   }}

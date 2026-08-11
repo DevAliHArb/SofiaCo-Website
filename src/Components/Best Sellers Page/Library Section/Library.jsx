@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
-import placeholder from "../../../assets/bookPlaceholder.png";
+import placeholder from "../../../assets/bookPlaceholder.webp";
 import { useNavigate } from "@hooks/useNavigate";
 import AuthContext from "../../Common/authContext";
 import { useDispatch, useSelector } from "react-redux";

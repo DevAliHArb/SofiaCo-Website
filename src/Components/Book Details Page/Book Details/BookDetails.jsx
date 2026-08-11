@@ -11,13 +11,17 @@ import { Navigation } from "swiper/modules";
 import Details from './Details';
 import AuthContext from '../../Common/authContext';
 import { useSelector } from 'react-redux';
-import img from '../../../assets/bookPlaceholder.png'
-import { Helmet } from 'react-helmet-async';
+import img from '../../../assets/bookPlaceholder.webp'
+import { useLocation } from 'react-router-dom';
+import Seo, { buildProductJsonLd, buildVideoObjectJsonLd } from '../../Common/Seo';
 import FAQSection from '../FAQ Section/FAQSection';
+
+const YOUTUBE_ID_RE = /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:embed\/|shorts\/|watch\?v=|watch\?.+&v=|v\/))([A-Za-z0-9_-]{11})/;
 
 const BookDetails = () => {
 
   const authCtx = useContext(AuthContext)
+  const location = useLocation();
   const [bookData, setbookData] = useState({});
     const selectedBook = useSelector((state) => state.products.selectedBook[0])
     const selectedVariants = useSelector((state) => state.products.selectedVariants);
@@ -168,22 +172,35 @@ swiper.slideTo(index)};
     selectedBook?.designation
   );
 
-  const secondaryKeyword = normalizeMetaValue(
-    selectedBook?.secondary_keywords ||
-    selectedBook?.isbn
-  );
+  const ogImage = selectedBook?.articleimage?.[0]?.link || selectedBook?.image;
 
-  const longTailText = normalizeMetaValue(selectedBook?.long_tail_text);
+  // YouTube videos only: best Google video rich-result support. Instagram/TikTok
+  // embeds have no Google rich results, so they stay social-proof only (per spec).
+  const videoJsonLd = (selectedBook?.video_links || [])
+    .filter((v) => v?.platform?.toLowerCase() === 'youtube')
+    .map((v) => {
+      const id = v?.link?.match(YOUTUBE_ID_RE)?.[1];
+      if (!id) return null;
+      return buildVideoObjectJsonLd({
+        name: `${selectedBook?.designation} — présentation vidéo`,
+        description: metaDescription,
+        thumbnailUrl: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+        embedUrl: `https://www.youtube.com/embed/${id}`,
+      });
+    })
+    .filter(Boolean);
 
   return (
     <div className={classes.bookDetails}>
-        <Helmet>
-          {metaTitle && <title>{metaTitle}</title>}
-          {metaDescription && <meta name="description" content={metaDescription} />}
-          {keyword && <meta name="keywords" content={keyword} />}
-          {secondaryKeyword && <meta name="secondary_keywords" content={secondaryKeyword} />}
-          {longTailText && <meta name="long_tail_text" content={longTailText} />}
-        </Helmet>
+        <Seo
+          title={metaTitle}
+          description={metaDescription}
+          path={location.pathname}
+          image={ogImage}
+          type="product"
+          keywords={keyword}
+          jsonLd={[buildProductJsonLd(selectedBook, location.pathname), ...videoJsonLd]}
+        />
         <div className={classes.bigContainer}>
           <div className={classes.booksContainer}>
         <div className={classes.swiper}>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Video from './Video Section/Video'
 import classes from "./CollaboratorDetails.module.css";
 import collabPlaceholder from '../../../assets/collab-placeholder.png'
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { IoMailOutline } from "react-icons/io5";
 import axios from 'axios';
@@ -10,6 +10,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import OurSelectionBanner from '../../Common Components/Our Selection Banner/OurSelectionBanner';
 import MoreAbout from './More About Collab/MoreAbout';
+import Seo, { buildPersonJsonLd } from '../../Common/Seo';
+import FAQSection from '../../Book Details Page/FAQ Section/FAQSection';
 
 // description
 // image
@@ -19,6 +21,7 @@ import MoreAbout from './More About Collab/MoreAbout';
 
 const CollaboratorDetails = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
   // const [CollaboratorData, setCollaboratorData] = useState({});
   const user = useSelector((state) => state.products.userInfo);
@@ -79,8 +82,28 @@ const CollaboratorDetails = () => {
     fetchHero();
   }, []);
 
+  const n = (v) => (typeof v === 'string' ? v.trim() : '');
+  const metaType = language === 'eng' ? CollaboratorData?.type?.name : CollaboratorData?.type?.name_fr;
+  const metaTitle = n(CollaboratorData?.meta_title || CollaboratorData?.nom);
+  const metaDescription = n(
+    CollaboratorData?.meta_description ||
+    (CollaboratorData?.biographie || CollaboratorData?._description || '').replace(/<[^>]*>/g, '')
+  );
+  const keyword = n(CollaboratorData?.keywords || [CollaboratorData?.nom, metaType].filter(Boolean).join(', '));
+  const ogImage = CollaboratorData?.image;
+
   return (
-    <div> <div className={classes.login_con}>
+    <div>
+      <Seo
+        title={metaTitle}
+        description={metaDescription}
+        path={location.pathname}
+        image={ogImage}
+        type="profile"
+        keywords={keyword}
+        jsonLd={buildPersonJsonLd(CollaboratorData, location.pathname)}
+      />
+      <div className={classes.login_con}>
       <OurSelectionBanner props={heroData} />
       <div className={classes.cardContainer}>
         <div className={classes.card} >
@@ -111,6 +134,12 @@ const CollaboratorDetails = () => {
         </div> */}
     </div>
         {/* <Video /> */}
+        <FAQSection
+          faqParams={{
+            field: 'b_usr_collaborator_id',
+            id: CollaboratorData?.id,
+          }}
+        />
         <MoreAbout />
       {/* <ToastContainer
         position="top-right"

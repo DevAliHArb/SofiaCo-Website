@@ -63,7 +63,7 @@
     object-fit: cover;
   }
   
-  .nodata h1{
+  .nodata p{
     font-family: var(--font-family);
     font-size: calc(1.5rem + 0.8vw);
     color: #EEBA7F;
@@ -76,7 +76,7 @@
     justify-content: center;
 }
 
-.title h1{
+.title h2{
   position: relative;
   font-size: calc(1.2rem + 0.7vw);
   color: var(--secondary-color);
@@ -513,7 +513,7 @@
     font-size: small;
     font-weight: 500;
   }
-  .title h1{
+  .title h2{
     margin-top: 1em;
   }
   .categories{
@@ -554,7 +554,7 @@
   .nodata{
     flex-direction: column;
   }
-  .nodata h1{
+  .nodata p{
     text-align: center;
   }
   .card_img{

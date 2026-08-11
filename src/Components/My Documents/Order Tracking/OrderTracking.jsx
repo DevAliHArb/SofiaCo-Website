@@ -17,7 +17,7 @@ import Radio from '@mui/material/Radio';
 import Review from './Review page/Review';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
-import bookPlaceholder from '../../../assets/bookPlaceholder.png';
+import bookPlaceholder from '../../../assets/bookPlaceholder.webp';
 
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";

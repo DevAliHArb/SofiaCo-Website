@@ -5,14 +5,14 @@ import { useNavigate } from "@hooks/useNavigate";
 import { useSelector } from "react-redux";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { FaDownload, FaCopy } from "react-icons/fa";
-import productPlaceholder from "../../assets/bookPlaceholder.png";
+import productPlaceholder from "../../assets/bookPlaceholder.webp";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 // Helper function to slugify and sanitize text
 const slugify = (text, fallback = "product") => {
   if (!text || text.trim() === "") return fallback;
-  return text
+  const slug = text
     .toString()
     .trim()
     .toLowerCase()
@@ -20,6 +20,7 @@ const slugify = (text, fallback = "product") => {
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-")
     .replace(/^-+|-+$/g, "");
+  return slug || fallback;
 };
 
 const AffiliateProgramDetails = () => {
