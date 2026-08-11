@@ -21,8 +21,9 @@ import axios from "axios";
 import AuthContext from "../authContext";
 import ColoredLogo from "../../../assets/navbar/logo.svg";
 import moblogo from "../../../assets/navbar/favicon.svg";
-import { changeCurrency, changeLanguage, removeUser } from "../redux/productSlice";
+import { changeCurrency, changeLanguage, removeUser, addSelectedCategory, resetSearchData, editSearchData } from "../redux/productSlice";
 import * as Scroll from "react-scroll";
+import allcat from "../../../assets/icons/all-cat.svg";
 
 import { MdOutlineMail } from "react-icons/md";
 import { FiPhoneCall } from "react-icons/fi";
@@ -63,11 +64,127 @@ const Navbar = ({ toggle, cartToggle }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [popover, setPopover] = useState(false);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [hoveredCategoryId, setHoveredCategoryId] = useState(null);
+  const [hoveredSubCategoryId, setHoveredSubCategoryId] = useState(null);
+  const [categoryDropdownPos, setCategoryDropdownPos] = useState({ top: 0, left: 0 });
   const authCtx = useContext(AuthContext);
   const navigate = useNavigate();
   const path = useLocation().pathname;
   const location = path.split("/")[1];
   const scroller = Scroll.scroller;
+
+  const getSubcategories = (parentId) => {
+    return authCtx?.articleFamille
+      ?.filter((item) => item.b_usr_parentcategorie_id === parentId)
+      ?.sort((a, b) => (a.type_nom || "").localeCompare(b.type_nom || "")) || [];
+  };
+
+  const getChildSubcategories = (subCategoryId) => {
+    return authCtx?.subsubCategories
+      ?.filter((item) => Number(item.b_usr_articlecategorie_id) === Number(subCategoryId))
+      ?.sort((a, b) => (a.nom || "").localeCompare(b.nom || "")) || [];
+  };
+
+  const handleAllCategoryClick = () => {
+    localStorage.removeItem("stock");
+    localStorage.removeItem("categories");
+    localStorage.removeItem("collections");
+    localStorage.removeItem("multiproductids");
+    localStorage.removeItem("publishers");
+    localStorage.removeItem("subCategories");
+    localStorage.removeItem("subSubCategories");
+    localStorage.removeItem("parentCategories");
+    localStorage.removeItem("min_price");
+    localStorage.removeItem("max_price");
+    dispatch(resetSearchData());
+    dispatch(addSelectedCategory(null));
+    navigate(`/main/products`);
+  };
+
+  const handleParentCategoryClick = (parentId, parentName) => {
+    localStorage.removeItem("stock");
+    localStorage.removeItem("categories");
+    localStorage.removeItem("collections");
+    localStorage.removeItem("multiproductids");
+    localStorage.removeItem("publishers");
+    localStorage.removeItem("subCategories");
+    localStorage.removeItem("subSubCategories");
+    localStorage.removeItem("parentCategories");
+    localStorage.removeItem("min_price");
+    localStorage.removeItem("max_price");
+    dispatch(resetSearchData());
+    dispatch(addSelectedCategory(String(parentId)));
+    localStorage.setItem("parentCategories", JSON.stringify([parentId]));
+    const slug = (parentName || "").toString().trim().replace(/\s+/g, "-").toLowerCase();
+    navigate(`/main/cp/${slug}/${parentId}`);
+  };
+
+  const handleSubCategoryClick = (id, name, parentName, parentId) => {
+    localStorage.removeItem("stock");
+    localStorage.removeItem("categories");
+    localStorage.removeItem("collections");
+    localStorage.removeItem("multiproductids");
+    localStorage.removeItem("publishers");
+    localStorage.removeItem("subCategories");
+    localStorage.removeItem("subSubCategories");
+    localStorage.removeItem("parentCategories");
+    localStorage.removeItem("min_price");
+    localStorage.removeItem("max_price");
+    dispatch(resetSearchData());
+    dispatch(addSelectedCategory(String(parentId)));
+    localStorage.setItem("parentCategories", JSON.stringify([parentId]));
+    const currentSubCategories = JSON.parse(localStorage.getItem("subCategories")) || [];
+    currentSubCategories.push(id);
+    localStorage.setItem("subCategories", JSON.stringify(currentSubCategories));
+    const slug = (name || "").toString().trim().replace(/\s+/g, "-").toLowerCase();
+    const slugCat = (parentName || "").toString().trim().replace(/\s+/g, "-").toLowerCase();
+    navigate(`/main/cp/${slugCat}/${slug}/${id}`);
+  };
+
+  const handleChildSubCategoryClick = (id, childName, subCategoryId, subCategoryName, parentName, parentId) => {
+    localStorage.removeItem("stock");
+    localStorage.removeItem("categories");
+    localStorage.removeItem("collections");
+    localStorage.removeItem("multiproductids");
+    localStorage.removeItem("publishers");
+    localStorage.removeItem("subCategories");
+    localStorage.removeItem("subSubCategories");
+    localStorage.removeItem("parentCategories");
+    localStorage.removeItem("min_price");
+    localStorage.removeItem("max_price");
+    dispatch(resetSearchData());
+
+    if (parentId) localStorage.setItem("parentCategories", JSON.stringify([parentId]));
+    localStorage.setItem("subSubCategories", JSON.stringify([id]));
+
+    const slugParent = (parentName || "").toString().trim().replace(/\s+/g, "-").toLowerCase();
+    const slugSub = (subCategoryName || "").toString().trim().replace(/\s+/g, "-").toLowerCase();
+    const slugChild = (childName || "").toString().trim().replace(/\s+/g, "-").toLowerCase();
+    navigate(`/main/cp/${slugParent}/${slugSub}/${slugChild}/${id}`);
+  };
+
+  const handleBestSellersClick = () => {
+    navigate('/bestsellers');
+  };
+
+  const handleBrandsClick = () => {
+    navigate('/main/brands');
+  };
+
+  const handleNouveautesClick = () => {
+    localStorage.removeItem("stock");
+    localStorage.removeItem("categories");
+    localStorage.removeItem("collections");
+    localStorage.removeItem("multiproductids");
+    localStorage.removeItem("publishers");
+    localStorage.removeItem("subCategories");
+    localStorage.removeItem("parentCategories");
+    localStorage.removeItem("min_price");
+    localStorage.removeItem("max_price");
+    dispatch(resetSearchData());
+    dispatch(editSearchData({ newarrival: true }));
+    navigate('/nouveautes');
+  };
 
   const NavigateAndScroll = async (props) => {
     if (path === "/") {
@@ -191,12 +308,129 @@ const Navbar = ({ toggle, cartToggle }) => {
     setAnchorElUser(null);
   };
 
+  const categoriesNavContent = (
+    <div className={classes.categoriesNav}>
+      <div
+        className={classes.categoryLabel}
+        onClick={handleAllCategoryClick}
+      >
+        {language === 'eng' ? 'All Products' : 'Tous Nos Produits'}
+      </div>
+
+      {authCtx?.articleFamilleParents?.map((parent) => (
+        <div
+          key={parent.id}
+          className={classes.categoryIconWrapper}
+          onMouseEnter={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            setCategoryDropdownPos({ top: rect.bottom, left: rect.left + rect.width / 2 });
+            setHoveredCategoryId(parent.id);
+            setHoveredSubCategoryId(null);
+          }}
+          onMouseLeave={() => {
+            setHoveredCategoryId(null);
+            setHoveredSubCategoryId(null);
+          }}
+        >
+          <div
+            className={classes.categoryLabel}
+            onClick={() => handleParentCategoryClick(parent.id, parent.nom)}
+          >
+            {parent.nom}
+          </div>
+
+          {hoveredCategoryId === parent.id && getSubcategories(parent.id).length > 0 && (
+            <div
+              className={classes.categoryDropdown}
+              style={{ top: categoryDropdownPos.top, left: categoryDropdownPos.left }}
+              onMouseEnter={() => {
+                setHoveredCategoryId(parent.id);
+              }}
+              onMouseLeave={() => {
+                setHoveredCategoryId(null);
+                setHoveredSubCategoryId(null);
+              }}
+            >
+              <div className={classes.dropdownHeader}>{parent.nom}</div>
+              <div className={classes.dropdownContent}>
+                {getSubcategories(parent.id).map((sub) => (
+                  <div
+                    key={sub.id}
+                    className={classes.dropdownItemWrapper}
+                    onMouseEnter={() => setHoveredSubCategoryId(sub.id)}
+                    onMouseLeave={() => setHoveredSubCategoryId(null)}
+                  >
+                    <div
+                      className={classes.dropdownItem}
+                      onClick={() => handleSubCategoryClick(sub.id, sub.type_nom || sub.nom, parent.nom, parent.id)}
+                    >
+                      <img src={sub.dark_image || allcat} alt={sub.nom} />
+                      <span>{sub.type_nom || sub.nom}</span>
+                      {getChildSubcategories(sub.id).length > 0 && (
+                        <span className={classes.childIndicator}>›</span>
+                      )}
+                    </div>
+
+                    {hoveredSubCategoryId === sub.id && getChildSubcategories(sub.id).length > 0 && (
+                      <div className={classes.childDropdown}>
+                        {getChildSubcategories(sub.id).map((child) => (
+                          <div
+                            key={child.id}
+                            className={classes.childDropdownItem}
+                            onClick={() =>
+                              handleChildSubCategoryClick(
+                                child.id,
+                                child.nom,
+                                sub.id,
+                                sub.type_nom || sub.nom,
+                                parent.nom,
+                                parent.id
+                              )
+                            }
+                          >
+                            <img src={child.dark_image || allcat} alt={child.nom} />
+                            <span>{child.nom}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+
+      <div
+        className={classes.categoryLabel}
+        onClick={handleBestSellersClick}
+      >
+        {language === 'eng' ? 'Best Sellers' : 'Meilleures Ventes'}
+      </div>
+
+      <div
+        className={classes.categoryLabel}
+        onClick={handleNouveautesClick}
+      >
+        {language === 'eng' ? 'New Arrivals' : 'Nouveautés'}
+      </div>
+
+      <div
+        className={classes.categoryLabel}
+        onClick={handleBrandsClick}
+      >
+        {language === 'eng' ? 'Brands' : 'Nos Marques'}
+      </div>
+    </div>
+  );
+
   return (
     <>
-    {isScrolled && <div style={{position: 'relative', height: '5em', width: '100%'}}></div>}
+    {isScrolled && <div style={{position: 'relative', height: '7em', width: '100%'}}></div>}
       <div className={`${isScrolled ? classes.fixednav_con : classes.headnav}`}>
             
-            <div className={classes.header_top}>
+            <div className={classes.header_top} style={{display: isScrolled ? 'none' : 'flex'}}>
               <div className={classes.header_top_content}>
                 <p style={{display:'Flex', flexDirection:'row'}}> <MdOutlineMail style={{width:'1.5em', height:'1.5em', margin:'auto 0.5em auto auto', color:'#fff'}}/>{authCtx.companySettings?.email}</p>
                 <p style={{display:'Flex', flexDirection:'row'}}> <FiPhoneCall style={{width:'1.3em', height:'1.3em', margin:'auto 0.5em auto auto', color:'#fff'}}/>{authCtx.companySettings?.phone}</p>
@@ -452,6 +686,7 @@ const Navbar = ({ toggle, cartToggle }) => {
           </div>}
            {isSearchBar && <div className={classes.search_con}><SearchBox setIsSearchBar={setIsSearchBar} isSearchBar={isSearchBar}/></div>}
         </div>
+        {categoriesNavContent}
         {/*  */}
         {/* <div className={`${isScrolled ? classes.rightsidenav : classes.none}`}>
           <div className={classes.siderowright}>
@@ -904,6 +1139,7 @@ const Navbar = ({ toggle, cartToggle }) => {
           </div>
         </div>}
         {isSearchBar && <div className={classes.search_con_mobile}><SearchBox setIsSearchBar={setIsSearchBar} isSearchBar={isSearchBar}/></div>}
+        {categoriesNavContent}
       </div>
       <div className={classes.navheight}></div>
     </>

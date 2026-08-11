@@ -69,7 +69,7 @@ export default function LanCurrSelect({ toggle }) {
             </IconButton>
           </Tooltip>
         </div>
-      <div className={classes.categoriesNav}>
+      {/* <div className={classes.categoriesNav}>
         <Tooltip title={language === 'eng' ? 'All Products' : 'Tous Nos Produits'}>
           <div
             className={classes.categoryIcon}
@@ -171,7 +171,7 @@ export default function LanCurrSelect({ toggle }) {
             )}
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
     </>
   );

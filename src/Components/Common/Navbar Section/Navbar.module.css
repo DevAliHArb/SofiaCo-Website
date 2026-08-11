@@ -198,6 +198,7 @@
     top: 0;
     padding: 5px 0;
     background-color: #fff;
+    font-family: var(--font-family) !important;
 }
 
 .navbarscrolled{
@@ -451,6 +452,7 @@
     margin: 0 auto;
     background-color: #fff;
     top: 0;
+    font-family: var(--font-family) !important;
 }
 .logomobile{
     width: fit-content;
@@ -517,6 +519,7 @@
 .navheight{
     position: relative;
     display: block;
+    height: 3em;
 }
 
 .header_top{
@@ -542,5 +545,166 @@
     width: 90%;
     height: 100%;
 }
-    
+
+}
+
+/* -----------------------------------------------------------------------
+   Bottom category bar — text labels (no icons), horizontal scroll when
+   the category list is long, matching Hanout's Navbar reference pattern.
+   ----------------------------------------------------------------------- */
+.categoriesNav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .7em;
+    margin: auto 0;
+    flex-wrap: nowrap;
+    padding: 0.5em 3%;
+    width: 94%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.categoriesNav::-webkit-scrollbar {
+    display: none;
+}
+
+.categoryIconWrapper {
+    position: relative;
+}
+
+.categoryLabel {
+    width: fit-content;
+    height: fit-content;
+    cursor: pointer;
+    padding: .3em .2em;
+    font-size: calc(0.65rem + 0.3vw);
+    font-weight: 500;
+    text-transform: capitalize;
+    white-space: nowrap;
+    color: var(--secondary-color);
+    transition: color 0.2s ease;
+}
+
+.categoryLabel:hover {
+    color: var(--primary-color);
+}
+
+.categoryDropdown {
+    position: fixed;
+    transform: translateX(-50%);
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    min-width: 280px;
+    overflow: visible;
+}
+
+.dropdownHeader {
+    padding: 1em;
+    background: var(--primary-color);
+    color: #fff;
+    font-weight: 600;
+    font-size: calc(0.8rem + 0.2vw);
+    border-radius: 8px 8px 0 0;
+    text-align: center;
+}
+
+.dropdownContent {
+    padding: 0.5em;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+}
+
+.dropdownItemWrapper {
+    position: relative;
+}
+
+.dropdownItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.8em 1em;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    border-radius: 0;
+    text-align: left;
+    gap: 0.8em;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.dropdownItem:last-child {
+    border-bottom: none;
+}
+
+.dropdownItem:hover {
+    background: var(--forth-color);
+}
+
+.dropdownItem img {
+    width: 2em;
+    height: 2em;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.dropdownItem span {
+    font-size: calc(0.65rem + 0.2vw);
+    color: #333;
+    font-weight: 500;
+    flex-grow: 1;
+}
+
+.childIndicator {
+    font-size: 1.1rem;
+    color: #999;
+    margin-left: 0.4em;
+    flex-grow: 0 !important;
+}
+
+.childDropdown {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    min-width: 260px;
+    max-width: 320px;
+    max-height: 420px;
+    overflow-y: auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    z-index: 1100;
+    padding: 0.3em;
+}
+
+.childDropdownItem {
+    display: flex;
+    align-items: center;
+    gap: 0.8em;
+    padding: 0.7em 0.9em;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.childDropdownItem:hover {
+    background: var(--forth-color);
+}
+
+.childDropdownItem img {
+    width: 1.9em;
+    height: 1.9em;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.childDropdownItem span {
+    font-size: calc(0.62rem + 0.2vw);
+    color: #333;
+    font-weight: 500;
 }
