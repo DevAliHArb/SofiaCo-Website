@@ -50,12 +50,17 @@ const MainCat = ({ categoryData }) => {
 
   const handleCategoryClick = (id, name) => {
     dispatch(resetSearchData());
+    localStorage.removeItem("stock");
     localStorage.removeItem("subCategories");
+    localStorage.removeItem("subSubCategories");
     localStorage.removeItem("parentCategories");
     localStorage.removeItem("publishers");
     localStorage.removeItem("categories");
     localStorage.removeItem("collections");
-    
+    localStorage.removeItem("multiproductids");
+    localStorage.removeItem("min_price");
+    localStorage.removeItem("max_price");
+
     const subCategories = JSON.parse(localStorage.getItem("subCategories")) || [];
     if (!subCategories.includes(id)) {
       subCategories.push(id);

@@ -178,6 +178,7 @@ const Navbar = ({ toggle, cartToggle }) => {
     localStorage.removeItem("multiproductids");
     localStorage.removeItem("publishers");
     localStorage.removeItem("subCategories");
+    localStorage.removeItem("subSubCategories");
     localStorage.removeItem("parentCategories");
     localStorage.removeItem("min_price");
     localStorage.removeItem("max_price");
