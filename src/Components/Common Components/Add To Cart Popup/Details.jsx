@@ -390,9 +390,16 @@ const handleSuivreCategory = async () => {
 
 const handleCatClick = async () => {
       dispatch(resetSearchData());
+      localStorage.removeItem("stock");
       localStorage.removeItem("categories");
-      localStorage.removeItem("publishers");
       localStorage.removeItem("collections");
+      localStorage.removeItem("multiproductids");
+      localStorage.removeItem("publishers");
+      localStorage.removeItem("subCategories");
+      localStorage.removeItem("subSubCategories");
+      localStorage.removeItem("parentCategories");
+      localStorage.removeItem("min_price");
+      localStorage.removeItem("max_price");
       // Retrieve the existing categories from localStorage (or initialize an empty array)
       let storedCategories =
         JSON.parse(localStorage.getItem("categories")) || [];
@@ -420,18 +427,32 @@ const handleCatClick = async () => {
       const collaboratorId = authCtx.collaborators.find(
         collab => cleanString(collab.nom) === cleanString(collaboratorName)
       )?.id;
+      localStorage.removeItem("stock");
       localStorage.removeItem("categories");
-      localStorage.removeItem("publishers");
       localStorage.removeItem("collections");
+      localStorage.removeItem("multiproductids");
+      localStorage.removeItem("publishers");
+      localStorage.removeItem("subCategories");
+      localStorage.removeItem("subSubCategories");
+      localStorage.removeItem("parentCategories");
+      localStorage.removeItem("min_price");
+      localStorage.removeItem("max_price");
       dispatch(resetSearchData());
       dispatch(addSearchData({ collaborators: collaboratorId }));
       navigate(`/main/products`);
     }
 
     const handleFilterPublisher = (publisherId) => {
+      localStorage.removeItem("stock");
       localStorage.removeItem("categories");
-      localStorage.removeItem("publishers");
       localStorage.removeItem("collections");
+      localStorage.removeItem("multiproductids");
+      localStorage.removeItem("publishers");
+      localStorage.removeItem("subCategories");
+      localStorage.removeItem("subSubCategories");
+      localStorage.removeItem("parentCategories");
+      localStorage.removeItem("min_price");
+      localStorage.removeItem("max_price");
       dispatch(resetSearchData());
       // Get existing publishers from localStorage or initialize empty array
       const existingPublishers = JSON.parse(localStorage.getItem('publishers')) || [];
@@ -445,11 +466,18 @@ const handleCatClick = async () => {
     }
     
     const handleFilterCollection = (collectionId) => {
-      localStorage.removeItem('categories'); 
-      localStorage.removeItem('publishers'); 
+      localStorage.removeItem('stock');
+      localStorage.removeItem('categories');
       localStorage.removeItem('collections');
-      dispatch(resetSearchData()); 
-      
+      localStorage.removeItem('multiproductids');
+      localStorage.removeItem('publishers');
+      localStorage.removeItem('subCategories');
+      localStorage.removeItem('subSubCategories');
+      localStorage.removeItem('parentCategories');
+      localStorage.removeItem('min_price');
+      localStorage.removeItem('max_price');
+      dispatch(resetSearchData());
+
       // Get existing collections from localStorage or initialize empty array
       const existingCollections = JSON.parse(localStorage.getItem('collections')) || [];
       

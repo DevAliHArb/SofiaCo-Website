@@ -79,9 +79,16 @@ function SearchBox() {
   }, [searchQuery, selectedOption, language]);
 
   const handleSearchSubmit = () => {
-    localStorage.removeItem("category");
-    localStorage.removeItem("collection");
-    localStorage.removeItem("date");
+    localStorage.removeItem("stock");
+    localStorage.removeItem("categories");
+    localStorage.removeItem("collections");
+    localStorage.removeItem("multiproductids");
+    localStorage.removeItem("publishers");
+    localStorage.removeItem("subCategories");
+    localStorage.removeItem("subSubCategories");
+    localStorage.removeItem("parentCategories");
+    localStorage.removeItem("min_price");
+    localStorage.removeItem("max_price");
     dispatch(resetSearchData());
   
     // Initialize the search object

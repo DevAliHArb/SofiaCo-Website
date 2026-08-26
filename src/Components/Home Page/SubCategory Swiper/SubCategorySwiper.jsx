@@ -41,13 +41,18 @@ const SubCategorySwiper = (categoryData) => {
   }, [authCtx.articleFamilleParents]);
 
   const handleCategoryClick = ( id) => {
-    dispatch(resetSearchData()); 
+    dispatch(resetSearchData());
+    localStorage.removeItem("stock");
     localStorage.removeItem("subCategories");
+    localStorage.removeItem("subSubCategories");
     localStorage.removeItem("parentCategories");
     localStorage.removeItem("publishers");
     localStorage.removeItem("categories");
     localStorage.removeItem("collections");
-    
+    localStorage.removeItem("multiproductids");
+    localStorage.removeItem("min_price");
+    localStorage.removeItem("max_price");
+
     // Check if selectedCategoryId is null or 'null'
     if (selectedCategoryId === null || selectedCategoryId === 'null') {
       // Store in parentCategories

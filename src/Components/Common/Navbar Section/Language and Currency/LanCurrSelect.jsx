@@ -32,23 +32,44 @@ export default function LanCurrSelect({ toggle }) {
   const slugify = (str) =>
     (str || '').toString().trim().replace(/\s+/g, '-').toLowerCase();
 
-  const handleAllCategoryClick = () => {
+  const clearFilters = () => {
+    localStorage.removeItem("stock");
+    localStorage.removeItem("categories");
+    localStorage.removeItem("collections");
+    localStorage.removeItem("multiproductids");
+    localStorage.removeItem("publishers");
+    localStorage.removeItem("subCategories");
+    localStorage.removeItem("subSubCategories");
+    localStorage.removeItem("parentCategories");
+    localStorage.removeItem("min_price");
+    localStorage.removeItem("max_price");
     dispatch(resetSearchData());
+  };
+
+  const handleAllCategoryClick = () => {
+    clearFilters();
+    dispatch(addSelectedCategory(null));
     navigate(`/main/products`);
   };
 
   const handleParentCategoryClick = (parentId, parentName) => {
+    clearFilters();
+    dispatch(addSelectedCategory(String(parentId)));
+    localStorage.setItem('parentCategories', JSON.stringify([parentId]));
     navigate(`/main/cp/${slugify(parentName)}/${parentId}`);
   };
 
   const handleSubCategoryClick = (id, name, parentName, parentId) => {
-    const currentSubCategories = JSON.parse(localStorage.getItem('subCategories')) || [];
-    currentSubCategories.push(id);
-    localStorage.setItem('subCategories', JSON.stringify(currentSubCategories));
+    clearFilters();
+    dispatch(addSelectedCategory(String(parentId)));
+    localStorage.setItem('parentCategories', JSON.stringify([parentId]));
+    localStorage.setItem('subCategories', JSON.stringify([id]));
     navigate(`/main/cp/${slugify(parentName)}/${slugify(name)}/${id}`);
   };
 
-  const handleChildSubCategoryClick = (id, childName, subCategoryId, subCategoryName, parentName) => {
+  const handleChildSubCategoryClick = (id, childName, subCategoryId, subCategoryName, parentName, parentId) => {
+    clearFilters();
+    if (parentId) localStorage.setItem('parentCategories', JSON.stringify([parentId]));
     localStorage.setItem('subSubCategories', JSON.stringify([id]));
     navigate(`/main/cp/${slugify(parentName)}/${slugify(subCategoryName)}/${slugify(childName)}/${id}`);
   };
@@ -146,7 +167,8 @@ export default function LanCurrSelect({ toggle }) {
                                   child.nom,
                                   sub.id,
                                   sub.type_nom || sub.nom,
-                                  parent.nom
+                                  parent.nom,
+                                  parent.id
                                 )
                               }
                             >
