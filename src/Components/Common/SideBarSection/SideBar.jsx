@@ -622,7 +622,7 @@ function TreeNode({ data, level, fetchArticles }) {
         </ListItem>
         </Link>
 
-        <Link to='/bestsellers' style={{textDecoration: 'none', color:'white'}} onClick={toggle}>
+        <Link to='/bestsellers' style={{textDecoration: 'none', color:'white'}} onClick={() => { clearFilters(); dispatch(resetSearchData()); toggle(); }}>
         <ListItem disablePadding>
           <ListItemButton style={{padding:'0'}}>
             <p className={classes.text}>{language === 'eng' ? "Best Sellers" : "Meilleures Ventes"}</p>
