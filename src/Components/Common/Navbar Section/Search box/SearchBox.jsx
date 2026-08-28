@@ -51,7 +51,6 @@ function SearchBox(ParentProps) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const searchData = useSelector((state) => state.products.searchData);
-  const SelectedCategoryId = useSelector((state) => state.products.selectedCategoryId);
 
   const handleSearchInputChange = (e) => {
     setCatSearchQuery(e.target.value);
@@ -64,11 +63,7 @@ function SearchBox(ParentProps) {
         setLoading(true);
         const fetchArticles = async () => {
           try {
-            let articleFamilleIdParam = '';
-            if (SelectedCategoryId && SelectedCategoryId !== 'null') {
-              articleFamilleIdParam = `&articlefamilleparent_id=${SelectedCategoryId}`;
-            }
-            let url = `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&${articleFamilleIdParam}`;
+            let url = `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&`;
 
             url += `smart_search=${searchQuery}`;
             const response = await axios.get(url);
