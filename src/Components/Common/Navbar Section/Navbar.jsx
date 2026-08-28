@@ -164,6 +164,17 @@ const Navbar = ({ toggle, cartToggle }) => {
   };
 
   const handleBestSellersClick = () => {
+    localStorage.removeItem("stock");
+    localStorage.removeItem("categories");
+    localStorage.removeItem("collections");
+    localStorage.removeItem("multiproductids");
+    localStorage.removeItem("publishers");
+    localStorage.removeItem("subCategories");
+    localStorage.removeItem("subSubCategories");
+    localStorage.removeItem("parentCategories");
+    localStorage.removeItem("min_price");
+    localStorage.removeItem("max_price");
+    dispatch(resetSearchData());
     navigate('/bestsellers');
   };
 

@@ -31,7 +31,6 @@ function SearchBox() {
   const searchData = useSelector((state) => state.products.searchData);
   const user = useSelector((state) => state.products.userInfo);
 
-  const SelectedCategoryId = useSelector((state) => state.products.selectedCategoryId);
   const handleSearchInputChange = (e) => {
     setCatSearchQuery(e.target.value);
   };
@@ -43,11 +42,7 @@ function SearchBox() {
         setLoading(true);
         const fetchArticles = async () => {
           try {
-            let articleFamilleIdParam = '';
-            if (SelectedCategoryId && SelectedCategoryId !== 'null') {
-              articleFamilleIdParam = `&articlefamilleparent_id=${SelectedCategoryId}`;
-            }
-            let url = `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&user_id=${user?.id ? user.id : null}${articleFamilleIdParam}&`;
+            let url = `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco&user_id=${user?.id ? user.id : null}&`;
             if (selectedOption === "Book") {
               url += `title=${searchQuery}`;
             } else if (selectedOption === "Author") {
