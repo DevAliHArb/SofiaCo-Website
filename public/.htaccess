@@ -37,22 +37,12 @@ RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
 RewriteRule ^ https://sofiaco.fr%{REQUEST_URI} [L,R=301]
 
 # -----------------------------------------------------------------------------
-# 2) PRERENDER — serve full HTML to bots
-#    DISABLED as of 2026-07-31: the Prerender.io account's paid plan expired
-#    (2026-07-24), so this proxy was returning errors on every bot request —
-#    same root cause confirmed and fixed on Hanout (ohanoot.fr), causing
-#    Google Search Console "Server error (5xx)" indexing failures there.
-#    Re-enable once the Prerender.io account is reactivated, or once the
-#    self-hosted replacement is working (see ~/prerender-service on apiweb).
-# -----------------------------------------------------------------------------
-# RewriteCond %{HTTP_USER_AGENT} googlebot|bingbot|yandex|baiduspider|duckduckbot|slurp|facebookexternalhit|twitterbot|linkedinbot|embedly|pinterest|slackbot|whatsapp|telegrambot|applebot|discordbot|google-inspectiontool|gptbot|oai-searchbot|chatgpt-user|perplexitybot|claudebot|anthropic-ai|bytespider [NC,OR]
-# RewriteCond %{QUERY_STRING} _escaped_fragment_
-# RewriteCond %{REQUEST_URI} !\.(js|css|xml|less|png|jpg|jpeg|gif|pdf|doc|txt|ico|rss|zip|mp3|rar|exe|wmv|avi|ppt|mpg|mpeg|tif|wav|mov|psd|ai|xls|mp4|m4a|swf|dat|dmg|iso|flv|m4v|torrent|ttf|woff|woff2|svg|webp|avif|eot)$ [NC]
-# RequestHeader set X-Prerender-Token "scLOOLhbvI42gbbxUFTU"
-# RewriteRule ^(?!.*?_escaped_fragment_)(.*)$ https://service.prerender.io/https://sofiaco.fr/$1 [P,L]
-
-# -----------------------------------------------------------------------------
-# 3) SPA fallback: anything that isn't a real file -> index.html
+# 2) SPA fallback: anything that isn't a real file -> index.html
+#    (Prerender.io proxy removed 2026-10-02 — that account's paid plan expired
+#    2026-07-24 and was returning errors on every bot request, confirmed as
+#    the cause of Google Search Console "Server error (5xx)" failures on
+#    Hanout. See ~/prerender-service on apiweb for the self-hosted replacement
+#    effort.)
 # -----------------------------------------------------------------------------
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

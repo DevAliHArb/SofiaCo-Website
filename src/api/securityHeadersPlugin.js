@@ -25,10 +25,13 @@ export default function securityHeadersPlugin() {
           // deploy-sofiaco-UPDATED.sh — same third-party domains SofiaCo
           // actually loads (Stripe, Mapbox, Colissimo, MondialRelay,
           // unpkg/Leaflet, PayPal, OpenWidget, GTM), so `npm run dev`
-          // doesn't show CSP violations that don't happen in prod.
+          // doesn't show CSP violations that don't happen in prod. frame-src
+          // also includes YouTube/YouTube-nocookie/TikTok — needed for the
+          // product-page video previews (VideoPreviewSection) to actually
+          // embed in dev too, not just prod.
           res.setHeader(
             'Content-Security-Policy',
-            "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://apis.google.com https://connect.facebook.net https://checkout.paypal.com https://www.paypal.com https://www.paypalobjects.com https://www.stripe.com https://js.stripe.com https://ajax.googleapis.com https://api.mapbox.com https://cdn.jsdelivr.net https://cdn.openwidget.com https://api.openwidget.com https://widget.mondialrelay.com https://www.googletagmanager.com https://ws.colissimo.fr https://unpkg.com; style-src 'self' 'unsafe-inline' https://api.mapbox.com https://fonts.googleapis.com https://widget.mondialrelay.com https://ws.colissimo.fr https://unpkg.com https://www.paypalobjects.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https:; frame-src 'self' https://checkout.paypal.com https://www.paypal.com https://js.stripe.com https://www.google.com https://www.facebook.com https://widget.mondialrelay.com"
+            "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://apis.google.com https://connect.facebook.net https://checkout.paypal.com https://www.paypal.com https://www.paypalobjects.com https://www.stripe.com https://js.stripe.com https://ajax.googleapis.com https://api.mapbox.com https://cdn.jsdelivr.net https://cdn.openwidget.com https://api.openwidget.com https://widget.mondialrelay.com https://www.googletagmanager.com https://ws.colissimo.fr https://unpkg.com; style-src 'self' 'unsafe-inline' https://api.mapbox.com https://fonts.googleapis.com https://widget.mondialrelay.com https://ws.colissimo.fr https://unpkg.com https://www.paypalobjects.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https:; frame-src 'self' https://checkout.paypal.com https://www.paypal.com https://js.stripe.com https://www.google.com https://www.facebook.com https://widget.mondialrelay.com https://www.youtube.com https://www.youtube-nocookie.com https://www.tiktok.com"
           );
           
           // Permissions-Policy: Restrict access to sensitive features
