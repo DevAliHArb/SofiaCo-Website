@@ -37,9 +37,10 @@ const RecentBlogs = () => {
   const authCtx = useContext(AuthContext);
 
   const HandleLike = async (blogId) => {
-    const formData = { blog_id: blogId, user_id: user?.id };
+    const token = sessionStorage.getItem("token");
+    const formData = { blog_id: blogId };
     try {
-      const response = await axios.post(`${import.meta.env.VITE_TESTING_API}/blogs-like`, formData);
+      const response = await axios.post(`${import.meta.env.VITE_TESTING_API}/blogs-like`, formData, { headers: { Authorization: `Bearer ${token}` } });
       fetchAbout();
       toast.success(response.data?.message, { position: "top-right", autoClose: 1500, hideProgressBar: true, closeOnClick: true, theme: "colored" });
     } catch (error) {

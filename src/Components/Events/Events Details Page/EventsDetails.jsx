@@ -108,9 +108,11 @@ useEffect(() => {
   const handleSubmit = async () => {
     if (user) {
       try {
+        const token = sessionStorage.getItem("token");
         const response = await axios.post(
           `${import.meta.env.VITE_TESTING_API}/events/${eventData.id}/replies`,
-          { ...formData, user_id: user.id }
+          { description: formData.reply },
+          { headers: { Authorization: `Bearer ${token}` } }
         );
         // console.log("Event replied successfully:", response.data);
         toast.success(language === "eng" ? "Event replied successfully." : "Réponse à l'événement réussie.", {

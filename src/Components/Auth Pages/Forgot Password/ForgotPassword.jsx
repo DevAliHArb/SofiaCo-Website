@@ -80,7 +80,6 @@ const responseGoogle = async (response) => {
           const user = loginResponse.data;
           const userInfo = user.user;
           const userId = userInfo.id;
-          console.log(userInfo);
 
           // Dispatch action to add user to Redux store
           dispatch(addUser(userInfo));
@@ -167,7 +166,7 @@ const responseGoogle = async (response) => {
     
   const onFinish = async (values) => {
     setLoading(true);
-    values.type = 'albouraq';
+    values.type = 'sofiaco';
     const body = JSON.stringify(values);
     try {
       // Send a request to your backend API to reset the password
@@ -182,7 +181,6 @@ const responseGoogle = async (response) => {
       );
 
       const data = await response?.data;
-      console.log(data);
       // Check if the request was successful
     if (response.status >= 200 && response.status < 300) {
         navigate("/login");    

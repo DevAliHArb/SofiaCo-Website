@@ -357,10 +357,9 @@ const reviewHandler =()=>setisReviewMood(true);
      try {
       setIsLoading(true);
       const response = await axios.post(`${import.meta.env.VITE_TESTING_API}/cart?ecom_type=sofiaco`, {
-        user_id: user.id,
         article_id: props.id,
         quantity: props.quantity,
-      });
+      }, { headers: { Authorization: `Bearer ${token}` } });
       dispatch(addTocart({
         _id: props.id,
         title: props.designation,

@@ -16,7 +16,11 @@ const CompletedOrder = () => {
 
   const fetchOrder = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/order_invoices/${id}`);
+      const token = sessionStorage.getItem("token");
+      const response = await axios.get(
+        `${import.meta.env.VITE_TESTING_API}/order_invoices/${id}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
       // console.log('Response data:', response.data);
       setData(response.data.data || {})
     } catch (error) {

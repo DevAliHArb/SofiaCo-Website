@@ -24,7 +24,7 @@ const CheckOutSummary = () => {
   const [isFixed, setIsFixed] = React.useState(true);
   const [isContainerVisible, setContainerVisible] = useState(true);
   const [addressmodalopen, setAdressModalOpen] = React.useState(false);
-  const handleAdressOpen = () =>{ setAdressModalOpen(true);console.log('testtt')}
+  const handleAdressOpen = () =>{ setAdressModalOpen(true); }
   const [paymentmodalopen, setPaymentModalOpen] = React.useState(false);
   const handlePaymentOpen = () => setPaymentModalOpen(true);
   const [data, setData] = useState({});

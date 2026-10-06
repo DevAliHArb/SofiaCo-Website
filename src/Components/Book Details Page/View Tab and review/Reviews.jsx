@@ -80,7 +80,6 @@ const Reviews = () => {
         try {
             const response = await axios.post(`${import.meta.env.VITE_TESTING_API}/articles/${selectedBook[0].id}/reviews`, {
                 ...formData,
-                user_id: user.id,
                 rate: 0,
                 is_counted: false,
                 ecom_type: 'sofiaco'

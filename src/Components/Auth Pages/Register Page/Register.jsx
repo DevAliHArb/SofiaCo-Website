@@ -93,8 +93,7 @@ const Register = () => {const navigate = useNavigate();
   const handleChangecountry = (name, value) => {
     setFormData({ ...formData, [name]: value });
   };
-  console.log(formData);
-  
+
   return (
     <div className={classes.auth_con}>
         <div className={classes.header}>

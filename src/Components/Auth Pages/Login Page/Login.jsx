@@ -121,6 +121,16 @@ const onFinish = async () => {
     // Dispatch action to add user to Redux store
     dispatch(addUser(userInfo));
 
+    // Forced password reset — user ID + token are already stored above.
+    // Skip the rest of the post-login flow entirely; the app-wide guard
+    // in App.jsx keeps them locked on the reset page until they
+    // complete it.
+    if (userInfo?.must_reset_password ?? response.data?.must_reset_password) {
+      setLoading(false);
+      navigate('/force-reset-password');
+      return;
+    }
+
     const cartResponse = await axios.get(`${import.meta.env.VITE_TESTING_API}/users/${userId}/cart`, {
       headers: {
           Authorization: `Bearer ${token}` // Include token in the headers
@@ -211,6 +221,13 @@ const onFinish = async () => {
     } else if (error.response?.status === 406) {
         localStorage.setItem("unverifiedEmail", formData.email);
         navigate('/resend-verify-email');
+    } else if (error.response?.status === 403) {
+      // Account suspended/blocked — surface the backend's own message
+      // instead of a generic login-failure toast.
+      toast.error(
+        error.response?.data?.error || error.response?.data?.message || "Votre compte a été suspendu. Veuillez contacter le support.",
+        { position: "top-right", autoClose: 3000, hideProgressBar: true, closeOnClick: true, pauseOnHover: true, draggable: true, progress: 0, theme: "colored" }
+      );
     } else {
       // For other errors, show the original error message
       toast.error( language === "eng" ? `Error in Login: ${errormsg}` : `Erreur de connexion : ${errormsg}` , {

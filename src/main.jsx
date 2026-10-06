@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
-import AuthContext, { AuthContextProvider } from './Components/Common/authContext.jsx'
+import { AuthContextProvider } from './Components/Common/authContext.jsx'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -12,34 +12,35 @@ import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js';
 import logo from './assets/loading-gif.gif'
-import { decryptAES128CTR } from './Components/Common/Decrypt.jsx'
+import axios from 'axios'
 import { HelmetProvider } from 'react-helmet-async'
 
 
+// Key now comes from GET /payment-public-keys (public, no auth needed),
+// which returns { stripe_publishable_key, paypal_client_id } already
+// decrypted — replaces the old pattern of pulling an encrypted value out of
+// /societe-config and decrypting it client-side.
 const PayPalAndStripeComponent = () => {
-  const authCtx = useContext(AuthContext);  // Access auth context
   const [paypalClientId, setPaypalClientId] = useState(null);
   const [stripePublishableKey, setStripePublishableKey] = useState(null);
 
   useEffect(() => {
-    const fetchDecryptedValues = async () => {
-      // Get the encrypted values from the authCtx
-      const encryptedPaypalClientId = authCtx.societeConfig?.find(item => item.config_module_nomtech === "paypal_client_id")?.valeur;
-      const encryptedStripePublishableKey = authCtx.societeConfig?.find(item => item.config_module_nomtech === "stripe_pay_api_key")?.valeur; // Ensure this is the publishable key
-
-      // Decrypt the values
-      if (encryptedPaypalClientId && encryptedStripePublishableKey) {
-        const decryptedPaypalClientId = await decryptAES128CTR(encryptedPaypalClientId);
-        const decryptedStripePublishableKey = await decryptAES128CTR(encryptedStripePublishableKey);
-
-        // Set the decrypted values to state
-        setPaypalClientId(decryptedPaypalClientId);
-        setStripePublishableKey(decryptedStripePublishableKey);
+    const fetchKeys = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/payment-public-keys`);
+        if (response.data?.paypal_client_id) {
+          setPaypalClientId(response.data.paypal_client_id);
+        }
+        if (response.data?.stripe_publishable_key) {
+          setStripePublishableKey(response.data.stripe_publishable_key);
+        }
+      } catch (error) {
+        console.error('Error fetching payment public keys:', error);
       }
     };
 
-    fetchDecryptedValues();
-  }, [authCtx]); // Run this effect when authCtx changes
+    fetchKeys();
+  }, []);
 
   if (!paypalClientId || !stripePublishableKey) {
     // Show loading indicator or nothing while values are being decrypted

@@ -545,7 +545,8 @@ export const AuthContextProvider = (props) => {
         if (userexistingarticle) {
           await axios.put(
             `${import.meta.env.VITE_TESTING_API}/cart/${userexistingarticle.cart_id}`,
-            { quantity: newQty }
+            { quantity: newQty },
+            { headers: { Authorization: `Bearer ${token}` } }
           );
           dispatch(addTocart({
             ...userexistingarticle,
@@ -558,9 +559,9 @@ export const AuthContextProvider = (props) => {
               ...articlePayload,
               article_id: articlePayload.id,
               quantity: newQty,
-              user_id: user.id,
               b_usr_article_variant_combination_id: props?.article_variant_combination?.id,
-            }
+            },
+            { headers: { Authorization: `Bearer ${token}` } }
           );
           dispatch(addTocart({ ...response.data.data, article_variant_combination: props.article_variant_combination }));
         }
@@ -623,10 +624,10 @@ export const AuthContextProvider = (props) => {
           const response = await axios.post(
             `${import.meta.env.VITE_TESTING_API}/cart?ecom_type=sofiaco`,
             {
-              user_id: user.id,
               article_id: props.id,
               quantity: props.quantity,
-            }
+            },
+            { headers: { Authorization: `Bearer ${token}` } }
           );
           dispatch(
             addTocart({
@@ -660,7 +661,7 @@ export const AuthContextProvider = (props) => {
           axios
             .put(`${import.meta.env.VITE_TESTING_API}/cart/${item.cart_id}`, {
               quantity: Number(maxQuantity).toFixed(0),
-            })
+            }, { headers: { Authorization: `Bearer ${token}` } })
             .then((response) => {
               // console.log("PUT request successful:", response.data);
               dispatch(
@@ -679,7 +680,7 @@ export const AuthContextProvider = (props) => {
           axios
             .put(`${import.meta.env.VITE_TESTING_API}/cart/${item.cart_id}`, {
               quantity: newQuantity,
-            })
+            }, { headers: { Authorization: `Bearer ${token}` } })
             .then((response) => {
               // console.log("PUT request successful:", response.data);
               dispatch(
@@ -758,7 +759,9 @@ export const AuthContextProvider = (props) => {
       item = productData.find((item) => item._id === productId);
     }
     axios
-      .delete(`${import.meta.env.VITE_TESTING_API}/cart/${item.cart_id}`)
+      .delete(`${import.meta.env.VITE_TESTING_API}/cart/${item.cart_id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then(() => {
         // console.log("delete request successful:");
         dispatch(deleteItem(item));
@@ -835,10 +838,10 @@ export const AuthContextProvider = (props) => {
         const response = await axios.post(
           `${import.meta.env.VITE_TESTING_API}/favorites`,
           {
-            user_id: user.id,
             article_id: props.id,
             ecom_type: "sofiaco",
-          }
+          },
+          { headers: { Authorization: `Bearer ${token}` } }
         );
         dispatch(
           addTofavorite({
@@ -906,7 +909,8 @@ export const AuthContextProvider = (props) => {
     // console.log(props)
     try {
       const response = await axios.delete(
-        `${import.meta.env.VITE_TESTING_API}/favorites/${item.id}`
+        `${import.meta.env.VITE_TESTING_API}/favorites/${item.id}`,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       dispatch(deletefavorite(item.id));
 
