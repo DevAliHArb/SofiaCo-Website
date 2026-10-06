@@ -193,7 +193,6 @@ const PopupPaymentModal = ({ open, handleClose, isselectedPayment }) => {
       { hideProgressBar: true }
     );
   }
-    // console.log("PaymentMethod created:", paymentMethod?.card);
   
     const data = {
       holder_name: formData?.holder_name,

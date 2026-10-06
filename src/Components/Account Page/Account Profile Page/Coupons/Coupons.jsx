@@ -312,7 +312,7 @@ const Coupons = () => {
           <>
           {couponsData?.map((props) => {
             return (
-              <div className={classes.tableRow} onClick={()=>console.log(props)} style={{background: !isCouponExpired(props.expiry) && props.active === "true" ? "var(--primary-color)" : ""}}>
+              <div className={classes.tableRow} style={{background: !isCouponExpired(props.expiry) && props.active === "true" ? "var(--primary-color)" : ""}}>
                 <p><span className={classes.mob_only} style={{fontWeight:700}}>{language === 'eng' ? 'Coupon' : 'Coupon'} :</span> {props.title}</p>
                 <p><span className={classes.mob_only} style={{fontWeight:700}}>{language === "eng" ? "Code" : "Code"}:</span> {props.code}</p>
                 <p><span className={classes.mob_only} style={{fontWeight:700}}>{language === "eng" ? "Expiry" : "Expiration"}:</span> {props.expiry.substring(0, 10)}</p>

@@ -40,7 +40,6 @@ const CheckOutSummary = () => {
   const fetchOrder = async () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/order_invoices/${id}`);
-      // console.log('Response data:', response.data);
       setData(response.data.data || {})
     } catch (error) {
       // console.error('Error fetching addresses:', error);
@@ -90,7 +89,7 @@ const maskConstant = (constant) => {
       <div className={classes.shopping_con}>
       <div className={classes.shopping}>
             <>
-            <h2 onClick={()=>console.log(data)} style={{color:"var(--accent-color)",borderBottom:"1px solid #6E90A9",paddingBottom:'1em',fontFamily:'var(--font-family)',fontSize:'calc(1.2rem + .3vw)',marginTop:"0",fontWeight:'500'}}>{language === 'eng' ? "Commande" : "Order" } #{data.id}</h2>
+            <h2 style={{color:"var(--accent-color)",borderBottom:"1px solid #6E90A9",paddingBottom:'1em',fontFamily:'var(--font-family)',fontSize:'calc(1.2rem + .3vw)',marginTop:"0",fontWeight:'500'}}>{language === 'eng' ? "Commande" : "Order" } #{data.id}</h2>
               <CheckOutSummaryItem data={data.order_invoice_items}/>
             <div className={classes.container}>
                 <h2 style={{color:"var(--accent-color)",fontFamily:'var(--font-family)',fontSize:'calc(1.2rem + .3vw)',marginTop:"0",fontWeight:'500'}}>{language === 'eng' ? "Shipping Address" : "Adresse de livraison" }</h2>

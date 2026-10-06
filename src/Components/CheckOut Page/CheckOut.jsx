@@ -330,7 +330,6 @@ const CheckOut = () => {
   };
 
   const handleGiftChange = (item) => {
-    console.log(selectedGiftItems);
 
     setSelectedGiftItems((prev) => {
       const exists = prev.find((i) => i.id === item.id);
@@ -606,7 +605,6 @@ const CheckOut = () => {
   }, []);
 
   function getShippingCost(orderCartCost, orderWeight, shippingCostss) {
-    // console.log("heloooo", { orderCartCost, orderWeight, shippingCostss });
     // Filter out items with null cart_cost and sort the remaining items by cart_cost in ascending order
     const sortedByCartCost = shippingCostss
       .filter((item) => item.cart_cost !== null)
@@ -1012,10 +1010,8 @@ const CheckOut = () => {
     const cpupon = couponList?.find((props) => props?.code === couponCode );
     if (cpupon?.id) {
       handleApplyCoupon(cpupon?.code)
-      console.log('applyyy');
     } else {
       AddAndApplyCoupon(couponCode)
-      console.log('adddddd');
     }
     
   };
@@ -1168,7 +1164,6 @@ const CheckOut = () => {
     setAdressModalOpen(false);
     setTimeout(() => {
       fetchAddresses();
-      // console.log(addresseslist);
     }, 500);
   };
 
@@ -1590,7 +1585,6 @@ const CheckOut = () => {
         // const subTotal = calculateReduction(subtotalAmt, coupon.reduction);
         const subTotal = subtotalAmt;
         productData?.forEach(element => {
-          console.log(Math.max(coupon.reduction, Number(element.discount)));
             dispatch(editCart({
                 _id: element._id,
                 discount: Math.max(coupon.reduction, Number(element.discount)), // Get the greatest value
@@ -2022,7 +2016,6 @@ const CheckOut = () => {
                         }
                         onChange={() =>
                           handleChange2(address.id) 
-                          // console.log(address.default)
                         }
                       >
                         <FormControlLabel

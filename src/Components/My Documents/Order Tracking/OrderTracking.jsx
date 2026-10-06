@@ -149,7 +149,6 @@ const OrderTracking = () => {
         }
     });
     const sortedData = response.data.data?.sort((a, b) => new Date(b.date) - new Date(a.date));
-      // console.log('Response data:', response.data.data);
       const filteredInvoices = sortedData.filter(orderInvoice => orderInvoice.status_id !== 20);
       setorders(filteredInvoices);
     } catch (error) {
@@ -162,7 +161,6 @@ const OrderTracking = () => {
     try {
       setLoading(true);
       const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/lookups?parent_id=1`);
-      // console.log('Response data:', response.data.data);
       const allCategories = { id: 0, name: 'All Orders', name_fr:"Toutes les commandes" };
       const filteredData = response.data.data.filter(item => item.id !== 6 && item.id !== 7 && item.id !== 8);
         const categoriesWithAll = [allCategories, ...filteredData];
@@ -198,7 +196,6 @@ const OrderTracking = () => {
       setData(unpaidOrders);
   }
     setselectedCategory(e.target.value) 
-    // console.log(data)
   }
 let stepss = [
   {
@@ -231,7 +228,6 @@ const stepsHandler =(props)=>{
   let testt = []
   stepss.forEach(order => {
     let index = props.order_status_history?.find(step => step.status_id === order.id);
-    // console.log("helllooo",index)
     if (index) {
       testt.push({
         id: order.id,
@@ -256,7 +252,6 @@ const reviewHandler =()=>setisReviewMood(true);
   const EstimatedDeliveryDate = formattedDate.toDateString();
 
   const addToCartWithQtyhandler = async (props) => {
-    console.log(props)
     const maxQuantity = props._qte_a_terme_calcule;
     const item = productData.find(item => item._id === props.id);
      if (!item) {
@@ -284,7 +279,6 @@ const reviewHandler =()=>setisReviewMood(true);
       }));
     } catch (error) {
       // console.error("Error adding to cart:", error);
-      console.log(error)
     } finally{
       setIsLoading(false);
     };
@@ -298,7 +292,6 @@ const reviewHandler =()=>setisReviewMood(true);
           quantity: Number(maxQuantity).toFixed(0),
           })
           .then((response) => {
-              // console.log("PUT request successful:", response.data);
               dispatch(addTocart({
                   _id: props.id,
                   quantity: Number(newQuantityMax).toFixed(0),
@@ -315,7 +308,6 @@ const reviewHandler =()=>setisReviewMood(true);
           quantity: newQuantity,
           })
           .then((response) => {
-              // console.log("PUT request successful:", response.data);
               dispatch(addTocart({
                   _id: props.id,
                   quantity: props.quantity,
@@ -370,7 +362,6 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
   const CancleOrderHandler = () => {
     axios.put(`${import.meta.env.VITE_TESTING_API}/order_invoices/${selectedOrder.id}?status_id=13`)
     .then(() => {
-        // console.log("delete request successful:");
           toast.success(language === "eng" ? "Delete request successful." : "Demande de suppression réussie.", {
             position: "top-right",
             autoClose: 1500,
@@ -448,7 +439,7 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
               </div>
             </div> :  <>
                 <div className={classes.header} >
-                <div className={classes.headtitle}><h3 style={{fontWeight:"600",marginTop:'0.2em'}} onClick={()=>console.log(ordertrackcategories)}>Order Tracking</h3></div>
+                <div className={classes.headtitle}><h3 style={{fontWeight:"600",marginTop:'0.2em'}}>Order Tracking</h3></div>
                 <div className={classes.btnsContainer}>
                 <div className={classes.hexagon} onClick={()=>setselectedCategory(0)  & localStorage.setItem('selectedOrderCategory', 0)} style={{backgroundColor:cat === 0 && 'var(--primary-color)'}}>
                   <div style={{width:'120%',height:'60%',position:"absolute",top:'20%',left:'-10%',zIndex:'1',rotate:'270deg'}}>
@@ -509,8 +500,8 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
       <div className={classes.detailsCard}>
         <h4 onClick={()=>setisSelected(false) & setselectedOrder({})} style={{color:'var(--secondary-color)',fontSize:'calc(1rem + .3vw)',margin:'-1em 0 0 -10%',cursor:'pointer',fontFamily:'var(--font-family)',width:'100%',textAlign:'start',fontWeight:'500'}}><IoIosArrowBack style={{marginBottom:'-.15em'}}/> Back</h4>
         <div className={classes.header1}>
-      <div className={classes.headtitle} style={{margin:"0 0 0 1em",textAlign:'start',fontWeight:'500',lineHeight:'130%'}} onClick={()=>console.log(steps)}>Order # {selectedOrder.id}<br/> Placed on {new Date(selectedOrder.date).getDate()}/{new Date(selectedOrder.date).getMonth()}/{new Date(selectedOrder.date).getFullYear()}</div>
-      <div className={classes.headtitle} style={{margin:"auto 1em auto auto",fontWeight:'500'}} onClick={()=>console.log(steps)}>{selectedOrder.currency === 'eur' ? '€' : '$'}{selectedOrder.total_price}</div>
+      <div className={classes.headtitle} style={{margin:"0 0 0 1em",textAlign:'start',fontWeight:'500',lineHeight:'130%'}}>Order # {selectedOrder.id}<br/> Placed on {new Date(selectedOrder.date).getDate()}/{new Date(selectedOrder.date).getMonth()}/{new Date(selectedOrder.date).getFullYear()}</div>
+      <div className={classes.headtitle} style={{margin:"auto 1em auto auto",fontWeight:'500'}}>{selectedOrder.currency === 'eur' ? '€' : '$'}{selectedOrder.total_price}</div>
       <div style={{display:'flex',flexDirection:'row'}}>
       {/* {categoryId == 4 && <button className={classes.reviewbtn} onClick={()=>setisReviewMood(true) & setisSelected(false)}>Review</button> }
       {categoryId == 2 ? <button className={classes.btn}  onClick={(event) => setShowPopup(true) & event.stopPropagation()}>Cancel Order</button> : <button onClick={AddAllToCart} className={`${categoryId == 4 ? classes.deliveredBtn : classes.btn}`} >Repurchase</button>} */}

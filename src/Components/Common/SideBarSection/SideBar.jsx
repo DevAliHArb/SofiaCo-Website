@@ -269,7 +269,6 @@ function TreeNode({ data, level, fetchArticles }) {
 
   const handleChildClick = async (id, event) => {
     event.stopPropagation();
-    // console.log("Clicked on child with ID:", id);
     const clickedCategory = authCtx.categories.find(
       (category) => category.id === id
     );
@@ -298,7 +297,6 @@ function TreeNode({ data, level, fetchArticles }) {
 
         // Update the state with the category path
         setCatChemin(categoryPath);
-        // console.log(categoryPath);
       } catch (error) {
         // console.error("Error fetching category path:", error);
         // Handle error appropriately

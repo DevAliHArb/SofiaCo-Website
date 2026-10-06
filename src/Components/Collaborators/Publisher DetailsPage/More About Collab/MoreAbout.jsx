@@ -53,7 +53,6 @@ const MoreAbout = ({publisher_name}) => {
 
     // Make the API request
     const response = await axios.get(finalURL);
-      // console.log(response.data.data);
       setArticles(response.data.data);
       setActiveIndex(0);
     } catch (error) {

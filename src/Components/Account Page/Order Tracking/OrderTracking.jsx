@@ -166,7 +166,6 @@ const OrderTracking = () => {
         }
     });
     const sortedData = response.data.data?.sort((a, b) => new Date(b.date) - new Date(a.date));
-      // console.log('Response data:', response.data.data);
       const filteredInvoices = sortedData.filter(orderInvoice => orderInvoice.status_id !== 20);
       setorders(filteredInvoices);
     } catch (error) {
@@ -179,7 +178,6 @@ const OrderTracking = () => {
     try {
       setLoading(true);
       const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/lookups?parent_id=1`);
-      // console.log('Response data:', response.data.data);
       const allCategories = { id: 0, name: 'All Orders', name_fr:"Toutes les commandes" };
       const filteredData = response.data.data.filter(item => item.id !== 6 && item.id !== 7 && item.id !== 8);
         const categoriesWithAll = [allCategories, ...filteredData];
@@ -215,7 +213,6 @@ const OrderTracking = () => {
       setData(unpaidOrders);
   }
     setselectedCategory(e.target.value) 
-    // console.log(data)
   }
   let stepss = [
     {
@@ -292,7 +289,6 @@ const stepsHandler =(props)=>{
     let testt = []
     stepss1.forEach(order => {
       let index = props.order_status_history?.find(step => step.status_id === order.id);
-      // console.log("helllooo",index)
       if (index) {
         testt.push({
           id: order.id,
@@ -319,7 +315,6 @@ const stepsHandler =(props)=>{
     let testt = []
     stepss.forEach(order => {
       let index = props.order_status_history?.find(step => step.status_id === order.id);
-      // console.log("helllooo",index)
       if (index) {
         testt.push({
           id: order.id,
@@ -350,7 +345,6 @@ const reviewHandler =()=>setisReviewMood(true);
   const EstimatedDeliveryDate = formattedDate.toDateString();
 
   const addToCartWithQtyhandler = async (props) => {
-    console.log(props)
     const maxQuantity = props._qte_a_terme_calcule;
     const item = productData.find(item => item._id === props.id);
      if (!item) {
@@ -378,7 +372,6 @@ const reviewHandler =()=>setisReviewMood(true);
       }));
     } catch (error) {
       // console.error("Error adding to cart:", error);
-      console.log(error)
     } finally{
       setIsLoading(false);
     };
@@ -392,7 +385,6 @@ const reviewHandler =()=>setisReviewMood(true);
           quantity: Number(maxQuantity).toFixed(0),
           })
           .then((response) => {
-              // console.log("PUT request successful:", response.data);
               dispatch(addTocart({
                   _id: props.id,
                   quantity: Number(newQuantityMax).toFixed(0),
@@ -409,7 +401,6 @@ const reviewHandler =()=>setisReviewMood(true);
           quantity: newQuantity,
           })
           .then((response) => {
-              // console.log("PUT request successful:", response.data);
               dispatch(addTocart({
                   _id: props.id,
                   quantity: props.quantity,
@@ -464,7 +455,6 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
   const CancleOrderHandler = () => {
     axios.put(`${import.meta.env.VITE_TESTING_API}/order_invoices/${selectedOrder?.id}?status_id=13`)
     .then(() => {
-        // console.log("delete request successful:");
           toast.success(language === "eng" ? "Delete request successful." : "Demande de suppression réussie.", {
             position: "top-right",
             autoClose: 1500,
@@ -554,7 +544,6 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
   useEffect(() => {
     if (reviewParam === 'review') {
       const selected = data?.filter((item) => item.id = parseInt(orderId, 10))
-      console.log('testttt', selected)
       setselectedOrder(selected[0]) ;
       setTimeout(() => {
         setisReviewMood(true) ;
@@ -602,7 +591,7 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
             </div> : 
              <>
                 <div className={classes.header} >
-                <div className={classes.headtitle}><h3 style={{fontWeight:"600",marginTop:'0.2em'}} onClick={()=>console.log(ordertrackcategories)}>{language === 'eng' ? "My Orders" : "Mes Commandes" }</h3></div>
+                <div className={classes.headtitle}><h3 style={{fontWeight:"600",marginTop:'0.2em'}}>{language === 'eng' ? "My Orders" : "Mes Commandes" }</h3></div>
                 <div className={classes.btnsContainer}>
                 <div className={classes.hexagon} onClick={()=>setselectedCategory(0)  & localStorage.setItem('selectedOrderCategory', 0)} style={{backgroundColor:cat === 0 && 'var(--primary-color)'}}>
                   <div style={{width:'120%',height:'60%',position:"absolute",top:'20%',left:'-10%',zIndex:'9',rotate:'270deg'}}>
@@ -700,8 +689,8 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
       <div className={classes.detailsCard}>
         <h4 onClick={()=>navigate('/account/order-tracking') & setisSelected(false) & setselectedOrder({}) & navigate('/account/order-tracking')} className={classes.back}><IoIosArrowBack style={{marginBottom:'-.15em'}}/> {language === 'eng' ? "Back" : "Dos" }</h4>
         <div className={classes.header1}>
-      <div className={classes.headtitle} style={{margin:"0 0 0 1em",textAlign:'start',fontWeight:'500',lineHeight:'130%'}} onClick={()=>console.log(selectedOrder)}>{language === 'eng' ? "Order" : "Commande " } # {selectedOrder?.id}<br/> {language === 'eng' ? "Placed on" : "Placé sur" } {new Date(selectedOrder?.date).getDate()}/{new Date(selectedOrder?.date).getMonth()}/{new Date(selectedOrder?.date).getFullYear()}</div>
-      <div className={classes.headtitle} style={{margin:"auto 1em auto auto",fontWeight:'500'}} onClick={()=>console.log(steps)}>{selectedOrder?.currency === 'eur' ? '€' : '$'}{Number(selectedOrder?.total_price).toFixed(2)}</div>
+      <div className={classes.headtitle} style={{margin:"0 0 0 1em",textAlign:'start',fontWeight:'500',lineHeight:'130%'}}>{language === 'eng' ? "Order" : "Commande " } # {selectedOrder?.id}<br/> {language === 'eng' ? "Placed on" : "Placé sur" } {new Date(selectedOrder?.date).getDate()}/{new Date(selectedOrder?.date).getMonth()}/{new Date(selectedOrder?.date).getFullYear()}</div>
+      <div className={classes.headtitle} style={{margin:"auto 1em auto auto",fontWeight:'500'}}>{selectedOrder?.currency === 'eur' ? '€' : '$'}{Number(selectedOrder?.total_price).toFixed(2)}</div>
       <div style={{display:'flex',flexDirection:'row'}}></div>
       </div>
       {selectedOrder?.tracking_number && <div style={{display:'flex',flexDirection:'row',flexWrap:"wrap",border:'none',marginTop:'1em'}}className={classes.adressCard}>
@@ -801,7 +790,7 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
           <div className={classes.cardCont}>
              {selectedOrder?.order_invoice_items?.map((props)=>{
             return(
-        <div className={classes.card} key={props._id} onClick={()=>console.log(props)} style={{position:'relative'}}>
+        <div className={classes.card} key={props._id} style={{position:'relative'}}>
           {props.is_gift && <div style={{fontSize:'calc(0.7rem + 0.3vw)',position:'absolute',top:'0.5em',right:'.5em',padding:".3em 1em",width:'fit-content',height:'fit-content',backgroundColor:'var(--primary-color)',color:"#fff",zIndex:'9'}}>{language === 'eng' ? "Gift" : "Cadeau"}</div>}
             <div style={{display:"flex",flexDirection:"row",gap:".5em",width:'100%'}}>
             <div className={classes.imageCont}>
@@ -842,7 +831,7 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
           <div className={classes.adressCard}>
             <h2>{language === 'eng' ? "Payment Method" : "Mode de paiement" }</h2>
             {selectedOrder?.payment_method_id === 17 && <div>
-              <p onClick={()=>console.log(selectedOrder)}><img alt='visa' src={selectedOrder?.user_payment?.card_type === 'Master' ? master : visa} style={{width:'auto',height:'1.5em',margin:'0 1em -.5em 1em'}}/>
+              <p><img alt='visa' src={selectedOrder?.user_payment?.card_type === 'Master' ? master : visa} style={{width:'auto',height:'1.5em',margin:'0 1em -.5em 1em'}}/>
                   {maskConstant(selectedOrder?.user_payment?.card_number)}</p>
             </div>}
             {selectedOrder?.payment_method_id === 41 && <div>
@@ -876,8 +865,8 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
       { isReviewMood && <div className={classes.detailsCard}> 
         <h4 onClick={()=>navigate('/account/order-tracking') & setisSelected(false) & setisReviewMood(false) & setselectedOrder({}) & window.scrollTo({ top: 0 })} className={classes.back}><IoIosArrowBack style={{marginBottom:'-.15em'}}/> {language === 'eng' ? "Back" : "Dos" }</h4>
         <div className={classes.header1}>
-      <div className={classes.headtitle} style={{margin:"0 0 0 1em",textAlign:'start',fontWeight:'500',lineHeight:'130%'}} onClick={()=>console.log(steps)}>{language === 'eng' ? "Order" : "Commande " } # {selectedOrder?.id}<br/> {language === 'eng' ? "Placed on" : "Placé sur" } {new Date(selectedOrder?.date).getDate()}/{new Date(selectedOrder?.date).getMonth()}/{new Date(selectedOrder?.date).getFullYear()}</div>
-      <div className={classes.headtitle} style={{margin:"auto 1em auto auto",fontWeight:'500'}} onClick={()=>console.log(steps)}>{selectedOrder?.currency === 'eur' ? '€' : '$'}{Number(selectedOrder?.total_price).toFixed(2)}</div>
+      <div className={classes.headtitle} style={{margin:"0 0 0 1em",textAlign:'start',fontWeight:'500',lineHeight:'130%'}}>{language === 'eng' ? "Order" : "Commande " } # {selectedOrder?.id}<br/> {language === 'eng' ? "Placed on" : "Placé sur" } {new Date(selectedOrder?.date).getDate()}/{new Date(selectedOrder?.date).getMonth()}/{new Date(selectedOrder?.date).getFullYear()}</div>
+      <div className={classes.headtitle} style={{margin:"auto 1em auto auto",fontWeight:'500'}}>{selectedOrder?.currency === 'eur' ? '€' : '$'}{Number(selectedOrder?.total_price).toFixed(2)}</div>
       <div style={{display:'flex',flexDirection:'row'}}></div>
       </div> 
       {/* <button className={classes.reviewbtn} style={{backgroundColor:'var(--primary-color)',marginRight:"0"}}>Return</button>  */}

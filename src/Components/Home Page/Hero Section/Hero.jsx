@@ -85,7 +85,6 @@ const Hero = ({ carttoggle }) => {
         setdescription(item.descriptif);
       }
     });
-    console.log(name);
   }, [constantValue, articles]);
 
   const favoriteData = useSelector((state) => state.products.favorites);

@@ -64,7 +64,6 @@ const PublisherDetails = () => {
   //           Authorization: `Bearer ${token}` // Include token in the headers
   //       }
   //   });
-  //     // console.log(response.data);
   //     toast.success(language === "eng" ? `${CollaboratorData.nom} subscribed successfully!` : `${CollaboratorData.nom} s'est abonné avec succès !`) // You can handle the response here
   //   } catch (error) {
   //     // console.error('Error:', error);

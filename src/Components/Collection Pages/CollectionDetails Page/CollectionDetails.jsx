@@ -90,7 +90,6 @@ const CollectionDetailsPage = () => {
             Authorization: `Bearer ${token}` // Include token in the headers
         }
     });
-      // console.log(response.data);
       toast.success(`${collectionData.name_fr} ${language === 'eng' ? "subscribed successfully!" : "Abonné avec succès !"}`) // You can handle the response here
     } catch (error) {
       // console.error('Error:', error);
@@ -217,7 +216,7 @@ const CollectionDetailsPage = () => {
 
        
     {/*  <div className={classes.header}>
-          <h1 onClick={()=>console.log(records)}>{data.Collections.CollectionsDetails.title[language]}</h1>
+          <h1>{data.Collections.CollectionsDetails.title[language]}</h1>
         </div>
            <div style={{
                     width: "100%",

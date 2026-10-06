@@ -28,7 +28,6 @@ const ContactUs = () => {
   const [formData, setFormData] = useState({});
 
   const handleSubmit = async () => {
-      // console.log("heloooo",formData)
       
       
       try {
@@ -38,7 +37,6 @@ const ContactUs = () => {
         );
         setFormData({});
         form.resetFields();
-        // console.log("Email sent:", response.data);
         // You can display a success message if needed
         toast.success(language === "eng" ? "Email sent successfully." : "Email envoyé avec succès.", {
           position: "top-right",

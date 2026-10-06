@@ -69,11 +69,9 @@ const Subscriptions = () => {
         .map((item) => item.collaborator_id)
         .filter((id) => id !== null);
 
-      // console.log(collaboratorIds);
 
          // Check if collaboratorIds array is empty
     if (collaboratorIds.length === 0) {
-      // console.log("No collaborators to fetch");
       return; // Exit the function if there are no collaborators
     }
 
@@ -87,7 +85,6 @@ const Subscriptions = () => {
         },
       });
 
-      // console.log(response2);
       setData(response2?.data);
     } catch (error) {
       // console.error("Error fetching collaborators:", error);
@@ -113,7 +110,6 @@ const Subscriptions = () => {
       
          // Check if collaboratorIds array is empty
     if (collectionIds.length === 0) {
-      // console.log("No collections to fetch");
       return; // Exit the function if there are no collaborators
     }
 
@@ -127,7 +123,6 @@ const Subscriptions = () => {
         },
       });
 
-      console.log(response2);
       setCollectionData(response2?.data);
     } catch (error) {
       // console.error("Error fetching collaborators:", error);
@@ -151,11 +146,9 @@ const Subscriptions = () => {
       const categoryIds = response1.data.data
         .map((item) => item.category_id)
         .filter((id) => id !== null);
-      // console.log(response1.data.data);
       
          // Check if collaboratorIds array is empty
     if (categoryIds.length === 0) {
-      // console.log("No collections to fetch");
       return; // Exit the function if there are no collaborators
     }
 
@@ -169,7 +162,6 @@ const Subscriptions = () => {
         },
       });
 
-      // console.log(response2);
       setCategoryData(response2?.data);
     } catch (error) {
       // console.error("Error fetching collaborators:", error);
@@ -218,7 +210,6 @@ const Subscriptions = () => {
       // Get the ID of the subscription entry
       const subscriptionId = subscription.id;
   
-      // console.log(subscriptionId);
       // Send a DELETE request to the API endpoint with the subscriptionId
       await axios.delete(
         `${import.meta.env.VITE_TESTING_API}/users/${user.id}/subscriptions/${subscriptionId}`,
@@ -262,7 +253,6 @@ const Subscriptions = () => {
         (sub) => sub.user_id === user.id && sub.collection_id === collectionId
       );
   
-      // console.log(subscription);
   
       if (!subscription) {
         // console.error("Subscription not found");
@@ -316,7 +306,6 @@ const Subscriptions = () => {
         (sub) => sub.user_id === user.id && sub.category_id === catId
       );
   
-      // console.log(subscription);
   
       if (!subscription) {
         // console.error("Subscription not found");

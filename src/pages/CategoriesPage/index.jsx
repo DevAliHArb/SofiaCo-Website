@@ -36,7 +36,6 @@ const CategoriesPage = () => {
         },
       );
       setcategoryData(response.data);
-      console.log("Response data:", response.data);
     } catch (error) {
       console.error("Error fetching addresses:", error);
     }

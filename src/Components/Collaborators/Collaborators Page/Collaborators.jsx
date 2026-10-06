@@ -47,7 +47,6 @@ const Collaborators = () => {
     return { ...person, firstLetter };
   });
 
-  // console.log(withFirstLetters)
   const filteredAuthors = withFirstLetters.filter(
     (author) =>
       (selectedLetter === "ALL" || author.firstLetter === selectedLetter?.toLowerCase()) &&
@@ -201,7 +200,7 @@ const Collaborators = () => {
             />
             <button
               className={classes.btn1}
-              onClick={() => {console.log("main", authCtx.collaborators, "filtered",filteredAuthors); setIsDropdownOpen(!isDropdownOpen)}}
+              onClick={() => {setIsDropdownOpen(!isDropdownOpen)}}
             >
               <SearchIcon />
             </button>

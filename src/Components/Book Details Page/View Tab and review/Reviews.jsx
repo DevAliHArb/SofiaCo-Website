@@ -69,7 +69,6 @@ const Reviews = () => {
 
     const handleSubmit = async () => {
         setLoading(true);
-        // console.log('Review created:', { ...formData, user_id: user.id });
 
         if (!user) {
             toast.error(language === "eng" ? "Please login first." : "Veuillez d'abord vous connecter.", { hideProgressBar: true });

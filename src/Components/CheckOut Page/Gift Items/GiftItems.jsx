@@ -47,7 +47,6 @@ const GiftItems = ({ handleGiftChange, selectedGiftItems, subtotalAmt, onMaxGift
         setGiftConfiguration(response.data);
         const giftConfig = giftConfigToString(response.data);
         onGiftsconfigurationChange(giftConfig);
-        console.log("Gift Configuration:", response.data);
       } catch (error) {
         console.error("Error fetching articles:", error);
       }
@@ -119,7 +118,7 @@ const GiftItems = ({ handleGiftChange, selectedGiftItems, subtotalAmt, onMaxGift
                 <div style={{height:'fit-content',justifyContent:'space-between',display:'flex', flexDirection:'column', margin:'auto 0',fontSize:'calc(.5rem + 0.2vw)',fontFamily:'var(--font-family)',width:"100%"}}>
                   <div className={classes.infoCont}>
                     <div style={{width:"fit-content",maxWidth:"100%",display:'flex',flexDirection:'column'}}>
-                      <p style={{color:'#000',fontSize:'calc(.6rem + 0.2vw)',fontWeight:'700',width:"85%",textAlign:'start',marginBottom:'.3em'}} onClick={()=>console.log(props)}> {props.designation}</p>
+                      <p style={{color:'#000',fontSize:'calc(.6rem + 0.2vw)',fontWeight:'700',width:"85%",textAlign:'start',marginBottom:'.3em'}}> {props.designation}</p>
                       <p style={{color:'var(--secondary-color)',width:"85%" ,fontSize:'calc(.5rem + .2vw)',fontWeight:'500',margin:'0.5em 0',textAlign:'start'}}>{props.dc_auteur}</p>
                       <p style={{color:'#000',fontSize:'calc(.5rem + .2vw)',fontWeight:'500',margin:'0',textAlign:'start'}}> {truncateText(stripHtmlTags(props.descriptif), 5000)}</p>
                       <p

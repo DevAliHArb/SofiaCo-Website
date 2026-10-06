@@ -120,10 +120,8 @@ function App() {
   const [pageMetaData, setPageMetaData] = useState({});
 
   useEffect(() => {
-    // console.log('Current path:', path);
   
     const accountDetailsRegex = /^\/account\/\w+/;
-    // console.log('Regex test result:', accountDetailsRegex.test(path));
   
     if (accountDetailsRegex.test(path)) {
       setWithBG(true);
@@ -171,7 +169,6 @@ function App() {
   }, [path]);
 
   const logout = async () => {
-    // console.log('ok')
     try {
       // Get the token from local storage
       const token = sessionStorage.getItem('token');
@@ -223,7 +220,6 @@ function App() {
       const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/seo-meta?ecom_type=sofiaco&section_id=${sectionId}`);
       if (isMounted) {
         setPageMetaData(response?.data?.data?.[0] || {});
-        console.log('Fetched meta data:', response?.data?.data?.[0]);
       }
     } catch (error) {
       if (isMounted) {

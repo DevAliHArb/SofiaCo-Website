@@ -153,7 +153,7 @@ const Publishers = () => {
         <div className={classes.filters}>
             
         <div className={classes.header}>
-          <h1 onClick={()=>console.log(records)}>
+          <h1>
                 {language === 'eng' ? 'Brands' : 'Marques'}</h1>
         </div>
           <div

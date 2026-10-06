@@ -114,8 +114,6 @@ const Payment = () => {
   // Inside the Payment component
 useEffect(() => {
   if (!open) {
-    // console.log('hello')
-    // console.log(formData)
   }
 }, [open]);
 
@@ -172,14 +170,12 @@ useEffect(() => {
   const handleChange2 = async (props) => {
     if (user.default_pay !== props) {
     try {
-      // console.log(passData)
         // Make API call to change password
         const response = await axios.put(`${import.meta.env.VITE_TESTING_API}/users/${user.id}`, {default_pay: props}, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         });
-        console.log("Default Payment card is set successfully");
       dispatch(editUser({...user, default_pay: props}));
         toast.success(`${language === 'eng' ? "Default Payment card is set successfully" : "La carte de paiement par défaut a été définie avec succès"}`, {
           position: "top-right",
@@ -216,7 +212,6 @@ useEffect(() => {
   const [cardBrand, setCardBrand] = useState(null);
   // Function to handle changes in the CardNumberElement
   const handleCardChange = (event) => {
-    console.log(event)
     if (event.brand) {
       setCardBrand(event.brand); // Update state with detected card brand
     }
@@ -274,7 +269,6 @@ useEffect(() => {
       { hideProgressBar: true }
     );
   }
-    // console.log("PaymentMethod created:", paymentMethod?.card);
   
     const data = {
       holder_name: formData?.holder_name,

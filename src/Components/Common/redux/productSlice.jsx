@@ -81,7 +81,6 @@ export const productSlice = createSlice({
           (item) => item._id !== itemId
         );
       }
-      // console.log(state.productData);
     },
     resetCart: (state) => {
         state.productData = [];
@@ -103,13 +102,11 @@ export const productSlice = createSlice({
     changeQuantity: (state, action) => {
       if (action.payload.article_variant_combination) {
           const item = state.productData.find((item) => item._id === action.payload._id && item.article_variant_combination?.id === action.payload.article_variant_combination.id);
-          // console.log('testttt', item)
           if (item) {
               item.quantity = action.payload.quantity;
           }
       } else {
       const item = state.productData.find((item) => item._id === action.payload._id);
-          // console.log('testttt', item)
           if (item) {
               item.quantity = action.payload.quantity;
           }
@@ -345,7 +342,6 @@ export const productSlice = createSlice({
       } else {
         if (state.compare.length < 3) {
           state.compare.push(action.payload);
-          // console.log(action.payload.comtitle);
           toast.success(
             `${
               action.payload.comtitle ? action.payload.comtitle : "Book"

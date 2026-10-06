@@ -120,7 +120,6 @@ const CheckOutItem = () => {
           );
         })
         .catch((error) => {
-          // console.log(error)
           toast.error(
             language === "eng"
               ? "Failed to update item quantity."
@@ -182,7 +181,7 @@ const CheckOutItem = () => {
       <>
         {productData?.map((props, index) => (
           <>
-            <div className={classes.card} key={index} onClick={()=>console.log(props)} style={{borderBottom:(index + 1) !== productData?.length && "1px solid var(--primary-color)",position:'relative'}}>
+            <div className={classes.card} key={index} style={{borderBottom:(index + 1) !== productData?.length && "1px solid var(--primary-color)",position:'relative'}}>
             {props?.removed && <div className={classes.removed_item}>
                <p>{language === "eng" ? "NOT AVAILABLE ANYMORE!" : "N'EST PLUS DISPONIBLE !"}</p>
              </div>}
@@ -202,12 +201,12 @@ const CheckOutItem = () => {
                   justifyContent:'space-between'
                 }}
               >
-                <p style={{width:'100%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"600",margin:'0'}} onClick={()=>console.log(props)}>{props.title.slice(0,20)}</p>
+                <p style={{width:'100%',textAlign:"start",fontSize:"calc(.7rem + .3vw)",fontWeight:"600",margin:'0'}}>{props.title.slice(0,20)}</p>
                 <p style={{width:'100%',textAlign:"start",fontSize:"calc(.6rem + .3vw)",fontWeight:"500",margin:'0'}}>{props.author.slice(0,20)}</p>
               <div className={classes.variants}> 
                {props?.cart_items_variants?.map((item,index)=>{
                  return(
-                   <p onClick={()=>console.log(item)} style={{padding:index === 0 && "0"}}> <span style={{textTransform:'capitalize'}}>{item?.articlevariant?.nom ? <strong>{item?.articlevariant?.nom}:</strong> : null}</span> {item?.variantitem ? item?.variantitem?.value : item?.value} {props?.cart_items_variants?.length - 1 !== index && " | "} </p>
+                   <p style={{padding:index === 0 && "0"}}> <span style={{textTransform:'capitalize'}}>{item?.articlevariant?.nom ? <strong>{item?.articlevariant?.nom}:</strong> : null}</span> {item?.variantitem ? item?.variantitem?.value : item?.value} {props?.cart_items_variants?.length - 1 !== index && " | "} </p>
                  )
                })}
                </div>

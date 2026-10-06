@@ -251,7 +251,7 @@ swiper.slideTo(index)};
         <div className={classes.bookCoversContainer}>
           {filteredImages?.map((props, index) => {
                         return (
-                          <div className={classes.bookCovers} onClick={() => slideTo(index) & console.log(activeId)}>
+                          <div className={classes.bookCovers} onClick={() => slideTo(index)}>
                             <div style={{width:'100%', margin:'auto',position:'relative'}}>
                             <img src={props.link} className={`${constantValue === index + 1  ? classes.bookCoverSelectedimg : classes.bookCoverimg }`} alt={props?.type}/>
                           </div></div>

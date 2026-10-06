@@ -104,13 +104,6 @@ const Review = ({props}) => {
   };
 
   const handleSubmit = async ({index}) => {
-  //   console.log({
-  //     article_id: data[index].article_id,
-  //     description: data[index].description || '',
-  //     rate: data[index].rate || 0,
-  //     review_attachments: data[index].review_attachment || [] ,
-  //     user_id: user.id
-  // })
   try {
     const base64Images = await Promise.all((images || []).map(async (image) => {
       const fileReader = new FileReader();
@@ -146,7 +139,6 @@ const Review = ({props}) => {
       review_attachment: base64Images || [] ,}];
     return {...prevData, order_invoice_items: newData};
   });
-    console.log('Review created:', response.data);
     setValue(0);
     setdescription('');
     setimages([]);
@@ -184,7 +176,7 @@ const Review = ({props}) => {
         return (
           <>
           <div className={classes.content}>
-            <div className={classes.imgContainer} onClick={()=>console.log(reviewData)}>
+            <div className={classes.imgContainer}>
               <img src={item.article.articleimage?.[0]?.link ? item.article.articleimage?.[0].link : bookPlaceholder} alt={item.article.articleimage?.[0]?.type} style={{width:'100%',height:'100%',objectFit:'contain',margin:"auto"}} />
 
             </div>

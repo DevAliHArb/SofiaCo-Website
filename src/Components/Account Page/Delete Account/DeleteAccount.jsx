@@ -69,7 +69,6 @@ const logout = async () => {
     })
     .catch(error => {
       // Handle error
-      // console.log(error);
       toast.error(language === "eng" ? "An error occurred. Please try again later!" : "Une erreur s'est produite. Veuillez réessayer plus tard !", {hideProgressBar:true});
     });
   };

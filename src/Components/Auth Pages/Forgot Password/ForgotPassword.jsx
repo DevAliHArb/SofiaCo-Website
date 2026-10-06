@@ -90,7 +90,6 @@ const responseGoogle = async (response) => {
           //     }
           // });
           // const userCart = cartResponse.data.data; // Assuming cart data is returned in the response
-          // console.log("User Cart:", userCart);
           // userCart.forEach(cartItem => {
           //     const article_id = cartItem.article_id;
           //     const foundBook = authCtx.articles.find(book => book.id === article_id);

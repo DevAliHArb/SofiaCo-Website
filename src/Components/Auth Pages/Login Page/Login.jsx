@@ -117,7 +117,6 @@ const onFinish = async () => {
     const user = response.data;
     const userInfo = user.user;
     const userId = userInfo.id;
-    // console.log(userInfo);
     // Dispatch action to add user to Redux store
     dispatch(addUser(userInfo));
 
@@ -137,7 +136,6 @@ const onFinish = async () => {
       }
   });
   const userCart = cartResponse.data.data; // Assuming cart data is returned in the response
-  // console.log("User Cart:", userCart);
   userCart?.forEach(cartItem => {
       const article_id = cartItem.article_id;
       const foundBook = authCtx.articles.find(book => book.id === article_id);

@@ -53,7 +53,6 @@ const BlogPage = () => {
         const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/users/${user.id}/blogs`, {
           headers: { Authorization: `Bearer ${token}` }
         });
-        console.log("User Blogs:", response.data);
         setUserBlogs(response.data.data);
       } catch (error) {
         console.error("Error fetching user blogs:", error);

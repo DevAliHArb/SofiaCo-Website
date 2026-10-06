@@ -38,7 +38,6 @@ const Events = () => {
   const fetchAbout = async () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/events?ecom_type=sofiaco`);
-      // console.log('Response data:', response.data);
       seteventData(response.data.data || [])
     } catch (error) {
       // console.error('Error fetching addresses:', error);
@@ -80,7 +79,7 @@ const Events = () => {
                 <div className={classes.card_imgimg}>
                   <img alt='' src={`${(eventImg?.length === 0 ? props.event_images[0]?.image : eventImg[0]?.image)||EventImg }`}/>
                 <div className={classes.icon_con}>
-                  <p className={classes.icon} onClick={()=>console.log(eventImg)}>{currency === "eur" ? `€ ${Number(props.price).toFixed(0)} ` : `$ ${(props.price * authCtx.currencyRate).toFixed(0)} `}</p>
+                  <p className={classes.icon}>{currency === "eur" ? `€ ${Number(props.price).toFixed(0)} ` : `$ ${(props.price * authCtx.currencyRate).toFixed(0)} `}</p>
                 </div>
                 </div>
                 <div className={classes.card_text}>

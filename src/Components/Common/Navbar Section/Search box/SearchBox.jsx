@@ -437,7 +437,7 @@ function SearchBox(ParentProps) {
                   </div>
                   <h1
                     className={classes.header}
-                    onClick={() => console.log(bookData)}
+
                   >
                     {bookData?.designation}
                   </h1>

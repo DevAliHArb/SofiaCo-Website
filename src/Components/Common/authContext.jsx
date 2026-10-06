@@ -150,11 +150,9 @@ export const AuthContextProvider = (props) => {
         const userCart = cartResponse.data.data;
         dispatch(resetCart());
 
-        // console.log('Error in Login:', userCart);
         userCart.forEach((cartItem) => {
           const article_id = cartItem.article_id;
           const foundBook = articles.find((book) => book.id === article_id);
-          console.log("testt", cartItem);
           dispatch(
             addInitialcart({
               cart_id: cartItem.id,
@@ -327,7 +325,6 @@ export const AuthContextProvider = (props) => {
       const sorteddata = [...response.data].sort((a, b) =>
         a._nom.localeCompare(b._nom)
       );
-      console.log("All Categories:", sorteddata);
       setAllCategories(sorteddata);
     } catch (error) {
       // console.error('Error fetching categories:', error);
@@ -540,7 +537,6 @@ export const AuthContextProvider = (props) => {
         const maxQty = getMaxQty();
         if (maxQty && newQty > maxQty) newQty = maxQty;
       }
-      console.log("New Quantity to add:", userexistingarticle);
       if (user?.id) {
         if (userexistingarticle) {
           await axios.put(
@@ -598,7 +594,6 @@ export const AuthContextProvider = (props) => {
   };
 
   const addToCartWithQtyhandler = async (props) => {
-    console.log(props);
     if (!user) {
       toast.info(
         language === "eng"
@@ -648,7 +643,6 @@ export const AuthContextProvider = (props) => {
           );
         } catch (error) {
           // console.error("Error adding to cart:", error);
-          console.log(error);
         } finally {
           setIsLoading(false);
         }
@@ -663,7 +657,6 @@ export const AuthContextProvider = (props) => {
               quantity: Number(maxQuantity).toFixed(0),
             }, { headers: { Authorization: `Bearer ${token}` } })
             .then((response) => {
-              // console.log("PUT request successful:", response.data);
               dispatch(
                 addTocart({
                   _id: props.id,
@@ -682,7 +675,6 @@ export const AuthContextProvider = (props) => {
               quantity: newQuantity,
             }, { headers: { Authorization: `Bearer ${token}` } })
             .then((response) => {
-              // console.log("PUT request successful:", response.data);
               dispatch(
                 addTocart({
                   _id: props.id,
@@ -700,13 +692,11 @@ export const AuthContextProvider = (props) => {
   };
   const changeCartQtyhandler = async (props) => {
     if (props.quantity > 0) {
-      // console.log("helooo",props.id, props.quantity);
       axios
         .put(`${import.meta.env.VITE_TESTING_API}/cart/${props.id}`, {
           quantity: props.quantity,
         })
         .then((response) => {
-          // console.log("PUT request successful:", response.data);
           dispatch(
             changeQuantity({
               _id: props._id,
@@ -763,7 +753,6 @@ export const AuthContextProvider = (props) => {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(() => {
-        // console.log("delete request successful:");
         dispatch(deleteItem(item));
         toast.success(
           language === "eng" ? "Product is removed." : "Le produit est supprimé.",
@@ -906,7 +895,6 @@ export const AuthContextProvider = (props) => {
 
   const deleteFavoritehandler = async (props) => {
     const item = favorites.find((item) => item._favid === props);
-    // console.log(props)
     try {
       const response = await axios.delete(
         `${import.meta.env.VITE_TESTING_API}/favorites/${item.id}`,

@@ -49,7 +49,6 @@ const AlsoSee = (props) => {
         `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco${articleFamilleIdParam}&${props.collection ? `collection[]=${props.collection}` : 'alsosee'}&user_id=${user?.id ? user.id : null}`
         // `${import.meta.env.VITE_TESTING_API}/articles?ecom_type=sofiaco`
       );
-      // console.log(response.data.data);
       const filteredArticles = response?.data?.data?.filter(article => article._qte_a_terme_calcule > 0);
 
       setArticles(filteredArticles);
