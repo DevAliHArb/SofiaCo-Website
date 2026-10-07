@@ -109,7 +109,7 @@ const CollectionsPage = () => {
       <div className={classes.bigContainer}>
         <OurSelectionBanner props={heroData} />
         <div className={classes.header}>
-          <h1 onClick={()=>console.log(records)}>{data.Collections.CollectionsPage.title[language]}</h1>
+          <h1>{data.Collections.CollectionsPage.title[language]}</h1>
           <p>{data.Collections.CollectionsPage.description[language]}</p>
         </div>
 
@@ -130,7 +130,6 @@ const CollectionsPage = () => {
             {records.map((props) => {
               return (
                 <div key={props.id} className={classes.logo_con} onClick={() => {
-                  // console.log(props)
                   dispatch(addCollection(props));
                   navigate(`/main/brands/${props.id}/details`);
                 }}>

@@ -25,7 +25,6 @@ const Favorite = ({carttoggle}) => {
   const handleClose = () => setalertOpen(false);
   const handleConfirm = () => {
     // Perform actions on confirmation
-    // console.log('Delete confirmed!');
     // Additional logic...
     dispatch(resetfavorite())
     // Close the modal
@@ -54,7 +53,6 @@ const Favorite = ({carttoggle}) => {
     };
   
     const AddAllHandler = () => {
-      console.log('resee');
       favoriteData.forEach( props => 
        { if (props._qte_a_terme_calcule > 0 && !props?.removed) {
         authCtx.addToCartWithQty(

@@ -38,7 +38,6 @@ const Cart = () => {
   const handleCheckout = () => {
     const outOfStockItems = productData.filter(item => item._qte_a_terme_calcule < 1);
     const removedItems = productData.filter(item => item?.removed);
-    // console.log(productData)
     if (removedItems.length > 0) {
       toast.error(language === 'eng' ? "Please remove all items that are deleted!" : "Veuillez supprimer tous les éléments qui ont été supprimés !", {
         position: "top-right",
@@ -174,7 +173,7 @@ const Cart = () => {
       <div className={classes.header}>
           <p>Items</p>
           <p></p>
-          <p onClick={()=>console.log(9782490681228)}>{language === 'eng' ? "Quantity" : "Quantité"}</p>
+          <p>{language === 'eng' ? "Quantity" : "Quantité"}</p>
           <p>{language === 'eng' ? "Price" : "Prix"}</p>
           <p>Total</p>
           <p></p>

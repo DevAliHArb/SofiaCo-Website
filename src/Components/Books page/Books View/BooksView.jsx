@@ -311,7 +311,6 @@ const BooksView = ({carttoggle}) => {
       const response = await axios.get(url);
       const filtersValue = response.data.filter(item => item.values && item.values.length > 0); 
       setfilterValues(filtersValue)
-      // console.log('filtersValue',filtersValue);
     } catch (error) {
       console.error("Error fetching filters value:", error);
     }
@@ -944,7 +943,6 @@ const BooksView = ({carttoggle}) => {
 
   const handleChangeStock = (event) => {
     const newStockValue = event.target.value;
-    console.log(newStockValue);
     if (newStockValue) {
       setinStock(newStockValue);
       localStorage.setItem("stock", newStockValue);
@@ -1016,7 +1014,6 @@ const BooksView = ({carttoggle}) => {
       }
     }
     // Optionally, you can add a message or perform any other action after deletion
-    // console.log("Items with prefix 'isExpanded_' deleted from localStorage.");
   };
   const ResetRateHandle = async () => {
     setSelectedRate(0)

@@ -16,8 +16,11 @@ const CompletedOrder = () => {
 
   const fetchOrder = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/order_invoices/${id}`);
-      // console.log('Response data:', response.data);
+      const token = sessionStorage.getItem("token");
+      const response = await axios.get(
+        `${import.meta.env.VITE_TESTING_API}/order_invoices/${id}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
       setData(response.data.data || {})
     } catch (error) {
       // console.error('Error fetching addresses:', error);
@@ -29,7 +32,7 @@ useEffect(() => {
   return (
     <div className={classes.auth_con}>
       <div className={classes.headTitles}>
-        <h1 onClick={()=>console.log(data)}>Completed!</h1>
+        <h1>Completed!</h1>
         <div style={{width:'fit-content',margin:"2em auto",display:'flex',flexDirection:"row",gap:"2em"}}>
           <h4 style={{padding:'1em',margin:'0 .5em',cursor:'default'}}><span style={{padding:'.3em .5em',backgroundColor:'var(--primary-color)',color:'#fff',borderRadius:'50%'}}>1</span> {Data.Cart.title1[language]}</h4>
           <h4 style={{padding:'1em',margin:'0 .5em',cursor:'default'}} ><span style={{padding:'.3em .5em',backgroundColor:'var(--primary-color)',color:'#fff',borderRadius:'50%'}}>2</span> {Data.Cart.title2[language]}</h4>

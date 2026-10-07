@@ -60,7 +60,6 @@ const AddCartPopup = () => {
       }
     });
   }, [constantValue]);
-// console.log(constantValue)
 
   const [swiper, setSwiper] = useState(null);
 

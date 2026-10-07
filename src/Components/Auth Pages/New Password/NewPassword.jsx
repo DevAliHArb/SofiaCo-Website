@@ -56,11 +56,6 @@ const NewPassword = () => {
 
   const onFinish = async (values) => {
     setLoading(true);
-    console.log(JSON.stringify({
-      ...values,
-      token: token,
-      email: email,
-    }))
     const body = JSON.stringify({
       ...values,
       token: token,
@@ -76,7 +71,6 @@ const NewPassword = () => {
       });
 
       const data = await response.data;
-      console.log(data)
       // Check if the request was successful
     if (response.status === 200 && response.status < 300) {
         navigate('/login');

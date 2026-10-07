@@ -117,7 +117,6 @@ const OrderCard = ({data ,reviewHandler}) => {
 const CancleOrderHandler = () => {
   axios.put(`${import.meta.env.VITE_TESTING_API}/order_invoices/${data.id}?status_id=13`)
   .then(() => {
-      // console.log("delete request successful:");
       toast.success(language === "eng" ? "Delete request successful." : "Demande de suppression réussie.", {
         position: "top-right",
           autoClose: 1500,
@@ -148,7 +147,6 @@ const CancleOrderHandler = () => {
 const AddAllToCart = () => {
   data.order_invoice_items?.forEach(element => {
     authCtx.addToCart({props: element.article, carttoggle:()=>{}});
-    // console.log(element.article)
   });
 }
 

@@ -26,7 +26,6 @@ const Mentions = () => {
   const fetchPolicy = async () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/policy_conditions?ecom_type=sofiaco`);
-      // console.log('Response data:', response.data);
       setpolicyData(response.data.data[0])
     } catch (error) {
       // console.error('Error fetching metaverse:', error);

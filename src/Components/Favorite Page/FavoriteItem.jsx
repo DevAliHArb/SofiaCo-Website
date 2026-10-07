@@ -153,7 +153,6 @@ const FavoriteItem = ({ carttoggle }) => {
                   // min="1"
                   onChange={(e) => {
                     const newQuantity = parseInt(e.target.value, 10);
-                    console.log(newQuantity)
                     if (!isNaN(newQuantity) && newQuantity >= 1 ) {
                       if (newQuantity <= props._qte_a_terme_calcule) {
                         dispatch(
@@ -250,20 +249,6 @@ const FavoriteItem = ({ carttoggle }) => {
               {props._qte_a_terme_calcule > 0 &&<button
               onClick={(event)=>{ 
                 event.stopPropagation();
-                console.log({
-                  id: props._favid,
-                  designation: props.favtitle,
-                  dc_auteur: props.favauthor,
-                  image: props.favimage,
-                  prixpublic: props.favprice,
-                  _qte_a_terme_calcule: props._qte_a_terme_calcule,
-                  _code_barre: props._code_barre,
-                  quantity: props.favquantity,
-                  discount:props.discount,
-                  descriptif: props.favdescription,
-                  _poids_net: props.weight,
-                  _prix_public_ttc: props.price_ttc,
-                });
                 authCtx.addToCartWithQty(
                   (props = {
                     id: props._favid,

@@ -23,13 +23,15 @@ const SuccessPage = () => {
 const fetchOrder = async () => {
     try {
       setLoading(true);
-        let userId = null;
-        if (user && user.id) {
-          userId = user.id;
-        }
+        const token = sessionStorage.getItem("token");
       const response = await axios.get(
-        `${import.meta.env.VITE_TESTING_API}/order_invoices?user_id=${userId}`);
-      const orderId = response?.data?.data[0]?.id;
+        `${import.meta.env.VITE_TESTING_API}/order_invoices`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      const sortedOrders = [...(response?.data?.data || [])].sort(
+        (a, b) => new Date(b.date) - new Date(a.date)
+      );
+      const orderId = sortedOrders[0]?.id;
       setorderId(orderId);
     } catch (error) {
       console.error("Error fetching order success:", error);

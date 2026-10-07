@@ -32,7 +32,6 @@ const Video = () => {
     fetchVideos();
   }, []);// Empty dependency array ensures the effect runs only once
 
-  // console.log(videos)
 
   const handleVideoSelect = (videoId) => {
     setSelectedVideo(videoId);

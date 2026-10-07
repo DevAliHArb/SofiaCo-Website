@@ -30,14 +30,12 @@ const Services = () => {
       const response = await axios.get(
         `${import.meta.env.VITE_TESTING_API}/services?ecom_type=sofiaco`
       );
-      // console.log(response.data?.data);
       setServices(response.data?.data);
     } catch (error) {
       // console.error("Error fetching articles:", error);
       // toast.error("Failed to fetch articles.");
     }
   };
-  // console.log(services)
 
   return (
     <div className={classes.big_container}>

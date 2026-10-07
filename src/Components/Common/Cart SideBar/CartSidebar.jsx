@@ -58,10 +58,11 @@ export default function CartSidebar({ toggle, isOpen }) {
       const newQuantity = localQuantities[key];
       if (newQuantity !== item.quantity) {
         setIsLoading(true);
+        const token = sessionStorage.getItem("token");
         axios
           .put(`${import.meta.env.VITE_TESTING_API}/cart/${item.cart_id}`, {
           quantity: newQuantity,
-        })
+        }, { headers: { Authorization: `Bearer ${token}` } })
         .then(() => {
           dispatch(
             addTocart({
@@ -77,7 +78,6 @@ export default function CartSidebar({ toggle, isOpen }) {
           );
         })
         .catch((error) => {
-          // console.log(error)
           toast.error(
             language === "eng"
               ? "Failed to update item quantity."
@@ -234,7 +234,7 @@ export default function CartSidebar({ toggle, isOpen }) {
               <div className={classes.variants}> 
                {props?.cart_items_variants?.map((item,index)=>{
                  return(
-                   <p onClick={()=>console.log(item)} style={{padding:index === 0 && "0"}}> <span style={{textTransform:'capitalize'}}>{item?.articlevariant?.nom ? <strong>{item?.articlevariant?.nom}:</strong> : null}</span> {item?.variantitem ? item?.variantitem?.value : item?.value} {props?.cart_items_variants?.length - 1 !== index && " | "} </p>
+                   <p style={{padding:index === 0 && "0"}}> <span style={{textTransform:'capitalize'}}>{item?.articlevariant?.nom ? <strong>{item?.articlevariant?.nom}:</strong> : null}</span> {item?.variantitem ? item?.variantitem?.value : item?.value} {props?.cart_items_variants?.length - 1 !== index && " | "} </p>
                  )
                })}
                </div>

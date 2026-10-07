@@ -88,7 +88,6 @@ const PopupAdressesModal = ({
 
   const handleChange = (name, value) => {
     setFormData({ ...formData, [name]: value });
-    // console.log(formData);
   };
 
   useEffect(() => {
@@ -103,7 +102,6 @@ const PopupAdressesModal = ({
     setaddLoading(true);
     try {
       if (editModee) {
-        // console.log(formData)
         await axios.put(
           `${import.meta.env.VITE_TESTING_API}/users/${
             user.id

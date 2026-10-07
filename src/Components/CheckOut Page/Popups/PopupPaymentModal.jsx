@@ -136,7 +136,6 @@ const PopupPaymentModal = ({ open, handleClose, isselectedPayment }) => {
   const [cardBrand, setCardBrand] = useState(null);
   // Function to handle changes in the CardNumberElement
   const handleCardChange = (event) => {
-    console.log(event)
     if (event.brand) {
       setCardBrand(event.brand); // Update state with detected card brand
     }
@@ -194,7 +193,6 @@ const PopupPaymentModal = ({ open, handleClose, isselectedPayment }) => {
       { hideProgressBar: true }
     );
   }
-    // console.log("PaymentMethod created:", paymentMethod?.card);
   
     const data = {
       holder_name: formData?.holder_name,

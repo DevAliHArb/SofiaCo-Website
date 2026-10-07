@@ -17,7 +17,6 @@ const About = () => {
   const fetchAbout = async () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/about?ecom_type=sofiaco`);
-      // console.log('Response data:', response.data);
       setaboutData(response.data.data[0])
     } catch (error) {
       // console.error('Error fetching addresses:', error);
@@ -33,8 +32,8 @@ useEffect(() => {
         <div className={classes.content}>
         <div className={classes.header}>
           <div className={classes.headTitle}>
-            <h1 onClick={()=>console.log(aboutData)}> SOFIACO</h1>
-            <h2 onClick={()=>console.log(aboutData)}> {language === 'eng' ? aboutData.title_eng : aboutData.title_fr}</h2>
+            <h1> SOFIACO</h1>
+            <h2> {language === 'eng' ? aboutData.title_eng : aboutData.title_fr}</h2>
           </div>
           <div className={classes.border}></div>
         </div>

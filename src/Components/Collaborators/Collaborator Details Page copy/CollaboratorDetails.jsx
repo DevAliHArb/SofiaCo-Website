@@ -56,7 +56,6 @@ const CollaboratorDetails = () => {
             Authorization: `Bearer ${token}` // Include token in the headers
         }
     });
-      // console.log(response.data);
       toast.success(language === "eng" ? `${CollaboratorData.nom} subscribed successfully!` : `${CollaboratorData.nom} s'est abonné avec succès !`) // You can handle the response here
     } catch (error) {
       // console.error('Error:', error);
@@ -84,7 +83,7 @@ const CollaboratorDetails = () => {
       <OurSelectionBanner props={heroData} />
       <div className={classes.cardContainer}>
         <div className={classes.card} >
-          <h1 style={{fontWeight:'600'}} onClick={() => console.log(CollaboratorData)}>{CollaboratorData.nom}</h1>
+          <h1 style={{fontWeight:'600'}}>{CollaboratorData.nom}</h1>
           <p style={{fontWeight:"500", textTransform:'capitalize'}}>{language === 'eng' ? CollaboratorData.type?.name : CollaboratorData.type?.name_fr}</p>
           <p>{CollaboratorData.biographie}</p>
           <button onClick={()=>handleSuivreClick(CollaboratorData.id)}>{language === 'eng' ? "Follow" : "Suivre" }</button>

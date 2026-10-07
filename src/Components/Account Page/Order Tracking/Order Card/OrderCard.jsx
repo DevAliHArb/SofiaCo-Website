@@ -117,7 +117,6 @@ const OrderCard = ({data ,reviewHandler}) => {
 const CancleOrderHandler = () => {
   axios.put(`${import.meta.env.VITE_TESTING_API}/order_invoices/${data.id}?status_id=13`)
   .then(() => {
-      // console.log("delete request successful:");
         toast.success(language === "eng" ? "Delete request successful." : "Demande de suppression réussie.", {
           position: "top-right",
           autoClose: 1500,
@@ -148,7 +147,6 @@ const CancleOrderHandler = () => {
 const AddAllToCart = () => {
   data.order_invoice_items?.forEach(element => {
     authCtx.addToCart({props: element.article, carttoggle:()=>{}});
-    // console.log(element.article)
   });
 }
   return (
@@ -207,7 +205,7 @@ const AddAllToCart = () => {
            {(data.status_id === 2 || data.status_id === 3 || data.status_id === 4) && <button className={classes.btn} style={{backgroundColor:'var(--primary-color)'}}>Track Order</button>}
            {(data.status_id === 3 || data.status_id === 4 || data.status_id === 5 ) && data.return_status === null && <button className={classes.btn} onClick={Returnhandle} style={{backgroundColor:'var(--primary-color)'}}>Return</button>}
            {data.status_id === 2  && <button onClick={(event) => setShowPopup(true) & event.stopPropagation()} className={classes.btn} style={{backgroundColor:'var(--accent-color)'}}>Cancel Order</button>}
-           {data.status_id === 5 && <button className={classes.btn} style={{backgroundColor:'var(--accent-color)'}} onClick={(event)=>reviewHandler() &event.stopPropagation()&console.log('testtt')}>Review</button>}
+           {data.status_id === 5 && <button className={classes.btn} style={{backgroundColor:'var(--accent-color)'}} onClick={(event)=>reviewHandler() &event.stopPropagation()}>Review</button>}
             <button onClick={(event)=>AddAllToCart() & event.stopPropagation()} className={classes.btn} style={{backgroundColor:'var(--secondary-color)'}}>Repurchase</button>
           </div>
         </div> */}

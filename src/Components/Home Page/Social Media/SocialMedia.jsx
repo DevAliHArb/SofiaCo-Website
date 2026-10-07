@@ -29,7 +29,6 @@ const SocialMedia = (categoryData) => {
       );
       const data = response.data.sort((a, b) => b.id - a.id);
       
-      console.log(data);
       setInstagramPosts(data);
     } catch (error) {
       // //console.error('Error fetching Instagram posts:', error);

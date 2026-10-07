@@ -162,8 +162,6 @@ const Details = () => {
         // Find the collaborator whose nom + prenom matches bookData.dc_auteur
         const collaborator = collaborators.find(collaborator => {
             const fullName = `${collaborator.nom}`;
-            // console.log(fullName.toLowerCase())
-            // console.log(cleanedAuteur.toLowerCase())
             return fullName.toLowerCase() === cleanedAuteur.toLowerCase();
         });
         
@@ -181,7 +179,6 @@ const Details = () => {
             }
         });
 
-        // console.log(response.data);
         toast.success(language === "eng" ? `${collaborator.nom} subscribed successfully!` : `${collaborator.nom} s'est abonné avec succès !`, {hideProgressBar: true}); // You can handle the response here
     } catch (error) {
         // console.error('Error:', error);
@@ -205,8 +202,6 @@ const handleSuivreEditor = async () => {
       // Find the collaborator whose nom + prenom matches bookData.dc_auteur
       const collaborator = collaborators.find(collaborator => {
           const fullName = `${collaborator.nom}`;
-          // console.log(fullName.toLowerCase())
-          // console.log(cleanedAuteur.toLowerCase())
           return fullName.toLowerCase() === cleanedAuteur.toLowerCase();
       });
 
@@ -224,7 +219,6 @@ const handleSuivreEditor = async () => {
           }
       });
 
-      // console.log(response.data);
       toast.success(`${language === 'eng' ? `${collaborator.nom} subscribed successfully!` : `${collaborator.nom} abonné avec succès !!`}`, {hideProgressBar: true}); // You can handle the response here
   } catch (error) {
       // console.error('Error:', error);
@@ -248,8 +242,6 @@ const handleSuivreTranslator = async () => {
       // Find the collaborator whose nom + prenom matches bookData.dc_auteur
       const collaborator = collaborators.find(collaborator => {
           const fullName = `${collaborator.nom}`;
-          // console.log(fullName.toLowerCase())
-          // console.log(cleanedAuteur.toLowerCase())
           return fullName.toLowerCase() === cleanedAuteur.toLowerCase();
       });
 
@@ -267,7 +259,6 @@ const handleSuivreTranslator = async () => {
           }
       });
 
-      // console.log(response.data);
       toast.success(`${language === 'eng' ? `${collaborator.nom} subscribed successfully!` : `${collaborator.nom} abonné avec succès !!`}`, {hideProgressBar: true}); // You can handle the response here
   } catch (error) {
       // console.error('Error:', error);
@@ -291,8 +282,6 @@ const handleSuivreIllustrateur = async () => {
       // Find the collaborator whose nom + prenom matches bookData.dc_auteur
       const collaborator = collaborators.find(collaborator => {
           const fullName = `${collaborator.nom}`;
-          // console.log(fullName.toLowerCase())
-          // console.log(cleanedAuteur.toLowerCase())
           return fullName.toLowerCase() === cleanedAuteur.toLowerCase();
       });
 
@@ -310,7 +299,6 @@ const handleSuivreIllustrateur = async () => {
           }
       });
 
-      // console.log(response.data);
       toast.success(`${language === 'eng' ? `${collaborator.nom} subscribed successfully!` : `${collaborator.nom} abonné avec succès !!`}`, {hideProgressBar: true}); // You can handle the response here
   } catch (error) {
       // console.error('Error:', error);
@@ -333,8 +321,6 @@ const handleSuivreCollection = async () => {
       // Find the collaborator whose nom + prenom matches bookData.dc_auteur
       const Collectiondata = collections.find(collaborator => {
           const fullName = `${collaborator.nom}`;
-          // console.log(fullName.toLowerCase())
-          // console.log(cleanedCollec.toLowerCase())
           return fullName.toLowerCase() === cleanedCollec.toLowerCase();
       });
 
@@ -352,7 +338,6 @@ const handleSuivreCollection = async () => {
           }
       });
 
-      // console.log(response.data);
       toast.success(`${language === 'eng' ? `${Collectiondata.nom} subscribed successfully!` : `${Collectiondata.nom} abonné avec succès !!`}`, {hideProgressBar: true}); // You can handle the response here
   } catch (error) {
       // console.error('Error:', error);
@@ -380,7 +365,6 @@ const handleSuivreCategory = async () => {
           Authorization: `Bearer ${token}` // Include token in the headers
       }
   });
-    // console.log(response.data);
     toast.success(`${language === 'eng' ? `${categoryItem?._nom} subscribed successfully!` : `${categoryItem._nom} abonné avec succès !!`}`, {hideProgressBar: true}) // You can handle the response here
   } catch (error) {
     // console.error('Error:', error);
@@ -662,7 +646,6 @@ const [selectedVariants, setSelectedVariants] = useState({});
     Object.keys(selectedVariants).forEach((variantId) => {
       const variant = bookData?.article_variants.find(v => v.id === parseInt(variantId));
       const selectedItem = selectedVariants[variantId];
-      console.log('testt', selectedItem);
   
       if (!variant.is_mandatory) {
         if (variant.price_type === "change_price") {
@@ -925,7 +908,7 @@ const [selectedVariants, setSelectedVariants] = useState({});
           fontSize: 'calc(.8rem + .3vw)',
           marginBottom: '0.5em',color:"var(--accent-color)"
         }}
-        onClick={() => console.log(selectedVariants)}
+
       >
         <span style={{color:"var(--secondary-color)"}}>{variant?.nom}</span> {' '}
         <span style={{ fontWeight: "400" }}>

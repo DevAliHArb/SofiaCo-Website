@@ -49,7 +49,6 @@ const EventsDetails = () => {
   const fetchAbout = async () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/events?ecom_type=sofiaco`);
-      // console.log('Response data:', response.data);
       setlatestEvents(response.data.data || {})
     } catch (error) {
       // console.error('Error fetching addresses:', error);
@@ -73,13 +72,10 @@ useEffect(() => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const [eventEnded, setEventEnded] = useState(false);
-// console.log(eventEnded)
   useEffect(() => {
     const currentDate = new Date();
     const eventDate = eventitem[0].date;
 
-    // console.log(currentDate)
-    // console.log(eventDate)
     // Check if the event date is in the past
     const hasEventEnded = currentDate > eventDate;
     if (hasEventEnded) {
@@ -108,11 +104,12 @@ useEffect(() => {
   const handleSubmit = async () => {
     if (user) {
       try {
+        const token = sessionStorage.getItem("token");
         const response = await axios.post(
           `${import.meta.env.VITE_TESTING_API}/events/${eventData.id}/replies`,
-          { ...formData, user_id: user.id }
+          { description: formData.reply },
+          { headers: { Authorization: `Bearer ${token}` } }
         );
-        // console.log("Event replied successfully:", response.data);
         toast.success(language === "eng" ? "Event replied successfully." : "Réponse à l'événement réussie.", {
           position: "top-right",
           autoClose: 1500,
@@ -179,7 +176,7 @@ useEffect(() => {
   return (
     <div className={classes.events_detail}>
       <div className={classes.events_detail_image_con} style={{flexDirection:"column-reverse"}}>
-        <div className={classes.contentContainer} onClick={()=>console.log(eventData)}>
+        <div className={classes.contentContainer}>
           <h1>{language == 'eng' ? eventData.name_eng : eventData?.name_fr}</h1>
           <h3>{eventData.event_host?.map((data ,index)=>{
                     return(

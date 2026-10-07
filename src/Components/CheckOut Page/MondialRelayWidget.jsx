@@ -1,11 +1,9 @@
 import React, { useEffect, useRef } from "react";
 
 const normalizeCountryCode = (countryValue) => {
-  console.log('countryValue:', countryValue);
   
   if (!countryValue) return "FR";
   const normalizedCountry = String(countryValue).trim().toLowerCase();
-  console.log('normalizedCountry:', normalizedCountry);
   if (normalizedCountry.length === 2) return normalizedCountry.toUpperCase();
   if (["france", "français", "francais"].includes(normalizedCountry)) {
     return "FR";

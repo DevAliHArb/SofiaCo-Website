@@ -105,7 +105,7 @@ useEffect(() => {
         keywords={keyword}
         jsonLd={buildBreadcrumbJsonLd(breadcrumbPaths, language)}
       />
-      <div onClick={() => console.log(categoryData,subCategoryData,authCtx.allCategories)} >
+      <div >
         <CatHero categoryData={subsubCategoryData} />
         <Breadcrumb paths={breadcrumbPaths} />
         <BooksView />

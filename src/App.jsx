@@ -46,6 +46,7 @@ const ContactUs              = lazy(() => import('./Components/ContactUs/Contact
 const SuccessPage            = lazy(() => import('./Components/CheckOut Page/SuccessPage'));
 const Publishers             = lazy(() => import('./Components/Collaborators/Publishers Page/Publishers'));
 const NewPassword            = lazy(() => import('./Components/Auth Pages/New Password/NewPassword'));
+const ForceResetPassword     = lazy(() => import('./Components/Auth Pages/Force Reset Password/ForceResetPassword'));
 const ForgotPassword         = lazy(() => import('./Components/Auth Pages/Forgot Password/ForgotPassword'));
 const PublisherDetails       = lazy(() => import('./Components/Collaborators/Publisher DetailsPage/PublisherDetails'));
 const ResendVerify           = lazy(() => import('./Components/Auth Pages/Verfiy Email/ResendVerify'));
@@ -119,10 +120,8 @@ function App() {
   const [pageMetaData, setPageMetaData] = useState({});
 
   useEffect(() => {
-    // console.log('Current path:', path);
   
     const accountDetailsRegex = /^\/account\/\w+/;
-    // console.log('Regex test result:', accountDetailsRegex.test(path));
   
     if (accountDetailsRegex.test(path)) {
       setWithBG(true);
@@ -170,7 +169,6 @@ function App() {
   }, [path]);
 
   const logout = async () => {
-    // console.log('ok')
     try {
       // Get the token from local storage
       const token = sessionStorage.getItem('token');
@@ -222,7 +220,6 @@ function App() {
       const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/seo-meta?ecom_type=sofiaco&section_id=${sectionId}`);
       if (isMounted) {
         setPageMetaData(response?.data?.data?.[0] || {});
-        console.log('Fetched meta data:', response?.data?.data?.[0]);
       }
     } catch (error) {
       if (isMounted) {
@@ -279,6 +276,9 @@ function App() {
       <AddCartPopup />
       <div>
         <Suspense fallback={<PageLoader />}>
+        {user?.must_reset_password && path !== '/force-reset-password' ? (
+          <Navigate to="/force-reset-password" replace />
+        ) : (
         <Routes>
           <Route path="/" element={<Navigate to="/main" replace />} />
           <Route
@@ -298,6 +298,7 @@ function App() {
           <Route path="/resend-verify-email" element={<ScrollToTop><ResendVerify /></ScrollToTop>} />
           <Route path='/forget-password' element={<ScrollToTop><ForgotPassword/></ScrollToTop>} />
           <Route path='/reset-password' element={<ScrollToTop><NewPassword/></ScrollToTop>} />
+          <Route path='/force-reset-password' element={<ScrollToTop><ForceResetPassword/></ScrollToTop>} />
           <Route path="/main/brands" element={<ScrollToTop><Publishers /></ScrollToTop>} />
           <Route path="/main/brands/:id/details" element={<ScrollToTop><PublisherDetails /></ScrollToTop>} />
           <Route path="/main/collaborators" element={<ScrollToTop><Collaborators /></ScrollToTop>} />
@@ -306,7 +307,7 @@ function App() {
           <Route path="/main/cart" element={<ScrollToTop><Cart /></ScrollToTop>} />
           <Route path="/main/checkout" element={<ScrollToTop><CheckOut /></ScrollToTop>} />
           <Route path="/checkout" element={<Navigate to="/main/checkout" replace />} />
-          <Route path="/main/checkout-completed/:id" element={<ScrollToTop><CompletedOrder /></ScrollToTop>} />
+          <Route path="/main/checkout-completed/:id" element={user ? <ScrollToTop><CompletedOrder /></ScrollToTop> : <Navigate to="/login" replace />} />
           <Route path="/main/contact" element={<ScrollToTop><ContactUs/></ScrollToTop>} />
           <Route path="/main/products" element={<ScrollToTop><BooksPage /></ScrollToTop>} />
           <Route path="/main/products/subcategory/:id" element={<ScrollToTop><BooksPage /></ScrollToTop>} />
@@ -329,6 +330,7 @@ function App() {
           <Route path='/order-success' element={<ScrollToTop><SuccessPage/></ScrollToTop>} /> 
           <Route path="*" element={<ErrorPage />} />
           </Routes>
+        )}
         </Suspense>
       </div>
       {!isAuthPages && <Footer />}

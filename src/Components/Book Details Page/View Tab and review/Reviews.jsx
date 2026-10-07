@@ -69,7 +69,6 @@ const Reviews = () => {
 
     const handleSubmit = async () => {
         setLoading(true);
-        // console.log('Review created:', { ...formData, user_id: user.id });
 
         if (!user) {
             toast.error(language === "eng" ? "Please login first." : "Veuillez d'abord vous connecter.", { hideProgressBar: true });
@@ -80,7 +79,6 @@ const Reviews = () => {
         try {
             const response = await axios.post(`${import.meta.env.VITE_TESTING_API}/articles/${selectedBook[0].id}/reviews`, {
                 ...formData,
-                user_id: user.id,
                 rate: 0,
                 is_counted: false,
                 ecom_type: 'sofiaco'

@@ -32,7 +32,6 @@ const addToNewsletter = async (email) => {
       { email, ecom_type: 'sofiaco' }
     );
     setEmail('')
-    console.log("Email added to newsletter:", response.data);
     // You can display a success message if needed
     toast.success(`${language === 'eng' ? "Successful subscriber" : 'Abonné avec succès'}`, {
       position: "top-right",

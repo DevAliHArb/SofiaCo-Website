@@ -65,9 +65,7 @@ const AccountDetails = () => {
           },
         }
       );
-      // console.log(response.data.data)
       dispatch(editUser(response.data.data));
-      // console.log(userInfo);
       // Set loading to false after fetching data
     } catch (error) {
       // console.error("Error fetching user:", error);
@@ -101,8 +99,6 @@ const AccountDetails = () => {
         }
       );
       fetchUser();
-      // console.log(userInfo);
-      // console.log("Image uploaded successfully:", response.data);
       toast.success(language === "eng" ? "Image uploaded successfully" : "Image téléchargée avec succès", {
         position: "top-right",
         autoClose: 1500,
@@ -152,7 +148,6 @@ const AccountDetails = () => {
     setLoading(true);
     if (passData.newpassword === passData.confirmpassword) {
       try {
-        // console.log(passData);
         // Make API call to change password
         const response = await axios.put(
           `${import.meta.env.VITE_TESTING_API}/users/${userInfo.id}`,
@@ -163,7 +158,6 @@ const AccountDetails = () => {
             },
           }
         );
-        // console.log(response.data);
         toast.success(response.data.message, {
           position: "top-right",
           autoClose: 1500,
@@ -226,7 +220,6 @@ const AccountDetails = () => {
   };
 
   const handleEditUser = async (values) => {
-    // console.log(formData);
     setLoading(true);
     if (changedimage !== null) {
       handleImageChange();
@@ -241,7 +234,6 @@ const AccountDetails = () => {
           },
         }
       );
-      // console.log(response.data); // Handle response as needed
       dispatch(editUser(values));
       toast.success(language === "eng" ? "Data saved successfully" : "Données enregistrées avec succès", {
         position: "top-right",

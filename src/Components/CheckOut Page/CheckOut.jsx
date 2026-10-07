@@ -46,7 +46,6 @@ import { toast } from "react-toastify";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { useStripe } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { decryptAES128CTR } from "../Common/Decrypt";
 import GiftItems from "./Gift Items/GiftItems";
 import MondialRelayWidget from "./MondialRelayWidget";
 
@@ -187,7 +186,6 @@ const CheckOut = () => {
   const colissimoJQueryRef = useRef(null);
   const colissimoPopupOpenRef = useRef(false);
   const colissimoInitTimeoutRef = useRef(null);
-  const [colisssimopass, setColisssimoPass] = useState(null);
   const [stripePublishableKey, setStripePublishableKey] = useState(null);
   const [selectedGiftItems, setSelectedGiftItems] = useState([]);
   const [maxGifts, setMaxGifts] = useState(0);
@@ -332,7 +330,6 @@ const CheckOut = () => {
   };
 
   const handleGiftChange = (item) => {
-    console.log(selectedGiftItems);
 
     setSelectedGiftItems((prev) => {
       const exists = prev.find((i) => i.id === item.id);
@@ -365,25 +362,23 @@ const CheckOut = () => {
     }
   }, [productData]);
   
+  // Stripe key comes from GET /payment-public-keys (public, no auth needed),
+  // already decrypted server-side — replaces the old /societe-config +
+  // client-side decrypt pattern.
   useEffect(() => {
-    const fetchDecryptedValues = async () => {
-       // Get the encrypted values from the authCtx
-      const encryptedcolisssimopass = authCtx.societeConfig?.find(item => item.config_module_nomtech === "colissimo_password")?.valeur;
-      const encryptedStripePublishableKey = authCtx.societeConfig?.find(item => item.config_module_nomtech === "stripe_pay_api_key")?.valeur; // Ensure this is the publishable key
-
-      // Decrypt the values
-      if (encryptedcolisssimopass && encryptedStripePublishableKey) {
-        const decryptedcolisssimopass = await decryptAES128CTR(encryptedcolisssimopass);
-        const decryptedStripePublishableKey = await decryptAES128CTR(encryptedStripePublishableKey);
-        // console.log(decryptedStripePublishableKey)
-        // Set the decrypted values to state
-        setColisssimoPass(decryptedcolisssimopass);
-        setStripePublishableKey(decryptedStripePublishableKey);
+    const fetchStripeKey = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/payment-public-keys`);
+        if (response.data?.stripe_publishable_key) {
+          setStripePublishableKey(response.data.stripe_publishable_key);
+        }
+      } catch (error) {
+        console.error('Error fetching payment public keys:', error);
       }
     };
 
-    fetchDecryptedValues();
-  }, [authCtx]);
+    fetchStripeKey();
+  }, []);
   useEffect(() => {
     const outOfStockItems = productData.filter(item => item._qte_a_terme_calcule < 1);
     const removedItems = productData.filter(item => item?.removed);
@@ -472,17 +467,13 @@ const CheckOut = () => {
       createScriptTag(src);
     };
   
-    // Function to fetch authentication token
+    // Function to fetch authentication token — proxied server-side so the
+    // real Colissimo login/password never reach the browser (see
+    // ColissimoProxyController::getAuthToken on the backend).
     const fetchAuthToken = async () => {
-      const data = {
-        login: authCtx.societeConfig?.find(item => item.config_module_nomtech === "colissimo_username")?.valeur,
-        password: colisssimopass,
-      };
-  
       try {
-        const response = await axios.post(
-          "https://ws.colissimo.fr/widget-colissimo/rest/authenticate.rest",
-          data
+        const response = await axios.get(
+          `${import.meta.env.VITE_TESTING_API}/colissimo-auth-token`
         );
         return response.data.token;
       } catch (error) {
@@ -596,7 +587,7 @@ const CheckOut = () => {
 
       resetColissimoRuntime();
     };
-  }, [colissimoPopupOpen, addresseslist, colisssimopass, colissimoWidgetKey]);
+  }, [colissimoPopupOpen, addresseslist, colissimoWidgetKey]);
 
   // Callback method
   useEffect(() => {
@@ -614,7 +605,6 @@ const CheckOut = () => {
   }, []);
 
   function getShippingCost(orderCartCost, orderWeight, shippingCostss) {
-    // console.log("heloooo", { orderCartCost, orderWeight, shippingCostss });
     // Filter out items with null cart_cost and sort the remaining items by cart_cost in ascending order
     const sortedByCartCost = shippingCostss
       .filter((item) => item.cart_cost !== null)
@@ -1020,10 +1010,8 @@ const CheckOut = () => {
     const cpupon = couponList?.find((props) => props?.code === couponCode );
     if (cpupon?.id) {
       handleApplyCoupon(cpupon?.code)
-      console.log('applyyy');
     } else {
       AddAndApplyCoupon(couponCode)
-      console.log('adddddd');
     }
     
   };
@@ -1176,7 +1164,6 @@ const CheckOut = () => {
     setAdressModalOpen(false);
     setTimeout(() => {
       fetchAddresses();
-      // console.log(addresseslist);
     }, 500);
   };
 
@@ -1413,12 +1400,7 @@ const CheckOut = () => {
   // Process the actual checkout with the specified lookup status
   const processCheckout = async (statusToUse) => {
     try {
-        console.log("Processing checkout with status:", statusToUse);
-        console.log("User defaultPay:", user.defaultPay);
-        console.log("directPay:", directPay);
-        
         const requestData = {
-          user_id: user.id,
           user_address_id: user.defaultAdd,
           // When using payment conditions (statusToUse === 51), always use default payment method
           // When not using conditions, respect the directPay flag
@@ -1459,7 +1441,6 @@ const CheckOut = () => {
             affiliate_token: affiliateToken || undefined,
         };
         const requestData1 = {
-          user_id: user.id,
           user_address_id: user.defaultAdd,
           // When using payment conditions (statusToUse === 51), always use default payment method
           // When not using conditions, respect the directPay flag
@@ -1509,8 +1490,6 @@ const CheckOut = () => {
         }
 
         setLoading(true);
-        console.log("deed",requestData);
-        
 
         if ((delivery === "Colissimo" && !colissimoPointData) || (delivery === "Mondial Relay" && !mondialRelayPointData)) {
           toast.error(
@@ -1529,7 +1508,8 @@ const CheckOut = () => {
             // Request to create a Checkout Session from your server
             const response = await axios.post(
               `${import.meta.env.VITE_TESTING_API}/create-checkout-session`,
-              requestData1
+              requestData1,
+              { headers: { Authorization: `Bearer ${token}` } }
             );
             const sessionId = response.data.sessionId;
 
@@ -1546,7 +1526,8 @@ const CheckOut = () => {
             // Normal order processing
             await axios.post(
               `${import.meta.env.VITE_TESTING_API}/order_invoices`,
-              requestData
+              requestData,
+              { headers: { Authorization: `Bearer ${token}` } }
             );
 
             dispatch(resetCart());
@@ -1569,9 +1550,9 @@ const CheckOut = () => {
       } catch (error) {
         // console.error("Error in ordering:", error);
         setLoading(false);
-        // handleErrorOpen(
-        //   error.response?.data?.error || "An unexpected error occurred"
-        // );
+        handleErrorOpen(
+          error.response?.data?.error || "An unexpected error occurred"
+        );
       }
   };
 
@@ -1604,7 +1585,6 @@ const CheckOut = () => {
         // const subTotal = calculateReduction(subtotalAmt, coupon.reduction);
         const subTotal = subtotalAmt;
         productData?.forEach(element => {
-          console.log(Math.max(coupon.reduction, Number(element.discount)));
             dispatch(editCart({
                 _id: element._id,
                 discount: Math.max(coupon.reduction, Number(element.discount)), // Get the greatest value
@@ -1641,7 +1621,6 @@ const CheckOut = () => {
     }
     try {
       const requestData = {
-        user_id: user.id,
         user_address_id: user.defaultAdd,
         paypal: true,
         delivery_id: deliveryId,
@@ -1686,7 +1665,8 @@ const CheckOut = () => {
       setLoading(true);
       await axios.post(
         `${import.meta.env.VITE_TESTING_API}/order_invoices`,
-        requestData
+        requestData,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
 
       dispatch(resetCart());
@@ -1706,9 +1686,9 @@ const CheckOut = () => {
     } catch (error) {
       // console.error("Error in ordering:", error);
       setLoading(false);
-      // setErrorMessage(
-      //   error.response?.data?.error || "An unexpected error occurred"
-      // );
+      handleErrorOpen(
+        error.response?.data?.error || "An unexpected error occurred"
+      );
     }
   }
 
@@ -2036,7 +2016,6 @@ const CheckOut = () => {
                         }
                         onChange={() =>
                           handleChange2(address.id) 
-                          // console.log(address.default)
                         }
                       >
                         <FormControlLabel
@@ -2866,8 +2845,6 @@ const CheckOut = () => {
     });
   }}
   onError={(err) => {
-    console.log(err);
-    
     toast.error(`${err}`);
   }}
 />

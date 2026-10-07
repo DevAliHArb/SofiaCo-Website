@@ -95,7 +95,6 @@ const Adresses = () => {
           },
         }
       );
-      // console.log("Response data:", response.data);
       const sortedAddresses = response.data.data.sort((a, b) => a.id - b.id);
         setAddressesList(sortedAddresses);
       setLoading(false); // Set loading to false after fetching data
@@ -140,14 +139,12 @@ const Adresses = () => {
 
   const handleChange = (name, value) => {
     setFormData({ ...formData, [name]: value });
-    // console.log(formData);
   };
 
   const handleSubmit = async () => {
     setaddLoading(true);
     try {
       if (editMode) {
-        // console.log(formData);
         await axios.put(
           `${import.meta.env.VITE_TESTING_API}/users/${user.id}/addresses/${editaddressId}`,
           formData,
@@ -245,7 +242,6 @@ const Adresses = () => {
     }
   }, [open]);
 
-// console.log(formData)
   if (loading) {
     return <div>Loading...</div>; // Render a loading indicator while fetching data
   }

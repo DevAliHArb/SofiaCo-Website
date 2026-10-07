@@ -51,7 +51,6 @@ const HistoryCard = ({data}) => {
     }
   },[data])
     const sign = '>';
-    // console.log(filtereddata)
 
     const Reviewhandle = () => {
       authCtx.setReviewData(images);
