@@ -691,7 +691,7 @@ const CheckOut = () => {
   }, []);
 
   const getToken = () => {
-    return sessionStorage.getItem("token");
+    return localStorage.getItem("token");
   };
 
   function generatedate() {

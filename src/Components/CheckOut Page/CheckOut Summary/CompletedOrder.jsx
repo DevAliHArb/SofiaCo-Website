@@ -16,7 +16,7 @@ const CompletedOrder = () => {
 
   const fetchOrder = async () => {
     try {
-      const token = sessionStorage.getItem("token");
+      const token = localStorage.getItem("token");
       const response = await axios.get(
         `${import.meta.env.VITE_TESTING_API}/order_invoices/${id}`,
         { headers: { Authorization: `Bearer ${token}` } }

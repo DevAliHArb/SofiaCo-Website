@@ -21,7 +21,7 @@ const ForceResetPassword = () => {
   const [loading, setLoading] = useState(false);
   const language = useSelector((state) => state.products.selectedLanguage[0].Language);
   const user = useSelector((state) => state.products.userInfo);
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   const onFinish = async (values) => {
     setLoading(true);

@@ -171,7 +171,7 @@ function App() {
   const logout = async () => {
     try {
       // Get the token from local storage
-      const token = sessionStorage.getItem('token');
+      const token = localStorage.getItem('token');
   
       // If token is not available, there's no need to logout
       if (!token) {
@@ -188,7 +188,7 @@ function App() {
       await axios.get(`${import.meta.env.VITE_TESTING_API}/logout`, { headers });
   
       // Remove the token from local storage after successful logout
-      sessionStorage.removeItem('token');
+      localStorage.removeItem('token');
   
       dispatch(removeUser()) ;
       navigate(`/login`);

@@ -130,7 +130,7 @@ const Review = ({props}) => {
       order_invoice_item_id: selectedReview.id,
       ecom_type: 'sofiaco'
   }, {
-    headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` },
+    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
   });
   
   setData((prevData) => {

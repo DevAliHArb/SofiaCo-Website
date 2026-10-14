@@ -259,7 +259,7 @@ const Navbar = ({ toggle, cartToggle }) => {
   const logout = async () => {
     try {
       // Get the token from local storage
-      const token = sessionStorage.getItem("token");
+      const token = localStorage.getItem("token");
 
       // If token is not available, there's no need to logout
       if (!token) {
@@ -277,7 +277,7 @@ const Navbar = ({ toggle, cartToggle }) => {
         headers,
       });
 
-      // Remove the token from local storage after successful logout
+      // Remove the token from session storage after successful logout
       localStorage.removeItem("token");
 
       dispatch(removeUser());

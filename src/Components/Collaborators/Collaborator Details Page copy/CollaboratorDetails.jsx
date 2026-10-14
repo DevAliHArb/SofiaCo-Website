@@ -30,7 +30,7 @@ const CollaboratorDetails = () => {
 
   
   const getToken = () => {
-    return sessionStorage.getItem('token');
+    return localStorage.getItem('token');
   };
 
   const token = getToken();

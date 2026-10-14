@@ -125,7 +125,7 @@ const Review = ({props}) => {
         review_attachments: base64Images || [] ,
         ecom_type: 'sofiaco'
     }, {
-      headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` },
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     });
       setValue(0);
       setdescription('');

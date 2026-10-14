@@ -58,7 +58,7 @@ export default function CartSidebar({ toggle, isOpen }) {
       const newQuantity = localQuantities[key];
       if (newQuantity !== item.quantity) {
         setIsLoading(true);
-        const token = sessionStorage.getItem("token");
+        const token = localStorage.getItem("token");
         axios
           .put(`${import.meta.env.VITE_TESTING_API}/cart/${item.cart_id}`, {
           quantity: newQuantity,

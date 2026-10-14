@@ -23,7 +23,7 @@ const SuccessPage = () => {
 const fetchOrder = async () => {
     try {
       setLoading(true);
-        const token = sessionStorage.getItem("token");
+        const token = localStorage.getItem("token");
       const response = await axios.get(
         `${import.meta.env.VITE_TESTING_API}/order_invoices`,
         { headers: { Authorization: `Bearer ${token}` } }
