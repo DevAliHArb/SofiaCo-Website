@@ -12,6 +12,7 @@ import AuthContext from '../../Common/authContext';
 import axios from 'axios';
 import { addSelectedBook } from '../../Common/redux/productSlice';
 import { Avatar } from '@mui/material';
+import { getApiErrorMessage, REVIEW_STATUS_MESSAGES } from '../../Common/apiErrorMessage';
 
 const Reviews = () => {
     const user = useSelector((state) => state.products.userInfo);
@@ -95,7 +96,7 @@ const Reviews = () => {
             toast.success(language === "eng" ? "Review added successfully!" : "Avis ajouté avec succès !", { position: "top-right", autoClose: 1500 });
         } catch (error) {
             // console.error('Error creating review:', error);
-            toast.error(language === "eng" ? "Review submission failed, try again!" : "Échec de la soumission de l'avis, veuillez réessayer !", { position: "top-right", autoClose: 1500 });
+            toast.error(getApiErrorMessage(error, language, language === "eng" ? "Review submission failed, try again!" : "Échec de la soumission de l'avis, veuillez réessayer !", REVIEW_STATUS_MESSAGES), { position: "top-right", autoClose: 1500 });
         } finally {
             setLoading(false);
         }

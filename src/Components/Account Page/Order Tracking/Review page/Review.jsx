@@ -19,6 +19,7 @@ import bookPlaceholder from '../../../../assets/bookPlaceholder.webp';
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { getApiErrorMessage, REVIEW_STATUS_MESSAGES } from '../../../Common/apiErrorMessage';
 
 const style = {
   position: 'absolute',
@@ -123,12 +124,13 @@ const Review = ({props}) => {
     const response = await axios.post(`${import.meta.env.VITE_TESTING_API}/articles/${selectedReview.article.id}/reviews`, {
       description: description || '',
       rate: value || 0,
-      user_id: user.id,
       is_counted: true,
       review_attachments: base64Images || [] ,
       order_invoice_id: selectedReview.order_invoice_id,
       order_invoice_item_id: selectedReview.id,
       ecom_type: 'sofiaco'
+  }, {
+    headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` },
   });
   
   setData((prevData) => {
@@ -156,7 +158,7 @@ const Review = ({props}) => {
     // Optionally, you can handle success (e.g., show a success message, redirect to another page, etc.)
   } catch (error) {
       console.error('Error creating review:', error);
-      toast.error( `${language === 'eng' ? 'Review submit failed, try agian!' : "L'envoi du commentaire a échoué, essayez à nouveau !"}` , {
+      toast.error( getApiErrorMessage(error, language, language === 'eng' ? 'Review submit failed, try again!' : "L'envoi du commentaire a échoué, essayez à nouveau !", REVIEW_STATUS_MESSAGES) , {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,

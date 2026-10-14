@@ -124,14 +124,17 @@ useEffect(() => {
         // Update eventData.event_replies with the new reply
         seteventData(prevEventData => ({
           ...prevEventData,
-          event_replies: [...prevEventData.event_replies, {reply:response.data.data.reply ,created_at:response.data.data.reply,user:{first_name:user.first_name,last_name:user.last_name} }],
+          event_replies: [...prevEventData.event_replies, {reply:response.data.data.reply ,created_at:response.data.data.created_at,user:{first_name:user.first_name,last_name:user.last_name} }],
         }));
 
         form.resetFields();
         setFormData({ reply: "" });
       } catch (error) {
         // console.error("Error replying event:", error);
-        toast.error(language === "eng" ? "Error replying to event." : "Erreur lors de la réponse à l'événement.", {
+        const errorText = error.response?.status === 401
+          ? (language === "eng" ? "Your session has expired. Please log in again to reply." : "Votre session a expiré. Veuillez vous reconnecter pour répondre.")
+          : (language === "eng" ? "Error replying to event." : "Erreur lors de la réponse à l'événement.");
+        toast.error(errorText, {
           position: "top-right",
           autoClose: 1500,
           hideProgressBar: true,
