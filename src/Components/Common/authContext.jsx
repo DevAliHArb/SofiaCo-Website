@@ -948,21 +948,32 @@ export const AuthContextProvider = (props) => {
       : "Session terminée, veuillez vous reconnecter.";
 
     if (!user?.id) {
+      if (token) {
+        dispatch(removeUser());
+        sessionStorage.removeItem('token');
+      }
+      return { is_logged_in: false };
+    }
+
+    // The token lives in sessionStorage (per tab) while the user lives in
+    // persisted redux — a new tab has the user but no token. Nothing to
+    // verify, and no "session ended" toast for a session this tab never had.
+    if (!sessionStorage.getItem('token')) {
       dispatch(removeUser());
-      localStorage.removeItem("token");
       return { is_logged_in: false };
     }
 
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_TESTING_API}/is-user-logged-in`,
-        { user_id: user.id }
+        { user_id: user.id },
+        { headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` } }
       );
 
       // If response indicates user is not logged in, remove user from state
       if (!response.data.is_logged_in) {
         dispatch(removeUser());
-        localStorage.removeItem("token");
+        sessionStorage.removeItem('token');
       toast.info(sessionEndedMsg, {
         position: "top-right",
         autoClose: 2000,
@@ -979,9 +990,16 @@ export const AuthContextProvider = (props) => {
 
       return response.data;
     } catch (error) {
-      // If request fails (e.g., unauthorized), assume user is not logged in
+      // Only a real auth rejection ends the session — a network blip or a
+      // 5xx on page load used to sign the shopper out too.
+      const status = error?.response?.status;
+      if (status !== 401 && status !== 403) {
+        console.error("Session check failed:", error);
+        FetchUserData();
+        return { is_logged_in: true };
+      }
       dispatch(removeUser());
-      localStorage.removeItem("token");
+      sessionStorage.removeItem('token');
       toast.info(sessionEndedMsg, {
         position: "top-right",
         autoClose: 2000,

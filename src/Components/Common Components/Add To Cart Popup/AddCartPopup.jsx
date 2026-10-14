@@ -35,7 +35,7 @@ const AddCartPopup = () => {
 
     const fetchBook = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_TESTING_API}/articles?id=${id}&ecom_type=${process.env.REACT_APP_ECOM_TYPE}`);
+        const response = await axios.get(`${import.meta.env.VITE_TESTING_API}/articles?id=${id}&ecom_type=sofiaco`);
         const book = response.data;
         setSelectedBook(book);
       } catch (error) {

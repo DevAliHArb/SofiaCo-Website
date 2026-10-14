@@ -91,7 +91,9 @@ const BlogPage = () => {
 
   const handleRemove = async () => {
     try {
-      await axios.delete(`${import.meta.env.VITE_TESTING_API}/blogs/${selectedBlog.id}`);
+      await axios.delete(`${import.meta.env.VITE_TESTING_API}/blogs/${selectedBlog.id}`, {
+        headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` },
+      });
       fetchAbout();
       setAnchorEl(null);
       toast.success("Blog deleted successfully", { position: "top-right", autoClose: 1500, hideProgressBar: true, closeOnClick: true, theme: "colored" });
@@ -104,7 +106,9 @@ const BlogPage = () => {
 
   const handleUploadToReview = async () => {
     try {
-      await axios.put(`${import.meta.env.VITE_TESTING_API}/blogs/${selectedBlog.id}`, { status_id: 43 });
+      await axios.put(`${import.meta.env.VITE_TESTING_API}/blogs/${selectedBlog.id}`, { status_id: 43 }, {
+        headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` },
+      });
       fetchUserBlogs();
       fetchAbout();
       setAnchorEl(null);

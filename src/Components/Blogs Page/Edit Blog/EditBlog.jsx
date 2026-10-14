@@ -43,7 +43,9 @@ const EditBlog = () => {
     const formData = { title, introduction, description: data, image: coverImage };
     if (statusId !== null) formData.status_id = statusId;
     try {
-      await axios.put(`${import.meta.env.VITE_TESTING_API}/blogs/${blogId}`, formData);
+      await axios.put(`${import.meta.env.VITE_TESTING_API}/blogs/${blogId}`, formData, {
+        headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` },
+      });
       toast.success("Blog updated successfully", { position: "top-right", autoClose: 1500, hideProgressBar: true, closeOnClick: true, theme: "colored" });
       navigate('/main/blogs');
     } catch (error) {

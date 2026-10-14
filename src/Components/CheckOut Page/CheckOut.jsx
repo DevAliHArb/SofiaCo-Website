@@ -33,6 +33,7 @@ import {
   
 } from "@mui/material";
 import axios from "axios";
+import { getApiErrorMessage } from "../Common/apiErrorMessage";
 import {
   addOrderData,
   editCart,
@@ -997,7 +998,7 @@ const CheckOut = () => {
         });
       } else {
         console.error(`${language === 'eng' ? "Error adding or applying coupon:" : "Erreur lors de l'ajout ou de l'application du coupon :"}`, error);
-        toast.error(errorMessage || `${language === 'eng' ? "Error processing the coupon" : "Erreur lors du traitement du coupon"}`, {
+        toast.error(getApiErrorMessage(error, language, null) || `${language === 'eng' ? "Error processing the coupon" : "Erreur lors du traitement du coupon"}`, {
           hideProgressBar: true,
         });
       }
@@ -1309,9 +1310,7 @@ const CheckOut = () => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_TESTING_API}/users/check-payment-conditions`,
-        {
-          user_id: user.id,
-        },
+        {},
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -1551,7 +1550,7 @@ const CheckOut = () => {
         // console.error("Error in ordering:", error);
         setLoading(false);
         handleErrorOpen(
-          error.response?.data?.error || "An unexpected error occurred"
+          getApiErrorMessage(error, language, language === "eng" ? "An unexpected error occurred" : "Une erreur inattendue s'est produite")
         );
       }
   };
@@ -1687,7 +1686,7 @@ const CheckOut = () => {
       // console.error("Error in ordering:", error);
       setLoading(false);
       handleErrorOpen(
-        error.response?.data?.error || "An unexpected error occurred"
+        getApiErrorMessage(error, language, language === "eng" ? "An unexpected error occurred" : "Une erreur inattendue s'est produite")
       );
     }
   }

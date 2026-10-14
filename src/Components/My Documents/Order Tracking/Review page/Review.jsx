@@ -19,6 +19,7 @@ import bookPlaceholder from '../../../../assets/bookPlaceholder.webp';
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { getApiErrorMessage, REVIEW_STATUS_MESSAGES } from '../../../Common/apiErrorMessage';
 
 const style = {
   position: 'absolute',
@@ -54,6 +55,7 @@ function getLabelText(value) {
 
 const Review = ({props}) => {
   const user = useSelector((state) => state.products.userInfo);
+  const language = useSelector((state) => state.products.selectedLanguage[0].Language);
   const [value, setValue] = React.useState(0);
   const [hover, setHover] = React.useState(-1);
   const [data, setData] = useState([]);
@@ -119,10 +121,11 @@ const Review = ({props}) => {
       const response = await axios.post(`${import.meta.env.VITE_TESTING_API}/articles/${selectedReview.article.id}/reviews`, {
         description: description || '',
         rate: value || 0,
-        user_id: user.id,
         is_counted: true,
         review_attachments: base64Images || [] ,
         ecom_type: 'sofiaco'
+    }, {
+      headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` },
     });
       setValue(0);
       setdescription('');
@@ -141,7 +144,7 @@ const Review = ({props}) => {
       // Optionally, you can handle success (e.g., show a success message, redirect to another page, etc.)
     } catch (error) {
       // console.error('Error creating review:', error);
-      toast.error( language === "eng" ? "Review submission failed, try again!" : "Échec de la soumission de l'avis, veuillez réessayer !" , {
+      toast.error(getApiErrorMessage(error, language, language === "eng" ? "Review submission failed, try again!" : "Échec de la soumission de l'avis, veuillez réessayer !", REVIEW_STATUS_MESSAGES), {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: true,
