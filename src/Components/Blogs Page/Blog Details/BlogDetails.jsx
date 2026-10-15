@@ -80,7 +80,7 @@ const BlogDetails = () => {
   };
 
   const HandleLike = async (blogId) => {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const formData = { blog_id: blogId };
     try {
       const response = await axios.post(`${import.meta.env.VITE_TESTING_API}/blogs-like`, formData, { headers: { Authorization: `Bearer ${token}` } });
@@ -92,7 +92,7 @@ const BlogDetails = () => {
   };
 
   const HandleSubmit = async (e) => {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const formData = { ...e, blog_id: blog?.id };
     try {
       await axios.post(`${import.meta.env.VITE_TESTING_API}/blogs-reply`, formData, { headers: { Authorization: `Bearer ${token}` } });

@@ -78,7 +78,7 @@ const BlogPage = () => {
   const authCtx = useContext(AuthContext);
 
   const HandleLike = async (blogId) => {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const formData = { blog_id: blogId };
     try {
       const response = await axios.post(`${import.meta.env.VITE_TESTING_API}/blogs-like`, formData, { headers: { Authorization: `Bearer ${token}` } });
@@ -92,7 +92,7 @@ const BlogPage = () => {
   const handleRemove = async () => {
     try {
       await axios.delete(`${import.meta.env.VITE_TESTING_API}/blogs/${selectedBlog.id}`, {
-        headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` },
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       fetchAbout();
       setAnchorEl(null);
@@ -107,7 +107,7 @@ const BlogPage = () => {
   const handleUploadToReview = async () => {
     try {
       await axios.put(`${import.meta.env.VITE_TESTING_API}/blogs/${selectedBlog.id}`, { status_id: 43 }, {
-        headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` },
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       fetchUserBlogs();
       fetchAbout();

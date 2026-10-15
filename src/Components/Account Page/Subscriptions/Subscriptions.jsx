@@ -48,7 +48,7 @@ const Subscriptions = () => {
   const [CategoryData, setCategoryData] = useState([]);
 
   const getToken = () => {
-    return sessionStorage.getItem("token");
+    return localStorage.getItem("token");
   };
 
   const token = getToken();

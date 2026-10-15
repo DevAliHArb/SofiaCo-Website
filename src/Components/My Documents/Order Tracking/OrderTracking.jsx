@@ -135,7 +135,7 @@ const OrderTracking = () => {
   const [showPopup, setShowPopup] = useState(false);
 
   const getToken = () => {
-    return sessionStorage.getItem('token');
+    return localStorage.getItem('token');
   };
 
   const token = getToken()
@@ -291,7 +291,7 @@ const reviewHandler =()=>setisReviewMood(true);
         axios.put(`${import.meta.env.VITE_TESTING_API}/cart/${item.cart_id}`, {
           quantity: Number(maxQuantity).toFixed(0),
           }, {
-          headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` },
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
           })
           .then((response) => {
               dispatch(addTocart({
@@ -309,7 +309,7 @@ const reviewHandler =()=>setisReviewMood(true);
         axios.put(`${import.meta.env.VITE_TESTING_API}/cart/${item.cart_id}`, {
           quantity: newQuantity,
           }, {
-          headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` },
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
           })
           .then((response) => {
               dispatch(addTocart({
@@ -365,7 +365,7 @@ toast.success(`${language === 'eng' ? "Successful repurchase order" : "Succès d
 }
   const CancleOrderHandler = () => {
     axios.put(`${import.meta.env.VITE_TESTING_API}/order_invoices/${selectedOrder.id}?status_id=13`, {}, {
-      headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` },
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     })
     .then(() => {
           toast.success(language === "eng" ? "Delete request successful." : "Demande de suppression réussie.", {

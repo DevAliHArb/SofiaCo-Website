@@ -104,7 +104,7 @@ useEffect(() => {
   const handleSubmit = async () => {
     if (user) {
       try {
-        const token = sessionStorage.getItem("token");
+        const token = localStorage.getItem("token");
         const response = await axios.post(
           `${import.meta.env.VITE_TESTING_API}/events/${eventData.id}/replies`,
           { description: formData.reply },

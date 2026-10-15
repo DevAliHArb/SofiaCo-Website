@@ -36,7 +36,7 @@ const AddBlog = () => {
     };
     try {
       await axios.post(`${import.meta.env.VITE_TESTING_API}/blogs`, formData, {
-        headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` },
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       toast.success("Blog uploaded successfully", { position: "top-right", autoClose: 1500, hideProgressBar: true, closeOnClick: true, theme: "colored" });
       navigate('/main/blogs');

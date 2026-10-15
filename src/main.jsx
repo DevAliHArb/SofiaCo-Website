@@ -75,6 +75,18 @@ const PayPalAndStripeComponent = () => {
   );
 };
 
+// The auth token now lives in localStorage (shared by every tab). Move a token
+// left in sessionStorage by an older build so the update doesn't sign anyone out.
+try {
+  const legacyToken = sessionStorage.getItem("token");
+  if (legacyToken) {
+    if (!localStorage.getItem("token")) localStorage.setItem("token", legacyToken);
+    sessionStorage.removeItem("token");
+  }
+} catch {
+  /* storage unavailable */
+}
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <HelmetProvider>
     <Provider store={store}>

@@ -119,7 +119,7 @@ export const AuthContextProvider = (props) => {
     (state) => state.products.selectedLanguage[0].Language
   );
   const user = useSelector((state) => state.products.userInfo);
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
   const [isLoading, setIsLoading] = useState(false);
   const isAddingToCartRef = React.useRef(false);
   const selectedCategoryId = useSelector((state) => state.products.selectedCategoryId);
@@ -950,15 +950,15 @@ export const AuthContextProvider = (props) => {
     if (!user?.id) {
       if (token) {
         dispatch(removeUser());
-        sessionStorage.removeItem('token');
+        localStorage.removeItem('token');
       }
       return { is_logged_in: false };
     }
 
-    // The token lives in sessionStorage (per tab) while the user lives in
-    // persisted redux — a new tab has the user but no token. Nothing to
-    // verify, and no "session ended" toast for a session this tab never had.
-    if (!sessionStorage.getItem('token')) {
+    // The token lives in localStorage alongside the persisted user; if it is
+    // missing (cleared storage), the user is stale. Nothing to
+    // verify, and no "session ended" toast for a session that is already gone.
+    if (!localStorage.getItem('token')) {
       dispatch(removeUser());
       return { is_logged_in: false };
     }
@@ -967,13 +967,13 @@ export const AuthContextProvider = (props) => {
       const response = await axios.post(
         `${import.meta.env.VITE_TESTING_API}/is-user-logged-in`,
         { user_id: user.id },
-        { headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` } }
+        { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       );
 
       // If response indicates user is not logged in, remove user from state
       if (!response.data.is_logged_in) {
         dispatch(removeUser());
-        sessionStorage.removeItem('token');
+        localStorage.removeItem('token');
       toast.info(sessionEndedMsg, {
         position: "top-right",
         autoClose: 2000,
@@ -999,7 +999,7 @@ export const AuthContextProvider = (props) => {
         return { is_logged_in: true };
       }
       dispatch(removeUser());
-      sessionStorage.removeItem('token');
+      localStorage.removeItem('token');
       toast.info(sessionEndedMsg, {
         position: "top-right",
         autoClose: 2000,

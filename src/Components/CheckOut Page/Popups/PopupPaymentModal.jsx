@@ -105,7 +105,7 @@ const PopupPaymentModal = ({ open, handleClose, isselectedPayment }) => {
   const [form] = Form.useForm();
   
   const getToken = () => {
-    return sessionStorage.getItem('token');
+    return localStorage.getItem('token');
   };
 
   const token = getToken()

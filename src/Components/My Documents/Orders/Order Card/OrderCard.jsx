@@ -116,7 +116,7 @@ const OrderCard = ({data ,reviewHandler}) => {
 }
 const CancleOrderHandler = () => {
   axios.put(`${import.meta.env.VITE_TESTING_API}/order_invoices/${data.id}?status_id=13`, {}, {
-    headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` },
+    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
   })
   .then(() => {
       toast.success(language === "eng" ? "Delete request successful." : "Demande de suppression réussie.", {
