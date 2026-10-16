@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useMemo, useRef } from "react";
 import classes from "./CheckOut.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Form, Input, Select } from "antd";
@@ -1303,7 +1303,11 @@ const CheckOut = () => {
     }
   }, [totalAmt]);
 
-  const stripePromise = loadStripe(stripePublishableKey);
+  // Only create the Stripe instance once the key from /payment-public-keys has arrived.
+  const stripePromise = useMemo(
+    () => (stripePublishableKey ? loadStripe(stripePublishableKey) : null),
+    [stripePublishableKey]
+  );
   
   // Function to check payment conditions before placing order
   const checkPaymentConditions = async () => {

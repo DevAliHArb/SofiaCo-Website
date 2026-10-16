@@ -11,4 +11,9 @@ export default defineConfig({
       '@hooks': path.resolve(__dirname, 'src/hooks'),
     },
   },
+  // Vite 8 changed default imports of CommonJS packages (e.g. "@mui/icons-material/Search")
+  // to return { default } instead of the component; keep the pre-Vite 8 behaviour.
+  legacy: {
+    inconsistentCjsInterop: true,
+  },
 })

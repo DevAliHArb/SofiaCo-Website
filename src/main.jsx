@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import { AuthContextProvider } from './Components/Common/authContext.jsx'
@@ -42,6 +42,12 @@ const PayPalAndStripeComponent = () => {
     fetchKeys();
   }, []);
 
+  // Only create the Stripe instance once the key from /payment-public-keys has arrived.
+  const stripePromise = useMemo(
+    () => (stripePublishableKey ? loadStripe(stripePublishableKey) : null),
+    [stripePublishableKey]
+  );
+
   if (!paypalClientId || !stripePublishableKey) {
     // Show loading indicator or nothing while values are being decrypted
     return <div style={{
@@ -64,7 +70,6 @@ const PayPalAndStripeComponent = () => {
     intent: "capture",
   };
 
-  const stripePromise = loadStripe(stripePublishableKey);  // Use decrypted Stripe publishable key
 
   return (
     <PayPalScriptProvider options={initialOptions}>
