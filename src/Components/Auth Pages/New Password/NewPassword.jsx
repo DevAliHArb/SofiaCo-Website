@@ -4,7 +4,6 @@ import logo from '../../../assets/navbar/logo.svg'
 import { FormControl, MenuItem, Select } from "@mui/material";
 import { Button, Checkbox, Form, Input } from 'antd';
 import GoogleIcon from '@mui/icons-material/Google';
-import GoogleLogin from '@leecheuk/react-google-login';
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 // import { addUser } from "../redux/productSlice";
