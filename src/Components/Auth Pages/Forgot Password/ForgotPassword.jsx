@@ -4,7 +4,7 @@ import logo from '../../../assets/navbar/logo.svg'
 import { FormControl, MenuItem, Select } from "@mui/material";
 import { Button, Checkbox, Form, Input } from 'antd';
 import GoogleIcon from '@mui/icons-material/Google';
-import GoogleLogin from '@leecheuk/react-google-login';
+import { getGoogleProfile } from '../../../utils/googleProfile';
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 // import { addUser } from "../redux/productSlice"; 
@@ -49,18 +49,10 @@ const ForgotPassword = () => {
     }
   };
   
-  const clientId =   import.meta.env.VITE_GOOGLE_CLIENT_ID;
-
-  
-const responseGoogle = async (response) => {
-  const userData1 = {
-      first_name: response.profileObj.givenName,
-      last_name: response.profileObj.familyName,
-      email: response.profileObj.email,
-  };
+const responseGoogle = async (credentialResponse) => {
+  const { imageUrl, ...userData1 } = getGoogleProfile(credentialResponse.credential);
 
   // Fetch image data
-  const imageUrl = response.profileObj.imageUrl;
   const imageBlob = await fetch(imageUrl).then((res) => res.blob());
   const reader = new FileReader();
   
@@ -73,7 +65,8 @@ const responseGoogle = async (response) => {
       try {
           const loginResponse = await axios.post(`${import.meta.env.VITE_TESTING_API}/login`, {
               email: userData1.email,
-              type: 'sofiaco'
+              type: 'sofiaco',
+              google_id_token: credentialResponse.credential
           });
           const token = loginResponse.data.token;
           localStorage.setItem("token", token);
@@ -142,9 +135,8 @@ const responseGoogle = async (response) => {
           setFormData({ email: "", password: "" });
           navigate(`/`);
       } catch (error) {
-          const errormsg = error.response.data.error;
-          console.error('Error in Login:', `${errormsg}`);
-          toast.error( `${language === 'eng' ? "Google account not found"  : "Compte Google introuvable"}`, {
+          console.error('Error in Login:', error);
+          toast.error(error.response?.data?.error || (language === 'eng' ? "Google account not found" : "Compte Google introuvable"), {
               position: "top-right",
               autoClose: 1500,
               hideProgressBar: true,
